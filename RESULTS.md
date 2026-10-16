@@ -21,6 +21,11 @@ e-commerce/retail = std over the evaluator's 5 held-out splits (same definition,
 | Clothing       | 0.265  | —           | —           | **0.5904 ± 0.0271**| win (no heavy base) |
 | Dunnhumby      | 0.129  | —           | —           | **0.1486 ± 0.0055**| win                 |
 
+CLHE source (see *Baseline fairness* below): **reproduced from source** on POG_dense and
+Spotify_sparse (our own dataset variants); **published figures** on POG/Spotify/Electronic/Food
+(Electronic/Food are not publicly reproducible). RaMen likewise reproduced on POG/Spotify,
+published-only on Electronic/Food.
+
 **Summary:** strongest public-feature method on **5/8** (POG, Spotify, Spotify_sparse, Clothing,
 Dunnhumby), **ties** CLHE on POG_dense, and beats CLHE but loses to RaMen on the two e-commerce
 sets. RaMen's e-commerce edge is attributable to private Amazon product images (see below), not a
@@ -61,6 +66,36 @@ the selected weights beat uniform on the test set by +1.4 to +4.3pp. So selectio
 | spotify_sparse | −0.0017              | +0.0431                        | 5    |
 
 Provenance: `results/valgap_fullrank.log` (`VALGAP=1` in `fullrank_eval.py`).
+
+## Baseline fairness — are we beating a weakened CLHE?
+
+We checked the provenance of every CLHE number the headline table compares against, so a win can't
+be an artifact of a crippled baseline. There are two kinds:
+
+- **Reproduced from source (our two dataset variants):** POG_dense and Spotify_sparse are variants we
+  constructed, so no official CLHE number exists; we trained CLHE from its own repo on them. Using
+  the fair early-stopping protocol (pick the epoch with the best *validation* R@20, report its
+  *test* R@20), the reproduced values are:
+  - POG_dense: best val 0.38354 → **test 0.3815** — the exact value in the table.
+  - Spotify_sparse: best val 0.08634 → **test 0.0969** — the exact value in the table.
+  These are honest, well-trained reproductions (full training curves in `clhe_out/*/*.log`). On
+  POG_dense CLHE actually *leads* us (0.3815 vs 0.3737) — we do not understate it; on Spotify_sparse
+  we beat a faithfully-reproduced CLHE by ~0.07.
+- **Published figures (POG, Spotify, Electronic, Food):** these use the literature's CLHE numbers
+  (0.0284, 0.1082, 0.4721, 0.5077). We did **not** reproduce them locally — and Electronic/Food
+  *cannot* be reproduced at all, since that data is not in any public release (see the RaMen section).
+  Where we beat CLHE on these (Electronic/Food), we are beating its own *published* number, which only
+  makes the win harder to claim, not easier.
+
+We also **do not inherit the prior `simba/` paper's claim** that "reproduced CLHE = 0.0281 on POG /
+0.1076 on Spotify." No CLHE training log for POG or Spotify exists in the repo; the 0.0281 figure
+coincides exactly with our *RaMen* POG reproduction (`kaggle_out_pog/ramen-repro-pog.log`,
+test R@20 = 0.02817), i.e. it appears to be a mislabel. bundlefuse makes no CLHE-reproduction claim
+for POG/Spotify and treats those two CLHE numbers as published-only.
+
+**Verdict:** the wins are not against a weakened baseline. On the only datasets where we both control
+the split and train CLHE ourselves, CLHE is reproduced faithfully (and on POG_dense is reported as
+beating us); elsewhere we compare against published CLHE.
 
 ## K-fold CV weight selection does not help (negative result)
 
@@ -132,5 +167,4 @@ Amazon's anti-scraping; future work"*). They are treated as unsupported.
 
 ## Open tasks
 
-- Baseline-fairness check (reproduced vs published CLHE).
 - Extend the VALGAP probe to the bundlerec/dunnhumby evaluators.
