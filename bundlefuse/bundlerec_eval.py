@@ -351,6 +351,8 @@ def train_item2vec_br(train, dim=64, epochs=8, neg=5, bs=4096, maxpairs=3_000_00
 t0 = time.time()
 METH = ["popularity", "co-occurrence", "content-kNN", "item2vec", "Pairwise-Repl", "SIMBA-NoRes", "Ours"]
 agg = {m: {10: ([], []), 20: ([], [])} for m in METH}
+VALGAP = os.environ.get("VALGAP")  # validation->test generalization gap of greedy weight selection
+vg_rows = []
 for sd in range(SEEDS):
     order = list(range(len(bundles_all))); random.Random(sd).shuffle(order)
     allb = [bundles_all[i] for i in order]; allk = [bkeys_all[i] for i in order]
@@ -381,6 +383,19 @@ for sd in range(SEEDS):
         w, Zv_pair, lambda fmat: eval_mat(fmat, vset, Ks=(20,))[20][1],
         optional_keys=("contrast", "homo"), val_eps=3e-4
     )
+
+    if VALGAP:
+        # Fusion-only (no higher-order, no shrinkage) NDCG@20 at SELECTED vs UNIFORM weights,
+        # on val and test, so the gap isolates weight tuning. Same definition as fullrank_eval.
+        Zt_pair = dict(Zt); Zt_pair["simp"] = Zt["pair"]; Zt_pair["diff2"] = Zt["diff2_pair"]
+        def _nd(Zp, split, wd):
+            F = sum(wd[k] * Zp[k] for k in SIG if wd.get(k, 0))
+            return eval_mat(F, split, Ks=(20,))[20][1]
+        w_un = {k: 1.0 for k in SIG}
+        v_sel, t_sel = _nd(Zv_pair, vset, bw), _nd(Zt_pair, tset, bw)
+        v_un, t_un = _nd(Zv_pair, vset, w_un), _nd(Zt_pair, tset, w_un)
+        vg_rows.append((v_sel, t_sel, v_un, t_un, sum(1 for k in bw if bw[k] > 0)))
+        continue
 
     def build_Y(Z_dict, ho_params):
         alpha_inc, g_rao = ho_params
@@ -436,6 +451,17 @@ for sd in range(SEEDS):
     for m in METH:
         for K2 in (10, 20):
             agg[m][K2][0].append(res[m][K2][0]); agg[m][K2][1].append(res[m][K2][1])
+
+if VALGAP:
+    import numpy as _np
+    a = _np.array([r[:4] for r in vg_rows]); m = a.mean(0)
+    v_sel, t_sel, v_un, t_un = m
+    nsig = _np.mean([r[4] for r in vg_rows])
+    print(f"VALGAP {DS}: SELECTED val={v_sel:.4f} test={t_sel:.4f} gap={v_sel-t_sel:+.4f} | "
+          f"UNIFORM val={v_un:.4f} test={t_un:.4f} gap={v_un-t_un:+.4f} | "
+          f"selection_excess_gap={(v_sel-t_sel)-(v_un-t_un):+.4f} | "
+          f"test_sel-test_unif={t_sel-t_un:+.4f} | nsig={nsig:.1f} | seeds={len(vg_rows)}", flush=True)
+    sys.exit()
 
 print(f"\n=== {DS} MATRIX (full-ranking R/N@10,20; {SEEDS} duplicate-free seeds; aux={USE_AUX}; {time.time()-t0:.0f}s) ===", flush=True)
 print(f"{'method':16s} {'R@10':>8} {'N@10':>8} {'R@20':>8} {'N@20':>8}", flush=True)
