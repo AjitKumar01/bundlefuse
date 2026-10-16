@@ -82,9 +82,35 @@ Provenance: `results/image_ab_electronic.log`; pipeline in `scripts/harvest_imag
 `scripts/clip_embed.py`; evaluator wiring gated by `IMG_FEATS=` in `bundlerec_eval.py`. The derived
 CLIP feature cache (`elec_clip.npz`, ~2.8MB) is not vendored; regenerate with the two scripts.
 
+## RaMen "text-only" ablation — why we do not claim a number
+
+The natural way to prove RaMen's e-commerce edge is its images would be to retrain RaMen with its
+visual branch disabled and show the number collapses toward ours. **This ablation cannot be run on
+public data, so we report it as unreproducible rather than inventing a result:**
+
+- **The data is not public.** RaMen's wins are on Electronic/Food. The public release
+  (`xhLiu/BundleConstruction` on HuggingFace) contains **only** `pog`, `pog_dense`, `spotify`,
+  `spotify_sparse` — no electronic/food/clothing. RaMen's own GitHub ships no data. In RaMen's
+  model (`baselines/RaMen_repo/models/RaMen.py`), the visual branch is `content_feature.pt`
+  (`v_feat`/`c_encoder`); that file exists in the public release only for the image-free POG/Spotify
+  sets. So neither the raw images nor RaMen's precomputed visual features are obtainable for the
+  datasets where it wins. RaMen's 0.8371/0.8459 are **paper-reported only**.
+- **Where data *is* public, we reproduced RaMen and beat it.** On POG our RaMen reproduction reaches
+  R@20 ≈ 0.038 (vs our 0.0653); on Spotify ≈ 0.109 (vs our 0.1562). RaMen is not special on any
+  fully public benchmark — it only pulls ahead on the private-feature e-commerce sets.
+- **Our own attempt to supply the missing modality failed honestly.** Harvesting public Amazon
+  images reached 39% coverage on Electronic and did not close the gap (see above). Food/Clothing
+  have no public image URLs at all.
+
+**Conclusion:** the e-commerce gap is a **data-availability asymmetry**, not a demonstrated modelling
+advantage, and we state exactly that. We deliberately do **not** carry forward the prior `simba/`
+paper's claim that "RaMen without private images drops to 0.4612 (Electronic) / 0.4985 (Food)": those
+numbers appear only in that paper's LaTeX, are produced by no script, log, or data in the repo, and
+are contradicted by its own earlier draft (`paper_draft.md`: *"a direct image ablation was blocked by
+Amazon's anti-scraping; future work"*). They are treated as unsupported.
+
 ## Open tasks
 
-- RaMen text-only ablation to further substantiate the "edge is images" claim.
 - k-fold CV weight selection for the final tables.
 - Baseline-fairness check (reproduced vs published CLHE).
 - Extend the VALGAP probe to the bundlerec/dunnhumby evaluators.
