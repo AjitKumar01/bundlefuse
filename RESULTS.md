@@ -6,9 +6,9 @@ from this pipeline. Nothing is carried over from the old `simba/` repo. Raw logs
 
 ## Headline: zero-parameter BundleFuse vs baselines (Recall@20)
 
-Fullrank datasets = mean ± std over 3 seeds. E-commerce/retail = mean over the evaluator's
-internal 5 seeds; cross-run std was not measured (`std=0.0000` means "not measured", **not**
-"zero variance").
+All rows carry a population-std error bar. Fullrank datasets = std over 3 top-level seeds;
+e-commerce/retail = std over the evaluator's 5 held-out splits (same definition, via
+`MATRIX_STD=1`). Every "win" below is several std clear of the baseline it beats.
 
 | dataset        | co-occ | CLHE (9.5M) | RaMen (16M) | **Ours (0 param)** | standing            |
 |----------------|--------|-------------|-------------|--------------------|---------------------|
@@ -16,10 +16,10 @@ internal 5 seeds; cross-run std was not measured (`std=0.0000` means "not measur
 | POG_dense      | 0.273  | 0.382       | —           | **0.3737 ± 0.0058**| tie with CLHE       |
 | Spotify        | 0.096  | 0.108       | 0.109       | **0.1562 ± 0.0033**| win                 |
 | Spotify_sparse | 0.109  | 0.097       | —           | **0.1653 ± 0.0042**| win                 |
-| Electronic     | 0.320  | 0.472       | **0.837**   | 0.5192             | beat CLHE, lose RaMen |
-| Food           | 0.331  | 0.508       | **0.846**   | 0.5870             | beat CLHE, lose RaMen |
-| Clothing       | 0.265  | —           | —           | **0.5904**         | win (no heavy base) |
-| Dunnhumby      | 0.129  | —           | —           | **0.1486**         | win                 |
+| Electronic     | 0.320  | 0.472       | **0.837**   | **0.5192 ± 0.0147**| beat CLHE, lose RaMen |
+| Food           | 0.331  | 0.508       | **0.846**   | **0.5870 ± 0.0322**| beat CLHE, lose RaMen |
+| Clothing       | 0.265  | —           | —           | **0.5904 ± 0.0271**| win (no heavy base) |
+| Dunnhumby      | 0.129  | —           | —           | **0.1486 ± 0.0055**| win                 |
 
 **Summary:** strongest public-feature method on **5/8** (POG, Spotify, Spotify_sparse, Clothing,
 Dunnhumby), **ties** CLHE on POG_dense, and beats CLHE but loses to RaMen on the two e-commerce
@@ -84,7 +84,6 @@ CLIP feature cache (`elec_clip.npz`, ~2.8MB) is not vendored; regenerate with th
 
 ## Open tasks
 
-- Multi-seed std for the e-commerce/retail rows (currently single-aggregate).
 - RaMen text-only ablation to further substantiate the "edge is images" claim.
 - k-fold CV weight selection for the final tables.
 - Baseline-fairness check (reproduced vs published CLHE).

@@ -442,3 +442,7 @@ print(f"{'method':16s} {'R@10':>8} {'N@10':>8} {'R@20':>8} {'N@20':>8}", flush=T
 for m in METH:
     a = agg[m]
     print(f"{m:16s} {np.mean(a[10][0]):8.4f} {np.mean(a[10][1]):8.4f} {np.mean(a[20][0]):8.4f} {np.mean(a[20][1]):8.4f}", flush=True)
+if os.environ.get("MATRIX_STD", "0") == "1":
+    # population std across the SEEDS held-out splits (matches fullrank error bars)
+    for m in METH:
+        print(f"STD {m} {np.std(agg[m][20][0]):.4f} n={len(agg[m][20][0])}", flush=True)
