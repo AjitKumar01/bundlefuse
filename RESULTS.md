@@ -62,6 +62,27 @@ the selected weights beat uniform on the test set by +1.4 to +4.3pp. So selectio
 
 Provenance: `results/valgap_fullrank.log` (`VALGAP=1` in `fullrank_eval.py`).
 
+## K-fold CV weight selection does not help (negative result)
+
+We tried selecting all hyperparameters (fusion weights, higher-order `α`/`γ`, EB `κ`/`prior_scale`)
+by **5-fold cross-validation over the validation bundles** instead of a single full-validation
+objective (`KFOLD=5` in `fullrank_eval.py`; the selected config is still applied to test unchanged).
+A/B over 3 seeds:
+
+| dataset        | single-val (mean ± std) | 5-fold CV (mean ± std) | Δ mean  |
+|----------------|-------------------------|------------------------|---------|
+| POG            | 0.0655 ± 0.0029         | 0.0643 ± 0.0073        | −0.0012 |
+| Spotify_sparse | 0.1638 ± 0.0034         | 0.1659 ± 0.0047        | +0.0021 |
+
+**Tie on the mean (both Δ within noise), and k-fold is strictly worse on stability** (seed-to-seed
+std ~1.4–2.5× larger). Reason: we already hold out a dedicated validation set, so foldizing it adds
+no data — it only makes each NDCG@20 estimate 5× noisier, and selecting on an average of noisier
+estimates yields less stable configs for zero mean gain. This independently reconfirms the VALGAP
+result (single-val selection already generalizes). **We keep single-val selection as the default**;
+`KFOLD` is retained off-by-default so the negative result stays reproducible.
+
+Provenance: `results/kfold_ab.log` (via `scripts/kfold_ab.py`).
+
 ## Multimodal images — honest negative result
 
 RaMen's large e-commerce lead prompted a test of whether public product images close the gap.
@@ -111,6 +132,5 @@ Amazon's anti-scraping; future work"*). They are treated as unsupported.
 
 ## Open tasks
 
-- k-fold CV weight selection for the final tables.
 - Baseline-fairness check (reproduced vs published CLHE).
 - Extend the VALGAP probe to the bundlerec/dunnhumby evaluators.

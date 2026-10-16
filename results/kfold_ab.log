@@ -1,0 +1,9 @@
+pog sd0: single-val R@20=0.0658 | kfold R@20=0.0543 (110s)
+pog sd1: single-val R@20=0.0618 | kfold R@20=0.067 (118s)
+pog sd2: single-val R@20=0.0689 | kfold R@20=0.0717 (111s)
+>>> pog: single-val 0.0655+/-0.0029 | kfold 0.0643+/-0.0073 | delta=-0.0012
+spotify_sparse sd0: single-val R@20=0.1686 | kfold R@20=0.1686 (675s)
+spotify_sparse sd1: single-val R@20=0.1609 | kfold R@20=0.1698 (606s)
+spotify_sparse sd2: single-val R@20=0.1618 | kfold R@20=0.1592 (622s)
+>>> spotify_sparse: single-val 0.1638+/-0.0034 | kfold 0.1659+/-0.0047 | delta=+0.0021
+KFOLD_AB_DONE

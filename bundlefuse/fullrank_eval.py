@@ -50,6 +50,7 @@ RAMEN = os.environ.get("RAMEN_SEED", "0")
 rseed = int(RAMEN)
 MASK_FRAC = float(os.environ.get("MASK_FRAC", "0.5"))
 ENCODER = os.environ.get("ENCODER", "1") != "0"  # ENCODER=0 => zero-param closed-form (drop the set-attention encoder)
+KFOLD = int(os.environ.get("KFOLD", "0"))  # >=2 => select hyperparameters by K-fold CV over the validation bundles
 if os.path.exists(os.path.join(POG, "bi_full.txt")):
     fullb = list(rb("bi_full.txt").values())
 else:
@@ -311,6 +312,25 @@ def fit_simba(vb, vg, Rv, Zv):
     `prior_scale` is frozen from validation so test-time scoring is 100% invariant to test batching.
     """
     Z_pair_v = dict(Zv); Z_pair_v["simp"] = Zv["pair"]; Z_pair_v["diff2"] = Zv["diff2_pair"]
+
+    # Selection objective: NDCG@20 on the full validation set by default, or the mean across
+    # K folds of the validation bundles when KFOLD>=2 (textbook k-fold CV hyperparameter
+    # selection). Folds are a fixed, balanced interleave so selection stays deterministic.
+    if KFOLD >= 2 and len(vb) >= KFOLD:
+        _perm = np.random.default_rng(0).permutation(len(vb))
+        _folds = []
+        for _f in range(KFOLD):
+            _fi = np.sort(_perm[_f::KFOLD])
+            _folds.append((torch.as_tensor(_fi, device=DEVICE),
+                           [vb[i] for i in _fi], [vg[i] for i in _fi]))
+
+        def sel_obj(X):
+            return float(np.mean([eval_fused(X.index_select(1, it), vbf, vgf, Ks=(20,))[20][1]
+                                  for it, vbf, vgf in _folds]))
+    else:
+        def sel_obj(X):
+            return eval_fused(X, vb, vg, Ks=(20,))[20][1]
+
     GPS = {k: [0.0, 0.25, 0.5, 1.0, 1.5] for k in SIG}
     w = {k: 0.0 for k in SIG}; best_nd = -1.0
     for _ in range(4):
@@ -321,13 +341,13 @@ def fit_simba(vb, vg, Rv, Zv):
                 if sum(w2.values()) == 0:
                     continue
                 fused = sum(w2[k2] * Z_pair_v[k2] for k2 in SIG if w2[k2])
-                nd = eval_fused(fused, vb, vg, Ks=(20,))[20][1]
+                nd = sel_obj(fused)
                 if nd > best_nd + 2e-4:
                     best_nd = nd; w = w2; improved = True
         if not improved:
             break
     w = EmpiricalBayesRouter.prune_weights_val(
-        w, Z_pair_v, lambda fmat: eval_fused(fmat, vb, vg, Ks=(20,))[20][1],
+        w, Z_pair_v, lambda fmat: sel_obj(fmat),
         optional_keys=("bridge", "contrast", "softcat", "homo"), val_eps=3e-4
     )
 
@@ -340,11 +360,11 @@ def fit_simba(vb, vg, Rv, Zv):
     base_pair_v = sum(w[k] * Z_pair_v[k] for k in w)
     base_inc_v = sum(w[k] * Zv[k] for k in w)
     best_ho = (0.0, 0.0)
-    best_nd = eval_fused(base_pair_v, vb, vg, Ks=(20,))[20][1]
+    best_nd = sel_obj(base_pair_v)
     for alpha_inc in [0.0, 0.5, 1.0]:
         for g_rao in [0.0, 0.2, 0.35]:
             cand_v = (1.0 - alpha_inc) * base_pair_v + alpha_inc * base_inc_v + g_rao * Zv["rao"]
-            nd = eval_fused(cand_v, vb, vg, Ks=(20,))[20][1]
+            nd = sel_obj(cand_v)
             if nd > best_nd + 5e-5:
                 best_nd = nd; best_ho = (alpha_inc, g_rao)
 
@@ -365,7 +385,7 @@ def fit_simba(vb, vg, Rv, Zv):
         mu0_cand = raw_prior_v * p_scale
         for kf in EmpiricalBayesRouter.shrinkage_candidates(vc, [0.0, 0.05, 0.5, 1.0, kf_est, 5.0]):
             f_eb = EmpiricalBayesRouter.conjugate_posterior(Y_v, mu0_cand, freq_t, kf)
-            nd = eval_fused(f_eb, vb, vg, Ks=(20,))[20][1]
+            nd = sel_obj(f_eb)
             if nd > best_nd + 5e-5:
                 best_nd = nd; best_eb = (kf, p_scale)
     return w, prior_keys, best_eb, freq_t, best_ho
