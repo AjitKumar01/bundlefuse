@@ -13,3 +13,9 @@ dunnhumby/
 results/*.json
 results/*.csv
 !results/.gitkeep
+# canonical regenerated tables are version-controlled on purpose
+!results/matrix_zeroparam.csv
+!results/matrix_zeroparam.json
+
+# derived CLIP feature caches (regenerate via scripts/clip_embed.py)
+*.npz

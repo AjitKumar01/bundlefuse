@@ -22,6 +22,7 @@ REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fi
 ROOT = os.environ.get("BR_DIR") or os.path.join(REPO_ROOT, "BundleRec", "dataset", DS)
 K = 20; MASK_FRAC = float(os.environ.get("MASK_FRAC", "0.5")); SEEDS = int(os.environ.get("SEEDS", "5"))
 USE_AUX = os.environ.get("NO_AUX", "0") != "1"
+ENCODER = os.environ.get("ENCODER", "1") != "0"  # ENCODER=0 => zero-param closed-form (drop the set-attention encoder)
 
 raw = defaultdict(list)
 with open(os.path.join(ROOT, "bundle_item.csv")) as f:
@@ -108,6 +109,26 @@ cdim = min(128, tf_mat.shape[1] - 1)
 CONTENT = TruncatedSVD(cdim, random_state=0).fit_transform(tf_mat).astype(np.float32)
 CONTENT /= (np.linalg.norm(CONTENT, axis=1, keepdims=True) + 1e-8)
 CONTENT_T = torch.tensor(CONTENT, device=DEVICE)
+
+# Optional multimodal image features (IMG_FEATS=path to .npz with ids/feats, keyed by original item id)
+HAS_IMG = False
+IMG_STYLE = None
+_imgp = os.environ.get("IMG_FEATS")
+if _imgp and os.path.exists(_imgp):
+    _z = np.load(_imgp)
+    _ids = _z["ids"].tolist(); _f = _z["feats"].astype(np.float32)
+    IMG = np.zeros((n, _f.shape[1]), np.float32); _have = np.zeros(n, bool)
+    for _j, _orig in enumerate(_ids):
+        if _orig in imap:
+            IMG[imap[_orig]] = _f[_j]; _have[imap[_orig]] = True
+    for _c in range(NCc):  # category-disentangle (style), keep missing rows at 0
+        _idx = np.where((cat_lbl == _c) & _have)[0]
+        if len(_idx):
+            IMG[_idx] = IMG[_idx] - IMG[_idx].mean(0)
+    _nrm = np.linalg.norm(IMG, axis=1, keepdims=True)
+    IMG = np.where(_nrm > 1e-8, IMG / (_nrm + 1e-8), 0.0).astype(np.float32)
+    IMG_STYLE = torch.tensor(IMG, device=DEVICE); HAS_IMG = True
+    print(f"[img] loaded CLIP features: {int(_have.sum())}/{n} items ({100*_have.sum()/n:.1f}%)", flush=True)
 
 
 class Contrast(nn.Module):
@@ -196,13 +217,17 @@ def build(tr_bundles, tr_bkeys):
     Pcat_leaf = build_pcat(cat_lbl, NCc, keep_diag=False)
     Pcat_homo = build_pcat(cat_lbl, NCc, keep_diag=True)
     Pcat_l2 = build_pcat(cat_l2, NCl2, keep_diag=True)
-    model, E, pad = train_contrast(tr_bundles)
+    model, E, pad = train_contrast(tr_bundles) if ENCODER else (None, None, None)
     return graph_op, C_u, C_s, P, TF_bridge, BR_DENSE, Pcat_leaf, Pcat_homo, Pcat_l2, model, E, pad
 
 
 SIG = ["simp", "diff2", "cooc", "ppmi", "csvd", "cat", "homo", "tfidf", "bridge", "pretrain", "contrast"]
 if not USE_AUX:
     SIG = [s for s in SIG if s != "pretrain"]
+if not ENCODER:
+    SIG = [s for s in SIG if s != "contrast"]
+if HAS_IMG:
+    SIG = SIG + ["img"]
 
 
 def score_split(bset, built):
@@ -241,15 +266,22 @@ def score_split(bset, built):
     s_tfidf = np.asarray((tf_mat @ (tf_mat.T @ Ind)).todense()).astype(np.float32)
     s_bridge = np.asarray((TF_bridge @ (TF_bridge.T @ Ind)).todense()).astype(np.float32)
     s_pre = np.asarray((C_pre @ Ind).todense()).astype(np.float32)
-    with torch.no_grad():
-        sr = model.set_rep(*pad([s[:8] for s in seeds_list]))
-        s_con = (E @ sr.t()).cpu().numpy().astype(np.float32)
+    s_con = None
+    if ENCODER:
+        with torch.no_grad():
+            sr = model.set_rep(*pad([s[:8] for s in seeds_list]))
+            s_con = (E @ sr.t()).cpu().numpy().astype(np.float32)
+
+    s_img = None
+    if HAS_IMG:
+        Mi = torch.stack([IMG_STYLE[s].mean(0) for s in seeds_list], 1)   # (d_img, nb)
+        s_img = (IMG_STYLE @ Mi).cpu().numpy().astype(np.float32)
 
     R = {
         "simp": s_simp, "diff2": s_diff2, "pair": s_pair, "diff2_pair": s_diff2_pair,
         "rao": s_rao, "cooc": s_cooc, "ppmi": s_ppmi, "csvd": s_csvd,
         "cat": s_cat, "homo": s_homo, "tfidf": s_tfidf, "bridge": s_bridge,
-        "pretrain": s_pre, "contrast": s_con,
+        "pretrain": s_pre, "contrast": s_con, "img": s_img,
     }
     Z = {k: zcols(R[k]) for k in SIG}
     Z["pair"] = zcols(R["pair"])
@@ -366,7 +398,7 @@ for sd in range(SEEDS):
                 best_ho_nd = nd; best_ho = (alpha_inc, g_rao)
     best = max(best, best_ho_nd)
 
-    prior_ks = [k for k in ("cat", "homo", "tfidf", "bridge", "pretrain", "contrast") if k in SIG and bw.get(k, 0) > 0] or ["bridge", "tfidf", "cat"]
+    prior_ks = [k for k in ("cat", "homo", "tfidf", "bridge", "pretrain", "contrast", "img") if k in SIG and bw.get(k, 0) > 0] or ["bridge", "tfidf", "cat"]
 
     # Freeze prior_scale on the validation set (`Zv`) so test inference is strictly independent of test batching
     Y_v = build_Y(Zv, best_ho)

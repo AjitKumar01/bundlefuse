@@ -1,0 +1,4 @@
+VALGAP pog: SELECTED val=0.0392 test=0.0366 gap=+0.0025 | UNIFORM val=0.0240 test=0.0222 gap=+0.0018 | selection_excess_gap=+0.0007 | test_sel-test_unif=+0.0144 | nsig=5
+VALGAP pog_dense: SELECTED val=0.2291 test=0.2518 gap=-0.0227 | UNIFORM val=0.1945 test=0.2135 gap=-0.0191 | selection_excess_gap=-0.0036 | test_sel-test_unif=+0.0383 | nsig=4
+VALGAP spotify_sparse: SELECTED val=0.2213 test=0.2250 gap=-0.0036 | UNIFORM val=0.1799 test=0.1819 gap=-0.0019 | selection_excess_gap=-0.0017 | test_sel-test_unif=+0.0431 | nsig=5
+VALGAP_FULLRANK_DONE

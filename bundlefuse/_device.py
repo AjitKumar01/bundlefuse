@@ -43,10 +43,13 @@ def set_determinism(seed: int = SEED):
     if torch is not None:
         torch.manual_seed(seed)
         os.environ.setdefault("PYTHONHASHSEED", str(seed))
-        try:
-            torch.use_deterministic_algorithms(True, warn_only=True)
-        except Exception:
-            pass
+        # CPU + fixed seeds already reproduces bit-identically here. The deterministic-kernel
+        # flag is belt-and-suspenders but forces slow fallback kernels (~10x), so it is opt-in.
+        if os.environ.get("DETERMINISTIC", "0") == "1":
+            try:
+                torch.use_deterministic_algorithms(True, warn_only=True)
+            except Exception:
+                pass
 
 
 DEVICE = pick_device()

@@ -49,6 +49,7 @@ n = json.load(open(os.path.join(POG, "count.json")))["#I"]
 RAMEN = os.environ.get("RAMEN_SEED", "0")
 rseed = int(RAMEN)
 MASK_FRAC = float(os.environ.get("MASK_FRAC", "0.5"))
+ENCODER = os.environ.get("ENCODER", "1") != "0"  # ENCODER=0 => zero-param closed-form (drop the set-attention encoder)
 if os.path.exists(os.path.join(POG, "bi_full.txt")):
     fullb = list(rb("bi_full.txt").values())
 else:
@@ -208,18 +209,20 @@ def pad(sl):
     return sf, sm
 
 
-for step in range(900 if not MUSIC else 700):
-    model.train(); sl, pi = [], []
-    for _ in range(128):
-        b = rng.choice(bids); it = train[b][:]; rng.shuffle(it); k = max(1, len(it) // 2)
-        sl.append(it[:k]); pi.append(it[k])
-    sr = model.set_rep(*pad(sl))
-    cand = torch.cat([torch.tensor(pi, device=DEVICE), torch.tensor(npr.integers(n, size=256), device=DEVICE)])
-    loss = Fn.cross_entropy(sr @ model.emb(FEAT[cand]).t() / 0.07, torch.arange(len(sl), device=DEVICE))
-    opt.zero_grad(); loss.backward(); opt.step()
-model.eval()
-with torch.no_grad():
-    Emb = model.emb(FEAT)
+Emb = None
+if ENCODER:
+    for step in range(900 if not MUSIC else 700):
+        model.train(); sl, pi = [], []
+        for _ in range(128):
+            b = rng.choice(bids); it = train[b][:]; rng.shuffle(it); k = max(1, len(it) // 2)
+            sl.append(it[:k]); pi.append(it[k])
+        sr = model.set_rep(*pad(sl))
+        cand = torch.cat([torch.tensor(pi, device=DEVICE), torch.tensor(npr.integers(n, size=256), device=DEVICE)])
+        loss = Fn.cross_entropy(sr @ model.emb(FEAT[cand]).t() / 0.07, torch.arange(len(sl), device=DEVICE))
+        opt.zero_grad(); loss.backward(); opt.step()
+    model.eval()
+    with torch.no_grad():
+        Emb = model.emb(FEAT)
 
 feats["csvd"] = graph_op.Ucsvd
 FEAT_T = {k: torch.tensor(v, device=DEVICE) for k, v in feats.items()}
@@ -227,6 +230,8 @@ FEAT_T = {k: torch.tensor(v, device=DEVICE) for k, v in feats.items()}
 SIG = (["simp", "diff2", "pop", "cooc", "ppmi", "csvd", "cat", "homo", "contrast", "audiostyle", "bridge"]) if MUSIC else \
       (["cat", "softcat", "style", "imgstyle", "bridge", "simp", "diff2", "pop", "cooc", "ppmi", "csvd", "contrast"])
 SIG = [s for s in SIG if (s not in ("imgstyle",) or "imgstyle" in FEAT_T)]
+if not ENCODER:
+    SIG = [s for s in SIG if s != "contrast"]
 
 
 def score_all_signals(bundles):
@@ -266,9 +271,10 @@ def score_all_signals(bundles):
     else:
         Ms = torch.stack([onto_op.Msoft_t[s].sum(0) for s in bundles], 1)
         R["softcat"] = onto_op.MP_t @ Ms
-    with torch.no_grad():
-        sr = model.set_rep(*pad([s[:MAXK] for s in bundles]))
-        R["contrast"] = Emb @ sr.t()
+    if ENCODER:
+        with torch.no_grad():
+            sr = model.set_rep(*pad([s[:MAXK] for s in bundles]))
+            R["contrast"] = Emb @ sr.t()
     for k in ("csvd", "style", "imgstyle", "audiostyle", "bridge"):
         if k in FEAT_T:
             f = FEAT_T[k]
@@ -463,6 +469,25 @@ Rv, Zv = score_all_signals(vb)
 w_ad, prior_keys, best_eb, freq_t, best_ho = fit_simba(vb, vg, Rv, Zv)
 W = train_item2vec_W()
 tb, tg = load_split("test", TEST_N); CHUNK = 200; Ks = (10, 20)
+
+if os.environ.get("VALGAP"):
+    # Validation->test generalization gap of the greedy weight selection.
+    # Compare val vs test NDCG@20 at (a) the SELECTED weights and (b) UNIFORM weights,
+    # fusion only (no higher-order, no shrinkage), so the difference isolates weight tuning.
+    tb_s, tg_s = tb[:min(len(tb), 1500)], tg[:min(len(tg), 1500)]
+    _, Zt_s = score_all_signals(tb_s)
+    NOEB = (0.0, best_eb[1]); NOHO = (0.0, 0.0)
+    def _nd(Z, bset, gset, wdict):
+        return eval_fused(apply_simba_full(Z, wdict, prior_keys, NOEB, freq_t, NOHO), bset, gset, Ks=(20,))[20][1]
+    w_unif = {k: 1.0 for k in SIG}
+    v_sel, t_sel = _nd(Zv, vb, vg, w_ad), _nd(Zt_s, tb_s, tg_s, w_ad)
+    v_un,  t_un  = _nd(Zv, vb, vg, w_unif), _nd(Zt_s, tb_s, tg_s, w_unif)
+    print(f"VALGAP {DS}: SELECTED val={v_sel:.4f} test={t_sel:.4f} gap={v_sel-t_sel:+.4f} | "
+          f"UNIFORM val={v_un:.4f} test={t_un:.4f} gap={v_un-t_un:+.4f} | "
+          f"selection_excess_gap={(v_sel-t_sel)-(v_un-t_un):+.4f} | "
+          f"test_sel-test_unif={t_sel-t_un:+.4f} | nsig={sum(1 for k in w_ad if w_ad[k]>0)}", flush=True)
+    sys.exit()
+
 methods = ["popularity", "co-occurrence", "content-kNN", "item2vec", "Pairwise-Repl", "SIMBA-NoRes", "Ours"]
 agg = {m: {K2: ([], []) for K2 in Ks} for m in methods}
 cold_hits, cold_tot = 0, 0

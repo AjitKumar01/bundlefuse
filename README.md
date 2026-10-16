@@ -52,9 +52,11 @@ It was never the engine; the headline results do not depend on it.
 
 ## Reproducibility
 
-Default policy is **reproducibility first**: CPU execution with fixed seeds and deterministic kernels
-(`bundlefuse/_device.py`). Earlier accelerator (MPS) runs drifted several percent run-to-run and were
-not reproducible; CPU runs here are bit-identical across repeats.
+Default policy is **reproducibility first**: CPU execution with fixed seeds (`bundlefuse/_device.py`).
+Earlier accelerator (MPS) runs drifted several percent run-to-run and were not reproducible; CPU runs
+here are **bit-identical across repeats**. Strict deterministic kernels (`torch.use_deterministic_algorithms`)
+are available via `DETERMINISTIC=1` but are off by default because they force ~10x-slower fallback kernels
+and are not needed for reproducibility here.
 
 ```bash
 # genuine unit / theoretical / no-leakage tests (7)
@@ -71,8 +73,10 @@ python3 -m bundlefuse.run_matrix
 
 ## Status
 
-`results/` is intentionally **empty**: every published table will be regenerated once, deterministically,
-from this pipeline. Nothing in this repo is carried over as a pre-computed number. See MANIFEST.md for the
-open tasks (encoder on/off head-to-head, full-matrix regeneration, baseline-fairness checks).
+Every table in `results/` was regenerated **once, deterministically** from this pipeline — nothing is
+carried over as a pre-computed number from the old `simba/` repo. See **[RESULTS.md](RESULTS.md)** for
+the full zero-parameter matrix (with error bars), the encoder on/off head-to-head (encoder dropped),
+the validation-selection overfitting probe (negative — selection generalizes), and the multimodal-image
+experiment (honest negative result). Remaining open tasks are listed there and in MANIFEST.md.
 
 Data lives one level up (`../BundleRec`, `../bundlemllm`, `../dunnhumby`) and is not vendored here.

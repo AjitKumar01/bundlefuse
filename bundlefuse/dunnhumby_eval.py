@@ -22,6 +22,7 @@ ROOT = os.environ.get("DUNN_DIR") or os.path.join(REPO_ROOT, "dunnhumby")
 MASK_FRAC = float(os.environ.get("MASK_FRAC", "0.5")); SEEDS = int(os.environ.get("SEEDS", "5"))
 SPLIT_MODE = os.environ.get("SPLIT_MODE", "random")
 BASKET_CAP = int(os.environ.get("BASKET_CAP", "30000")); MIN_FREQ = 2
+ENCODER = os.environ.get("ENCODER", "1") != "0"  # ENCODER=0 => zero-param closed-form (drop the set-attention encoder)
 VAL_N, TEST_N = 800, 2000
 csv.field_size_limit(10**7)
 
@@ -176,11 +177,13 @@ def build(trb, tru):
     BR_CONT = CONTENT + 0.5 * p_cont
     BR_CONT /= (np.linalg.norm(BR_CONT, axis=1, keepdims=True) + 1e-8)
 
-    model, E, pad = train_contrast(trb)
+    model, E, pad = train_contrast(trb) if ENCODER else (None, None, None)
     return graph_op, freq, C_hh, Pcat, BR_CONT, model, E, pad
 
 
 SIG = ["simp", "diff2", "pop", "cooc", "hh_cooc", "ppmi", "csvd", "cat", "content", "bridge", "contrast"]
+if not ENCODER:
+    SIG = [s for s in SIG if s != "contrast"]
 
 
 def score_all(bundles, built):
@@ -216,9 +219,11 @@ def score_all(bundles, built):
     Bs = np.stack([BR_CONT[s].mean(0) for s in seeds_list], 1)
     sc_br = (BR_CONT @ Bs).astype(np.float32)
     sc_tf = np.asarray((tf_mat @ (tf_mat.T @ Ind)).todense()).astype(np.float32)
-    with torch.no_grad():
-        sr = model.set_rep(*pad([s[:8] for s in seeds_list]))
-        sc_con = (E @ sr.t()).cpu().numpy().astype(np.float32)
+    sc_con = None
+    if ENCODER:
+        with torch.no_grad():
+            sr = model.set_rep(*pad([s[:8] for s in seeds_list]))
+            sc_con = (E @ sr.t()).cpu().numpy().astype(np.float32)
     R = {
         "simp": sc_simp, "diff2": sc_diff2, "pair": sc_pair, "diff2_pair": sc_diff2_pair,
         "rao": sc_rao, "pop": sc_pop, "cooc": sc_cooc, "hh_cooc": sc_hh,

@@ -1,0 +1,27 @@
+pog seed0 Ours R@20=0.0664 (55s)
+pog seed1 Ours R@20=0.0606 (56s)
+pog seed2 Ours R@20=0.0689 (55s)
+pog_dense seed0 Ours R@20=0.3812 (44s)
+pog_dense seed1 Ours R@20=0.3727 (43s)
+pog_dense seed2 Ours R@20=0.3671 (44s)
+spotify_sparse seed0 Ours R@20=0.1712 (275s)
+spotify_sparse seed1 Ours R@20=0.1625 (294s)
+spotify_sparse seed2 Ours R@20=0.1622 (272s)
+spotify seed0 Ours R@20=0.1549 (466s)
+spotify seed1 Ours R@20=0.1529 (423s)
+spotify seed2 Ours R@20=0.1607 (430s)
+electronic Ours R@20=0.5192 (136s)
+food Ours R@20=0.5870 (50s)
+clothing Ours R@20=0.5904 (26s)
+dunnhumby Ours R@20=0.1486 (420s)
+
+=== ZERO-PARAM MATRIX (R@20 mean+/-std; CLHE/RaMen published) ===
+pog             Ours=0.0653+/-0.0035   CLHE=0.0284 RaMen=0.0375
+pog_dense       Ours=0.3737+/-0.0058   CLHE=0.3815
+spotify_sparse  Ours=0.1653+/-0.0042   CLHE=0.0969
+spotify         Ours=0.1562+/-0.0033   CLHE=0.1082 RaMen=0.1091
+electronic      Ours=0.5192+/-0.0000   CLHE=0.4721 RaMen=0.8371
+food            Ours=0.5870+/-0.0000   CLHE=0.5077 RaMen=0.8459
+clothing        Ours=0.5904+/-0.0000   
+dunnhumby       Ours=0.1486+/-0.0000   
+REGEN_DONE
