@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+.DS_Store
+.venv/
+venv/
+# data lives one level up, never vendored
+BundleRec/
+bundlemllm/
+dunnhumby/
+# large / regenerated artifacts
+*.pt
+*.npy
+results/*.json
+results/*.csv
+!results/.gitkeep
