@@ -315,6 +315,32 @@ Dunnhumby       & $+0.0027$ & $+0.0047$ & 5.2 \\
 \end{tabular}
 \end{table}
 
+\paragraph{Data efficiency.}
+We further probe how much training data the method actually needs. Holding the validation ($10\%$) and test ($20\%$)
+folds fixed, we subsample the train fold ($70\%$) to $90/80/70\%$ of itself (i.e.\ $63/56/49\%$ of all bundles),
+rebuild all signals, and re-evaluate on \textsc{POG} (Table~\ref{tab:dataeff}, 3 seeds). Recall@20 is \emph{flat}
+across all four levels (means within $0.0629$--$0.0674$, mutually overlapping within error bars): dropping $30\%$ of
+the training bundles causes no measurable loss. This is consistent with the mechanism---\textsc{POG} is $74\%$ cold and
+${\sim}98\%$ non-co-occurring, so the collaborative signal saturates almost immediately and performance is carried by
+the data-light taxonomic/content prior.
+
+\begin{table}[t]\centering\small
+\caption{Training-data learning curve on \textsc{POG} (val/test fixed, train fold subsampled; R@20/N@20, 3 seeds).
+Accuracy is flat down to half the data.}
+\label{tab:dataeff}
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{lccc}
+\toprule
+train fold used & \% of all bundles & R@20 & N@20 \\
+\midrule
+$100\%$ & $70\%$ & $0.0655 \pm 0.0029$ & $0.0386 \pm 0.0015$ \\
+$90\%$  & $63\%$ & $0.0674 \pm 0.0002$ & $0.0388 \pm 0.0012$ \\
+$80\%$  & $56\%$ & $0.0629 \pm 0.0084$ & $0.0353 \pm 0.0041$ \\
+$70\%$  & $49\%$ & $0.0648 \pm 0.0035$ & $0.0370 \pm 0.0022$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \begin{figure}[t]\centering
   \includegraphics[width=0.82\linewidth]{figs/fig_stratified.pdf}
   \caption{POG recall by item type. Collaborative baselines are useless on cold items; ours is the only cheap

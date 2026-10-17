@@ -80,6 +80,10 @@ for v in fullb:
 random.Random(rseed).shuffle(allb)
 ntr = int(0.7 * len(allb)); nva = int(0.1 * len(allb))
 trb, vab, teb = allb[:ntr], allb[ntr:ntr + nva], allb[ntr + nva:]
+# Training-data learning curve: keep val/test fixed, subsample the train fold to a fraction of itself.
+TRAIN_FRAC = float(os.environ.get("TRAIN_FRAC", "1.0"))
+if TRAIN_FRAC < 1.0:
+    trb = trb[:max(1, int(round(TRAIN_FRAC * len(trb))))]
 train = {i: b for i, b in enumerate(trb)}
 
 
