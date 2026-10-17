@@ -124,6 +124,47 @@ Spotify\_sparse& 0.747 & 0.723 & \textbf{0.796} \\
 \end{tabular}
 \end{table}
 
+\subsection{Comparison against a fuller baseline suite}
+\label{sec:suite}
+To pre-empt the concern that we compare only against the two largest encoders, Table~\ref{tab:suite} places
+\textsc{BundleFuse} against the full transformer/GNN baseline suite reported by RaMen~\cite{ramen}---Bi-LSTM, a
+HyperGraph model, a Transformer set-encoder (Trans) and its contrastive variant (TransCL), and graph attention
+(GAT)---on the four datasets they evaluate, and against \textbf{EASE}~\cite{steck2019}, the standard strong
+closed-form item--item baseline. Two points follow. (i)~Among public-feature methods, the zero-parameter
+\textsc{BundleFuse} is \emph{best on all four} settings, trailing only RaMen's private-image e-commerce scores; it
+beats every transformer/GNN baseline including the attention models Trans/TransCL/GAT. (ii)~EASE---the natural ``is it
+just closed-form?'' control---lands within $0.001$--$0.006$ R@20 of plain co-occurrence wherever it is computable
+(Electronic $0.3253$, Food $0.3313$, Clothing $0.2656$; cf.\ co-occurrence $0.3199/0.3306/0.2651$), i.e.\
+$1.6$--$2.2\times$ below \textsc{BundleFuse}. This isolates our contribution as the \emph{construction} (taxonomic
+slot-exclusion priors, category-disentangled bridging, and frequency-confidence routing), not merely being
+closed-form. EASE's $O(n^2)$ memory and $O(n^3)$ solve are moreover intractable at the $22$K--$254$K-item catalogues
+(Dunnhumby, POG, Spotify), where \textsc{BundleFuse} still runs on a single CPU core---so ``--'' below is a scaling
+limit, not an omission.
+
+\begin{table}[t]\centering\small
+\caption{Fuller baseline suite (full-ranking R@20). Transformer/GNN baselines (Bi-LSTM, HyperGraph, Trans, TransCL,
+GAT) and CLHE/RaMen are the published figures from RaMen~\cite{ramen} Table 2; EASE~\cite{steck2019} is run on our
+splits (``--'' where its $n\times n$ solve is intractable). Among public-feature methods \textsc{BundleFuse} is best
+on all four; RaMen leads on e-commerce only via private images (\S\ref{sec:costbenefit}).}
+\label{tab:suite}
+\setlength{\tabcolsep}{4.5pt}
+\begin{tabular}{lcccc}
+\toprule
+Method & POG & Spotify & Electronic & Food \\
+\midrule
+Bi-LSTM           & 0.0170 & 0.0833 & 0.0574 & 0.0350 \\
+HyperGraph        & 0.0207 & 0.0572 & 0.0928 & 0.1055 \\
+Trans             & 0.0215 & 0.0875 & 0.2555 & 0.3137 \\
+TransCL           & 0.0202 & 0.1014 & 0.3050 & 0.3088 \\
+GAT               & 0.0208 & 0.0824 & 0.3943 & 0.2917 \\
+EASE              & --     & --     & 0.3253 & 0.3313 \\
+CLHE              & 0.0284 & 0.1081 & 0.4721 & 0.5077 \\
+RaMen (priv.\ img)& 0.0375 & 0.1091 & \textit{0.8371} & \textit{0.8459} \\
+\textbf{Ours ($0$-param)} & \textbf{0.0653} & \textbf{0.1562} & \textbf{0.5192} & \textbf{0.5870} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \subsection{Resource cost}
 \label{sec:cost}
 Table~\ref{tab:cost} contrasts \emph{measured} trainable-parameter budgets (Fig.~\ref{fig:params}). The

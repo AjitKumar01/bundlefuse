@@ -348,8 +348,38 @@ def train_item2vec_br(train, dim=64, epochs=8, neg=5, bs=4096, maxpairs=3_000_00
     return W / (np.linalg.norm(W, axis=1, keepdims=True) + 1e-8)
 
 
+def ease_test_scores(trb, vset, tset, n_items, lam_grid=(100.0, 250.0, 500.0, 1000.0)):
+    """EASE closed-form item-item baseline (Steck WWW'19), lambda selected on val.
+    Train "interactions" = bundle-item incidence; score(c|S)=sum_{s in S} W[s,c]."""
+    rows, cols = [], []
+    for bi, b in enumerate(trb):
+        for it in b:
+            rows.append(bi); cols.append(it)
+    Btr = sp.csr_matrix((np.ones(len(rows), np.float64), (rows, cols)), shape=(len(trb), n_items))
+    G = (Btr.T @ Btr).toarray().astype(np.float64)
+    di = np.diag_indices(n_items)
+
+    def score_set(W, bundles):
+        M = np.zeros((n_items, len(bundles)), np.float32)
+        for j, (s, _) in enumerate(bundles):
+            M[:, j] = W[s].sum(0)
+        return M
+    best_nd, best_W = -1.0, None
+    for lam in lam_grid:
+        Gl = G.copy(); Gl[di] += lam
+        P = np.linalg.inv(Gl)
+        W = -P / np.diag(P)[None, :]; W[di] = 0.0
+        nd = eval_mat(score_set(W, vset), vset, Ks=(20,))[20][1]
+        if nd > best_nd:
+            best_nd, best_W = nd, W
+    return score_set(best_W, tset)
+
+
 t0 = time.time()
 METH = ["popularity", "co-occurrence", "content-kNN", "item2vec", "Pairwise-Repl", "SIMBA-NoRes", "Ours"]
+EASE = os.environ.get("EASE") and n <= 10000  # EASE needs an n x n solve: only tractable on small catalogues
+if EASE:
+    METH = METH + ["EASE"]
 agg = {m: {10: ([], []), 20: ([], [])} for m in METH}
 VALGAP = os.environ.get("VALGAP")  # validation->test generalization gap of greedy weight selection
 vg_rows = []
@@ -472,6 +502,8 @@ for sd in range(SEEDS):
         "SIMBA-NoRes": eval_mat(build_Y(Zt, best_ho), tset),
         "Ours": eval_mat(apply_eb(Zt, best_ho, best_kf, frozen_prior_scale), tset),
     }
+    if EASE:
+        res["EASE"] = eval_mat(ease_test_scores(trb, vset, tset, n), tset)
     for m in METH:
         for K2 in (10, 20):
             agg[m][K2][0].append(res[m][K2][0]); agg[m][K2][1].append(res[m][K2][1])

@@ -34,7 +34,9 @@ With a \textbf{zero-parameter scoring core and no accelerator}, \textsc{BundleFu
 public-feature method on $5$ of $8$ benchmarks}. Under the discriminative full-ranking protocol it beats CLHE and the
 GPU-trained RaMen on \textsc{POG} (${\sim}1.7\times$ R@20), on \textsc{Spotify}, and on \textsc{Spotify\_sparse}, and
 wins on \textsc{Clothing} and \textsc{Dunnhumby}; it \emph{ties} the $9.5$M-parameter CLHE encoder on
-\textsc{POG\_dense} and beats CLHE's published numbers on \textsc{Electronic} and \textsc{Food}. Every result is
+\textsc{POG\_dense} and beats CLHE's published numbers on \textsc{Electronic} and \textsc{Food}. It is also the best
+public-feature method against the full transformer/GNN baseline suite (Bi-LSTM, Trans, TransCL, GAT, HyperGraph) and
+beats the standard closed-form baseline EASE by $1.6$--$2.2\times$ (\S\ref{sec:suite}). Every result is
 reported with cross-seed error bars. It loses only to RaMen on the two e-commerce sets---and we show this is a
 \emph{data-availability asymmetry}, not a modelling one: RaMen's e-commerce data (including its visual features) is in
 no public release, so its margin can be neither independently reproduced nor ablated, while on every fully public

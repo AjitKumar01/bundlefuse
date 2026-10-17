@@ -82,6 +82,18 @@ harmfully overfits.** The one dataset where benefit barely exceeds optimism is d
 Provenance: `results/valgap_fullrank.log` (fullrank) and `results/valgap_retail.log`
 (e-commerce/retail), both via `VALGAP=1` in the respective evaluators.
 
+## Fuller baseline suite (reviewer pre-empt)
+
+- **Transformer/GNN baselines (published, RaMen Table 2):** on POG/Spotify/Electronic/Food, BundleFuse is the best
+  public-feature method against Bi-LSTM, HyperGraph, Trans, TransCL, GAT, CLHE (R@20 POG 0.0653 vs best-other CLHE
+  0.0284; Spotify 0.1562 vs 0.1081; Electronic 0.5192 vs CLHE 0.4721; Food 0.5870 vs 0.5077). Only RaMen's
+  private-image e-commerce scores (0.8371/0.8459) are higher.
+- **EASE (closed-form control, run on our splits via `EASE=1`):** lands within 0.001–0.006 R@20 of plain
+  co-occurrence everywhere computable — Electronic **0.3253** (co-occ 0.3199), Food **0.3313** (0.3306), Clothing
+  **0.2656** (0.2651) — i.e. **1.6–2.2× below BundleFuse**. Confirms the win is the *construction*, not merely being
+  closed-form. EASE's O(n²) memory / O(n³) solve is intractable at Dunnhumby/POG/Spotify scale (22K–254K items);
+  BundleFuse runs on all of them on one CPU core. Provenance: `results/ease_baseline.log`.
+
 ## Operator ablation & exposure buckets (regenerated zero-param)
 
 Two diagnostics via `ABLATE=1` in the evaluators (reuses the val-fit weights; `results/ablation_zeroparam.log`):
