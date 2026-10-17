@@ -198,5 +198,5 @@ $7$ of $8$ datasets} ($\tilde{\sigma}_\epsilon^2 < 0$): rare items ($f_c=1$) are
 (near-zero dispersion across $S$), whereas popular hubs ($f_c \gg 1$) co-occur across diverse queries (large
 dispersion across $S$). Rather than treating the Gaussian derivation as load-bearing when its moment estimator clips
 to the floor ($0.05$), we treat~\eqref{eq:posterior} directly as \textbf{frequency-confidence backoff} where $\kappa_f$
-is either (i)~selected on the validation split from a 5-point grid $\{0.0, 0.05, 0.1, 0.5, 1.0, 5.0\}$, or
-(ii)~held at a single universal value $\kappa_f = 0.5$ across all datasets (\S\ref{sec:control}, Table~\ref{tab:tuning}).
+is selected on the validation split from a small grid $\{0.0, 0.05, 0.1, 0.5, 1.0, 5.0\}$, which we show does not
+overfit (\S\ref{sec:control}, Table~\ref{tab:valgap}).

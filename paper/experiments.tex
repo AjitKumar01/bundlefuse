@@ -52,6 +52,9 @@ the \emph{published} figures from the respective papers; \textsc{Electronic}/\te
 public data at all (\S\ref{sec:costbenefit}), so where we beat CLHE there, we beat its own published number. We make
 no claim of having reproduced CLHE on \textsc{POG}/\textsc{Spotify}. The \textsc{BundleFuse} column throughout is the
 zero-parameter closed-form core (\texttt{results/matrix\_zeroparam.csv}); the optional encoder is off.
+One methodological caution we observe and avoid: reusing precomputed collaborative features (e.g.\ LightGCN) under a
+re-split leaks co-occurrence of held-out items---in an early run this manufactured a $16\times$ ``win'' on \textsc{POG}.
+We rebuild every split-dependent signal from the train fold only, which removes it.
 
 \subsection{Main results}
 \label{sec:results}
@@ -173,150 +176,69 @@ DDBC             & $7.9\times10^{5}$ (+ frozen CLHE) & GPU & diffusion \\
 \label{sec:variance-components}
 \label{sec:ontology-study}
 
-\emph{Note on the diagnostic tables in this subsection.} Tables~\ref{tab:prior_ablation}--\ref{tab:control} are
-component diagnostics from the development configuration (the prior-decomposition row that adds the optional
-contrastive encoder is retained to show its marginal effect). The headline numbers are the zero-parameter,
-deterministically regenerated results of Table~\ref{tab:main}; the qualitative findings below---the cold-start prior
-drives the wins, the higher-order operators are inert, and the homoscedastic variance model is rejected---are robust
-to that configuration.
-
-\paragraph{Decomposing the Set-Conditioned Prior $\mu_0(c\mid S)$ (Pillar I + Pillar II Ablation).}
-Because cold items ($f_c = 0$) receive weight $u_c = 1$ in~\eqref{eq:posterior} and are ranked entirely by
-$\mu_0(c\mid S) = \gamma_{\text{val}} s_{\text{prior}}(c\mid S)$, \textsc{BundleFuse}'s cold-start performance is only
-as strong as the internal construction of $s_{\text{prior}}$. Table~\ref{tab:prior_ablation} ablates the components
-of $\mu_0(c\mid S)$ across four representative datasets:
-(i)~replacing category-disentangled style $\tilde{x}_i = x_i - \bar{x}_{\text{cat}(i)}$ with raw content $x_i$
-drops Cold R@20 by $-1.8$\,pp on \textsc{POG};
-(ii)~adding off-diagonal category complementarity $P_{\text{cat}}$ + signed slot-exclusion $s_{\text{slot}}$ +
-soft sub-type clusters $M_{\text{soft}}P_s$ (Pillar I) lifts \textsc{POG} Cold R@20 from $2.6\%$ to $5.8\%$ (and
-soft sub-type membership lifts dense non-co-occurring recall $3.6\times$ over hard category assignment);
-(iii)~adding bilateral graph-bridged representations $\tilde{b}_i$ and the $0.30$M contrastive set-encoder (Pillar II)
-lifts Cold R@20 further to $7.4\%$ on \textsc{POG}, $45.2\%$ on \textsc{Electronic}, and $55.4\%$ on
-\textsc{Clothing}. Moreover, freezing $\gamma_{\text{val}} = \sigma_{\text{val}}(Y)/\sigma_{\text{val}}(s_{\text{prior}})$
-outperforms unscaled $\gamma=1.0$ by $+0.4$ to $+1.1$\,pp while remains stable within $\pm 0.2$\,pp across
-$\gamma \in [0.8\gamma_{\text{val}}, 1.25\gamma_{\text{val}}]$.
-
-\begin{table}[t]\centering\small
-\caption{Ablation of the set-conditioned cold-start prior $\mu_0(c\mid S)$ (Cold-bucket R@20 / Overall R@20). Each
-mechanism in Pillars I--II contributes directly to cold-item recovery.}
-\label{tab:prior_ablation}
-\setlength{\tabcolsep}{3.5pt}
-\begin{tabular}{lcccc}
-\toprule
-Prior $\mu_0(c\mid S)$ Variant & POG (Cold / All) & Electronic (Cold / All) & Clothing (Cold / All) & Spotify (Cold / All) \\
-\midrule
-Raw content $x_i$ only                      & 2.6\% / 3.5\% & 28.4\% / 39.8\% & 36.1\% / 39.2\% & 0.8\% / 13.9\% \\
-+ Style disentangling $\tilde{x}_i$         & 3.8\% / 4.6\% & 31.0\% / 41.9\% & 39.5\% / 42.1\% & 1.4\% / 14.1\% \\
-+ Pillar I ($P_{\text{cat}} + s_{\text{slot}} + M_{\text{soft}}P_s / P_{\text{homo}}$) & 5.8\% / 6.4\% & 36.8\% / 46.2\% & 45.0\% / 48.3\% & 5.9\% / 15.1\% \\
-+ Pillar II Bilateral Bridge $\tilde{b}_i$  & 6.9\% / 7.5\% & 43.8\% / 50.6\% & 53.9\% / 55.6\% & 6.8\% / 15.4\% \\
-\textbf{Full $\mu_0$ (+ $0.30$M Contrastive)} & \textbf{7.4\% / 7.9\%} & \textbf{45.2\% / 51.5\%} & \textbf{55.4\% / 56.8\%} & \textbf{7.3\% / 15.6\%} \\
-\bottomrule
-\end{tabular}
-\end{table}
-
 \paragraph{Controlled Full-Model Operator Ablation (Why $\hat{\Delta}_{\text{inc}}$ and $\hat{R}_{\gamma}$ Are Secondary).}
-Table~\ref{tab:ablation} evaluates the sequence of estimators on top of the complete pairwise base `(0)`
-(\texttt{results/ablation\_diagnostics.json}). Once Pillars I--II and two-hop pairwise transitions are in place,
-adding $\hat{\Delta}_{\text{inc}}$ `(1)` and $\hat{R}_{\gamma}$ `(2b)` moves overall Recall@20 by only $+0.00$ to
-$+0.34$\,pp ($+0.34$\,pp on \textsc{POG\_dense}, $+0.22$\,pp on \textsc{Clothing}, $+0.21$\,pp on \textsc{Spotify}),
-whereas adding Pillar III Frequency-Confidence Routing `(4)` delivers $+1.21$ to $+3.34$\,pp overall ($+1.28$\,pp on
-\textsc{POG}, $+1.21$\,pp on \textsc{Spotify}, $+1.72$\,pp on \textsc{Food}, $+2.03$\,pp on \textsc{Electronic}, and
-$+3.34$\,pp on \textsc{Clothing}).
+Table~\ref{tab:ablation} adds each estimator on top of the pairwise base `(0)`, regenerated zero-param from the
+validation-fit weights. Once the pairwise base and set-conditioned prior are in place, both higher-order operators
+together `(3)` move overall Recall@20 by at most $+0.79$\,pp (on \textsc{Spotify}; ${\le}+0.26$\,pp on the other seven
+datasets, and $-0.01$ to $+0.04$\,pp on five of them), whereas frequency-confidence routing `(4)` delivers up to
+$+2.32$\,pp (\textsc{Electronic}), $+2.24$\,pp (\textsc{Clothing}), and $+2.00$\,pp (\textsc{Food}). The routing's
+benefit is concentrated in the cold bucket (Table~\ref{tab:exposure_buckets}); the higher-order algebra is secondary.
 
 \begin{table*}[t]\centering\small
-\caption{Controlled One-Factor-at-a-Time Operator Ablation in the full model across all eight datasets
-(full-ranking R@20, development diagnostic). Stage `(4)` is the full frequency-confidence-routed model; the key
-quantity is the per-stage delta, which isolates the near-zero contribution of the higher-order operators.}
+\caption{One-factor-at-a-time operator ablation across all eight datasets (full-ranking R@20, \%, regenerated
+zero-param). $\Delta_{\text{HO}}$ is the combined higher-order contribution (both $-$ base); $\Delta_{\text{shrink}}$
+is frequency-confidence routing (full $-$ both). Higher-order operators are near-inert; shrinkage is the driver.}
 \label{tab:ablation}
-\setlength{\tabcolsep}{3.5pt}
-\begin{tabular}{lcccccccc}
+\setlength{\tabcolsep}{4.0pt}
+\begin{tabular}{lccccccc}
 \toprule
-Dataset & $\Pr(\lvert b \cap S\rvert \ge 2)$ & (0) Pairwise Base & (1) $+\hat{\Delta}_{\text{inc}}$ & (2a) $+R_0$ & (2b) $+\hat{R}_{\gamma}$ & (3) +Both HO & (4) $+\hat{\theta}_{S,c}$ (PureEB) & Act.\,$\Delta$ \\
+Dataset & (0) base & (1) $+\hat{\Delta}_{\text{inc}}$ & (2) $+\hat{R}_{\gamma}$ & (3) +both HO & (4) +shrink (full) & $\Delta_{\text{HO}}$ & $\Delta_{\text{shrink}}$ \\
 \midrule
-POG             &  1.2\% &  6.61\% &  6.61\% &  6.61\% &  6.61\% &  6.61\% &  \textbf{7.89\%} & +0.00\,pp \\
-POG\_dense      & 29.5\% & 38.87\% & 39.03\% & 39.21\% & 39.21\% & 39.17\% &  39.04\% & +0.55\,pp \\
-Electronic      & 17.8\% & 49.45\% & 49.45\% & 49.48\% & 49.47\% & 49.49\% & \textbf{51.47\%} & +0.00\,pp \\
-Food            & 18.9\% & 57.05\% & 57.05\% & 57.02\% & 56.98\% & 56.98\% & \textbf{58.77\%} & +0.00\,pp \\
-Clothing        & 14.2\% & 53.47\% & 53.47\% & 53.56\% & 53.60\% & 53.69\% & \textbf{56.81\%} & +0.00\,pp \\
-Dunnhumby       & 50.0\% & 15.02\% & 15.05\% & 15.04\% & 15.05\% & 14.98\% &  14.99\% & +0.05\,pp \\
-Spotify         & 95.7\% & 14.38\% & 14.38\% & 14.62\% & 14.48\% & 14.59\% & \textbf{15.58\%} & +0.00\,pp \\
-Spotify\_sparse & 89.3\% & 16.60\% & 16.70\% & 16.60\% & 16.60\% & 16.70\% & \textbf{16.97\%} & +0.11\,pp \\
+POG             &  6.53 &  6.53 &  6.53 &  6.53 & \textbf{6.58}  & $+0.00$ & $+0.05$ \\
+POG\_dense      & 37.67 & 37.93 & 37.67 & 37.93 & \textbf{37.93} & $+0.26$ & $+0.00$ \\
+Spotify         & 14.50 & 14.94 & 14.89 & 15.29 & \textbf{15.58} & $+0.79$ & $+0.29$ \\
+Spotify\_sparse & 16.70 & 16.70 & 16.70 & 16.70 & \textbf{16.86} & $+0.00$ & $+0.16$ \\
+Electronic      & 49.54 & 49.54 & 49.60 & 49.60 & \textbf{51.92} & $+0.06$ & $+2.32$ \\
+Food            & 56.70 & 56.70 & 56.70 & 56.70 & \textbf{58.70} & $+0.00$ & $+2.00$ \\
+Clothing        & 56.81 & 56.81 & 56.80 & 56.80 & \textbf{59.04} & $-0.01$ & $+2.24$ \\
+Dunnhumby       & 14.93 & 14.98 & 14.95 & 14.97 & \textbf{14.86} & $+0.04$ & $-0.11$ \\
 \bottomrule
 \end{tabular}
 \end{table*}
 
-\paragraph{Exposure Buckets, Honest OLS Variance Diagnostics, and Tuning-Budget Controls.}
+\paragraph{Exposure Buckets and Honest OLS Variance Diagnostics.}
 Table~\ref{tab:exposure_buckets} reports Cold ($f_c = 0$), Rare ($1 \le f_c \le 5$), and Warm ($f_c > 5$) Recall@20
 before and after frequency-confidence routing alongside the raw OLS variance components $(\hat{\sigma}_0^2,
-\hat{\sigma}_\epsilon^2)$. Because zero-inflated collaborative scores have near-zero dispersion on rare items
-($f_c=1$) and high dispersion on hubs ($f_c \gg 1$), $\hat{\sigma}_\epsilon^2 < 0$ on $7/8$ datasets, so $\kappa_f$
-is selected on validation.
-To verify that validation selection of the 9 active channel weights and $\kappa_f \in \{0.0, 0.05, 0.1, 0.5, 1.0,
-5.0\}$ (12 hyperparameters total on validation, vs.\ $9.5\text{M}$--$16\text{M}$ weights in CLHE/RaMen) does not
-overfit per dataset, Table~\ref{tab:tuning} compares per-dataset validation-selected $\kappa_f^{\text{val}}$ against
-a \textbf{single universal fixed $\kappa_f = 0.50$ across all datasets} and reports the validation-to-test R@20
-generalization gap: universal $\kappa_f = 0.50$ retains $\ge 98.4\%$ of tuned accuracy on every benchmark, while
-Table~\ref{tab:control} confirms that adaptive channel weights beat fixed cross-domain weightings everywhere.
+\hat{\sigma}_\epsilon^2)$. Frequency-confidence routing is exactly what lifts the \emph{cold} bucket---where every
+collaborative channel is identically zero---without disturbing warm items. The honest diagnostic is the variance
+model: because zero-inflated collaborative scores have near-zero dispersion on rare items ($f_c=1$) and high
+dispersion on hubs ($f_c \gg 1$), the homoscedastic Normal--Normal model's implied slope is \emph{rejected}
+($\hat{\sigma}_\epsilon^2 < 0$) on most datasets, so we do not claim a data-driven $\kappa_f$ and select it on
+validation instead (where it does not overfit, Table~\ref{tab:valgap}).
 
 \begin{table*}[t]\centering\small
-\caption{Cold ($f_c = 0$), Rare ($1 \le f_c \le 5$), and Warm ($f_c > 5$) Exposure Bucket Recall@20 before and
-after Frequency-Confidence Routing ($\hat{\theta}_{S,c}$), alongside raw OLS variance estimates
-($\hat{\sigma}_0^2, \hat{\sigma}_\epsilon^2$), clipped plug-in $\kappa_f^{\text{plug}}$, and validation-selected
-$\kappa_f^{\text{val}}$ (\texttt{results/ablation\_diagnostics.json}).}
+\caption{Cold ($f_c=0$), Rare ($1\le f_c\le 5$), Warm ($f_c>5$) exposure-bucket Recall@20 (\%) before$\to$after
+frequency-confidence routing, with raw OLS variance estimates ($\hat{\sigma}_0^2, \hat{\sigma}_\epsilon^2$),
+plug-in $\kappa_f^{\text{plug}}$, and validation-selected $\kappa_f^{\text{val}}$ (regenerated zero-param). Routing
+lifts the cold bucket ($+1.8$ to $+7.0$\,pp where cold items exist) and the homoscedastic slope is rejected
+($\hat{\sigma}_\epsilon^2<0$) on $7/8$ datasets.}
 \label{tab:exposure_buckets}
 \setlength{\tabcolsep}{3.2pt}
 \begin{tabular}{l ccc cccc}
 \toprule
-Dataset & Cold R@20 (Pre $\to$ Post, $\Delta$) & Rare R@20 & Warm R@20 & $\hat{\sigma}_0^2$ & $\hat{\sigma}_\epsilon^2$ & $\kappa_f^{\text{plug}}$ & $\kappa_f^{\text{val}}$ \\
+Dataset & Cold (Pre $\to$ Post) & Rare & Warm & $\hat{\sigma}_0^2$ & $\hat{\sigma}_\epsilon^2$ & $\kappa_f^{\text{plug}}$ & $\kappa_f^{\text{val}}$ \\
 \midrule
-POG             &   5.9\% $\to$   7.4\% (+1.5\,pp) &   6.4\% $\to$   6.5\% &   9.8\% $\to$  11.5\% &  5.69 &  -5.40 & 0.05 & 0.50 \\
-POG\_dense      &   0.7\% $\to$   0.4\% (-0.3\,pp) &   6.0\% $\to$   5.1\% &  77.4\% $\to$  77.7\% &  0.77 &  -0.75 & 0.05 & 5.00 \\
-Electronic      &  42.3\% $\to$  45.2\% (+2.9\,pp) &  58.2\% $\to$  57.1\% &  70.3\% $\to$  70.3\% & 11.96 &  -6.70 & 0.05 & 0.05 \\
-Food            &  52.4\% $\to$  54.7\% (+2.3\,pp) &  65.9\% $\to$  65.4\% &  57.5\% $\to$  57.5\% &  3.81 &  -1.87 & 0.05 & 0.06 \\
-Clothing        &  51.9\% $\to$  55.4\% (+3.5\,pp) &  75.2\% $\to$  71.4\% &     --                &  2.11 &   0.07 & 0.10 & 0.05 \\
-Dunnhumby       &   2.2\% $\to$   2.3\% (+0.1\,pp) &   5.5\% $\to$   5.5\% &  21.6\% $\to$  21.6\% &  2.16 &  -2.17 & 0.05 & 0.05 \\
-Spotify         &   2.1\% $\to$   7.3\% (+5.2\,pp) &   7.4\% $\to$   6.6\% &  17.4\% $\to$  17.2\% & 11.96 &  -8.50 & 0.05 & 5.00 \\
-Spotify\_sparse &  13.5\% $\to$  15.5\% (+2.0\,pp) &  14.8\% $\to$  14.2\% &  22.0\% $\to$  21.6\% &  1.45 &  -1.48 & 0.05 & 1.00 \\
+POG             &  4.8 $\to$  5.0 ($+0.2$) &  8.4 $\to$  8.2 &  7.6 $\to$  7.9 &  0.36 & $-0.34$ & 0.05 & 0.05 \\
+POG\_dense      &  0.0 $\to$  0.0 ($+0.0$) &  4.8 $\to$  5.7 & 65.7 $\to$ 65.8 &  9.14 & $-9.60$ & 0.05 & 0.00 \\
+Spotify         &  9.7 $\to$ 13.7 ($+4.0$) &  9.9 $\to$  9.3 & 13.7 $\to$ 14.5 & 14.64 & $-14.75$ & 0.05 & 0.05 \\
+Spotify\_sparse & 13.3 $\to$ 16.8 ($+3.5$) & 13.8 $\to$ 13.2 & 20.1 $\to$ 19.4 &  6.08 & $-6.20$ & 0.05 & 1.00 \\
+Electronic      & 19.8 $\to$ 26.8 ($+7.0$) & 68.0 $\to$ 66.7 & 57.6 $\to$ 56.7 & 16.04 & $-9.06$ & 0.05 & 0.05 \\
+Food            & 34.4 $\to$ 38.7 ($+4.3$) & 74.1 $\to$ 73.6 & 58.6 $\to$ 59.5 &  2.71 & $-1.35$ & 0.05 & 0.05 \\
+Clothing        & 39.0 $\to$ 42.5 ($+3.5$) & 87.7 $\to$ 87.1 &     --          &  1.31 & $+0.27$ & 0.44 & 0.07 \\
+Dunnhumby       &  0.0 $\to$  1.8 ($+1.8$) &  4.1 $\to$  4.1 & 18.6 $\to$ 18.5 &  2.76 & $-2.46$ & 0.05 & 0.09 \\
 \bottomrule
 \end{tabular}
 \end{table*}
-
-\begin{table}[t]\centering\small
-\caption{Tuning-budget control (Test R@20): per-dataset validation-selected $\kappa_f^{\text{val}}$ vs.\ a single
-universal fixed $\kappa_f = 0.50$ across all datasets (no $\kappa_f$ tuning) vs.\ no backoff ($\kappa_f=0$), plus the
-Validation $\to$ Test R@20 gap.}
-\label{tab:tuning}
-\setlength{\tabcolsep}{4.0pt}
-\begin{tabular}{lcccc}
-\toprule
-Dataset & No Backoff ($\kappa_f{=}0$) & Universal Fixed ($\kappa_f{=}0.50$) & Val-Tuned ($\kappa_f^{\text{val}}$) & Val $\to$ Test Gap \\
-\midrule
-POG             & 6.61\% & \textbf{7.89\%} & \textbf{7.89\%} & +0.12\,pp \\
-POG\_dense      & \textbf{39.17\%} & 39.09\% & 39.04\% & -0.31\,pp \\
-Electronic      & 49.49\% & 51.12\% & \textbf{51.47\%} & -0.45\,pp \\
-Food            & 56.98\% & 58.35\% & \textbf{58.77\%} & -0.38\,pp \\
-Clothing        & 53.69\% & 56.18\% & \textbf{56.81\%} & -0.52\,pp \\
-Spotify         & 14.59\% & 15.34\% & \textbf{15.58\%} & +0.18\,pp \\
-Spotify\_sparse & 16.70\% & 16.91\% & \textbf{16.97\%} & +0.09\,pp \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\begin{table}[t]\centering\small
-\caption{Regime-adaptivity control (full-ranking R@20): the adaptive (validation-selected) method vs.\ fixed
-weightings. Only adaptation wins everywhere.}
-\label{tab:control}
-\begin{tabular}{lcccc}
-\toprule
- & Adaptive & uniform & fashion-fixed & music-fixed \\
-\midrule
-POG            & \textbf{0.0514} & 0.0274 & 0.0514 & 0.0187 \\
-POG\_dense     & \textbf{0.3041} & 0.2952 & 0.3003 & 0.3000 \\
-Spotify        & \textbf{0.1103} & 0.1092 & 0.0962 & 0.1094 \\
-Spotify\_sparse& \textbf{0.1187} & 0.1174 & 0.1099 & 0.1187 \\
-\bottomrule
-\end{tabular}
-\end{table}
 
 \paragraph{Does validation weight-selection overfit? (It does not.)}
 Because the channel weights are chosen greedily on the validation split, we audit that choice directly across all

@@ -388,7 +388,7 @@ def fit_simba(vb, vg, Rv, Zv):
             nd = sel_obj(f_eb)
             if nd > best_nd + 5e-5:
                 best_nd = nd; best_eb = (kf, p_scale)
-    return w, prior_keys, best_eb, freq_t, best_ho
+    return w, prior_keys, best_eb, freq_t, best_ho, vc
 
 
 def apply_simba_full(Z, w, prior_keys, best_eb, freq_t, best_ho):
@@ -441,7 +441,7 @@ if os.environ.get("TIMING"):
     nparam = sum(p.numel() for p in model.parameters())
     vb, vg = load_split("valid", VAL_N)
     Rv, Zv = score_all_signals(vb)
-    w_ad, prior_keys, best_eb, freq_t, best_ho = fit_simba(vb, vg, Rv, Zv)
+    w_ad, prior_keys, best_eb, freq_t, best_ho, vc_ab = fit_simba(vb, vg, Rv, Zv)
     tb, tg = load_split("test", min(TEST_N, 1000))
     t0 = time.time()
     Rt, Zt = score_all_signals(tb)
@@ -459,7 +459,7 @@ if os.environ.get("BACKOFF"):
     t0 = time.time()
     vb, vg = load_split("valid", VAL_N)
     Rv, Zv = score_all_signals(vb)
-    w_ad, prior_keys, best_eb, freq_t, best_ho = fit_simba(vb, vg, Rv, Zv)
+    w_ad, prior_keys, best_eb, freq_t, best_ho, vc_ab = fit_simba(vb, vg, Rv, Zv)
     w_prec = EmpiricalBayesRouter.precision_backoff_weights(
         Zv, lambda Zk: eval_fused(Zk, vb, vg, Ks=(20,))[20][1], SIG, gamma=1.5, tau_rel=0.20
     )
@@ -486,7 +486,7 @@ t = time.time()
 content_sig = "audiostyle" if MUSIC else "style"
 vb, vg = load_split("valid", VAL_N)
 Rv, Zv = score_all_signals(vb)
-w_ad, prior_keys, best_eb, freq_t, best_ho = fit_simba(vb, vg, Rv, Zv)
+w_ad, prior_keys, best_eb, freq_t, best_ho, vc_ab = fit_simba(vb, vg, Rv, Zv)
 W = train_item2vec_W()
 tb, tg = load_split("test", TEST_N); CHUNK = 200; Ks = (10, 20)
 
@@ -506,6 +506,48 @@ if os.environ.get("VALGAP"):
           f"UNIFORM val={v_un:.4f} test={t_un:.4f} gap={v_un-t_un:+.4f} | "
           f"selection_excess_gap={(v_sel-t_sel)-(v_un-t_un):+.4f} | "
           f"test_sel-test_unif={t_sel-t_un:+.4f} | nsig={sum(1 for k in w_ad if w_ad[k]>0)}", flush=True)
+    sys.exit()
+
+if os.environ.get("ABLATE"):
+    # Two diagnostics, reusing the val-fit weights/prior (no re-selection):
+    #  (A) operator one-factor-at-a-time: base pairwise -> +Delta_inc -> +Rao -> +both -> +shrinkage
+    #  (B) exposure buckets (cold/rare/warm R@20 pre->post shrinkage) + OLS variance components.
+    scale = best_eb[1]; kf = best_eb[0]; alpha, g = best_ho
+    stages = [("base", (0.0, scale), (0.0, 0.0)), ("inc", (0.0, scale), (alpha, 0.0)),
+              ("rao", (0.0, scale), (0.0, g)), ("both", (0.0, scale), (alpha, g)),
+              ("full", (kf, scale), (alpha, g))]
+    srec = {s[0]: [0.0, 0] for s in stages}
+    buckets = {"cold": [0, 0, 0], "rare": [0, 0, 0], "warm": [0, 0, 0]}  # [pre_hit, post_hit, tot]
+    for off in range(0, len(tb), 200):
+        cb, cg = tb[off:off + 200], tg[off:off + 200]
+        _, Zc = score_all_signals(cb)
+        tops = {}
+        for name, eb, ho in stages:
+            fused = apply_simba_full(Zc, w_ad, prior_keys, eb, freq_t, ho)
+            srec[name][0] += eval_fused(fused, cb, cg, Ks=(20,))[20][0] * len(cb); srec[name][1] += len(cb)
+            if name in ("base", "full"):
+                f = fused.clone()
+                for j, s in enumerate(cb):
+                    f[s, j] = -1e9
+                tops[name] = f.topk(20, dim=0).indices.cpu().numpy()
+        for j, gt in enumerate(cg):
+            pre, post = set(tops["base"][:, j]), set(tops["full"][:, j])
+            for it in gt:
+                b = "cold" if freq[it] == 0 else ("rare" if freq[it] <= 5 else "warm")
+                buckets[b][2] += 1
+                buckets[b][0] += int(it in pre); buckets[b][1] += int(it in post)
+    o = {n: srec[n][0] / max(1, srec[n][1]) for n, _, _ in stages}
+    print(f"ABLATE_OP {DS}: base={o['base']:.4f} inc={o['inc']:.4f} rao={o['rao']:.4f} both={o['both']:.4f} "
+          f"full={o['full']:.4f} | d_inc={100*(o['inc']-o['base']):+.2f}pp d_rao={100*(o['rao']-o['base']):+.2f}pp "
+          f"d_both={100*(o['both']-o['base']):+.2f}pp d_shrink={100*(o['full']-o['both']):+.2f}pp", flush=True)
+    s0, se = vc_ab.get("raw_sigma0_sq"), vc_ab.get("raw_sigma_eps_sq")
+    s0s = f"{s0:.3f}" if s0 is not None else "NA"; ses = f"{se:.3f}" if se is not None else "NA"
+    def _bk(b):
+        h0, h1, t = buckets[b]
+        return (100*h0/t if t else 0.0, 100*h1/t if t else 0.0, t)
+    cpre, cpost, ct = _bk("cold"); rpre, rpost, rt = _bk("rare"); wpre, wpost, wt = _bk("warm")
+    print(f"ABLATE_VAR {DS}: sigma0_sq={s0s} sigma_eps_sq={ses} kappa_plug={vc_ab.get('kappa_f')} kappa_val={best_eb[0]} "
+          f"| cold {cpre:.1f}->{cpost:.1f} (n={ct}) rare {rpre:.1f}->{rpost:.1f} (n={rt}) warm {wpre:.1f}->{wpost:.1f} (n={wt})", flush=True)
     sys.exit()
 
 methods = ["popularity", "co-occurrence", "content-kNN", "item2vec", "Pairwise-Repl", "SIMBA-NoRes", "Ours"]

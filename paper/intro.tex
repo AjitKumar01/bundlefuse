@@ -61,9 +61,9 @@ benchmark \textsc{BundleFuse} matches or beats it (\S\ref{sec:costbenefit}).
   absent from any public release: it cannot be independently reproduced or ablated, our own public-image recovery
   ($39\%$ coverage) does not reproduce it, and on every fully public benchmark RaMen does not beat us
   (\S\ref{sec:control}--\S\ref{sec:retail}).
-  \item \textbf{Protocol critique of multiple-choice and 100-candidate diffusion benchmarks.} While acknowledging
+  \item \textbf{Protocol critique of 100-candidate diffusion benchmarks.} While acknowledging
   that DDBC~\cite{ddbc} is a generative sampler rather than a full-catalogue ranker, we show that on DDBC's own
   $100$-candidate evaluation harness even parameter-free co-occurrence beats the reported diffusion scores by up to
-  $3.6\times$, and multiple-choice HR@1 overstates coarse category signals ${\sim}100\times$ (\S\ref{sec:ddbc},
-  \S\ref{sec:diagnosis}).
+  $3.6\times$, indicating that small random-negative pools overstate progress relative to full-catalogue ranking
+  (\S\ref{sec:ddbc}).
 \end{itemize}

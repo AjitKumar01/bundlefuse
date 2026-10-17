@@ -1,0 +1,17 @@
+ABLATE_OP pog: base=0.0653 inc=0.0653 rao=0.0653 both=0.0653 full=0.0658 | d_inc=+0.00pp d_rao=+0.00pp d_both=+0.00pp d_shrink=+0.05pp
+ABLATE_VAR pog: sigma0_sq=0.356 sigma_eps_sq=-0.340 kappa_plug=0.05 kappa_val=0.05 | cold 4.8->5.0 (n=2893) rare 8.4->8.2 (n=1508) warm 7.6->7.9 (n=458)
+ABLATE_OP pog_dense: base=0.3767 inc=0.3793 rao=0.3767 both=0.3793 full=0.3793 | d_inc=+0.26pp d_rao=+0.00pp d_both=+0.26pp d_shrink=+0.00pp
+ABLATE_VAR pog_dense: sigma0_sq=9.138 sigma_eps_sq=-9.604 kappa_plug=0.05 kappa_val=0.0 | cold 0.0->0.0 (n=1107) rare 4.8->5.7 (n=1049) warm 65.7->65.8 (n=2556)
+ABLATE_OP spotify_sparse: base=0.1670 inc=0.1670 rao=0.1670 both=0.1670 full=0.1686 | d_inc=+0.00pp d_rao=+0.00pp d_both=+0.00pp d_shrink=+0.16pp
+ABLATE_VAR spotify_sparse: sigma0_sq=6.081 sigma_eps_sq=-6.195 kappa_plug=0.05 kappa_val=1.0 | cold 13.3->16.8 (n=15229) rare 13.8->13.2 (n=17328) warm 20.1->19.4 (n=20111)
+ABLATE_OP spotify: base=0.1450 inc=0.1494 rao=0.1489 both=0.1529 full=0.1558 | d_inc=+0.44pp d_rao=+0.39pp d_both=+0.79pp d_shrink=+0.29pp
+ABLATE_VAR spotify: sigma0_sq=14.643 sigma_eps_sq=-14.746 kappa_plug=0.05 kappa_val=0.05 | cold 9.7->13.7 (n=13639) rare 9.9->9.3 (n=18347) warm 13.7->14.5 (n=65003)
+ABLATE_OP electronic: base=0.4954 inc=0.4954 rao=0.4960 both=0.4960 full=0.5192 | d_inc=+0.00pp d_rao=+0.06pp d_both=+0.06pp d_shrink=+2.32pp
+ABLATE_VAR electronic: sigma0_sq=16.038 sigma_eps_sq=-9.060 kappa_plug=0.050 kappa_val=0.050 | cold 19.8->26.8 (n=1240) rare 68.0->66.7 (n=1443) warm 57.6->56.7 (n=217)
+ABLATE_OP food: base=0.5670 inc=0.5670 rao=0.5670 both=0.5670 full=0.5870 | d_inc=+0.00pp d_rao=+0.00pp d_both=+0.00pp d_shrink=+2.00pp
+ABLATE_VAR food: sigma0_sq=2.713 sigma_eps_sq=-1.351 kappa_plug=0.050 kappa_val=0.050 | cold 34.4->38.7 (n=1397) rare 74.1->73.6 (n=1505) warm 58.6->59.5 (n=111)
+ABLATE_OP clothing: base=0.5681 inc=0.5681 rao=0.5680 both=0.5680 full=0.5904 | d_inc=+0.00pp d_rao=-0.01pp d_both=-0.01pp d_shrink=+2.24pp
+ABLATE_VAR clothing: sigma0_sq=1.305 sigma_eps_sq=0.273 kappa_plug=0.438 kappa_val=0.070 | cold 39.0->42.5 (n=1837) rare 87.7->87.1 (n=1036) warm 100.0->100.0 (n=1)
+ABLATE_OP dunnhumby: base=0.1493 inc=0.1498 rao=0.1495 both=0.1497 full=0.1486 | d_inc=+0.04pp d_rao=+0.02pp d_both=+0.04pp d_shrink=-0.11pp
+ABLATE_VAR dunnhumby: sigma0_sq=2.761 sigma_eps_sq=-2.456 kappa_plug=0.050 kappa_val=0.090 | cold 0.0->1.8 (n=849) rare 4.1->4.1 (n=9831) warm 18.6->18.5 (n=28111)
+ABLATE_ALL_DONE

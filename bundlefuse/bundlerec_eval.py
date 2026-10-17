@@ -353,6 +353,9 @@ METH = ["popularity", "co-occurrence", "content-kNN", "item2vec", "Pairwise-Repl
 agg = {m: {10: ([], []), 20: ([], [])} for m in METH}
 VALGAP = os.environ.get("VALGAP")  # validation->test generalization gap of greedy weight selection
 vg_rows = []
+AB = os.environ.get("ABLATE")  # operator OFAT ablation + exposure-bucket / variance-component diagnostics
+ab_op, ab_vc = [], []
+ab_bk = {"cold": [0, 0, 0], "rare": [0, 0, 0], "warm": [0, 0, 0]}  # [pre_hit, post_hit, tot]
 for sd in range(SEEDS):
     order = list(range(len(bundles_all))); random.Random(sd).shuffle(order)
     allb = [bundles_all[i] for i in order]; allk = [bkeys_all[i] for i in order]
@@ -436,6 +439,27 @@ for sd in range(SEEDS):
         if nd > best + 1e-4:
             best = nd; best_kf = kf_cand
 
+    if AB:
+        alpha, g = best_ho; scale = frozen_prior_scale
+        st = {"base": build_Y(Zt, (0.0, 0.0)), "inc": build_Y(Zt, (alpha, 0.0)), "rao": build_Y(Zt, (0.0, g)),
+              "both": build_Y(Zt, (alpha, g)), "full": apply_eb(Zt, best_ho, best_kf, scale)}
+        ab_op.append({k: eval_mat(v, tset, Ks=(20,))[20][0] for k, v in st.items()})
+        ab_vc.append((vc.get("raw_sigma0_sq"), vc.get("raw_sigma_eps_sq"), vc.get("kappa_f"), best_kf))
+        for nm, F_mat in (("pre", st["base"]), ("post", st["full"])):
+            F = np.asarray(F_mat) + np.random.default_rng(0).random((n, len(tset))).astype(np.float32) * 1e-6
+            for j, (s, _) in enumerate(tset):
+                F[s, j] = -1e9
+            top = np.argpartition(-F, 20, axis=0)[:20]
+            for j, (_, gt) in enumerate(tset):
+                col = set(top[:, j])
+                for it in gt:
+                    b = "cold" if freq[it] == 0 else ("rare" if freq[it] <= 5 else "warm")
+                    if nm == "pre":
+                        ab_bk[b][2] += 1; ab_bk[b][0] += int(it in col)
+                    else:
+                        ab_bk[b][1] += int(it in col)
+        continue
+
     pop_mat = zcols(np.tile(freq[:, None], (1, len(tset))))
     cnt_mat = zcols(np.stack([CONTENT @ CONTENT[s].mean(0) for s, _ in tset], 1))
     i2v_mat = zcols(np.stack([W @ W[s].mean(0) for s, _ in tset], 1))
@@ -451,6 +475,22 @@ for sd in range(SEEDS):
     for m in METH:
         for K2 in (10, 20):
             agg[m][K2][0].append(res[m][K2][0]); agg[m][K2][1].append(res[m][K2][1])
+
+if AB:
+    o = {k: float(np.mean([r[k] for r in ab_op])) for k in ("base", "inc", "rao", "both", "full")}
+    print(f"ABLATE_OP {DS}: base={o['base']:.4f} inc={o['inc']:.4f} rao={o['rao']:.4f} both={o['both']:.4f} "
+          f"full={o['full']:.4f} | d_inc={100*(o['inc']-o['base']):+.2f}pp d_rao={100*(o['rao']-o['base']):+.2f}pp "
+          f"d_both={100*(o['both']-o['base']):+.2f}pp d_shrink={100*(o['full']-o['both']):+.2f}pp", flush=True)
+    s0v = [x[0] for x in ab_vc if x[0] is not None]; sev = [x[1] for x in ab_vc if x[1] is not None]
+    s0s = f"{np.mean(s0v):.3f}" if s0v else "NA"; ses = f"{np.mean(sev):.3f}" if sev else "NA"
+    kpl = float(np.mean([x[2] for x in ab_vc])); kva = float(np.mean([x[3] for x in ab_vc]))
+    def _bk(b):
+        h0, h1, t = ab_bk[b]
+        return (100*h0/t if t else 0.0, 100*h1/t if t else 0.0, t)
+    cpre, cpost, ct = _bk("cold"); rpre, rpost, rt = _bk("rare"); wpre, wpost, wt = _bk("warm")
+    print(f"ABLATE_VAR {DS}: sigma0_sq={s0s} sigma_eps_sq={ses} kappa_plug={kpl:.3f} kappa_val={kva:.3f} "
+          f"| cold {cpre:.1f}->{cpost:.1f} (n={ct}) rare {rpre:.1f}->{rpost:.1f} (n={rt}) warm {wpre:.1f}->{wpost:.1f} (n={wt})", flush=True)
+    sys.exit()
 
 if VALGAP:
     import numpy as _np

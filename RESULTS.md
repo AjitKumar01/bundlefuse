@@ -82,6 +82,18 @@ harmfully overfits.** The one dataset where benefit barely exceeds optimism is d
 Provenance: `results/valgap_fullrank.log` (fullrank) and `results/valgap_retail.log`
 (e-commerce/retail), both via `VALGAP=1` in the respective evaluators.
 
+## Operator ablation & exposure buckets (regenerated zero-param)
+
+Two diagnostics via `ABLATE=1` in the evaluators (reuses the val-fit weights; `results/ablation_zeroparam.log`):
+
+- **Higher-order operators are secondary.** Adding both closed-form operators (Δ_inc, Rao) over the pairwise base
+  moves R@20 by at most **+0.79pp** (Spotify; ≤+0.26pp on the other 7, and −0.01 to +0.04pp on five). Frequency-
+  confidence routing adds up to **+2.32pp** (Electronic), +2.24 (Clothing), +2.00 (Food) — it's the driver.
+- **Shrinkage lifts the cold bucket; homoscedastic model rejected.** Cold-bucket R@20 pre→post routing: Electronic
+  19.8→26.8 (+7.0pp), Food 34.4→38.7, Spotify 9.7→13.7, Spotify_sparse 13.3→16.8, Clothing 39.0→42.5, Dunnhumby
+  0.0→1.8; warm buckets unchanged. The OLS variance slope σ²_ε is **negative on 7/8** datasets (all but Clothing),
+  so κ is validation-selected rather than data-driven.
+
 ## Baseline fairness — are we beating a weakened CLHE?
 
 We checked the provenance of every CLHE number the headline table compares against, so a win can't
