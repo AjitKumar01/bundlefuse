@@ -19,3 +19,9 @@ results/*.csv
 
 # derived CLIP feature caches (regenerate via scripts/clip_embed.py)
 *.npz
+
+# LaTeX build artifacts (keep main.pdf)
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.toc

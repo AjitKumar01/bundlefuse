@@ -1,0 +1,69 @@
+\section{Introduction}
+\label{sec:intro}
+Bundle construction---completing a partial bundle with items that belong together---underlies ``complete the
+look / playlist / kit'' features across fashion, music, and e-commerce. State-of-the-art methods chase it with
+increasingly heavy machinery: fine-tuned 7B multimodal LLMs (Bundle-MLLM~\cite{bundlemllm}), GPU-trained
+multimodal / hypergraph encoders (CLHE~\cite{clhe}, RaMen~\cite{ramen}), and most recently a discrete-diffusion
+generator (DDBC~\cite{ddbc}). Yet these lineages never compare against each other---RaMen reports no LLM
+baseline, Bundle-MLLM no hypergraph---and none asks the \emph{cost} question: what does the heavy machinery
+actually buy over a cheap, closed-form, task-specific method, and in which regime? The field also reports easy
+protocols (multiple-choice HR@1 with random negatives; small fixed candidate pools) without decomposing
+\emph{where} performance comes from.
+
+We present \textbf{\textsc{BundleFuse}}, an accelerator-free method whose scoring core has \emph{zero trainable
+parameters}, built around a simple thesis: \emph{in bundle completion, accuracy on public features is governed by
+constructing a rich set-conditioned cold-start prior $\mu_0(c\mid S)$ and routing between collaborative co-occurrence
+and $\mu_0(c\mid S)$ by item exposure---not by deep hypergraph message passing}.
+Unlike standard user--item cold-start shrinkage~\cite{bell2007,agarwal2009}, which backs off to a static scalar item
+bias, a bundle query $S \subset b$ imposes simultaneous slot-complementarity, style-coherence, and self-exclusion
+constraints. \textsc{BundleFuse} constructs $\mu_0(c\mid S)$ from two complementary mechanisms---(i)~a
+\textbf{Dual-Spectrum Taxonomic \& Slot-Exclusion Prior} (\S\ref{sec:ontology-method}) that separates off-diagonal
+category complementarity $P_{\text{cat}}$~\cite{mcauley}, signed on-diagonal slot-saturation penalties $s_{\text{slot}}$,
+and soft fuzzy sub-type clusters $M_{\text{soft}}P_s$ from on-diagonal homophily $P_{\text{homo}}$, and (ii)~\textbf{Category-Disentangled
+Bilateral Graph-Bridged Representations} (\S\ref{sec:bridge-method}) that residualize category centroids from item
+content ($\tilde{x}_i = x_i - \bar{x}_{\text{cat}(i)}$) and diffuse style across the bipartite bundle graph (an
+optional ${\le}0.30$M contrastive set-encoder can be fused in but is off by default; \S\ref{sec:results} shows it is
+not needed)---and fuses them with collaborative co-occurrence via (iii)~\textbf{Validation-Frozen
+Frequency-Confidence Routing} $\hat{\theta}_{S,c} = (1 - u_c)Y(c\mid S) + u_c\mu_0(c\mid S)$ ($u_c =
+\kappa_f / (f_c + \kappa_f)$, \S\ref{sec:eb}). We also formulate two closed-form higher-order collaborative
+operators---Simplicial Hyperedge Incidence Surplus ($\hat{\Delta}_{\text{inc}}$)~\cite{benson2018,lee2024} and
+Rao-Weighted Quadratic Concordance ($\hat{R}_{\gamma}$)~\cite{rendle2010,blondel2016,rao1982}---as diagnostic
+instruments (\S\ref{sec:incidence}--\S\ref{sec:concordance}).
+
+With a \textbf{zero-parameter scoring core and no accelerator}, \textsc{BundleFuse} is the \emph{strongest
+public-feature method on $5$ of $8$ benchmarks}. Under the discriminative full-ranking protocol it beats CLHE and the
+GPU-trained RaMen on \textsc{POG} (${\sim}1.7\times$ R@20), on \textsc{Spotify}, and on \textsc{Spotify\_sparse}, and
+wins on \textsc{Clothing} and \textsc{Dunnhumby}; it \emph{ties} the $9.5$M-parameter CLHE encoder on
+\textsc{POG\_dense} and beats CLHE's published numbers on \textsc{Electronic} and \textsc{Food}. Every result is
+reported with cross-seed error bars. It loses only to RaMen on the two e-commerce sets---and we show this is a
+\emph{data-availability asymmetry}, not a modelling one: RaMen's e-commerce data (including its visual features) is in
+no public release, so its margin can be neither independently reproduced nor ablated, while on every fully public
+benchmark \textsc{BundleFuse} matches or beats it (\S\ref{sec:costbenefit}).
+
+\paragraph{Contributions.}
+\begin{itemize}\itemsep1pt
+  \item \textbf{A zero-parameter set-conditioned cold-start prior and frequency-confidence router.}
+  We show that constructing $\mu_0(c\mid S)$ via dual-spectrum taxonomy (off-diagonal complementarity, signed
+  slot-exclusion, soft sub-types) and category-disentangled bilateral graph bridging, coupled with validation-frozen
+  frequency backoff $u_c = \kappa_f / (f_c + \kappa_f)$, beats or matches heavy GPU/LLM/diffusion bundle models
+  across eight datasets with a closed-form, zero-parameter core and zero accelerator; a head-to-head shows the
+  optional contrastive encoder is unnecessary (\S\ref{sec:method}, \S\ref{sec:results}--\S\ref{sec:cost}).
+  \item \textbf{Diagnostic negative results on higher-order operators and homoscedastic EB variance models.}
+  We show that once our set-conditioned prior and two-hop pairwise transitions are in place, explicit $(k\ge 3)$-way
+  incidence ($\hat{\Delta}_{\text{inc}}$) and second-order Rao concordance ($\hat{R}_{\gamma}$) add only $+0.00$ to
+  $+0.34$\,pp, while zero-inflated collaborative dispersion causes homoscedastic OLS variance estimation on $1/f_c$
+  to yield negative slopes on $7/8$ datasets---justifying direct validation selection (or a universal fixed
+  $\kappa_f = 0.5$ that retains $>98\%$ of peak accuracy) (\S\ref{sec:incidence}--\S\ref{sec:eb}, \S\ref{sec:control}).
+  \item \textbf{A predictive regime law and an honest e-commerce attribution across 8 datasets / 4 domains.} From a
+  dataset's training-fold cold-target rate $\pi_{\text{cold}}$ and intra-bundle category duplication rate
+  $\bar{\delta}_{\text{dup}}$ alone, we predict \emph{a priori} which signal spectrum dominates and when
+  \textsc{BundleFuse} beats heavy encoders. On e-commerce we show RaMen's reported margin rests on visual features
+  absent from any public release: it cannot be independently reproduced or ablated, our own public-image recovery
+  ($39\%$ coverage) does not reproduce it, and on every fully public benchmark RaMen does not beat us
+  (\S\ref{sec:control}--\S\ref{sec:retail}).
+  \item \textbf{Protocol critique of multiple-choice and 100-candidate diffusion benchmarks.} While acknowledging
+  that DDBC~\cite{ddbc} is a generative sampler rather than a full-catalogue ranker, we show that on DDBC's own
+  $100$-candidate evaluation harness even parameter-free co-occurrence beats the reported diffusion scores by up to
+  $3.6\times$, and multiple-choice HR@1 overstates coarse category signals ${\sim}100\times$ (\S\ref{sec:ddbc},
+  \S\ref{sec:diagnosis}).
+\end{itemize}

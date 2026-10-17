@@ -79,4 +79,8 @@ the full zero-parameter matrix (with error bars), the encoder on/off head-to-hea
 the validation-selection overfitting probe (negative — selection generalizes), and the multimodal-image
 experiment (honest negative result). Remaining open tasks are listed there and in MANIFEST.md.
 
+The write-up lives in **[`paper/`](paper/)** (`main.tex`; `pdflatex main.tex` → `main.pdf`). It is the honest
+BundleFuse paper — zero-parameter framing, regenerated tables with error bars, the documented negatives, the
+CLHE baseline-fairness accounting, and the RaMen data-availability analysis — with every SIMBA-era fabrication removed.
+
 Data lives one level up (`../BundleRec`, `../bundlemllm`, `../dunnhumby`) and is not vendored here.

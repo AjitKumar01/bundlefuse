@@ -1,0 +1,18 @@
+\section{Conclusion}
+\label{sec:conc}
+A zero-parameter, interpretable, accelerator-free method---used both as a competitor and as a diagnostic
+instrument---is the strongest public-feature approach to large-scale bundle completion on $5$ of $8$ benchmarks: it
+beats CLHE and RaMen on POG (${\sim}1.7\times$ R@20), on Spotify ($0.1562$ vs.\ $0.1091$), and on Spotify\_sparse
+($0.1653$ vs.\ $0.0969$), wins on Clothing and Dunnhumby, ties the $9.5$M-parameter CLHE encoder on POG\_dense,
+beats CLHE's published numbers on Electronic and Food, absorbs personalization on retail, and---on the newest
+diffusion SOTA's own protocol---is matched even by a parameter-free co-occurrence baseline, exposing that reported
+gains there are a protocol artifact. Its only shortfall is against RaMen on the two e-commerce sets, and we show this
+is a data-availability asymmetry: RaMen's e-commerce data and visual features are in no public release, so its margin
+is neither independently reproducible nor ablatable, and our own $39\%$-coverage public-image recovery does not close
+it. We report the negatives in the open---inert higher-order operators, a rejected homoscedastic variance model,
+an unhelpful image signal, and no gain from $k$-fold selection---and verify that validation weight-selection does not
+overfit on any dataset. The message is not ``cheap always wins,'' but the more useful one: \emph{a method that fits
+the regime is competitive with heavy GPU/diffusion/LLM machinery wherever the comparison is actually checkable---know
+your regime, and spend heavy compute only where it provably buys something.} A natural next step is to turn the
+closed-form score into a \emph{calibrated} decision model---emitting thresholdable membership probabilities via a
+proper-scoring-rule fit---so a recommender can act automatically above a confidence level and abstain below it.

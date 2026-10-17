@@ -1,0 +1,51 @@
+\section{Related Work}
+\label{sec:related}
+
+\paragraph{Bundle construction.}
+Modern bundle completion relies predominantly on heavy parameterized architectures: CLHE~\cite{clhe} fuses
+multimodal features with item-level user feedback via a contrastive hierarchical encoder; RaMen~\cite{ramen}
+adds explicit/implicit strategy learning over a hypergraph on frozen BLIP~\cite{blip} features;
+Bundle-MLLM~\cite{bundlemllm} fine-tunes a 7B multimodal LLM; and DDBC~\cite{ddbc} (ICLR'26) generates items
+with a masked discrete-diffusion decoder on top of frozen CLHE embeddings, evaluating on a $100$-candidate pool
+with set-level metrics rather than full-catalogue ranking. Datasets and the completion protocol follow
+POG~\cite{pog}, the Spotify RecSys challenge~\cite{spotify}, and the intent-aware BundleRec
+release~\cite{bundlerec}. Despite their computational cost, these heavy lineages rarely compare across the
+LLM / hypergraph / diffusion divide or against a fast closed-form reference---and, as we demonstrate, reported
+margins on small candidate pools can be protocol artifacts.
+
+\paragraph{Higher-order hypergraphs, factorization machines, and functional diversity.}
+The mathematical building blocks of \textsc{BundleFuse}'s multi-seed operators draw on established results in
+hypergraph mining, polynomial interaction models, and theoretical ecology. In network science, Benson et
+al.~\cite{benson2018} showed that projecting higher-order interactions onto a dyadic clique expansion
+($C = B^{\!\top}B$) destroys multi-way simplicial closure, motivating simplicial complexes~\cite{ebli2020},
+nonlinear hypergraph diffusion~\cite{prokopchik2022}, and analyses of clique-expansion information
+loss~\cite{lee2024}. Rather than training a parameterized message-passing network, \textsc{BundleFuse} formulates a
+training-free, query-conditioned simplicial incidence surplus ($\hat{\Delta}_{\text{inc}}$) for bundle
+completion and characterizes its exact empirical activation boundary $\Pr(\exists b : \lvert b \cap S\rvert \ge 2)$,
+explaining why pure higher-order co-occurrence rarely activates on sparse e-commerce bundles. When exact
+multi-seed hyperedge overlap is absent, second-order pairwise interactions across seeds can be evaluated in
+$O(\lvert S\rvert)$ time via Newton's elementary symmetric identity $2e_2(w) = (\sum w_s)^2 - \sum w_s^2$, the
+foundational algebraic trick of Factorization Machines~\cite{rendle2010} and Higher-Order Factorization Machines
+(HOFM)~\cite{blondel2016}. To prevent redundant query seeds from inflating second-order agreement, and building
+on the distinction between substitutable and complementary products~\cite{mcauley}, \textsc{BundleFuse} weights the
+$e_2$ interaction term by Rao's quadratic entropy~\cite{rao1982} ($\hat{R}_{\gamma}$), coupling degree-1
+homogeneous candidate support with functional seed diversity.
+
+\paragraph{Empirical Bayes shrinkage and cold-start priors.}
+Shrinking noisy collaborative estimates toward a baseline or metadata prior via inverse exposure weights
+$u(f_c) = \kappa_f / (f_c + \kappa_f)$ dates back to classical Empirical Bayes interpolation in the Netflix
+Prize (Bell \& Koren~\cite{bell2007}) and cold-start regression-based latent factor models (RLFM, Agarwal \&
+Chen~\cite{agarwal2009}). \textsc{BundleFuse} adapts conjugate Normal--Normal Empirical Bayes shrinkage
+($\hat{\theta}_{S,c}$) to bundle construction, introducing validation-frozen prior scaling (ensuring strict
+test-batch invariance) and constrained OLS variance-component estimation on $1/f_c$ to route smoothly between
+higher-order collaborative evidence on warm items and zero-shot taxonomic/content priors on cold items.
+
+\paragraph{Minimalist closed-form recommenders vs.\ heavy neural SOTA.}
+A classic line of inquiry asks when neural complexity genuinely pays off in recommendation: Dacrema et
+al.~\cite{dacrema} showed that well-tuned simple baselines match deep neural recommenders, and Steck~\cite{steck2019}
+demonstrated that closed-form linear operators (EASE) often outperform deep autoencoders on sparse interaction
+data. \textsc{BundleFuse} brings this minimalist, closed-form philosophy to \emph{bundle construction}: while each
+individual algebraic primitive builds on classical hypergraph, FM, diversity, and Empirical Bayes foundations,
+their synthesis into an identifiable three-operator pipeline ($\le 0.30$M parameters in its optional contrastive
+channel, zero accelerator) outperforms or matches GPU/LLM/diffusion bundle models across eight datasets and
+diagnoses where heavy pretrained capacity retains an irreducible edge.
