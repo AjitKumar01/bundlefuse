@@ -37,9 +37,9 @@ wins on \textsc{Clothing} and \textsc{Dunnhumby}; it \emph{ties} the $9.5$M-para
 \textsc{POG\_dense} and beats CLHE's published numbers on \textsc{Electronic} and \textsc{Food}. It is also the best
 public-feature method against the full transformer/GNN baseline suite (Bi-LSTM, Trans, TransCL, GAT, HyperGraph) and
 beats the standard closed-form baseline EASE by $1.6$--$2.2\times$ (\S\ref{sec:suite}). Every result is
-reported with cross-seed error bars. It loses only to RaMen on the two e-commerce sets---and we show this is a
-\emph{data-availability asymmetry}, not a modelling one: RaMen's e-commerce data (including its visual features) is in
-no public release, so its margin can be neither independently reproduced nor ablated, while on every fully public
+reported with cross-seed error bars. It loses only to RaMen on the two dense e-commerce sets---and, using RaMen's own
+ablation, we trace that gap to its learned multi-hop collaborative encoder (whose removal drops RaMen \emph{below}
+\textsc{BundleFuse}), \emph{not} to its product images (whose removal barely moves it); on every fully public
 benchmark \textsc{BundleFuse} matches or beats it (\S\ref{sec:costbenefit}).
 
 \paragraph{Contributions.}
@@ -59,10 +59,11 @@ benchmark \textsc{BundleFuse} matches or beats it (\S\ref{sec:costbenefit}).
   \item \textbf{A predictive regime law and an honest e-commerce attribution across 8 datasets / 4 domains.} From a
   dataset's training-fold cold-target rate $\pi_{\text{cold}}$ and intra-bundle category duplication rate
   $\bar{\delta}_{\text{dup}}$ alone, we predict \emph{a priori} which signal spectrum dominates and when
-  \textsc{BundleFuse} beats heavy encoders. On e-commerce we show RaMen's reported margin rests on visual features
-  absent from any public release: it cannot be independently reproduced or ablated, our own public-image recovery
-  ($39\%$ coverage) does not reproduce it, and on every fully public benchmark RaMen does not beat us
-  (\S\ref{sec:control}--\S\ref{sec:retail}).
+  \textsc{BundleFuse} beats heavy encoders. Where it loses---dense e-commerce---we attribute the gap, from RaMen's
+  own ablation, to its learned multi-hop collaborative encoder (removing it drops RaMen below us) rather than to the
+  product images (removing those barely moves it; our own $39\%$-coverage public-image recovery also does not help
+  us); the same ablation confirms our regime law, as content/first-order signal dominates on the sparse datasets
+  where we win (\S\ref{sec:control}--\S\ref{sec:retail}).
   \item \textbf{Protocol critique of 100-candidate diffusion benchmarks.} While acknowledging
   that DDBC~\cite{ddbc} is a generative sampler rather than a full-catalogue ranker, we show that on DDBC's own
   $100$-candidate evaluation harness even parameter-free co-occurrence beats the reported diffusion scores by up to

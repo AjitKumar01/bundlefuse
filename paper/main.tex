@@ -29,9 +29,9 @@ not needed.) Running in tens of seconds on a single CPU core, \textsc{BundleFuse
 public-feature method on $5$ of $8$ benchmarks}---beating CLHE and RaMen on POG (${\sim}1.7\times$ R@20) and on
 Spotify, Spotify\_sparse, Clothing, and Dunnhumby---\textbf{ties} the $9.5$M-parameter CLHE encoder on POG\_dense,
 and beats CLHE's published numbers on Electronic and Food; all $8$ datasets are reported with cross-seed error bars.
-It loses only to RaMen on the two e-commerce sets, and we show this is a \emph{data-availability asymmetry}, not a
-modelling one: RaMen's e-commerce data (including its visual features) is in no public release, so its margin cannot
-be independently reproduced or ablated, whereas on every fully public benchmark we match or beat it. We report our
+It loses only to RaMen on the two dense e-commerce sets, and---using RaMen's own ablation---we trace that gap to its
+learned multi-hop collaborative encoder (removing it drops RaMen \emph{below} us), \emph{not} to the product images
+(removing those barely moves it); on every fully public benchmark we match or beat RaMen. We report our
 negative results in the open: explicit higher-order collaborative operators
 ($\hat{\Delta}_{\text{inc}}, \hat{R}_{\gamma}$) add only $+0.00$ to $+0.34$\,pp once the cold-start prior is in place;
 public product images recovered at $39\%$ coverage do not close the RaMen gap; and $k$-fold weight selection does not

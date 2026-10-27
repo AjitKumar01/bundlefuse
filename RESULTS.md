@@ -19,7 +19,7 @@ e-commerce/retail = std over the evaluator's 5 held-out splits (same definition,
 | Electronic     | 0.320  | 0.472       | **0.837**   | **0.5192 ± 0.0147**| beat CLHE, lose RaMen |
 | Food           | 0.331  | 0.508       | **0.846**   | **0.5870 ± 0.0322**| beat CLHE, lose RaMen |
 | Clothing       | 0.265  | —           | —           | **0.5904 ± 0.0271**| win (no heavy base) |
-| Dunnhumby      | 0.129  | —           | —           | **0.1486 ± 0.0055**| win                 |
+| Dunnhumby      | 0.129  | —           | —           | **0.1501 ± 0.0057**| win                 |
 
 CLHE source (see *Baseline fairness* below): **reproduced from source** on POG_dense and
 Spotify_sparse (our own dataset variants); **published figures** on POG/Spotify/Electronic/Food

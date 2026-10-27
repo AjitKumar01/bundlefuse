@@ -463,7 +463,7 @@ for sd in range(SEEDS):
         mu_0 = raw_prior * float(p_scale)
         return EmpiricalBayesRouter.conjugate_posterior(Y, mu_0, freq, kf)
 
-    best_kf = vc["kappa_f"]
+    best_kf = 0.0  # honest null: apply shrinkage only if a candidate beats no-shrinkage on validation
     for kf_cand in EmpiricalBayesRouter.shrinkage_candidates(vc, [0.0, 0.1, 0.5, vc["kappa_f"], 2.0]):
         nd = eval_mat(apply_eb(Zv, best_ho, kf_cand, frozen_prior_scale), vset, Ks=(20,))[20][1]
         if nd > best + 1e-4:

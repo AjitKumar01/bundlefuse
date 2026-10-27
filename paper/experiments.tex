@@ -62,11 +62,11 @@ Table~\ref{tab:main} compares the zero-parameter \textsc{BundleFuse} against all
 benchmarks. It is the strongest public-feature method on $5$ of $8$: on \textsc{POG} it beats CLHE ($0.0284$) and
 RaMen ($0.0375$) by ${\sim}1.7\times$ ($0.0653 \pm 0.0035$ R@20); on \textsc{Spotify} it beats RaMen ($0.1091$) and
 CLHE ($0.1082$) with $0.1562 \pm 0.0033$; on \textsc{Spotify\_sparse} it reaches $0.1653 \pm 0.0042$ vs.\ CLHE's
-$0.0969$; and it wins on \textsc{Clothing} ($0.5904 \pm 0.0271$) and \textsc{Dunnhumby} ($0.1486 \pm 0.0055$). On
+$0.0969$; and it wins on \textsc{Clothing} ($0.5904 \pm 0.0271$) and \textsc{Dunnhumby} ($0.1501 \pm 0.0057$). On
 \textsc{POG\_dense} it \emph{ties} the $9.5$M-parameter CLHE encoder ($0.3737 \pm 0.0058$ vs.\ $0.3815$, within
 ${\sim}1.3$ std---CLHE nominally ahead). On \textsc{Electronic} and \textsc{Food} it beats CLHE's published numbers
-($0.5192 \pm 0.0147$ vs.\ $0.4721$; $0.5870 \pm 0.0322$ vs.\ $0.5077$) but trails RaMen, which we attribute to private
-images in \S\ref{sec:costbenefit}. Every win is several std clear of the baseline it beats. On the multiple-choice
+($0.5192 \pm 0.0147$ vs.\ $0.4721$; $0.5870 \pm 0.0322$ vs.\ $0.5077$) but trails RaMen on these two dense sets; we
+trace that gap to RaMen's learned collaborative encoder (not images) in \S\ref{sec:costbenefit}. Every win is several std clear of the baseline it beats. On the multiple-choice
 protocol (Table~\ref{tab:mc}), \textsc{BundleFuse} beats CLHE on $3/4$ large datasets and matches the fine-tuned 7B
 LLM on Spotify.
 
@@ -101,10 +101,10 @@ dataset & metric & pop. & cooc & cont. & i2v & CLHE & RaMen & \textbf{Ours ($0$-
                                 & N@20 & 0.0154 & 0.2423 & 0.1872 & 0.0547 & 0.3386 & \textbf{0.5242} & 0.4392 \\
 \midrule
 \multirow{2}{*}{Clothing}       & R@20 & 0.0043 & 0.2651 & 0.3253 & 0.0841 & --     & --     & \textbf{0.5904 $\pm$ 0.0271} \\
-                                & N@20 & 0.0020 & 0.2118 & 0.1894 & 0.0485 & --     & --     & \textbf{0.4583} \\
+                                & N@20 & 0.0020 & 0.2118 & 0.1894 & 0.0485 & --     & --     & \textbf{0.4578} \\
 \midrule
-\multirow{2}{*}{Dunnhumby}      & R@20 & 0.0747 & 0.1292 & 0.0289 & 0.0322 & --     & --     & \textbf{0.1486 $\pm$ 0.0055} \\
-                                & N@20 & 0.0552 & 0.0921 & 0.0148 & 0.0232 & --     & --     & \textbf{0.1069} \\
+\multirow{2}{*}{Dunnhumby}      & R@20 & 0.0747 & 0.1292 & 0.0289 & 0.0322 & --     & --     & \textbf{0.1501 $\pm$ 0.0057} \\
+                                & N@20 & 0.0552 & 0.0921 & 0.0148 & 0.0232 & --     & --     & \textbf{0.1075} \\
 \bottomrule
 \end{tabular}
 \end{table*}
@@ -131,8 +131,9 @@ To pre-empt the concern that we compare only against the two largest encoders, T
 HyperGraph model, a Transformer set-encoder (Trans) and its contrastive variant (TransCL), and graph attention
 (GAT)---on the four datasets they evaluate, and against \textbf{EASE}~\cite{steck2019}, the standard strong
 closed-form item--item baseline. Two points follow. (i)~Among public-feature methods, the zero-parameter
-\textsc{BundleFuse} is \emph{best on all four} settings, trailing only RaMen's private-image e-commerce scores; it
-beats every transformer/GNN baseline including the attention models Trans/TransCL/GAT. (ii)~EASE---the natural ``is it
+\textsc{BundleFuse} is \emph{best on all four} settings, trailing only RaMen on the two dense e-commerce sets
+(a learned-collaborative-encoder gap, \S\ref{sec:costbenefit}); it beats every transformer/GNN baseline including the
+attention models Trans/TransCL/GAT. (ii)~EASE---the natural ``is it
 just closed-form?'' control---lands within $0.001$--$0.006$ R@20 of plain co-occurrence wherever it is computable
 (Electronic $0.3253$, Food $0.3313$, Clothing $0.2656$; cf.\ co-occurrence $0.3199/0.3306/0.2651$), i.e.\
 $1.6$--$2.2\times$ below \textsc{BundleFuse}. This isolates our contribution as the \emph{construction} (taxonomic
@@ -145,7 +146,7 @@ limit, not an omission.
 \caption{Fuller baseline suite (full-ranking R@20). Transformer/GNN baselines (Bi-LSTM, HyperGraph, Trans, TransCL,
 GAT) and CLHE/RaMen are the published figures from RaMen~\cite{ramen} Table 2; EASE~\cite{steck2019} is run on our
 splits (``--'' where its $n\times n$ solve is intractable). Among public-feature methods \textsc{BundleFuse} is best
-on all four; RaMen leads on e-commerce only via private images (\S\ref{sec:costbenefit}).}
+on all four; RaMen leads on the dense e-commerce sets via its learned collaborative encoder (\S\ref{sec:costbenefit}).}
 \label{tab:suite}
 \setlength{\tabcolsep}{4.5pt}
 \begin{tabular}{lcccc}
@@ -159,7 +160,7 @@ TransCL           & 0.0202 & 0.1014 & 0.3050 & 0.3088 \\
 GAT               & 0.0208 & 0.0824 & 0.3943 & 0.2917 \\
 EASE              & --     & --     & 0.3253 & 0.3313 \\
 CLHE              & 0.0284 & 0.1081 & 0.4721 & 0.5077 \\
-RaMen (priv.\ img)& 0.0375 & 0.1091 & \textit{0.8371} & \textit{0.8459} \\
+RaMen              & 0.0375 & 0.1091 & \textit{0.8371} & \textit{0.8459} \\
 \textbf{Ours ($0$-param)} & \textbf{0.0653} & \textbf{0.1562} & \textbf{0.5192} & \textbf{0.5870} \\
 \bottomrule
 \end{tabular}
@@ -242,7 +243,7 @@ Spotify\_sparse & 16.70 & 16.70 & 16.70 & 16.70 & \textbf{16.86} & $+0.00$ & $+0
 Electronic      & 49.54 & 49.54 & 49.60 & 49.60 & \textbf{51.92} & $+0.06$ & $+2.32$ \\
 Food            & 56.70 & 56.70 & 56.70 & 56.70 & \textbf{58.70} & $+0.00$ & $+2.00$ \\
 Clothing        & 56.81 & 56.81 & 56.80 & 56.80 & \textbf{59.04} & $-0.01$ & $+2.24$ \\
-Dunnhumby       & 14.93 & 14.98 & 14.95 & 14.97 & \textbf{14.86} & $+0.04$ & $-0.11$ \\
+Dunnhumby       & 14.93 & 14.98 & 14.95 & 14.97 & \textbf{15.01} & $+0.04$ & $+0.04$ \\
 \bottomrule
 \end{tabular}
 \end{table*}
@@ -261,7 +262,7 @@ validation instead (where it does not overfit, Table~\ref{tab:valgap}).
 \caption{Cold ($f_c=0$), Rare ($1\le f_c\le 5$), Warm ($f_c>5$) exposure-bucket Recall@20 (\%) before$\to$after
 frequency-confidence routing, with raw OLS variance estimates ($\hat{\sigma}_0^2, \hat{\sigma}_\epsilon^2$),
 plug-in $\kappa_f^{\text{plug}}$, and validation-selected $\kappa_f^{\text{val}}$ (regenerated zero-param). Routing
-lifts the cold bucket ($+1.8$ to $+7.0$\,pp where cold items exist) and the homoscedastic slope is rejected
+lifts the cold bucket ($+0.2$ to $+7.0$\,pp where cold items exist) and the homoscedastic slope is rejected
 ($\hat{\sigma}_\epsilon^2<0$) on $7/8$ datasets.}
 \label{tab:exposure_buckets}
 \setlength{\tabcolsep}{3.2pt}
@@ -276,7 +277,7 @@ Spotify\_sparse & 13.3 $\to$ 16.8 ($+3.5$) & 13.8 $\to$ 13.2 & 20.1 $\to$ 19.4 &
 Electronic      & 19.8 $\to$ 26.8 ($+7.0$) & 68.0 $\to$ 66.7 & 57.6 $\to$ 56.7 & 16.04 & $-9.06$ & 0.05 & 0.05 \\
 Food            & 34.4 $\to$ 38.7 ($+4.3$) & 74.1 $\to$ 73.6 & 58.6 $\to$ 59.5 &  2.71 & $-1.35$ & 0.05 & 0.05 \\
 Clothing        & 39.0 $\to$ 42.5 ($+3.5$) & 87.7 $\to$ 87.1 &     --          &  1.31 & $+0.27$ & 0.44 & 0.07 \\
-Dunnhumby       &  0.0 $\to$  1.8 ($+1.8$) &  4.1 $\to$  4.1 & 18.6 $\to$ 18.5 &  2.76 & $-2.46$ & 0.05 & 0.09 \\
+Dunnhumby       &  0.0 $\to$  0.2 ($+0.2$) &  4.1 $\to$  4.2 & 18.6 $\to$ 18.7 &  2.76 & $-2.46$ & 0.05 & 0.05 \\
 \bottomrule
 \end{tabular}
 \end{table*}
@@ -348,35 +349,77 @@ $70\%$  & $49\%$ & $0.0648 \pm 0.0035$ & $0.0370 \pm 0.0022$ \\
   \label{fig:strat}
 \end{figure}
 
-\subsection{Where a heavy model wins---and why it is a data-availability asymmetry}
+\subsection{Where a heavy model wins---and why}
 \label{sec:costbenefit}
-The one regime where a baseline reports higher numbers is the small e-commerce sets (Table~\ref{tab:ecom}): with the
-released public title/category features, \textsc{BundleFuse} reaches $0.5192$ (Electronic), $0.5870$ (Food), and
-$0.5904$ (Clothing), beating CLHE's published numbers ($0.4721$ and $0.5077$). RaMen's published paper reports
-$\sim\!0.84$ on Electronic and Food, using product \emph{images that are not in the public release}: \textsc{Food} and
-\textsc{Clothing} ship \emph{no} image URLs at all, and \textsc{Electronic} provides URLs for only $13\%$ of items.
-We are careful here \emph{not} to assert an ablation we cannot run. The public bundle release
-(\texttt{xhLiu/BundleConstruction}) contains only \textsc{POG}, \textsc{POG\_dense}, \textsc{Spotify}, and
-\textsc{Spotify\_sparse}---\emph{no} e-commerce data---and RaMen's visual branch (\texttt{content\_feature.pt} in its
-public code) exists only for those image-free sets. Neither the raw images nor RaMen's precomputed visual features are
-obtainable for the datasets where it wins, so its $0.8371/0.8459$ are \textbf{paper-reported only and cannot be
-independently reproduced or ablated}. Two pieces of positive evidence nonetheless support the modality attribution.
-(i)~\emph{Where data is public, we reproduced RaMen and beat it}: on \textsc{POG} our RaMen reproduction reaches
-R@20 ${\approx}0.038$ (vs.\ our $0.0653$) and on \textsc{Spotify} ${\approx}0.109$ (vs.\ $0.1562$)---it is not special
-on any fully public benchmark. (ii)~\emph{Our own attempt to supply the missing modality failed honestly}: harvesting
-public Amazon images for \textsc{Electronic} reached $39\%$ coverage (1{,}364/3{,}499 items; Food/Clothing have no
-URLs), and late-fusing CLIP features did \emph{not} close the gap (R@20 $0.5141 \to 0.5028$). We therefore report the
-e-commerce gap as a data-availability asymmetry rather than a demonstrated modelling advantage, and we explicitly do
-not carry forward any ``RaMen-without-images'' number.
+\textsc{BundleFuse} loses to RaMen on the two dense e-commerce sets (Table~\ref{tab:ecom}): on the released public
+title/category features it reaches $0.5192$ (Electronic), $0.5870$ (Food), and $0.5904$ (Clothing), \emph{beating}
+the $9.5$M-parameter CLHE's published numbers ($0.4721$ and $0.5077$) but trailing RaMen's reported ${\sim}0.84$. We
+do not close this gap. Correcting an earlier framing of our own, we can now identify its cause precisely---from
+RaMen's \emph{own} ablation (its Table~3)---and it is \emph{not} the product images.
+
+\paragraph{The gap is a learned collaborative encoder, not modality.} RaMen's ablation removes each component in
+turn (Table~\ref{tab:ramen_abl}). Removing its \emph{visual} features costs only $\downarrow\!11.8\%$ (Electronic)
+/ $\downarrow\!6.0\%$ (Food), and removing \emph{text} $\downarrow\!10.2\%/4.1\%$; but removing its Collaborative
+Strategy Encoder (CbSE)---a three-layer multi-head graph-attention network that propagates learned item embeddings
+over the item--item co-occurrence graph---costs $\downarrow\!57.5\%/55.9\%$, roughly five times more than either
+modality. Two facts follow. (i)~RaMen \emph{without} its collaborative encoder scores $0.3560/0.3732$, \emph{below}
+our zero-parameter $0.5192/0.5870$: our co-occurrence + taxonomic + content fusion already outscores RaMen stripped
+of CbSE. (ii)~The entire residual gap from us to RaMen---$0.52\!\to\!0.74$ with images off, $\to\!0.84$ with them
+on---is that single learned-propagation component.
+
+\paragraph{What we structurally lack.} The missing capability is specific. Our collaborative term is
+\emph{first-order}: the co-occurrence matrix $C$ plus frequency-confidence shrinkage. CbSE applies three hops of
+\emph{learned, attention-weighted} propagation---effectively scoring against a trained function of $C, C^2, C^3$---so
+it links items that are complementary only \emph{transitively}, co-purchased through intermediaries they never
+co-occur with directly. It also \emph{learns} its item geometry against the completion objective, whereas our content
+term is a fixed cosine over frozen features and therefore rewards \emph{similarity} rather than learned
+complementarity. Both advantages are largest exactly where catalogues are small and dense (Electronic/Food:
+$n\!\approx\!3.5$--$4.5$K items, many bundles per item), the regime where a learned model has dense signal to fit and
+a parameter-free estimator has no extra structure left to exploit.
+
+\paragraph{The same ablation validates our regime claim.} On the \emph{sparse} datasets RaMen's dominant component
+flips: on \textsc{POG}, removing the content/characteristic encoder costs $\downarrow\!41.9\%$ and removing text
+$\downarrow\!21.9\%$, while the collaborative encoder costs only $\downarrow\!19.7\%$. That is precisely the regime
+where a content + first-order-co-occurrence method is competitive and \textsc{BundleFuse} in fact \emph{wins}
+(\textsc{POG} $0.0653$ vs.\ RaMen $0.0375$; \textsc{Spotify} $0.1562$ vs.\ $0.1091$). RaMen's own ablation therefore
+draws the same line our results do: learned higher-order collaborative structure dominates dense regimes (we lose),
+content plus first-order co-occurrence dominates sparse/long-bundle regimes (we win).
+
+\paragraph{Two honest caveats.} First, the comparison is \emph{indicative, not matched}: the public bundle release
+(\texttt{xhLiu/BundleConstruction}) contains no e-commerce data, so our Electronic/Food numbers are on the BundleRec
+split while RaMen's are on its own. The $0.52$-vs-$0.74$ decomposition should be read as a component attribution from
+RaMen's reported ablation, not a controlled re-run on identical data. Second, on the modality question we report only
+a clean negative result \emph{about our own model}: harvesting public Amazon images for \textsc{Electronic} reached
+$39\%$ coverage ($1{,}364/3{,}499$ items; Food/Clothing ship no URLs), and late-fusing CLIP features did not help
+\textsc{BundleFuse} (R@20 $0.5141\!\to\!0.5028$). We therefore make no claim that images explain RaMen's edge and
+carry no ``RaMen-without-images'' number of our own---the relevant figure is RaMen's \emph{published} image-free
+$0.7383/0.7951$, which still exceeds us for the architectural reason above.
+
+\begin{table}[t]\centering\small
+\caption{Decomposing RaMen's e-commerce lead from its \emph{own} ablation (full-ranking R@20; RaMen columns are
+RaMen~\cite{ramen} Table~3). Removing images (``w/o V'') barely moves RaMen; removing its collaborative encoder
+(``w/o CbSE'') drops it \emph{below} our zero-parameter method. The residual gap to RaMen is that learned multi-hop
+collaborative component, not modality. Comparison is cross-split (see text).}
+\label{tab:ramen_abl}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lccccc}
+\toprule
+ & \textbf{Ours ($0$p)} & RaMen w/o CbSE & RaMen w/o V & RaMen full & $\downarrow$CbSE \\
+\midrule
+Electronic & \textbf{0.5192} & 0.3560 & 0.7383 & 0.8371 & $57.5\%$ \\
+Food       & \textbf{0.5870} & 0.3732 & 0.7951 & 0.8459 & $55.9\%$ \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \begin{table}[t]\centering\small
 \caption{E-commerce (full-ranking R@20). On the same public text/category features, \textsc{BundleFuse} beats CLHE's
-published numbers. RaMen's higher figures use private Amazon images absent from the public release and are
-paper-reported only (not independently reproducible); we therefore do not claim a text-only RaMen ablation.}
+published numbers but trails RaMen; the gap is traced to RaMen's learned collaborative encoder, not modality
+(Table~\ref{tab:ramen_abl}). RaMen's figures are paper-reported.}
 \label{tab:ecom}
 \begin{tabular}{lccc}
 \toprule
-Dataset & CLHE (published) & \textbf{Ours (public, $0$-param)} & RaMen (private img, paper-only) \\
+Dataset & CLHE (published) & \textbf{Ours (public, $0$-param)} & RaMen (paper-only) \\
 \midrule
 Electronic & 0.4721 & \textbf{0.5192} & 0.8371 \\
 Food       & 0.5077 & \textbf{0.5870} & 0.8459 \\
