@@ -77,9 +77,13 @@ def regime():
 
 
 # ---------- Fig 3: accuracy vs compute (POG, full-ranking R@20) ----------
+EPS_PARAMS = 0.02  # log-axis sentinel for the zero-trainable-parameter closed-form core (labelled "0")
+
+
 def pareto():
-    # (params in millions [measured], R@20 on POG full-ranking, label, marker)
-    pts = [(0.30, 0.0788, "Ours", "o", "#c0392b"),
+    # (params in millions [measured], R@20 on POG full-ranking, label, marker). Ours is 0 trainable params
+    # (encoder off by default); it is drawn at a left-edge sentinel on the log axis and annotated "0 params".
+    pts = [(EPS_PARAMS, 0.0653, "Ours (0 params)", "o", "#c0392b"),
            (9.48, 0.0284, "CLHE", "s", "#2c7fb8"),
            (16.0, 0.0375, "RaMen", "^", "#31a354")]
     fig, ax = plt.subplots(figsize=(4.0, 2.7))
@@ -88,8 +92,8 @@ def pareto():
         ax.annotate(lab, (p, r), textcoords="offset points", xytext=(6, 5), fontsize=8)
     ax.set_xscale("log"); ax.set_xlabel("trainable parameters (millions, log)")
     ax.set_ylabel("POG  Recall@20  (full-ranking)")
-    ax.set_xlim(0.1, 40); ax.set_ylim(0.015, 0.095); ax.grid(alpha=0.3, lw=0.5)
-    ax.text(0.33, 0.083, "cheaper  &  better (0.0788 vs 0.0375)", fontsize=7.5, style="italic", color="#c0392b")
+    ax.set_xlim(0.012, 40); ax.set_ylim(0.015, 0.095); ax.grid(alpha=0.3, lw=0.5)
+    ax.text(0.016, 0.083, "0 params  &  better (0.0653 vs 0.0375)", fontsize=7.5, style="italic", color="#c0392b")
     fig.tight_layout(); fig.savefig(f"{OUT}/fig_pareto.pdf", bbox_inches="tight"); plt.close(fig)
 
 
@@ -116,16 +120,17 @@ def ddbc():
 # ---------- Fig 6: trainable-parameter comparison (measured) ----------
 def params():
     names = ["Ours", "DDBC", "CLHE", "RaMen", "Bundle-MLLM"]
-    pm = [0.30, 0.79, 9.5, 16.0, 7000.0]
+    pm = [EPS_PARAMS, 0.79, 9.5, 16.0, 7000.0]   # Ours = 0 trainable params; drawn at a log-axis sentinel, labelled "0"
+    labels = ["0", "0.79M", "9.5M", "16M", "7000M"]
     colors = ["#c0392b", "#8e8e8e", "#2c7fb8", "#31a354", "#b07cc6"]
     fig, ax = plt.subplots(figsize=(4.4, 2.3))
     y = np.arange(len(names))
     ax.barh(y, pm, color=colors, edgecolor="k", lw=0.5)
     ax.set_yticks(y); ax.set_yticklabels(names, fontsize=8); ax.invert_yaxis()
     ax.set_xscale("log"); ax.set_xlabel("trainable parameters (millions, log)")
-    for yi, v in zip(y, pm):
-        ax.text(v * 1.3, yi, f"{v:g}M", va="center", fontsize=7.5)
-    ax.set_xlim(0.1, 40000); ax.grid(axis="x", alpha=0.3, lw=0.5)
+    for yi, v, lab in zip(y, pm, labels):
+        ax.text(v * 1.3, yi, lab, va="center", fontsize=7.5)
+    ax.set_xlim(0.012, 40000); ax.grid(axis="x", alpha=0.3, lw=0.5)
     fig.tight_layout(); fig.savefig(f"{OUT}/fig_params.pdf", bbox_inches="tight"); plt.close(fig)
 
 

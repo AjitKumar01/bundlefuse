@@ -136,26 +136,22 @@ for POG/Spotify and treats those two CLHE numbers as published-only.
 the split and train CLHE ourselves, CLHE is reproduced faithfully (and on POG_dense is reported as
 beating us); elsewhere we compare against published CLHE.
 
-## K-fold CV weight selection does not help (negative result)
+## K-fold weight selection — claim RETRACTED (the `KFOLD` path is not genuine CV)
 
-We tried selecting all hyperparameters (fusion weights, higher-order `α`/`γ`, EB `κ`/`prior_scale`)
-by **5-fold cross-validation over the validation bundles** instead of a single full-validation
-objective (`KFOLD=5` in `fullrank_eval.py`; the selected config is still applied to test unchanged).
-A/B over 3 seeds:
+**Retraction (2026-10-27).** We previously reported that "5-fold CV weight selection does not beat
+single-split selection." That claim is withdrawn: the `KFOLD` implementation in `fullrank_eval.py`
+does **not** perform cross-validated selection. Its selection objective (`sel_obj`) partitions the
+validation *queries* (columns of a **fixed** fused matrix) into K folds and averages the per-fold
+NDCG@20 — it never re-fits the fusion weights on K−1 folds and evaluates on the held-out fold. For
+equal-sized folds the mean-of-fold-means equals the grand validation mean exactly, so the objective
+reduces to the single-split objective **by construction**. The tiny A/B differences we had reported
+(POG 0.0643 vs 0.0655; Spotify_sparse 0.1659 vs 0.1638) are just unequal-fold-weighting / seed noise,
+not a real cross-validation effect.
 
-| dataset        | single-val (mean ± std) | 5-fold CV (mean ± std) | Δ mean  |
-|----------------|-------------------------|------------------------|---------|
-| POG            | 0.0655 ± 0.0029         | 0.0643 ± 0.0073        | −0.0012 |
-| Spotify_sparse | 0.1638 ± 0.0034         | 0.1659 ± 0.0047        | +0.0021 |
-
-**Tie on the mean (both Δ within noise), and k-fold is strictly worse on stability** (seed-to-seed
-std ~1.4–2.5× larger). Reason: we already hold out a dedicated validation set, so foldizing it adds
-no data — it only makes each NDCG@20 estimate 5× noisier, and selecting on an average of noisier
-estimates yields less stable configs for zero mean gain. This independently reconfirms the VALGAP
-result (single-val selection already generalizes). **We keep single-val selection as the default**;
-`KFOLD` is retained off-by-default so the negative result stays reproducible.
-
-Provenance: `results/kfold_ab.log` (via `scripts/kfold_ab.py`).
+We therefore make **no** k-fold claim. The `KFOLD` flag stays off-by-default and is documented in code
+as query-partitioning only (not a train/held-out re-fit). A genuine rotating-fold selection (re-fit on
+K−1 folds, score the held-out fold) is left as future work; the VALGAP audit (above) remains our actual
+evidence that single-split selection generalizes.
 
 ## Multimodal images — honest negative result
 

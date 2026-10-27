@@ -22,7 +22,7 @@ ROOT = os.environ.get("DUNN_DIR") or os.path.join(REPO_ROOT, "dunnhumby")
 MASK_FRAC = float(os.environ.get("MASK_FRAC", "0.5")); SEEDS = int(os.environ.get("SEEDS", "5"))
 SPLIT_MODE = os.environ.get("SPLIT_MODE", "random")
 BASKET_CAP = int(os.environ.get("BASKET_CAP", "30000")); MIN_FREQ = 2
-ENCODER = os.environ.get("ENCODER", "1") != "0"  # ENCODER=0 => zero-param closed-form (drop the set-attention encoder)
+ENCODER = os.environ.get("ENCODER", "0") != "0"  # default off: zero-param closed-form. Set ENCODER=1 to add the optional set-attention encoder
 VAL_N, TEST_N = 800, 2000
 csv.field_size_limit(10**7)
 

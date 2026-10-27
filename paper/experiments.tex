@@ -290,10 +290,7 @@ shrinkage), the validation$\to$test drop of the \emph{selected} weights against 
 held-out test (\texttt{test(sel)$-$test(unif)}). The excess gap is ${\approx}0$ on the fullrank sets and small but
 positive on the smaller e-commerce/retail sets ($+0.003$ to $+0.018$ NDCG), yet in every case the test benefit of
 selection ($+0.005$ to $+0.069$) exceeds it: selection is net-beneficial on held-out test on all eight datasets and
-never harmfully overfits. We additionally find that \emph{$k$-fold} cross-validated weight selection does \emph{not}
-beat single-split selection (POG $0.0643\pm0.0073$ vs.\ $0.0655\pm0.0029$; Spotify\_sparse $0.1659\pm0.0047$ vs.\
-$0.1638\pm0.0034$)---a tie on the mean with larger variance, as expected when an already-held-out validation set is
-split further.
+never harmfully overfits.
 
 \begin{table}[t]\centering\small
 \caption{Generalization audit of greedy validation weight-selection (NDCG@20, fusion-only). \texttt{excess\_gap}

@@ -22,7 +22,7 @@ REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fi
 ROOT = os.environ.get("BR_DIR") or os.path.join(REPO_ROOT, "BundleRec", "dataset", DS)
 K = 20; MASK_FRAC = float(os.environ.get("MASK_FRAC", "0.5")); SEEDS = int(os.environ.get("SEEDS", "5"))
 USE_AUX = os.environ.get("NO_AUX", "0") != "1"
-ENCODER = os.environ.get("ENCODER", "1") != "0"  # ENCODER=0 => zero-param closed-form (drop the set-attention encoder)
+ENCODER = os.environ.get("ENCODER", "0") != "0"  # default off: zero-param closed-form. Set ENCODER=1 to add the optional set-attention encoder
 
 raw = defaultdict(list)
 with open(os.path.join(ROOT, "bundle_item.csv")) as f:

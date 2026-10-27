@@ -49,7 +49,7 @@ n = json.load(open(os.path.join(POG, "count.json")))["#I"]
 RAMEN = os.environ.get("RAMEN_SEED", "0")
 rseed = int(RAMEN)
 MASK_FRAC = float(os.environ.get("MASK_FRAC", "0.5"))
-ENCODER = os.environ.get("ENCODER", "1") != "0"  # ENCODER=0 => zero-param closed-form (drop the set-attention encoder)
+ENCODER = os.environ.get("ENCODER", "0") != "0"  # default off: zero-param closed-form. Set ENCODER=1 to add the optional set-attention encoder
 KFOLD = int(os.environ.get("KFOLD", "0"))  # >=2 => select hyperparameters by K-fold CV over the validation bundles
 if os.path.exists(os.path.join(POG, "bi_full.txt")):
     fullb = list(rb("bi_full.txt").values())
@@ -317,9 +317,11 @@ def fit_simba(vb, vg, Rv, Zv):
     """
     Z_pair_v = dict(Zv); Z_pair_v["simp"] = Zv["pair"]; Z_pair_v["diff2"] = Zv["diff2_pair"]
 
-    # Selection objective: NDCG@20 on the full validation set by default, or the mean across
-    # K folds of the validation bundles when KFOLD>=2 (textbook k-fold CV hyperparameter
-    # selection). Folds are a fixed, balanced interleave so selection stays deterministic.
+    # Selection objective: NDCG@20 on the full validation set by default. When KFOLD>=2 we partition
+    # the validation QUERIES into K folds and average the per-fold NDCG@20. NOTE: this is NOT genuine
+    # cross-validated selection -- the fusion weights are not re-fit on K-1 folds and scored on a
+    # held-out fold; for equal-sized folds the mean-of-fold-means equals the grand validation mean, so
+    # the objective reduces to the single-split objective by construction. Kept only as a diagnostic.
     if KFOLD >= 2 and len(vb) >= KFOLD:
         _perm = np.random.default_rng(0).permutation(len(vb))
         _folds = []
