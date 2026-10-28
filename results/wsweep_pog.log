@@ -1,0 +1,20 @@
+pog: 48676 items, 13991 duplicate-free train bundles, MUSIC=False
+pog WSWEEP start | cap=2000 bundles | catalogue n=48,676
+pog scoring validation (400 bundles)...
+pog fitting on validation (greedy weight select + EB)...
+pog fit done (10s). selected_w={'cat': 1.0, 'softcat': 0.25, 'style': 0.5, 'bridge': 0.25, 'simp': 0.25}
+pog scoring test (2000 bundles)...
+pog sweep:   0%|          | 0/11 [00:00<?, ?signal/s]pog wsweep cat          0.0447 0.0533 0.0587 0.0623 0.0629 0.0617 0.0594
+pog sweep:   9%|▉         | 1/11 [00:02<00:29,  2.94s/signal]pog wsweep softcat      0.0633 0.0629 0.0585 0.0513 0.0432 0.0317 0.0253
+pog sweep:  18%|█▊        | 2/11 [00:05<00:23,  2.59s/signal]pog wsweep style        0.0455 0.0587 0.0629 0.0612 0.0592 0.0517 0.0492
+pog sweep:  27%|██▋       | 3/11 [00:09<00:25,  3.16s/signal]pog wsweep imgstyle     0.0629 0.0577 0.0452 0.0412 0.0347 0.0238 0.0188
+pog sweep:  36%|███▋      | 4/11 [00:14<00:26,  3.84s/signal]pog wsweep bridge       0.0597 0.0629 0.0608 0.0574 0.0542 0.0497 0.0478
+pog sweep:  45%|████▌     | 5/11 [00:17<00:23,  3.85s/signal]pog wsweep simp         0.0522 0.0629 0.0622 0.0626 0.0626 0.0624 0.0619
+pog sweep:  55%|█████▍    | 6/11 [00:20<00:16,  3.38s/signal]pog wsweep diff2        0.0629 0.0577 0.0527 0.0527 0.0522 0.0522 0.0519
+pog sweep:  64%|██████▎   | 7/11 [00:25<00:15,  3.84s/signal]pog wsweep pop          0.0629 0.0560 0.0502 0.0432 0.0386 0.0350 0.0328
+pog sweep:  73%|███████▎  | 8/11 [00:30<00:13,  4.38s/signal]pog wsweep cooc         0.0629 0.0623 0.0622 0.0628 0.0628 0.0628 0.0636
+pog sweep:  82%|████████▏ | 9/11 [00:34<00:08,  4.17s/signal]pog wsweep ppmi         0.0629 0.0601 0.0593 0.0593 0.0588 0.0587 0.0587
+pog sweep:  91%|█████████ | 10/11 [00:38<00:04,  4.10s/signal]pog wsweep csvd         0.0629 0.0582 0.0537 0.0503 0.0477 0.0466 0.0458
+pog sweep: 100%|██████████| 11/11 [00:41<00:00,  3.93s/signal]pog sweep: 100%|██████████| 11/11 [00:41<00:00,  3.81s/signal]
+
+pog WSWEEP done (68s) -> /Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/results/wsweep_pog.json | selected R@20=0.0629

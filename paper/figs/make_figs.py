@@ -151,37 +151,44 @@ def stratified():
 
 
 # ---------- Fig 7: weight-sensitivity sweep, two regimes (POG vs Spotify) ----------
+# 100% measured: reads the JSON written by `WSWEEP=1 BUNDLE_DS=<ds> fullrank_eval.py`
+# (per-signal test Recall@20 with all other weights / higher-order / EB held at the selected values).
 def wsweep():
-    V = [0, 0.25, 0.5, 0.75, 1.0, 1.5, 2.0]
-    col = {"co-occurrence": "#1f77b4", "ontology": "#2ca02c", "content": "#ff7f0e",
-           "set-reasoner": "#9467bd", "PPMI": "#8c8c8c", "PPMI-SVD": "#d62728"}
-    ls = {"PPMI": "--", "PPMI-SVD": "--"}
-    pog = {
-        "ontology":      [0.052, 0.066, 0.075, 0.0788, 0.0785, 0.073, 0.069],
-        "content":       [0.035, 0.068, 0.0788, 0.076, 0.073, 0.071, 0.066],
-        "co-occurrence": [0.066, 0.0788, 0.0788, 0.0788, 0.0788, 0.0788, 0.0788],
-        "set-reasoner":  [0.077, 0.079, 0.0788, 0.0785, 0.0788, 0.074, 0.071],
-        "PPMI":          [0.0788, 0.0785, 0.0785, 0.0778, 0.0778, 0.0778, 0.0778],
-        "PPMI-SVD":      [0.0788, 0.0714, 0.0658, 0.0623, 0.0601, 0.0598, 0.0599]}
-    spo = {
-        "co-occurrence": [0.091, 0.165, 0.159, 0.152, 0.1486, 0.144, 0.141],
-        "PPMI":          [0.136, 0.139, 0.142, 0.146, 0.1486, 0.153, 0.158],
-        "PPMI-SVD":      [0.148, 0.148, 0.1485, 0.1486, 0.1486, 0.149, 0.150],
-        "ontology":      [0.1486, 0.1482, 0.1478, 0.1473, 0.1471, 0.1472, 0.1471],
-        "set-reasoner":  [0.1486, 0.1485, 0.1485, 0.1484, 0.1486, 0.1489, 0.1494],
-        "content":       [0.1482, 0.1483, 0.1480, 0.1482, 0.1486, 0.1486, 0.1486]}
-    fig, (a1, a2) = plt.subplots(1, 2, figsize=(7.4, 2.9))
-    for ax, data, sel, title in [(a1, pog, 0.0788, "POG (fashion): complementarity"),
-                                 (a2, spo, 0.1486, "Spotify (music): similarity")]:
-        for lab, y in data.items():
-            ax.plot(V, y, ls.get(lab, "-"), color=col[lab], marker="o", ms=3, lw=1.3, label=lab)
+    import json, os
+    RES = os.path.join(OUT, "..", "..", "results")
+    # readable labels for the real internal signal keys; curves with a flat zero contribution are dropped
+    LAB = {"cooc": "co-occurrence", "ppmi": "PPMI", "csvd": "PPMI-SVD", "cat": "taxonomy",
+           "softcat": "soft-taxonomy", "style": "content", "audiostyle": "content (audio)",
+           "imgstyle": "content (image)", "bridge": "content-bridge", "simp": "set-reasoner",
+           "diff2": "diff-of-2", "pop": "popularity", "homo": "artist/album"}
+    DASH = {"ppmi", "csvd", "softcat", "diff2"}
+    palette = ["#1f77b4", "#2ca02c", "#ff7f0e", "#9467bd", "#d62728", "#17becf",
+               "#8c8c8c", "#bcbd22", "#e377c2", "#7f7f7f", "#1b9e77"]
+
+    def panel(ax, path, title):
+        d = json.load(open(path))
+        V = d["grid"]; sel = d["selected_r20"]
+        # order curves by how much they move the score, keep the legend legible
+        items = [(k, y) for k, y in d["curves"].items() if any(v == v for v in y)]
+        items.sort(key=lambda kv: -(max(v for v in kv[1] if v == v) - min(v for v in kv[1] if v == v)))
+        for i, (k, y) in enumerate(items):
+            yy = [v if v == v else None for v in y]
+            ax.plot(V, yy, "--" if k in DASH else "-", color=palette[i % len(palette)],
+                    marker="o", ms=3, lw=1.3, label=LAB.get(k, k))
         ax.axhline(sel, ls=":", lw=0.8, color="#444")
         ax.set_title(title, fontsize=8.5); ax.set_xlabel("weight on one signal"); ax.grid(alpha=0.3, lw=0.5)
-    a1.set_ylabel("Recall@20"); a1.set_ylim(0.030, 0.088); a2.set_ylim(0.085, 0.170)
-    a1.legend(fontsize=6.6, frameon=False, ncol=2, loc="lower center")
-    fig.text(0.5, -0.03, "which signal matters flips by regime: ontology/content on fashion, co-occurrence on music",
-             ha="center", fontsize=6.6, style="italic", color="#444")
+        ax.legend(fontsize=6.0, frameon=False, ncol=2, loc="lower center")
+        return sel
+
+    fig, (a1, a2) = plt.subplots(1, 2, figsize=(7.4, 3.0))
+    s1 = panel(a1, f"{RES}/wsweep_pog.json", "POG (fashion): complementarity")
+    s2 = panel(a2, f"{RES}/wsweep_spotify.json", "Spotify (music): similarity")
+    a1.set_ylabel("Recall@20")
+    fig.text(0.5, -0.03, "which signal matters flips by regime: taxonomy/content on fashion, "
+             "co-occurrence/PPMI on music (dotted line = full model at selected weights)",
+             ha="center", fontsize=6.4, style="italic", color="#444")
     fig.tight_layout(); fig.savefig(f"{OUT}/fig_wsweep.pdf", bbox_inches="tight"); plt.close(fig)
+    print(f"  wsweep: POG selected R@20={s1:.4f}, Spotify selected R@20={s2:.4f} (measured)")
 
 
 framework(); regime(); pareto(); stratified(); ddbc(); params(); wsweep()

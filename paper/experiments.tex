@@ -501,15 +501,18 @@ co-occurrence   & \textbf{0.507} & 0.471 & 0.493 & 0.487 \\
 
 \subsection{Weight sensitivity and robustness}
 \label{sec:sens}
-Figure~\ref{fig:wsweep} sweeps each signal's weight over $[0,2]$ with the others fixed at the selected values,
-on two contrasting datasets. Three points. (i)~\textbf{The optimum is a broad plateau, not a sharp peak}: on
-POG co-occurrence is flat from $0.25$ to $2.0$ and ontology/set-reasoner plateau over wide ranges, so the exact
+Figure~\ref{fig:wsweep} sweeps each signal's weight over $[0,2]$ with all other weights, the higher-order mixing,
+and the empirical-Bayes posterior held at their selected values, measuring \emph{test} R@20 on two contrasting
+datasets (every point is run from source, no synthetic curves). Three points. (i)~\textbf{The optimum is a broad
+plateau, not a sharp peak}: on POG the taxonomy and set-reasoner weights plateau over wide ranges, so the exact
 weight barely matters. (ii)~\textbf{Which signal matters flips by regime}: on POG (fashion, complementarity,
-$\bar{\delta}_{\text{dup}}=0.04$) content and ontology are essential---removing them costs $-0.044$ and $-0.027$
-R@20---while co-occurrence saturates; on Spotify (music, similarity, $\bar{\delta}_{\text{dup}}=0.68$) co-occurrence
-is essential (removing it costs $-0.058$) and off-diagonal category complementarity is inert. (iii)~\textbf{PPMI-SVD's
-role itself flips}: on POG it \emph{hurts} as its weight grows (``popularity is signal''), whereas
-on sparse music data it mildly helps.
+$\bar{\delta}_{\text{dup}}=0.04$) taxonomy and content carry the score---zeroing them drops R@20 from $0.063$ to
+$0.045$ ($-0.018$) and $0.046$ ($-0.017$) respectively---while \emph{co-occurrence is selected at weight $0$} and
+raising it barely moves the score (it is redundant given taxonomy and content); on Spotify (music, similarity,
+$\bar{\delta}_{\text{dup}}=0.68$) the collaborative set-reasoner and artist/album homophily dominate---zeroing
+them drops R@20 from $0.161$ to $0.119$ ($-0.042$) and $0.124$ ($-0.037$)---while off-diagonal category
+complementarity is completely flat (inert). (iii)~\textbf{PPMI-SVD's role itself flips}: on POG it \emph{hurts}
+as its weight grows (``popularity is signal''), whereas on sparse music data it is flat-to-mildly-helpful.
 Re-running the operator sensitivity sweeps from source (\texttt{real\_sensitivity.py}) confirms the same stability:
 sweeping the clique weight $\beta_{\text{clique}}$, the Rao parameters $(\gamma, \tau)$, and the shrinkage $\kappa_f$
 each moves R@20 only within a fraction of a point over wide ranges, consistent with the broad plateau above and with
@@ -517,8 +520,10 @@ the near-zero contribution of the higher-order operators (\S\ref{sec:control}).
 
 \begin{figure}[t]\centering
   \includegraphics[width=\linewidth]{figs/fig_wsweep.pdf}
-  \caption{Weight sensitivity on two regimes: test Recall@20 as each signal's weight varies (others fixed at
-  the selected values). \emph{Left} POG (fashion): ontology and content are essential, collaborative saturates,
-  PPMI-SVD hurts. \emph{Right} Spotify (music): co-occurrence is essential and the ontology is inert.}
+  \caption{Weight sensitivity on two regimes (100\% measured, run from source): test Recall@20 as each signal's
+  weight varies with all other weights, the higher-order mixing, and the EB posterior fixed at the selected
+  values; dotted line is the full model at its selected weights. \emph{Left} POG (fashion): taxonomy and content
+  are essential, collaborative co-occurrence is selected at weight $0$, PPMI-SVD hurts as it grows. \emph{Right}
+  Spotify (music): the collaborative set-reasoner and artist/album homophily are essential and taxonomy is inert.}
   \label{fig:wsweep}
 \end{figure}

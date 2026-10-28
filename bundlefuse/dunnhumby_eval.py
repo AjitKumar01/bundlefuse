@@ -266,7 +266,7 @@ def mask(bundles, seed):
     return out
 
 
-def ease_test_scores(trb, vset, tset, n_items, lam_grid=(100.0, 250.0, 500.0, 1000.0)):
+def ease_test_scores(trb, vset, tset, n_items, lam_grid=(1.0, 10.0, 25.0, 50.0, 100.0, 250.0, 500.0, 1000.0)):
     """EASE closed-form item-item baseline (Steck WWW'19), lambda selected on val."""
     rows, cols = [], []
     for bi, b in enumerate(trb):

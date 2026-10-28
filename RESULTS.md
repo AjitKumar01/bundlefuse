@@ -28,8 +28,10 @@ published-only on Electronic/Food.
 
 **Summary:** strongest public-feature method on **5/8** (POG, Spotify, Spotify_sparse, Clothing,
 Dunnhumby), **ties** CLHE on POG_dense, and beats CLHE but loses to RaMen on the two e-commerce
-sets. RaMen's e-commerce edge is attributable to private Amazon product images (see below), not a
-better bundle model.
+sets. From RaMen's own ablation (Table 3), its e-commerce edge is attributable to its learned
+multi-hop collaborative encoder (CbSE) — removing it drops RaMen *below* us (0.356/0.373 vs our
+0.519/0.587) — **not** to its product images (removing those barely moves it, and our 39%-coverage
+public-image recovery does not help; see below).
 
 Provenance: `results/regen_zeroparam.log` (via `scripts/regen_zeroparam.py`).
 
@@ -87,7 +89,8 @@ Provenance: `results/valgap_fullrank.log` (fullrank) and `results/valgap_retail.
 - **Transformer/GNN baselines (published, RaMen Table 2):** on POG/Spotify/Electronic/Food, BundleFuse is the best
   public-feature method against Bi-LSTM, HyperGraph, Trans, TransCL, GAT, CLHE (R@20 POG 0.0653 vs best-other CLHE
   0.0284; Spotify 0.1562 vs 0.1081; Electronic 0.5192 vs CLHE 0.4721; Food 0.5870 vs 0.5077). Only RaMen's
-  private-image e-commerce scores (0.8371/0.8459) are higher.
+  full e-commerce scores (0.8371/0.8459) are higher — traced to its CbSE collaborative encoder,
+  not images (see the RaMen ablation decomposition below and the paper's `tab:ramen_abl`).
 - **EASE (closed-form control, run on our splits via `EASE=1`):** lands within 0.001–0.006 R@20 of plain
   co-occurrence everywhere computable — Electronic **0.3253** (co-occ 0.3199), Food **0.3313** (0.3306), Clothing
   **0.2656** (0.2651) — i.e. **1.6–2.2× below BundleFuse**. Confirms the win is the *construction*, not merely being

@@ -1,0 +1,19 @@
+spotify: 254155 items, 13991 duplicate-free train bundles, MUSIC=True
+spotify WSWEEP start | cap=500 bundles | catalogue n=254,155
+spotify scoring validation (400 bundles)...
+spotify fitting on validation (greedy weight select + EB)...
+spotify fit done (84s). selected_w={'simp': 1.5, 'pop': 1.5, 'ppmi': 0.5, 'homo': 1.5, 'audiostyle': 1.0, 'bridge': 1.5}
+spotify scoring test (500 bundles)...
+spotify sweep:   0%|          | 0/10 [00:00<?, ?signal/s]spotify wsweep simp         0.1194 0.1263 0.1342 0.1435 0.1516 0.1608 0.1644
+spotify sweep:  10%|█         | 1/10 [00:07<01:11,  7.91s/signal]spotify wsweep diff2        0.1608 0.1611 0.1613 0.1603 0.1603 0.1587 0.1559
+spotify sweep:  20%|██        | 2/10 [00:18<01:17,  9.74s/signal]spotify wsweep pop          0.1599 0.1604 0.1602 0.1601 0.1605 0.1608 0.1618
+spotify sweep:  30%|███       | 3/10 [00:26<01:00,  8.60s/signal]spotify wsweep cooc         0.1608 0.1626 0.1622 0.1614 0.1594 0.1543 0.1499
+spotify sweep:  40%|████      | 4/10 [00:33<00:47,  7.95s/signal]spotify wsweep ppmi         0.1603 0.1601 0.1608 0.1614 0.1618 0.1608 0.1613
+spotify sweep:  50%|█████     | 5/10 [00:36<00:32,  6.41s/signal]spotify wsweep csvd         0.1608 0.1610 0.1615 0.1615 0.1620 0.1613 0.1613
+spotify sweep:  60%|██████    | 6/10 [00:47<00:31,  7.91s/signal]spotify wsweep cat          0.1608 0.1608 0.1608 0.1604 0.1604 0.1608 0.1602
+spotify sweep:  70%|███████   | 7/10 [00:55<00:23,  7.79s/signal]spotify wsweep homo         0.1239 0.1348 0.1483 0.1585 0.1636 0.1608 0.1528
+spotify sweep:  80%|████████  | 8/10 [01:01<00:14,  7.24s/signal]spotify wsweep audiostyle   0.1612 0.1610 0.1608 0.1609 0.1608 0.1616 0.1611
+spotify sweep:  90%|█████████ | 9/10 [01:05<00:06,  6.31s/signal]spotify wsweep bridge       0.1605 0.1611 0.1611 0.1614 0.1610 0.1608 0.1617
+spotify sweep: 100%|██████████| 10/10 [01:09<00:00,  5.70s/signal]spotify sweep: 100%|██████████| 10/10 [01:09<00:00,  6.98s/signal]
+
+spotify WSWEEP done (201s) -> /Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/results/wsweep_spotify.json | selected R@20=0.1608

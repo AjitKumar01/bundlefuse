@@ -16,6 +16,9 @@ results/*.csv
 # canonical regenerated tables are version-controlled on purpose
 !results/matrix_zeroparam.csv
 !results/matrix_zeroparam.json
+# measured weight-sensitivity sweeps that back fig_wsweep (make_figs.py reads these)
+!results/wsweep_pog.json
+!results/wsweep_spotify.json
 
 # derived CLIP feature caches (regenerate via scripts/clip_embed.py)
 *.npz

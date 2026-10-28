@@ -488,6 +488,46 @@ if os.environ.get("BACKOFF"):
     sys.exit()
 
 
+if os.environ.get("WSWEEP"):
+    # Genuine per-signal weight sensitivity: fit on validation, then for each signal vary ONLY its
+    # fusion weight over a grid (all other weights, the higher-order mixing, and the EB posterior held
+    # at their selected values) and measure TEST Recall@20. 100% measured -- no synthetic curves.
+    from tqdm import tqdm
+    cap = int(os.environ.get("WSWEEP_CAP", "2000"))
+    t0 = time.time()
+    print(f"{DS} WSWEEP start | cap={cap} bundles | catalogue n={n:,}", flush=True)
+    vcap = int(os.environ.get("WSWEEP_VAL_CAP", str(cap)))
+    vb, vg = load_split("valid", min(VAL_N, vcap))
+    print(f"{DS} scoring validation ({len(vb)} bundles)...", flush=True)
+    Rv, Zv = score_all_signals(vb)
+    print(f"{DS} fitting on validation (greedy weight select + EB)...", flush=True)
+    w_ad, prior_keys, best_eb, freq_t, best_ho, _ = fit_simba(vb, vg, Rv, Zv)
+    print(f"{DS} fit done ({time.time()-t0:.0f}s). selected_w="
+          f"{ {k: round(w_ad.get(k,0.0),2) for k in SIG if w_ad.get(k,0)>0} }", flush=True)
+    tb, tg = load_split("test", TEST_N)
+    tb = tb[:min(len(tb), cap)]; tg = tg[:min(len(tg), cap)]
+    print(f"{DS} scoring test ({len(tb)} bundles)...", flush=True)
+    _, Zt = score_all_signals(tb)
+    grid = [0.0, 0.25, 0.5, 0.75, 1.0, 1.5, 2.0]
+    sel_r = eval_fused(apply_simba_full(Zt, w_ad, prior_keys, best_eb, freq_t, best_ho), tb, tg, Ks=(20,))[20][0]
+    out = {"dataset": DS, "grid": grid, "selected_r20": float(sel_r),
+           "selected_w": {k: float(w_ad.get(k, 0.0)) for k in SIG}, "curves": {}}
+    for k in tqdm(SIG, desc=f"{DS} sweep", unit="signal"):
+        ys = []
+        for v in grid:
+            w2 = dict(w_ad); w2[k] = v
+            if sum(w2.values()) == 0:
+                ys.append(float("nan")); continue
+            fused = apply_simba_full(Zt, w2, prior_keys, best_eb, freq_t, best_ho)
+            ys.append(float(eval_fused(fused, tb, tg, Ks=(20,))[20][0]))
+        out["curves"][k] = ys
+        print(f"{DS} wsweep {k:12s} " + " ".join(f"{y:.4f}" for y in ys), flush=True)
+    outp = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "results", f"wsweep_{DS}.json")
+    json.dump(out, open(outp, "w"), indent=2)
+    print(f"\n{DS} WSWEEP done ({time.time()-t0:.0f}s) -> {outp} | selected R@20={sel_r:.4f}", flush=True)
+    sys.exit()
+
+
 t = time.time()
 content_sig = "audiostyle" if MUSIC else "style"
 vb, vg = load_split("valid", VAL_N)

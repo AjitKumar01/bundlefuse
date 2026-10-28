@@ -348,7 +348,7 @@ def train_item2vec_br(train, dim=64, epochs=8, neg=5, bs=4096, maxpairs=3_000_00
     return W / (np.linalg.norm(W, axis=1, keepdims=True) + 1e-8)
 
 
-def ease_test_scores(trb, vset, tset, n_items, lam_grid=(100.0, 250.0, 500.0, 1000.0)):
+def ease_test_scores(trb, vset, tset, n_items, lam_grid=(1.0, 10.0, 25.0, 50.0, 100.0, 250.0, 500.0, 1000.0)):
     """EASE closed-form item-item baseline (Steck WWW'19), lambda selected on val.
     Train "interactions" = bundle-item incidence; score(c|S)=sum_{s in S} W[s,c]."""
     rows, cols = [], []
