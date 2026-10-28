@@ -607,6 +607,18 @@ if os.environ.get("BASELINES"):
             bk_nd, bk_hp, bk_best = nd, (tn,), tn
     _record("BundleKNN", bk_hp, _eval(_bkfn(bk_best), tb, tg), bk_nd)
 
+    # iALS (implicit-feedback ALS; trained item factors, closed-form fold-in)
+    def _ialsfn(Y, YtY, reg, al):
+        return lambda bundles: torch.tensor(BL.ials_scores(Y, YtY, bundles, reg=reg, alpha=al),
+                                            dtype=torch.float32, device=DEVICE)
+    ia_best, ia_nd = None, -1.0
+    for (reg, al) in tqdm(BL.IALS_GRID, desc=f"{DS} iALS", unit="hp"):
+        Y, YtY = BL.ials_item_factors(Bmat, reg=reg, alpha=al)
+        nd = _eval(_ialsfn(Y, YtY, reg, al), vb, vg)[20][1]
+        if nd > ia_nd:
+            ia_nd, ia_best = nd, (Y, YtY, reg, al)
+    _record("iALS", (ia_best[2], ia_best[3]), _eval(_ialsfn(*ia_best), tb, tg), ia_nd)
+
     # Validation-tuned linear combiner of the neighbourhood W's (max-normalized so scales are comparable),
     # greedy non-negative coordinate ascent -- a naive blend, the foil for BundleFuse's regime-aware fusion.
     cnames = [k for k in ("ItemKNN", "P3alpha", "RP3beta") if comp.get(k) is not None]

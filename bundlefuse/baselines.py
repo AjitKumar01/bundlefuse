@@ -143,6 +143,59 @@ SLIM_GRID = [(a, l) for a in (1e-4, 1e-3, 1e-2) for l in (0.01, 0.1, 0.5)]
 BUNDLEKNN_GRID = [(tn,) for tn in (25, 50, 100, 200)]
 
 
+def ials_item_factors(B, d=48, reg=10.0, alpha=40.0, iters=8, seed=0):
+    """Implicit-feedback ALS (Hu, Koren & Volinsky, ICDM'08), dependency-free. Treats train bundles as
+    the "users" and factorizes the binary bundle x item matrix B with confidence C = 1 + alpha*B.
+    Returns item factors Y (n x d) and YtY, for closed-form fold-in scoring of a query seed set."""
+    import numpy as _np
+    B = B.tocsr().astype(_np.float32)
+    m, n = B.shape
+    rng = _np.random.default_rng(seed)
+    X = (rng.standard_normal((m, d)) * 0.01).astype(_np.float32)   # bundle factors
+    Y = (rng.standard_normal((n, d)) * 0.01).astype(_np.float32)   # item factors
+    Bt = B.T.tocsr()
+    I = (reg * _np.eye(d)).astype(_np.float32)
+
+    def _solve_side(F, rows_of, G):
+        # G = F^T F precomputed; for each row r, solve (G + alpha * sum f f^T + reg I) z = (1+alpha) sum f
+        GtG = F.T @ F
+        out = _np.zeros((rows_of.shape[0], d), dtype=_np.float32)
+        for r in range(rows_of.shape[0]):
+            s, e = rows_of.indptr[r], rows_of.indptr[r + 1]
+            idx = rows_of.indices[s:e]
+            if idx.size == 0:
+                continue
+            Fi = F[idx]                                   # (k x d)
+            A = GtG + alpha * (Fi.T @ Fi) + I
+            b = (1.0 + alpha) * Fi.sum(0)
+            out[r] = _np.linalg.solve(A, b)
+        return out
+
+    for _ in range(iters):
+        X = _solve_side(Y, B, None)
+        Y = _solve_side(X, Bt, None)
+    return Y, (Y.T @ Y).astype(_np.float32)
+
+
+def ials_scores(Y, YtY, seed_lists, reg=10.0, alpha=40.0):
+    """Closed-form fold-in: x_S = (YtY + alpha * sum_{i in S} y_i y_i^T + reg I)^{-1} (1+alpha) sum y_i;
+    score(c | S) = x_S . y_c. Returns dense (n x nb)."""
+    import numpy as _np
+    d = Y.shape[1]
+    I = (reg * _np.eye(d)).astype(_np.float32)
+    X = _np.zeros((len(seed_lists), d), dtype=_np.float32)
+    for j, s in enumerate(seed_lists):
+        if not len(s):
+            continue
+        Ys = Y[s]
+        A = YtY + alpha * (Ys.T @ Ys) + I
+        X[j] = _np.linalg.solve(A, (1.0 + alpha) * Ys.sum(0))
+    return (Y @ X.T).astype(_np.float32)                   # (n x nb)
+
+
+IALS_GRID = [(reg, al) for reg in (1.0, 10.0, 100.0) for al in (40.0,)]
+
+
 def run_matched_seed(graph_op, freq, eval_mat, vset, tset):
     """One seed of the matched baseline suite for the (seed, gt)-pair evaluators (bundlerec, dunnhumby).
     `eval_mat(score_np, pairs, Ks)` is the caller's own metric. Hyperparameters are selected on `vset`
@@ -187,6 +240,16 @@ def run_matched_seed(graph_op, freq, eval_mat, vset, tset):
         if nd > bnd:
             bnd, bbk = nd, tn
     res["BundleKNN"] = _ev(_bk(bbk), tset)
+
+    def _ials(Y, YtY, reg, al):
+        return lambda pairs: ials_scores(Y, YtY, [s for (s, _) in pairs], reg=reg, alpha=al)
+    bia, bnd = None, -1.0
+    for (reg, al) in IALS_GRID:
+        Y, YtY = ials_item_factors(Bm, reg=reg, alpha=al)
+        nd = _ev(_ials(Y, YtY, reg, al), vset)[20][1]
+        if nd > bnd:
+            bnd, bia = nd, (Y, YtY, reg, al)
+    res["iALS"] = _ev(_ials(*bia), tset)
 
     cn = [k for k in ("ItemKNN", "P3alpha", "RP3beta") if comp.get(k) is not None]
     nW = {}

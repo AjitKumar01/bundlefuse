@@ -471,7 +471,7 @@ for sd in range(SEEDS):
 
 if BASELINES:
     import json as _json
-    order_m = ["ItemKNN", "P3alpha", "RP3beta", "SLIM", "BundleKNN", "LinearCombiner"]
+    order_m = ["ItemKNN", "P3alpha", "RP3beta", "SLIM", "iALS", "BundleKNN", "LinearCombiner"]
     present = [m for m in order_m if any(m in s for s in BL_SEEDS)]
     out = {"dataset": "dunnhumby", "n": int(n), "seeds": len(BL_SEEDS), "methods": {}}
     print(f"\n=== dunnhumby BASELINES ({len(BL_SEEDS)} seeds; matched protocol; {time.time()-t0:.0f}s) ===", flush=True)
