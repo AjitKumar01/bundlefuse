@@ -81,12 +81,14 @@ def rp3beta_W(B, freq, alpha=1.0, beta=0.0, topk=200):
     return _topk_per_column(W, topk)
 
 
-def slim_W(B, alpha=0.1, l1_ratio=0.1, topk=200, max_iter=40, n_max=8000):
+def slim_W(B, alpha=1e-3, l1_ratio=0.1, topk=200, max_iter=100, n_max=8000):
     """SLIM (Ning & Karypis, ICDM'11): sparse item-item via per-item non-negative elastic-net
     regression B[:,c] ~ B[:,!=c]. O(n) ElasticNet solves, so gated to small catalogues (n<=n_max);
     at larger scale the closed-form EASE already in the harness represents the sparse-linear family.
     Returns W with W[c,i] = weight of seed i for candidate c (score = W @ Ind), or None if gated out."""
+    import warnings
     from sklearn.linear_model import ElasticNet
+    from sklearn.exceptions import ConvergenceWarning
     B = B.tocsc().astype(np.float32)
     n = B.shape[1]
     if n > n_max:
@@ -95,6 +97,7 @@ def slim_W(B, alpha=0.1, l1_ratio=0.1, topk=200, max_iter=40, n_max=8000):
                        copy_X=False, max_iter=max_iter, tol=1e-3, selection="random")
     rows, cols, vals = [], [], []
     allcols = np.arange(n)
+    warnings.simplefilter("ignore", ConvergenceWarning)  # SLIM coordinate descent rarely fully converges
     for c in range(n):
         y = B[:, c].toarray().ravel()
         if y.sum() == 0:
@@ -136,5 +139,74 @@ def bundleknn_scores(B, Ind, topn=100):
 ITEMKNN_GRID = [(k, h) for k in (50, 100, 200, 400) for h in (0.0, 10.0, 100.0)]
 P3ALPHA_GRID = [(a,) for a in (0.5, 1.0, 1.5)]
 RP3BETA_GRID = [(a, b) for a in (0.5, 1.0, 1.5) for b in (0.0, 0.3, 0.6, 1.0)]
-SLIM_GRID = [(a, l) for a in (0.01, 0.1, 1.0) for l in (0.1, 0.5)]
+SLIM_GRID = [(a, l) for a in (1e-4, 1e-3, 1e-2) for l in (0.01, 0.1, 0.5)]
 BUNDLEKNN_GRID = [(tn,) for tn in (25, 50, 100, 200)]
+
+
+def run_matched_seed(graph_op, freq, eval_mat, vset, tset):
+    """One seed of the matched baseline suite for the (seed, gt)-pair evaluators (bundlerec, dunnhumby).
+    `eval_mat(score_np, pairs, Ks)` is the caller's own metric. Hyperparameters are selected on `vset`
+    and scored on `tset`. Returns {method: {K: (R, N)}} for this seed."""
+    import numpy as _np
+    Cm, Bm = graph_op.C, graph_op.B
+
+    def _ind(pairs):
+        return graph_op.build_indicator([s for (s, _) in pairs])
+
+    def _wfn(Wm):
+        return lambda pairs: _np.asarray((Wm @ _ind(pairs)).todense()).astype(_np.float32)
+
+    def _ev(fn, pairs):
+        return eval_mat(fn(pairs), pairs, Ks=(10, 20))
+
+    def _selW(build, grid):
+        bW, bhp, bnd = None, None, -1.0
+        for hp in grid:
+            Wm = build(*hp)
+            if Wm is None:
+                return None, None, None
+            nd = _ev(_wfn(Wm), vset)[20][1]
+            if nd > bnd:
+                bnd, bhp, bW = nd, hp, Wm
+        return bW, bhp, bnd
+
+    res, comp = {}, {}
+    for nm, bd, gr in [("ItemKNN", lambda k, h: itemknn_W(Cm, freq, topk=int(k), shrink=h), ITEMKNN_GRID),
+                       ("P3alpha", lambda a: p3alpha_W(Bm, freq, alpha=a, topk=200), P3ALPHA_GRID),
+                       ("RP3beta", lambda a, b: rp3beta_W(Bm, freq, alpha=a, beta=b, topk=200), RP3BETA_GRID)]:
+        Wm, _, _ = _selW(bd, gr); comp[nm] = Wm; res[nm] = _ev(_wfn(Wm), tset)
+    Ws, _, _ = _selW(lambda a, l: slim_W(Bm, alpha=a, l1_ratio=l, topk=200), SLIM_GRID)
+    if Ws is not None:
+        res["SLIM"] = _ev(_wfn(Ws), tset)
+
+    def _bk(tn):
+        return lambda pairs: bundleknn_scores(Bm, _ind(pairs), topn=tn)
+    bbk, bnd = None, -1.0
+    for (tn,) in BUNDLEKNN_GRID:
+        nd = _ev(_bk(tn), vset)[20][1]
+        if nd > bnd:
+            bnd, bbk = nd, tn
+    res["BundleKNN"] = _ev(_bk(bbk), tset)
+
+    cn = [k for k in ("ItemKNN", "P3alpha", "RP3beta") if comp.get(k) is not None]
+    nW = {}
+    for k in cn:
+        Wm = comp[k].tocsr().copy().astype(_np.float32); mx = float(Wm.data.max()) if Wm.nnz else 1.0
+        Wm.data = Wm.data / (mx + 1e-12); nW[k] = Wm
+    cw, cnd = {k: 0.0 for k in cn}, -1.0
+    for _ in range(3):
+        imp = False
+        for k in cn:
+            for v in (0.0, 0.5, 1.0, 2.0):
+                cand = dict(cw); cand[k] = v
+                if sum(cand.values()) == 0:
+                    continue
+                Wc = sum(cand[k2] * nW[k2] for k2 in cn if cand[k2])
+                nd = _ev(_wfn(Wc), vset)[20][1]
+                if nd > cnd + 1e-5:
+                    cnd, cw, imp = nd, cand, True
+        if not imp:
+            break
+    Wc = sum(cw[k2] * nW[k2] for k2 in cn if cw[k2])
+    res["LinearCombiner"] = _ev(_wfn(Wc), tset)
+    return res

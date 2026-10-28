@@ -375,6 +375,11 @@ def ease_test_scores(trb, vset, tset, n_items, lam_grid=(1.0, 10.0, 25.0, 50.0, 
     return score_set(best_W, tset)
 
 
+BASELINES = os.environ.get("BASELINES")  # matched-protocol tuned-neighbourhood baselines
+BL_SEEDS = []
+if BASELINES:
+    from bundlefuse import baselines as _BL
+
 t0 = time.time()
 METH = ["popularity", "co-occurrence", "content-kNN", "item2vec", "Pairwise-Repl", "SIMBA-NoRes", "Ours"]
 EASE = os.environ.get("EASE") and n <= 10000  # EASE needs an n x n solve: only tractable on small catalogues
@@ -394,6 +399,9 @@ for sd in range(SEEDS):
     trk = allk[:ntr]
     built = build(trb, trk); graph_op = built[0]; freq = graph_op.freq; W = train_item2vec_br(trb)
     vset, tset = mask(vab, sd + 1), mask(teb, sd + 2)
+    if BASELINES:
+        BL_SEEDS.append(_BL.run_matched_seed(graph_op, freq, eval_mat, vset, tset))
+        continue
     Rv, Zv = score_split(vset, built)
     Rt, Zt = score_split(tset, built)
 
@@ -507,6 +515,29 @@ for sd in range(SEEDS):
     for m in METH:
         for K2 in (10, 20):
             agg[m][K2][0].append(res[m][K2][0]); agg[m][K2][1].append(res[m][K2][1])
+
+if BASELINES:
+    import json as _json
+    order_m = ["ItemKNN", "P3alpha", "RP3beta", "SLIM", "BundleKNN", "LinearCombiner"]
+    present = [m for m in order_m if any(m in s for s in BL_SEEDS)]
+    out = {"dataset": DS, "n": int(n), "seeds": len(BL_SEEDS), "methods": {}}
+    print(f"\n=== {DS} BASELINES ({len(BL_SEEDS)} seeds; matched protocol; {time.time()-t0:.0f}s) ===", flush=True)
+    print(f"{'method':14s} {'R@10':>8} {'N@10':>8} {'R@20':>8} {'N@20':>8}", flush=True)
+    for m in present:
+        acc = {K2: ([], []) for K2 in (10, 20)}
+        for s in BL_SEEDS:
+            if m in s:
+                for K2 in (10, 20):
+                    acc[K2][0].append(s[m][K2][0]); acc[K2][1].append(s[m][K2][1])
+        vals = {K2: (float(np.mean(acc[K2][0])), float(np.mean(acc[K2][1]))) for K2 in (10, 20)}
+        out["methods"][m] = {"R@10": vals[10][0], "N@10": vals[10][1], "R@20": vals[20][0], "N@20": vals[20][1],
+                             "seeds": len(acc[20][0])}
+        print(f"{m:14s} {vals[10][0]:8.4f} {vals[10][1]:8.4f} {vals[20][0]:8.4f} {vals[20][1]:8.4f}", flush=True)
+    if "SLIM" not in present:
+        print(f"{DS} SLIM skipped (n={n:,} > n_max; EASE covers the sparse-linear family)", flush=True)
+    _json.dump(out, open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                                       "results", f"baselines_{DS}.json"), "w"), indent=2)
+    sys.exit()
 
 if AB:
     o = {k: float(np.mean([r[k] for r in ab_op])) for k in ("base", "inc", "rao", "both", "full")}
