@@ -29,6 +29,8 @@ not needed.) Running in tens of seconds on a single CPU core, \textsc{BundleFuse
 public-feature method on $5$ of $8$ benchmarks}---beating CLHE and RaMen on POG (${\sim}1.7\times$ R@20) and on
 Spotify, Spotify\_sparse, Clothing, and Dunnhumby---\textbf{ties} the $9.5$M-parameter CLHE encoder on POG\_dense,
 and beats CLHE's published numbers on Electronic and Food; all $8$ datasets are reported with cross-seed error bars.
+Against a matched suite of tuned neighbourhood/linear baselines (ItemKNN, P3$\alpha$/RP3$\beta$, SLIM, bundle-KNN, and a
+validation-tuned linear combiner) run under the \emph{identical} protocol, it wins on all eight.
 It loses only to RaMen on the two dense e-commerce sets, and---using RaMen's own ablation---we trace that gap to its
 learned multi-hop collaborative encoder (removing it drops RaMen \emph{below} us), \emph{not} to the product images
 (removing those barely moves it); on every fully public benchmark we match or beat RaMen. We report our

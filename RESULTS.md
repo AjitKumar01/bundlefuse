@@ -97,6 +97,30 @@ Provenance: `results/valgap_fullrank.log` (fullrank) and `results/valgap_retail.
   closed-form. EASE's O(n²) memory / O(n³) solve is intractable at Dunnhumby/POG/Spotify scale (22K–254K items);
   BundleFuse runs on all of them on one CPU core. Provenance: `results/ease_baseline.log`.
 
+## Matched tuned-neighbourhood baselines (Phase-2, all 8 datasets, `BASELINES=1`)
+
+Six classical recommenders run under the **identical** protocol as BundleFuse (same splits/candidates/metrics/seeds;
+each a sparse item-item `W` scored as `W @ Ind(S)`; every hyperparameter validation-selected). Code in
+`bundlefuse/baselines.py`; results in `results/baselines_<ds>.json` + `results/baselines_all8.log`. **BundleFuse beats
+the best of all six on every dataset.** Best-baseline R@20 vs Ours:
+
+| dataset | ItemKNN | P3α | RP3β | SLIM | BundleKNN | Combiner | **best base** | **Ours** |
+|---|---|---|---|---|---|---|---|---|
+| POG | .0232 | .0252 | .0252 | — | .0259 | .0228 | .0259 | **.0653** |
+| POG_dense | .2589 | .2838 | .2842 | — | .2666 | .2776 | .2842 | **.3737** |
+| Spotify | .1313 | .1127 | .1129 | — | .1226 | .1311 | .1313 | **.1562** |
+| Spotify_sparse | .1100 | .1088 | .1087 | — | .1117 | .1180 | .1180 | **.1653** |
+| Electronic | .3229 | .3263 | .3248 | .3235 | .3262 | .3224 | .3263 | **.5192** |
+| Food | .3267 | .3317 | .3275 | .3299 | .3318 | .3275 | .3318 | **.5870** |
+| Clothing | .2651 | .2651 | .2651 | .2651 | .2651 | .2651 | .2651 | **.5904** |
+| Dunnhumby | .1346 | .1204 | .1204 | — | .1335 | .1370 | .1370 | **.1501** |
+
+Margins: 2.2–2.5× on content-heavy sets (Clothing/POG), 1.6–1.8× on Electronic/Food, +10–40% on the
+collaborative-leaning sets (Spotify/Spotify_sparse/POG_dense/Dunnhumby). The **LinearCombiner never beats its best
+component by more than noise** (a naive tuned blend doesn't recover the construction), and SLIM merely ties the other
+neighbourhood methods where it runs (n≤8000); EASE represents the sparse-linear family at larger scale. Dependency-free
+by design (no implicit/lightfm → iALS/FISM/LightFM out of scope).
+
 ## Operator ablation & exposure buckets (regenerated zero-param)
 
 Two diagnostics via `ABLATE=1` in the evaluators (reuses the val-fit weights; `results/ablation_zeroparam.log`):

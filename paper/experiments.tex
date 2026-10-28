@@ -166,6 +166,46 @@ RaMen              & 0.0375 & 0.1091 & \textit{0.8371} & \textit{0.8459} \\
 \end{tabular}
 \end{table}
 
+\subsection{Matched tuned-neighbourhood baselines}
+\label{sec:neigh}
+A reviewer could still ask whether a \emph{tuned} classical recommender---rather than the published encoders---would
+close the gap. Table~\ref{tab:neigh} answers this with six neighbourhood/linear baselines run under the
+\emph{identical} protocol as \textsc{BundleFuse} (same splits, candidate masking, metrics, and seeds; each is a sparse
+item--item matrix $W$ scored as $W\,\mathrm{Ind}(S)$, with all hyperparameters selected on the validation NDCG@20):
+cosine \textbf{ItemKNN} with shrinkage, the random-walk \textbf{P3$\alpha$} and popularity-reweighted \textbf{RP3$\beta$},
+\textbf{SLIM} (sparse elastic-net item--item, run wherever its per-item solve is tractable, $n\le 8000$), a bundle-space
+\textbf{Bundle-KNN}, and a validation-tuned non-negative \textbf{LinearCombiner} of the three neighbourhood scores.
+\textsc{BundleFuse} beats the \emph{best} of all six on \textbf{all eight} datasets. The margin is largest exactly where
+content and taxonomy matter---Clothing $2.2\times$ ($0.5904$ vs.\ $0.2651$), Food $1.8\times$, Electronic $1.6\times$, POG
+$2.5\times$---and remains clear on the collaborative-leaning sets (Spotify\_sparse $+40\%$, POG\_dense $+31\%$, Spotify
+$+19\%$, Dunnhumby $+10\%$). Two further observations: the \emph{LinearCombiner never beats its own best component by more
+than noise}, so a naive tuned blend does not recover what the regime-aware construction buys; and SLIM merely ties the other
+neighbourhood methods where it runs, consistent with EASE (Table~\ref{tab:suite})---the sparse-linear family as a whole
+sits $1.6$--$2.2\times$ below \textsc{BundleFuse}.
+
+\begin{table*}[t]\centering\small
+\caption{Matched tuned-neighbourhood baselines (full-ranking R@20), run under the \emph{same} splits/candidates/metrics/seeds
+as \textsc{BundleFuse}; every hyperparameter is validation-selected. SLIM is reported only where its per-item elastic-net
+solve is tractable ($n\le 8000$); ``--'' elsewhere (EASE in Table~\ref{tab:suite} covers the sparse-linear family at scale).
+\textsc{BundleFuse} beats the best baseline on all eight datasets.}
+\label{tab:neigh}
+\setlength{\tabcolsep}{4.5pt}
+\begin{tabular}{lcccccccc}
+\toprule
+Method & POG & POG\_dense & Spotify & Spot\_sparse & Electronic & Food & Clothing & Dunnhumby \\
+\midrule
+ItemKNN        & 0.0232 & 0.2589 & 0.1313 & 0.1100 & 0.3229 & 0.3267 & 0.2651 & 0.1346 \\
+P3$\alpha$     & 0.0252 & 0.2838 & 0.1127 & 0.1088 & 0.3263 & 0.3317 & 0.2651 & 0.1204 \\
+RP3$\beta$     & 0.0252 & 0.2842 & 0.1129 & 0.1087 & 0.3248 & 0.3275 & 0.2651 & 0.1204 \\
+SLIM           & --     & --     & --     & --     & 0.3235 & 0.3299 & 0.2651 & --     \\
+Bundle-KNN     & 0.0259 & 0.2666 & 0.1226 & 0.1117 & 0.3262 & 0.3318 & 0.2651 & 0.1335 \\
+LinearCombiner & 0.0228 & 0.2776 & 0.1311 & 0.1180 & 0.3224 & 0.3275 & 0.2651 & 0.1370 \\
+\midrule
+\textbf{Ours ($0$-param)} & \textbf{0.0653} & \textbf{0.3737} & \textbf{0.1562} & \textbf{0.1653} & \textbf{0.5192} & \textbf{0.5870} & \textbf{0.5904} & \textbf{0.1501} \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
 \subsection{Resource cost}
 \label{sec:cost}
 Table~\ref{tab:cost} contrasts \emph{measured} trainable-parameter budgets (Fig.~\ref{fig:params}). The
