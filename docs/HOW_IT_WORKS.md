@@ -79,82 +79,302 @@ Note that canvas sneakers is a brand-new item — no past outfit contains it.
 
 ## Phase A — Preparation (once, from the training bundles)
 
-### A1. Membership table and item frequencies
+Column abbreviations used in the item tables below:
+sneak = white sneakers, jeans = blue jeans, hood = grey hoodie, tee = white t-shirt, cap = black
+cap, jacket = denim jacket, run = running shoes, belt = leather belt, track = track pants,
+canvas = canvas sneakers.
 
-Build a table with one row per training bundle and one column per item, with a 1 where the item is
-in the bundle (`B` in the code). From it:
+### A1. Membership table `B`, item frequencies, and the two weight lists
 
-- **Item frequency `f`** = how many training bundles contain the item.
-- **Bundle size `|b|`** = how many items are in the bundle.
+**Table `B`**: one row per training bundle, one column per item, 1 if the item is in the bundle.
 
-| Item | f |
-|---|---|
-| blue jeans | 4 |
-| white sneakers, grey hoodie, white t-shirt | 3 |
-| black cap, denim jacket, running shoes, track pants | 2 |
-| leather belt | 1 |
-| canvas sneakers | **0** (cold item) |
+| | sneak | jeans | hood | tee | cap | jacket | run | belt | track | canvas |
+|---|---|---|---|---|---|---|---|---|---|---|
+| **B0** | 1 | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| **B1** | 1 | 1 | 0 | 1 | 1 | 0 | 0 | 0 | 0 | 0 |
+| **B2** | 0 | 1 | 0 | 1 | 0 | 0 | 0 | 1 | 0 | 0 |
+| **B3** | 0 | 0 | 1 | 0 | 0 | 0 | 1 | 0 | 1 | 0 |
+| **B4** | 0 | 0 | 0 | 0 | 1 | 0 | 1 | 0 | 1 | 0 |
+| **B5** | 1 | 0 | 0 | 1 | 0 | 1 | 0 | 0 | 0 | 0 |
+| **B6** | 0 | 1 | 1 | 0 | 0 | 1 | 0 | 0 | 0 | 0 |
+
+**Item frequency `f`** = column sum of `B` (how many bundles contain the item), and the **item
+weight** `(f + 5)^−0.5` used by `pair` and `diff2`. The +5 stops rare items from getting huge
+weights.
+
+| Item | f | Item weight (f+5)^−0.5 |
+|---|---|---|
+| white sneakers | 3 | 0.354 |
+| blue jeans | 4 | 0.333 |
+| grey hoodie | 3 | 0.354 |
+| white t-shirt | 3 | 0.354 |
+| black cap | 2 | 0.378 |
+| denim jacket | 2 | 0.378 |
+| running shoes | 2 | 0.378 |
+| leather belt | 1 | 0.408 |
+| track pants | 2 | 0.378 |
+| canvas sneakers | **0** (cold item) | 0.447 |
+
+**Bundle size `|b|`** = row sum of `B`, and the two **bundle weights**: `(|b|+1)^−0.5` (used by
+`pair`) and `1/(|b|+1)` (used by the one-step spread in `diff2` and `bridge`). Big bundles get
+smaller weights because "being in the same 20-item bundle" says less than "being in the same
+3-item bundle".
+
+| Bundle | Size | (\|b\|+1)^−0.5 | 1/(\|b\|+1) |
+|---|---|---|---|
+| B0, B2, B3, B4, B5, B6 | 3 | 0.500 | 0.250 |
+| B1 | 4 | 0.447 | 0.200 |
 
 Code: `SimplicialGraphOperator.__init__`.
 
 ### A2. Item-pair tables
 
-1. **Co-occurrence `C`**: for each pair of items, the number of bundles containing both.
-   Example: white sneakers & blue jeans are together in B0 and B1, so `C = 2`.
-2. **PPMI**: "do these two appear together more than chance would predict?"
-   `PPMI[i,j] = max(0, ln( C[i,j] × total / (row_i × row_j) ))`, where `row_i` is the sum of
-   item i's row of `C` and `total` is the sum of all of `C`.
-3. **SVD vectors (`csvd`)**: the PPMI table compressed into a short vector per item (up to 128
-   numbers), so two items with similar PPMI rows get similar vectors.
+**1. Co-occurrence `C`** = `Bᵀ B` with the diagonal set to 0: for each pair of items, the number
+of bundles that contain both. Example: sneak & jeans are together in B0 and B1, so `C = 2`.
+
+| | sneak | jeans | hood | tee | cap | jacket | run | belt | track | canvas | **row sum** |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| **sneak** | 0 | 2 | 1 | 2 | 1 | 1 | 0 | 0 | 0 | 0 | 7 |
+| **jeans** | 2 | 0 | 2 | 2 | 1 | 1 | 0 | 1 | 0 | 0 | 9 |
+| **hood** | 1 | 2 | 0 | 0 | 0 | 1 | 1 | 0 | 1 | 0 | 6 |
+| **tee** | 2 | 2 | 0 | 0 | 1 | 1 | 0 | 1 | 0 | 0 | 7 |
+| **cap** | 1 | 1 | 0 | 1 | 0 | 0 | 1 | 0 | 1 | 0 | 5 |
+| **jacket** | 1 | 1 | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 4 |
+| **run** | 0 | 0 | 1 | 0 | 1 | 0 | 0 | 0 | 2 | 0 | 4 |
+| **belt** | 0 | 1 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 2 |
+| **track** | 0 | 0 | 1 | 0 | 1 | 0 | 2 | 0 | 0 | 0 | 4 |
+| **canvas** | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+
+Sum of the whole table (`total`) = 48.
+
+**2. PPMI** — "do these two appear together *more than chance would predict*?"
+
+`PPMI[i,j] = max(0, ln( C[i,j] × total / (rowsum_i × rowsum_j) ))`
+
+A value of 0 means "no more often than chance (or never)". Example — jeans & belt:
+`ln(1 × 48 / (9 × 2)) = ln(2.667) = 0.981`. Jeans & cap: `ln(1 × 48 / (9 × 5)) = ln(1.067) = 0.065`
+(barely above chance, because both are common).
+
+| | sneak | jeans | hood | tee | cap | jacket | run | belt | track | canvas |
+|---|---|---|---|---|---|---|---|---|---|---|
+| **sneak** | 0 | 0.421 | 0.134 | 0.673 | 0.316 | 0.539 | 0 | 0 | 0 | 0 |
+| **jeans** | 0.421 | 0 | 0.575 | 0.421 | 0.065 | 0.288 | 0 | 0.981 | 0 | 0 |
+| **hood** | 0.134 | 0.575 | 0 | 0 | 0 | 0.693 | 0.693 | 0 | 0.693 | 0 |
+| **tee** | 0.673 | 0.421 | 0 | 0 | 0.316 | 0.539 | 0 | 1.232 | 0 | 0 |
+| **cap** | 0.316 | 0.065 | 0 | 0.316 | 0 | 0 | 0.875 | 0 | 0.875 | 0 |
+| **jacket** | 0.539 | 0.288 | 0.693 | 0.539 | 0 | 0 | 0 | 0 | 0 | 0 |
+| **run** | 0 | 0 | 0.693 | 0 | 0.875 | 0 | 0 | 0 | 1.792 | 0 |
+| **belt** | 0 | 0.981 | 0 | 1.232 | 0 | 0 | 0 | 0 | 0 | 0 |
+| **track** | 0 | 0 | 0.693 | 0 | 0.875 | 0 | 1.792 | 0 | 0 | 0 |
+| **canvas** | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+
+**3. SVD vectors (`csvd`)** — the PPMI table compressed to a short vector per item with truncated
+SVD (128 numbers on real data; here `10 − 2 = 8`, the most the code allows for 10 items), and each
+vector scaled to length 1. Two items with similar PPMI rows get similar vectors: running shoes
+and track pants have identical PPMI rows except for each other, so their vectors differ only in
+`d3`.
+
+| | d1 | d2 | d3 | d4 | d5 | d6 | d7 | d8 |
+|---|---|---|---|---|---|---|---|---|
+| **sneak** | 0.493 | 0.605 | 0.000 | −0.413 | 0.014 | 0.401 | 0.146 | −0.195 |
+| **jeans** | 0.460 | 0.664 | 0.000 | 0.467 | 0.259 | −0.149 | 0.009 | −0.200 |
+| **hood** | 0.751 | 0.019 | 0.000 | −0.130 | −0.602 | 0.033 | 0.235 | 0.001 |
+| **tee** | 0.391 | 0.662 | 0.000 | 0.581 | −0.207 | 0.081 | −0.091 | 0.115 |
+| **cap** | 0.810 | −0.204 | 0.000 | −0.168 | −0.274 | −0.422 | −0.128 | −0.067 |
+| **jacket** | 0.480 | 0.513 | 0.000 | −0.189 | 0.489 | −0.295 | 0.337 | 0.175 |
+| **run** | 0.717 | −0.311 | 0.600 | 0.043 | 0.138 | 0.082 | −0.028 | 0.016 |
+| **belt** | 0.302 | 0.645 | 0.000 | −0.677 | 0.038 | 0.025 | −0.172 | 0.046 |
+| **track** | 0.717 | −0.311 | −0.600 | 0.043 | 0.138 | 0.082 | −0.028 | 0.016 |
+| **canvas** | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+
+(The exact numbers in each SVD column depend on the SVD routine; what matters is which items end
+up close together.)
+
+Code: `SimplicialGraphOperator.__init__`.
 
 ### A3. Category tables
 
 These use only categories, so they work even for brand-new items.
 
-1. **Category complementarity (`Pcat`)**: count, for each pair of *different* categories, how many
-   bundles contain both, and turn that into PMI the same way as above.
-   Example — shoes & bottoms: bundles containing both = 4 (B0, B1, B3, B4); category totals are
-   shoes 5, bottoms 6, all categories 22. So `ln(4 × 22 / (5 × 6)) = ln(2.93) = 1.076`.
-2. **Duplicate rate per category**: how often a bundle has *two or more* items of that category.
-   `dup_rate = (bundles with ≥2 of it + 0.5) / (bundles with ≥1 of it + 1)`.
-   Example — shoes appear in 5 bundles, never twice: `(0 + 0.5) / (5 + 1) = 0.083`.
+**1. Bundle–category table `T`**: how many items of each category each bundle has.
 
-   | Category | dup_rate | Below 0.15? |
-   |---|---|---|
-   | shoes | 0.083 | yes → "one per outfit" category |
-   | bottoms | 0.071 | yes |
-   | tops | 0.071 | yes |
-   | hats | 0.167 | no |
-   | outerwear | 0.167 | no |
-   | accessories | 0.250 | no |
+| | shoes | bottoms | tops | hats | outerwear | accessories |
+|---|---|---|---|---|---|---|
+| **B0** | 1 | 1 | 1 | 0 | 0 | 0 |
+| **B1** | 1 | 1 | 1 | 1 | 0 | 0 |
+| **B2** | 0 | 1 | 1 | 0 | 0 | 1 |
+| **B3** | 1 | 1 | 1 | 0 | 0 | 0 |
+| **B4** | 1 | 1 | 0 | 1 | 0 | 0 |
+| **B5** | 1 | 0 | 1 | 0 | 1 | 0 |
+| **B6** | 0 | 1 | 1 | 0 | 1 | 0 |
+| **bundles with ≥1** | 5 | 6 | 6 | 2 | 2 | 1 |
+| **bundles with ≥2** | 0 | 0 | 0 | 0 | 0 | 0 |
 
-   (Hats/outerwear/accessories are "no" only because they appear in so few bundles that the +0.5
-   smoothing dominates. On real data this needs many bundles to matter.)
-3. **Soft sub-types (`softcat`)** — real data only, not in the toy example: the content vectors are
-   clustered into 400 groups, each item gets a soft membership in every group, and step 1 is
-   repeated at the group level. This separates e.g. dress shoes from running shoes inside "shoes".
+Total of the "≥1" row = 22.
+
+**2. Category co-occurrence** = for each pair of *different* categories, the number of bundles
+containing both (diagonal set to 0):
+
+| | shoes | bottoms | tops | hats | outerwear | accessories |
+|---|---|---|---|---|---|---|
+| **shoes** | 0 | 4 | 4 | 2 | 1 | 0 |
+| **bottoms** | 4 | 0 | 5 | 2 | 1 | 1 |
+| **tops** | 4 | 5 | 0 | 1 | 2 | 1 |
+| **hats** | 2 | 2 | 1 | 0 | 0 | 0 |
+| **outerwear** | 1 | 1 | 2 | 0 | 0 | 0 |
+| **accessories** | 0 | 1 | 1 | 0 | 0 | 0 |
+
+**3. Category complementarity `Pcat`** = PMI of that table, using the "≥1" counts as category
+totals: `Pcat[g,h] = max(0, ln( cooc[g,h] × 22 / (count_g × count_h) ))`.
+Example — shoes & bottoms: `ln(4 × 22 / (5 × 6)) = ln(2.93) = 1.076`.
+Shoes & hats: `ln(2 × 22 / (5 × 2)) = ln(4.4) = 1.482` (hats are rare, so appearing with shoes in
+both of their bundles is strong evidence).
+
+| | shoes | bottoms | tops | hats | outerwear | accessories |
+|---|---|---|---|---|---|---|
+| **shoes** | 0 | 1.076 | 1.076 | 1.482 | 0.788 | 0 |
+| **bottoms** | 1.076 | 0 | 1.117 | 1.299 | 0.606 | 1.299 |
+| **tops** | 1.076 | 1.117 | 0 | 0.606 | 1.299 | 1.299 |
+| **hats** | 1.482 | 1.299 | 0.606 | 0 | 0 | 0 |
+| **outerwear** | 0.788 | 0.606 | 1.299 | 0 | 0 | 0 |
+| **accessories** | 0 | 1.299 | 1.299 | 0 | 0 | 0 |
+
+**4. Duplicate rate per category**: how often a bundle has *two or more* items of that category.
+`dup_rate = (bundles with ≥2 + 0.5) / (bundles with ≥1 + 1)`, read off the bottom rows of `T`.
+Categories below 0.15 are treated as "one per bundle" and trigger the slot penalty in Phase B.
+
+| Category | Calculation | dup_rate | Below 0.15? | Penalty `−(1 − dup_rate)` |
+|---|---|---|---|---|
+| shoes | (0 + 0.5) / (5 + 1) | 0.083 | yes | −0.917 |
+| bottoms | (0 + 0.5) / (6 + 1) | 0.071 | yes | −0.929 |
+| tops | (0 + 0.5) / (6 + 1) | 0.071 | yes | −0.929 |
+| hats | (0 + 0.5) / (2 + 1) | 0.167 | no | — |
+| outerwear | (0 + 0.5) / (2 + 1) | 0.167 | no | — |
+| accessories | (0 + 0.5) / (1 + 1) | 0.250 | no | — |
+
+(Hats/outerwear/accessories are "no" only because they appear in so few bundles that the +0.5
+smoothing dominates. On real data this needs many bundles to matter.)
+
+**5. Soft sub-types (`softcat`)** — real data only, so there is no table for the example: the code
+clusters content vectors into 400 groups, which needs far more than 10 items. Each item gets a
+soft membership in every group, and steps 2–3 are repeated at the group level. This separates e.g.
+dress shoes from running shoes inside "shoes".
 
 Code: `DualSpectrumOntology`.
 
 ### A4. Style vectors and bridge vectors
 
-1. **Style vector** = the item's content vector **minus the average content vector of its
-   category**, then scaled to length 1. This removes "it's a shoe" and keeps "*what kind* of shoe".
+**1. Content vectors scaled to length 1** (the input; each row divided by its length):
 
-   | Item | Style vector |
-   |---|---|
-   | white sneakers | [ 0.755, −0.619,  0.217] |
-   | canvas sneakers | [ 0.656, −0.732,  0.184] |
-   | running shoes | [−0.701,  0.685, −0.199] |
-   | blue jeans | [ 0.633, −0.753,  0.180] |
-   | grey hoodie | [−0.267,  0.802, −0.535] |
-   | black cap, denim jacket, leather belt | [0, 0, 0] — only item in its category, so nothing is left |
+| | casual | sporty | formal |
+|---|---|---|---|
+| **sneak** | 0.928 | 0.309 | 0.206 |
+| **jeans** | 0.943 | 0.105 | 0.314 |
+| **hood** | 0.848 | 0.530 | 0 |
+| **tee** | 0.954 | 0.212 | 0.212 |
+| **cap** | 0.759 | 0.651 | 0 |
+| **jacket** | 0.889 | 0.111 | 0.444 |
+| **run** | 0.206 | 0.979 | 0 |
+| **belt** | 0.406 | 0 | 0.914 |
+| **track** | 0.216 | 0.970 | 0.108 |
+| **canvas** | 0.954 | 0.212 | 0.212 |
 
-2. **Bridge vector** = the item's style vector plus half of the *average style of the items it is
-   bundled with* (one step through the bundle table), scaled to length 1.
-   A cold item has no bundle neighbours, so its bridge vector equals its style vector.
-   The black cap has a zero style vector, so its bridge vector is purely its neighbours' style
-   (running shoes, track pants → sporty).
+**2. Category average** of those vectors (e.g. shoes = average of sneak, run, canvas):
+
+| | casual | sporty | formal |
+|---|---|---|---|
+| **shoes** | 0.696 | 0.500 | 0.139 |
+| **bottoms** | 0.580 | 0.538 | 0.211 |
+| **tops** | 0.901 | 0.371 | 0.106 |
+| **hats** | 0.759 | 0.651 | 0 |
+| **outerwear** | 0.889 | 0.111 | 0.444 |
+| **accessories** | 0.406 | 0 | 0.914 |
+
+**3. Content minus category average** — this removes "it's a shoe" and keeps "*what kind* of shoe":
+
+| | casual | sporty | formal |
+|---|---|---|---|
+| **sneak** | 0.232 | −0.191 | 0.067 |
+| **jeans** | 0.364 | −0.433 | 0.103 |
+| **hood** | −0.053 | 0.159 | −0.106 |
+| **tee** | 0.053 | −0.159 | 0.106 |
+| **cap** | 0 | 0 | 0 |
+| **jacket** | 0 | 0 | 0 |
+| **run** | −0.490 | 0.479 | −0.139 |
+| **belt** | 0 | 0 | 0 |
+| **track** | −0.364 | 0.433 | −0.103 |
+| **canvas** | 0.258 | −0.288 | 0.073 |
+
+Cap, jacket and belt are the only items in their categories, so they equal their category average
+and nothing is left.
+
+**4. Style vector** = row 3 scaled to length 1 (rows of zeros stay zero):
+
+| | casual | sporty | formal |
+|---|---|---|---|
+| **sneak** | 0.755 | −0.619 | 0.217 |
+| **jeans** | 0.633 | −0.753 | 0.180 |
+| **hood** | −0.267 | 0.802 | −0.535 |
+| **tee** | 0.267 | −0.802 | 0.535 |
+| **cap** | 0 | 0 | 0 |
+| **jacket** | 0 | 0 | 0 |
+| **run** | −0.701 | 0.685 | −0.199 |
+| **belt** | 0 | 0 | 0 |
+| **track** | −0.633 | 0.753 | −0.180 |
+| **canvas** | 0.656 | −0.732 | 0.184 |
+
+Read it as "compared with other items of my category": jeans are the *less sporty* bottoms, the
+hoodie is the *more sporty* top, canvas sneakers are the *less sporty* shoes.
+
+**5. Neighbour style** = one step of spreading the style vectors through the bundle table, then
+scaled to length 1. The one-step spread for item `c` is:
+
+`spread(c) = (f_c+5)^−0.5 × Σ_{bundles b containing c} 1/(|b|+1) × Σ_{items i in b, i ≠ c} (f_i+5)^−0.5 × style_i`
+
+So it is a weighted sum of the styles of the items `c` shares bundles with (using the weights from
+A1). Hand check for the cap (in B1 and B4), casual column:
+B1: `0.2 × (0.354×0.755 + 0.333×0.633 + 0.354×0.267) = 0.115`;
+B4: `0.25 × (0.378×(−0.701) + 0.378×(−0.633)) = −0.126`;
+`0.378 × (0.115 − 0.126) = −0.004`.
+
+| | spread: casual | sporty | formal | → scaled to length 1: casual | sporty | formal |
+|---|---|---|---|---|---|---|
+| **sneak** | 0.040 | −0.060 | 0.023 | 0.531 | −0.792 | 0.302 |
+| **jeans** | 0.038 | −0.028 | 0.008 | 0.795 | −0.581 | 0.173 |
+| **hood** | 0.016 | −0.016 | 0.005 | 0.705 | −0.679 | 0.204 |
+| **tee** | 0.076 | −0.075 | 0.022 | 0.699 | −0.687 | 0.200 |
+| **cap** | −0.004 | −0.006 | 0.011 | −0.333 | −0.426 | 0.841 |
+| **jacket** | 0.045 | −0.044 | 0.013 | 0.699 | −0.687 | 0.200 |
+| **run** | −0.054 | 0.081 | −0.031 | −0.532 | 0.791 | −0.302 |
+| **belt** | 0.031 | −0.055 | 0.025 | 0.460 | −0.805 | 0.375 |
+| **track** | −0.059 | 0.076 | −0.032 | −0.583 | 0.748 | −0.317 |
+| **canvas** | 0 | 0 | 0 | 0 | 0 | 0 |
+
+**6. Bridge vector** = `style + 0.5 × neighbour style`, scaled to length 1.
+
+| | casual | sporty | formal |
+|---|---|---|---|
+| **sneak** | 0.687 | −0.683 | 0.248 |
+| **jeans** | 0.691 | −0.700 | 0.179 |
+| **hood** | 0.134 | 0.724 | −0.677 |
+| **tee** | 0.426 | −0.791 | 0.438 |
+| **cap** | −0.333 | −0.426 | 0.841 |
+| **jacket** | 0.699 | −0.687 | 0.200 |
+| **run** | −0.648 | 0.724 | −0.235 |
+| **belt** | 0.460 | −0.805 | 0.375 |
+| **track** | −0.618 | 0.753 | −0.226 |
+| **canvas** | 0.656 | −0.732 | 0.184 |
+
+Three things to notice:
+
+- **Canvas sneakers** (never in a bundle) have no neighbours, so their bridge vector equals their
+  style vector.
+- **Jacket and belt** have no style of their own, so their bridge vector is purely their
+  neighbours' style.
+- **The cap** is a warning case. Its neighbours pull in opposite directions (casual sneak/jeans/tee
+  in B1, sporty run/track in B4), so the spread is almost zero (`[−0.004, −0.006, 0.011]`). Scaling
+  that tiny leftover to length 1 blows it up into a strong "formal" direction that no neighbour
+  actually has. This is a side effect of scaling near-zero vectors to length 1.
 
 Code: `BilateralContentBridge.disentangle`, `build_dense_bridge`.
 
@@ -175,7 +395,7 @@ thrown out at the end.
 |---|---|---|
 | `cooc` | How many times did `c` appear with my seeds? | `Σ_s C[c,s]` |
 | `pair` | Same, but small bundles and rare seeds count more | `Σ_{bundles b containing c} (|b|+1)^−0.5 × Σ_{seeds s in b} (f_s+5)^−0.5` |
-| `diff2` | Friend-of-a-friend: is `c` bundled with items that score high on `pair`? | one step of `pair` through the bundle table |
+| `diff2` | Friend-of-a-friend: is `c` bundled with items that score high on `pair`? | the one-step `spread` from A4, applied to the `pair` scores instead of style vectors |
 | `ppmi` | Does `c` appear with my seeds more than chance? | `Σ_s PPMI[c,s]` |
 | `csvd` | Is `c`'s compressed PPMI vector similar to the seeds'? | `csvd_c · mean_s(csvd_s)` |
 | `pop` | How popular is `c` overall? | `ln(1 + f_c)` |
@@ -309,7 +529,8 @@ sorted by `final`. (A tiny random number, 10⁻⁶, is added first to break exac
 
 Hidden truth = {canvas sneakers, black cap}. In the top 3, blending finds 1 of 2; without it, 0
 of 2. The black cap stays at rank 5 either way: it is alone in its category (no style vector), its
-usual companions are sporty (low bridge score), and it appeared with only one seed in history.
+bridge vector points in a misleading "formal" direction (see the warning case at the end of A4), and
+it appeared with only one seed in history.
 BundleFuse is not magic — it can only use the evidence it has.
 
 Code: `eval_fused` in `fullrank_eval.py`.
