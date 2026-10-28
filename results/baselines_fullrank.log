@@ -1,0 +1,39 @@
+######## pog_dense ########
+pog_dense: 31217 items, 19865 duplicate-free train bundles, MUSIC=False
+pog_dense BASELINES | n=31,217 | val=400 test=3000
+pog_dense ItemKNN    hp=(200, 100.0) | test R@10 0.2237 N@10 0.1731 R@20 0.2589 N@20 0.1830
+pog_dense P3alpha    hp=(0.5,) | test R@10 0.2519 N@10 0.1983 R@20 0.2838 N@20 0.2074
+pog_dense RP3beta    hp=(0.5, 0.0) | test R@10 0.2539 N@10 0.2000 R@20 0.2842 N@20 0.2087
+=== pog_dense BASELINES (3s) -> /Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/results/baselines_pog_dense.json ===
+method           R@10     N@10     R@20     N@20
+ItemKNN        0.2237   0.1731   0.2589   0.1830
+P3alpha        0.2519   0.1983   0.2838   0.2074
+RP3beta        0.2539   0.2000   0.2842   0.2087
+######## spotify_sparse ########
+spotify_sparse: 213325 items, 8731 duplicate-free train bundles, MUSIC=True
+spotify_sparse BASELINES | n=213,325 | val=400 test=2496
+spotify_sparse ItemKNN:   0%|          | 0/12 [00:00<?, ?hp/s]spotify_sparse ItemKNN:   8%|▊         | 1/12 [00:01<00:16,  1.52s/hp]spotify_sparse ItemKNN:  17%|█▋        | 2/12 [00:02<00:14,  1.40s/hp]spotify_sparse ItemKNN:  25%|██▌       | 3/12 [00:04<00:12,  1.35s/hp]spotify_sparse ItemKNN:  33%|███▎      | 4/12 [00:05<00:10,  1.37s/hp]spotify_sparse ItemKNN:  42%|████▏     | 5/12 [00:06<00:09,  1.36s/hp]spotify_sparse ItemKNN:  50%|█████     | 6/12 [00:08<00:08,  1.35s/hp]spotify_sparse ItemKNN:  58%|█████▊    | 7/12 [00:09<00:06,  1.34s/hp]spotify_sparse ItemKNN:  67%|██████▋   | 8/12 [00:10<00:05,  1.33s/hp]spotify_sparse ItemKNN:  75%|███████▌  | 9/12 [00:12<00:03,  1.33s/hp]spotify_sparse ItemKNN:  83%|████████▎ | 10/12 [00:13<00:02,  1.33s/hp]spotify_sparse ItemKNN:  92%|█████████▏| 11/12 [00:14<00:01,  1.31s/hp]spotify_sparse ItemKNN: 100%|██████████| 12/12 [00:16<00:00,  1.30s/hp]spotify_sparse ItemKNN: 100%|██████████| 12/12 [00:16<00:00,  1.34s/hp]
+spotify_sparse ItemKNN    hp=(400, 10.0) | test R@10 0.0774 N@10 0.1610 R@20 0.1100 N@20 0.1481
+spotify_sparse P3alpha:   0%|          | 0/3 [00:00<?, ?hp/s]spotify_sparse P3alpha:  33%|███▎      | 1/3 [00:01<00:02,  1.42s/hp]spotify_sparse P3alpha:  67%|██████▋   | 2/3 [00:02<00:01,  1.40s/hp]spotify_sparse P3alpha: 100%|██████████| 3/3 [00:04<00:00,  1.46s/hp]spotify_sparse P3alpha: 100%|██████████| 3/3 [00:04<00:00,  1.45s/hp]
+spotify_sparse P3alpha    hp=(0.5,) | test R@10 0.0740 N@10 0.1466 R@20 0.1088 N@20 0.1389
+spotify_sparse RP3beta:   0%|          | 0/12 [00:00<?, ?hp/s]spotify_sparse RP3beta:   8%|▊         | 1/12 [00:01<00:16,  1.46s/hp]spotify_sparse RP3beta:  17%|█▋        | 2/12 [00:03<00:15,  1.53s/hp]spotify_sparse RP3beta:  25%|██▌       | 3/12 [00:04<00:14,  1.56s/hp]spotify_sparse RP3beta:  33%|███▎      | 4/12 [00:06<00:12,  1.57s/hp]spotify_sparse RP3beta:  42%|████▏     | 5/12 [00:07<00:10,  1.52s/hp]spotify_sparse RP3beta:  50%|█████     | 6/12 [00:09<00:09,  1.57s/hp]spotify_sparse RP3beta:  58%|█████▊    | 7/12 [00:10<00:07,  1.59s/hp]spotify_sparse RP3beta:  67%|██████▋   | 8/12 [00:12<00:06,  1.59s/hp]spotify_sparse RP3beta:  75%|███████▌  | 9/12 [00:14<00:04,  1.55s/hp]spotify_sparse RP3beta:  83%|████████▎ | 10/12 [00:15<00:03,  1.61s/hp]spotify_sparse RP3beta:  92%|█████████▏| 11/12 [00:17<00:01,  1.62s/hp]spotify_sparse RP3beta: 100%|██████████| 12/12 [00:19<00:00,  1.62s/hp]spotify_sparse RP3beta: 100%|██████████| 12/12 [00:19<00:00,  1.59s/hp]
+spotify_sparse RP3beta    hp=(0.5, 0.0) | test R@10 0.0740 N@10 0.1466 R@20 0.1087 N@20 0.1388
+=== spotify_sparse BASELINES (49s) -> /Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/results/baselines_spotify_sparse.json ===
+method           R@10     N@10     R@20     N@20
+ItemKNN        0.0774   0.1610   0.1100   0.1481
+P3alpha        0.0740   0.1466   0.1088   0.1389
+RP3beta        0.0740   0.1466   0.1087   0.1388
+######## spotify ########
+spotify: 254155 items, 13991 duplicate-free train bundles, MUSIC=True
+spotify BASELINES | n=254,155 | val=400 test=3000
+spotify ItemKNN:   0%|          | 0/12 [00:00<?, ?hp/s]spotify ItemKNN:   8%|▊         | 1/12 [00:03<00:33,  3.09s/hp]spotify ItemKNN:  17%|█▋        | 2/12 [00:05<00:28,  2.87s/hp]spotify ItemKNN:  25%|██▌       | 3/12 [00:08<00:24,  2.69s/hp]spotify ItemKNN:  33%|███▎      | 4/12 [00:10<00:21,  2.67s/hp]spotify ItemKNN:  42%|████▏     | 5/12 [00:13<00:18,  2.63s/hp]spotify ItemKNN:  50%|█████     | 6/12 [00:15<00:15,  2.58s/hp]spotify ItemKNN:  58%|█████▊    | 7/12 [00:18<00:12,  2.57s/hp]spotify ItemKNN:  67%|██████▋   | 8/12 [00:21<00:10,  2.57s/hp]spotify ItemKNN:  75%|███████▌  | 9/12 [00:24<00:08,  2.79s/hp]spotify ItemKNN:  83%|████████▎ | 10/12 [00:27<00:05,  2.85s/hp]spotify ItemKNN:  92%|█████████▏| 11/12 [00:30<00:02,  2.80s/hp]spotify ItemKNN: 100%|██████████| 12/12 [00:32<00:00,  2.71s/hp]spotify ItemKNN: 100%|██████████| 12/12 [00:32<00:00,  2.71s/hp]
+spotify ItemKNN    hp=(400, 10.0) | test R@10 0.0856 N@10 0.2412 R@20 0.1313 N@20 0.2193
+spotify P3alpha:   0%|          | 0/3 [00:00<?, ?hp/s]spotify P3alpha:  33%|███▎      | 1/3 [00:02<00:05,  2.96s/hp]spotify P3alpha:  67%|██████▋   | 2/3 [00:05<00:02,  2.88s/hp]spotify P3alpha: 100%|██████████| 3/3 [00:08<00:00,  2.93s/hp]spotify P3alpha: 100%|██████████| 3/3 [00:08<00:00,  2.93s/hp]
+spotify P3alpha    hp=(0.5,) | test R@10 0.0716 N@10 0.2049 R@20 0.1127 N@20 0.1879
+spotify RP3beta:   0%|          | 0/12 [00:00<?, ?hp/s]spotify RP3beta:   8%|▊         | 1/12 [00:02<00:31,  2.90s/hp]spotify RP3beta:  17%|█▋        | 2/12 [00:06<00:31,  3.19s/hp]spotify RP3beta:  25%|██▌       | 3/12 [00:09<00:30,  3.33s/hp]spotify RP3beta:  33%|███▎      | 4/12 [00:13<00:26,  3.36s/hp]spotify RP3beta:  42%|████▏     | 5/12 [00:16<00:22,  3.19s/hp]spotify RP3beta:  50%|█████     | 6/12 [00:20<00:20,  3.49s/hp]spotify RP3beta:  58%|█████▊    | 7/12 [00:23<00:17,  3.48s/hp]spotify RP3beta:  67%|██████▋   | 8/12 [00:26<00:13,  3.39s/hp]spotify RP3beta:  75%|███████▌  | 9/12 [00:29<00:09,  3.25s/hp]spotify RP3beta:  83%|████████▎ | 10/12 [00:33<00:06,  3.27s/hp]spotify RP3beta:  92%|█████████▏| 11/12 [00:36<00:03,  3.29s/hp]spotify RP3beta: 100%|██████████| 12/12 [00:39<00:00,  3.33s/hp]spotify RP3beta: 100%|██████████| 12/12 [00:39<00:00,  3.32s/hp]
+spotify RP3beta    hp=(0.5, 0.0) | test R@10 0.0717 N@10 0.2050 R@20 0.1129 N@20 0.1881
+=== spotify BASELINES (97s) -> /Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/results/baselines_spotify.json ===
+method           R@10     N@10     R@20     N@20
+ItemKNN        0.0856   0.2412   0.1313   0.2193
+P3alpha        0.0716   0.2049   0.1127   0.1879
+RP3beta        0.0717   0.2050   0.1129   0.1881

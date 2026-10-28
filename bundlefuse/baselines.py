@@ -81,7 +81,60 @@ def rp3beta_W(B, freq, alpha=1.0, beta=0.0, topk=200):
     return _topk_per_column(W, topk)
 
 
+def slim_W(B, alpha=0.1, l1_ratio=0.1, topk=200, max_iter=40, n_max=8000):
+    """SLIM (Ning & Karypis, ICDM'11): sparse item-item via per-item non-negative elastic-net
+    regression B[:,c] ~ B[:,!=c]. O(n) ElasticNet solves, so gated to small catalogues (n<=n_max);
+    at larger scale the closed-form EASE already in the harness represents the sparse-linear family.
+    Returns W with W[c,i] = weight of seed i for candidate c (score = W @ Ind), or None if gated out."""
+    from sklearn.linear_model import ElasticNet
+    B = B.tocsc().astype(np.float32)
+    n = B.shape[1]
+    if n > n_max:
+        return None
+    model = ElasticNet(alpha=alpha, l1_ratio=l1_ratio, positive=True, fit_intercept=False,
+                       copy_X=False, max_iter=max_iter, tol=1e-3, selection="random")
+    rows, cols, vals = [], [], []
+    allcols = np.arange(n)
+    for c in range(n):
+        y = B[:, c].toarray().ravel()
+        if y.sum() == 0:
+            continue
+        others = allcols[allcols != c]
+        X = B[:, others]
+        model.fit(X, y)
+        w = model.coef_
+        nz = np.nonzero(w)[0]
+        if nz.size == 0:
+            continue
+        src = others[nz]                        # seed items i
+        rows.append(np.full(nz.size, c)); cols.append(src); vals.append(w[nz].astype(np.float32))
+    if not rows:
+        return sp.csr_matrix((n, n), dtype=np.float32)
+    W = sp.csr_matrix((np.concatenate(vals), (np.concatenate(rows), np.concatenate(cols))),
+                      shape=(n, n), dtype=np.float32)
+    return _topk_per_column(W, topk)
+
+
+def bundleknn_scores(B, Ind, topn=100):
+    """User(=bundle)-based KNN in bundle space: score(c | S) = sum over the top-N train bundles most
+    similar to the seed set S of cosine(S, u) * B[u, c]. Query-dependent, so scored per chunk rather
+    than as a fixed item-item W. Returns a dense (n x nb) numpy array."""
+    B = B.tocsr().astype(np.float32)
+    bnorm = np.sqrt(np.asarray(B.multiply(B).sum(1)).ravel()) + 1e-9    # ||u||
+    Q = Ind.T.tocsr().astype(np.float32)                               # (nb x n) seed sets
+    qnorm = np.sqrt(np.asarray(Q.multiply(Q).sum(1)).ravel()) + 1e-9    # ||S||
+    sim = np.asarray((Q @ B.T).todense()) / (np.outer(qnorm, bnorm))   # (nb x n_bundles) cosine
+    nb = sim.shape[0]
+    if topn and topn < sim.shape[1]:
+        cut = np.partition(sim, -topn, axis=1)[:, -topn][:, None]
+        sim = np.where(sim >= cut, sim, 0.0)
+    scores = sim @ B                                                   # (nb x n)
+    return np.asarray(scores).T                                        # (n x nb)
+
+
 # grids the caller selects over on validation
 ITEMKNN_GRID = [(k, h) for k in (50, 100, 200, 400) for h in (0.0, 10.0, 100.0)]
 P3ALPHA_GRID = [(a,) for a in (0.5, 1.0, 1.5)]
 RP3BETA_GRID = [(a, b) for a in (0.5, 1.0, 1.5) for b in (0.0, 0.3, 0.6, 1.0)]
+SLIM_GRID = [(a, l) for a in (0.01, 0.1, 1.0) for l in (0.1, 0.5)]
+BUNDLEKNN_GRID = [(tn,) for tn in (25, 50, 100, 200)]
