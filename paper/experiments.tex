@@ -173,15 +173,19 @@ close the gap. Table~\ref{tab:neigh} answers this with six neighbourhood/linear 
 \emph{identical} protocol as \textsc{BundleFuse} (same splits, candidate masking, metrics, and seeds; each is a sparse
 item--item matrix $W$ scored as $W\,\mathrm{Ind}(S)$, with all hyperparameters selected on the validation NDCG@20):
 cosine \textbf{ItemKNN} with shrinkage, the random-walk \textbf{P3$\alpha$} and popularity-reweighted \textbf{RP3$\beta$},
-\textbf{SLIM} (sparse elastic-net item--item, run wherever its per-item solve is tractable, $n\le 8000$), a bundle-space
-\textbf{Bundle-KNN}, and a validation-tuned non-negative \textbf{LinearCombiner} of the three neighbourhood scores.
-\textsc{BundleFuse} beats the \emph{best} of all six on \textbf{all eight} datasets. The margin is largest exactly where
-content and taxonomy matter---Clothing $2.2\times$ ($0.5904$ vs.\ $0.2651$), Food $1.8\times$, Electronic $1.6\times$, POG
+\textbf{SLIM} (sparse elastic-net item--item, run wherever its per-item solve is tractable, $n\le 8000$),
+\textbf{iALS} (implicit-feedback matrix factorization~\cite{hu2008}, trained item factors with closed-form fold-in of the
+seed set), a bundle-space \textbf{Bundle-KNN}, and a validation-tuned non-negative \textbf{LinearCombiner} of the three
+neighbourhood scores.
+\textsc{BundleFuse} beats the \emph{best} of all seven on \textbf{all eight} datasets. The margin is largest exactly where
+content and taxonomy matter---Clothing $2.2\times$ ($0.5904$ vs.\ $0.2651$), Food $1.7\times$, Electronic $1.6\times$, POG
 $2.5\times$---and remains clear on the collaborative-leaning sets (Spotify\_sparse $+40\%$, POG\_dense $+31\%$, Spotify
-$+19\%$, Dunnhumby $+10\%$). Two further observations: the \emph{LinearCombiner never beats its own best component by more
-than noise}, so a naive tuned blend does not recover what the regime-aware construction buys; and SLIM merely ties the other
-neighbourhood methods where it runs, consistent with EASE (Table~\ref{tab:suite})---the sparse-linear family as a whole
-sits $1.6$--$2.2\times$ below \textsc{BundleFuse}.
+$+19\%$, Dunnhumby $+10\%$). Three further observations: iALS---the one \emph{trained}-parameter baseline here---is the
+strongest baseline on the dense e-commerce sets (Electronic $0.3341$, Food $0.3362$), yet is still $1.6$--$1.7\times$ below
+the zero-parameter method, and is weak on cold/sparse data (Spotify\_sparse $0.0840$); the \emph{LinearCombiner never beats
+its own best component by more than noise}, so a naive tuned blend does not recover what the regime-aware construction buys;
+and SLIM merely ties the other neighbourhood methods where it runs, consistent with EASE (Table~\ref{tab:suite})---the
+sparse-linear family as a whole sits $1.6$--$2.2\times$ below \textsc{BundleFuse}.
 
 \begin{table*}[t]\centering\small
 \caption{Matched tuned-neighbourhood baselines (full-ranking R@20), run under the \emph{same} splits/candidates/metrics/seeds
@@ -198,6 +202,7 @@ ItemKNN        & 0.0232 & 0.2589 & 0.1313 & 0.1100 & 0.3229 & 0.3267 & 0.2651 & 
 P3$\alpha$     & 0.0252 & 0.2838 & 0.1127 & 0.1088 & 0.3263 & 0.3317 & 0.2651 & 0.1204 \\
 RP3$\beta$     & 0.0252 & 0.2842 & 0.1129 & 0.1087 & 0.3248 & 0.3275 & 0.2651 & 0.1204 \\
 SLIM           & --     & --     & --     & --     & 0.3235 & 0.3299 & 0.2651 & --     \\
+iALS           & 0.0203 & 0.2559 & 0.1097 & 0.0840 & 0.3341 & 0.3362 & 0.2643 & 0.1038 \\
 Bundle-KNN     & 0.0259 & 0.2666 & 0.1226 & 0.1117 & 0.3262 & 0.3318 & 0.2651 & 0.1335 \\
 LinearCombiner & 0.0228 & 0.2776 & 0.1311 & 0.1180 & 0.3224 & 0.3275 & 0.2651 & 0.1370 \\
 \midrule

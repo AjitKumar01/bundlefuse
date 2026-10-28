@@ -104,22 +104,25 @@ each a sparse item-item `W` scored as `W @ Ind(S)`; every hyperparameter validat
 `bundlefuse/baselines.py`; results in `results/baselines_<ds>.json` + `results/baselines_all8.log`. **BundleFuse beats
 the best of all six on every dataset.** Best-baseline R@20 vs Ours:
 
-| dataset | ItemKNN | P3α | RP3β | SLIM | BundleKNN | Combiner | **best base** | **Ours** |
-|---|---|---|---|---|---|---|---|---|
-| POG | .0232 | .0252 | .0252 | — | .0259 | .0228 | .0259 | **.0653** |
-| POG_dense | .2589 | .2838 | .2842 | — | .2666 | .2776 | .2842 | **.3737** |
-| Spotify | .1313 | .1127 | .1129 | — | .1226 | .1311 | .1313 | **.1562** |
-| Spotify_sparse | .1100 | .1088 | .1087 | — | .1117 | .1180 | .1180 | **.1653** |
-| Electronic | .3229 | .3263 | .3248 | .3235 | .3262 | .3224 | .3263 | **.5192** |
-| Food | .3267 | .3317 | .3275 | .3299 | .3318 | .3275 | .3318 | **.5870** |
-| Clothing | .2651 | .2651 | .2651 | .2651 | .2651 | .2651 | .2651 | **.5904** |
-| Dunnhumby | .1346 | .1204 | .1204 | — | .1335 | .1370 | .1370 | **.1501** |
+| dataset | ItemKNN | P3α | RP3β | SLIM | iALS | BundleKNN | Combiner | **best base** | **Ours** |
+|---|---|---|---|---|---|---|---|---|---|
+| POG | .0232 | .0252 | .0252 | — | .0203 | .0259 | .0243 | .0259 | **.0653** |
+| POG_dense | .2589 | .2838 | .2842 | — | .2559 | .2666 | .2802 | .2842 | **.3737** |
+| Spotify | .1313 | .1127 | .1129 | — | .1097 | .1226 | .1314 | .1314 | **.1562** |
+| Spotify_sparse | .1100 | .1088 | .1087 | — | .0840 | .1117 | .1180 | .1180 | **.1653** |
+| Electronic | .3229 | .3263 | .3248 | .3235 | .3341 | .3262 | .3224 | .3341 | **.5192** |
+| Food | .3267 | .3317 | .3275 | .3299 | .3362 | .3318 | .3275 | .3362 | **.5870** |
+| Clothing | .2651 | .2651 | .2651 | .2651 | .2643 | .2651 | .2651 | .2651 | **.5904** |
+| Dunnhumby | .1346 | .1204 | .1204 | — | .1038 | .1335 | .1370 | .1370 | **.1501** |
 
-Margins: 2.2–2.5× on content-heavy sets (Clothing/POG), 1.6–1.8× on Electronic/Food, +10–40% on the
-collaborative-leaning sets (Spotify/Spotify_sparse/POG_dense/Dunnhumby). The **LinearCombiner never beats its best
-component by more than noise** (a naive tuned blend doesn't recover the construction), and SLIM merely ties the other
-neighbourhood methods where it runs (n≤8000); EASE represents the sparse-linear family at larger scale. Dependency-free
-by design (no implicit/lightfm → iALS/FISM/LightFM out of scope).
+Margins: 2.2–2.5× on content-heavy sets (Clothing/POG), 1.6–1.7× on Electronic/Food, +10–40% on the
+collaborative-leaning sets (Spotify/Spotify_sparse/POG_dense/Dunnhumby). **iALS** (the one *trained* baseline,
+dependency-free hand-written Hu-Koren-Volinsky ALS + closed-form fold-in) is the strongest baseline on dense e-commerce
+(Electronic .3341, Food .3362) but still 1.6–1.7× below Ours, and weak on cold/sparse (Spotify_sparse .0840). The
+**LinearCombiner never beats its best component by more than noise** (a naive tuned blend doesn't recover the construction);
+SLIM ties the other neighbours where it runs (n≤8000), and EASE represents the sparse-linear family at larger scale.
+FISM ≈ the item2vec baseline (tab:main); SANSA ≈ EASE. LightFM/FM-metadata needs the lib (declined) or a bespoke FM; the
+learned metadata-aware family is represented by CLHE/RaMen.
 
 ## Operator ablation & exposure buckets (regenerated zero-param)
 

@@ -29,8 +29,8 @@ not needed.) Running in tens of seconds on a single CPU core, \textsc{BundleFuse
 public-feature method on $5$ of $8$ benchmarks}---beating CLHE and RaMen on POG (${\sim}1.7\times$ R@20) and on
 Spotify, Spotify\_sparse, Clothing, and Dunnhumby---\textbf{ties} the $9.5$M-parameter CLHE encoder on POG\_dense,
 and beats CLHE's published numbers on Electronic and Food; all $8$ datasets are reported with cross-seed error bars.
-Against a matched suite of tuned neighbourhood/linear baselines (ItemKNN, P3$\alpha$/RP3$\beta$, SLIM, bundle-KNN, and a
-validation-tuned linear combiner) run under the \emph{identical} protocol, it wins on all eight.
+Against a matched suite of tuned neighbourhood, linear, and matrix-factorization baselines (ItemKNN, P3$\alpha$/RP3$\beta$,
+SLIM, iALS, bundle-KNN, and a validation-tuned linear combiner) run under the \emph{identical} protocol, it wins on all eight.
 It loses only to RaMen on the two dense e-commerce sets, and---using RaMen's own ablation---we trace that gap to its
 learned multi-hop collaborative encoder (removing it drops RaMen \emph{below} us), \emph{not} to the product images
 (removing those barely moves it); on every fully public benchmark we match or beat RaMen. We report our
@@ -94,6 +94,8 @@ Population Biology}, 21(1):24--43, 1982.
 interpolation weights. \emph{ICDM}, 2007.
 \bibitem{agarwal2009} D.~Agarwal, B.-C.~Chen. Regression-based latent factor models. \emph{KDD}, 2009.
 \bibitem{steck2019} H.~Steck. Embarrassingly shallow autoencoders for sparse data. \emph{WWW}, 2019.
+\bibitem{hu2008} Y.~Hu, Y.~Koren, C.~Volinsky. Collaborative filtering for implicit feedback datasets.
+\emph{ICDM}, 2008.
 \end{thebibliography}
 
 \end{document}
