@@ -19,6 +19,8 @@ results/*.csv
 # measured weight-sensitivity sweeps that back fig_wsweep (make_figs.py reads these)
 !results/wsweep_pog.json
 !results/wsweep_spotify.json
+# Phase-2 matched-protocol baseline results
+!results/baselines_*.json
 
 # derived CLIP feature caches (regenerate via scripts/clip_embed.py)
 *.npz

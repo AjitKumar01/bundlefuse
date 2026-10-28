@@ -528,6 +528,65 @@ if os.environ.get("WSWEEP"):
     sys.exit()
 
 
+if os.environ.get("BASELINES"):
+    # Tuned neighbourhood baselines (ItemKNN, P3alpha, RP3beta) on the IDENTICAL splits/candidates/
+    # metrics as BundleFuse: each is a sparse item-item W with score = W @ Ind, hyperparameters
+    # selected on validation NDCG@20, evaluated on test. 100% matched protocol.
+    from bundlefuse import baselines as BL
+    from tqdm import tqdm
+    cap = int(os.environ.get("BASELINES_CAP", "0"))  # 0 => full test
+    t0 = time.time()
+    vb, vg = load_split("valid", VAL_N)
+    tb, tg = load_split("test", TEST_N)
+    if cap:
+        tb, tg = tb[:cap], tg[:cap]
+    Cmat, Bmat = graph_op.C, graph_op.B
+    print(f"{DS} BASELINES | n={n:,} | val={len(vb)} test={len(tb)}", flush=True)
+
+    def _bl_eval(W, bundles, gts):
+        agg = {K2: [[], []] for K2 in (10, 20)}
+        for off in range(0, len(bundles), 200):
+            cb, cg = bundles[off:off + 200], gts[off:off + 200]
+            Ind = graph_op.build_indicator(cb)
+            S = torch.tensor(np.asarray((W @ Ind).todense()), dtype=torch.float32, device=DEVICE)
+            res = eval_fused(S, cb, cg, Ks=(10, 20))
+            for K2 in (10, 20):
+                agg[K2][0].extend([res[K2][0]] * len(cb)); agg[K2][1].extend([res[K2][1]] * len(cb))
+        return {K2: (float(np.mean(agg[K2][0])), float(np.mean(agg[K2][1]))) for K2 in (10, 20)}
+
+    def _select(name, build, grid):
+        best, best_nd, best_hp = None, -1.0, None
+        for hp in tqdm(grid, desc=f"{DS} {name}", unit="hp"):
+            W = build(*hp)
+            nd = _bl_eval(W, vb, vg)[20][1]  # NDCG@20 on validation
+            if nd > best_nd:
+                best_nd, best_hp, best = nd, hp, W
+        return best, best_hp, best_nd
+
+    out = {"dataset": DS, "n": int(n), "methods": {}}
+    specs = [
+        ("ItemKNN", lambda k, h: BL.itemknn_W(Cmat, freq, topk=int(k), shrink=h), BL.ITEMKNN_GRID),
+        ("P3alpha", lambda a: BL.p3alpha_W(Bmat, freq, alpha=a, topk=200), BL.P3ALPHA_GRID),
+        ("RP3beta", lambda a, b: BL.rp3beta_W(Bmat, freq, alpha=a, beta=b, topk=200), BL.RP3BETA_GRID),
+    ]
+    rows = []
+    for name, build, grid in specs:
+        W, hp, val_nd = _select(name, build, grid)
+        te = _bl_eval(W, tb, tg)
+        out["methods"][name] = {"hp": hp, "val_ndcg20": val_nd,
+                                "test": {"R@10": te[10][0], "N@10": te[10][1], "R@20": te[20][0], "N@20": te[20][1]}}
+        rows.append((name, hp, te))
+        print(f"{DS} {name:10s} hp={hp} | test R@10 {te[10][0]:.4f} N@10 {te[10][1]:.4f} "
+              f"R@20 {te[20][0]:.4f} N@20 {te[20][1]:.4f}", flush=True)
+    outp = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "results", f"baselines_{DS}.json")
+    json.dump(out, open(outp, "w"), indent=2)
+    print(f"\n=== {DS} BASELINES ({time.time()-t0:.0f}s) -> {outp} ===", flush=True)
+    print(f"{'method':12s} {'R@10':>8} {'N@10':>8} {'R@20':>8} {'N@20':>8}", flush=True)
+    for name, hp, te in rows:
+        print(f"{name:12s} {te[10][0]:8.4f} {te[10][1]:8.4f} {te[20][0]:8.4f} {te[20][1]:8.4f}", flush=True)
+    sys.exit()
+
+
 t = time.time()
 content_sig = "audiostyle" if MUSIC else "style"
 vb, vg = load_split("valid", VAL_N)
