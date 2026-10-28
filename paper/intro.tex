@@ -52,8 +52,9 @@ benchmark \textsc{BundleFuse} matches or beats it (\S\ref{sec:costbenefit}).
   optional contrastive encoder is unnecessary (\S\ref{sec:method}, \S\ref{sec:results}--\S\ref{sec:cost}).
   \item \textbf{Diagnostic negative results on higher-order operators and homoscedastic EB variance models.}
   We show that once our set-conditioned prior and two-hop pairwise transitions are in place, explicit $(k\ge 3)$-way
-  incidence ($\hat{\Delta}_{\text{inc}}$) and second-order Rao concordance ($\hat{R}_{\gamma}$) add only $+0.00$ to
-  $+0.34$\,pp, while zero-inflated collaborative dispersion causes homoscedastic OLS variance estimation on $1/f_c$
+  incidence ($\hat{\Delta}_{\text{inc}}$) and second-order Rao concordance ($\hat{R}_{\gamma}$) add at most
+  $+0.79$\,pp (on \textsc{Spotify}; ${\le}+0.26$\,pp on the other seven datasets), while zero-inflated collaborative
+  dispersion causes homoscedastic OLS variance estimation on $1/f_c$
   to yield negative slopes on $7/8$ datasets---justifying direct validation selection (or a universal fixed
   $\kappa_f = 0.5$ that retains $>98\%$ of peak accuracy) (\S\ref{sec:incidence}--\S\ref{sec:eb}, \S\ref{sec:control}).
   \item \textbf{A predictive regime law and an honest e-commerce attribution across 8 datasets / 4 domains.} From a

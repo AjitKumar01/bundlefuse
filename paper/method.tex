@@ -40,7 +40,7 @@ higher-order hypergraph operators:
   ($\hat{\Delta}_{\text{inc}}$)~\cite{benson2018,lee2024} and \emph{Rao-Weighted Quadratic Seed Concordance}
   ($\hat{R}_{\gamma}$)~\cite{rendle2010,blondel2016,rao1982}, proving $\hat{\Delta}_{\text{inc}}$'s exact
   activation boundary $\Pr(\exists b : \lvert b \cap S\rvert \ge 2)$ and showing empirically why explicit
-  higher-order collaborative terms add only $+0.00$ to $+0.34$\,pp once Pillars I--II are in place.
+  higher-order collaborative terms add at most $+0.79$\,pp (${\le}+0.26$\,pp on seven of eight) once Pillars I--II are in place.
 \end{enumerate}
 Figure~\ref{fig:framework} summarises the architecture.
 
@@ -161,8 +161,8 @@ Pillars I--II, we isolate two closed-form higher-order operators:
   \end{equation}
 \end{enumerate}
 As we show in \S\ref{sec:control}, isolating $\hat{\Delta}_{\text{inc}}$ and $\hat{R}_{\gamma}$ yields a crisp
-diagnostic finding: once Pillars I and II are present, $\hat{\Delta}_{\text{inc}}$ and $\hat{R}_{\gamma}$ add only
-$+0.00$ to $+0.34$\,pp overall, proving that cold-start prior construction and exposure routing---not higher-order
+diagnostic finding: once Pillars I and II are present, $\hat{\Delta}_{\text{inc}}$ and $\hat{R}_{\gamma}$ add at most
+$+0.79$\,pp (${\le}+0.26$\,pp on seven of eight datasets), showing that cold-start prior construction and exposure routing---not higher-order
 collaborative algebra---drive performance.
 
 \subsection{Pillar III: Validation-Frozen Frequency-Confidence Routing}
