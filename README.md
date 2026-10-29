@@ -29,7 +29,8 @@ bundlefuse/                 the package (library core)
   operators.py              the scorer: collaborative / taxonomic / content operators + shrinkage
   selection.py              validation selection objectives (ndcg@K, recall@K, mrr, ndcgfull, nll)
   protocol.py               the bundle-completion masking protocol
-  baselines.py              matched neighbourhood / MF baselines (ItemKNN, P3α, RP3β, SLIM, iALS, …)
+  baselines/                matched baselines, one file per method + OOP base class
+    base.py itemknn.py randomwalk.py slim.py bundleknn.py ials.py combiner.py suite.py
   paths.py                  single source of truth for data / results locations
   eval/                     one runnable evaluator per dataset family (+ run_matrix)
     fullrank.py             POG / POG_dense / Spotify / Spotify_sparse

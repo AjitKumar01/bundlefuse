@@ -42,7 +42,7 @@ fabricated, tautological, or non-reproducible. Below is exactly what was kept, c
    (a multi-head attention GNN), **not** private images — the earlier "images" claim was refuted and
    rewritten (`paper/experiments.tex`, `tab:ramen_abl`). ✓
 5. **One matched protocol:** identical splits/candidates/metrics across methods, with a full tuned
-   neighbourhood/MF baseline suite (`bundlefuse/baselines.py`, `BASELINES=1`). ✓ (`tab:neigh`)
+   neighbourhood/MF baseline suite (`bundlefuse/baselines/`, `BASELINES=1`). ✓ (`tab:neigh`)
 6. **Framing decided:** an efficiency + reproducibility + regime-analysis paper around the DDBC protocol
    audit and the cost/regime story — not a novel-architecture claim. ✓
 
