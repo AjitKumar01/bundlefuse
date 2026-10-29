@@ -66,47 +66,67 @@ things we train (\S\ref{sec:inputs}). Figure~\ref{fig:flow} is the whole method 
 completed bundle out---and every later section just explains one of its boxes.
 
 \begin{center}
-\resizebox{\linewidth}{!}{%
-\begin{tikzpicture}[>=Latex,
+\resizebox{0.99\linewidth}{!}{%
+\begin{tikzpicture}[>=Latex,node distance=0pt,
  io/.style={draw,very thick,rounded corners,fill=green!14,align=center,inner sep=5pt,font=\small},
- op/.style={draw,rounded corners,align=center,inner sep=4pt,font=\scriptsize},
- pr/.style={draw,rounded corners,fill=black!5,align=center,inner sep=4pt,font=\scriptsize}]
-% input
-\node[io](IN) at (0,0){\textbf{Partial}\\\textbf{bundle}\\[2pt]$S=\{1\}$\\[3pt]as indicator\\$x_S\!=\!(1,0,0,0)^{\!\top}$};
-% operators -- each APPLIES to the seed and yields a score over candidates (2,3,4)
-\node[op,fill=blue!8]  (o1) at (4.3,3.1){\code{cooc}\ \ multiply $C\,x_S=(\,2,\ 1,\ 1\,)$};
-\node[op,fill=blue!8]  (o2) at (4.3,1.55){\code{ppmi}\ \ multiply $\mathrm{PPMI}\,x_S=(.34,.15,.56)$};
-\node[op,fill=blue!8]  (o3) at (4.3,0.0){\code{csvd}\ \ fingerprint cosine $\langle u_c,u_1\rangle=(.90,.55,.70)$};
-\node[op,fill=violet!9](o4) at (4.3,-1.55){\code{cat}\ \ look up seed's category row $P_{\text{cat}}[A,\cdot]=(.65,\,0,\,.18)$};
-\node[op,fill=teal!8]  (o5) at (4.3,-3.1){\code{content}\ \ cosine to seed vector $\langle\phi_c,\phi_1\rangle$\ {\tiny(needs embeddings)}};
-% standardize
-\node[pr](z) at (8.7,0){standardise\\each column\\to a $z$-score};
-% Y and mu0
-\node[pr,fill=blue!10] (Y) at (12.1,1.4){\textbf{blend} (St.\,1--2)\\$Y=1\!\cdot\!z_{\mathrm{ppmi}}+0.5\,z_{\mathrm{cat}}$\\$=(1.18,\,-.91,\,1.38)$};
-\node[pr,fill=violet!10](M) at (12.1,-1.4){\textbf{prior} $\mu_0$ (St.\,3)\\{\tiny from \code{cat}/\code{content}}\\$=(2.17,\,-1.02,\,-.13)$};
-% route
-\node[pr,fill=orange!22](R) at (15.8,0){\textbf{route} (St.\,4)\\$\hat\theta=(1{-}u_c)Y+u_c\mu_0$\\$u_c=\tfrac{\kappa}{f_c+\kappa}=(.25,.33,.5)$\\[1pt]$\hat\theta=(1.43,\,-.95,\,.62)$};
-% rank + out
-\node[pr,fill=green!8](rk) at (19.1,1.1){rank\\$2\succ4\succ3$};
-\node[io](OUT) at (19.1,-1.2){\textbf{Filled}\\\textbf{bundle}\\$\{1,\mathbf2,\mathbf4\}$};
-% edges
-\foreach \o in {o1,o2,o3,o4,o5}{\draw[->,gray!70](IN.east)--(\o.west);}
-\foreach \o in {o1,o2,o3,o4,o5}{\draw[->,gray!70](\o.east)--(z.west);}
-\draw[->](z)--(Y);\draw[->](z)--(M);
-\draw[->](Y)--(R);\draw[->](M)--(R);
-\draw[->](R.east)--(rk.west);\draw[->](R.east)--(OUT.west);
+ fam/.style={draw,rounded corners,align=left,inner sep=5pt,font=\scriptsize,text width=52mm},
+ pr/.style={draw,rounded corners,fill=black!5,align=left,inner sep=5pt,font=\scriptsize,text width=120mm},
+ lbl/.style={font=\scriptsize\itshape,gray}]
+% ---- input ----
+\node[io](IN) at (7,0){\textbf{Partial bundle}\quad $S=\{1\}$\quad$\longrightarrow$\quad indicator $x_S=(1,0,0,0)^{\!\top}$};
+% ---- signal families (every signal listed; numbers over candidates item 2,3,4) ----
+\node[fam,fill=blue!8,anchor=north]  (col) at (0.3,-1.2){%
+ \textbf{Collaborative} {\tiny(from $B$ only)}\\[1pt]
+ \code{cooc}$=C x_S=(2,\,1,\,1)$\\
+ \code{ppmi}$=\mathrm{PPMI}\,x_S=(.34,.15,.56)$\\
+ \code{csvd}$=\langle u_c,u_1\rangle=(.90,.55,.70)$\\
+ \code{simp}$=W_{\mathrm{pair}}x_S=(.38,.19,.19)$\\
+ \code{diff2}$=\mathcal{P}(\mathrm{simp})=(.05,.04,.03)$\\
+ \code{pop}$=\log(1{+}f_c)=(1.39,1.10,.69)$\\
+ $\Delta_{\mathrm{inc}}=\code{rao}=(0,0,0)$ {\tiny($|S|{=}1$: need $\ge2$ seeds)}};
+\node[fam,fill=violet!9,anchor=north] (tax) at (5.35,-1.2){%
+ \textbf{Taxonomic} {\tiny(from labels)}\\[1pt]
+ \code{cat}$=P_{\mathrm{cat}}[A,\cdot]=(.65,\,0,\,.18)$\\
+ \ \ $+$ slot self-excl.$\approx0$ {\tiny($A$ repeats in $b_1$)}\\
+ \code{homo}$=$ n/a {\tiny(music: artist/album)}\\
+ \code{softcat}$=$ n/a {\tiny(needs embeddings)}};
+\node[fam,fill=teal!8,anchor=north]  (con) at (10.4,-1.2){%
+ \textbf{Content} {\tiny(from embeddings)}\\[1pt]
+ \code{style}/\code{imgstyle}/\code{audiostyle}\\
+ \ \ $=\langle\phi_c,\bar\phi_S\rangle=$ n/a {\tiny(toy has no emb.)}\\
+ \code{bridge}$=$ n/a {\tiny(needs embeddings)}\\
+ \code{contrast}$=$ off {\tiny(\code{ENCODER=0})}};
+% ---- pipeline (vertical) ----
+\node[pr,anchor=north] (z)  at (7,-5.55){\textbf{Standardise} (Stage 0)\ \ every signal column $\to z_k$ ($z$-score across the catalogue), so all opinions share one scale.};
+\node[pr,fill=blue!10,anchor=north]  (s1) at (7,-6.85){\textbf{Stage 1 --- weighted blend.}\ \ $Y_{\mathrm{base}}=\sum_k w_k z_k$, weights by greedy validation search. Here only $w_{\mathrm{ppmi}}{=}1,\ w_{\mathrm{cat}}{=}0.5$ survive; all other $w_k{=}0$ (the method prunes itself).};
+\node[pr,fill=blue!10,anchor=north]  (s2) at (7,-8.35){\textbf{Stage 2 --- higher-order.}\ \ $Y=(1{-}\alpha)Y^{\mathrm{pair}}+\alpha Y^{\mathrm{inc}}+\gamma z_{\mathrm{rao}}$, with $\alpha,\gamma$ from validation. Here $\alpha{=}\gamma{=}0$ (and $\Delta_{\mathrm{inc}}{=}\mathrm{rao}{=}0$) $\Rightarrow\ Y=(1.18,\,-.91,\,1.38)$.};
+\node[pr,fill=violet!10,anchor=north](s3) at (7,-9.95){\textbf{Stage 3 --- cold-start prior.}\ \ $\mu_0=\mathrm{scale}\cdot\!\big(\sum_{\mathrm{prior\ keys}}w_k z_k+\gamma z_{\mathrm{rao}}\big)$ from taxonomy/content only (\code{scale} frozen on val). Here $\mu_0=(2.17,\,-1.02,\,-.13)$.};
+\node[pr,fill=orange!20,anchor=north](s4) at (7,-11.55){\textbf{Stage 4 --- frequency routing.}\ \ $\hat\theta=(1{-}u_c)\,Y+u_c\,\mu_0$, $\ u_c=\dfrac{\kappa}{f_c+\kappa}$ ($\kappa{=}1$): $u_c=(.25,.33,.5)$ for $f_c=(3,2,1)\ \Rightarrow\ \hat\theta=(1.43,\,-.95,\,.62)$.};
+\node[pr,fill=green!8,anchor=north]  (rk) at (7,-13.25){\textbf{Rank} $c\notin S$ by $\hat\theta$, drop the seed $\ \Rightarrow\ 2\succ4\succ3$.};
+\node[io,anchor=north] (OUT) at (7,-14.65){\textbf{Filled bundle}\quad $\{\,1,\ \mathbf{2},\ \mathbf{4}\,\}$};
+% ---- edges ----
+\draw[->,gray!70](IN.south-|col)--(col.north);
+\draw[->,gray!70](IN.south)--(tax.north);
+\draw[->,gray!70](IN.south-|con)--(con.north);
+\draw[->,gray!70](col.south)|-(z.north);
+\draw[->,gray!70](tax.south)--(z.north);
+\draw[->,gray!70](con.south)|-(z.north);
+\draw[->](z)--(s1);\draw[->](s1)--(s2);\draw[->](s2)--(s3);\draw[->](s3)--(s4);\draw[->](s4)--(rk);\draw[->](rk)--(OUT);
 \end{tikzpicture}}
 \end{center}
-\captionof{figure}{\textbf{A partial bundle, filled---showing exactly how the seed is \emph{used} at each step}
-(every vector is the score for candidates \textbf{(item 2, item 3, item 4)}; the seed $1$ is masked). The seed set
-becomes an indicator $x_S=(1,0,0,0)^{\!\top}$, and each component consumes it differently: the collaborative signals
-\emph{multiply} it by a matrix ($C\,x_S$, $\mathrm{PPMI}\,x_S$) or take a fingerprint cosine (\code{csvd}); the
-taxonomic \code{cat} \emph{looks up the row} of the seed's category in $P_{\text{cat}}$; content takes a cosine to the
-seed's embedding. Each resulting column is standardised to a $z$-score, then the validation-picked weights (here only
-$w_{\mathrm{ppmi}}{=}1,\ w_{\mathrm{cat}}{=}0.5$ are nonzero) blend them into $Y$ (Stages 1--2); a metadata prior
-$\mu_0$ (Stage 3) is mixed in \emph{per candidate} by frequency routing $u_c=\kappa/(f_c+\kappa)$ (Stage 4, here
-$\kappa{=}1$). Ranking the result and dropping the seed gives the completion $\{1,\mathbf2,\mathbf4\}$. Every number is
-machine-verified and reappears, stage by stage, in Fig.~\ref{fig:stages}.}
+\captionof{figure}{\textbf{A partial bundle, filled---top to bottom, with \emph{every} component shown and nothing
+omitted} (each vector lists the score for candidates \textbf{(item 2, item 3, item 4)}; the seed $1$ is masked). The
+seed becomes the indicator $x_S=(1,0,0,0)^{\!\top}$. \emph{All eleven-plus signals} are then computed and shown with
+their exact toy values: the collaborative ones \emph{multiply} $x_S$ by a matrix (\code{cooc}, \code{ppmi}, pairwise
+\code{simp}, two-hop \code{diff2}) or take a fingerprint cosine (\code{csvd}), plus query-independent \code{pop}; the
+set-level $\Delta_{\mathrm{inc}}$ and \code{rao} are exactly $0$ here because a single seed cannot form a pair. The
+taxonomic \code{cat} \emph{looks up} the seed-category row of $P_{\mathrm{cat}}$ (with the signed slot self-exclusion
+$\approx0$ since $A$ repeats in $b_1$); \code{homo}/\code{softcat} and the whole content family are honestly marked
+\emph{n/a} because the toy carries no embeddings/music (they are not skipped---they have no inputs here). Every column
+is $z$-scored (Stage 0), blended with the validation-selected weights (Stage 1, only \code{ppmi}+\code{cat} survive),
+mixed with the inert higher-order terms (Stage 2), combined per candidate with the cold-start prior $\mu_0$ (Stage 3)
+by frequency routing $u_c=\kappa/(f_c+\kappa)$ (Stage 4), then ranked with the seed removed---yielding
+$\{1,\mathbf2,\mathbf4\}$. Every number is machine-verified and reappears in Fig.~\ref{fig:stages}.}
 \label{fig:flow}
 
 The note is bottom-up. \S\ref{sec:inputs}--\S\ref{sec:derived} define what we start with. \S\ref{sec:vocab} defines
