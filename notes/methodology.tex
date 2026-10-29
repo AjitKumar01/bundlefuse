@@ -11,6 +11,8 @@
 \usetikzlibrary{arrows.meta,positioning,calc,fit,backgrounds}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.16}
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf,labelsep=period}
 
 \newtheorem{definition}{Definition}
 \theoremstyle{remark}
@@ -118,11 +120,12 @@ For the toy dataset,
   \node[font=\footnotesize,gray] at (3.2,-2.0) {items};
 \end{tikzpicture}
 \end{center}
-\noindent\emph{The bundle--item graph of the toy data.} Each edge is a $1$ in $B$. The \textbf{degree of an item}
+\captionof{figure}{\emph{The bundle--item graph of the toy data.} Each edge is a $1$ in $B$. The \textbf{degree of an item}
 (number of edges) is its frequency $f$: item $2$ has $3$ edges ($f_2=3$), item $4$ has one ($f_4=1$). Two items
 \textbf{co-occur} ($C_{ci}>0$) exactly when they connect to a common bundle box: items $1$ and $2$ share $b_1$ and
 $b_2$ (so $C_{12}=2$), while items $3$ and $4$ share no box ($C_{34}=0$). Every collaborative signal in this note is
-some way of reading this one picture.
+some way of reading this one picture.}
+\label{fig:graph}
 
 \subsection{The embedding features --- stated explicitly}
 \label{sec:emb}
@@ -254,11 +257,12 @@ Read $C$ as: items $1$ and $2$ share $2$ bundles; items $3$ and $4$ never share 
 \draw[->](P)--(U) node[lbl]{SVD$_k$,\\[-1pt]$L_2$-norm};
 \end{tikzpicture}}
 \end{center}
-\noindent\emph{The collaborative pipeline, built once from the bundles alone.} The bundle--item matrix $B$ becomes the
+\captionof{figure}{\emph{The collaborative pipeline, built once from the bundles alone.} The bundle--item matrix $B$ becomes the
 item--item co-occurrence $C=B^{\!\top}B$ (diagonal zeroed); $C$ becomes the chance-corrected $\mathrm{PPMI}$
 (\S\ref{sec:pmi}); and a truncated SVD of $\mathrm{PPMI}$ gives each item a dense ``collaborative fingerprint'' $u_i$
 (\S\ref{sec:svd}). The partial bundle is \emph{not} involved yet: these are fixed structures a query is later scored
-\emph{against}.
+\emph{against}.}
+\label{fig:build}
 
 % ======================================================================
 \section{The vocabulary of operations (general idea $\to$ local definition $\to$ example)}
@@ -297,11 +301,12 @@ result---PMI will \emph{overturn} it.
 =\underbrace{\left(\begin{smallmatrix}\cdot\\2\\1\\1\end{smallmatrix}\right)}_{\textstyle \mathrm{score}(\cdot\mid S)}$};
 \end{tikzpicture}
 \end{center}
-\noindent\emph{Filling a partial bundle is one matrix--vector product.} The seed indicator $x_S$ carries a $1$ in each
+\captionof{figure}{\emph{Filling a partial bundle is one matrix--vector product.} The seed indicator $x_S$ carries a $1$ in each
 seed slot, so $Cx_S$ \textbf{sums the seed columns of $C$}. For $S=\{1\}$ it reads off column $1$: candidate $2$
 scores $2$, candidates $3,4$ score $1$; the seed itself ($c=1$, shown ``$\cdot$'') is masked to $-\infty$ before
 ranking. \emph{Every} collaborative signal has this exact shape $Wx_S$---only the matrix $W$ changes (raw $C$,
-$\mathrm{PPMI}$, the degree-normalised $W_{\text{pair}}$, or the household operator).
+$\mathrm{PPMI}$, the degree-normalised $W_{\text{pair}}$, or the household operator).}
+\label{fig:cooc}
 
 \subsection{PMI / PPMI: ``is this pair together \emph{more than chance}?''}
 \label{sec:pmi}
@@ -371,10 +376,11 @@ PPMI channel alongside raw co-occurrence.
 \end{axis}
 \end{tikzpicture}
 \end{center}
-\noindent\emph{Same query, two signals, opposite winners.} Raw co-occurrence (blue) crowns the \emph{hub} item $2$;
+\captionof{figure}{\emph{Same query, two signals, opposite winners.} Raw co-occurrence (blue) crowns the \emph{hub} item $2$;
 PPMI (orange), by dividing out each item's popularity, crowns the \emph{rare-but-exclusive} item $4$. The PPMI bars
 are shorter in absolute terms (they are log-ratios), but standardisation in \S\ref{sec:toscore} removes that scale
-difference---what survives into the blend is the \emph{ordering}.
+difference---what survives into the blend is the \emph{ordering}.}
+\label{fig:ppmi}
 
 \subsection{Truncated SVD: a dense ``collaborative fingerprint'' per item}
 \label{sec:svd}
@@ -412,12 +418,13 @@ pulled closer. This is how the collaborative side reasons about pairs it has nev
 \node[font=\scriptsize,blue!65] at (1.05,1.35){$\cos(1,2)=0.90$};
 \end{tikzpicture}
 \end{center}
-\noindent\emph{The fingerprint sees partners-of-partners, not just direct pairs.} These are the \textbf{exact} rank-$2$
+\captionof{figure}{\emph{The fingerprint sees partners-of-partners, not just direct pairs.} These are the \textbf{exact} rank-$2$
 $L_2$-normalised fingerprints $u_i$ of the toy $\mathrm{PPMI}$ (machine-computed, $x$-sign flipped for display). Items
 $3$ and $4$ \textbf{never co-occur} ($C_{34}=0$), yet their fingerprints are almost identical ($\cos=0.98$) because
 both pair with $\{1,2\}$; the hubs $1,2$ likewise sit together ($\cos=0.90$). The \code{csvd} score of a candidate is
 the cosine between its fingerprint and the seeds' \emph{average} fingerprint---so a partial bundle recalls items with
-the same \emph{company}, even ones never literally seen with it.
+the same \emph{company}, even ones never literally seen with it.}
+\label{fig:fingerprint}
 
 \subsection{Degree normalisation: taming hubs and big bundles}
 \label{sec:degnorm}
@@ -454,12 +461,13 @@ b}(f_s+5)^{-0.5}$: a \emph{smoothed, size-aware} co-occurrence. Setting both exp
 \draw[->](x)--(d1);\draw[->](d1)--(B);\draw[->](B)--(db);\draw[->](db)--(Bt);\draw[->](Bt)--(s);
 \end{tikzpicture}}
 \end{center}
-\noindent\emph{$W_{\text{pair}}=B^{\!\top}\mathrm{diag}((|b|{+}1)^{-1/2})\,B\,\mathrm{diag}((f{+}5)^{-1/2})$, read
+\captionof{figure}{\emph{$W_{\text{pair}}=B^{\!\top}\mathrm{diag}((|b|{+}1)^{-1/2})\,B\,\mathrm{diag}((f{+}5)^{-1/2})$, read
 right-to-left as a walk.} A seed's mass is first shrunk by its own popularity, carried up to the bundles it sits in
 (each discounted by its size), then back down to candidates. On the toy data the item discounts are
 $(f{+}5)^{-1/2}=(0.378,\,0.354,\,0.378,\,\mathbf{0.408})$: the \emph{rarest} item $4$ is damped least and the
 \emph{hub} item $2$ most---the same chance-correction PPMI applies, here multiplicative. Both exponents set to $0$
-recovers plain $C$.
+recovers plain $C$.}
+\label{fig:degnorm}
 
 \subsection{Graph propagation: a two-hop smoothing walk}
 \label{sec:prop}
@@ -489,11 +497,12 @@ both ends and the self-term subtracted (\code{operators.py}:121--131). It is use
 \node[font=\scriptsize,gray] at (3.9,-1.55){hop 2: bundles$\to$items};
 \end{tikzpicture}
 \end{center}
-\noindent\emph{One propagation step spreads a score two hops across the co-purchase graph.} Item $c$'s evidence flows
+\captionof{figure}{\emph{One propagation step spreads a score two hops across the co-purchase graph.} Item $c$'s evidence flows
 out to the bundles it belongs to and back down to \emph{their} other members $j,j'$ (both ends carrying the item
 discount, the self-term subtracted). Applied to the pairwise score it yields the two-hop signal \code{diff2}; applied
 to content vectors it builds the \code{bridge} (\S\ref{sec:content}). It is the factored product $B^{\!\top}(\cdots)B$,
-never a dense $n\times n$ matrix---essential at $n=254{,}000$.
+never a dense $n\times n$ matrix---essential at $n=254{,}000$.}
+\label{fig:prop}
 
 % ======================================================================
 \section{The signals, built one by one}
@@ -544,6 +553,27 @@ embedding). With per-seed pulls $W_{\text{pair}}[\,\cdot,s]$ and a seed--seed re
 seeds' category labels \emph{and} their content embeddings, so this signal \emph{does} touch embeddings. Like
 $\Delta_{\text{inc}}$ it is a small corrective, reported honestly as such.
 
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[ybar,bar width=8pt,width=0.92\linewidth,height=5cm,
+  symbolic x coords={item 2,item 3,item 4},xtick=data,
+  ymin=0,ymax=1.28,enlarge x limits=0.35,
+  ylabel={score (rel.\ to each signal's top)},
+  legend style={font=\scriptsize,at={(0.5,1.03)},anchor=south,legend columns=3}]
+\addplot[fill=blue!55]  coordinates {(item 2,1.0)(item 3,0.5)(item 4,0.5)};
+\addplot[fill=orange!70]coordinates {(item 2,0.600)(item 3,0.275)(item 4,1.0)};
+\addplot[fill=teal!55]  coordinates {(item 2,1.0)(item 3,0.606)(item 4,0.780)};
+\legend{cooc,ppmi,csvd}
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\captionof{figure}{\emph{Three collaborative opinions on $S=\{1\}$---and they disagree.} Bar heights are each signal's
+score \emph{relative to its own top candidate} (raw values: \code{cooc}$=(2,1,1)$, \code{ppmi}$=(.34,.15,.56)$,
+\code{csvd}$=(.90,.55,.70)$ over items $2,3,4$). Raw co-occurrence and the SVD fingerprint back the \emph{hub} item~$2$;
+chance-corrected PPMI backs the \emph{rare-but-exclusive} item~$4$. This disagreement is exactly why fusion
+(\S\ref{sec:fuse}) exists---no single collaborative signal is right everywhere.}
+\label{fig:collabfam}
+
 \subsection{Taxonomic family (from category/artist/album labels)}
 \label{sec:tax}
 
@@ -570,6 +600,25 @@ embedding, give each item a \emph{soft} assignment (a softmax of cosine-to-centr
 construction over the $400$ clusters. This captures sub-type complementarity finer than the official category labels.
 \textbf{Uses embeddings} (for the clustering and soft assignment).
 \end{description}
+
+\begin{center}
+\resizebox{\linewidth}{!}{%
+\begin{tikzpicture}[>=Latex,font=\footnotesize,
+  bx/.style={draw,rounded corners,fill=violet!5,inner sep=5pt,align=left}]
+\node[bx] (map) {items\,$\to$\,categories:\\[1pt] $1,3\!\to\!A$\\ $2\!\to\!B$\\ $4\!\to\!C$};
+\node[bx,right=10mm of map] (P) {$P_{\text{cat}}=\begin{array}{c|ccc}&A&B&C\\\hline A&0&\mathbf{.65}&.18\\ B&\mathbf{.65}&0&.18\\ C&.18&.18&0\end{array}$};
+\node[bx,right=10mm of P] (sc) {score$(\cdot\mid S{=}\{1\})$, seed cat $A$:\\[1pt] item $2$ ($B$): $P[A,B]=\mathbf{0.65}$\\ item $4$ ($C$): $P[A,C]=0.18$\\ item $3$ ($A$): $P[A,A]=0$};
+\draw[->](map)--(P) node[midway,above,font=\scriptsize,align=center]{same PPMI,\\[-2pt]over categories};
+\draw[->](P)--(sc) node[midway,above,font=\scriptsize,align=center]{read seed\\[-2pt]row};
+\end{tikzpicture}}
+\end{center}
+\captionof{figure}{\emph{Taxonomic scoring: category-to-category PMI, machine-computed on toy categories.} Assign the
+toy items categories $A,B,C$ as shown; the \emph{same} PPMI construction as Fig.~\ref{fig:build}, applied to the
+bundle$\times$category counts, yields $P_{\text{cat}}$. For seed item~$1$ (category $A$) the candidate scores are just
+row $A$: item~$2$ wins because ``$A$ complements $B$'' is a strong category pairing ($0.65$), item~$4$ gets a little
+($0.18$), and same-category item~$3$ gets $0$. Crucially this needs \textbf{no co-occurrence of the candidate
+itself}, so it scores cold items by \emph{what they are}.}
+\label{fig:taxfam}
 
 \subsection{Content family (from the embedding vectors)}
 \label{sec:content}
@@ -618,10 +667,26 @@ zero-parameter signals above are enough. When off, it contributes nothing.
  \end{scope}
 \end{tikzpicture}
 \end{center}
-\noindent\emph{What \code{disentangle} does.} Left: raw embeddings separate mostly by \emph{category} (all of A over
+\captionof{figure}{\emph{What \code{disentangle} does.} Left: raw embeddings separate mostly by \emph{category} (all of A over
 here, all of B over there)---useless for matching \emph{within} an outfit, since the seeds and the answer are
 different categories by design. Subtracting each category's mean vector (right) cancels that bulk separation and
-leaves only each item's \emph{style} deviation, which is what the content signals actually compare.
+leaves only each item's \emph{style} deviation, which is what the content signals actually compare.}
+\label{fig:disentangle}
+
+\begin{center}
+\begin{tikzpicture}[>=Latex,dot/.style={circle,fill,inner sep=1.4pt}]
+\draw[->,gray!55](-0.3,0)--(3.7,0); \draw[->,gray!55](0,-1.7)--(0,2.5);
+\draw[->,thick,black!75](0,0)--(2.2,1.95) node[above right,font=\scriptsize]{seed centroid $\bar\phi_S$};
+\draw[->,thick,blue!70](0,0)--(2.7,1.35) node[dot]{} node[right,font=\scriptsize]{$c$: small angle $\Rightarrow$ high};
+\draw[->,thick,orange!75](0,0)--(1.0,-1.25) node[dot]{} node[below,font=\scriptsize]{$c'$: large angle $\Rightarrow$ low};
+\end{tikzpicture}
+\end{center}
+\captionof{figure}{\emph{Content scoring is cosine to the seeds' average style vector} (illustrative---the toy dataset
+carries no embeddings). Each content signal (\code{style}/\code{imgstyle}/\code{bridge}) averages the seeds' processed
+vectors into a centroid $\bar\phi_S$ and ranks candidates by $\langle\phi_c,\bar\phi_S\rangle$. Because the vectors are
+category-disentangled (Fig.~\ref{fig:disentangle}), this rewards \emph{within-outfit style match}; like taxonomy it
+uses no co-occurrence, so it too scores \textbf{cold} items.}
+\label{fig:contentfam}
 
 % ======================================================================
 \section{From a signal to per-query numbers: scoring and standardising}
@@ -694,9 +759,10 @@ prior $\mu_0$---that the final routing step mixes per candidate according to how
  \node[font=\scriptsize,align=center] at (12.6,1.45) {$u_c=\dfrac{\kappa}{f_c+\kappa}$};
 \end{tikzpicture}}
 \end{center}
-\noindent\emph{Solid arrows are each family's main input; gray arrows are secondary ones} (e.g.\ \code{bridge} also
+\captionof{figure}{\emph{Solid arrows are each family's main input; gray arrows are secondary ones} (e.g.\ \code{bridge} also
 reads $B$; \code{softcat} also reads embeddings). $f_c$ is the candidate's frequency, so cold candidates
-($f_c\!=\!0$) route entirely to $\mu_0$. We now unpack the four stages.
+($f_c\!=\!0$) route entirely to $\mu_0$. We now unpack the four stages.}
+\label{fig:fusion}
 
 Now we combine the standardised signals $\{z_k\}$ into one number per candidate. There are four stages; the only
 quantities ``learned'' are a handful of scalars, each chosen by \textbf{greedy search on a validation split} to
@@ -768,13 +834,14 @@ collaborative evidence, which for a hub is plentiful and trustworthy.
 \end{axis}
 \end{tikzpicture}
 \end{center}
-\noindent\emph{The routing dial.} As a candidate is seen more often, weight slides off the prior and onto the
+\captionof{figure}{\emph{The routing dial.} As a candidate is seen more often, weight slides off the prior and onto the
 collaborative evidence. The single learned scalar $\kappa$ sets \emph{how fast}: larger $\kappa$ (orange) keeps
 trusting the prior up to higher frequencies. It is chosen on validation, not derived from a model.
 The \emph{form} of this rule is the posterior mean of a Normal--Normal model (derived in \code{formalization.tex});
 but we do \emph{not} estimate $\kappa$ from that model---it is just selected on validation---so in practice Stage 4 is
 a principled, frequency-aware interpolation between ``what co-occurrence says'' and ``what the item \emph{is}.''
-Finally we rank $\I\setminus S$ by $\hat\theta(\cdot\mid S)$ and return the top $K$.
+Finally we rank $\I\setminus S$ by $\hat\theta(\cdot\mid S)$ and return the top $K$.}
+\label{fig:shrink}
 
 \begin{example}[the four stages on one query]
 Take $S=\{1\}$ on the toy data and suppose validation selected weights $w_{\text{ppmi}}=1$, $w_{\text{cat}}=0.5$
@@ -786,6 +853,32 @@ Item $2$ is frequent ($f_2=3$) so $u_2=\tfrac{1}{4}=0.25$: it leans $75\%$ on co
 the rare-but-exclusive item $4$ keep most of its PPMI boost while a cold item (if any) would fall back entirely on
 the category prior. Every number here is a fixed function of $S$---no randomness, no test-batch dependence.
 \end{example}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[ybar,bar width=7pt,width=\linewidth,height=6.2cm,
+  symbolic x coords={$z_{\mathrm{ppmi}}$,$z_{\mathrm{cat}}$,$Y$,$\mu_0$,$\hat\theta$},
+  xtick=data,x tick label style={font=\small},
+  ymin=-1.9,ymax=2.6,enlarge x limits=0.14,
+  ylabel={standardised score},
+  legend style={font=\scriptsize,at={(0.5,1.03)},anchor=south,legend columns=3}]
+\addplot[fill=blue!55]  coordinates {($z_{\mathrm{ppmi}}$,0.352)($z_{\mathrm{cat}}$,1.663)($Y$,1.183)($\mu_0$,2.174)($\hat\theta$,1.431)};
+\addplot[fill=teal!45]  coordinates {($z_{\mathrm{ppmi}}$,-0.519)($z_{\mathrm{cat}}$,-0.782)($Y$,-0.910)($\mu_0$,-1.022)($\hat\theta$,-0.948)};
+\addplot[fill=orange!70]coordinates {($z_{\mathrm{ppmi}}$,1.424)($z_{\mathrm{cat}}$,-0.099)($Y$,1.375)($\mu_0$,-0.129)($\hat\theta$,0.623)};
+\legend{item 2 ($f{=}3$),item 3 ($f{=}2$),item 4 ($f{=}1$)}
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\captionof{figure}{\emph{The four stages on $S=\{1\}$, every bar machine-computed} (weights $w_{\mathrm{ppmi}}{=}1$,
+$w_{\mathrm{cat}}{=}0.5$, $\alpha{=}\gamma{=}0$, $\kappa{=}1$). Left to right: the two example signals, then the
+collaborative blend $Y$ (Stages 1--2), the cold-start prior $\mu_0$ (Stage 3), and the routed final $\hat\theta$
+(Stage 4). Follow item~$4$ (orange): PPMI loves it ($1.42$) and it
+stays high in the collaborative blend $Y$ ($1.38$), but the category prior $\mu_0$ is \emph{cold} on it ($-0.13$).
+Because item~$4$ is rare ($f{=}1\Rightarrow u_c{=}0.5$), routing (Stage 4) pulls its final score halfway to that low
+prior, down to $\hat\theta{=}0.62$. Item~$2$ (blue) is backed by \emph{both} $Y$ and $\mu_0$ and is frequent
+($u_c{=}0.25$), so it stays on top. Final ranking $\mathbf{2\succ4\succ3}$; the seed~$1$ is masked. This is the whole
+machine turning one partial bundle into one ordered completion.}
+\label{fig:stages}
 
 % ======================================================================
 \subsection{Why validate at NDCG@20 --- and why not a ``cutoff-free'' loss}
@@ -816,9 +909,10 @@ metric'' --- it is a smoother, better-conditioned surrogate at the same \emph{op
 \end{axis}
 \end{tikzpicture}
 \end{center}
-\noindent\emph{Flat plateau.} Test Recall@20 (normalised to the $K{=}20$ run) is essentially unchanged whether
+\captionof{figure}{\emph{Flat plateau.} Test Recall@20 (normalised to the $K{=}20$ run) is essentially unchanged whether
 weights are selected at NDCG@10, 20, 50 or 100. Cutoff-free objectives, by contrast, land anywhere from
-$0.03\times$ to $0.94\times$ depending on the dataset (table below).
+$0.03\times$ to $0.94\times$ depending on the dataset (table below).}
+\label{fig:plateau}
 
 \paragraph{A cutoff-free objective is worse, and unreliably so.} The tempting ``generic'' alternatives all
 under-perform because they do not target the retrieval region a short recommendation slate actually uses:
