@@ -68,34 +68,45 @@ completed bundle out---and every later section just explains one of its boxes.
 \begin{center}
 \resizebox{\linewidth}{!}{%
 \begin{tikzpicture}[>=Latex,
- io/.style={draw,very thick,rounded corners,fill=green!14,align=center,inner sep=5pt,font=\small,minimum height=14mm},
- st/.style={draw,rounded corners,fill=black!5,align=center,inner sep=4pt,font=\footnotesize},
- fam/.style={draw,rounded corners,align=center,inner sep=3pt,font=\scriptsize},
- rt/.style={draw,circle,fill=orange!30,align=center,inner sep=1pt,font=\scriptsize,minimum size=16mm}]
-\node[io](IN){\textbf{Partial}\\\textbf{bundle}\\[1pt]$S=\{1\}$\\[1pt]{\scriptsize complete it}};
-\node[fam,fill=blue!8,right=9mm of IN,yshift=10mm](col){\textbf{Collaborative}\\cooc, ppmi, csvd, simp};
-\node[fam,fill=violet!9,right=9mm of IN](tax){\textbf{Taxonomic}\\cat, softcat, homo};
-\node[fam,fill=teal!9,right=9mm of IN,yshift=-10mm](con){\textbf{Content}\\style, bridge};
-\node[st,right=8mm of tax](z){standardise\\each to $z_k$};
-\node[st,fill=blue!10,right=9mm of z,yshift=8mm](Y){blend $Y=\sum_k w_k z_k$\\{\scriptsize$+$ higher-order (St.\,1--2)}};
-\node[st,fill=violet!10,right=9mm of z,yshift=-8mm](mu){prior $\mu_0$\\{\scriptsize content/metadata (St.\,3)}};
-\node[rt,right=10mm of Y,yshift=-8mm](u){route\\$(1{-}u_c)Y$\\$+\,u_c\mu_0$\\{\scriptsize$u_c=\frac{\kappa}{f_c+\kappa}$}};
-\node[st,fill=green!8,right=8mm of u](rk){rank,\\drop seeds};
-\node[io,right=7mm of rk](OUT){\textbf{Filled}\\\textbf{bundle}\\[1pt]$\{1,\mathbf{2},\mathbf{4}\}$\\[1pt]{\scriptsize$\hat\theta\!:2\!\succ\!4\!\succ\!3$}};
-\draw[->](IN)--(col);\draw[->](IN)--(tax);\draw[->](IN)--(con);
-\draw[->](col.east)--(z.west);\draw[->](tax)--(z);\draw[->](con.east)--(z.west);
-\draw[->](z.east)--(Y.west);\draw[->](z.east)--(mu.west);
-\draw[->](Y.east)--(u);\draw[->](mu.east)--(u);
-\draw[->](u)--(rk);\draw[->](rk)--(OUT);
+ io/.style={draw,very thick,rounded corners,fill=green!14,align=center,inner sep=5pt,font=\small},
+ op/.style={draw,rounded corners,align=center,inner sep=4pt,font=\scriptsize},
+ pr/.style={draw,rounded corners,fill=black!5,align=center,inner sep=4pt,font=\scriptsize}]
+% input
+\node[io](IN) at (0,0){\textbf{Partial}\\\textbf{bundle}\\[2pt]$S=\{1\}$\\[3pt]as indicator\\$x_S\!=\!(1,0,0,0)^{\!\top}$};
+% operators -- each APPLIES to the seed and yields a score over candidates (2,3,4)
+\node[op,fill=blue!8]  (o1) at (4.3,3.1){\code{cooc}\ \ multiply $C\,x_S=(\,2,\ 1,\ 1\,)$};
+\node[op,fill=blue!8]  (o2) at (4.3,1.55){\code{ppmi}\ \ multiply $\mathrm{PPMI}\,x_S=(.34,.15,.56)$};
+\node[op,fill=blue!8]  (o3) at (4.3,0.0){\code{csvd}\ \ fingerprint cosine $\langle u_c,u_1\rangle=(.90,.55,.70)$};
+\node[op,fill=violet!9](o4) at (4.3,-1.55){\code{cat}\ \ look up seed's category row $P_{\text{cat}}[A,\cdot]=(.65,\,0,\,.18)$};
+\node[op,fill=teal!8]  (o5) at (4.3,-3.1){\code{content}\ \ cosine to seed vector $\langle\phi_c,\phi_1\rangle$\ {\tiny(needs embeddings)}};
+% standardize
+\node[pr](z) at (8.7,0){standardise\\each column\\to a $z$-score};
+% Y and mu0
+\node[pr,fill=blue!10] (Y) at (12.1,1.4){\textbf{blend} (St.\,1--2)\\$Y=1\!\cdot\!z_{\mathrm{ppmi}}+0.5\,z_{\mathrm{cat}}$\\$=(1.18,\,-.91,\,1.38)$};
+\node[pr,fill=violet!10](M) at (12.1,-1.4){\textbf{prior} $\mu_0$ (St.\,3)\\{\tiny from \code{cat}/\code{content}}\\$=(2.17,\,-1.02,\,-.13)$};
+% route
+\node[pr,fill=orange!22](R) at (15.8,0){\textbf{route} (St.\,4)\\$\hat\theta=(1{-}u_c)Y+u_c\mu_0$\\$u_c=\tfrac{\kappa}{f_c+\kappa}=(.25,.33,.5)$\\[1pt]$\hat\theta=(1.43,\,-.95,\,.62)$};
+% rank + out
+\node[pr,fill=green!8](rk) at (19.1,1.1){rank\\$2\succ4\succ3$};
+\node[io](OUT) at (19.1,-1.2){\textbf{Filled}\\\textbf{bundle}\\$\{1,\mathbf2,\mathbf4\}$};
+% edges
+\foreach \o in {o1,o2,o3,o4,o5}{\draw[->,gray!70](IN.east)--(\o.west);}
+\foreach \o in {o1,o2,o3,o4,o5}{\draw[->,gray!70](\o.east)--(z.west);}
+\draw[->](z)--(Y);\draw[->](z)--(M);
+\draw[->](Y)--(R);\draw[->](M)--(R);
+\draw[->](R.east)--(rk.west);\draw[->](R.east)--(OUT.west);
 \end{tikzpicture}}
 \end{center}
-\captionof{figure}{\textbf{The whole method on one line: a partial bundle in, a completed bundle out.} Given the seeds
-$S$ (here $\{1\}$), every catalogue item $c\notin S$ is scored by three families of cheap ``opinions''---collaborative
-co-occurrence, taxonomy, and content similarity---each \emph{standardised} to a $z$-score. A validation-tuned weighted
-blend $Y$ (Stages 1--2) is combined \emph{per candidate} with a cold-start prior $\mu_0$ (Stage 3) by frequency
-routing $u_c=\kappa/(f_c+\kappa)$ (Stage 4); the catalogue is then ranked and the seeds removed, giving the filled
-bundle. Every remaining section explains one box; the exact numbers for this toy query are carried all the way to
-Fig.~\ref{fig:stages}, where $\hat\theta$ ranks $2\succ4\succ3$.}
+\captionof{figure}{\textbf{A partial bundle, filled---showing exactly how the seed is \emph{used} at each step}
+(every vector is the score for candidates \textbf{(item 2, item 3, item 4)}; the seed $1$ is masked). The seed set
+becomes an indicator $x_S=(1,0,0,0)^{\!\top}$, and each component consumes it differently: the collaborative signals
+\emph{multiply} it by a matrix ($C\,x_S$, $\mathrm{PPMI}\,x_S$) or take a fingerprint cosine (\code{csvd}); the
+taxonomic \code{cat} \emph{looks up the row} of the seed's category in $P_{\text{cat}}$; content takes a cosine to the
+seed's embedding. Each resulting column is standardised to a $z$-score, then the validation-picked weights (here only
+$w_{\mathrm{ppmi}}{=}1,\ w_{\mathrm{cat}}{=}0.5$ are nonzero) blend them into $Y$ (Stages 1--2); a metadata prior
+$\mu_0$ (Stage 3) is mixed in \emph{per candidate} by frequency routing $u_c=\kappa/(f_c+\kappa)$ (Stage 4, here
+$\kappa{=}1$). Ranking the result and dropping the seed gives the completion $\{1,\mathbf2,\mathbf4\}$. Every number is
+machine-verified and reappears, stage by stage, in Fig.~\ref{fig:stages}.}
 \label{fig:flow}
 
 The note is bottom-up. \S\ref{sec:inputs}--\S\ref{sec:derived} define what we start with. \S\ref{sec:vocab} defines
