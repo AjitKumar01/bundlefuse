@@ -22,7 +22,7 @@ results/*.csv
 # Phase-2 matched-protocol baseline results
 !results/baselines_*.json
 # worked case study backing notes/methodology.tex
-!results/case_study_pog.json
+!results/case_study_*.json
 
 # derived CLIP feature caches (regenerate via scripts/clip_embed.py)
 *.npz

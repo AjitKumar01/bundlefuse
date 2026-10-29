@@ -45,8 +45,10 @@ language. For every piece we answer three questions in order: \textbf{(i) what i
 and ``SVD'' mean nothing until you say \emph{PMI of what} and \emph{SVD of which matrix}), and \textbf{(iii) a
 worked numerical example} on one tiny dataset carried through the whole note. Where the method consumes pretrained
 \textbf{embedding vectors}, we say so explicitly and give their exact dimensions and origin. Nothing here is guessed:
-every formula is read off \code{bundlefuse/operators.py} and \code{bundlefuse/fullrank\_eval.py}, and every number in
-the running example is machine-verified.
+every formula is read off \code{bundlefuse/operators.py} and \code{bundlefuse/eval/fullrank.py}, and every number in
+the running example is machine-verified. A closing section (\S\ref{sec:pog}) then runs the \emph{entire} scorer on
+one \textbf{real \textsc{POG}} query---actual catalogue items, actual value for every signal---so the whole pipeline
+is seen filling a genuine partial bundle end to end.
 \end{abstract}
 
 \tableofcontents
@@ -173,11 +175,20 @@ $\hat\theta$ (highlighted), drop the seed, return top-$K$ $\Rightarrow\{1,\mathb
 machine-verified and reappears in Fig.~\ref{fig:stages}.}
 \label{fig:flow}
 
-The note is bottom-up. \S\ref{sec:inputs}--\S\ref{sec:derived} define what we start with. \S\ref{sec:vocab} defines
-the five recurring \emph{operations} (co-occurrence, PMI, SVD, degree normalisation, graph propagation) precisely as
-used here. \S\ref{sec:signals} builds every individual \emph{signal} from those operations. \S\ref{sec:toscore}
-turns a signal into per-query numbers. \S\ref{sec:fuse} is the four-stage fusion that produces the final score.
-\S\ref{sec:ledger} is the ledger of what is learned versus fixed.
+The note is bottom-up, and it is built as a \textbf{story with a problem driving every step}: we start from the
+simplest possible signal, watch it fail on a concrete case, add exactly the piece that fixes that failure, and
+repeat. So co-occurrence (\S\ref{sec:vocab}) is biased toward popular hubs $\Rightarrow$ PMI corrects for popularity
+(\S\ref{sec:pmi}); PMI still only sees pairs that \emph{literally} co-occurred $\Rightarrow$ the SVD fingerprint adds
+indirect, partners-of-partners evidence (\S\ref{sec:svd}); all of these need co-occurrence, so a \emph{cold} item
+with none is invisible to them $\Rightarrow$ taxonomy and content signals rank it by \emph{what it is}
+(\S\ref{sec:tax}--\S\ref{sec:content}); the resulting $\sim$eleven opinions \emph{disagree}, so fusion blends them
+and routing decides, per candidate, how much to trust co-occurrence versus the metadata prior (\S\ref{sec:fuse}).
+Concretely: \S\ref{sec:inputs}--\S\ref{sec:derived} define the inputs; \S\ref{sec:vocab} the recurring
+\emph{operations}; \S\ref{sec:signals} the individual \emph{signals}; \S\ref{sec:toscore} how a signal becomes
+per-query numbers; \S\ref{sec:fuse} the four-stage fusion; \S\ref{sec:selK} why we validate at a short cutoff. Then
+\S\ref{sec:pog} runs the \emph{entire} machine on one \textbf{real \textsc{POG}} query---actual items, actual numbers
+for every signal---so you can watch a partial bundle get filled end to end, and \S\ref{sec:ledger} is the ledger of
+what is learned versus fixed.
 
 \begin{keybox}
 \textbf{The running toy dataset (used in every example).} Catalogue of $n=4$ items $\{1,2,3,4\}$ and three
@@ -243,7 +254,7 @@ Besides the bundles, each item carries \textbf{pretrained embedding vectors}: fi
 describe the item's \emph{content} (what it looks like, what it is called, what it sounds like). \textbf{\textsc{BundleFuse}
 does not train these. It loads them from the public dataset release and treats them as constants.} They enter only
 the \emph{content} and \emph{soft-category} signals (\S\ref{sec:content},\,\S\ref{sec:tax}); the collaborative and
-taxonomic signals never touch them. The exact tensors (read in \code{fullrank\_eval.py}, lines 118--133) are:
+taxonomic signals never touch them. The exact tensors (read in the feature-loading block of \code{eval/fullrank.py}) are:
 
 \begin{center}\small
 \begin{tabular}{@{}l l l l@{}}
@@ -293,7 +304,7 @@ internal \code{MUSIC} flag).
 only. On the e-commerce sets (\textsc{Electronic}/\textsc{Food}/\textsc{Clothing}) and the grocery set
 (\textsc{Dunnhumby}) there is \textbf{no pretrained embedding at all}: the content signal is a plain \textbf{TF--IDF}
 vector of the item's own text fields (department / commodity / brand / title), reduced by truncated SVD, computed
-\emph{inside} the pipeline (\code{bundlerec\_eval.py}:106; \code{dunnhumby\_eval.py}:80--83). So ``content'' means two
+\emph{inside} the pipeline (\code{eval/bundlerec.py} and \code{eval/dunnhumby.py}). So ``content'' means two
 different things depending on the dataset --- a deep BLIP/CLIP embedding on POG/Spotify, a classical bag-of-words
 vector on the e-commerce/grocery sets --- and we say so plainly rather than imply one uniform source. \textbf{If a
 dataset ships neither, the content signals are simply absent and the method runs on collaborative$+$taxonomic
@@ -313,7 +324,7 @@ Each item also has discrete \textbf{metadata labels}. For fashion that is an exp
 (e.g.\ ``boots''); for music it is the \code{artist\_uri} and \code{album\_uri}. We store them as integer label
 vectors $\mathrm{cat}\in\{0,\dots,C-1\}^n$ (and, for music, $\mathrm{alb}$). When a dataset has \emph{no} usable
 category, the code manufactures one by running $k$-means ($400$ clusters) on the multimodal embedding and using the
-cluster id as a pseudo-category (\code{fullrank\_eval.py}:146--156). These labels feed the \emph{taxonomic} signals
+cluster id as a pseudo-category (\code{eval/fullrank.py}). These labels feed the \emph{taxonomic} signals
 (\S\ref{sec:tax}).
 
 % ======================================================================
@@ -391,7 +402,7 @@ A matrix--vector product: the score vector is column-combination of $C$ selected
 
 \paragraph{Here.} Exactly this, with $C$ the zero-diagonal co-occurrence matrix above. In code the seed indicators
 for a whole batch of queries are stacked into a sparse matrix \code{Ind} ($n\times\text{nb}$, one column per query)
-and the batch of score vectors is the single product \code{C @ Ind} (\code{fullrank\_eval.py}:262). This
+and the batch of score vectors is the single product \code{C @ Ind} (in \code{score\_all\_signals}, \code{eval/fullrank.py}). This
 ``$W\,\xs$'' shape is the template for \emph{every} collaborative signal.
 
 \begin{example}[co-occurrence scores]\label{ex:cooc}
@@ -620,7 +631,7 @@ never a dense $n\times n$ matrix---essential at $n=254{,}000$.}
 A \textbf{signal} is one scoring function $z_k(c\mid S)$: one opinion about each candidate. \textsc{BundleFuse}
 computes about eleven of them, in three families. For each we give \emph{what it captures}, \emph{the exact
 construction}, and \emph{which embedding (if any) it uses}. (Code: \code{score\_all\_signals},
-\code{fullrank\_eval.py}:242--292.)
+\code{score\_all\_signals} in \code{eval/fullrank.py}.)
 
 \subsection{Collaborative family (from $B$ only --- no embeddings)}
 
@@ -702,7 +713,7 @@ repeats inside a bundle (you rarely put two hats in one outfit), it \emph{subtra
 same category, discouraging duplicate slots (\code{score\_slot\_saturation}, \code{operators.py}:307--316). The
 threshold uses an empirical per-category duplication rate.
 \item[\code{homo}] (music) \textbf{Homophily}: reward candidates by the same \emph{artist} or \emph{album} as the
-seeds, with album weighted twice as much as artist (\code{fullrank\_eval.py}:273--275). Normalised by
+seeds, with album weighted twice as much as artist (\code{eval/fullrank.py}). Normalised by
 $\sqrt{\text{degree}}$ so prolific artists do not swamp the score.
 \item[\code{softcat}] (fashion) \textbf{Soft/fuzzy categories}: run $k$-means ($400$ clusters) on the multimodal
 embedding, give each item a \emph{soft} assignment (a softmax of cosine-to-centroids), and apply the same PPMI
@@ -735,7 +746,7 @@ itself}, so it scores cold items by \emph{what they are}.}
 This family is where the \S\ref{sec:emb} embeddings do their work. All three signals score a candidate by the cosine
 similarity of its (processed) content vector to the \emph{average} content vector of the seeds:
 $\mathrm{score}(c\mid S)=\big\langle \phi_c,\ \tfrac1{|S|}\sum_{s\in S}\phi_s\big\rangle$ for some processed feature
-$\phi$ (\code{fullrank\_eval.py}:283--287). They differ in \emph{which} $\phi$:
+$\phi$ (\code{eval/fullrank.py}). They differ in \emph{which} $\phi$:
 
 \begin{description}
 \item[\code{style} / \code{imgstyle} / \code{audiostyle}] \textbf{Category-disentangled} content. Raw embeddings are
@@ -875,7 +886,7 @@ reads $B$; \code{softcat} also reads embeddings). $f_c$ is the candidate's frequ
 
 Now we combine the standardised signals $\{z_k\}$ into one number per candidate. There are four stages; the only
 quantities ``learned'' are a handful of scalars, each chosen by \textbf{greedy search on a validation split} to
-maximise NDCG@20 (\code{fit\_simba}, \code{fullrank\_eval.py}:313--397). \S\ref{sec:selK} shows the result is
+maximise NDCG@20 (\code{fit\_simba} in \code{eval/fullrank.py}). \S\ref{sec:selK} shows the result is
 insensitive to \emph{which} cutoff we validate at, and why a cutoff-free objective would be worse.
 
 \paragraph{Stage 1 --- weighted blend.} Pick a weight $w_k\ge 0$ per signal and form
@@ -884,7 +895,7 @@ insensitive to \emph{which} cutoff we validate at, and why a cutoff-free objecti
 \]
 The weights are found by \emph{greedy coordinate ascent}: sweep each $w_k$ over the grid
 $\{0,0.25,0.5,1,1.5\}$, keep the change if validation NDCG@20 improves, repeat up to four passes
-(\code{fullrank\_eval.py}:340--354). A signal that never helps simply gets weight $0$---the method prunes itself.
+(the greedy loop in \code{fit\_simba}). A signal that never helps simply gets weight $0$---the method prunes itself.
 Afterwards a backward-elimination pass tries to \emph{drop} optional signals (bridge, contrast, softcat, homo) if
 doing so does not hurt validation (\code{prune\_weights\_val}).
 
@@ -907,7 +918,7 @@ where ``prior keys'' are the taxonomic/content signals that earned positive weig
 for music). The ``frozen scale'' is a single number $=\mathrm{std}(Y)/\mathrm{std}(\text{raw prior})$ computed
 \textbf{on the validation set and then frozen}, so that at test time $\mu_0$ is on the same scale as $Y$ and---
 critically---\emph{a candidate's score never depends on which other queries happen to be in its test batch}
-(\code{fullrank\_eval.py}:380--385). This is why the method is exactly reproducible.
+(the \code{frozen\_prior\_scale} computed in \code{fit\_simba}). This is why the method is exactly reproducible.
 
 \paragraph{Stage 4 --- frequency-confidence routing (shrinkage).} Combine the collaborative blend $Y$ and the prior
 $\mu_0$ per candidate, trusting $Y$ more when the candidate is \emph{frequent} and $\mu_0$ more when it is
@@ -1046,6 +1057,80 @@ Recall@20 rewards --- barely registers; it is fine on dense collaborative data (
 $\sim$7--31\% below NDCG@20. \textbf{The lesson is the opposite of ``do not tune to their metric'': you should
 select at the operating point you deploy at} (a short slate), the exact cutoff inside a broad band does not
 matter, and no cutoff-free loss improves on it.
+
+% ======================================================================
+\section{The same machine on a real \textsc{POG} query}
+\label{sec:pog}
+
+The toy dataset made every operation checkable by hand, but it has no embeddings, so the taxonomic and content
+signals never fired. Here we run the \emph{identical, unmodified} scorer on one real query from \textsc{POG\_dense}
+(Alibaba iFashion; $31{,}217$ items, $19{,}865$ training outfits) and read off the actual number every signal
+produces. Nothing is simplified: these are the values dumped by \code{CASE\_STUDY=1 BUNDLE\_DS=pog\_dense python -m
+bundlefuse.eval.fullrank} into \code{results/case\_study\_pog\_dense.json}.
+
+\begin{keybox}
+\textbf{The query.} The partial outfit is $S=\{$\,a sequined chain shoulder bag, a pair of block-heel strappy
+sandals\,$\}$. Two members were held out and must be recovered: a pair of \textbf{drop earrings} and a rare
+\textbf{plus-size A-line dress}. Validation selected weights $w_{\code{cat}}{=}1.0$, $w_{\code{simp}}{=}1.0$,
+$w_{\code{softcat}}{=}w_{\code{bridge}}{=}w_{\code{pop}}{=}0.25$ (every other signal, including raw \code{cooc},
+\code{ppmi} and \code{csvd}, pruned to weight $0$), higher-order $\alpha{=}1,\ \gamma{=}0$, and shrinkage
+$\kappa{=}0$. That weight pattern \emph{is} the regime story of \S\ref{sec:fuse}: on \textsc{POG} the
+\textbf{taxonomy} (\code{cat}) and the degree-normalised collaborative term (\code{simp}) carry the load; raw
+co-occurrence is redundant once \code{simp} is present.
+\end{keybox}
+
+\begin{center}\small
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{@{}l r r r r r r r r r r@{}}
+\toprule
+ & & & \multicolumn{5}{c}{\textbf{standardised signal $z_k$}} & \multicolumn{3}{c}{\textbf{fusion}} \\
+\cmidrule(lr){4-8}\cmidrule(lr){9-11}
+candidate (glossed) & $f_c$ & & \code{simp} & \code{cooc} & \code{cat} & \code{softcat} & \code{bridge} & $Y$ & $\mu_0$ & $\hat\theta$\ \ rank \\
+\midrule
+drop earrings \hfill\textbf{(held-out\checkmark)} & 686 & & $124.1$ & $162.7$ & $1.83$ & $3.94$ & $3.42$ & $\mathbf{130.2}$ & $8.21$ & \textbf{1} \\
+pearl earrings (popular hub)                       & 3077 & & $21.9$ & $19.1$ & $1.83$ & $4.25$ & $1.98$ & $28.4$ & $8.68$ & --- \\
+same-brand bag (2nd bag!)                          & 140 & & $20.7$ & $19.1$ & $-1.01$ & $0.71$ & $2.29$ & $22.2$ & $2.05$ & --- \\
+black pointed heels                                & 17 & & $20.8$ & $28.7$ & $-0.39$ & $-0.11$ & $2.52$ & $21.9$ & $1.51$ & --- \\
+plus-size A-line dress \hfill\textbf{(held-out, missed)} & 2 & & $-0.02$ & $-0.02$ & $1.71$ & $-0.74$ & $-0.58$ & $1.52$ & $2.06$ & $3971$ \\
+\bottomrule
+\end{tabular}}
+\end{center}
+\captionof{figure}{\emph{One real \textsc{POG} partial bundle, every signal's actual number.} Each $z_k$ is the
+signal's standardised score for that candidate ($z$-scored over all $31{,}217$ items; the collaborative signals are
+very peaked---most items score $\approx 0$---so a strong match sits many $\sigma$ above the field, hence the large
+\code{simp}/\code{cooc} magnitudes). $Y$ is the fused collaborative$+$higher-order score, $\mu_0$ the taxonomy/content
+prior, $\hat\theta$ the routed final score; with $\kappa{=}0$ here $\hat\theta{=}Y$. Ranks are over the full
+catalogue with the seeds masked.}
+\label{fig:pog}
+
+\paragraph{Reading the recovered item (earrings, rank 1).} Everything agrees. The earrings co-occur heavily with
+bag$+$sandals outfits in training (\code{simp}$=124$, far above the field), \emph{and} ``earrings'' is a
+strongly complementary category to bags/shoes (\code{cat}$=1.83$, \code{softcat}$=3.94$). Because the two
+load-bearing weights are $w_{\code{simp}}{=}w_{\code{cat}}{=}1$, these add into $Y=130.2$---an order of magnitude
+above every distractor---so the earrings land at rank $1$. This is the \emph{easy} completion: the typical
+co-purchased complement, backed by collaboration and taxonomy at once.
+
+\paragraph{Reading the distractors---why the obvious-looking ones lose.} The \emph{pearl} earrings are a popularity
+hub ($f_c{=}3077$) with the same complementary category, so they score well ($Y{=}28$)---but they co-occur with
+\emph{these particular} seeds far less than the true earrings ($\code{simp}\,22$ vs.\ $124$), so they stay well
+below. The \textbf{same-brand bag} is the clearest lesson: it co-occurs plausibly (\code{simp}$=20.7$) and is even
+the same designer as the seed bag, yet it gets \code{cat}$=-1.01$---a \emph{negative} category score from the
+slot self-exclusion term (\S\ref{sec:tax}), because an outfit does not take a \emph{second bag of the same
+category}. Taxonomy actively vetoes it.
+
+\paragraph{Reading the missed item (the rare dress, rank 3971)---and what it reveals.} The dress is genuinely
+category-appropriate (\code{cat}$=1.71$, a positive complement), but it was seen in only $f_c{=}2$ training outfits
+and \emph{never} with anything resembling these seeds, so every collaborative signal is silent on it
+(\code{simp}$\approx\code{cooc}\approx 0$). With the collaborative term contributing nothing, its fused score is just
+the lone \code{cat} vote, $Y=1.52$---invisible against items that have \emph{both} kinds of evidence. Notice that the
+prior \emph{does} like it slightly more ($\mu_0=2.06>Y$): the taxonomy-only signal is exactly the kind of evidence
+Stage~4 shrinkage is meant to lean on for low-exposure items. But here $\kappa{=}0$---validation turned shrinkage
+\emph{off}, because \textsc{POG\_dense} has almost no cold items and buying unearned shrinkage would only add noise
+(the honest finding of \S\ref{sec:fuse} and \code{results/matrix\_zeroparam.csv}). So on this dense dataset the rare
+dress is left behind; it is precisely on the \emph{cold/sparse} datasets, where $\kappa>0$ is selected, that this
+same mechanism pulls such taxonomy-supported-but-unseen items up into the slate (the $+2$--$5$pp cold-bucket gain
+reported in \code{RESULTS.md}). One honest query thus shows both what the method gets right and the exact regime
+where its one real dial earns its place.
 
 % ======================================================================
 \section{The ledger: what is learned vs.\ fixed}
