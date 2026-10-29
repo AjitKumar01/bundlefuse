@@ -22,6 +22,28 @@ score(c | S) = (1 - u_c) · Y_fused(c | S)  +  u_c · μ₀(c | S) ,    u_c = κ
 An optional ~0.3M set-attention contrastive encoder exists as an **off-by-default** fused signal
 (`ENCODER=1`); the headline results do not depend on it.
 
+## Results at a glance (Recall@20)
+
+| Dataset | **Ours** (0 params) | Best matched baseline† | Heavy models (CLHE / RaMen)‡ |
+|---|---|---|---|
+| pog            | **0.0653** | 0.0259 (BundleKNN) | 0.0284 / 0.0375 |
+| pog_dense      | 0.3737     | 0.2842 (RP3β)      | **0.3815** / — |
+| spotify        | **0.1562** | 0.1314 (Combiner)  | 0.1082 / 0.1091 |
+| spotify_sparse | **0.1653** | 0.1180 (Combiner)  | 0.0969 / — |
+| electronic     | 0.5192     | 0.3341 (iALS)      | 0.4721 / **0.8371** |
+| food           | 0.5870     | 0.3362 (iALS)      | 0.5077 / **0.8459** |
+| clothing       | **0.5904** | 0.2651 (ItemKNN)   | — |
+| dunnhumby      | **0.1501** | 0.1370 (Combiner)  | — |
+
+**Ours beats the best of six tuned matched baselines on all eight datasets**, and beats the heavy
+GPU encoder CLHE on six of six where both run (it edges us only on dense POG, within noise). RaMen
+wins e-commerce (electronic/food) — but via its heavy Collaborative Strategy Encoder, not a better
+bundle model (see MANIFEST/paper). Numbers are the committed `results/matrix_zeroparam.csv`,
+`results/baselines_*.json`, and reproduced/published heavy baselines.
+
+<sub>†ItemKNN / P3α / RP3β / SLIM / iALS / BundleKNN / LinearCombiner, same splits/candidates/metrics.
+‡CLHE = 9.5–16M-param GPU encoder; RaMen = attention-GNN encoder.</sub>
+
 ## Repository layout
 
 ```
@@ -47,8 +69,10 @@ tests/       test_core.py (7 theoretical / numerical / no-leakage tests)
 
 The same five-step algorithm runs on every dataset — only the loader and the available content
 features change. It is written out once, with the exact command behind every reported number, in
-**[docs/EXPERIMENTS.md](docs/EXPERIMENTS.md)**. The step-by-step derivation, with a real POG query
-carried from empty slots to a filled bundle, is in **[notes/methodology.tex](notes/methodology.tex)**.
+**[docs/EXPERIMENTS.md](docs/EXPERIMENTS.md)**. The step-by-step derivation — one real POG query
+(a bag + sandals, recovering earrings and a dress) carried through *every* equation and figure with
+the live scorer's actual numbers — is in **[notes/methodology.tex](notes/methodology.tex)** (20 pp;
+`pdflatex methodology.tex`).
 
 ## Quickstart
 
