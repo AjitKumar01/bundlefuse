@@ -635,7 +635,13 @@ if os.environ.get("CASE_STUDY"):
             if len(s) >= 2 and len(g) >= 2 and any(freq[i] > 0 for i in g):
                 idx = j; break
     seeds, gt = tb_all[idx], tg_all[idx]
-    _, Z = score_all_signals([seeds])          # nb = 1
+    Rraw, Z = score_all_signals([seeds])       # nb = 1  (Rraw = pre-standardisation scores)
+
+    # Raw building blocks so the methodology can substitute real numbers into each equation.
+    Cm, PPMIm, Pcatm = graph_op.C, graph_op.PPMI, onto_op.Pcat
+    dC = np.asarray(Cm.sum(1)).ravel()         # co-occurrence degree d_i = sum_j C_ij
+    Tc = float(Cm.sum())                       # grand total T = sum_ij C_ij
+    stdz = {k: {"mean": float(Rraw[k][:, 0].mean()), "std": float(Rraw[k][:, 0].std())} for k in SIG}
 
     # Re-derive the four stages explicitly (same formulas as apply_simba_full) so each is exposed.
     Z_pair = dict(Z); Z_pair["simp"] = Z["pair"]; Z_pair["diff2"] = Z["diff2_pair"]
@@ -680,16 +686,23 @@ if os.environ.get("CASE_STUDY"):
     items_out = []
     for c in chosen:
         row = {"idx": int(c), "in_seed": c in seeds, "in_gt": c in gt,
-               "theta_rank": rank_of.get(c), **_meta(c),
+               "theta_rank": rank_of.get(c), **_meta(c), "degree_cooc": float(dC[c]),
+               "raw": {k: float(Rraw[k][c, 0]) for k in SIG},
                "z": {k: float(Z[k][c, 0]) for k in SIG},
+               # per-seed building blocks, aligned to the `seeds` order
+               "cooc_per_seed": [float(Cm[c, s]) for s in seeds],
+               "ppmi_per_seed": [float(PPMIm[c, s]) for s in seeds],
+               "cat_pmi_per_seed": [float(Pcatm[cat_lbl[s], cat_lbl[c]]) for s in seeds],
                "stages": {"Y_base": float(y_base[c, 0]), "Y": float(Y[c, 0]),
                           "mu0": float(mu0[c, 0]), "theta": float(theta[c, 0])}}
         items_out.append(row)
 
     out = {
-        "dataset": DS, "query_index": int(idx),
+        "dataset": DS, "query_index": int(idx), "T_cooc": Tc,
         "seeds": [int(x) for x in seeds], "ground_truth": [int(x) for x in gt],
+        "seeds_meta": [{**_meta(s), "idx": int(s), "degree_cooc": float(dC[s])} for s in seeds],
         "n_items": int(n),
+        "standardize": stdz,
         "fit": {"weights": {k: float(w_ad.get(k, 0.0)) for k in SIG if w_ad.get(k, 0)},
                 "alpha_inc": float(alpha_inc), "gamma_rao": float(g_rao),
                 "kappa_f": float(kf), "prior_scale": float(pscale),

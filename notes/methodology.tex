@@ -43,7 +43,8 @@
 language. For every piece we answer three questions in order: \textbf{(i) what is it in general} (the textbook idea),
 \textbf{(ii) how is it defined \emph{here}} (the exact quantities this code plugs into that idea---because ``PMI''
 and ``SVD'' mean nothing until you say \emph{PMI of what} and \emph{SVD of which matrix}), and \textbf{(iii) a
-worked numerical example} on one tiny dataset carried through the whole note. Where the method consumes pretrained
+worked numerical example} on \emph{one real \textsc{POG} query} carried through the whole note (a tiny $4$-item sketch
+is used only where a full matrix must be printed to show its shape). Where the method consumes pretrained
 \textbf{embedding vectors}, we say so explicitly and give their exact dimensions and origin. Nothing here is guessed:
 every formula is read off \code{bundlefuse/operators.py} and \code{bundlefuse/eval/fullrank.py}, and every number in
 the running example is machine-verified. A closing section (\S\ref{sec:pog}) then runs the \emph{entire} scorer on
@@ -150,7 +151,7 @@ completed bundle out---and every later section just explains one of its boxes.
 \node[draw,very thick,rounded corners,fill=green!14,font=\small,align=center] (OUT) at (10.0,-13.590000000000002){\textbf{Filled bundle}\quad $\{\,1,\ \mathbf{2},\ \mathbf{4}\,\}$\\[1pt]{\scriptsize final order $\hat\theta:\ 2\succ4\succ3$ \ (return top-$K$)}};
 \draw[->,green!55!black](8.1,-12.440000000000003) to[out=-90,in=150] (OUT.north west);
 \draw[->,green!55!black](11.9,-12.440000000000003) to[out=-90,in=30] (OUT.north east);
-\node[draw,rounded corners,align=center,font=\scriptsize,text width=27mm,inner sep=4pt,fill=green!14,very thick] (F0) at (0,0.15){\textbf{Partial bundle}\\$S=\{1\}$\\$\Rightarrow\ x_S\in\{0,1\}^{n}$\\{\tiny$n=\#\text{items}$ (toy $n{=}4$)}};
+\node[draw,rounded corners,align=center,font=\scriptsize,text width=27mm,inner sep=4pt,fill=green!14,very thick] (F0) at (0,0.15){\textbf{Partial bundle}\\$S=\{1\}$\\$\Rightarrow\ x_S\in\{0,1\}^{n}$\\{\tiny$n=\#\text{items}$ (sketch $n{=}4$)}};
 \node[draw,rounded corners,align=center,font=\scriptsize,text width=27mm,inner sep=4pt,fill=blue!8] (F1) at (0,-5.0600000000000005){\textbf{1.\ Score}\\every candidate by\\\emph{all} signals, then\\standardise $\to z_k$\\[2pt]{\tiny each score, $z_k\in\mathbb{R}^{n}$\\$C,\mathrm{PPMI}\in\mathbb{R}^{n\times n}$\\$U\in\mathbb{R}^{n\times128}$, $\phi\in\mathbb{R}^{d}$}};
 \node[draw,rounded corners,align=center,font=\scriptsize,text width=27mm,inner sep=4pt,fill=orange!15] (F2) at (0,-11.090000000000002){\textbf{2.\ Fuse \& route}\\blend $Y$, add prior $\mu_0$,\\mix per item\\$\hat\theta=(1{-}u_c)Y{+}u_c\mu_0$\\[2pt]{\tiny$Y,\mu_0,\hat\theta\in\mathbb{R}^{n}$}};
 \node[draw,rounded corners,align=center,font=\scriptsize,text width=27mm,inner sep=4pt,fill=green!14,very thick] (F3) at (0,-13.590000000000002){\textbf{3.\ Rank}\\drop seed $\Rightarrow$ filled\\bundle\\{\tiny return top-$K$}};
@@ -166,13 +167,14 @@ dimensions.} Everything is a vector over the $n$ catalogue items (here $n{=}4$; 
 \emph{every} signal (rows, grouped by family)---collaborative ones multiply by $C,\mathrm{PPMI}\in\mathbb{R}^{n\times
 n}$ or use the fingerprint $U\in\mathbb{R}^{n\times128}$; content ones use embeddings $\phi\in\mathbb{R}^{d}$
 ($d{=}512$ title / $768$ image, \S\ref{sec:emb})---then each row is standardised to a $z$-score. Cells are shaded
-darker when higher, with the exact toy value inside; note the collaborative signals favour hub item~$2$ while
-\code{ppmi} backs rare item~$4$, \code{homo}/\code{softcat}/\code{content} are \emph{n/a} (toy has no
+darker when higher, with the exact sketch value inside; note the collaborative signals favour hub item~$2$ while
+\code{ppmi} backs rare item~$4$, \code{homo}/\code{softcat}/\code{content} are \emph{n/a} (the sketch has no
 embeddings/music), and $\Delta_{\mathrm{inc}}$/\code{rao} are $0$ (one seed forms no pair). \textbf{(2)~Fuse \&
 route:} the rows collapse into $Y$ (Stages~1--2), prior $\mu_0$ (Stage~3) and their per-item mix
 $\hat\theta=(1-u_c)Y+u_c\mu_0,\ u_c=\kappa/(f_c+\kappa)$ (Stage~4), all $\in\mathbb{R}^n$. \textbf{(3)~Rank:} order
-$\hat\theta$ (highlighted), drop the seed, return top-$K$ $\Rightarrow\{1,\mathbf2,\mathbf4\}$. Every number is
-machine-verified and reappears in Fig.~\ref{fig:stages}.}
+$\hat\theta$ (highlighted), drop the seed, return top-$K$ $\Rightarrow\{1,\mathbf2,\mathbf4\}$. This overview uses the
+4-item sketch ($n{=}4$) only so the whole pipeline fits on one page; the \emph{real} query is worked signal by signal
+through the note and consolidated on real numbers in Fig.~\ref{fig:pog}.}
 \label{fig:flow}
 
 The note is bottom-up, and it is built as a \textbf{story with a problem driving every step}: we start from the
@@ -191,11 +193,18 @@ for every signal---so you can watch a partial bundle get filled end to end, and 
 what is learned versus fixed.
 
 \begin{keybox}
-\textbf{The running toy dataset (used in every example).} Catalogue of $n=4$ items $\{1,2,3,4\}$ and three
-training bundles
+\textbf{The running example (used from here on): one real \textsc{POG\_dense} query.} The partial outfit is
 \[
-  b_1=\{1,2,3\},\qquad b_2=\{1,2,4\},\qquad b_3=\{2,3\}.
+  S=\{\ \underbrace{\text{sequined chain shoulder \textbf{bag}}}_{\text{item }4399,\ \text{cat.\ ``bags''}},\quad
+       \underbrace{\text{block-heel strappy \textbf{sandals}}}_{\text{item }25026,\ \text{cat.\ ``sandals''}}\ \},
 \]
+drawn from the real catalogue of $n=31{,}217$ items and $m=19{,}865$ training outfits. Two members were held out and
+must be recovered: a pair of \textbf{drop earrings} (item $30318$) and a rare \textbf{plus-size A-line dress} (item
+$5716$). \textbf{Every worked number in this note is the value the live scorer actually computes for this query}
+(dumped by \code{CASE\_STUDY=1 BUNDLE\_DS=pog\_dense}; the full per-signal table is \S\ref{sec:pog},
+Fig.~\ref{fig:pog}). Where a matrix is small enough to print on paper, we also show a \textbf{4-item sketch}
+$\{1,2,3,4\}$ with bundles $b_1{=}\{1,2,3\},\,b_2{=}\{1,2,4\},\,b_3{=}\{2,3\}$---\emph{purely to see the shape} of
+$B$, $C$ and $\mathrm{PPMI}$, since the real ones are $31{,}217\times31{,}217$.
 \end{keybox}
 
 % ======================================================================
@@ -214,8 +223,8 @@ Every bundle is a \emph{row}; every item is a \emph{column}. This single matrix 
 collaborative signal. (In code: \code{SimplicialGraphOperator} builds \code{self.B} and its binary version
 \code{self.B\_bin}.)
 
-\begin{example}[the incidence matrix]\label{ex:B}
-For the toy dataset,
+\begin{example}[the incidence matrix --- 4-item shape sketch]\label{ex:B}
+For the 4-item sketch,
 \[
   B=\begin{pmatrix}1&1&1&0\\ 1&1&0&1\\ 0&1&1&0\end{pmatrix}
   \begin{array}{l}\leftarrow b_1=\{1,2,3\}\\ \leftarrow b_2=\{1,2,4\}\\ \leftarrow b_3=\{2,3\}\end{array}
@@ -240,7 +249,8 @@ For the toy dataset,
   \node[font=\footnotesize,gray] at (3.2,-2.0) {items};
 \end{tikzpicture}
 \end{center}
-\captionof{figure}{\emph{The bundle--item graph of the toy data.} Each edge is a $1$ in $B$. The \textbf{degree of an item}
+\captionof{figure}{\emph{The bundle--item graph of the 4-item sketch} (shape only; the real graph has $31{,}217$ item
+nodes). Each edge is a $1$ in $B$. The \textbf{degree of an item}
 (number of edges) is its frequency $f$: item $2$ has $3$ edges ($f_2=3$), item $4$ has one ($f_4=1$). Two items
 \textbf{co-occur} ($C_{ci}>0$) exactly when they connect to a common bundle box: items $1$ and $2$ share $b_1$ and
 $b_2$ (so $C_{12}=2$), while items $3$ and $4$ share no box ($C_{34}=0$). Every collaborative signal in this note is
@@ -351,16 +361,22 @@ $C_{ci}$ = number of training bundles containing both $c$ and $i$. In code: \cod
 \paragraph{(3) Bundle sizes.} $|b_j|=\sum_i B_{ji}$, used to down-weight large bundles (a pair that co-occurs inside
 a $20$-item playlist is weaker evidence than a pair that co-occurs inside a $2$-item set). In code: \code{self.bsize}.
 
-\begin{example}[the three structures]\label{ex:derived}
-From $B$ in Example~\ref{ex:B}:
+\begin{example}[the three structures: sketch shape, then the real query]\label{ex:derived}
+On the 4-item sketch, from $B$ in Example~\ref{ex:B}:
 \[
   f=\begin{pmatrix}2\\3\\2\\1\end{pmatrix},\qquad
   B^{\!\top}B=\begin{pmatrix}2&2&1&1\\2&3&2&1\\1&2&2&0\\1&1&0&1\end{pmatrix}
   \;\xrightarrow{\text{zero diag}}\;
   C=\begin{pmatrix}0&2&1&1\\2&0&2&1\\1&2&0&0\\1&1&0&0\end{pmatrix}.
 \]
-Read $C$ as: items $1$ and $2$ share $2$ bundles; items $3$ and $4$ never share one. Item $2$ is the most frequent
-($f_2=3$); item $4$ the rarest ($f_4=1$).
+Read $C$ as: items $1$ and $2$ share $2$ bundles; items $3$ and $4$ never share one.
+
+\noindent\textbf{On the real query}, these same structures hold the actual numbers we will use throughout. The seeds'
+co-occurrence degrees (row sums of the real $C$) are $d_{\text{bag}}=46$ and $d_{\text{sandals}}=11$, the grand total
+is $T=\sum_{ij}C_{ij}=193{,}688$, and the two held-out items sit at opposite extremes of $C$: the \textbf{earrings}
+co-occur with the bag in $C[\text{earrings},\text{bag}]=15$ training outfits and with the sandals in $2$, whereas the
+\textbf{dress} co-occurs with \emph{neither} ($C[\text{dress},\cdot]=0$), having appeared in only $f_{\text{dress}}=2$
+outfits total. Those few integers already decide most of what follows.
 \end{example}
 
 \begin{center}
@@ -377,7 +393,8 @@ Read $C$ as: items $1$ and $2$ share $2$ bundles; items $3$ and $4$ never share 
 \draw[->](P)--(U) node[lbl]{SVD$_k$,\\[-1pt]$L_2$-norm};
 \end{tikzpicture}}
 \end{center}
-\captionof{figure}{\emph{The collaborative pipeline, built once from the bundles alone.} The bundle--item matrix $B$ becomes the
+\captionof{figure}{\emph{The collaborative pipeline, built once from the bundles alone} (4-item sketch to show the
+shapes; the real $B,C,\mathrm{PPMI}$ are $31{,}217$-square). The bundle--item matrix $B$ becomes the
 item--item co-occurrence $C=B^{\!\top}B$ (diagonal zeroed); $C$ becomes the chance-corrected $\mathrm{PPMI}$
 (\S\ref{sec:pmi}); and a truncated SVD of $\mathrm{PPMI}$ gives each item a dense ``collaborative fingerprint'' $u_i$
 (\S\ref{sec:svd}). The partial bundle is \emph{not} involved yet: these are fixed structures a query is later scored
@@ -405,13 +422,17 @@ for a whole batch of queries are stacked into a sparse matrix \code{Ind} ($n\tim
 and the batch of score vectors is the single product \code{C @ Ind} (in \code{score\_all\_signals}, \code{eval/fullrank.py}). This
 ``$W\,\xs$'' shape is the template for \emph{every} collaborative signal.
 
-\begin{example}[co-occurrence scores]\label{ex:cooc}
-Query $S=\{1\}$, so $\xs=(1,0,0,0)^{\!\top}$ and $C\xs$ is column $1$ of $C$:
+\begin{example}[co-occurrence on the real query]\label{ex:cooc}
+For our query $S=\{\text{bag},\text{sandals}\}$, $\xs$ is the $31{,}217$-long indicator with a $1$ in the bag and
+sandals slots, and $\mathrm{cooc}(c\mid S)=(C\xs)_c=C[c,\text{bag}]+C[c,\text{sandals}]$ simply sums the two seed
+columns. Using the real counts from Example~\ref{ex:derived},
 \[
-  C\xs=(0,\,2,\,1,\,1)^{\!\top}.
+  \mathrm{cooc}(\text{earrings}\mid S)=15+2=\mathbf{17},\qquad
+  \mathrm{cooc}(\text{dress}\mid S)=0+0=\mathbf{0}.
 \]
-Excluding the seed, the ranking is $2\succ 3\!\sim\!4$: item $2$ (shared $2$ bundles with item $1$) wins. Hold this
-result---PMI will \emph{overturn} it.
+So raw co-occurrence \emph{already} nominates the held-out earrings strongly and is completely \emph{blind} to the
+held-out dress (which never shared an outfit with either seed). Hold this: co-occurrence rewards whatever ships
+together, including popular hubs that ship with everything---PMI will next discount exactly that.
 \end{example}
 
 \begin{center}
@@ -425,7 +446,8 @@ result---PMI will \emph{overturn} it.
 seed slot, so $Cx_S$ \textbf{sums the seed columns of $C$}. For $S=\{1\}$ it reads off column $1$: candidate $2$
 scores $2$, candidates $3,4$ score $1$; the seed itself ($c=1$, shown ``$\cdot$'') is masked to $-\infty$ before
 ranking. \emph{Every} collaborative signal has this exact shape $Wx_S$---only the matrix $W$ changes (raw $C$,
-$\mathrm{PPMI}$, the degree-normalised $W_{\text{pair}}$, or the household operator).}
+$\mathrm{PPMI}$, the degree-normalised $W_{\text{pair}}$, or the household operator). (Matrix shown is the 4-item
+sketch; on the real query the same product gives $\mathrm{cooc}(\text{earrings})=15{+}2=17$, Ex.~\ref{ex:cooc}.)}
 \label{fig:cooc}
 
 \subsection{PMI / PPMI: ``is this pair together \emph{more than chance}?''}
@@ -461,25 +483,27 @@ has high $f$ but modest $d$. The code (\code{operators.py}:103--107) uses precis
 co-occurrence and for \emph{soft-cluster} co-occurrence (\S\ref{sec:tax})---same formula, different ``vocabulary''
 (items, categories, or clusters).
 
-\begin{example}[PPMI overturns raw co-occurrence]\label{ex:ppmi}
-Degrees are the row sums of $C$ from Example~\ref{ex:derived}: $d=(4,5,3,2)$, and $T=14$. Then, e.g.,
+\begin{example}[PPMI on the real query, and why popularity must be divided out]\label{ex:ppmi}
+Using the real degrees and total from Example~\ref{ex:derived} ($d_{\text{earrings}}=1635$, $d_{\text{bag}}=46$,
+$d_{\text{sandals}}=11$, $T=193{,}688$):
 \[
-  \mathrm{PMI}(1,2)=\log\frac{2\cdot 14}{4\cdot 5}=\log 1.4=0.336,\qquad
-  \mathrm{PMI}(1,4)=\log\frac{1\cdot 14}{4\cdot 2}=\log 1.75=0.560 .
+  \mathrm{PPMI}(\text{earrings},\text{bag})=\max\!\Big(0,\ \log\tfrac{C_{ij}\,T}{d_i\,d_j}\Big)
+  =\max\!\Big(0,\ \log\tfrac{15\cdot 193688}{1635\cdot 46}\Big)=\max(0,\log 38.6)=\mathbf{3.65},
 \]
-The full positive matrix is
+and $\mathrm{PPMI}(\text{earrings},\text{sandals})=\log\tfrac{2\cdot 193688}{1635\cdot 11}=\log 21.5=3.07$, so
+$\mathrm{ppmi}(\text{earrings}\mid S)=3.65+3.07=\mathbf{6.72}$. The dress, having no co-occurrence, stays at $0$.
+
+\noindent\textbf{The popularity correction, in one number.} A \emph{popular} pair of pearl earrings (a hub with
+degree $d=9{,}198$) also shares exactly $2$ outfits with the sandals---the \emph{same raw count} as the true
+earrings. Yet PMI credits it far less,
 \[
-  \mathrm{PPMI}=\begin{pmatrix}0&0.336&0.154&0.560\\ 0.336&0&0.624&0.336\\
-  0.154&0.624&0&0\\ 0.560&0.336&0&0\end{pmatrix}.
+  \mathrm{PPMI}(\text{pearl},\text{sandals})=\log\tfrac{2\cdot 193688}{9198\cdot 11}=\log 3.83=\mathbf{1.34}
+  \qquad(\text{vs.\ } 3.07\ \text{for the true earrings}),
 \]
-Now re-score query $S=\{1\}$ (column $1$): $(0,\,0.336,\,0.154,\,0.560)$, ranking
-\[
-  \boxed{4\ \succ\ 2\ \succ\ 3}\qquad\text{(was }2\succ3\!\sim\!4\text{ under raw co-occurrence).}
-\]
-\textbf{Item $4$ jumped to first.} Why: item $4$ is rare ($d_4=2$), so its single shared bundle with item $1$ is
-``surprising'' and informative, whereas item $2$ is a hub ($d_2=5$) that pairs with everyone, so sharing two
-bundles with it is partly explained by chance. That reweighting is the entire point of PMI, and it is why we keep a
-PPMI channel alongside raw co-occurrence.
+because a hub that co-occurs with \emph{everything} was already expected to co-occur with the sandals by chance.
+That $3.07$-vs-$1.34$ gap, from identical raw counts, is the entire point of PMI---and why we keep a PPMI channel
+alongside raw co-occurrence. (The seed \emph{bag}'s own degree $d_{\text{bag}}=46$ is modest, so it is \emph{not}
+a hub; the hub here is the popular pearl-earring listing.)
 \end{example}
 
 \begin{center}
@@ -499,7 +523,8 @@ PPMI channel alongside raw co-occurrence.
 \captionof{figure}{\emph{Same query, two signals, opposite winners.} Raw co-occurrence (blue) crowns the \emph{hub} item $2$;
 PPMI (orange), by dividing out each item's popularity, crowns the \emph{rare-but-exclusive} item $4$. The PPMI bars
 are shorter in absolute terms (they are log-ratios), but standardisation in \S\ref{sec:toscore} removes that scale
-difference---what survives into the blend is the \emph{ordering}.}
+difference---what survives into the blend is the \emph{ordering}. (4-item sketch, to show the mechanism; the real
+query's version is the $3.07$-vs-$1.34$ hub gap worked in Ex.~\ref{ex:ppmi}.)}
 \label{fig:ppmi}
 
 \subsection{Truncated SVD: a dense ``collaborative fingerprint'' per item}
@@ -526,6 +551,13 @@ structure: items $3$ and $4$ never co-occur ($C_{34}=0$), yet both co-occur with
 pulled closer. This is how the collaborative side reasons about pairs it has never literally observed together.
 \end{remark}
 
+\paragraph{On the real query.} The seed centroid is $\tfrac12(u_{\text{bag}}+u_{\text{sandals}})$; scoring the held-out
+items against it gives $\mathrm{csvd}(\text{earrings})=0.38$ and $\mathrm{csvd}(\text{dress})=\mathbf{0.62}$. Notice the
+fingerprint actually rates the \emph{rare dress higher}: even with only $f=2$ outfits, the dress keeps similar
+\emph{company} to the seeds in PPMI-space, which is exactly the indirect evidence a direct count misses. (As it
+happens, validation prunes \code{csvd} to weight $0$ on \textsc{POG}---\code{simp} and \code{cat} already cover it---so
+this particular signal does not enter the final blend; but it shows the fingerprint seeing what raw co-occurrence cannot.)
+
 \begin{center}
 \begin{tikzpicture}[>=Latex,dot/.style={circle,fill,inner sep=1.3pt}]
 \draw[->,gray!55](-3.1,0)--(3.1,0); \draw[->,gray!55](0,-2.5)--(0,2.5);
@@ -538,8 +570,9 @@ pulled closer. This is how the collaborative side reasons about pairs it has nev
 \node[font=\scriptsize,blue!65] at (1.05,1.35){$\cos(1,2)=0.90$};
 \end{tikzpicture}
 \end{center}
-\captionof{figure}{\emph{The fingerprint sees partners-of-partners, not just direct pairs.} These are the \textbf{exact} rank-$2$
-$L_2$-normalised fingerprints $u_i$ of the toy $\mathrm{PPMI}$ (machine-computed, $x$-sign flipped for display). Items
+\captionof{figure}{\emph{The fingerprint sees partners-of-partners, not just direct pairs} (4-item sketch; on the real
+query this is why \code{csvd} rates the rare dress $0.62$ despite zero co-occurrence). These are the \textbf{exact}
+rank-$2$ $L_2$-normalised fingerprints $u_i$ of the sketch $\mathrm{PPMI}$ (machine-computed, $x$-sign flipped for display). Items
 $3$ and $4$ \textbf{never co-occur} ($C_{34}=0$), yet their fingerprints are almost identical ($\cos=0.98$) because
 both pair with $\{1,2\}$; the hubs $1,2$ likewise sit together ($\cos=0.90$). The \code{csvd} score of a candidate is
 the cosine between its fingerprint and the seeds' \emph{average} fingerprint---so a partial bundle recalls items with
@@ -583,7 +616,7 @@ b}(f_s+5)^{-0.5}$: a \emph{smoothed, size-aware} co-occurrence. Setting both exp
 \end{center}
 \captionof{figure}{\emph{$W_{\text{pair}}=B^{\!\top}\mathrm{diag}((|b|{+}1)^{-1/2})\,B\,\mathrm{diag}((f{+}5)^{-1/2})$, read
 right-to-left as a walk.} A seed's mass is first shrunk by its own popularity, carried up to the bundles it sits in
-(each discounted by its size), then back down to candidates. On the toy data the item discounts are
+(each discounted by its size), then back down to candidates. On the 4-item sketch the item discounts are
 $(f{+}5)^{-1/2}=(0.378,\,0.354,\,0.378,\,\mathbf{0.408})$: the \emph{rarest} item $4$ is damped least and the
 \emph{hub} item $2$ most---the same chance-correction PPMI applies, here multiplicative. Both exponents set to $0$
 recovers plain $C$.}
@@ -687,11 +720,12 @@ $\Delta_{\text{inc}}$ it is a small corrective, reported honestly as such.
 \end{axis}
 \end{tikzpicture}
 \end{center}
-\captionof{figure}{\emph{Three collaborative opinions on $S=\{1\}$---and they disagree.} Bar heights are each signal's
-score \emph{relative to its own top candidate} (raw values: \code{cooc}$=(2,1,1)$, \code{ppmi}$=(.34,.15,.56)$,
-\code{csvd}$=(.90,.55,.70)$ over items $2,3,4$). Raw co-occurrence and the SVD fingerprint back the \emph{hub} item~$2$;
-chance-corrected PPMI backs the \emph{rare-but-exclusive} item~$4$. This disagreement is exactly why fusion
-(\S\ref{sec:fuse}) exists---no single collaborative signal is right everywhere.}
+\captionof{figure}{\emph{Three collaborative opinions disagree} (4-item sketch; the real query shows the same
+disagreement---\code{csvd} alone rates the rare dress above the earrings, Fig.~\ref{fig:pog}). Bar heights are each
+signal's score \emph{relative to its own top candidate} (sketch raw values: \code{cooc}$=(2,1,1)$,
+\code{ppmi}$=(.34,.15,.56)$, \code{csvd}$=(.90,.55,.70)$ over items $2,3,4$). Raw co-occurrence and the SVD fingerprint
+back the \emph{hub} item~$2$; chance-corrected PPMI backs the \emph{rare-but-exclusive} item~$4$. This disagreement is
+exactly why fusion (\S\ref{sec:fuse}) exists---no single collaborative signal is right everywhere.}
 \label{fig:collabfam}
 
 \subsection{Taxonomic family (from category/artist/album labels)}
@@ -721,6 +755,21 @@ construction over the $400$ clusters. This captures sub-type complementarity fin
 \textbf{Uses embeddings} (for the clustering and soft assignment).
 \end{description}
 
+\paragraph{On the real query.} Our seeds are categories ``bags'' and ``sandals''; the earrings are ``earrings.'' The
+category-PMI votes add over the seeds' categories:
+\[
+  \mathrm{cat}(\text{earrings}\mid S)=P_{\text{cat}}[\text{bags},\text{earrings}]+P_{\text{cat}}[\text{sandals},\text{earrings}]
+  =1.33+1.97=\mathbf{3.30},
+\]
+and the dress scores $1.25+1.93=\mathbf{3.18}$. \textbf{Both held-out items are strong category complements}---and
+crucially taxonomy rates the rare dress \emph{just as highly} as the common earrings, with \emph{no co-occurrence of
+either}. That is the whole promise of this family. Slot self-exclusion then earns its keep on a tempting distractor:
+a \emph{second bag} (same category as a seed) would get $P_{\text{cat}}[\text{sandals},\text{bags}]=1.18$, but because
+an outfit almost never takes two bags the duplicate-slot term subtracts $0.5$, to $0.68$---below the field average, so
+its standardised \code{cat} score is \emph{negative} ($z=-1.01$). Taxonomy actively vetoes the second bag.
+(Why, then, is the dress not recovered? Because \code{cat} is only one weighted vote; \S\ref{sec:fuse} shows the
+earrings \emph{also} carry a huge collaborative \code{simp} score that the dress lacks.)
+
 \begin{center}
 \resizebox{\linewidth}{!}{%
 \begin{tikzpicture}[>=Latex,font=\footnotesize,
@@ -732,8 +781,9 @@ construction over the $400$ clusters. This captures sub-type complementarity fin
 \draw[->](P)--(sc) node[midway,above,font=\scriptsize,align=center]{read seed\\[-2pt]row};
 \end{tikzpicture}}
 \end{center}
-\captionof{figure}{\emph{Taxonomic scoring: category-to-category PMI, machine-computed on toy categories.} Assign the
-toy items categories $A,B,C$ as shown; the \emph{same} PPMI construction as Fig.~\ref{fig:build}, applied to the
+\captionof{figure}{\emph{Taxonomic scoring: category-to-category PMI (4-item sketch; real numbers in the paragraph
+above---$\mathrm{cat}(\text{earrings})=1.33{+}1.97{=}3.30$).} Assign the
+sketch items categories $A,B,C$ as shown; the \emph{same} PPMI construction as Fig.~\ref{fig:build}, applied to the
 bundle$\times$category counts, yields $P_{\text{cat}}$. For seed item~$1$ (category $A$) the candidate scores are just
 row $A$: item~$2$ wins because ``$A$ complements $B$'' is a strong category pairing ($0.65$), item~$4$ gets a little
 ($0.18$), and same-category item~$3$ gets $0$. Crucially this needs \textbf{no co-occurrence of the candidate
@@ -763,6 +813,14 @@ highest.
 contrastive loss. \textbf{It is off by default} (\code{ENCODER=0}); the whole point of the paper is that the
 zero-parameter signals above are enough. When off, it contributes nothing.
 \end{description}
+
+\paragraph{On the real query.} Content is the weakest family \emph{here}, and honestly so. After
+category-disentangling, the earrings' \code{style} cosine to the seed centroid is $\approx 0.00$ and the dress's is
+$0.06$---the \emph{look} of a bag-and-sandals pairing barely predicts either answer's texture. The graph-bridged
+\code{bridge} is more useful: it scores the earrings $0.23$ (they are co-purchased, so the one-hop smoothing lifts
+them) but the dress $-0.03$. So on this outfit the content family mostly abstains; it earns its weight on the
+datasets and queries where \emph{look-alike} is the signal (e.g.\ clothing), which is why validation still keeps a
+small $w_{\code{bridge}}=0.25$.
 
 \begin{center}
 \begin{tikzpicture}[>=Latex,dot/.style={circle,fill,inner sep=1.1pt}]
@@ -801,8 +859,8 @@ leaves only each item's \emph{style} deviation, which is what the content signal
 \draw[->,thick,orange!75](0,0)--(1.0,-1.25) node[dot]{} node[below,font=\scriptsize]{$c'$: large angle $\Rightarrow$ low};
 \end{tikzpicture}
 \end{center}
-\captionof{figure}{\emph{Content scoring is cosine to the seeds' average style vector} (illustrative---the toy dataset
-carries no embeddings). Each content signal (\code{style}/\code{imgstyle}/\code{bridge}) averages the seeds' processed
+\captionof{figure}{\emph{Content scoring is cosine to the seeds' average style vector} (schematic---the 4-item sketch
+carries no embeddings; the real query's content values are $\code{style}\approx 0$, $\code{bridge}=0.23$ for the earrings). Each content signal (\code{style}/\code{imgstyle}/\code{bridge}) averages the seeds' processed
 vectors into a centroid $\bar\phi_S$ and ranks candidates by $\langle\phi_c,\bar\phi_S\rangle$. Because the vectors are
 category-disentangled (Fig.~\ref{fig:disentangle}), this rewards \emph{within-outfit style match}; like taxonomy it
 uses no co-occurrence, so it too scores \textbf{cold} items.}
@@ -828,6 +886,15 @@ directly would let whichever signal happens to have the biggest numbers dominate
 (Code: \code{zcols}, \code{operators.py}:32--36.) After this, every signal speaks the same language---``how many
 standard deviations above the field is this candidate, according to me''---and the weights in the next section are
 comparing like with like.
+
+\paragraph{On the real query (why the magnitudes look so large).} The collaborative signals are extremely
+\emph{peaked}: of the $31{,}217$ items almost all score $\approx 0$ on \code{simp}, so its standard deviation is tiny
+($0.0144$). The earrings' raw \code{simp}$=1.79$ therefore standardises to
+$z=(1.79-0.0003)/0.0144\approx\mathbf{124}$---$124$ standard deviations above the field. Taxonomy is far flatter
+(mean $1.61$, std $0.92$), so the earrings' raw \code{cat}$=3.30$ becomes a modest $z=(3.30-1.61)/0.92\approx 1.83$.
+The huge \code{simp} number is not a bug: it says ``\emph{nothing else in the catalogue co-occurs with these seeds
+like the earrings do},'' and standardisation is exactly what lets that peaked collaborative verdict and the gentle
+taxonomic one be \emph{added} on a common scale in the blend below.
 
 % ======================================================================
 \section{Fusion: four stages to the final score}
@@ -963,15 +1030,23 @@ a principled, frequency-aware interpolation between ``what co-occurrence says'' 
 Finally we rank $\I\setminus S$ by $\hat\theta(\cdot\mid S)$ and return the top $K$.}
 \label{fig:shrink}
 
-\begin{example}[the four stages on one query]
-Take $S=\{1\}$ on the toy data and suppose validation selected weights $w_{\text{ppmi}}=1$, $w_{\text{cat}}=0.5$
-(all else $0$), $\alpha=\gamma=0$, and $\kappa=1$. From Example~\ref{ex:ppmi} the \code{ppmi} raw column is
-$(0,0.336,0.154,0.560)$; standardising (Stage 0) and blending (Stage 1) gives $Y$. Suppose the category prior
-$\mu_0$ (Stage 3) favours item $2$ (a complementary category to item $1$). Item $4$ is rare ($f_4=1$) so
-$u_4=\tfrac{1}{1+1}=0.5$: its final score is the \emph{average} of its strong collaborative evidence and the prior.
-Item $2$ is frequent ($f_2=3$) so $u_2=\tfrac{1}{4}=0.25$: it leans $75\%$ on collaboration. The routing thus lets
-the rare-but-exclusive item $4$ keep most of its PPMI boost while a cold item (if any) would fall back entirely on
-the category prior. Every number here is a fixed function of $S$---no randomness, no test-batch dependence.
+\begin{example}[the four stages on the real query]
+Validation selected $w_{\text{simp}}=w_{\text{cat}}=1$ and $w_{\text{softcat}}=w_{\text{bridge}}=w_{\text{pop}}=0.25$
+(all other weights $0$), $\alpha=1$, $\gamma=0$, $\kappa=0$. \textbf{Stages 1--2 (blend $Y$).} Standardising each
+signal and summing with these weights, the earrings get
+\[
+  Y=\underbrace{1{\cdot}124.1}_{\code{simp}}+\underbrace{1{\cdot}1.83}_{\code{cat}}
+    +0.25\big(\underbrace{3.94}_{\code{softcat}}+\underbrace{3.42}_{\code{bridge}}+\underbrace{9.8}_{\code{pop}}\big)
+    =\mathbf{130.2},
+\]
+while for the dress every collaborative term is $0$, leaving $Y=0+1.71+0.25(-0.74-0.58+0.6)=\mathbf{1.52}$---essentially
+its lone \code{cat} vote. \textbf{Stage 3 (prior $\mu_0$).} The taxonomy/content prior likes both category
+complements: $\mu_0=8.2$ (earrings), $2.1$ (dress). \textbf{Stage 4 (route).} Validation chose $\kappa=0$ here, so
+$u_c=\kappa/(f_c+\kappa)=0$ and $\hat\theta=Y$ for every candidate---\emph{no shrinkage on this dense dataset}. Final
+full-catalogue ranks: \textbf{earrings $1$}, dress $3971$. The earrings win not because taxonomy prefers them (it
+rates both $\approx 3.2$) but because they \emph{add} a huge collaborative \code{simp} the dress cannot; and the one
+mechanism that could have lifted the dress---shrinkage toward the prior that liked it ($\mu_0>Y$)---is switched off on
+dense \textsc{POG}. Every number is a fixed function of $S$: no randomness, no test-batch dependence.
 \end{example}
 
 \begin{center}
@@ -989,7 +1064,8 @@ the category prior. Every number here is a fixed function of $S$---no randomness
 \end{axis}
 \end{tikzpicture}
 \end{center}
-\captionof{figure}{\emph{The four stages on $S=\{1\}$, every bar machine-computed} (weights $w_{\mathrm{ppmi}}{=}1$,
+\captionof{figure}{\emph{The four stages, illustrated on the 4-item sketch} (the real query's four stages are worked
+in the Example above and Table~\ref{fig:pog}; here weights $w_{\mathrm{ppmi}}{=}1$,
 $w_{\mathrm{cat}}{=}0.5$, $\alpha{=}\gamma{=}0$, $\kappa{=}1$). Left to right: the two example signals, then the
 collaborative blend $Y$ (Stages 1--2), the cold-start prior $\mu_0$ (Stage 3), and the routed final $\hat\theta$
 (Stage 4). Follow item~$4$ (orange): PPMI loves it ($1.42$) and it
@@ -1062,11 +1138,11 @@ matter, and no cutoff-free loss improves on it.
 \section{The same machine on a real \textsc{POG} query}
 \label{sec:pog}
 
-The toy dataset made every operation checkable by hand, but it has no embeddings, so the taxonomic and content
-signals never fired. Here we run the \emph{identical, unmodified} scorer on one real query from \textsc{POG\_dense}
-(Alibaba iFashion; $31{,}217$ items, $19{,}865$ training outfits) and read off the actual number every signal
-produces. Nothing is simplified: these are the values dumped by \code{CASE\_STUDY=1 BUNDLE\_DS=pog\_dense python -m
-bundlefuse.eval.fullrank} into \code{results/case\_study\_pog\_dense.json}.
+We have read this one real \textsc{POG\_dense} query signal by signal through the whole note; here is the entire thing
+in a single place---every signal's actual value side by side, and the four fusion stages that turn them into the
+filled bundle. Nothing is new or simplified: these are exactly the values dumped by \code{CASE\_STUDY=1
+BUNDLE\_DS=pog\_dense python -m bundlefuse.eval.fullrank} into \code{results/case\_study\_pog\_dense.json}, the same
+ones quoted in the Examples above.
 
 \begin{keybox}
 \textbf{The query.} The partial outfit is $S=\{$\,a sequined chain shoulder bag, a pair of block-heel strappy
