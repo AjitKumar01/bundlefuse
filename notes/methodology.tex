@@ -62,7 +62,41 @@ candidate item---co-occurrence, taxonomy, content similarity---\textbf{standardi
 against a cold-start fallback so that rarely-seen items are still rankable. \emph{The scoring core trains no neural
 network and has zero learned weights}; the only numbers ``learned'' are a few dials chosen by grid search on
 validation data. Embedding vectors \emph{are} used, but they are \textbf{fixed inputs} shipped with the datasets, not
-things we train (\S\ref{sec:inputs}).
+things we train (\S\ref{sec:inputs}). Figure~\ref{fig:flow} is the whole method on one line---a partial bundle in, a
+completed bundle out---and every later section just explains one of its boxes.
+
+\begin{center}
+\resizebox{\linewidth}{!}{%
+\begin{tikzpicture}[>=Latex,
+ io/.style={draw,very thick,rounded corners,fill=green!14,align=center,inner sep=5pt,font=\small,minimum height=14mm},
+ st/.style={draw,rounded corners,fill=black!5,align=center,inner sep=4pt,font=\footnotesize},
+ fam/.style={draw,rounded corners,align=center,inner sep=3pt,font=\scriptsize},
+ rt/.style={draw,circle,fill=orange!30,align=center,inner sep=1pt,font=\scriptsize,minimum size=16mm}]
+\node[io](IN){\textbf{Partial}\\\textbf{bundle}\\[1pt]$S=\{1\}$\\[1pt]{\scriptsize complete it}};
+\node[fam,fill=blue!8,right=9mm of IN,yshift=10mm](col){\textbf{Collaborative}\\cooc, ppmi, csvd, simp};
+\node[fam,fill=violet!9,right=9mm of IN](tax){\textbf{Taxonomic}\\cat, softcat, homo};
+\node[fam,fill=teal!9,right=9mm of IN,yshift=-10mm](con){\textbf{Content}\\style, bridge};
+\node[st,right=8mm of tax](z){standardise\\each to $z_k$};
+\node[st,fill=blue!10,right=9mm of z,yshift=8mm](Y){blend $Y=\sum_k w_k z_k$\\{\scriptsize$+$ higher-order (St.\,1--2)}};
+\node[st,fill=violet!10,right=9mm of z,yshift=-8mm](mu){prior $\mu_0$\\{\scriptsize content/metadata (St.\,3)}};
+\node[rt,right=10mm of Y,yshift=-8mm](u){route\\$(1{-}u_c)Y$\\$+\,u_c\mu_0$\\{\scriptsize$u_c=\frac{\kappa}{f_c+\kappa}$}};
+\node[st,fill=green!8,right=8mm of u](rk){rank,\\drop seeds};
+\node[io,right=7mm of rk](OUT){\textbf{Filled}\\\textbf{bundle}\\[1pt]$\{1,\mathbf{2},\mathbf{4}\}$\\[1pt]{\scriptsize$\hat\theta\!:2\!\succ\!4\!\succ\!3$}};
+\draw[->](IN)--(col);\draw[->](IN)--(tax);\draw[->](IN)--(con);
+\draw[->](col.east)--(z.west);\draw[->](tax)--(z);\draw[->](con.east)--(z.west);
+\draw[->](z.east)--(Y.west);\draw[->](z.east)--(mu.west);
+\draw[->](Y.east)--(u);\draw[->](mu.east)--(u);
+\draw[->](u)--(rk);\draw[->](rk)--(OUT);
+\end{tikzpicture}}
+\end{center}
+\captionof{figure}{\textbf{The whole method on one line: a partial bundle in, a completed bundle out.} Given the seeds
+$S$ (here $\{1\}$), every catalogue item $c\notin S$ is scored by three families of cheap ``opinions''---collaborative
+co-occurrence, taxonomy, and content similarity---each \emph{standardised} to a $z$-score. A validation-tuned weighted
+blend $Y$ (Stages 1--2) is combined \emph{per candidate} with a cold-start prior $\mu_0$ (Stage 3) by frequency
+routing $u_c=\kappa/(f_c+\kappa)$ (Stage 4); the catalogue is then ranked and the seeds removed, giving the filled
+bundle. Every remaining section explains one box; the exact numbers for this toy query are carried all the way to
+Fig.~\ref{fig:stages}, where $\hat\theta$ ranks $2\succ4\succ3$.}
+\label{fig:flow}
 
 The note is bottom-up. \S\ref{sec:inputs}--\S\ref{sec:derived} define what we start with. \S\ref{sec:vocab} defines
 the five recurring \emph{operations} (co-occurrence, PMI, SVD, degree normalisation, graph propagation) precisely as
