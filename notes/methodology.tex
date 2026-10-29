@@ -43,8 +43,8 @@
 language. For every piece we answer three questions in order: \textbf{(i) what is it in general} (the textbook idea),
 \textbf{(ii) how is it defined \emph{here}} (the exact quantities this code plugs into that idea---because ``PMI''
 and ``SVD'' mean nothing until you say \emph{PMI of what} and \emph{SVD of which matrix}), and \textbf{(iii) a
-worked numerical example} on \emph{one real \textsc{POG} query} carried through the whole note (a tiny $4$-item sketch
-is used only where a full matrix must be printed to show its shape). Where the method consumes pretrained
+worked numerical example} on \emph{one real \textsc{POG} query} carried through the whole note---where a full
+$31{,}217$-square matrix cannot be printed we show the real \emph{sub-matrix} over this query's items, never a toy. Where the method consumes pretrained
 \textbf{embedding vectors}, we say so explicitly and give their exact dimensions and origin. Nothing here is guessed:
 every formula is read off \code{bundlefuse/operators.py} and \code{bundlefuse/eval/fullrank.py}, and every number in
 the running example is machine-verified. A closing section (\S\ref{sec:pog}) then runs the \emph{entire} scorer on
@@ -183,9 +183,9 @@ drawn from the real catalogue of $n=31{,}217$ items and $m=19{,}865$ training ou
 must be recovered: a pair of \textbf{drop earrings} (item $30318$) and a rare \textbf{plus-size A-line dress} (item
 $5716$). \textbf{Every worked number in this note is the value the live scorer actually computes for this query}
 (dumped by \code{CASE\_STUDY=1 BUNDLE\_DS=pog\_dense}; the full per-signal table is \S\ref{sec:pog},
-Fig.~\ref{fig:pog}). Where a matrix is small enough to print on paper, we also show a \textbf{4-item sketch}
-$\{1,2,3,4\}$ with bundles $b_1{=}\{1,2,3\},\,b_2{=}\{1,2,4\},\,b_3{=}\{2,3\}$---\emph{purely to see the shape} of
-$B$, $C$ and $\mathrm{PPMI}$, since the real ones are $31{,}217\times31{,}217$.
+Fig.~\ref{fig:pog}). The real matrices are $31{,}217\times31{,}217$ and cannot be printed, so where we must show one
+we display the \emph{real sub-matrix} over this query's handful of items (the two seeds and five candidate
+answers)---genuine entries of the actual $C$ and $\mathrm{PPMI}$, never a toy stand-in.
 \end{keybox}
 
 % ======================================================================
@@ -204,38 +204,42 @@ Every bundle is a \emph{row}; every item is a \emph{column}. This single matrix 
 collaborative signal. (In code: \code{SimplicialGraphOperator} builds \code{self.B} and its binary version
 \code{self.B\_bin}.)
 
-\begin{example}[the incidence matrix --- 4-item shape sketch]\label{ex:B}
-For the 4-item sketch,
-\[
-  B=\begin{pmatrix}1&1&1&0\\ 1&1&0&1\\ 0&1&1&0\end{pmatrix}
-  \begin{array}{l}\leftarrow b_1=\{1,2,3\}\\ \leftarrow b_2=\{1,2,4\}\\ \leftarrow b_3=\{2,3\}\end{array}
-\]
+\begin{example}[the incidence matrix for our query]\label{ex:B}
+We cannot print the real $B$ ($m{=}19{,}865$ outfits $\times\ n{=}31{,}217$ items), but it is simply the record of
+which items share outfits. For our query that record says, among other things, that the seed \emph{bag} appears in
+$46$ training outfits and the held-out \emph{earrings} in $1{,}635$, and that bag and earrings appear \emph{together}
+in $15$ of them. Reading every such shared-outfit count off $B$ gives the real co-occurrence graph below
+(Fig.~\ref{fig:graph}), from which every collaborative signal is built.
 \end{example}
 
 \begin{center}
-\begin{tikzpicture}[>=Latex,
-  item/.style={circle,draw,minimum size=7mm,inner sep=0pt,fill=blue!8,font=\small},
-  bun/.style={rectangle,draw,rounded corners,minimum size=7mm,fill=green!12,font=\small}]
-  \node[bun] (b1) at (0,1.8)  {$b_1$};
-  \node[bun] (b2) at (0,0.6)  {$b_2$};
-  \node[bun] (b3) at (0,-0.6) {$b_3$};
-  \node[item] (i1) at (3.2,2.4)  {1};
-  \node[item] (i2) at (3.2,1.2)  {2};
-  \node[item] (i3) at (3.2,0.0)  {3};
-  \node[item] (i4) at (3.2,-1.2) {4};
-  \draw (b1)--(i1); \draw (b1)--(i2); \draw (b1)--(i3);
-  \draw (b2)--(i1); \draw (b2)--(i2); \draw (b2)--(i4);
-  \draw (b3)--(i2); \draw (b3)--(i3);
-  \node[font=\footnotesize,gray] at (0,-1.6)  {bundles};
-  \node[font=\footnotesize,gray] at (3.2,-2.0) {items};
+\begin{tikzpicture}[>=Latex]
+\node[draw,rounded corners,inner sep=2.5pt,font=\scriptsize,fill=blue!14,draw=blue!55,very thick] (bag) at (-3.0,1.4) {bag};
+\node[draw,rounded corners,inner sep=2.5pt,font=\scriptsize,fill=blue!14,draw=blue!55,very thick] (sandals) at (-3.0,-1.4) {sandals};
+\node[draw,rounded corners,inner sep=2.5pt,font=\scriptsize,fill=green!14,draw=green!55,very thick] (earrings) at (0.3,0.0) {earrings};
+\node[draw,rounded corners,inner sep=2.5pt,font=\scriptsize,fill=black!4,draw=black!30] (pearl) at (2.7,-1.6) {pearl};
+\node[draw,rounded corners,inner sep=2.5pt,font=\scriptsize,fill=black!4,draw=black!30] (2bag) at (2.9,1.5) {2bag};
+\node[draw,rounded corners,inner sep=2.5pt,font=\scriptsize,fill=black!4,draw=black!30] (heels) at (-0.6,2.1) {heels};
+\node[draw,rounded corners,inner sep=2.5pt,font=\scriptsize,fill=green!14,draw=green!55,very thick] (dress) at (2.6,-0.1) {dress};
+\draw[blue!55,line width=2.00pt] (bag)--(earrings) node[midway,font=\tiny,fill=white,inner sep=0.5pt]{15};
+\draw[blue!55,line width=0.72pt] (bag)--(heels) node[midway,font=\tiny,fill=white,inner sep=0.5pt]{3};
+\draw[blue!55,line width=0.61pt] (sandals)--(earrings) node[midway,font=\tiny,fill=white,inner sep=0.5pt]{2};
+\draw[blue!55,line width=0.61pt] (sandals)--(pearl) node[midway,font=\tiny,fill=white,inner sep=0.5pt]{2};
+\draw[blue!55,line width=0.61pt] (sandals)--(2bag) node[midway,font=\tiny,fill=white,inner sep=0.5pt]{2};
+\draw[black!25,line width=2.40pt] (earrings)--(2bag) node[midway,font=\tiny,fill=white,inner sep=0.5pt]{44};
+\draw[black!25,line width=1.89pt] (earrings)--(heels) node[midway,font=\tiny,fill=white,inner sep=0.5pt]{14};
+\draw[black!25,line width=0.61pt] (earrings)--(dress) node[midway,font=\tiny,fill=white,inner sep=0.5pt]{2};
+\draw[black!25,line width=0.51pt] (2bag)--(heels) node[midway,font=\tiny,fill=white,inner sep=0.5pt]{1};
+\draw[black!25,line width=0.51pt] (2bag)--(dress) node[midway,font=\tiny,fill=white,inner sep=0.5pt]{1};
 \end{tikzpicture}
 \end{center}
-\captionof{figure}{\emph{The bundle--item graph of the 4-item sketch} (shape only; the real graph has $31{,}217$ item
-nodes). Each edge is a $1$ in $B$. The \textbf{degree of an item}
-(number of edges) is its frequency $f$: item $2$ has $3$ edges ($f_2=3$), item $4$ has one ($f_4=1$). Two items
-\textbf{co-occur} ($C_{ci}>0$) exactly when they connect to a common bundle box: items $1$ and $2$ share $b_1$ and
-$b_2$ (so $C_{12}=2$), while items $3$ and $4$ share no box ($C_{34}=0$). Every collaborative signal in this note is
-some way of reading this one picture.}
+\captionof{figure}{\emph{The real co-occurrence graph of the query items.} Each edge is a pair that shared at least
+one training outfit; the number is the count $C_{ij}$, and an item's \textbf{degree} (its total edge weight) is the
+$d_i$ used by PMI. The \textcolor{blue!60!black}{seeds} (bag, sandals) and \textcolor{green!60!black}{held-out}
+items (earrings, dress) are highlighted. Two things decide the ranking: the \textbf{earrings} sit on heavy edges to
+\emph{both} seeds ($15$ and $2$), whereas the \textbf{dress} has \emph{no} edge to either seed---it co-occurs
+only with the earrings ($2$) and the 2nd bag ($1$), never with bag or sandals. Raw co-occurrence reads exactly these
+seed-incident edges.}
 \label{fig:graph}
 
 \subsection{The embedding features --- stated explicitly}
@@ -342,44 +346,42 @@ $C_{ci}$ = number of training bundles containing both $c$ and $i$. In code: \cod
 \paragraph{(3) Bundle sizes.} $|b_j|=\sum_i B_{ji}$, used to down-weight large bundles (a pair that co-occurs inside
 a $20$-item playlist is weaker evidence than a pair that co-occurs inside a $2$-item set). In code: \code{self.bsize}.
 
-\begin{example}[the three structures: sketch shape, then the real query]\label{ex:derived}
-On the 4-item sketch, from $B$ in Example~\ref{ex:B}:
-\[
-  f=\begin{pmatrix}2\\3\\2\\1\end{pmatrix},\qquad
-  B^{\!\top}B=\begin{pmatrix}2&2&1&1\\2&3&2&1\\1&2&2&0\\1&1&0&1\end{pmatrix}
-  \;\xrightarrow{\text{zero diag}}\;
-  C=\begin{pmatrix}0&2&1&1\\2&0&2&1\\1&2&0&0\\1&1&0&0\end{pmatrix}.
-\]
-Read $C$ as: items $1$ and $2$ share $2$ bundles; items $3$ and $4$ never share one.
-
-\noindent\textbf{On the real query}, these same structures hold the actual numbers we will use throughout. The seeds'
-co-occurrence degrees (row sums of the real $C$) are $d_{\text{bag}}=46$ and $d_{\text{sandals}}=11$, the grand total
-is $T=\sum_{ij}C_{ij}=193{,}688$, and the two held-out items sit at opposite extremes of $C$: the \textbf{earrings}
-co-occur with the bag in $C[\text{earrings},\text{bag}]=15$ training outfits and with the sandals in $2$, whereas the
-\textbf{dress} co-occurs with \emph{neither} ($C[\text{dress},\cdot]=0$), having appeared in only $f_{\text{dress}}=2$
-outfits total. Those few integers already decide most of what follows.
+\begin{example}[the three structures on the real query]\label{ex:derived}
+Reading the three quantities off the real $B$ for this query's items (the real $4\times4$ $C$ block is drawn in
+Fig.~\ref{fig:build}):
+\begin{itemize}\itemsep1pt
+\item \textbf{Frequency} $f$ (how many outfits contain the item): $f_{\text{bag}}=15$, $f_{\text{sandals}}=4$,
+$f_{\text{earrings}}=686$, and the held-out $f_{\text{dress}}=2$---the dress is \emph{rare}.
+\item \textbf{Co-occurrence} $C$: the earrings share $C[\text{earrings},\text{bag}]=15$ outfits with the bag and $2$
+with the sandals, while the dress shares $0$ with \emph{either} seed (it never appeared alongside bag or sandals).
+\item \textbf{Co-occurrence degrees} $d_i=\sum_j C_{ij}$ (what PMI uses next): $d_{\text{bag}}=46$,
+$d_{\text{sandals}}=11$, $d_{\text{earrings}}=1635$, with grand total $T=\sum_{ij}C_{ij}=193{,}688$.
+\end{itemize}
+Those few integers already decide most of what follows: raw co-occurrence will love the earrings and be blind to the
+dress, and the degrees $d$ are exactly what PMI divides by to correct for popularity.
 \end{example}
 
 \begin{center}
 \resizebox{\linewidth}{!}{%
 \begin{tikzpicture}[>=Latex,
-  mat/.style={draw,rounded corners,fill=blue!4,inner sep=4pt},
+  mat/.style={draw,rounded corners,fill=blue!4,inner sep=4pt,align=center},
   lbl/.style={font=\footnotesize,align=center,midway,above,yshift=1pt}]
-\node[mat] (B) {$B=\left(\begin{smallmatrix}1&1&1&0\\1&1&0&1\\0&1&1&0\end{smallmatrix}\right)$};
-\node[mat,right=22mm of B] (C) {$C=\left(\begin{smallmatrix}0&2&1&1\\2&0&2&1\\1&2&0&0\\1&1&0&0\end{smallmatrix}\right)$};
-\node[mat,right=30mm of C] (P) {$\mathrm{PPMI}=\left(\begin{smallmatrix}0&.34&.15&.56\\.34&0&.62&.34\\.15&.62&0&0\\.56&.34&0&0\end{smallmatrix}\right)$};
-\node[mat,right=24mm of P] (U) {$u_i\in\R^{k}$};
+\node[mat] (B) {$B\in\{0,1\}^{m\times n}$\\{\tiny $m{=}19865,\ n{=}31217$}};
+\node[mat,right=20mm of B] (C) {$C=\left(\begin{smallmatrix}0 & 0 & 15 & 0\\0 & 0 & 2 & 0\\15 & 2 & 0 & 2\\0 & 0 & 2 & 0\end{smallmatrix}\right)$};
+\node[mat,right=26mm of C] (P) {$\mathrm{PPMI}=\left(\begin{smallmatrix}0.00 & 0.00 & 3.65 & 0.00\\0.00 & 0.00 & 3.07 & 0.00\\3.65 & 3.07 & 0.00 & 3.86\\0.00 & 0.00 & 3.86 & 0.00\end{smallmatrix}\right)$};
+\node[mat,right=22mm of P] (U) {$u_i\in\R^{128}$};
 \draw[->](B)--(C) node[lbl]{$B^{\!\top}B$,\\[-1pt]zero diag};
 \draw[->](C)--(P) node[lbl]{$\max\!\big(0,\log\tfrac{C_{ij}T}{d_id_j}\big)$};
-\draw[->](P)--(U) node[lbl]{SVD$_k$,\\[-1pt]$L_2$-norm};
+\draw[->](P)--(U) node[lbl]{SVD$_{128}$,\\[-1pt]$L_2$-norm};
 \end{tikzpicture}}
 \end{center}
-\captionof{figure}{\emph{The collaborative pipeline, built once from the bundles alone} (4-item sketch to show the
-shapes; the real $B,C,\mathrm{PPMI}$ are $31{,}217$-square). The bundle--item matrix $B$ becomes the
-item--item co-occurrence $C=B^{\!\top}B$ (diagonal zeroed); $C$ becomes the chance-corrected $\mathrm{PPMI}$
-(\S\ref{sec:pmi}); and a truncated SVD of $\mathrm{PPMI}$ gives each item a dense ``collaborative fingerprint'' $u_i$
-(\S\ref{sec:svd}). The partial bundle is \emph{not} involved yet: these are fixed structures a query is later scored
-\emph{against}.}
+\captionof{figure}{\emph{The collaborative pipeline, built once from the bundles alone.} From the real $19865\times
+31217$ incidence $B$ we form the item--item co-occurrence $C=B^{\!\top}B$ (diagonal zeroed), then the
+chance-corrected $\mathrm{PPMI}$ (\S\ref{sec:pmi}), then a $128$-dim SVD fingerprint $u_i$ (\S\ref{sec:svd}). The
+$C$ and $\mathrm{PPMI}$ blocks shown are the \emph{real} $4\times4$ sub-matrices over
+$\{$bag, sandals, earrings, dress$\}$: note the two seeds never co-occur ($C_{\text{bag,san}}{=}0$), the earrings
+co-occur with the bag $15\times$, and the dress co-occurs with \emph{neither} seed---the structure that decides the
+ranking. The partial bundle is \emph{not} involved yet; these are fixed structures a query is scored against.}
 \label{fig:build}
 
 % ======================================================================
@@ -417,18 +419,26 @@ together, including popular hubs that ship with everything---PMI will next disco
 \end{example}
 
 \begin{center}
-\begin{tikzpicture}[>=Latex]
-\node (eq) {$\underbrace{\left(\begin{smallmatrix}0&2&1&1\\2&0&2&1\\1&2&0&0\\1&1&0&0\end{smallmatrix}\right)}_{\textstyle C}\;
-\underbrace{\left(\begin{smallmatrix}1\\0\\0\\0\end{smallmatrix}\right)}_{\textstyle x_S,\ S=\{1\}}
-=\underbrace{\left(\begin{smallmatrix}\cdot\\2\\1\\1\end{smallmatrix}\right)}_{\textstyle \mathrm{score}(\cdot\mid S)}$};
-\end{tikzpicture}
+\setlength{\arrayrulewidth}{0.3pt}
+\begin{tabular}{l c c | c}
+\multicolumn{4}{c}{\footnotesize $\mathrm{cooc}(c\mid S)=(C\xs)_c=C[c,\text{bag}]+C[c,\text{sandals}]$}\\[2pt]
+\toprule
+candidate $c$ & $C[c,\text{bag}]$ & $C[c,\text{sandals}]$ & $\mathrm{cooc}(c\mid S)$ \\
+\midrule
+earrings & 15 & 2 & \textbf{17} \\
+pearl & 0 & 2 & \textbf{2} \\
+2bag & 0 & 2 & \textbf{2} \\
+heels & 3 & 0 & \textbf{3} \\
+dress & 0 & 0 & \textbf{0} \\
+\bottomrule
+\end{tabular}
 \end{center}
-\captionof{figure}{\emph{Filling a partial bundle is one matrix--vector product.} The seed indicator $x_S$ carries a $1$ in each
-seed slot, so $Cx_S$ \textbf{sums the seed columns of $C$}. For $S=\{1\}$ it reads off column $1$: candidate $2$
-scores $2$, candidates $3,4$ score $1$; the seed itself ($c=1$, shown ``$\cdot$'') is masked to $-\infty$ before
-ranking. \emph{Every} collaborative signal has this exact shape $Wx_S$---only the matrix $W$ changes (raw $C$,
-$\mathrm{PPMI}$, the degree-normalised $W_{\text{pair}}$, or the household operator). (Matrix shown is the 4-item
-sketch; on the real query the same product gives $\mathrm{cooc}(\text{earrings})=15{+}2=17$, Ex.~\ref{ex:cooc}.)}
+\captionof{figure}{\emph{Filling a partial bundle is one matrix--vector product, on the real query.} The seed
+indicator $\xs$ selects the \emph{bag} and \emph{sandals} columns of the real co-occurrence matrix $C$ and sums
+them, so $\mathrm{cooc}(c\mid S)=C[c,\text{bag}]+C[c,\text{sandals}]$. The held-out \textbf{earrings} score
+$15{+}2{=}17$; the held-out \textbf{dress} scores $0$ (it never shared an outfit with either seed, though it
+\emph{does} co-occur with other items---see Fig.~\ref{fig:graph}). \emph{Every} collaborative signal has this
+same shape $W\xs$; only the matrix $W$ changes (raw $C$, $\mathrm{PPMI}$, the degree-normalised $W_{\text{pair}}$).}
 \label{fig:cooc}
 
 \subsection{PMI / PPMI: ``is this pair together \emph{more than chance}?''}
@@ -529,8 +539,10 @@ and exposed as the signal \code{csvd}.
 
 \begin{remark}[direct vs.\ indirect association]
 Raw co-occurrence and PPMI see only \emph{direct} pairs ($C_{ci}>0$). The SVD fingerprint sees \emph{second-order}
-structure: items $3$ and $4$ never co-occur ($C_{34}=0$), yet both co-occur with $\{1,2\}$, so their fingerprints are
-pulled closer. This is how the collaborative side reasons about pairs it has never literally observed together.
+structure: on our query the held-out \emph{dress} never co-occurs with either seed ($C[\text{dress},\cdot]=0$), yet
+it shares outfits with the \emph{earrings} and the \emph{2nd bag}, which in turn sit with the seeds---so the dress's
+fingerprint is pulled toward the seeds' even though no direct count connects them. This is how the collaborative side
+reasons about pairs it has never literally observed together.
 \end{remark}
 
 \paragraph{On the real query.} The seed centroid is $\tfrac12(u_{\text{bag}}+u_{\text{sandals}})$; scoring the held-out
@@ -579,8 +591,8 @@ square-root taming. These assemble into the \textbf{degree-normalised pairwise o
 \end{keybox}
 Reading it right-to-left: scale each seed column by its item discount, walk bundle$\to$items weighting each bundle by
 its size discount, land back on items. So $W_{\text{pair}}(c\mid S)=\sum_{b\ni c}(|b|+1)^{-0.5}\sum_{s\in S\cap
-b}(f_s+5)^{-0.5}$: a \emph{smoothed, size-aware} co-occurrence. Setting both exponents to $0$ recovers plain $C$
-(the case used in Examples~\ref{ex:cooc}--\ref{ex:ppmi} for clarity).
+b}(f_s+5)^{-0.5}$: a \emph{smoothed, size-aware} co-occurrence. Setting both exponents to $0$ recovers plain $C$---the
+plain-$C$ case the \code{cooc} and \code{ppmi} examples above worked.
 
 \begin{center}
 \resizebox{\linewidth}{!}{%
@@ -597,10 +609,10 @@ b}(f_s+5)^{-0.5}$: a \emph{smoothed, size-aware} co-occurrence. Setting both exp
 \end{center}
 \captionof{figure}{\emph{$W_{\text{pair}}=B^{\!\top}\mathrm{diag}((|b|{+}1)^{-1/2})\,B\,\mathrm{diag}((f{+}5)^{-1/2})$, read
 right-to-left as a walk.} A seed's mass is first shrunk by its own popularity, carried up to the bundles it sits in
-(each discounted by its size), then back down to candidates. On the 4-item sketch the item discounts are
-$(f{+}5)^{-1/2}=(0.378,\,0.354,\,0.378,\,\mathbf{0.408})$: the \emph{rarest} item $4$ is damped least and the
-\emph{hub} item $2$ most---the same chance-correction PPMI applies, here multiplicative. Both exponents set to $0$
-recovers plain $C$.}
+(each discounted by its size), then back down to candidates. On our query the seed item discounts $(f_s{+}5)^{-1/2}$
+are $0.224$ for the common \emph{bag} ($f{=}15$) and $0.333$ for the rarer \emph{sandals} ($f{=}4$): the rarer seed's
+evidence is damped \emph{less}---the same chance-correction PPMI applies, here multiplicative. Both exponents set to
+$0$ recovers plain $C$.}
 \label{fig:degnorm}
 
 \subsection{Graph propagation: a two-hop smoothing walk}
@@ -846,8 +858,8 @@ leaves only each item's \emph{style} deviation, which is what the content signal
 \draw[->,thick,orange!75](0,0)--(1.0,-1.25) node[dot]{} node[below,font=\scriptsize]{$c'$: large angle $\Rightarrow$ low};
 \end{tikzpicture}
 \end{center}
-\captionof{figure}{\emph{Content scoring is cosine to the seeds' average style vector} (schematic---the 4-item sketch
-carries no embeddings; the real query's content values are $\code{style}\approx 0$, $\code{bridge}=0.23$ for the earrings). Each content signal (\code{style}/\code{imgstyle}/\code{bridge}) averages the seeds' processed
+\captionof{figure}{\emph{Content scoring is cosine to the seeds' average style vector} (a schematic of the geometry;
+the real query's content values are $\code{style}\approx 0$, $\code{bridge}=0.23$ for the earrings). Each content signal (\code{style}/\code{imgstyle}/\code{bridge}) averages the seeds' processed
 vectors into a centroid $\bar\phi_S$ and ranks candidates by $\langle\phi_c,\bar\phi_S\rangle$. Because the vectors are
 category-disentangled (Fig.~\ref{fig:disentangle}), this rewards \emph{within-outfit style match}; like taxonomy it
 uses no co-occurrence, so it too scores \textbf{cold} items.}

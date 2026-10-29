@@ -643,6 +643,13 @@ if os.environ.get("CASE_STUDY"):
     Tc = float(Cm.sum())                       # grand total T = sum_ij C_ij
     stdz = {k: {"mean": float(Rraw[k][:, 0].mean()), "std": float(Rraw[k][:, 0].std())} for k in SIG}
 
+    # Real small SLICES of C and PPMI over the query items (seeds + the figure candidates), so the
+    # methodology can print genuine small matrices instead of a toy one.
+    slice_ids = list(dict.fromkeys([int(s) for s in seeds] + [30318, 24847, 4277, 14886, 5716]))
+    slice_ids = [i for i in slice_ids if i < n]
+    C_sub = [[float(Cm[a, b]) for b in slice_ids] for a in slice_ids]
+    PPMI_sub = [[float(PPMIm[a, b]) for b in slice_ids] for a in slice_ids]
+
     # Re-derive the four stages explicitly (same formulas as apply_simba_full) so each is exposed.
     Z_pair = dict(Z); Z_pair["simp"] = Z["pair"]; Z_pair["diff2"] = Z["diff2_pair"]
     alpha_inc, g_rao = best_ho
@@ -712,6 +719,7 @@ if os.environ.get("CASE_STUDY"):
         "n_items": int(n),
         "standardize": stdz,
         "fingerprint_2d": fp2d,
+        "slice_ids": slice_ids, "C_sub": C_sub, "PPMI_sub": PPMI_sub,
         "fit": {"weights": {k: float(w_ad.get(k, 0.0)) for k in SIG if w_ad.get(k, 0)},
                 "alpha_inc": float(alpha_inc), "gamma_rao": float(g_rao),
                 "kappa_f": float(kf), "prior_scale": float(pscale),
