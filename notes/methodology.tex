@@ -66,67 +66,101 @@ things we train (\S\ref{sec:inputs}). Figure~\ref{fig:flow} is the whole method 
 completed bundle out---and every later section just explains one of its boxes.
 
 \begin{center}
-\resizebox{0.99\linewidth}{!}{%
-\begin{tikzpicture}[>=Latex,node distance=0pt,
- io/.style={draw,very thick,rounded corners,fill=green!14,align=center,inner sep=5pt,font=\small},
- fam/.style={draw,rounded corners,align=left,inner sep=5pt,font=\scriptsize,text width=52mm},
- pr/.style={draw,rounded corners,fill=black!5,align=left,inner sep=5pt,font=\scriptsize,text width=120mm},
- lbl/.style={font=\scriptsize\itshape,gray}]
-% ---- input ----
-\node[io](IN) at (7,0){\textbf{Partial bundle}\quad $S=\{1\}$\quad$\longrightarrow$\quad indicator $x_S=(1,0,0,0)^{\!\top}$};
-% ---- signal families (every signal listed; numbers over candidates item 2,3,4) ----
-\node[fam,fill=blue!8,anchor=north]  (col) at (0.3,-1.2){%
- \textbf{Collaborative} {\tiny(from $B$ only)}\\[1pt]
- \code{cooc}$=C x_S=(2,\,1,\,1)$\\
- \code{ppmi}$=\mathrm{PPMI}\,x_S=(.34,.15,.56)$\\
- \code{csvd}$=\langle u_c,u_1\rangle=(.90,.55,.70)$\\
- \code{simp}$=W_{\mathrm{pair}}x_S=(.38,.19,.19)$\\
- \code{diff2}$=\mathcal{P}(\mathrm{simp})=(.05,.04,.03)$\\
- \code{pop}$=\log(1{+}f_c)=(1.39,1.10,.69)$\\
- $\Delta_{\mathrm{inc}}=\code{rao}=(0,0,0)$ {\tiny($|S|{=}1$: need $\ge2$ seeds)}};
-\node[fam,fill=violet!9,anchor=north] (tax) at (5.35,-1.2){%
- \textbf{Taxonomic} {\tiny(from labels)}\\[1pt]
- \code{cat}$=P_{\mathrm{cat}}[A,\cdot]=(.65,\,0,\,.18)$\\
- \ \ $+$ slot self-excl.$\approx0$ {\tiny($A$ repeats in $b_1$)}\\
- \code{homo}$=$ n/a {\tiny(music: artist/album)}\\
- \code{softcat}$=$ n/a {\tiny(needs embeddings)}};
-\node[fam,fill=teal!8,anchor=north]  (con) at (10.4,-1.2){%
- \textbf{Content} {\tiny(from embeddings)}\\[1pt]
- \code{style}/\code{imgstyle}/\code{audiostyle}\\
- \ \ $=\langle\phi_c,\bar\phi_S\rangle=$ n/a {\tiny(toy has no emb.)}\\
- \code{bridge}$=$ n/a {\tiny(needs embeddings)}\\
- \code{contrast}$=$ off {\tiny(\code{ENCODER=0})}};
-% ---- pipeline (vertical) ----
-\node[pr,anchor=north] (z)  at (7,-5.55){\textbf{Standardise} (Stage 0)\ \ every signal column $\to z_k$ ($z$-score across the catalogue), so all opinions share one scale.};
-\node[pr,fill=blue!10,anchor=north]  (s1) at (7,-6.85){\textbf{Stage 1 --- weighted blend.}\ \ $Y_{\mathrm{base}}=\sum_k w_k z_k$, weights by greedy validation search. Here only $w_{\mathrm{ppmi}}{=}1,\ w_{\mathrm{cat}}{=}0.5$ survive; all other $w_k{=}0$ (the method prunes itself).};
-\node[pr,fill=blue!10,anchor=north]  (s2) at (7,-8.35){\textbf{Stage 2 --- higher-order.}\ \ $Y=(1{-}\alpha)Y^{\mathrm{pair}}+\alpha Y^{\mathrm{inc}}+\gamma z_{\mathrm{rao}}$, with $\alpha,\gamma$ from validation. Here $\alpha{=}\gamma{=}0$ (and $\Delta_{\mathrm{inc}}{=}\mathrm{rao}{=}0$) $\Rightarrow\ Y=(1.18,\,-.91,\,1.38)$.};
-\node[pr,fill=violet!10,anchor=north](s3) at (7,-9.95){\textbf{Stage 3 --- cold-start prior.}\ \ $\mu_0=\mathrm{scale}\cdot\!\big(\sum_{\mathrm{prior\ keys}}w_k z_k+\gamma z_{\mathrm{rao}}\big)$ from taxonomy/content only (\code{scale} frozen on val). Here $\mu_0=(2.17,\,-1.02,\,-.13)$.};
-\node[pr,fill=orange!20,anchor=north](s4) at (7,-11.55){\textbf{Stage 4 --- frequency routing.}\ \ $\hat\theta=(1{-}u_c)\,Y+u_c\,\mu_0$, $\ u_c=\dfrac{\kappa}{f_c+\kappa}$ ($\kappa{=}1$): $u_c=(.25,.33,.5)$ for $f_c=(3,2,1)\ \Rightarrow\ \hat\theta=(1.43,\,-.95,\,.62)$.};
-\node[pr,fill=green!8,anchor=north]  (rk) at (7,-13.25){\textbf{Rank} $c\notin S$ by $\hat\theta$, drop the seed $\ \Rightarrow\ 2\succ4\succ3$.};
-\node[io,anchor=north] (OUT) at (7,-14.65){\textbf{Filled bundle}\quad $\{\,1,\ \mathbf{2},\ \mathbf{4}\,\}$};
-% ---- edges ----
-\draw[->,gray!70](IN.south-|col)--(col.north);
-\draw[->,gray!70](IN.south)--(tax.north);
-\draw[->,gray!70](IN.south-|con)--(con.north);
-\draw[->,gray!70](col.south)|-(z.north);
-\draw[->,gray!70](tax.south)--(z.north);
-\draw[->,gray!70](con.south)|-(z.north);
-\draw[->](z)--(s1);\draw[->](s1)--(s2);\draw[->](s2)--(s3);\draw[->](s3)--(s4);\draw[->](s4)--(rk);\draw[->](rk)--(OUT);
-\end{tikzpicture}}
+\begin{tikzpicture}[>=Latex]
+% header
+\node[font=\scriptsize,align=center] at (3.6,0.30){\textbf{item 1}\\{\tiny seed}};
+\node[font=\scriptsize,align=center] at (5.5,0.30){\textbf{item 2}\\{\tiny $f_c{=}3$}};
+\node[font=\scriptsize,align=center] at (7.4,0.30){\textbf{item 3}\\{\tiny $f_c{=}2$}};
+\node[font=\scriptsize,align=center] at (9.3,0.30){\textbf{item 4}\\{\tiny $f_c{=}1$}};
+\node[font=\tiny,anchor=west] at (-1.1,1.15){colour $=$ score (per row): low};
+\fill[blue!6] (2.55,1.0) rectangle (2.8699999999999997,1.3);
+\fill[blue!30] (2.8899999999999997,1.0) rectangle (3.2099999999999995,1.3);
+\fill[blue!55] (3.23,1.0) rectangle (3.55,1.3);
+\fill[blue!82] (3.57,1.0) rectangle (3.8899999999999997,1.3);
+\node[font=\tiny,anchor=west] at (3.95,1.15){high};
+\node[font=\scriptsize,anchor=east] at (2.75,-1.25){\code{cooc}};
+\fill[black!7](2.71,-1.65) rectangle (4.49,-0.85); \draw[black!25,line width=.3pt](2.71,-1.65) rectangle (4.49,-0.85); \node[font=\tiny,gray] at (3.6,-1.25){masked};
+\fill[blue!82](4.61,-1.65) rectangle (6.39,-0.85); \draw[black!30,line width=.3pt](4.61,-1.65) rectangle (6.39,-0.85); \node[font=\scriptsize,text=white] at (5.5,-1.25){2};
+\fill[blue!0](6.510000000000001,-1.65) rectangle (8.290000000000001,-0.85); \draw[black!30,line width=.3pt](6.510000000000001,-1.65) rectangle (8.290000000000001,-0.85); \node[font=\scriptsize,text=black] at (7.4,-1.25){1};
+\fill[blue!0](8.41,-1.65) rectangle (10.190000000000001,-0.85); \draw[black!30,line width=.3pt](8.41,-1.65) rectangle (10.190000000000001,-0.85); \node[font=\scriptsize,text=black] at (9.3,-1.25){1};
+\node[font=\scriptsize,anchor=east] at (2.75,-2.15){\code{ppmi}};
+\fill[black!7](2.71,-2.55) rectangle (4.49,-1.75); \draw[black!25,line width=.3pt](2.71,-2.55) rectangle (4.49,-1.75); \node[font=\tiny,gray] at (3.6,-2.15){masked};
+\fill[blue!37](4.61,-2.55) rectangle (6.39,-1.75); \draw[black!30,line width=.3pt](4.61,-2.55) rectangle (6.39,-1.75); \node[font=\scriptsize,text=black] at (5.5,-2.15){.34};
+\fill[blue!0](6.510000000000001,-2.55) rectangle (8.290000000000001,-1.75); \draw[black!30,line width=.3pt](6.510000000000001,-2.55) rectangle (8.290000000000001,-1.75); \node[font=\scriptsize,text=black] at (7.4,-2.15){.15};
+\fill[blue!82](8.41,-2.55) rectangle (10.190000000000001,-1.75); \draw[black!30,line width=.3pt](8.41,-2.55) rectangle (10.190000000000001,-1.75); \node[font=\scriptsize,text=white] at (9.3,-2.15){.56};
+\node[font=\scriptsize,anchor=east] at (2.75,-3.05){\code{csvd}};
+\fill[black!7](2.71,-3.4499999999999997) rectangle (4.49,-2.65); \draw[black!25,line width=.3pt](2.71,-3.4499999999999997) rectangle (4.49,-2.65); \node[font=\tiny,gray] at (3.6,-3.05){masked};
+\fill[blue!82](4.61,-3.4499999999999997) rectangle (6.39,-2.65); \draw[black!30,line width=.3pt](4.61,-3.4499999999999997) rectangle (6.39,-2.65); \node[font=\scriptsize,text=white] at (5.5,-3.05){.90};
+\fill[blue!0](6.510000000000001,-3.4499999999999997) rectangle (8.290000000000001,-2.65); \draw[black!30,line width=.3pt](6.510000000000001,-3.4499999999999997) rectangle (8.290000000000001,-2.65); \node[font=\scriptsize,text=black] at (7.4,-3.05){.55};
+\fill[blue!36](8.41,-3.4499999999999997) rectangle (10.190000000000001,-2.65); \draw[black!30,line width=.3pt](8.41,-3.4499999999999997) rectangle (10.190000000000001,-2.65); \node[font=\scriptsize,text=black] at (9.3,-3.05){.70};
+\node[font=\scriptsize,anchor=east] at (2.75,-3.9499999999999997){\code{simp}};
+\fill[black!7](2.71,-4.35) rectangle (4.49,-3.55); \draw[black!25,line width=.3pt](2.71,-4.35) rectangle (4.49,-3.55); \node[font=\tiny,gray] at (3.6,-3.9499999999999997){masked};
+\fill[blue!82](4.61,-4.35) rectangle (6.39,-3.55); \draw[black!30,line width=.3pt](4.61,-4.35) rectangle (6.39,-3.55); \node[font=\scriptsize,text=white] at (5.5,-3.9499999999999997){.38};
+\fill[blue!0](6.510000000000001,-4.35) rectangle (8.290000000000001,-3.55); \draw[black!30,line width=.3pt](6.510000000000001,-4.35) rectangle (8.290000000000001,-3.55); \node[font=\scriptsize,text=black] at (7.4,-3.9499999999999997){.19};
+\fill[blue!0](8.41,-4.35) rectangle (10.190000000000001,-3.55); \draw[black!30,line width=.3pt](8.41,-4.35) rectangle (10.190000000000001,-3.55); \node[font=\scriptsize,text=black] at (9.3,-3.9499999999999997){.19};
+\node[font=\scriptsize,anchor=east] at (2.75,-4.85){\code{diff2}};
+\fill[black!7](2.71,-5.25) rectangle (4.49,-4.449999999999999); \draw[black!25,line width=.3pt](2.71,-5.25) rectangle (4.49,-4.449999999999999); \node[font=\tiny,gray] at (3.6,-4.85){masked};
+\fill[blue!82](4.61,-5.25) rectangle (6.39,-4.449999999999999); \draw[black!30,line width=.3pt](4.61,-5.25) rectangle (6.39,-4.449999999999999); \node[font=\scriptsize,text=white] at (5.5,-4.85){.05};
+\fill[blue!65](6.510000000000001,-5.25) rectangle (8.290000000000001,-4.449999999999999); \draw[black!30,line width=.3pt](6.510000000000001,-5.25) rectangle (8.290000000000001,-4.449999999999999); \node[font=\scriptsize,text=white] at (7.4,-4.85){.04};
+\fill[blue!0](8.41,-5.25) rectangle (10.190000000000001,-4.449999999999999); \draw[black!30,line width=.3pt](8.41,-5.25) rectangle (10.190000000000001,-4.449999999999999); \node[font=\scriptsize,text=black] at (9.3,-4.85){.03};
+\node[font=\scriptsize,anchor=east] at (2.75,-5.75){\code{pop}};
+\fill[black!7](2.71,-6.15) rectangle (4.49,-5.35); \draw[black!25,line width=.3pt](2.71,-6.15) rectangle (4.49,-5.35); \node[font=\tiny,gray] at (3.6,-5.75){masked};
+\fill[blue!82](4.61,-6.15) rectangle (6.39,-5.35); \draw[black!30,line width=.3pt](4.61,-6.15) rectangle (6.39,-5.35); \node[font=\scriptsize,text=white] at (5.5,-5.75){1.39};
+\fill[blue!48](6.510000000000001,-6.15) rectangle (8.290000000000001,-5.35); \draw[black!30,line width=.3pt](6.510000000000001,-6.15) rectangle (8.290000000000001,-5.35); \node[font=\scriptsize,text=black] at (7.4,-5.75){1.10};
+\fill[blue!0](8.41,-6.15) rectangle (10.190000000000001,-5.35); \draw[black!30,line width=.3pt](8.41,-6.15) rectangle (10.190000000000001,-5.35); \node[font=\scriptsize,text=black] at (9.3,-5.75){.69};
+\node[font=\scriptsize,anchor=east] at (2.75,-6.65){$\Delta_{\mathrm{inc}}$, \code{rao}};
+\fill[black!7](2.71,-7.050000000000001) rectangle (4.49,-6.25); \draw[black!25,line width=.3pt](2.71,-7.050000000000001) rectangle (4.49,-6.25); \node[font=\tiny,gray] at (3.6,-6.65){masked};
+\fill[blue!0](4.61,-7.050000000000001) rectangle (6.39,-6.25); \draw[black!30,line width=.3pt](4.61,-7.050000000000001) rectangle (6.39,-6.25); \node[font=\scriptsize,text=black] at (5.5,-6.65){0};
+\fill[blue!0](6.510000000000001,-7.050000000000001) rectangle (8.290000000000001,-6.25); \draw[black!30,line width=.3pt](6.510000000000001,-7.050000000000001) rectangle (8.290000000000001,-6.25); \node[font=\scriptsize,text=black] at (7.4,-6.65){0};
+\fill[blue!0](8.41,-7.050000000000001) rectangle (10.190000000000001,-6.25); \draw[black!30,line width=.3pt](8.41,-7.050000000000001) rectangle (10.190000000000001,-6.25); \node[font=\scriptsize,text=black] at (9.3,-6.65){0};
+\node[font=\scriptsize,anchor=east] at (2.75,-7.970000000000001){\code{cat}};
+\fill[black!7](2.71,-8.370000000000001) rectangle (4.49,-7.57); \draw[black!25,line width=.3pt](2.71,-8.370000000000001) rectangle (4.49,-7.57); \node[font=\tiny,gray] at (3.6,-7.970000000000001){masked};
+\fill[violet!82](4.61,-8.370000000000001) rectangle (6.39,-7.57); \draw[black!30,line width=.3pt](4.61,-8.370000000000001) rectangle (6.39,-7.57); \node[font=\scriptsize,text=white] at (5.5,-7.970000000000001){.65};
+\fill[violet!0](6.510000000000001,-8.370000000000001) rectangle (8.290000000000001,-7.57); \draw[black!30,line width=.3pt](6.510000000000001,-8.370000000000001) rectangle (8.290000000000001,-7.57); \node[font=\scriptsize,text=black] at (7.4,-7.970000000000001){.00};
+\fill[violet!23](8.41,-8.370000000000001) rectangle (10.190000000000001,-7.57); \draw[black!30,line width=.3pt](8.41,-8.370000000000001) rectangle (10.190000000000001,-7.57); \node[font=\scriptsize,text=black] at (9.3,-7.970000000000001){.18};
+\node[font=\scriptsize,anchor=east] at (2.75,-8.870000000000001){\code{homo},\,\code{softcat},\,\code{content}};
+\fill[black!4](4.61,-9.270000000000001) rectangle (10.190000000000001,-8.47);
+\draw[black!30,dashed,line width=.3pt](4.61,-9.270000000000001) rectangle (10.190000000000001,-8.47);
+\node[font=\tiny,gray] at (7.4,-8.870000000000001){n/a --- toy has no embeddings / not music};
+\node[font=\scriptsize,anchor=east] at (2.75,-10.190000000000001){$Y$  {\tiny(blend, St.\,1--2)}};
+\fill[black!7](2.71,-10.590000000000002) rectangle (4.49,-9.790000000000001); \draw[black!25,line width=.3pt](2.71,-10.590000000000002) rectangle (4.49,-9.790000000000001); \node[font=\tiny,gray] at (3.6,-10.190000000000001){masked};
+\fill[blue!75](4.61,-10.590000000000002) rectangle (6.39,-9.790000000000001); \draw[black!30,line width=.3pt](4.61,-10.590000000000002) rectangle (6.39,-9.790000000000001); \node[font=\scriptsize,text=white] at (5.5,-10.190000000000001){1.18};
+\fill[blue!0](6.510000000000001,-10.590000000000002) rectangle (8.290000000000001,-9.790000000000001); \draw[black!30,line width=.3pt](6.510000000000001,-10.590000000000002) rectangle (8.290000000000001,-9.790000000000001); \node[font=\scriptsize,text=black] at (7.4,-10.190000000000001){-.91};
+\fill[blue!82](8.41,-10.590000000000002) rectangle (10.190000000000001,-9.790000000000001); \draw[black!30,line width=.3pt](8.41,-10.590000000000002) rectangle (10.190000000000001,-9.790000000000001); \node[font=\scriptsize,text=white] at (9.3,-10.190000000000001){1.38};
+\node[font=\scriptsize,anchor=east] at (2.75,-11.090000000000002){$\mu_0$  {\tiny(prior, St.\,3)}};
+\fill[black!7](2.71,-11.490000000000002) rectangle (4.49,-10.690000000000001); \draw[black!25,line width=.3pt](2.71,-11.490000000000002) rectangle (4.49,-10.690000000000001); \node[font=\tiny,gray] at (3.6,-11.090000000000002){masked};
+\fill[violet!82](4.61,-11.490000000000002) rectangle (6.39,-10.690000000000001); \draw[black!30,line width=.3pt](4.61,-11.490000000000002) rectangle (6.39,-10.690000000000001); \node[font=\scriptsize,text=white] at (5.5,-11.090000000000002){2.17};
+\fill[violet!0](6.510000000000001,-11.490000000000002) rectangle (8.290000000000001,-10.690000000000001); \draw[black!30,line width=.3pt](6.510000000000001,-11.490000000000002) rectangle (8.290000000000001,-10.690000000000001); \node[font=\scriptsize,text=black] at (7.4,-11.090000000000002){-1.02};
+\fill[violet!23](8.41,-11.490000000000002) rectangle (10.190000000000001,-10.690000000000001); \draw[black!30,line width=.3pt](8.41,-11.490000000000002) rectangle (10.190000000000001,-10.690000000000001); \node[font=\scriptsize,text=black] at (9.3,-11.090000000000002){-.13};
+\node[font=\scriptsize,anchor=east] at (2.75,-11.990000000000002){$\hat\theta$  {\tiny(route, St.\,4)}};
+\fill[black!7](2.71,-12.390000000000002) rectangle (4.49,-11.590000000000002); \draw[black!25,line width=.3pt](2.71,-12.390000000000002) rectangle (4.49,-11.590000000000002); \node[font=\tiny,gray] at (3.6,-11.990000000000002){masked};
+\fill[green!82](4.61,-12.390000000000002) rectangle (6.39,-11.590000000000002); \draw[black!30,line width=.3pt](4.61,-12.390000000000002) rectangle (6.39,-11.590000000000002); \node[font=\scriptsize,text=white] at (5.5,-11.990000000000002){1.43};
+\fill[green!0](6.510000000000001,-12.390000000000002) rectangle (8.290000000000001,-11.590000000000002); \draw[black!30,line width=.3pt](6.510000000000001,-12.390000000000002) rectangle (8.290000000000001,-11.590000000000002); \node[font=\scriptsize,text=black] at (7.4,-11.990000000000002){-.95};
+\fill[green!54](8.41,-12.390000000000002) rectangle (10.190000000000001,-11.590000000000002); \draw[black!30,line width=.3pt](8.41,-12.390000000000002) rectangle (10.190000000000001,-11.590000000000002); \node[font=\scriptsize,text=white] at (9.3,-11.990000000000002){.62};
+\draw[blue!55,line width=2pt](-0.75,-0.85) -- (-0.75,-7.050000000000001);
+\node[font=\scriptsize\bfseries,rotate=90,anchor=south,text=blue!55] at (-0.95,-3.95){Collaborative};
+\draw[violet!55,line width=2pt](-0.75,-7.57) -- (-0.75,-9.270000000000001);
+\node[font=\scriptsize\bfseries,rotate=90,anchor=south,text=violet!55] at (-0.95,-8.420000000000002){Taxonomic};
+\draw[green!55,line width=2pt](-0.75,-9.790000000000001) -- (-0.75,-12.390000000000002);
+\node[font=\scriptsize\bfseries,rotate=90,anchor=south,text=green!55] at (-0.95,-11.090000000000002){Fusion};
+\draw[black!35,dashed](-1.2,-9.58) -- (10.290000000000001,-9.58);
+\draw[green!60!black,line width=1.1pt,rounded corners=2pt](4.5600000000000005,-12.440000000000003) rectangle (10.240000000000002,-11.540000000000001);
+\node[draw,very thick,rounded corners,fill=green!14,font=\small,align=center] (OUT) at (7.4,-13.490000000000002){\textbf{Filled bundle}\quad $\{\,1,\ \mathbf{2},\ \mathbf{4}\,\}$\\[1pt]{\scriptsize final order $\hat\theta:\ 2\succ4\succ3$}};
+\draw[->,green!55!black](5.5,-12.440000000000003) to[out=-90,in=150] (OUT.north west);
+\draw[->,green!55!black](9.3,-12.440000000000003) to[out=-90,in=30] (OUT.north east);
+\end{tikzpicture}
 \end{center}
-\captionof{figure}{\textbf{A partial bundle, filled---top to bottom, with \emph{every} component shown and nothing
-omitted} (each vector lists the score for candidates \textbf{(item 2, item 3, item 4)}; the seed $1$ is masked). The
-seed becomes the indicator $x_S=(1,0,0,0)^{\!\top}$. \emph{All eleven-plus signals} are then computed and shown with
-their exact toy values: the collaborative ones \emph{multiply} $x_S$ by a matrix (\code{cooc}, \code{ppmi}, pairwise
-\code{simp}, two-hop \code{diff2}) or take a fingerprint cosine (\code{csvd}), plus query-independent \code{pop}; the
-set-level $\Delta_{\mathrm{inc}}$ and \code{rao} are exactly $0$ here because a single seed cannot form a pair. The
-taxonomic \code{cat} \emph{looks up} the seed-category row of $P_{\mathrm{cat}}$ (with the signed slot self-exclusion
-$\approx0$ since $A$ repeats in $b_1$); \code{homo}/\code{softcat} and the whole content family are honestly marked
-\emph{n/a} because the toy carries no embeddings/music (they are not skipped---they have no inputs here). Every column
-is $z$-scored (Stage 0), blended with the validation-selected weights (Stage 1, only \code{ppmi}+\code{cat} survive),
-mixed with the inert higher-order terms (Stage 2), combined per candidate with the cold-start prior $\mu_0$ (Stage 3)
-by frequency routing $u_c=\kappa/(f_c+\kappa)$ (Stage 4), then ranked with the seed removed---yielding
-$\{1,\mathbf2,\mathbf4\}$. Every number is machine-verified and reappears in Fig.~\ref{fig:stages}.}
+\captionof{figure}{\textbf{How a partial bundle is filled, as a score map.} Columns are catalogue items, rows are the
+method's signals grouped by family; each cell is that signal's score for that item, \emph{shaded darker when higher}
+(normalised within the row), with the exact toy number inside. The seed item~$1$ is \emph{masked} (never scored). Read
+it top-to-bottom: the \textbf{collaborative} signals score by (co-)occurrence---note they mostly favour the hub
+item~$2$, except \code{ppmi}, which backs the rare item~$4$; the \textbf{taxonomic} \code{cat} favours item~$2$
+(category $A$ complements $B$); \code{homo}/\code{softcat}/\code{content} are \emph{n/a} here because the toy has no
+embeddings/music (shown, not hidden); the set-level $\Delta_{\mathrm{inc}}$/\code{rao} are $0$ (a single seed forms no
+pair). The \textbf{fusion} band then collapses every row into one score per item: the validation-weighted blend $Y$
+(Stages 1--2), the cold-start prior $\mu_0$ (Stage 3), and their per-item mix $\hat\theta=(1-u_c)Y+u_c\mu_0$ with
+$u_c=\kappa/(f_c+\kappa)$ (Stage 4). Ranking $\hat\theta$ (highlighted) and dropping the seed yields the completion
+$\{1,\mathbf2,\mathbf4\}$. Every number is machine-verified; the same $\hat\theta$ appears in Fig.~\ref{fig:stages}.}
 \label{fig:flow}
 
 The note is bottom-up. \S\ref{sec:inputs}--\S\ref{sec:derived} define what we start with. \S\ref{sec:vocab} defines
