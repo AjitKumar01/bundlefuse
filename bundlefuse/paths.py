@@ -23,7 +23,11 @@ import os
 # .../<PROJECT_ROOT>/bundlefuse/paths.py  ->  package dir  ->  project root  ->  data root
 _PKG_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(_PKG_DIR)
-DATA_ROOT = os.path.dirname(PROJECT_ROOT)
+
+# Data is not vendored. By default it sits one level above the repo (so the repo and the datasets
+# are siblings); on a fresh machine point BUNDLEFUSE_DATA_ROOT at wherever you unpacked the datasets,
+# or override a single dataset with DATA_DIR / BR_DIR / DUNN_DIR when launching an evaluator.
+DATA_ROOT = os.environ.get("BUNDLEFUSE_DATA_ROOT") or os.path.dirname(PROJECT_ROOT)
 RESULTS_DIR = os.path.join(PROJECT_ROOT, "results")
 
 

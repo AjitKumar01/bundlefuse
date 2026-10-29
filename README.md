@@ -74,20 +74,66 @@ features change. It is written out once, with the exact command behind every rep
 the live scorer's actual numbers — is in **[notes/methodology.tex](notes/methodology.tex)** (20 pp;
 `pdflatex methodology.tex`).
 
-## Quickstart
+## Run it on a fresh machine
 
 ```bash
-python3 tests/test_core.py                                  # 7 unit tests
+git clone https://github.com/AjitKumar01/bundlefuse && cd bundlefuse
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt          # numpy scipy scikit-learn torch tqdm
 
+python3 tests/test_core.py               # 7 unit tests — need NO data, prove the install works
+```
+
+The tests and `import bundlefuse` run anywhere. The **evaluators need the datasets**, which are not
+vendored (they are large and third-party). Place them so the repo and the data are siblings, i.e.
+the default layout is:
+
+```
+<parent>/bundlefuse/            ← this repo
+<parent>/bundlemllm/datasets/   ← POG / POG_dense / Spotify / Spotify_sparse   (the CLHE/BundleConstruction release)
+<parent>/BundleRec/dataset/     ← electronic / food / clothing                (BundleRec)
+<parent>/dunnhumby/             ← Dunnhumby "The Complete Journey" transactions
+```
+
+Put the data anywhere and point to it instead with **`BUNDLEFUSE_DATA_ROOT=/path/to/data`** (or override a
+single dataset with `DATA_DIR=` / `BR_DIR=` / `DUNN_DIR=`). See [docs/EXPERIMENTS.md](docs/EXPERIMENTS.md)
+for where each dataset comes from. Then:
+
+```bash
 BUNDLE_DS=pog_dense MATRIX=1 python -m bundlefuse.eval.fullrank    # POG / Spotify family
 BRDS=electronic    MATRIX=1 python -m bundlefuse.eval.bundlerec    # e-commerce family
 MATRIX=1                     python -m bundlefuse.eval.dunnhumby    # retail baskets
-
-python -m bundlefuse.eval.run_matrix                        # full 8-dataset matrix
+python -m bundlefuse.eval.run_matrix                              # full 8-dataset matrix
 ```
 
-CPU-deterministic by default (set `FORCE_DEVICE=mps|cuda` for speed, **not** for published numbers).
-Data lives one level up (`../bundlemllm`, `../BundleRec`, `../dunnhumby`) and is not vendored.
+CPU-deterministic by default (bit-identical across repeats; set `FORCE_DEVICE=mps|cuda` for speed,
+**not** for published numbers). No GPU is required.
+
+## Baselines & encoders — what's in this repo vs external
+
+**Runnable here (self-contained, dependency-free):** the matched baseline suite in
+[`bundlefuse/baselines/`](bundlefuse/baselines/) — **ItemKNN, P3α, RP3β, SLIM, iALS, BundleKNN,
+LinearCombiner** — on the *same* splits/candidates/metrics as BundleFuse (`BASELINES=1`), plus EASE
+(`EASE=1`) and `item2vec` / `content-kNN` / `popularity` inside the matrix. These are the numbers in
+the "best matched baseline" column above and in `tab:neigh`.
+
+**External, not vendored (the "heavy" comparison):** the neural encoders and sequence/LLM/diffusion
+baselines — **CLHE** (attention encoder, WSDM'24), **RaMen** (attention-GNN, ECAI'25), **Bundle-MLLM**
+(a 7B LLM), **DDBC** (diffusion), and sequence models such as a **Bi-LSTM**. These are separate research
+repos that need their own environments (and GPUs); this project does **not** re-implement them. Their
+results are the published / independently-reproduced numbers merged into the matrix via the `PUBLISHED`
+table in [`bundlefuse/eval/run_matrix.py`](bundlefuse/eval/run_matrix.py), and the fairness accounting
+(e.g. RaMen's e-commerce edge = its Collaborative Strategy Encoder, not better bundling) is in
+[docs/MANIFEST.md](docs/MANIFEST.md) and the paper. If you want to add one (Bi-LSTM, etc.) as a *matched*
+baseline, subclass `bundlefuse.baselines.base.Baseline` and drop a file in `bundlefuse/baselines/`.
+
+**Content encoders (BLIP / CLAP / BGE):** the content signals consume *pre-extracted* feature vectors
+shipped with the datasets — POG image/description = **BLIP**, Spotify audio = **CLAP**, POG titles =
+**BGE** (`archive/embed_titles.py`, outside this repo). The scorer **loads** these; it does not run the
+encoders, which is why it is "zero-parameter." The e-commerce/grocery datasets use **no** external
+encoder at all (in-pipeline TF-IDF + truncated SVD). Serving a genuinely new item on POG/Spotify means
+running the relevant encoder on it first — the only real model dependency, documented in
+`notes/methodology.tex` §"The embedding features".
 
 ## Honest findings (the contribution)
 

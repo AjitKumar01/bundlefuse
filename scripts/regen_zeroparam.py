@@ -2,7 +2,7 @@
 fullrank datasets: 3 seeds -> mean +/- std ; e-commerce/retail: internal 5 seeds (mean).
 All runs ENCODER=0, FORCE_DEVICE=cpu."""
 import os, sys, subprocess, re, csv, json, statistics as st, time
-HERE = "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse"
+HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # repo root (portable)
 PY = sys.executable
 LABELS = ("popularity", "co-occurrence", "content-kNN", "item2vec", "Ours")
 ROW = re.compile(r"^(popularity|co-occurrence|content-kNN|item2vec|Ours)\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)")

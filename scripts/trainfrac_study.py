@@ -1,7 +1,7 @@
 """POG training-data learning curve: keep val(10%)/test(20%) fixed, subsample the
 train(70%) fold to 100/90/80/70% of itself. 3 seeds each, mean+/-std. Runs sequentially."""
 import os, sys, subprocess, re, statistics as st, time
-HERE = "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse"
+HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # repo root (portable)
 PY = sys.executable
 ROW = re.compile(r"^Ours\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)")
 FRACS = [1.0, 0.9, 0.8, 0.7]

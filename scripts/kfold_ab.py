@@ -1,6 +1,6 @@
 """A/B: single-val vs K-fold CV hyperparameter selection, pog + spotify_sparse, 3 seeds."""
 import os, sys, subprocess, re, statistics as st, time
-HERE = "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse"
+HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # repo root (portable)
 PY = sys.executable
 ROW = re.compile(r"^Ours\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)")
 def run(ds, sd, kfold):

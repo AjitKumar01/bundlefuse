@@ -1,5 +1,5 @@
 import os, sys, subprocess, re, csv, time
-HERE = "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse"
+HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # repo root (portable)
 PY = sys.executable
 # dataset -> (module, env)   fast first, spotify last
 RUNS = [

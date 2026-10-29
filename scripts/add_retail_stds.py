@@ -6,7 +6,7 @@ ENCODER=0, CPU), reads the per-method population std across those 5 splits, and 
 the R@20_std column of results/matrix_zeroparam.{csv,json} in place. Fullrank rows
 (which already carry 3-seed std) are left untouched."""
 import os, sys, subprocess, re, csv, json
-HERE = "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse"
+HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # repo root (portable)
 PY = sys.executable
 LABELS = ("popularity", "co-occurrence", "content-kNN", "item2vec", "Ours")
 RETAIL = [("electronic", "bundlefuse.eval.bundlerec", "BRDS"),

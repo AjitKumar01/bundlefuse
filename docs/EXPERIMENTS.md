@@ -12,8 +12,17 @@ Data is **not** vendored. It lives one directory above the repo and is resolved 
 <parent of repo>/dunnhumby/                  transaction baskets
 ```
 
-Override per run with `DATA_DIR=` / `BR_DIR=` / `DUNN_DIR=`. All runs are CPU-deterministic by
-default (`bundlefuse/_device.py`); numbers are bit-identical across repeats.
+Point the whole thing elsewhere with `BUNDLEFUSE_DATA_ROOT=/path/to/data` (then it expects
+`$BUNDLEFUSE_DATA_ROOT/bundlemllm/...`, `.../BundleRec/...`, `.../dunnhumby/`), or override a single
+dataset with `DATA_DIR=` / `BR_DIR=` / `DUNN_DIR=`. All runs are CPU-deterministic by default
+(`bundlefuse/_device.py`); numbers are bit-identical across repeats, no GPU required.
+
+**Where to get the data.** POG / POG_dense / Spotify / Spotify_sparse are the **BundleConstruction /
+CLHE** release (Ma et al., WSDM'24; HF dataset `xhLiu/BundleConstruction`) — these already ship the
+pre-extracted BLIP/CLAP content features the scorer loads. **BundleRec** (electronic/food/clothing) is
+the BundleRec benchmark. **Dunnhumby** is "The Complete Journey" transaction log. The scorer needs only
+the files each evaluator reads (`bi_*.txt` / `count.json` / `item_info.json` for POG/Spotify;
+`bundle_item.csv` etc. for BundleRec; `transaction_data.csv` + `product.csv` for Dunnhumby).
 
 ---
 

@@ -1,4 +1,12 @@
+# Core: the scorer, evaluators, matched baselines, and tests.
 numpy
 scipy
 scikit-learn
 torch
+tqdm            # progress bars in the WSWEEP / BASELINES evaluator modes
+
+# Optional: only for regenerating the external content features (not needed to run the scorer,
+# which loads pre-extracted features). Install separately if you want these scripts:
+#   scripts/clip_embed.py        -> transformers, pillow        (CLIP image features)
+#   scripts/harvest_image_urls.py-> requests, pyarrow, huggingface_hub
+#   archive/embed_titles.py      -> sentence-transformers       (BGE title embeddings; lives outside this repo)
