@@ -3,14 +3,14 @@ HERE = "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse"
 PY = sys.executable
 # dataset -> (module, env)   fast first, spotify last
 RUNS = [
-    ("electronic",     "bundlefuse.bundlerec_eval", {"BRDS":"electronic"}),
-    ("food",           "bundlefuse.bundlerec_eval", {"BRDS":"food"}),
-    ("clothing",       "bundlefuse.bundlerec_eval", {"BRDS":"clothing"}),
-    ("dunnhumby",      "bundlefuse.dunnhumby_eval", {"SPLIT_MODE":"random"}),
-    ("pog",            "bundlefuse.fullrank_eval",  {"BUNDLE_DS":"pog","RAMEN_SEED":"0"}),
-    ("pog_dense",      "bundlefuse.fullrank_eval",  {"BUNDLE_DS":"pog_dense","RAMEN_SEED":"0"}),
-    ("spotify_sparse", "bundlefuse.fullrank_eval",  {"BUNDLE_DS":"spotify_sparse","RAMEN_SEED":"0"}),
-    ("spotify",        "bundlefuse.fullrank_eval",  {"BUNDLE_DS":"spotify","RAMEN_SEED":"0"}),
+    ("electronic",     "bundlefuse.eval.bundlerec", {"BRDS":"electronic"}),
+    ("food",           "bundlefuse.eval.bundlerec", {"BRDS":"food"}),
+    ("clothing",       "bundlefuse.eval.bundlerec", {"BRDS":"clothing"}),
+    ("dunnhumby",      "bundlefuse.eval.dunnhumby", {"SPLIT_MODE":"random"}),
+    ("pog",            "bundlefuse.eval.fullrank",  {"BUNDLE_DS":"pog","RAMEN_SEED":"0"}),
+    ("pog_dense",      "bundlefuse.eval.fullrank",  {"BUNDLE_DS":"pog_dense","RAMEN_SEED":"0"}),
+    ("spotify_sparse", "bundlefuse.eval.fullrank",  {"BUNDLE_DS":"spotify_sparse","RAMEN_SEED":"0"}),
+    ("spotify",        "bundlefuse.eval.fullrank",  {"BUNDLE_DS":"spotify","RAMEN_SEED":"0"}),
 ]
 ROW = re.compile(r"^Ours\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)")
 def run(mod, env):

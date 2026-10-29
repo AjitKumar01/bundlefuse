@@ -1,17 +1,26 @@
-"""SIMBA Evaluator for POG, POG_dense, Spotify, and Spotify_sparse.
+"""BundleFuse full-ranking evaluator for POG / POG_dense / Spotify / Spotify_sparse (torch path).
 
-Integrates the unified 3-estimator framework:
-1. Pure Simplicial Hyperedge Incidence Surplus (`score_simplicial_incidence_only`, Delta_inc)
-2. Redundancy-Corrected Quadratic Concordance (`score_rao_concordance`, R_gamma)
-3. Exact Exposure-Modulated Conjugate Normal-Normal Posterior (`conjugate_posterior`, (1 - u_c)*Y + u_c*mu_0)
-   with validation-frozen `prior_scale` and constrained OLS variance estimation (`fit_variance_components`),
-   guaranteeing that test-query predictions are strictly independent of test batching.
+Runs the shared closed-form algorithm. Content signals come from the datasets' external pretrained
+embeddings (POG image/description = BLIP, title = BGE; Spotify audio = CLAP -- see
+``notes/methodology.tex`` §"The embedding features"), never the excluded LightGCN collaborative
+features. The scorer itself is zero-parameter:
+
+1. Weighted fusion of the collaborative / taxonomic / content signals (:mod:`bundlefuse.operators`).
+2. Higher-order terms: simplicial incidence surplus (Delta_inc) + Rao quadratic concordance (R_gamma,
+   gamma=+1 music / -1 fashion).
+3. Cold-start shrinkage theta_hat = (1 - u_c)*Y + u_c*mu_0 toward a metadata prior, with the prior
+   scale frozen on validation so test scoring is independent of test batching.
+
+Weights/mixing/shrinkage are selected on validation via ``SEL_OBJ``. Env modes (each exits):
+``CASE_STUDY`` (dump one bundle's per-signal numbers for the methodology), ``WSWEEP``,
+``BASELINES``, ``TIMING``, ``BACKOFF``, ``VALGAP``, ``ABLATE``, ``SELDUMP``. Default prints the matrix.
+Run: ``BUNDLE_DS=pog_dense python -m bundlefuse.eval.fullrank``  (see ``docs/EXPERIMENTS.md``).
 """
 import json, math, os, random, sys, time
 import numpy as np, scipy.sparse as sp, torch, torch.nn as nn, torch.nn.functional as Fn
 from sklearn.cluster import MiniBatchKMeans
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from bundlefuse._device import DEVICE
 from bundlefuse.operators import (
     SimplicialGraphOperator,
@@ -20,10 +29,10 @@ from bundlefuse.operators import (
     EmpiricalBayesRouter,
     zcols,
 )
+from bundlefuse.paths import DATA_ROOT, RESULTS_DIR
 
 DS = os.environ.get("BUNDLE_DS", "pog")
-REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-POG = os.environ.get("DATA_DIR") or os.path.join(REPO_ROOT, "bundlemllm", "datasets", DS)
+POG = os.environ.get("DATA_DIR") or os.path.join(DATA_ROOT, "bundlemllm", "datasets", DS)
 MUSIC = not os.path.exists(os.path.join(POG, "title_emb.npy"))
 MAXK = 40 if MUSIC else 4
 K = 20
@@ -599,9 +608,99 @@ if os.environ.get("WSWEEP"):
             ys.append(float(eval_fused(fused, tb, tg, Ks=(20,))[20][0]))
         out["curves"][k] = ys
         print(f"{DS} wsweep {k:12s} " + " ".join(f"{y:.4f}" for y in ys), flush=True)
-    outp = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "results", f"wsweep_{DS}.json")
+    outp = os.path.join(RESULTS_DIR, f"wsweep_{DS}.json")
     json.dump(out, open(outp, "w"), indent=2)
     print(f"\n{DS} WSWEEP done ({time.time()-t0:.0f}s) -> {outp} | selected R@20={sel_r:.4f}", flush=True)
+    sys.exit()
+
+
+if os.environ.get("CASE_STUDY"):
+    # Dump ONE real query end-to-end for the methodology note: every signal's raw and standardised
+    # score, plus the four fusion stages (pairwise blend Y_base -> +higher-order Y -> prior mu0 ->
+    # shrunk posterior theta), for the seeds, the held-out ground truth, and a few distractors.
+    # 100% the live scorer -- the numbers in notes/methodology.tex come from here. Env: CASE_IDX,
+    # CASE_DISTRACTORS. Output: results/case_study_<DS>.json.
+    t0 = time.time()
+    vb, vg = load_split("valid", VAL_N)
+    Rv, Zv = score_all_signals(vb)
+    w_ad, prior_keys, best_eb, freq_t, best_ho, vc_cs = fit_simba(vb, vg, Rv, Zv)
+    tb_all, tg_all = load_split("test", TEST_N)
+    # Choose a readable query: >=2 seeds, >=2 held out, and at least one held-out item is non-cold.
+    ci = os.environ.get("CASE_IDX")
+    if ci is not None:
+        idx = int(ci)
+    else:
+        idx = 0
+        for j, (s, g) in enumerate(zip(tb_all, tg_all)):
+            if len(s) >= 2 and len(g) >= 2 and any(freq[i] > 0 for i in g):
+                idx = j; break
+    seeds, gt = tb_all[idx], tg_all[idx]
+    _, Z = score_all_signals([seeds])          # nb = 1
+
+    # Re-derive the four stages explicitly (same formulas as apply_simba_full) so each is exposed.
+    Z_pair = dict(Z); Z_pair["simp"] = Z["pair"]; Z_pair["diff2"] = Z["diff2_pair"]
+    alpha_inc, g_rao = best_ho
+    y_base = sum(w_ad[k] * Z_pair[k] for k in w_ad)                       # stage 1: pairwise blend
+    base_inc = sum(w_ad[k] * Z[k] for k in w_ad)
+    Y = (1.0 - alpha_inc) * y_base + alpha_inc * base_inc + g_rao * Z["rao"]   # stage 2: + higher order
+    kf, pscale = best_eb
+    raw_prior = sum(w_ad.get(k, 0.5) * Z[k] for k in prior_keys) + g_rao * Z["rao"]
+    if w_ad.get("pop", 0) > 0:
+        raw_prior = raw_prior + w_ad["pop"] * Z["pop"]
+    mu0 = raw_prior * float(pscale)                                      # stage 3: cold-start prior
+    theta = EmpiricalBayesRouter.conjugate_posterior(Y, mu0, freq_t, kf)  # stage 4: shrunk posterior
+
+    # Candidate set: seeds, then ground truth, then the top distractors by raw co-occurrence.
+    cooc_col = Z["cooc"][:, 0]
+    order = torch.argsort(cooc_col, descending=True).cpu().numpy().tolist()
+    n_dis = int(os.environ.get("CASE_DISTRACTORS", "6"))
+    chosen, seen = [], set()
+    for c in list(seeds) + list(gt):
+        if c not in seen:
+            chosen.append(c); seen.add(c)
+    for c in order:
+        if len([x for x in chosen if x not in seeds and x not in gt]) >= n_dis:
+            break
+        if c not in seen:
+            chosen.append(c); seen.add(c)
+
+    # Full-ranking position of each held-out item under theta (seeds masked out), to show recovery.
+    th = theta[:, 0].clone()
+    for i in seeds:
+        th[i] = -1e9
+    th_order = torch.argsort(th, descending=True).cpu().numpy().tolist()
+    rank_of = {c: th_order.index(c) + 1 for c in gt}
+
+    def _meta(c):
+        v = info.get(str(c), {})
+        return {"title": v.get("title", "").strip(),
+                "cate": v.get("cate_id") if v.get("cate_id") is not None else v.get("cate"),
+                "cat_lbl": int(cat_lbl[c]), "freq": int(freq[c])}
+
+    items_out = []
+    for c in chosen:
+        row = {"idx": int(c), "in_seed": c in seeds, "in_gt": c in gt,
+               "theta_rank": rank_of.get(c), **_meta(c),
+               "z": {k: float(Z[k][c, 0]) for k in SIG},
+               "stages": {"Y_base": float(y_base[c, 0]), "Y": float(Y[c, 0]),
+                          "mu0": float(mu0[c, 0]), "theta": float(theta[c, 0])}}
+        items_out.append(row)
+
+    out = {
+        "dataset": DS, "query_index": int(idx),
+        "seeds": [int(x) for x in seeds], "ground_truth": [int(x) for x in gt],
+        "n_items": int(n),
+        "fit": {"weights": {k: float(w_ad.get(k, 0.0)) for k in SIG if w_ad.get(k, 0)},
+                "alpha_inc": float(alpha_inc), "gamma_rao": float(g_rao),
+                "kappa_f": float(kf), "prior_scale": float(pscale),
+                "prior_keys": list(prior_keys), "signals": list(SIG)},
+        "items": items_out,
+    }
+    outp = os.path.join(RESULTS_DIR, f"case_study_{DS}.json")
+    json.dump(out, open(outp, "w"), indent=2, ensure_ascii=False)
+    print(f"{DS} CASE_STUDY ({time.time()-t0:.0f}s) query#{idx}: "
+          f"|S|={len(seeds)} |GT|={len(gt)} -> {outp}", flush=True)
+    print(f"  seeds={list(seeds)} gt={list(gt)} gt_ranks={[rank_of[c] for c in gt]}", flush=True)
     sys.exit()
 
 
@@ -721,7 +820,7 @@ if os.environ.get("BASELINES"):
     Wc = sum(cw[k2] * normW[k2] for k2 in cnames if cw[k2])
     _record("LinearCombiner", {k: cw[k] for k in cnames if cw[k]}, _eval(_wfn(Wc), tb, tg), comb_nd)
 
-    outp = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "results", f"baselines_{DS}.json")
+    outp = os.path.join(RESULTS_DIR, f"baselines_{DS}.json")
     json.dump(out, open(outp, "w"), indent=2)
     print(f"\n=== {DS} BASELINES ({time.time()-t0:.0f}s) -> {outp} ===", flush=True)
     print(f"{'method':12s} {'R@10':>8} {'N@10':>8} {'R@20':>8} {'N@20':>8}", flush=True)
@@ -844,7 +943,7 @@ for m in methods:
     print(f"{m:16s} {np.mean(a[10][0]):8.4f} {np.mean(a[10][1]):8.4f} {np.mean(a[20][0]):8.4f} {np.mean(a[20][1]):8.4f} {np.mean(a[50][0]):8.4f} {np.mean(a[50][1]):8.4f}", flush=True)
 
 if os.environ.get("SELDUMP"):
-    outp = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "results", f"selcmp_{DS}_{SEL_OBJ}.json")
+    outp = os.path.join(RESULTS_DIR, f"selcmp_{DS}_{SEL_OBJ}.json")
     dump = {"dataset": DS, "sel_obj": SEL_OBJ, "n": int(n), "test_bundles": len(tb),
             "selected_w": {k: float(w_ad.get(k, 0.0)) for k in SIG if w_ad.get(k, 0)},
             "alpha_inc": float(best_ho[0]), "gamma_rao": float(best_ho[1]), "kappa": float(best_eb[0]),

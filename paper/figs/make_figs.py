@@ -151,7 +151,7 @@ def stratified():
 
 
 # ---------- Fig 7: weight-sensitivity sweep, two regimes (POG vs Spotify) ----------
-# 100% measured: reads the JSON written by `WSWEEP=1 BUNDLE_DS=<ds> fullrank_eval.py`
+# 100% measured: reads the JSON written by `WSWEEP=1 BUNDLE_DS=<ds> python -m bundlefuse.eval.fullrank`
 # (per-signal test Recall@20 with all other weights / higher-order / EB held at the selected values).
 def wsweep():
     import json, os

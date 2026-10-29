@@ -1,25 +1,31 @@
-"""Unified Driver for the 8-Dataset SIMBA Benchmark Matrix.
+"""Unified driver for the 8-dataset BundleFuse benchmark matrix.
+
+Runs each per-dataset evaluator as a subprocess and collects the method rows into one table,
+merging in the published / reproduced heavy-baseline numbers (CLHE, RaMen).
 
 Usage:
-    python -m bundlefuse.run_matrix                 # run all 8 datasets -> results/matrix.csv
-    python -m bundlefuse.run_matrix pog pog_dense   # run a subset
+    python -m bundlefuse.eval.run_matrix                 # all 8 datasets -> results/matrix.csv
+    python -m bundlefuse.eval.run_matrix pog pog_dense   # a subset
 """
 import os, sys, json, subprocess, re, csv
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-RESULTS = os.path.join(os.path.dirname(HERE), "results")
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+from bundlefuse.paths import RESULTS_DIR
+
+HERE = os.path.dirname(os.path.abspath(__file__))   # the eval/ package dir (holds the evaluators)
+RESULTS = RESULTS_DIR
 os.makedirs(RESULTS, exist_ok=True)
 PY = sys.executable
 
 RUN = {
-    "pog":            ("fullrank_eval.py",  {"BUNDLE_DS": "pog",            "RAMEN_SEED": "0", "MATRIX": "1"}),
-    "pog_dense":      ("fullrank_eval.py",  {"BUNDLE_DS": "pog_dense",      "RAMEN_SEED": "0", "MATRIX": "1"}),
-    "spotify":        ("fullrank_eval.py",  {"BUNDLE_DS": "spotify",        "RAMEN_SEED": "0", "MATRIX": "1"}),
-    "spotify_sparse": ("fullrank_eval.py",  {"BUNDLE_DS": "spotify_sparse", "RAMEN_SEED": "0", "MATRIX": "1"}),
-    "electronic":     ("bundlerec_eval.py", {"BRDS": "electronic", "MATRIX": "1"}),
-    "food":           ("bundlerec_eval.py", {"BRDS": "food",       "MATRIX": "1"}),
-    "clothing":       ("bundlerec_eval.py", {"BRDS": "clothing",   "MATRIX": "1"}),
-    "dunnhumby":      ("dunnhumby_eval.py", {"MATRIX": "1"}),
+    "pog":            ("fullrank.py",  {"BUNDLE_DS": "pog",            "RAMEN_SEED": "0", "MATRIX": "1"}),
+    "pog_dense":      ("fullrank.py",  {"BUNDLE_DS": "pog_dense",      "RAMEN_SEED": "0", "MATRIX": "1"}),
+    "spotify":        ("fullrank.py",  {"BUNDLE_DS": "spotify",        "RAMEN_SEED": "0", "MATRIX": "1"}),
+    "spotify_sparse": ("fullrank.py",  {"BUNDLE_DS": "spotify_sparse", "RAMEN_SEED": "0", "MATRIX": "1"}),
+    "electronic":     ("bundlerec.py", {"BRDS": "electronic", "MATRIX": "1"}),
+    "food":           ("bundlerec.py", {"BRDS": "food",       "MATRIX": "1"}),
+    "clothing":       ("bundlerec.py", {"BRDS": "clothing",   "MATRIX": "1"}),
+    "dunnhumby":      ("dunnhumby.py", {"MATRIX": "1"}),
 }
 ORDER = ["pog", "pog_dense", "spotify", "spotify_sparse", "electronic", "food", "clothing", "dunnhumby"]
 PRINT_METHODS = ["popularity", "co-occurrence", "content-kNN", "item2vec", "CLHE", "RaMen", "Ours"]
@@ -71,7 +77,7 @@ def main():
                 if v is not None:
                     w.writerow([ds, meth] + ["%.4f" % x for x in v])
 
-    print("\n================= SIMBA MASTER MATRIX (full-ranking) =================", flush=True)
+    print("\n================= BUNDLEFUSE MASTER MATRIX (full-ranking) =================", flush=True)
     print(f"{'dataset':15s} {'method':14s} {'R@10':>8} {'N@10':>8} {'R@20':>8} {'N@20':>8}")
     for ds in ORDER:
         if ds not in table:

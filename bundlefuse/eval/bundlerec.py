@@ -1,10 +1,18 @@
-"""SIMBA Evaluator for BundleRec E-Commerce Datasets (electronic / food / clothing) under Duplicate-Free RaMen 7:1:2 Protocol.
+"""BundleFuse evaluator for the BundleRec e-commerce datasets (electronic / food / clothing),
+duplicate-free RaMen 7:1:2 protocol. Runs the shared closed-form algorithm:
 
-Integrates the unified 3-estimator framework with validation-frozen prior scaling:
-1. Pure Simplicial Hyperedge Incidence Surplus (`score_simplicial_incidence_only`, Delta_inc)
-2. Redundancy-Corrected Quadratic Concordance (`score_rao_concordance`, R_{-1})
-3. Exact Exposure-Modulated Conjugate Normal-Normal Posterior (`conjugate_posterior`, (1 - u_c)*Y + u_c*mu_0)
-   with validation-frozen `prior_scale` and constrained OLS variance estimation (`fit_variance_components`).
+1. Weighted fusion of the collaborative / taxonomic / content signals (:mod:`bundlefuse.operators`),
+   with content from in-pipeline TF-IDF + truncated SVD over item titles + category paths (no
+   external encoder on these datasets).
+2. Higher-order terms: simplicial incidence surplus (Delta_inc) + Rao quadratic concordance (R_{-1}).
+3. Cold-start shrinkage theta_hat = (1 - u_c)*Y + u_c*mu_0 toward a metadata prior, with the prior
+   scale frozen on validation so test scoring is independent of test batching.
+
+Weights/mixing/shrinkage are selected on validation via ``SEL_OBJ`` (see :mod:`bundlefuse.selection`);
+the ``GATE_*`` env vars tune the greedy improvement thresholds for small-magnitude objectives.
+Env modes (each exits after printing/writing): ``BASELINES``, ``EASE``, ``ABLATE``, ``VALGAP``,
+``SELDUMP``/``MATRIX_STD``; optional CLIP images via ``IMG_FEATS``. Default prints the matrix.
+Run: ``BRDS=electronic python -m bundlefuse.eval.bundlerec``  (see ``docs/EXPERIMENTS.md``).
 """
 import os, sys, csv, math, random, time
 from collections import defaultdict
@@ -13,13 +21,14 @@ from sklearn.decomposition import TruncatedSVD
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.preprocessing import normalize
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from bundlefuse._device import DEVICE
 from bundlefuse.operators import SimplicialGraphOperator, EmpiricalBayesRouter, zcols
+from bundlefuse.paths import DATA_ROOT, RESULTS_DIR
+from bundlefuse import selection, protocol
 
 DS = os.environ.get("BRDS", "electronic")
-REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-ROOT = os.environ.get("BR_DIR") or os.path.join(REPO_ROOT, "BundleRec", "dataset", DS)
+ROOT = os.environ.get("BR_DIR") or os.path.join(DATA_ROOT, "BundleRec", "dataset", DS)
 K = 20; MASK_FRAC = float(os.environ.get("MASK_FRAC", "0.5")); SEEDS = int(os.environ.get("SEEDS", "5"))
 USE_AUX = os.environ.get("NO_AUX", "0") != "1"
 ENCODER = os.environ.get("ENCODER", "0") != "0"  # default off: zero-param closed-form. Set ENCODER=1 to add the optional set-attention encoder
@@ -307,8 +316,7 @@ def eval_mat(F_mat, bundles, Ks=(10, 20, 50)):
     return {K2: (float(np.mean(acc[K2][0])), float(np.mean(acc[K2][1]))) for K2 in Ks}
 
 
-# Validation selection objective, decoupled from the evaluation cutoff (see fullrank_eval.py for rationale).
-#   ndcg20 (legacy, self-referential) | nll (standardised softmax NLL, no cutoff) | ndcgfull (no cutoff).
+# Validation selection objective, decoupled from the reported cutoff (see bundlefuse.selection).
 SEL_OBJ = os.environ.get("SEL_OBJ", "ndcg20")
 # Greedy improvement gates. Absolute defaults are calibrated to NDCG@20's ~0.3 scale; when selecting
 # on a smaller-magnitude objective (MRR ~0.04, full-NDCG ~0.15) set these to 0 for pure-argmax greedy
@@ -319,68 +327,14 @@ GATE_EB = float(os.environ.get("GATE_EB", "1e-4"))
 GATE_PRUNE = float(os.environ.get("GATE_PRUNE", "3e-4"))
 
 
-def _softmax_nll_np(F, bundles):
-    mu = F.mean(0, keepdims=True); sd = F.std(0, keepdims=True) + 1e-9
-    Z = ((F - mu) / sd).astype(np.float64)
-    tot, cnt = 0.0, 0
-    for j, (s, gt) in enumerate(bundles):
-        if not gt:
-            continue
-        col = Z[:, j].copy(); col[list(s)] = -1e9
-        m = float(col.max()); logden = m + math.log(float(np.exp(col - m).sum()))
-        tot += float(-np.mean(col[list(gt)] - logden)); cnt += 1
-    return tot / max(cnt, 1)
-
-
-def _full_ndcg_np(F, bundles):
-    tot, cnt = 0.0, 0
-    for j, (s, gt) in enumerate(bundles):
-        if not gt:
-            continue
-        col = F[:, j].copy(); col[list(s)] = -1e9
-        dcg = sum(1.0 / math.log2(int(np.count_nonzero(col > col[h])) + 2) for h in gt)
-        idcg = sum(1.0 / math.log2(i + 2) for i in range(len(gt)))
-        tot += dcg / idcg; cnt += 1
-    return tot / max(cnt, 1)
-
-
-def _mrr_np(F, bundles):
-    """Mean reciprocal rank (cutoff-free, top-weighted by 1/rank; higher=better)."""
-    tot, cnt = 0.0, 0
-    for j, (s, gt) in enumerate(bundles):
-        if not gt:
-            continue
-        col = F[:, j].copy(); col[list(s)] = -1e9
-        rr = sum(1.0 / (int(np.count_nonzero(col > col[h])) + 1) for h in gt)
-        tot += rr / len(gt); cnt += 1
-    return tot / max(cnt, 1)
-
-
 def sel_score(F, bundles):
-    """Selection objective (higher=better). ndcg<K>/recall<K> select at cutoff K;
-    ndcgfull/mrr/nll are cutoff-free."""
-    if SEL_OBJ == "nll":
-        return -_softmax_nll_np(F, bundles)
-    if SEL_OBJ == "ndcgfull":
-        return _full_ndcg_np(F, bundles)
-    if SEL_OBJ == "mrr":
-        return _mrr_np(F, bundles)
-    if SEL_OBJ.startswith("recall") and SEL_OBJ[6:].isdigit():
-        K = int(SEL_OBJ[6:]); return eval_mat(F, bundles, Ks=(K,))[K][0]
-    if SEL_OBJ.startswith("ndcg") and SEL_OBJ[4:].isdigit():
-        K = int(SEL_OBJ[4:]); return eval_mat(F, bundles, Ks=(K,))[K][1]
-    return eval_mat(F, bundles, Ks=(20,))[20][1]
+    """Selection objective (higher=better); see :mod:`bundlefuse.selection`."""
+    return selection.sel_score(F, bundles, SEL_OBJ, eval_mat)
 
 
 def mask(bundles, seed):
-    r = random.Random(seed); out = []
-    for b in bundles:
-        bb = b[:]; r.shuffle(bb); k = max(1, int(round(len(bb) * (1 - MASK_FRAC))))
-        s, h = bb[:k], bb[k:]
-        if not h:
-            s, h = bb[:-1], [bb[-1]]
-        out.append((s, h))
-    return out
+    """Reveal-fraction masking into (seeds, held_out) pairs; see :mod:`bundlefuse.protocol`."""
+    return protocol.mask(bundles, seed, MASK_FRAC)
 
 
 def train_item2vec_br(train, dim=64, epochs=8, neg=5, bs=4096, maxpairs=3_000_000):
@@ -492,7 +446,7 @@ for sd in range(SEEDS):
 
     if VALGAP:
         # Fusion-only (no higher-order, no shrinkage) NDCG@20 at SELECTED vs UNIFORM weights,
-        # on val and test, so the gap isolates weight tuning. Same definition as fullrank_eval.
+        # on val and test, so the gap isolates weight tuning. Same definition as eval/fullrank.py.
         Zt_pair = dict(Zt); Zt_pair["simp"] = Zt["pair"]; Zt_pair["diff2"] = Zt["diff2_pair"]
         def _nd(Zp, split, wd):
             F = sum(wd[k] * Zp[k] for k in SIG if wd.get(k, 0))
@@ -600,8 +554,7 @@ if BASELINES:
         print(f"{m:14s} {vals[10][0]:8.4f} {vals[10][1]:8.4f} {vals[20][0]:8.4f} {vals[20][1]:8.4f}", flush=True)
     if "SLIM" not in present:
         print(f"{DS} SLIM skipped (n={n:,} > n_max; EASE covers the sparse-linear family)", flush=True)
-    _json.dump(out, open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-                                       "results", f"baselines_{DS}.json"), "w"), indent=2)
+    _json.dump(out, open(os.path.join(RESULTS_DIR, f"baselines_{DS}.json"), "w"), indent=2)
     sys.exit()
 
 if AB:
@@ -638,7 +591,7 @@ for m in METH:
     print(f"{m:16s} {np.mean(a[10][0]):8.4f} {np.mean(a[10][1]):8.4f} {np.mean(a[20][0]):8.4f} {np.mean(a[20][1]):8.4f} {np.mean(a[50][0]):8.4f} {np.mean(a[50][1]):8.4f}", flush=True)
 if os.environ.get("SELDUMP"):
     import json as _json
-    outp = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "results", f"selcmp_{DS}_{SEL_OBJ}.json")
+    outp = os.path.join(RESULTS_DIR, f"selcmp_{DS}_{SEL_OBJ}.json")
     dump = {"dataset": DS, "sel_obj": SEL_OBJ, "n": int(n), "seeds": SEEDS,
             "methods": {m: {f"{M}@{K2}": float(np.mean(agg[m][K2][i]))
                             for K2 in (10, 20, 50) for i, M in enumerate(("R", "N"))} for m in METH}}

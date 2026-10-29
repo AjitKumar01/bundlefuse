@@ -14,7 +14,7 @@ for frac in FRACS:
                  BUNDLE_DS="pog", RAMEN_SEED=str(sd), TRAIN_FRAC=str(frac),
                  PYTHONWARNINGS="ignore")
         t = time.time()
-        p = subprocess.run([PY, "-u", "-m", "bundlefuse.fullrank_eval"], cwd=HERE,
+        p = subprocess.run([PY, "-u", "-m", "bundlefuse.eval.fullrank"], cwd=HERE,
                            env=e, capture_output=True, text=True)
         got = None
         for ln in p.stdout.splitlines():

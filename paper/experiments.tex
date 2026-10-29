@@ -558,7 +558,7 @@ $\bar{\delta}_{\text{dup}}=0.68$) the collaborative set-reasoner and artist/albu
 them drops R@20 from $0.161$ to $0.119$ ($-0.042$) and $0.124$ ($-0.037$)---while off-diagonal category
 complementarity is completely flat (inert). (iii)~\textbf{PPMI-SVD's role itself flips}: on POG it \emph{hurts}
 as its weight grows (``popularity is signal''), whereas on sparse music data it is flat-to-mildly-helpful.
-Re-running the operator sensitivity sweeps from source (\texttt{real\_sensitivity.py}) confirms the same stability:
+Re-running the operator sensitivity sweeps from source (\texttt{bundlefuse/diagnostics/sensitivity.py}) confirms the same stability:
 sweeping the clique weight $\beta_{\text{clique}}$, the Rao parameters $(\gamma, \tau)$, and the shrinkage $\kappa_f$
 each moves R@20 only within a fraction of a point over wide ranges, consistent with the broad plateau above and with
 the near-zero contribution of the higher-order operators (\S\ref{sec:control}).

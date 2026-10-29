@@ -1,6 +1,7 @@
-"""Standalone runner for genuine, 100% measured operator hyperparameter sensitivity sweeps.
-No synthetic formulas, no ramps, no linear interpolation, no hardcoded constants.
-Evaluates:
+"""BundleFuse operator hyperparameter sensitivity sweeps -- 100% measured (no synthetic curves).
+
+Backs the paper's robustness section: re-runs the scorer while varying one operator parameter at a
+time and measuring test Recall@20. Run: ``python -m bundlefuse.diagnostics.sensitivity``. Evaluates:
 1. beta_clique in {0.0, 0.5, 1.0, 1.5, 2.5} on electronic, pog_dense, dunnhumby
 2. gamma in {-1.0, 0.0, +1.0} and tau in {0.01, 0.05, 0.10, 0.50} on pog and spotify
 3. kappa_f in {0.0, 0.05, 0.1, 0.5, 1.0, 5.0} on clothing (overall, cold, rare, warm)
@@ -12,7 +13,7 @@ from sklearn.decomposition import TruncatedSVD
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.preprocessing import normalize
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from bundlefuse._device import DEVICE
 from bundlefuse.operators import (
     SimplicialGraphOperator,
@@ -22,8 +23,7 @@ from bundlefuse.operators import (
     zcols,
 )
 
-REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-RESULTS_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "results")
+from bundlefuse.paths import DATA_ROOT as REPO_ROOT, RESULTS_DIR
 
 
 def eval_per_query_top20(F, bundles):

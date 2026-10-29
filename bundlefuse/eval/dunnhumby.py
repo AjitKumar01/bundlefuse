@@ -1,10 +1,18 @@
-"""SIMBA Evaluator for Dunnhumby 'The Complete Journey' (Retail Grocery) under 7:1:2 Full-Ranking Protocol.
+"""BundleFuse evaluator for Dunnhumby 'The Complete Journey' (retail grocery), 7:1:2 full-ranking.
 
-Integrates the unified 3-estimator framework with validation-frozen prior scaling:
-1. Pure Simplicial Hyperedge Incidence Surplus (`score_simplicial_incidence_only`, Delta_inc)
-2. Redundancy-Corrected Quadratic Concordance (`score_rao_concordance`, R_{-1})
-3. Exact Exposure-Modulated Conjugate Normal-Normal Posterior (`conjugate_posterior`, (1 - u_c)*Y + u_c*mu_0)
-   with validation-frozen `prior_scale` and constrained OLS variance estimation (`fit_variance_components`).
+Transaction baskets are treated as (implicit) bundles; there are no curated training bundles, so the
+whole method is self-supervised over basket co-occurrence. Runs the shared closed-form algorithm:
+
+1. Weighted fusion of the collaborative / taxonomic / content signals (:mod:`bundlefuse.operators`).
+2. Higher-order terms: simplicial incidence surplus (Delta_inc) + Rao quadratic concordance (R_{-1}).
+3. Cold-start shrinkage theta_hat = (1 - u_c)*Y + u_c*mu_0 toward a metadata prior, with the prior
+   scale frozen on validation so test scoring is independent of test batching.
+
+Weights/mixing/shrinkage are selected on validation via ``SEL_OBJ`` (see :mod:`bundlefuse.selection`).
+Env modes (each exits after printing/writing): ``BASELINES`` (matched neighbourhood suite),
+``ABLATE`` (stage ablation + exposure buckets), ``VALGAP`` (selection generalization gap),
+``SELDUMP``/``MATRIX_STD`` (dump the matrix / per-seed std). Default prints the full-ranking matrix.
+Run: ``python -m bundlefuse.eval.dunnhumby``  (see ``docs/EXPERIMENTS.md``).
 """
 import os, sys, csv, math, random, time
 from collections import defaultdict
@@ -13,12 +21,13 @@ from sklearn.decomposition import TruncatedSVD
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.preprocessing import normalize
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from bundlefuse._device import DEVICE
 from bundlefuse.operators import SimplicialGraphOperator, EmpiricalBayesRouter, zcols
+from bundlefuse.paths import DATA_ROOT, RESULTS_DIR
+from bundlefuse import selection, protocol
 
-REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-ROOT = os.environ.get("DUNN_DIR") or os.path.join(REPO_ROOT, "dunnhumby")
+ROOT = os.environ.get("DUNN_DIR") or os.path.join(DATA_ROOT, "dunnhumby")
 MASK_FRAC = float(os.environ.get("MASK_FRAC", "0.5")); SEEDS = int(os.environ.get("SEEDS", "5"))
 SPLIT_MODE = os.environ.get("SPLIT_MODE", "random")
 BASKET_CAP = int(os.environ.get("BASKET_CAP", "30000")); MIN_FREQ = 2
@@ -255,72 +264,18 @@ def eval_mat(F_mat, bundles, Ks=(10, 20, 50)):
     return {K2: (float(np.mean(acc[K2][0])), float(np.mean(acc[K2][1]))) for K2 in Ks}
 
 
-# Validation selection objective, decoupled from the evaluation cutoff (see fullrank_eval.py for rationale).
-#   ndcg20 (legacy, self-referential) | nll (standardised softmax NLL, no cutoff) | ndcgfull (no cutoff).
+# Validation selection objective, decoupled from the reported cutoff (see bundlefuse.selection).
 SEL_OBJ = os.environ.get("SEL_OBJ", "ndcg20")
 
 
-def _softmax_nll_np(F, bundles):
-    mu = F.mean(0, keepdims=True); sd = F.std(0, keepdims=True) + 1e-9
-    Z = ((F - mu) / sd).astype(np.float64)
-    tot, cnt = 0.0, 0
-    for j, (s, gt) in enumerate(bundles):
-        if not gt:
-            continue
-        col = Z[:, j].copy(); col[list(s)] = -1e9
-        m = float(col.max()); logden = m + math.log(float(np.exp(col - m).sum()))
-        tot += float(-np.mean(col[list(gt)] - logden)); cnt += 1
-    return tot / max(cnt, 1)
-
-
-def _full_ndcg_np(F, bundles):
-    tot, cnt = 0.0, 0
-    for j, (s, gt) in enumerate(bundles):
-        if not gt:
-            continue
-        col = F[:, j].copy(); col[list(s)] = -1e9
-        dcg = sum(1.0 / math.log2(int(np.count_nonzero(col > col[h])) + 2) for h in gt)
-        idcg = sum(1.0 / math.log2(i + 2) for i in range(len(gt)))
-        tot += dcg / idcg; cnt += 1
-    return tot / max(cnt, 1)
-
-
-def _mrr_np(F, bundles):
-    """Mean reciprocal rank (cutoff-free, top-weighted by 1/rank; higher=better)."""
-    tot, cnt = 0.0, 0
-    for j, (s, gt) in enumerate(bundles):
-        if not gt:
-            continue
-        col = F[:, j].copy(); col[list(s)] = -1e9
-        rr = sum(1.0 / (int(np.count_nonzero(col > col[h])) + 1) for h in gt)
-        tot += rr / len(gt); cnt += 1
-    return tot / max(cnt, 1)
-
-
 def sel_score(F, bundles):
-    """Selection objective (higher=better). ndcg<K>/recall<K> at cutoff K; ndcgfull/mrr/nll cutoff-free."""
-    if SEL_OBJ == "nll":
-        return -_softmax_nll_np(F, bundles)
-    if SEL_OBJ == "ndcgfull":
-        return _full_ndcg_np(F, bundles)
-    if SEL_OBJ == "mrr":
-        return _mrr_np(F, bundles)
-    if SEL_OBJ.startswith("recall") and SEL_OBJ[6:].isdigit():
-        K = int(SEL_OBJ[6:]); return eval_mat(F, bundles, Ks=(K,))[K][0]
-    if SEL_OBJ.startswith("ndcg") and SEL_OBJ[4:].isdigit():
-        K = int(SEL_OBJ[4:]); return eval_mat(F, bundles, Ks=(K,))[K][1]
-    return eval_mat(F, bundles, Ks=(20,))[20][1]
+    """Selection objective (higher=better); see :mod:`bundlefuse.selection`."""
+    return selection.sel_score(F, bundles, SEL_OBJ, eval_mat)
 
 
 def mask(bundles, seed):
-    r = random.Random(seed); out = []
-    for b in bundles:
-        bb = b[:]; r.shuffle(bb); k = max(1, int(round(len(bb) * (1 - MASK_FRAC))))
-        s, hh = bb[:k], bb[k:]
-        if not hh:
-            s, hh = bb[:-1], [bb[-1]]
-        out.append((s, hh))
-    return out
+    """Reveal-fraction masking into (seeds, held_out) pairs; see :mod:`bundlefuse.protocol`."""
+    return protocol.mask(bundles, seed, MASK_FRAC)
 
 
 def ease_test_scores(trb, vset, tset, n_items, lam_grid=(1.0, 10.0, 25.0, 50.0, 100.0, 250.0, 500.0, 1000.0)):
@@ -416,7 +371,7 @@ for sd in range(SEEDS):
 
     if VALGAP:
         # Fusion-only (no higher-order, no shrinkage) NDCG@20 at SELECTED vs UNIFORM weights,
-        # on val and test, so the gap isolates weight tuning. Same definition as fullrank_eval.
+        # on val and test, so the gap isolates weight tuning. Same definition as eval/fullrank.py.
         Zt_pair = dict(Zt); Zt_pair["simp"] = Zt["pair"]; Zt_pair["diff2"] = Zt["diff2_pair"]
         def _nd(Zp, split, wd):
             F = sum(wd[k] * Zp[k] for k in SIG if wd.get(k, 0))
@@ -545,8 +500,7 @@ if BASELINES:
         print(f"{m:14s} {vals[10][0]:8.4f} {vals[10][1]:8.4f} {vals[20][0]:8.4f} {vals[20][1]:8.4f}", flush=True)
     if "SLIM" not in present:
         print(f"dunnhumby SLIM skipped (n={n:,} > n_max; EASE covers the sparse-linear family)", flush=True)
-    _json.dump(out, open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-                                      "results", "baselines_dunnhumby.json"), "w"), indent=2)
+    _json.dump(out, open(os.path.join(RESULTS_DIR, "baselines_dunnhumby.json"), "w"), indent=2)
     sys.exit()
 
 if AB:
@@ -582,7 +536,7 @@ for m in METH:
     print(f"{m:16s} {np.mean(a[10][0]):8.4f} {np.mean(a[10][1]):8.4f} {np.mean(a[20][0]):8.4f} {np.mean(a[20][1]):8.4f} {np.mean(a[50][0]):8.4f} {np.mean(a[50][1]):8.4f}", flush=True)
 if os.environ.get("SELDUMP"):
     import json as _json
-    outp = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "results", f"selcmp_dunnhumby_{SEL_OBJ}.json")
+    outp = os.path.join(RESULTS_DIR, f"selcmp_dunnhumby_{SEL_OBJ}.json")
     dump = {"dataset": "dunnhumby", "sel_obj": SEL_OBJ, "n": int(n), "seeds": SEEDS,
             "methods": {m: {f"{M}@{K2}": float(np.mean(agg[m][K2][i]))
                             for K2 in (10, 20, 50) for i, M in enumerate(("R", "N"))} for m in METH}}

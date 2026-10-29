@@ -12,8 +12,8 @@ PUBLISHED = {  # R@20 of heavy baselines, for the comparison column (not recompu
   "electronic":{"CLHE":0.4721,"RaMen":0.8371},"food":{"CLHE":0.5077,"RaMen":0.8459},
 }
 FULLRANK=[("pog","BUNDLE_DS"),("pog_dense","BUNDLE_DS"),("spotify_sparse","BUNDLE_DS"),("spotify","BUNDLE_DS")]
-RETAIL=[("electronic","bundlefuse.bundlerec_eval","BRDS"),("food","bundlefuse.bundlerec_eval","BRDS"),
-        ("clothing","bundlefuse.bundlerec_eval","BRDS"),("dunnhumby","bundlefuse.dunnhumby_eval",None)]
+RETAIL=[("electronic","bundlefuse.eval.bundlerec","BRDS"),("food","bundlefuse.eval.bundlerec","BRDS"),
+        ("clothing","bundlefuse.eval.bundlerec","BRDS"),("dunnhumby","bundlefuse.eval.dunnhumby",None)]
 def run(mod, env):
     e=dict(os.environ,**env); e["MATRIX"]="1"; e["ENCODER"]="0"; e["FORCE_DEVICE"]="cpu"; e["PYTHONWARNINGS"]="ignore"
     p=subprocess.run([PY,"-u","-m",mod],cwd=HERE,env=e,capture_output=True,text=True)
@@ -27,7 +27,7 @@ table={}
 for ds,var in FULLRANK:
     seeds=[]
     for sd in (0,1,2):
-        t=time.time(); r=run("bundlefuse.fullrank_eval",{var:ds,"RAMEN_SEED":str(sd)})
+        t=time.time(); r=run("bundlefuse.eval.fullrank",{var:ds,"RAMEN_SEED":str(sd)})
         if "Ours" in r: seeds.append(r); print(f"{ds} seed{sd} Ours R@20={r['Ours'][2]:.4f} ({time.time()-t:.0f}s)",flush=True)
     if seeds:
         agg={}

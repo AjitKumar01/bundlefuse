@@ -9,10 +9,10 @@ import os, sys, subprocess, re, csv, json
 HERE = "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse"
 PY = sys.executable
 LABELS = ("popularity", "co-occurrence", "content-kNN", "item2vec", "Ours")
-RETAIL = [("electronic", "bundlefuse.bundlerec_eval", "BRDS"),
-          ("food", "bundlefuse.bundlerec_eval", "BRDS"),
-          ("clothing", "bundlefuse.bundlerec_eval", "BRDS"),
-          ("dunnhumby", "bundlefuse.dunnhumby_eval", None)]
+RETAIL = [("electronic", "bundlefuse.eval.bundlerec", "BRDS"),
+          ("food", "bundlefuse.eval.bundlerec", "BRDS"),
+          ("clothing", "bundlefuse.eval.bundlerec", "BRDS"),
+          ("dunnhumby", "bundlefuse.eval.dunnhumby", None)]
 STD = re.compile(r"^STD\s+(\S+)\s+([\d.]+)\s+n=(\d+)")
 
 stds = {}

@@ -1,4 +1,9 @@
-"""Controlled One-Factor-at-a-Time Ablation & Diagnostic Driver (`simba/simba/ablation_study.py`).
+"""Controlled one-factor-at-a-time ablation & diagnostic driver (legacy, inherited from the SIMBA fork).
+
+Superseded for the headline stage-ablation by the ``ABLATE`` mode built into the evaluators; retained
+for its exposure-bucket + OLS variance-component diagnostics and the per-operator sweeps it shares with
+``bundlefuse.diagnostics.sensitivity``. Run: ``python -m bundlefuse.diagnostics.ablation``.
+
 
 Evaluates all 8 core datasets:
 - Fashion: `pog`, `pog_dense`
@@ -32,7 +37,7 @@ from sklearn.preprocessing import normalize
 from sklearn.decomposition import TruncatedSVD
 from sklearn.cluster import MiniBatchKMeans
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from bundlefuse._device import DEVICE
 from bundlefuse.operators import (
     SimplicialGraphOperator,
@@ -42,8 +47,7 @@ from bundlefuse.operators import (
     zcols,
 )
 
-REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-RESULTS_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "results")
+from bundlefuse.paths import DATA_ROOT as REPO_ROOT, RESULTS_DIR
 os.makedirs(RESULTS_DIR, exist_ok=True)
 csv.field_size_limit(10**7)
 
@@ -1224,7 +1228,7 @@ def run_sensitivity_sweeps():
     """Runs genuine measured operator sensitivity sweeps using the verified full-model pipeline.
     Zero synthetic formulas, zero linear ramps, zero hardcoded lookup tables.
     """
-    from bundlefuse.real_sensitivity import (
+    from bundlefuse.diagnostics.sensitivity import (
         run_electronic_beta_sweep,
         run_pog_dense_beta_sweep,
         run_dunnhumby_beta_sweep,

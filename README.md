@@ -1,31 +1,68 @@
 # BundleFuse
 
-A cheap, interpretable, **regime-adaptive** baseline for **bundle completion** (given a partial
-bundle `S`, rank catalogue items to recover the held-out members). It runs on a single CPU core in
+A cheap, interpretable, **regime-adaptive** baseline for **bundle completion**: given a partial
+bundle `S`, rank catalogue items to recover the held-out members. It runs on a single CPU core in
 tens of seconds and is competitive with heavy GPU encoders, a 7B LLM, and a diffusion model on the
 cold/sparse regimes where those methods are supposed to dominate.
 
-This repository is a **cleaned, honest fork** of the prior `simba/` codebase. It keeps only what was
-independently verified to be correct and drops everything that was fabricated, inert, or
-non-reproducible. See **[MANIFEST.md](MANIFEST.md)** for the exact salvage/drop list and the reasons.
-
-## What this method actually is
+The scorer has **zero trained parameters** — its handful of fusion weights are *selected* on a
+validation split, not learned by gradient descent.
 
 ```
-score(c | S) = (1 - u_c) * Y_fused(c | S)  +  u_c * mu_0(c | S) ,    u_c = kappa / (f_c + kappa)
+score(c | S) = (1 - u_c) · Y_fused(c | S)  +  u_c · μ₀(c | S) ,    u_c = κ_f / (f_c + κ_f)
 ```
 
 - **`Y_fused`** — a validation-weighted fusion of closed-form evidence: raw collaborative
-  co-occurrence (`B^T B`), PPMI / PPMI-SVD, dual-spectrum taxonomic PMI, style-disentangled and
-  graph-bridged content. (Raw co-occurrence is kept *un-debiased* on purpose — **popularity is
-  signal**.)
-- **`mu_0`** — a metadata/ontology+content prior; cold items (`f_c = 0`) are ranked entirely by it.
-- **`u_c`** — frequency-confidence **cold-start shrinkage**: low-exposure candidates are pulled
-  toward the prior. This is classical Bell–Koren / RLFM shrinkage; `kappa` is selected by
-  **validation grid search** (the variance-component model does *not* fit this data — see below).
+  co-occurrence (`BᵀB`), PPMI / PPMI-SVD, dual-spectrum taxonomic PMI, style-disentangled and
+  graph-bridged content. (Raw co-occurrence is kept *un-debiased* on purpose — **popularity is signal**.)
+- **`μ₀`** — a metadata/ontology+content prior; cold items (`f_c = 0`) are ranked entirely by it.
+- **`u_c`** — frequency-confidence **cold-start shrinkage** (classical Bell–Koren / RLFM); `κ_f` is
+  selected by validation grid search.
 
-An optional ~0.3M set-attention contrastive encoder exists as an **off-by-default** fused signal.
-It was never the engine; the headline results do not depend on it.
+An optional ~0.3M set-attention contrastive encoder exists as an **off-by-default** fused signal
+(`ENCODER=1`); the headline results do not depend on it.
+
+## Repository layout
+
+```
+bundlefuse/                 the package (library core)
+  operators.py              the scorer: collaborative / taxonomic / content operators + shrinkage
+  selection.py              validation selection objectives (ndcg@K, recall@K, mrr, ndcgfull, nll)
+  protocol.py               the bundle-completion masking protocol
+  baselines.py              matched neighbourhood / MF baselines (ItemKNN, P3α, RP3β, SLIM, iALS, …)
+  paths.py                  single source of truth for data / results locations
+  eval/                     one runnable evaluator per dataset family (+ run_matrix)
+    fullrank.py             POG / POG_dense / Spotify / Spotify_sparse
+    bundlerec.py            electronic / food / clothing
+    dunnhumby.py            transaction baskets
+    run_matrix.py           orchestrates all eight into one table
+  diagnostics/              sensitivity sweeps + the legacy OFAT ablation driver
+docs/        EXPERIMENTS.md (the reproducibility index) · MANIFEST.md (salvage log)
+notes/       methodology.tex / .pdf (how a partial bundle is filled, worked end-to-end)
+paper/       the write-up (main.tex → main.pdf)
+results/     regenerated logs + json (indexed in results/README.md)
+tests/       test_core.py (7 theoretical / numerical / no-leakage tests)
+```
+
+The same five-step algorithm runs on every dataset — only the loader and the available content
+features change. It is written out once, with the exact command behind every reported number, in
+**[docs/EXPERIMENTS.md](docs/EXPERIMENTS.md)**. The step-by-step derivation, with a real POG query
+carried from empty slots to a filled bundle, is in **[notes/methodology.tex](notes/methodology.tex)**.
+
+## Quickstart
+
+```bash
+python3 tests/test_core.py                                  # 7 unit tests
+
+BUNDLE_DS=pog_dense MATRIX=1 python -m bundlefuse.eval.fullrank    # POG / Spotify family
+BRDS=electronic    MATRIX=1 python -m bundlefuse.eval.bundlerec    # e-commerce family
+MATRIX=1                     python -m bundlefuse.eval.dunnhumby    # retail baskets
+
+python -m bundlefuse.eval.run_matrix                        # full 8-dataset matrix
+```
+
+CPU-deterministic by default (set `FORCE_DEVICE=mps|cuda` for speed, **not** for published numbers).
+Data lives one level up (`../bundlemllm`, `../BundleRec`, `../dunnhumby`) and is not vendored.
 
 ## Honest findings (the contribution)
 
@@ -33,54 +70,25 @@ It was never the engine; the headline results do not depend on it.
    the cold/sparse datasets. This is the real driver of the wins.
 2. **A tiny CPU model is regime-competitive** with 9.5–16M-param GPU encoders (CLHE, RaMen), a 7B LLM
    (Bundle-MLLM), and a diffusion model (DDBC), on POG / Spotify / sparse / retail.
-3. **Protocol audit (DDBC):** on DDBC's own 100-candidate protocol, a *parameter-free co-occurrence
+3. **Protocol audit (DDBC):** on DDBC's own 100-candidate protocol a *parameter-free co-occurrence
    baseline* beats the diffusion SOTA — evidence the reported gains there are a protocol artifact.
-4. **Where heavy models win is data, not modelling:** RaMen's e-commerce edge comes from private
-   Amazon product images absent from the public release, not from a better bundle model.
+4. **Where heavy models win is data, not modelling:** RaMen's e-commerce edge comes from its heavy
+   Collaborative Strategy Encoder (a multi-head attention GNN), not from a better bundle model.
 
 ### Negative results we report honestly (not hidden)
 
-- **Higher-order estimators are inert.** Simplicial hyperedge incidence (`score_simplicial_incidence_only`)
-  and Rao quadratic concordance (`score_rao_concordance`) add only **+0.00 to +0.34pp** once a strong
-  pairwise base is in place. They are retained only to *document* this negative result; they are not
-  part of the headline method.
-- **The empirical-Bayes variance model does not fit.** The homoscedastic model implies the OLS slope
-  `sigma_eps^2 > 0`, but it is **negative on 7/8 datasets** because the collaborative score is
-  dominated by popularity. We therefore do **not** claim a data-driven `kappa`; `kappa` is grid-selected
-  on validation and we say so. (Prior attempts to force a positive slope by dividing residuals or scores
-  by `f_c` were tautological or removed the popularity signal; they are excluded here.)
+- **Higher-order estimators are nearly inert.** Simplicial incidence and Rao concordance add at most
+  +0.79pp (Spotify), ≤+0.26pp on seven of eight datasets, once a strong pairwise base is in place.
+  They are retained only to *document* this.
+- **The empirical-Bayes variance model does not fit.** The homoscedastic model implies a positive OLS
+  slope, but it is negative on most datasets because the collaborative score is dominated by
+  popularity. We therefore do **not** claim a data-driven `κ_f`; it is grid-selected on validation,
+  and we say so.
 
-## Reproducibility
+## Provenance
 
-Default policy is **reproducibility first**: CPU execution with fixed seeds (`bundlefuse/_device.py`).
-Earlier accelerator (MPS) runs drifted several percent run-to-run and were not reproducible; CPU runs
-here are **bit-identical across repeats**. Strict deterministic kernels (`torch.use_deterministic_algorithms`)
-are available via `DETERMINISTIC=1` but are off by default because they force ~10x-slower fallback kernels
-and are not needed for reproducibility here.
-
-```bash
-# genuine unit / theoretical / no-leakage tests (7)
-python3 tests/test_core.py
-
-# evaluators (CPU-deterministic by default; set FORCE_DEVICE=mps|cuda for speed, NOT for published numbers)
-BUNDLE_DS=pog        python3 -m bundlefuse.fullrank_eval
-BRDS=electronic      python3 -m bundlefuse.bundlerec_eval
-SPLIT_MODE=random    python3 -m bundlefuse.dunnhumby_eval
-
-# full 8-dataset matrix
-python3 -m bundlefuse.run_matrix
-```
-
-## Status
-
-Every table in `results/` was regenerated **once, deterministically** from this pipeline — nothing is
-carried over as a pre-computed number from the old `simba/` repo. See **[RESULTS.md](RESULTS.md)** for
-the full zero-parameter matrix (with error bars), the encoder on/off head-to-head (encoder dropped),
-the validation-selection overfitting probe (negative — selection generalizes), and the multimodal-image
-experiment (honest negative result). Remaining open tasks are listed there and in MANIFEST.md.
-
-The write-up lives in **[`paper/`](paper/)** (`main.tex`; `pdflatex main.tex` → `main.pdf`). It is the honest
-BundleFuse paper — zero-parameter framing, regenerated tables with error bars, the documented negatives, the
-CLHE baseline-fairness accounting, and the RaMen data-availability analysis — with every SIMBA-era fabrication removed.
-
-Data lives one level up (`../BundleRec`, `../bundlemllm`, `../dunnhumby`) and is not vendored here.
+This repository is a **cleaned, honest fork** of the prior `simba/` codebase — it keeps only what was
+independently verified correct and drops what was fabricated, inert, or non-reproducible. See
+**[docs/MANIFEST.md](docs/MANIFEST.md)** for the salvage/drop list, **[RESULTS.md](RESULTS.md)** for the
+full result tables with error bars and the documented negatives, and **[paper/](paper/)** for the
+write-up (`pdflatex main.tex`).

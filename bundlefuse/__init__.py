@@ -4,8 +4,8 @@ A closed-form evidence-fusion scorer (collaborative co-occurrence + taxonomic on
 + style-disentangled/graph-bridged content) with cold-start shrinkage toward a metadata
 prior. Validation-selected fusion weights; optional (off-by-default) set-attention encoder.
 
-See MANIFEST.md for exactly what was salvaged from the prior "SIMBA" codebase and what was
-dropped, and why.
+See docs/MANIFEST.md for exactly what was salvaged from the prior "SIMBA" codebase and what was
+dropped, and why; docs/EXPERIMENTS.md maps every reported number to its command.
 """
 from ._device import DEVICE, set_determinism
 from .operators import (

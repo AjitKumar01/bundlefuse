@@ -8,7 +8,7 @@ def run(ds, sd, kfold):
              BUNDLE_DS=ds, RAMEN_SEED=str(sd), PYTHONWARNINGS="ignore")
     if kfold:
         e["KFOLD"] = "5"
-    p = subprocess.run([PY, "-u", "-m", "bundlefuse.fullrank_eval"], cwd=HERE,
+    p = subprocess.run([PY, "-u", "-m", "bundlefuse.eval.fullrank"], cwd=HERE,
                        env=e, capture_output=True, text=True)
     for ln in p.stdout.splitlines():
         m = ROW.match(ln.strip())

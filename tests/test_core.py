@@ -192,10 +192,10 @@ def test_nonidentifiable_evaluator_searches_disable_shrinkage():
     # Execute each production search's candidate expression without importing the
     # evaluators, whose module-level code starts dataset loading and training.
     root = Path(__file__).resolve().parents[1]
-    for filename, target in [("fullrank_eval.py", "kf"),
-                             ("bundlerec_eval.py", "kf_cand"),
-                             ("dunnhumby_eval.py", "kf_cand")]:
-        tree = ast.parse((root / "bundlefuse" / filename).read_text())
+    for filename, target in [("fullrank.py", "kf"),
+                             ("bundlerec.py", "kf_cand"),
+                             ("dunnhumby.py", "kf_cand")]:
+        tree = ast.parse((root / "bundlefuse" / "eval" / filename).read_text())
         searches = [node for node in ast.walk(tree)
                     if isinstance(node, ast.For) and isinstance(node.target, ast.Name)
                     and node.target.id == target]

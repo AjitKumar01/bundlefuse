@@ -169,7 +169,7 @@ beating us); elsewhere we compare against published CLHE.
 ## K-fold weight selection — claim RETRACTED (the `KFOLD` path is not genuine CV)
 
 **Retraction (2026-10-27).** We previously reported that "5-fold CV weight selection does not beat
-single-split selection." That claim is withdrawn: the `KFOLD` implementation in `fullrank_eval.py`
+single-split selection." That claim is withdrawn: the `KFOLD` implementation in `bundlefuse/eval/fullrank.py`
 does **not** perform cross-validated selection. Its selection objective (`sel_obj`) partitions the
 validation *queries* (columns of a **fixed** fused matrix) into K folds and averages the per-fold
 NDCG@20 — it never re-fits the fusion weights on K−1 folds and evaluates on the held-out fold. For
@@ -200,7 +200,7 @@ needs near-full coverage (publicly unavailable) and/or joint multimodal training
 negative result, not hidden.
 
 Provenance: `results/image_ab_electronic.log`; pipeline in `scripts/harvest_image_urls.py` and
-`scripts/clip_embed.py`; evaluator wiring gated by `IMG_FEATS=` in `bundlerec_eval.py`. The derived
+`scripts/clip_embed.py`; evaluator wiring gated by `IMG_FEATS=` in `bundlefuse/eval/bundlerec.py`. The derived
 CLIP feature cache (`elec_clip.npz`, ~2.8MB) is not vendored; regenerate with the two scripts.
 
 ## RaMen "text-only" ablation — why we do not claim a number
