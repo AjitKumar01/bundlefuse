@@ -69,112 +69,93 @@ things we train (\S\ref{sec:inputs}). Figure~\ref{fig:flow} is the whole method 
 completed bundle out---and every later section just explains one of its boxes.
 
 \begin{center}
-\begin{tikzpicture}[>=Latex]
-\node[font=\tiny,anchor=east] at (6.45,1.3){colour $=$ score (per row):};
-\node[font=\tiny,anchor=east] at (7.3,1.3){low};
-\fill[blue!6](7.4,1.15) rectangle (7.720000000000001,1.45);
-\fill[blue!30](7.74,1.15) rectangle (8.06,1.45);
-\fill[blue!55](8.08,1.15) rectangle (8.4,1.45);
-\fill[blue!82](8.42,1.15) rectangle (8.74,1.45);
-\node[font=\tiny,anchor=west] at (8.85,1.3){high};
-\node[font=\tiny,gray,anchor=center] at (9.05,0.92){each row is a score vector over the $n$ items (here $n{=}4$; seed masked)};
-\node[font=\scriptsize,align=center] at (6.2,0.4){\textbf{item 1}\\{\tiny seed}};
-\node[font=\scriptsize,align=center] at (8.1,0.4){\textbf{item 2}\\{\tiny $f_c{=}3$}};
-\node[font=\scriptsize,align=center] at (10.0,0.4){\textbf{item 3}\\{\tiny $f_c{=}2$}};
-\node[font=\scriptsize,align=center] at (11.9,0.4){\textbf{item 4}\\{\tiny $f_c{=}1$}};
-\node[font=\scriptsize,anchor=east] at (5.15,-1.25){\code{cooc}};
-\fill[black!7](5.3100000000000005,-1.65) rectangle (7.09,-0.85); \draw[black!25,line width=.3pt](5.3100000000000005,-1.65) rectangle (7.09,-0.85); \node[font=\tiny,gray] at (6.2,-1.25){masked};
-\fill[blue!82](7.21,-1.65) rectangle (8.99,-0.85); \draw[black!30,line width=.3pt](7.21,-1.65) rectangle (8.99,-0.85); \node[font=\scriptsize,text=white] at (8.1,-1.25){2};
-\fill[blue!0](9.11,-1.65) rectangle (10.89,-0.85); \draw[black!30,line width=.3pt](9.11,-1.65) rectangle (10.89,-0.85); \node[font=\scriptsize,text=black] at (10.0,-1.25){1};
-\fill[blue!0](11.01,-1.65) rectangle (12.790000000000001,-0.85); \draw[black!30,line width=.3pt](11.01,-1.65) rectangle (12.790000000000001,-0.85); \node[font=\scriptsize,text=black] at (11.9,-1.25){1};
-\node[font=\scriptsize,anchor=east] at (5.15,-2.15){\code{ppmi}};
-\fill[black!7](5.3100000000000005,-2.55) rectangle (7.09,-1.75); \draw[black!25,line width=.3pt](5.3100000000000005,-2.55) rectangle (7.09,-1.75); \node[font=\tiny,gray] at (6.2,-2.15){masked};
-\fill[blue!37](7.21,-2.55) rectangle (8.99,-1.75); \draw[black!30,line width=.3pt](7.21,-2.55) rectangle (8.99,-1.75); \node[font=\scriptsize,text=black] at (8.1,-2.15){.34};
-\fill[blue!0](9.11,-2.55) rectangle (10.89,-1.75); \draw[black!30,line width=.3pt](9.11,-2.55) rectangle (10.89,-1.75); \node[font=\scriptsize,text=black] at (10.0,-2.15){.15};
-\fill[blue!82](11.01,-2.55) rectangle (12.790000000000001,-1.75); \draw[black!30,line width=.3pt](11.01,-2.55) rectangle (12.790000000000001,-1.75); \node[font=\scriptsize,text=white] at (11.9,-2.15){.56};
-\node[font=\scriptsize,anchor=east] at (5.15,-3.05){\code{csvd}};
-\fill[black!7](5.3100000000000005,-3.4499999999999997) rectangle (7.09,-2.65); \draw[black!25,line width=.3pt](5.3100000000000005,-3.4499999999999997) rectangle (7.09,-2.65); \node[font=\tiny,gray] at (6.2,-3.05){masked};
-\fill[blue!82](7.21,-3.4499999999999997) rectangle (8.99,-2.65); \draw[black!30,line width=.3pt](7.21,-3.4499999999999997) rectangle (8.99,-2.65); \node[font=\scriptsize,text=white] at (8.1,-3.05){.90};
-\fill[blue!0](9.11,-3.4499999999999997) rectangle (10.89,-2.65); \draw[black!30,line width=.3pt](9.11,-3.4499999999999997) rectangle (10.89,-2.65); \node[font=\scriptsize,text=black] at (10.0,-3.05){.55};
-\fill[blue!36](11.01,-3.4499999999999997) rectangle (12.790000000000001,-2.65); \draw[black!30,line width=.3pt](11.01,-3.4499999999999997) rectangle (12.790000000000001,-2.65); \node[font=\scriptsize,text=black] at (11.9,-3.05){.70};
-\node[font=\scriptsize,anchor=east] at (5.15,-3.9499999999999997){\code{simp}};
-\fill[black!7](5.3100000000000005,-4.35) rectangle (7.09,-3.55); \draw[black!25,line width=.3pt](5.3100000000000005,-4.35) rectangle (7.09,-3.55); \node[font=\tiny,gray] at (6.2,-3.9499999999999997){masked};
-\fill[blue!82](7.21,-4.35) rectangle (8.99,-3.55); \draw[black!30,line width=.3pt](7.21,-4.35) rectangle (8.99,-3.55); \node[font=\scriptsize,text=white] at (8.1,-3.9499999999999997){.38};
-\fill[blue!0](9.11,-4.35) rectangle (10.89,-3.55); \draw[black!30,line width=.3pt](9.11,-4.35) rectangle (10.89,-3.55); \node[font=\scriptsize,text=black] at (10.0,-3.9499999999999997){.19};
-\fill[blue!0](11.01,-4.35) rectangle (12.790000000000001,-3.55); \draw[black!30,line width=.3pt](11.01,-4.35) rectangle (12.790000000000001,-3.55); \node[font=\scriptsize,text=black] at (11.9,-3.9499999999999997){.19};
-\node[font=\scriptsize,anchor=east] at (5.15,-4.85){\code{diff2}};
-\fill[black!7](5.3100000000000005,-5.25) rectangle (7.09,-4.449999999999999); \draw[black!25,line width=.3pt](5.3100000000000005,-5.25) rectangle (7.09,-4.449999999999999); \node[font=\tiny,gray] at (6.2,-4.85){masked};
-\fill[blue!82](7.21,-5.25) rectangle (8.99,-4.449999999999999); \draw[black!30,line width=.3pt](7.21,-5.25) rectangle (8.99,-4.449999999999999); \node[font=\scriptsize,text=white] at (8.1,-4.85){.05};
-\fill[blue!65](9.11,-5.25) rectangle (10.89,-4.449999999999999); \draw[black!30,line width=.3pt](9.11,-5.25) rectangle (10.89,-4.449999999999999); \node[font=\scriptsize,text=white] at (10.0,-4.85){.04};
-\fill[blue!0](11.01,-5.25) rectangle (12.790000000000001,-4.449999999999999); \draw[black!30,line width=.3pt](11.01,-5.25) rectangle (12.790000000000001,-4.449999999999999); \node[font=\scriptsize,text=black] at (11.9,-4.85){.03};
-\node[font=\scriptsize,anchor=east] at (5.15,-5.75){\code{pop}};
-\fill[black!7](5.3100000000000005,-6.15) rectangle (7.09,-5.35); \draw[black!25,line width=.3pt](5.3100000000000005,-6.15) rectangle (7.09,-5.35); \node[font=\tiny,gray] at (6.2,-5.75){masked};
-\fill[blue!82](7.21,-6.15) rectangle (8.99,-5.35); \draw[black!30,line width=.3pt](7.21,-6.15) rectangle (8.99,-5.35); \node[font=\scriptsize,text=white] at (8.1,-5.75){1.39};
-\fill[blue!48](9.11,-6.15) rectangle (10.89,-5.35); \draw[black!30,line width=.3pt](9.11,-6.15) rectangle (10.89,-5.35); \node[font=\scriptsize,text=black] at (10.0,-5.75){1.10};
-\fill[blue!0](11.01,-6.15) rectangle (12.790000000000001,-5.35); \draw[black!30,line width=.3pt](11.01,-6.15) rectangle (12.790000000000001,-5.35); \node[font=\scriptsize,text=black] at (11.9,-5.75){.69};
-\node[font=\scriptsize,anchor=east] at (5.15,-6.65){$\Delta_{\mathrm{inc}}$,\,\code{rao}};
-\fill[black!7](5.3100000000000005,-7.050000000000001) rectangle (7.09,-6.25); \draw[black!25,line width=.3pt](5.3100000000000005,-7.050000000000001) rectangle (7.09,-6.25); \node[font=\tiny,gray] at (6.2,-6.65){masked};
-\fill[blue!0](7.21,-7.050000000000001) rectangle (8.99,-6.25); \draw[black!30,line width=.3pt](7.21,-7.050000000000001) rectangle (8.99,-6.25); \node[font=\scriptsize,text=black] at (8.1,-6.65){0};
-\fill[blue!0](9.11,-7.050000000000001) rectangle (10.89,-6.25); \draw[black!30,line width=.3pt](9.11,-7.050000000000001) rectangle (10.89,-6.25); \node[font=\scriptsize,text=black] at (10.0,-6.65){0};
-\fill[blue!0](11.01,-7.050000000000001) rectangle (12.790000000000001,-6.25); \draw[black!30,line width=.3pt](11.01,-7.050000000000001) rectangle (12.790000000000001,-6.25); \node[font=\scriptsize,text=black] at (11.9,-6.65){0};
-\node[font=\scriptsize,anchor=east] at (5.15,-7.970000000000001){\code{cat}};
-\fill[black!7](5.3100000000000005,-8.370000000000001) rectangle (7.09,-7.57); \draw[black!25,line width=.3pt](5.3100000000000005,-8.370000000000001) rectangle (7.09,-7.57); \node[font=\tiny,gray] at (6.2,-7.970000000000001){masked};
-\fill[violet!82](7.21,-8.370000000000001) rectangle (8.99,-7.57); \draw[black!30,line width=.3pt](7.21,-8.370000000000001) rectangle (8.99,-7.57); \node[font=\scriptsize,text=white] at (8.1,-7.970000000000001){.65};
-\fill[violet!0](9.11,-8.370000000000001) rectangle (10.89,-7.57); \draw[black!30,line width=.3pt](9.11,-8.370000000000001) rectangle (10.89,-7.57); \node[font=\scriptsize,text=black] at (10.0,-7.970000000000001){.00};
-\fill[violet!23](11.01,-8.370000000000001) rectangle (12.790000000000001,-7.57); \draw[black!30,line width=.3pt](11.01,-8.370000000000001) rectangle (12.790000000000001,-7.57); \node[font=\scriptsize,text=black] at (11.9,-7.970000000000001){.18};
-\node[font=\scriptsize,anchor=east] at (5.15,-8.870000000000001){\emph{others}};
-\fill[black!4](7.21,-9.270000000000001) rectangle (12.790000000000001,-8.47); \draw[black!30,dashed,line width=.3pt](7.21,-9.270000000000001) rectangle (12.790000000000001,-8.47);
-\node[font=\tiny,gray] at (10.0,-8.870000000000001){\code{homo}, \code{softcat}, \code{content}: n/a --- no embeddings / not music};
-\node[font=\scriptsize,anchor=east] at (5.15,-10.190000000000001){$Y$};
-\fill[black!7](5.3100000000000005,-10.590000000000002) rectangle (7.09,-9.790000000000001); \draw[black!25,line width=.3pt](5.3100000000000005,-10.590000000000002) rectangle (7.09,-9.790000000000001); \node[font=\tiny,gray] at (6.2,-10.190000000000001){masked};
-\fill[blue!75](7.21,-10.590000000000002) rectangle (8.99,-9.790000000000001); \draw[black!30,line width=.3pt](7.21,-10.590000000000002) rectangle (8.99,-9.790000000000001); \node[font=\scriptsize,text=white] at (8.1,-10.190000000000001){1.18};
-\fill[blue!0](9.11,-10.590000000000002) rectangle (10.89,-9.790000000000001); \draw[black!30,line width=.3pt](9.11,-10.590000000000002) rectangle (10.89,-9.790000000000001); \node[font=\scriptsize,text=black] at (10.0,-10.190000000000001){-.91};
-\fill[blue!82](11.01,-10.590000000000002) rectangle (12.790000000000001,-9.790000000000001); \draw[black!30,line width=.3pt](11.01,-10.590000000000002) rectangle (12.790000000000001,-9.790000000000001); \node[font=\scriptsize,text=white] at (11.9,-10.190000000000001){1.38};
-\node[font=\scriptsize,anchor=east] at (5.15,-11.090000000000002){$\mu_0$};
-\fill[black!7](5.3100000000000005,-11.490000000000002) rectangle (7.09,-10.690000000000001); \draw[black!25,line width=.3pt](5.3100000000000005,-11.490000000000002) rectangle (7.09,-10.690000000000001); \node[font=\tiny,gray] at (6.2,-11.090000000000002){masked};
-\fill[violet!82](7.21,-11.490000000000002) rectangle (8.99,-10.690000000000001); \draw[black!30,line width=.3pt](7.21,-11.490000000000002) rectangle (8.99,-10.690000000000001); \node[font=\scriptsize,text=white] at (8.1,-11.090000000000002){2.17};
-\fill[violet!0](9.11,-11.490000000000002) rectangle (10.89,-10.690000000000001); \draw[black!30,line width=.3pt](9.11,-11.490000000000002) rectangle (10.89,-10.690000000000001); \node[font=\scriptsize,text=black] at (10.0,-11.090000000000002){-1.02};
-\fill[violet!23](11.01,-11.490000000000002) rectangle (12.790000000000001,-10.690000000000001); \draw[black!30,line width=.3pt](11.01,-11.490000000000002) rectangle (12.790000000000001,-10.690000000000001); \node[font=\scriptsize,text=black] at (11.9,-11.090000000000002){-.13};
-\node[font=\scriptsize,anchor=east] at (5.15,-11.990000000000002){$\hat\theta$};
-\fill[black!7](5.3100000000000005,-12.390000000000002) rectangle (7.09,-11.590000000000002); \draw[black!25,line width=.3pt](5.3100000000000005,-12.390000000000002) rectangle (7.09,-11.590000000000002); \node[font=\tiny,gray] at (6.2,-11.990000000000002){masked};
-\fill[green!82](7.21,-12.390000000000002) rectangle (8.99,-11.590000000000002); \draw[black!30,line width=.3pt](7.21,-12.390000000000002) rectangle (8.99,-11.590000000000002); \node[font=\scriptsize,text=white] at (8.1,-11.990000000000002){1.43};
-\fill[green!0](9.11,-12.390000000000002) rectangle (10.89,-11.590000000000002); \draw[black!30,line width=.3pt](9.11,-12.390000000000002) rectangle (10.89,-11.590000000000002); \node[font=\scriptsize,text=black] at (10.0,-11.990000000000002){-.95};
-\fill[green!54](11.01,-12.390000000000002) rectangle (12.790000000000001,-11.590000000000002); \draw[black!30,line width=.3pt](11.01,-12.390000000000002) rectangle (12.790000000000001,-11.590000000000002); \node[font=\scriptsize,text=white] at (11.9,-11.990000000000002){.62};
-\draw[blue!55,line width=2pt](3.1,-0.85) -- (3.1,-7.050000000000001);
-\node[font=\scriptsize\bfseries,rotate=90,anchor=south,text=blue!55] at (2.8,-3.95){Collaborative};
-\draw[violet!55,line width=2pt](3.1,-7.57) -- (3.1,-9.270000000000001);
-\node[font=\scriptsize\bfseries,rotate=90,anchor=south,text=violet!55] at (2.8,-8.420000000000002){Taxonomic};
-\draw[green!55,line width=2pt](3.1,-9.790000000000001) -- (3.1,-12.390000000000002);
-\node[font=\scriptsize\bfseries,rotate=90,anchor=south,text=green!55] at (2.8,-11.090000000000002){Fusion};
-\draw[black!30,dashed](2.8000000000000003,-9.58) -- (12.89,-9.58);
-\draw[green!60!black,line width=1.1pt,rounded corners=2pt](7.16,-12.440000000000003) rectangle (12.840000000000002,-11.540000000000001);
-\node[draw,very thick,rounded corners,fill=green!14,font=\small,align=center] (OUT) at (10.0,-13.590000000000002){\textbf{Filled bundle}\quad $\{\,1,\ \mathbf{2},\ \mathbf{4}\,\}$\\[1pt]{\scriptsize final order $\hat\theta:\ 2\succ4\succ3$ \ (return top-$K$)}};
-\draw[->,green!55!black](8.1,-12.440000000000003) to[out=-90,in=150] (OUT.north west);
-\draw[->,green!55!black](11.9,-12.440000000000003) to[out=-90,in=30] (OUT.north east);
-\node[draw,rounded corners,align=center,font=\scriptsize,text width=27mm,inner sep=4pt,fill=green!14,very thick] (F0) at (0,0.15){\textbf{Partial bundle}\\$S=\{1\}$\\$\Rightarrow\ x_S\in\{0,1\}^{n}$\\{\tiny$n=\#\text{items}$ (sketch $n{=}4$)}};
-\node[draw,rounded corners,align=center,font=\scriptsize,text width=27mm,inner sep=4pt,fill=blue!8] (F1) at (0,-5.0600000000000005){\textbf{1.\ Score}\\every candidate by\\\emph{all} signals, then\\standardise $\to z_k$\\[2pt]{\tiny each score, $z_k\in\mathbb{R}^{n}$\\$C,\mathrm{PPMI}\in\mathbb{R}^{n\times n}$\\$U\in\mathbb{R}^{n\times128}$, $\phi\in\mathbb{R}^{d}$}};
-\node[draw,rounded corners,align=center,font=\scriptsize,text width=27mm,inner sep=4pt,fill=orange!15] (F2) at (0,-11.090000000000002){\textbf{2.\ Fuse \& route}\\blend $Y$, add prior $\mu_0$,\\mix per item\\$\hat\theta=(1{-}u_c)Y{+}u_c\mu_0$\\[2pt]{\tiny$Y,\mu_0,\hat\theta\in\mathbb{R}^{n}$}};
-\node[draw,rounded corners,align=center,font=\scriptsize,text width=27mm,inner sep=4pt,fill=green!14,very thick] (F3) at (0,-13.590000000000002){\textbf{3.\ Rank}\\drop seed $\Rightarrow$ filled\\bundle\\{\tiny return top-$K$}};
-\draw[->,line width=1pt](F0)--(F1);\draw[->,line width=1pt](F1)--(F2);\draw[->,line width=1pt](F2)--(F3);
-\draw[->,gray,shorten >=2pt](F1.east) -- (2.25,-5.0600000000000005);
-\draw[->,gray,shorten >=2pt](F2.east) -- (2.25,-11.090000000000002);
-\draw[->,gray](F3.east) -- (OUT.west);
+\begin{tikzpicture}[>=Latex,font=\scriptsize]
+\node[font=\scriptsize,align=center] at (5.00,0.78) {\textbf{earr.\checkmark}\\{\tiny $f_c{=}686$}};
+\node[font=\scriptsize,align=center] at (6.75,0.78) {\textbf{pearl}\\{\tiny $f_c{=}3077$}};
+\node[font=\scriptsize,align=center] at (8.50,0.78) {\textbf{2\,bag}\\{\tiny $f_c{=}140$}};
+\node[font=\scriptsize,align=center] at (10.25,0.78) {\textbf{heels}\\{\tiny $f_c{=}17$}};
+\node[font=\scriptsize,align=center] at (12.00,0.78) {\textbf{dress\,$\times$}\\{\tiny $f_c{=}2$}};
+\node[font=\tiny,gray,anchor=west] at (4.18,1.25) {colour $=$ score within each row (dark $=$ high); exact value in cell};
+\node[font=\scriptsize,anchor=east] at (4.10,0.00) {\code{cooc}};
+\fill[blue!82] (4.18,-0.27) rectangle (5.82,0.27); \draw[black!25,line width=.3pt] (4.18,-0.27) rectangle (5.82,0.27); \node[font=\scriptsize,text=white] at (5.00,0.00) {17};
+\fill[blue!17] (5.93,-0.27) rectangle (7.57,0.27); \draw[black!25,line width=.3pt] (5.93,-0.27) rectangle (7.57,0.27); \node[font=\scriptsize,text=black] at (6.75,0.00) {2};
+\fill[blue!17] (7.68,-0.27) rectangle (9.32,0.27); \draw[black!25,line width=.3pt] (7.68,-0.27) rectangle (9.32,0.27); \node[font=\scriptsize,text=black] at (8.50,0.00) {2};
+\fill[blue!21] (9.43,-0.27) rectangle (11.07,0.27); \draw[black!25,line width=.3pt] (9.43,-0.27) rectangle (11.07,0.27); \node[font=\scriptsize,text=black] at (10.25,0.00) {3};
+\fill[blue!8] (11.18,-0.27) rectangle (12.82,0.27); \draw[black!25,line width=.3pt] (11.18,-0.27) rectangle (12.82,0.27); \node[font=\scriptsize,text=black] at (12.00,0.00) {0};
+\node[font=\scriptsize,anchor=east] at (4.10,-0.62) {\code{ppmi}};
+\fill[blue!82] (4.18,-0.89) rectangle (5.82,-0.35); \draw[black!25,line width=.3pt] (4.18,-0.89) rectangle (5.82,-0.35); \node[font=\scriptsize,text=white] at (5.00,-0.62) {6.7};
+\fill[blue!23] (5.93,-0.89) rectangle (7.57,-0.35); \draw[black!25,line width=.3pt] (5.93,-0.89) rectangle (7.57,-0.35); \node[font=\scriptsize,text=black] at (6.75,-0.62) {1.3};
+\fill[blue!57] (7.68,-0.89) rectangle (9.32,-0.35); \draw[black!25,line width=.3pt] (7.68,-0.89) rectangle (9.32,-0.35); \node[font=\scriptsize,text=white] at (8.50,-0.62) {4.4};
+\fill[blue!71] (9.43,-0.89) rectangle (11.07,-0.35); \draw[black!25,line width=.3pt] (9.43,-0.89) rectangle (11.07,-0.35); \node[font=\scriptsize,text=white] at (10.25,-0.62) {5.8};
+\fill[blue!8] (11.18,-0.89) rectangle (12.82,-0.35); \draw[black!25,line width=.3pt] (11.18,-0.89) rectangle (12.82,-0.35); \node[font=\scriptsize,text=black] at (12.00,-0.62) {0.0};
+\node[font=\scriptsize,anchor=east] at (4.10,-1.24) {\code{csvd}};
+\fill[blue!50] (4.18,-1.51) rectangle (5.82,-0.97); \draw[black!25,line width=.3pt] (4.18,-1.51) rectangle (5.82,-0.97); \node[font=\scriptsize,text=black] at (5.00,-1.24) {3.7};
+\fill[blue!8] (5.93,-1.51) rectangle (7.57,-0.97); \draw[black!25,line width=.3pt] (5.93,-1.51) rectangle (7.57,-0.97); \node[font=\scriptsize,text=black] at (6.75,-1.24) {-0.0};
+\fill[blue!20] (7.68,-1.51) rectangle (9.32,-0.97); \draw[black!25,line width=.3pt] (7.68,-1.51) rectangle (9.32,-0.97); \node[font=\scriptsize,text=black] at (8.50,-1.24) {1.0};
+\fill[blue!82] (9.43,-1.51) rectangle (11.07,-0.97); \draw[black!25,line width=.3pt] (9.43,-1.51) rectangle (11.07,-0.97); \node[font=\scriptsize,text=white] at (10.25,-1.24) {6.6};
+\fill[blue!78] (11.18,-1.51) rectangle (12.82,-0.97); \draw[black!25,line width=.3pt] (11.18,-1.51) rectangle (12.82,-0.97); \node[font=\scriptsize,text=white] at (12.00,-1.24) {6.3};
+\node[font=\scriptsize,anchor=east] at (4.10,-1.86) {\code{simp}};
+\fill[blue!82] (4.18,-2.13) rectangle (5.82,-1.59); \draw[black!25,line width=.3pt] (4.18,-2.13) rectangle (5.82,-1.59); \node[font=\scriptsize,text=white] at (5.00,-1.86) {124};
+\fill[blue!21] (5.93,-2.13) rectangle (7.57,-1.59); \draw[black!25,line width=.3pt] (5.93,-2.13) rectangle (7.57,-1.59); \node[font=\scriptsize,text=black] at (6.75,-1.86) {22};
+\fill[blue!20] (7.68,-2.13) rectangle (9.32,-1.59); \draw[black!25,line width=.3pt] (7.68,-2.13) rectangle (9.32,-1.59); \node[font=\scriptsize,text=black] at (8.50,-1.86) {21};
+\fill[blue!20] (9.43,-2.13) rectangle (11.07,-1.59); \draw[black!25,line width=.3pt] (9.43,-2.13) rectangle (11.07,-1.59); \node[font=\scriptsize,text=black] at (10.25,-1.86) {21};
+\fill[blue!8] (11.18,-2.13) rectangle (12.82,-1.59); \draw[black!25,line width=.3pt] (11.18,-2.13) rectangle (12.82,-1.59); \node[font=\scriptsize,text=black] at (12.00,-1.86) {-0};
+\node[font=\scriptsize,anchor=east] at (4.10,-2.48) {\code{cat}};
+\fill[violet!82] (4.18,-2.75) rectangle (5.82,-2.21); \draw[black!25,line width=.3pt] (4.18,-2.75) rectangle (5.82,-2.21); \node[font=\scriptsize,text=white] at (5.00,-2.48) {1.8};
+\fill[violet!82] (5.93,-2.75) rectangle (7.57,-2.21); \draw[black!25,line width=.3pt] (5.93,-2.75) rectangle (7.57,-2.21); \node[font=\scriptsize,text=white] at (6.75,-2.48) {1.8};
+\fill[violet!8] (7.68,-2.75) rectangle (9.32,-2.21); \draw[black!25,line width=.3pt] (7.68,-2.75) rectangle (9.32,-2.21); \node[font=\scriptsize,text=black] at (8.50,-2.48) {-1.0};
+\fill[violet!24] (9.43,-2.75) rectangle (11.07,-2.21); \draw[black!25,line width=.3pt] (9.43,-2.75) rectangle (11.07,-2.21); \node[font=\scriptsize,text=black] at (10.25,-2.48) {-0.4};
+\fill[violet!79] (11.18,-2.75) rectangle (12.82,-2.21); \draw[black!25,line width=.3pt] (11.18,-2.75) rectangle (12.82,-2.21); \node[font=\scriptsize,text=white] at (12.00,-2.48) {1.7};
+\node[font=\scriptsize,anchor=east] at (4.10,-3.10) {\code{softcat}};
+\fill[violet!77] (4.18,-3.37) rectangle (5.82,-2.83); \draw[black!25,line width=.3pt] (4.18,-3.37) rectangle (5.82,-2.83); \node[font=\scriptsize,text=white] at (5.00,-3.10) {3.9};
+\fill[violet!82] (5.93,-3.37) rectangle (7.57,-2.83); \draw[black!25,line width=.3pt] (5.93,-3.37) rectangle (7.57,-2.83); \node[font=\scriptsize,text=white] at (6.75,-3.10) {4.2};
+\fill[violet!30] (7.68,-3.37) rectangle (9.32,-2.83); \draw[black!25,line width=.3pt] (7.68,-3.37) rectangle (9.32,-2.83); \node[font=\scriptsize,text=black] at (8.50,-3.10) {0.7};
+\fill[violet!17] (9.43,-3.37) rectangle (11.07,-2.83); \draw[black!25,line width=.3pt] (9.43,-3.37) rectangle (11.07,-2.83); \node[font=\scriptsize,text=black] at (10.25,-3.10) {-0.1};
+\fill[violet!8] (11.18,-3.37) rectangle (12.82,-2.83); \draw[black!25,line width=.3pt] (11.18,-3.37) rectangle (12.82,-2.83); \node[font=\scriptsize,text=black] at (12.00,-3.10) {-0.7};
+\node[font=\scriptsize,anchor=east] at (4.10,-3.72) {\code{bridge}};
+\fill[teal!82] (4.18,-3.99) rectangle (5.82,-3.45); \draw[black!25,line width=.3pt] (4.18,-3.99) rectangle (5.82,-3.45); \node[font=\scriptsize,text=white] at (5.00,-3.72) {3.4};
+\fill[teal!55] (5.93,-3.99) rectangle (7.57,-3.45); \draw[black!25,line width=.3pt] (5.93,-3.99) rectangle (7.57,-3.45); \node[font=\scriptsize,text=white] at (6.75,-3.72) {2.0};
+\fill[teal!61] (7.68,-3.99) rectangle (9.32,-3.45); \draw[black!25,line width=.3pt] (7.68,-3.99) rectangle (9.32,-3.45); \node[font=\scriptsize,text=white] at (8.50,-3.72) {2.3};
+\fill[teal!65] (9.43,-3.99) rectangle (11.07,-3.45); \draw[black!25,line width=.3pt] (9.43,-3.99) rectangle (11.07,-3.45); \node[font=\scriptsize,text=white] at (10.25,-3.72) {2.5};
+\fill[teal!8] (11.18,-3.99) rectangle (12.82,-3.45); \draw[black!25,line width=.3pt] (11.18,-3.99) rectangle (12.82,-3.45); \node[font=\scriptsize,text=black] at (12.00,-3.72) {-0.6};
+\node[font=\scriptsize,anchor=east] at (4.10,-4.34) {$Y$};
+\fill[blue!82] (4.18,-4.61) rectangle (5.82,-4.07); \draw[black!25,line width=.3pt] (4.18,-4.61) rectangle (5.82,-4.07); \node[font=\scriptsize,text=white] at (5.00,-4.34) {130};
+\fill[blue!23] (5.93,-4.61) rectangle (7.57,-4.07); \draw[black!25,line width=.3pt] (5.93,-4.61) rectangle (7.57,-4.07); \node[font=\scriptsize,text=black] at (6.75,-4.34) {28};
+\fill[blue!20] (7.68,-4.61) rectangle (9.32,-4.07); \draw[black!25,line width=.3pt] (7.68,-4.61) rectangle (9.32,-4.07); \node[font=\scriptsize,text=black] at (8.50,-4.34) {22};
+\fill[blue!20] (9.43,-4.61) rectangle (11.07,-4.07); \draw[black!25,line width=.3pt] (9.43,-4.61) rectangle (11.07,-4.07); \node[font=\scriptsize,text=black] at (10.25,-4.34) {22};
+\fill[blue!8] (11.18,-4.61) rectangle (12.82,-4.07); \draw[black!25,line width=.3pt] (11.18,-4.61) rectangle (12.82,-4.07); \node[font=\scriptsize,text=black] at (12.00,-4.34) {2};
+\node[font=\scriptsize,anchor=east] at (4.10,-4.96) {$\mu_0$};
+\fill[blue!77] (4.18,-5.23) rectangle (5.82,-4.69); \draw[black!25,line width=.3pt] (4.18,-5.23) rectangle (5.82,-4.69); \node[font=\scriptsize,text=white] at (5.00,-4.96) {8.2};
+\fill[blue!82] (5.93,-5.23) rectangle (7.57,-4.69); \draw[black!25,line width=.3pt] (5.93,-5.23) rectangle (7.57,-4.69); \node[font=\scriptsize,text=white] at (6.75,-4.96) {8.7};
+\fill[blue!14] (7.68,-5.23) rectangle (9.32,-4.69); \draw[black!25,line width=.3pt] (7.68,-5.23) rectangle (9.32,-4.69); \node[font=\scriptsize,text=black] at (8.50,-4.96) {2.1};
+\fill[blue!8] (9.43,-5.23) rectangle (11.07,-4.69); \draw[black!25,line width=.3pt] (9.43,-5.23) rectangle (11.07,-4.69); \node[font=\scriptsize,text=black] at (10.25,-4.96) {1.5};
+\fill[blue!14] (11.18,-5.23) rectangle (12.82,-4.69); \draw[black!25,line width=.3pt] (11.18,-5.23) rectangle (12.82,-4.69); \node[font=\scriptsize,text=black] at (12.00,-4.96) {2.1};
+\node[font=\scriptsize,anchor=east] at (4.10,-5.58) {$\hat\theta$};
+\fill[green!82] (4.18,-5.85) rectangle (5.82,-5.31); \draw[black!25,line width=.3pt] (4.18,-5.85) rectangle (5.82,-5.31); \node[font=\scriptsize,text=white] at (5.00,-5.58) {130};
+\fill[green!23] (5.93,-5.85) rectangle (7.57,-5.31); \draw[black!25,line width=.3pt] (5.93,-5.85) rectangle (7.57,-5.31); \node[font=\scriptsize,text=black] at (6.75,-5.58) {28};
+\fill[green!20] (7.68,-5.85) rectangle (9.32,-5.31); \draw[black!25,line width=.3pt] (7.68,-5.85) rectangle (9.32,-5.31); \node[font=\scriptsize,text=black] at (8.50,-5.58) {22};
+\fill[green!20] (9.43,-5.85) rectangle (11.07,-5.31); \draw[black!25,line width=.3pt] (9.43,-5.85) rectangle (11.07,-5.31); \node[font=\scriptsize,text=black] at (10.25,-5.58) {22};
+\fill[green!8] (11.18,-5.85) rectangle (12.82,-5.31); \draw[black!25,line width=.3pt] (11.18,-5.85) rectangle (12.82,-5.31); \node[font=\scriptsize,text=black] at (12.00,-5.58) {2};
+\draw[blue!60,line width=1.6pt] (2.46,0.27) -- (2.46,-2.13);
+\draw[violet!60,line width=1.6pt] (2.46,-2.21) -- (2.46,-3.37);
+\draw[teal!60,line width=1.6pt] (2.46,-3.45) -- (2.46,-3.99);
+\draw[green!60,line width=1.6pt] (2.46,-4.07) -- (2.46,-5.85);
+\draw[black!30,dashed] (2.16,-4.03) -- (12.82,-4.03);
+\draw[green!60!black,line width=1pt,rounded corners=2pt] (4.13,-5.88) rectangle (12.87,-5.28);
+\node[draw,rounded corners,align=center,font=\scriptsize,text width=20mm,inner sep=3pt,fill=green!14] (B1) at (0.95,0.78) {\textbf{Partial bundle}\\$S{=}\{$bag,\,sandals$\}$\\$\Rightarrow x_S\in\{0,1\}^{n}$};
+\node[draw,rounded corners,align=center,font=\scriptsize,text width=20mm,inner sep=3pt,fill=blue!8] (B-2) at (0.95,-1.86) {\textbf{1. Score}\\every item by\\\emph{all} signals\\$\to z_k\in\mathbb{R}^{n}$};
+\node[draw,rounded corners,align=center,font=\scriptsize,text width=20mm,inner sep=3pt,fill=orange!15] (B-5) at (0.95,-4.53) {\textbf{2. Fuse \& route}\\$Y,\mu_0,\hat\theta\in\mathbb{R}^{n}$\\$\hat\theta{=}(1{-}u_c)Y{+}u_c\mu_0$};
+\node[draw,rounded corners,align=center,font=\scriptsize,text width=20mm,inner sep=3pt,fill=green!14,very thick] (BR) at (0.95,-6.57) {\textbf{3. Rank}\\drop seeds, return top-$K$};
+\draw[->,line width=0.9pt] (0.95,0.23) -- (0.95,-1.31);
+\draw[->,line width=0.9pt] (0.95,-2.41) -- (0.95,-3.98);
+\draw[->,line width=0.9pt] (0.95,-5.08) -- (0.95,-6.02);
+\draw[->,gray] (1.85,-1.86) -- (2.93,-1.86);
+\draw[->,gray] (1.85,-4.53) -- (2.93,-4.53);
+\node[draw,very thick,rounded corners,fill=green!14,align=center,font=\scriptsize] (OUT) at (7.62,-6.57) {\textbf{Filled bundle}: $S\cup\{$\textbf{earrings}$\}$\\{\tiny earrings recovered at rank 1; the rare dress missed (rank 3971)}};
+\draw[->,green!55!black] (5.00,-5.85) to[out=-90,in=150] (OUT.north west);
 \end{tikzpicture}
 \end{center}
-\captionof{figure}{\textbf{How a partial bundle is filled: a flow chart (left) aligned to the score map (right), with
-dimensions.} Everything is a vector over the $n$ catalogue items (here $n{=}4$; the seed~$1$ column is masked).
-\textbf{(1)~Score:} the seed indicator $x_S\in\{0,1\}^n$ is turned into one score vector $\in\mathbb{R}^n$ by
-\emph{every} signal (rows, grouped by family)---collaborative ones multiply by $C,\mathrm{PPMI}\in\mathbb{R}^{n\times
-n}$ or use the fingerprint $U\in\mathbb{R}^{n\times128}$; content ones use embeddings $\phi\in\mathbb{R}^{d}$
-($d{=}512$ title / $768$ image, \S\ref{sec:emb})---then each row is standardised to a $z$-score. Cells are shaded
-darker when higher, with the exact sketch value inside; note the collaborative signals favour hub item~$2$ while
-\code{ppmi} backs rare item~$4$, \code{homo}/\code{softcat}/\code{content} are \emph{n/a} (the sketch has no
-embeddings/music), and $\Delta_{\mathrm{inc}}$/\code{rao} are $0$ (one seed forms no pair). \textbf{(2)~Fuse \&
-route:} the rows collapse into $Y$ (Stages~1--2), prior $\mu_0$ (Stage~3) and their per-item mix
-$\hat\theta=(1-u_c)Y+u_c\mu_0,\ u_c=\kappa/(f_c+\kappa)$ (Stage~4), all $\in\mathbb{R}^n$. \textbf{(3)~Rank:} order
-$\hat\theta$ (highlighted), drop the seed, return top-$K$ $\Rightarrow\{1,\mathbf2,\mathbf4\}$. This overview uses the
-4-item sketch ($n{=}4$) only so the whole pipeline fits on one page; the \emph{real} query is worked signal by signal
-through the note and consolidated on real numbers in Fig.~\ref{fig:pog}.}
+\captionof{figure}{\textbf{How a partial bundle is filled: the flow (left) aligned to the real score map (right).} The query is the real \textsc{POG} outfit $S=\{$bag, sandals$\}$; columns are five candidates (two held-out: the \textbf{earrings}\,\checkmark\ and the \textbf{dress}\,$\times$), rows are the signals, grouped by family, then the fusion scores $Y,\mu_0,\hat\theta$. \textbf{(1)~Score:} every signal turns $x_S$ into one value per item (cells; shaded dark where high \emph{within that row}, exact value inside)---collaborative \code{cooc}/\code{simp} and taxonomic \code{cat}/\code{softcat} both back the earrings, while \code{csvd} alone rates the rare dress and heels highest. \textbf{(2)~Fuse \& route:} the rows collapse into $Y$ (collab.\ blend), $\mu_0$ (prior) and $\hat\theta=(1-u_c)Y+u_c\mu_0$; here $\kappa{=}0$ so $\hat\theta{=}Y$. \textbf{(3)~Rank:} order $\hat\theta$ (green row), drop the seeds, return top-$K$: the \textbf{earrings} come out at rank~1, the rare \textbf{dress} is missed (rank~3971). Every number is the live scorer's output (\code{results/case\_study\_pog\_dense.json}); the signals are worked one by one in \S\ref{sec:signals}--\S\ref{sec:fuse} and consolidated in Fig.~\ref{fig:pog}.}
 \label{fig:flow}
 
 The note is bottom-up, and it is built as a \textbf{story with a problem driving every step}: we start from the
@@ -508,23 +489,24 @@ a hub; the hub here is the popular pearl-earring listing.)
 
 \begin{center}
 \begin{tikzpicture}
-\begin{axis}[ybar,bar width=13pt,width=0.9\linewidth,height=5.2cm,
-  symbolic x coords={item 2,item 3,item 4},xtick=data,
-  ymin=0,ymax=2.35,enlarge x limits=0.3,
-  ylabel={score for query $S=\{1\}$},
+\begin{axis}[ybar,bar width=11pt,width=0.9\linewidth,height=5.2cm,
+  symbolic x coords={earrings,pearl hub,2nd bag,heels},xtick=data,
+  ymin=0,ymax=19,enlarge x limits=0.22,
+  ylabel={score for $S=\{\text{bag},\text{sandals}\}$},
   legend style={font=\small,at={(0.5,1.04)},anchor=south,legend columns=2},
   nodes near coords,every node near coord/.append style={font=\scriptsize}]
-\addplot[fill=blue!35] coordinates {(item 2,2) (item 3,1) (item 4,1)};
-\addplot[fill=orange!65] coordinates {(item 2,0.336) (item 3,0.154) (item 4,0.560)};
-\legend{raw co-occurrence,PPMI}
+\addplot[fill=blue!35] coordinates {(earrings,17) (pearl hub,2) (2nd bag,2) (heels,3)};
+\addplot[fill=orange!65] coordinates {(earrings,6.72) (pearl hub,1.34) (2nd bag,4.45) (heels,5.76)};
+\legend{raw co-occurrence (count),PPMI}
 \end{axis}
 \end{tikzpicture}
 \end{center}
-\captionof{figure}{\emph{Same query, two signals, opposite winners.} Raw co-occurrence (blue) crowns the \emph{hub} item $2$;
-PPMI (orange), by dividing out each item's popularity, crowns the \emph{rare-but-exclusive} item $4$. The PPMI bars
-are shorter in absolute terms (they are log-ratios), but standardisation in \S\ref{sec:toscore} removes that scale
-difference---what survives into the blend is the \emph{ordering}. (4-item sketch, to show the mechanism; the real
-query's version is the $3.07$-vs-$1.34$ hub gap worked in Ex.~\ref{ex:ppmi}.)}
+\captionof{figure}{\emph{Real query: popularity is divided out.} Raw co-occurrence counts (blue) and PPMI (orange)
+for four candidates. The true \textbf{earrings} dominate both. The crucial comparison is the \textbf{pearl hub}: it
+shares the \emph{same} raw count with the sandals as the true earrings do ($2$ outfits), but because it is a
+popularity hub (degree $9{,}198$) PPMI credits that share only $1.34$ versus the earrings' $3.07$ --- the held-out
+dress (not shown) scores $0$ on both, being seen in only $2$ outfits total. Standardisation (\S\ref{sec:toscore})
+then puts these on a common scale; what survives into the blend is the \emph{ordering}.}
 \label{fig:ppmi}
 
 \subsection{Truncated SVD: a dense ``collaborative fingerprint'' per item}
@@ -559,24 +541,23 @@ happens, validation prunes \code{csvd} to weight $0$ on \textsc{POG}---\code{sim
 this particular signal does not enter the final blend; but it shows the fingerprint seeing what raw co-occurrence cannot.)
 
 \begin{center}
-\begin{tikzpicture}[>=Latex,dot/.style={circle,fill,inner sep=1.3pt}]
-\draw[->,gray!55](-3.1,0)--(3.1,0); \draw[->,gray!55](0,-2.5)--(0,2.5);
-\node[font=\scriptsize,gray] at (3.05,-0.22){dim 1}; \node[font=\scriptsize,gray] at (0.42,2.4){dim 2};
-\draw[->,thick,blue!70](0,0)--(2.54,0.56) node[dot]{} node[right,font=\scriptsize]{item $1$ (seed)};
-\draw[->,thick,blue!40](0,0)--(2.05,1.60) node[dot]{} node[above,font=\scriptsize]{item $2$};
-\draw[->,thick,orange!85](0,0)--(1.86,-1.82) node[dot]{} node[below,font=\scriptsize]{item $3$};
-\draw[->,thick,orange!55](0,0)--(2.19,-1.41) node[dot]{} node[right,font=\scriptsize]{item $4$};
-\node[font=\scriptsize,orange!85] at (1.15,-2.05){$\cos(3,4)=0.98$};
-\node[font=\scriptsize,blue!65] at (1.05,1.35){$\cos(1,2)=0.90$};
+\begin{tikzpicture}[>=Latex,dot/.style={circle,fill,inner sep=1.6pt}]
+\draw[->,gray!55](-3.1,0)--(3.1,0); \draw[->,gray!55](0,-2.9)--(0,2.9);
+\node[font=\scriptsize,gray] at (3.0,-0.22){PC 1}; \node[font=\scriptsize,gray] at (0.42,2.8){PC 2};
+\node[dot,black] at (-0.30,-1.86) {}; \node[font=\tiny,black,below,inner sep=2pt] at (-0.30,-1.86) {seed};
+\node[dot,black] at (-0.66,1.77) {}; \node[font=\tiny,black,right,inner sep=2pt] at (-0.66,1.77) {seed};
+\node[dot,blue!85] at (1.18,-2.32) {}; \node[font=\tiny,below right,inner sep=2pt] at (1.18,-2.32) {earrings ($\cos{=}0.38$)};
+\node[dot,orange!85] at (-1.15,1.71) {}; \node[font=\tiny,above left,inner sep=2pt] at (-1.15,1.71) {dress ($\cos{=}0.62$)};
+\node[dot,gray!85] at (2.70,0.98) {}; \node[font=\tiny,right,inner sep=2pt] at (2.70,0.98) {pearl hub};
+\node[dot,teal!85] at (-0.98,-0.59) {}; \node[font=\tiny,left,inner sep=2pt] at (-0.98,-0.59) {heels};
 \end{tikzpicture}
 \end{center}
-\captionof{figure}{\emph{The fingerprint sees partners-of-partners, not just direct pairs} (4-item sketch; on the real
-query this is why \code{csvd} rates the rare dress $0.62$ despite zero co-occurrence). These are the \textbf{exact}
-rank-$2$ $L_2$-normalised fingerprints $u_i$ of the sketch $\mathrm{PPMI}$ (machine-computed, $x$-sign flipped for display). Items
-$3$ and $4$ \textbf{never co-occur} ($C_{34}=0$), yet their fingerprints are almost identical ($\cos=0.98$) because
-both pair with $\{1,2\}$; the hubs $1,2$ likewise sit together ($\cos=0.90$). The \code{csvd} score of a candidate is
-the cosine between its fingerprint and the seeds' \emph{average} fingerprint---so a partial bundle recalls items with
-the same \emph{company}, even ones never literally seen with it.}
+\captionof{figure}{\emph{Real collaborative fingerprints, projected to 2D.} The $128$-dim PPMI-SVD fingerprints
+$u_i$ of the seeds and candidates, reduced to their first two principal components. The held-out \textbf{dress} sits
+\emph{closer} to the seed centroid ($\cos{=}0.62$) than the \textbf{earrings} ($\cos{=}0.38$): even with only
+$2$ training outfits, the dress keeps similar \emph{company} to the seeds in co-occurrence space --- the
+partners-of-partners evidence a direct count misses. (\code{csvd} is nonetheless pruned to weight $0$ on
+\textsc{POG}, since \code{simp} and \code{cat} already carry the query.)}
 \label{fig:fingerprint}
 
 \subsection{Degree normalisation: taming hubs and big bundles}
@@ -708,24 +689,26 @@ $\Delta_{\text{inc}}$ it is a small corrective, reported honestly as such.
 
 \begin{center}
 \begin{tikzpicture}
-\begin{axis}[ybar,bar width=8pt,width=0.92\linewidth,height=5cm,
-  symbolic x coords={item 2,item 3,item 4},xtick=data,
-  ymin=0,ymax=1.28,enlarge x limits=0.35,
-  ylabel={score (rel.\ to each signal's top)},
-  legend style={font=\scriptsize,at={(0.5,1.03)},anchor=south,legend columns=3}]
-\addplot[fill=blue!55]  coordinates {(item 2,1.0)(item 3,0.5)(item 4,0.5)};
-\addplot[fill=orange!70]coordinates {(item 2,0.600)(item 3,0.275)(item 4,1.0)};
-\addplot[fill=teal!55]  coordinates {(item 2,1.0)(item 3,0.606)(item 4,0.780)};
-\legend{cooc,ppmi,csvd}
+\begin{axis}[ybar,bar width=6pt,width=\linewidth,height=5.4cm,
+  symbolic x coords={earrings,pearl hub,2nd bag,heels,dress},xtick=data,x tick label style={font=\footnotesize},
+  ymin=-2,ymax=40,enlarge x limits=0.14,
+  ylabel={standardised score $z$},
+  legend style={font=\scriptsize,at={(0.5,1.03)},anchor=south,legend columns=3},
+  nodes near coords,every node near coord/.append style={font=\tiny,/pgf/number format/fixed,/pgf/number format/precision=0,rotate=90,anchor=west}]
+\addplot[fill=blue!55]  coordinates {(earrings,162.7) (pearl hub,19.1) (2nd bag,19.1) (heels,28.7) (dress,-0.0)};
+\addplot[fill=orange!65] coordinates {(earrings,29.1) (pearl hub,5.8) (2nd bag,19.2) (heels,24.9) (dress,-0.0)};
+\addplot[fill=teal!55]  coordinates {(earrings,3.7) (pearl hub,-0.0) (2nd bag,1.0) (heels,6.6) (dress,6.3)};
+\legend{\code{cooc},\code{ppmi},\code{csvd}}
 \end{axis}
+\node[font=\scriptsize,gray,align=center,anchor=north] at (3.4,-0.65) {(\code{cooc} caps at $162$ for the earrings --- off the top of this axis --- so the bars are clipped at $40$ to keep the others visible)};
 \end{tikzpicture}
 \end{center}
-\captionof{figure}{\emph{Three collaborative opinions disagree} (4-item sketch; the real query shows the same
-disagreement---\code{csvd} alone rates the rare dress above the earrings, Fig.~\ref{fig:pog}). Bar heights are each
-signal's score \emph{relative to its own top candidate} (sketch raw values: \code{cooc}$=(2,1,1)$,
-\code{ppmi}$=(.34,.15,.56)$, \code{csvd}$=(.90,.55,.70)$ over items $2,3,4$). Raw co-occurrence and the SVD fingerprint
-back the \emph{hub} item~$2$; chance-corrected PPMI backs the \emph{rare-but-exclusive} item~$4$. This disagreement is
-exactly why fusion (\S\ref{sec:fuse}) exists---no single collaborative signal is right everywhere.}
+\captionof{figure}{\emph{Three collaborative opinions on the real query, and they disagree.} Standardised
+\code{cooc}, \code{ppmi} and \code{csvd} ($z$-scores over all $31{,}217$ items). Raw co-occurrence and PPMI
+back the \textbf{earrings} (they literally ship together). But the SVD fingerprint \code{csvd} backs the
+\textbf{heels} and even the held-out \textbf{dress} (both $\approx 6$) over the earrings ($3.8$): it sees
+\emph{partners-of-partners}, so it rates the rare dress highly despite its zero co-occurrence. No single
+collaborative signal is right everywhere --- which is exactly why fusion (\S\ref{sec:fuse}) is needed.}
 \label{fig:collabfam}
 
 \subsection{Taxonomic family (from category/artist/album labels)}
@@ -771,23 +754,27 @@ its standardised \code{cat} score is \emph{negative} ($z=-1.01$). Taxonomy activ
 earrings \emph{also} carry a huge collaborative \code{simp} score that the dress lacks.)
 
 \begin{center}
-\resizebox{\linewidth}{!}{%
 \begin{tikzpicture}[>=Latex,font=\footnotesize,
-  bx/.style={draw,rounded corners,fill=violet!5,inner sep=5pt,align=left}]
-\node[bx] (map) {items\,$\to$\,categories:\\[1pt] $1,3\!\to\!A$\\ $2\!\to\!B$\\ $4\!\to\!C$};
-\node[bx,right=10mm of map] (P) {$P_{\text{cat}}=\begin{array}{c|ccc}&A&B&C\\\hline A&0&\mathbf{.65}&.18\\ B&\mathbf{.65}&0&.18\\ C&.18&.18&0\end{array}$};
-\node[bx,right=10mm of P] (sc) {score$(\cdot\mid S{=}\{1\})$, seed cat $A$:\\[1pt] item $2$ ($B$): $P[A,B]=\mathbf{0.65}$\\ item $4$ ($C$): $P[A,C]=0.18$\\ item $3$ ($A$): $P[A,A]=0$};
-\draw[->](map)--(P) node[midway,above,font=\scriptsize,align=center]{same PPMI,\\[-2pt]over categories};
-\draw[->](P)--(sc) node[midway,above,font=\scriptsize,align=center]{read seed\\[-2pt]row};
-\end{tikzpicture}}
+  seed/.style={draw,rounded corners,fill=blue!8,inner sep=4pt},
+  cand/.style={draw,rounded corners,fill=violet!7,inner sep=4pt}]
+ \node[seed] (bag) at (0,0.9) {seed: \textbf{bag}};
+ \node[seed] (san) at (0,-0.9) {seed: \textbf{sandals}};
+ \node[cand] (ear) at (6.4,1.6)  {\textbf{earrings}: $\;1.32+1.97=\mathbf{3.30}$};
+ \node[cand] (dre) at (6.4,0.0)  {\textbf{dress}: $\;1.25+1.93=\mathbf{3.18}$};
+ \node[cand,fill=red!6] (bg2) at (6.4,-1.6) {\textbf{2nd bag}: $\;0.00+1.18-0.5=\mathbf{0.68}$};
+ \draw[->](bag)--(ear) node[pos=0.55,above,font=\tiny]{$P[\text{bags},\text{earrings}]=1.32$};
+ \draw[->](san)--(ear);
+ \draw[->](bag)--(dre); \draw[->](san)--(dre) node[pos=0.5,below,font=\tiny]{$P[\text{sandals},\text{dress}]=1.93$};
+ \draw[->](san)--(bg2) node[pos=0.5,below,font=\tiny]{$-0.5$ slot self-exclusion};
+\end{tikzpicture}
 \end{center}
-\captionof{figure}{\emph{Taxonomic scoring: category-to-category PMI (4-item sketch; real numbers in the paragraph
-above---$\mathrm{cat}(\text{earrings})=1.33{+}1.97{=}3.30$).} Assign the
-sketch items categories $A,B,C$ as shown; the \emph{same} PPMI construction as Fig.~\ref{fig:build}, applied to the
-bundle$\times$category counts, yields $P_{\text{cat}}$. For seed item~$1$ (category $A$) the candidate scores are just
-row $A$: item~$2$ wins because ``$A$ complements $B$'' is a strong category pairing ($0.65$), item~$4$ gets a little
-($0.18$), and same-category item~$3$ gets $0$. Crucially this needs \textbf{no co-occurrence of the candidate
-itself}, so it scores cold items by \emph{what they are}.}
+\captionof{figure}{\emph{Taxonomic scoring on the real query: category-to-category PMI.} The score of a candidate
+sums, over the seeds' categories, the category-PMI into the candidate's category. Both held-out items are strong
+category complements --- \textbf{earrings} $1.32{+}1.97{=}3.30$ and \textbf{dress}
+$1.25{+}1.93{=}3.18$ --- and crucially taxonomy rates the \emph{rare} dress as highly as the
+common earrings, with \emph{no co-occurrence of either}. A tempting \textbf{second bag} (same category as a seed)
+would score $1.18$, but the slot self-exclusion term subtracts $0.5$ (outfits rarely take two bags), leaving
+$0.68$ --- below the field, so its standardised \code{cat} is negative. Taxonomy vetoes it.}
 \label{fig:taxfam}
 
 \subsection{Content family (from the embedding vectors)}
@@ -1050,30 +1037,37 @@ dense \textsc{POG}. Every number is a fixed function of $S$: no randomness, no t
 \end{example}
 
 \begin{center}
-\begin{tikzpicture}
-\begin{axis}[ybar,bar width=7pt,width=\linewidth,height=6.2cm,
-  symbolic x coords={$z_{\mathrm{ppmi}}$,$z_{\mathrm{cat}}$,$Y$,$\mu_0$,$\hat\theta$},
-  xtick=data,x tick label style={font=\small},
-  ymin=-1.9,ymax=2.6,enlarge x limits=0.14,
-  ylabel={standardised score},
-  legend style={font=\scriptsize,at={(0.5,1.03)},anchor=south,legend columns=3}]
-\addplot[fill=blue!55]  coordinates {($z_{\mathrm{ppmi}}$,0.352)($z_{\mathrm{cat}}$,1.663)($Y$,1.183)($\mu_0$,2.174)($\hat\theta$,1.431)};
-\addplot[fill=teal!45]  coordinates {($z_{\mathrm{ppmi}}$,-0.519)($z_{\mathrm{cat}}$,-0.782)($Y$,-0.910)($\mu_0$,-1.022)($\hat\theta$,-0.948)};
-\addplot[fill=orange!70]coordinates {($z_{\mathrm{ppmi}}$,1.424)($z_{\mathrm{cat}}$,-0.099)($Y$,1.375)($\mu_0$,-0.129)($\hat\theta$,0.623)};
-\legend{item 2 ($f{=}3$),item 3 ($f{=}2$),item 4 ($f{=}1$)}
-\end{axis}
+\begin{tikzpicture}[>=Latex,font=\footnotesize,
+  Y/.style={draw,rounded corners,fill=blue!10,inner sep=4pt,minimum width=20mm,align=center},
+  P/.style={draw,rounded corners,fill=violet!10,inner sep=4pt,minimum width=20mm,align=center},
+  T/.style={draw,rounded corners,fill=green!14,inner sep=4pt,minimum width=20mm,align=center},
+  rt/.style={draw,circle,fill=orange!25,inner sep=1pt,font=\scriptsize,align=center,minimum size=11mm}]
+ % earrings row
+ \node[font=\small,anchor=east] at (-0.2,1.5) {\textbf{earrings}};
+ \node[Y] (eY) at (2.3,1.5) {$Y=\mathbf{130.2}$\\{\tiny collab.\ blend}};
+ \node[P] (eP) at (5.3,1.5) {$\mu_0=8.2$\\{\tiny prior}};
+ \node[rt](eu) at (7.8,1.5) {$u_c{=}0$};
+ \node[T] (eT) at (10.5,1.5) {$\hat\theta=\mathbf{130.2}$\\{\tiny $\Rightarrow$ \textbf{rank 1}}};
+ \draw[->](eY)--(eu); \draw[->](eP)--(eu); \draw[->](eu)--(eT);
+ % dress row
+ \node[font=\small,anchor=east] at (-0.2,-1.3) {\textbf{dress}};
+ \node[Y] (dY) at (2.3,-1.3) {$Y=1.52$\\{\tiny only its \code{cat} vote}};
+ \node[P,very thick,draw=violet] (dP) at (5.3,-1.3) {$\mu_0=\mathbf{2.06}$\\{\tiny prior likes it \emph{more}}};
+ \node[rt](du) at (7.8,-1.3) {$u_c{=}0$};
+ \node[T,fill=red!6] (dT) at (10.5,-1.3) {$\hat\theta=1.52$\\{\tiny $\Rightarrow$ rank $3971$}};
+ \draw[->](dY)--(du); \draw[->](dP)--(du); \draw[->](du)--(dT);
+ \node[font=\scriptsize,violet,align=center] at (5.3,-2.7) {$\mu_0>Y$: shrinkage \emph{would} lift it,\\but $\kappa{=}0$ here $\Rightarrow$ no rescue};
+ \node[font=\scriptsize,gray] at (7.8,0.1) {$u_c=\dfrac{\kappa}{f_c+\kappa}$};
 \end{tikzpicture}
 \end{center}
-\captionof{figure}{\emph{The four stages, illustrated on the 4-item sketch} (the real query's four stages are worked
-in the Example above and Table~\ref{fig:pog}; here weights $w_{\mathrm{ppmi}}{=}1$,
-$w_{\mathrm{cat}}{=}0.5$, $\alpha{=}\gamma{=}0$, $\kappa{=}1$). Left to right: the two example signals, then the
-collaborative blend $Y$ (Stages 1--2), the cold-start prior $\mu_0$ (Stage 3), and the routed final $\hat\theta$
-(Stage 4). Follow item~$4$ (orange): PPMI loves it ($1.42$) and it
-stays high in the collaborative blend $Y$ ($1.38$), but the category prior $\mu_0$ is \emph{cold} on it ($-0.13$).
-Because item~$4$ is rare ($f{=}1\Rightarrow u_c{=}0.5$), routing (Stage 4) pulls its final score halfway to that low
-prior, down to $\hat\theta{=}0.62$. Item~$2$ (blue) is backed by \emph{both} $Y$ and $\mu_0$ and is frequent
-($u_c{=}0.25$), so it stays on top. Final ranking $\mathbf{2\succ4\succ3}$; the seed~$1$ is masked. This is the whole
-machine turning one partial bundle into one ordered completion.}
+\captionof{figure}{\emph{The routing stage on the real query, for the two held-out items.} The earrings' collaborative
+blend $Y{=}130.2$ dwarfs everything, so they rank $1$. The dress's blend is only $Y{=}1.52$---it has no
+co-occurrence, so only its category vote survives (\S\ref{sec:tax}). Its prior $\mu_0{=}2.06$ actually
+\emph{likes it more} than $Y$, which is exactly the evidence frequency-confidence shrinkage (Stage~4) would lean
+on---but validation chose $\kappa{=}0$ on dense \textsc{POG}, so $u_c{=}\kappa/(f_c{+}\kappa){=}0$,
+$\hat\theta{=}Y$, and the dress is left at rank $3971$. The one dial that could rescue it is switched off here; it is
+switched \emph{on} on the cold/sparse datasets, where it lifts such taxonomy-supported-but-unseen items by
+$2$--$5$pp (\code{RESULTS.md}).}
 \label{fig:stages}
 
 % ======================================================================

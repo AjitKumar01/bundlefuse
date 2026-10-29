@@ -670,6 +670,14 @@ if os.environ.get("CASE_STUDY"):
         if c not in seen:
             chosen.append(c); seen.add(c)
 
+    # 2D PCA of the collaborative fingerprints (csvd) for seeds + chosen, for the fingerprint figure.
+    _ids = list(dict.fromkeys([int(s) for s in seeds] + [int(c) for c in chosen]))
+    _X = np.asarray(graph_op.Ucsvd)[_ids].astype(np.float64)
+    _Xc = _X - _X.mean(0, keepdims=True)
+    _, _, _Vt = np.linalg.svd(_Xc, full_matrices=False)
+    _co = _Xc @ _Vt[:2].T
+    fp2d = {int(i): [float(_co[k, 0]), float(_co[k, 1])] for k, i in enumerate(_ids)}
+
     # Full-ranking position of each held-out item under theta (seeds masked out), to show recovery.
     th = theta[:, 0].clone()
     for i in seeds:
@@ -703,6 +711,7 @@ if os.environ.get("CASE_STUDY"):
         "seeds_meta": [{**_meta(s), "idx": int(s), "degree_cooc": float(dC[s])} for s in seeds],
         "n_items": int(n),
         "standardize": stdz,
+        "fingerprint_2d": fp2d,
         "fit": {"weights": {k: float(w_ad.get(k, 0.0)) for k in SIG if w_ad.get(k, 0)},
                 "alpha_inc": float(alpha_inc), "gamma_rao": float(g_rao),
                 "kappa_f": float(kf), "prior_scale": float(pscale),
