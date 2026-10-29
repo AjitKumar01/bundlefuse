@@ -318,6 +318,21 @@ over a small finite grid $\Theta$ (greedy coordinate ascent on the weights $w$, 
 $\kappa$). Here $\widehat\RK^{\,\mathcal V}$ is the \emph{empirical estimate} of the population risk
 \eqref{eq:poprisk}.
 
+\begin{remark}[the surrogate actually optimised, and the role of $K$]
+In code the selection objective is not the raw Recall@$K$ of \eqref{eq:erm} but validation \emph{NDCG@$20$}: a
+monotone, position-discounted refinement of the same top-$K$ functional that is far smoother over the discrete grid
+$\Theta$ (Recall@$K$ is piecewise constant, so many grid points tie; NDCG breaks those ties toward sharper
+rankings). This is a deliberate surrogate choice, not a different goal: the target remains top-$K$ retrieval at the
+\emph{deployment operating point} (a short recommendation slate). Two facts make it principled rather than
+self-referential. \textbf{(i)} The estimate is empirically insensitive to the cutoff: selecting at NDCG@$K$ for
+$K\in\{10,20,50,100\}$ yields the same test Recall@$20$ (a flat plateau), and selecting \emph{directly} on
+Recall@$20$ is no better. \textbf{(ii)} Genuinely cutoff-free objectives are \emph{worse}: a softmax
+negative-log-likelihood (a proper scoring rule for the whole distribution) runs $\sim$7--31\% below, and mean
+reciprocal rank is regime-dependent and can collapse on sparse data, because neither concentrates on the operating
+point. Thus $K$ is a property of the deployment target, not a tuned knob, and the exact value is immaterial within a
+wide band (see the selection-sensitivity study, \texttt{results/selection\_sensitivity.md}).
+\end{remark}
+
 \paragraph{Where the output is random.} This is the \emph{only} sense in which \textsc{BundleFuse}'s output is
 stochastic: $\hat\theta=\hat\theta(\B,\mathcal V)$ is a \textbf{statistic}---a measurable function of the random
 sample---hence a random variable. The relevant questions are then estimation-theoretic:

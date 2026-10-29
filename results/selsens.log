@@ -1,0 +1,15 @@
+=== POG (fullrank, content fashion; TEST_N=1500) ===
+pog  sel=ndcg10  Ours: R@10=0.0356 R@20=0.0509 R@50=0.0758
+pog  sel=ndcg20  Ours: R@10=0.0486 R@20=0.0636 R@50=0.0887
+pog  sel=ndcg50  Ours: R@10=0.0503 R@20=0.0640 R@50=0.0919
+pog  sel=recall20  Ours: R@10=0.0502 R@20=0.0659 R@50=0.0909
+pog  sel=mrr  Ours: R@10=0.0012 R@20=0.0019 R@50=0.0096
+pog  sel=nll  Ours: 
+=== DUNNHUMBY (collaborative grocery; 3 seeds) ===
+dunn sel=ndcg10  Ours: R@10=0.1095 R@20=0.1468 R@50=0.2047
+dunn sel=ndcg20  Ours: R@10=0.1121 R@20=0.1508 R@50=0.2119
+dunn sel=ndcg50  Ours: R@10=0.1117 R@20=0.1501 R@50=0.2143
+dunn sel=recall20  Ours: R@10=0.1112 R@20=0.1477 R@50=0.2101
+dunn sel=mrr  Ours: R@10=0.1068 R@20=0.1424 R@50=0.1937
+dunn sel=nll  Ours: R@10=0.0005 R@20=0.0010 R@50=0.0022
+=== DONE ===

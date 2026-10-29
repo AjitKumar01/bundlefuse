@@ -27,8 +27,8 @@ POG = os.environ.get("DATA_DIR") or os.path.join(REPO_ROOT, "bundlemllm", "datas
 MUSIC = not os.path.exists(os.path.join(POG, "title_emb.npy"))
 MAXK = 40 if MUSIC else 4
 K = 20
-VAL_N = 400
-TEST_N = 3000
+VAL_N = int(os.environ.get("VAL_N", "400"))
+TEST_N = int(os.environ.get("TEST_N", "3000"))
 
 
 def rb(f):
@@ -310,6 +310,83 @@ def eval_fused(fused, bundles, gts, Ks=(10, 20)):
     return {K2: (float(np.mean(acc[K2][0])), float(np.mean(acc[K2][1]))) for K2 in Ks}
 
 
+# ---------------------------------------------------------------------------
+# Validation selection objective, DECOUPLED from the evaluation cutoff.
+#   ndcg20   : legacy -- NDCG at the reported cutoff K=20 (self-referential).
+#   nll      : standardised listwise softmax negative log-likelihood (no cutoff).
+#   ndcgfull : untruncated NDCG over the whole ranking (no cutoff).
+# Rationale: we do NOT want to select weights on the same cutoff we report, or the
+# comparison becomes "we tuned to their metric". `nll` is a proper scoring rule
+# (MLE of a Plackett-Luce/softmax ranking model) and is the objective the optional
+# encoder already trains on; `ndcgfull` is its scale-invariant ranking-metric cousin.
+# ---------------------------------------------------------------------------
+SEL_OBJ = os.environ.get("SEL_OBJ", "ndcg20")
+
+
+def _softmax_nll(fused, bundles, gts):
+    """Standardised listwise softmax NLL of the held-out items (lower=better).
+    Per query: z-standardise the score column so the overall weight scale is irrelevant,
+    drop the seeds from the denominator, average -log softmax over the held-out items."""
+    mu = fused.mean(0, keepdim=True); sd = fused.std(0, keepdim=True) + 1e-9
+    Z = ((fused - mu) / sd).clone()
+    for j, s in enumerate(bundles):
+        Z[s, j] = -1e9
+    logden = torch.logsumexp(Z, dim=0)
+    tot, cnt = 0.0, 0
+    for j, gt in enumerate(gts):
+        if not gt:
+            continue
+        lp = Z[gt, j] - logden[j]
+        tot += float((-lp.mean()).item()); cnt += 1
+    return tot / max(cnt, 1)
+
+
+def _full_ndcg(fused, bundles, gts):
+    """Untruncated NDCG (no cutoff): discounted gain over the WHOLE ranking (higher=better)."""
+    f = fused.clone()
+    for j, s in enumerate(bundles):
+        f[s, j] = -1e9
+    tot, cnt = 0.0, 0
+    for j, gt in enumerate(gts):
+        if not gt:
+            continue
+        col = f[:, j]
+        dcg = sum(1.0 / math.log2(int((col > col[h]).sum().item()) + 2) for h in gt)
+        idcg = sum(1.0 / math.log2(i + 2) for i in range(len(gt)))
+        tot += dcg / idcg; cnt += 1
+    return tot / max(cnt, 1)
+
+
+def _mrr(fused, bundles, gts):
+    """Mean reciprocal rank (cutoff-free, top-weighted by 1/rank; higher=better)."""
+    f = fused.clone()
+    for j, s in enumerate(bundles):
+        f[s, j] = -1e9
+    tot, cnt = 0.0, 0
+    for j, gt in enumerate(gts):
+        if not gt:
+            continue
+        col = f[:, j]
+        rr = sum(1.0 / (int((col > col[h]).sum().item()) + 1) for h in gt)
+        tot += rr / len(gt); cnt += 1
+    return tot / max(cnt, 1)
+
+
+def _sel_metric(fused, bundles, gts):
+    """Selection objective (higher=better). ndcg<K>/recall<K> select at cutoff K; ndcgfull/mrr/nll cutoff-free."""
+    if SEL_OBJ == "nll":
+        return -_softmax_nll(fused, bundles, gts)
+    if SEL_OBJ == "ndcgfull":
+        return _full_ndcg(fused, bundles, gts)
+    if SEL_OBJ == "mrr":
+        return _mrr(fused, bundles, gts)
+    if SEL_OBJ.startswith("recall") and SEL_OBJ[6:].isdigit():
+        K = int(SEL_OBJ[6:]); return eval_fused(fused, bundles, gts, Ks=(K,))[K][0]
+    if SEL_OBJ.startswith("ndcg") and SEL_OBJ[4:].isdigit():
+        K = int(SEL_OBJ[4:]); return eval_fused(fused, bundles, gts, Ks=(K,))[K][1]
+    return eval_fused(fused, bundles, gts, Ks=(20,))[20][1]
+
+
 def fit_simba(vb, vg, Rv, Zv):
     """Fits pairwise base weights w, nested higher-order weights (alpha_inc, gamma_rao),
     and the conjugate posterior parameters (kf, prior_scale) strictly on the validation set.
@@ -331,14 +408,14 @@ def fit_simba(vb, vg, Rv, Zv):
                            [vb[i] for i in _fi], [vg[i] for i in _fi]))
 
         def sel_obj(X):
-            return float(np.mean([eval_fused(X.index_select(1, it), vbf, vgf, Ks=(20,))[20][1]
+            return float(np.mean([_sel_metric(X.index_select(1, it), vbf, vgf)
                                   for it, vbf, vgf in _folds]))
     else:
         def sel_obj(X):
-            return eval_fused(X, vb, vg, Ks=(20,))[20][1]
+            return _sel_metric(X, vb, vg)
 
     GPS = {k: [0.0, 0.25, 0.5, 1.0, 1.5] for k in SIG}
-    w = {k: 0.0 for k in SIG}; best_nd = -1.0
+    w = {k: 0.0 for k in SIG}; best_nd = -1e18
     for _ in range(4):
         improved = False
         for k in SIG:
@@ -659,7 +736,7 @@ vb, vg = load_split("valid", VAL_N)
 Rv, Zv = score_all_signals(vb)
 w_ad, prior_keys, best_eb, freq_t, best_ho, vc_ab = fit_simba(vb, vg, Rv, Zv)
 W = train_item2vec_W()
-tb, tg = load_split("test", TEST_N); CHUNK = 200; Ks = (10, 20)
+tb, tg = load_split("test", TEST_N); CHUNK = 200; Ks = (10, 20, 50)
 
 if os.environ.get("VALGAP"):
     # Validation->test generalization gap of the greedy weight selection.
@@ -760,8 +837,18 @@ for off in range(0, len(tb), CHUNK):
             agg[m][K2][0].extend([res[K2][0]] * len(cb))
             agg[m][K2][1].extend([res[K2][1]] * len(cb))
 
-print(f"\n=== {DS} MATRIX (full-ranking R/N@10,20; test N={len(tb)}; cold R@20={100*cold_hits/max(cold_tot,1):.2f}% [{cold_hits}/{cold_tot}]; {time.time()-t:.0f}s) ===", flush=True)
-print(f"{'method':16s} {'R@10':>8} {'N@10':>8} {'R@20':>8} {'N@20':>8}", flush=True)
+print(f"\n=== {DS} MATRIX (full-ranking R/N@10,20,50; sel={SEL_OBJ}; test N={len(tb)}; cold R@20={100*cold_hits/max(cold_tot,1):.2f}% [{cold_hits}/{cold_tot}]; {time.time()-t:.0f}s) ===", flush=True)
+print(f"{'method':16s} {'R@10':>8} {'N@10':>8} {'R@20':>8} {'N@20':>8} {'R@50':>8} {'N@50':>8}", flush=True)
 for m in methods:
     a = agg[m]
-    print(f"{m:16s} {np.mean(a[10][0]):8.4f} {np.mean(a[10][1]):8.4f} {np.mean(a[20][0]):8.4f} {np.mean(a[20][1]):8.4f}", flush=True)
+    print(f"{m:16s} {np.mean(a[10][0]):8.4f} {np.mean(a[10][1]):8.4f} {np.mean(a[20][0]):8.4f} {np.mean(a[20][1]):8.4f} {np.mean(a[50][0]):8.4f} {np.mean(a[50][1]):8.4f}", flush=True)
+
+if os.environ.get("SELDUMP"):
+    outp = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "results", f"selcmp_{DS}_{SEL_OBJ}.json")
+    dump = {"dataset": DS, "sel_obj": SEL_OBJ, "n": int(n), "test_bundles": len(tb),
+            "selected_w": {k: float(w_ad.get(k, 0.0)) for k in SIG if w_ad.get(k, 0)},
+            "alpha_inc": float(best_ho[0]), "gamma_rao": float(best_ho[1]), "kappa": float(best_eb[0]),
+            "methods": {m: {f"{M}@{K2}": float(np.mean(agg[m][K2][i]))
+                            for K2 in Ks for i, M in enumerate(("R", "N"))} for m in methods}}
+    json.dump(dump, open(outp, "w"), indent=2)
+    print(f"{DS} SELDUMP ({SEL_OBJ}) -> {outp}", flush=True)

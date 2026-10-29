@@ -230,6 +230,39 @@ numbers appear only in that paper's LaTeX, are produced by no script, log, or da
 are contradicted by its own earlier draft (`paper_draft.md`: *"a direct image ablation was blocked by
 Amazon's anti-scraping; future work"*). They are treated as unsupported.
 
+## Selection-objective sensitivity — is NDCG@20 selection self-referential? (`SEL_OBJ=…`)
+
+Weights are selected on validation **NDCG@20**, and R@20 is a headline reported metric — so: are we just
+optimising the number we report, and is `K=20` convenient? Measured by swapping only the selection objective
+(`SEL_OBJ`), then reporting test **R@{10,20,50}** of `Ours`. Full write-up: `results/selection_sensitivity.md`
+(raw log `results/selsens.log`).
+
+Test **R@20** by selection objective:
+
+| selection objective | electronic | pog | dunnhumby |
+|---|---:|---:|---:|
+| `ndcg10` | 0.4922 | 0.0509 | 0.1468 |
+| **`ndcg20`** (current) | **0.5141** | **0.0636** | **0.1508** |
+| `ndcg50` | 0.4990 | 0.0640 | 0.1501 |
+| `ndcg100` | 0.5194 | — | — |
+| `recall20` (ERM on reported metric) | 0.4859 | 0.0659 | 0.1477 |
+| `mrr` (cutoff-free) | 0.3273 | **0.0019** | 0.1424 |
+| `ndcgfull` (cutoff-free) | 0.3273 | — | — |
+| `nll` (cutoff-free, proper score) | 0.4520 | 0.0442 | 0.1399 |
+
+- **NDCG@{10,20,50,100} is a flat plateau** on every dataset → `K=20` is not cherry-picked; any retrieval
+  cutoff in a 10× band gives the same weights. Selecting *directly* on R@20 is no better than NDCG@20, so
+  NDCG@20 is a smoother surrogate at the operating point, not "tuning to the reported number."
+- **Cutoff-free objectives are worse, and unreliably so**: `mrr` (rank-1 focus) is fine on dense collaborative
+  data but catastrophic on sparse content (pog 0.0019 vs 0.0636); `nll` (whole-distribution proper score) runs
+  ~7–31% below NDCG@20 everywhere. The non-circular justification for ~20 is the **deployment operating point**
+  (a short slate), demonstrated by (i) cutoff-invariance and (ii) no cutoff-free loss beating it.
+- Code: `SEL_OBJ ∈ {ndcg<K>, recall<K>, mrr, ndcgfull, nll}` in all three evaluators; greedy-init fixed
+  `-1.0 → -1e18` so negative-valued objectives (`nll`) run (behaviour-preserving for positive ones; `ndcg20`
+  electronic identical at 0.5141). `SELDUMP=1` dumps `results/selcmp_<ds>_<obj>.json`.
+- **Not yet done**: the full 8-dataset NDCG@{10,20,50} robustness table (3 representative datasets spanning
+  content-dense / content-sparse / collaborative shown here).
+
 ## Open tasks
 
-*(none outstanding — the results section is complete; next step is paper framing.)*
+*(selection-sensitivity study added; remaining: optional full-8 cutoff-robustness table for the paper.)*

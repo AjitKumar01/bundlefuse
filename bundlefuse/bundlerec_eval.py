@@ -290,7 +290,7 @@ def score_split(bset, built):
     return R, Z
 
 
-def eval_mat(F_mat, bundles, Ks=(10, 20)):
+def eval_mat(F_mat, bundles, Ks=(10, 20, 50)):
     nb = len(bundles); rng = np.random.default_rng(0)
     F = F_mat + rng.random((n, nb)).astype(np.float32) * 1e-6
     for j, (s, _) in enumerate(bundles):
@@ -305,6 +305,71 @@ def eval_mat(F_mat, bundles, Ks=(10, 20)):
             idcg = sum(1 / math.log2(i + 2) for i in range(min(len(g), K2)))
             acc[K2][0].append(sum(hits) / len(g)); acc[K2][1].append(dcg / idcg if idcg else 0.0)
     return {K2: (float(np.mean(acc[K2][0])), float(np.mean(acc[K2][1]))) for K2 in Ks}
+
+
+# Validation selection objective, decoupled from the evaluation cutoff (see fullrank_eval.py for rationale).
+#   ndcg20 (legacy, self-referential) | nll (standardised softmax NLL, no cutoff) | ndcgfull (no cutoff).
+SEL_OBJ = os.environ.get("SEL_OBJ", "ndcg20")
+# Greedy improvement gates. Absolute defaults are calibrated to NDCG@20's ~0.3 scale; when selecting
+# on a smaller-magnitude objective (MRR ~0.04, full-NDCG ~0.15) set these to 0 for pure-argmax greedy
+# so the search is not spuriously halted by a threshold meant for a differently-scaled objective.
+GATE_W = float(os.environ.get("GATE_W", "2e-4"))
+GATE_HO = float(os.environ.get("GATE_HO", "1e-5"))
+GATE_EB = float(os.environ.get("GATE_EB", "1e-4"))
+GATE_PRUNE = float(os.environ.get("GATE_PRUNE", "3e-4"))
+
+
+def _softmax_nll_np(F, bundles):
+    mu = F.mean(0, keepdims=True); sd = F.std(0, keepdims=True) + 1e-9
+    Z = ((F - mu) / sd).astype(np.float64)
+    tot, cnt = 0.0, 0
+    for j, (s, gt) in enumerate(bundles):
+        if not gt:
+            continue
+        col = Z[:, j].copy(); col[list(s)] = -1e9
+        m = float(col.max()); logden = m + math.log(float(np.exp(col - m).sum()))
+        tot += float(-np.mean(col[list(gt)] - logden)); cnt += 1
+    return tot / max(cnt, 1)
+
+
+def _full_ndcg_np(F, bundles):
+    tot, cnt = 0.0, 0
+    for j, (s, gt) in enumerate(bundles):
+        if not gt:
+            continue
+        col = F[:, j].copy(); col[list(s)] = -1e9
+        dcg = sum(1.0 / math.log2(int(np.count_nonzero(col > col[h])) + 2) for h in gt)
+        idcg = sum(1.0 / math.log2(i + 2) for i in range(len(gt)))
+        tot += dcg / idcg; cnt += 1
+    return tot / max(cnt, 1)
+
+
+def _mrr_np(F, bundles):
+    """Mean reciprocal rank (cutoff-free, top-weighted by 1/rank; higher=better)."""
+    tot, cnt = 0.0, 0
+    for j, (s, gt) in enumerate(bundles):
+        if not gt:
+            continue
+        col = F[:, j].copy(); col[list(s)] = -1e9
+        rr = sum(1.0 / (int(np.count_nonzero(col > col[h])) + 1) for h in gt)
+        tot += rr / len(gt); cnt += 1
+    return tot / max(cnt, 1)
+
+
+def sel_score(F, bundles):
+    """Selection objective (higher=better). ndcg<K>/recall<K> select at cutoff K;
+    ndcgfull/mrr/nll are cutoff-free."""
+    if SEL_OBJ == "nll":
+        return -_softmax_nll_np(F, bundles)
+    if SEL_OBJ == "ndcgfull":
+        return _full_ndcg_np(F, bundles)
+    if SEL_OBJ == "mrr":
+        return _mrr_np(F, bundles)
+    if SEL_OBJ.startswith("recall") and SEL_OBJ[6:].isdigit():
+        K = int(SEL_OBJ[6:]); return eval_mat(F, bundles, Ks=(K,))[K][0]
+    if SEL_OBJ.startswith("ndcg") and SEL_OBJ[4:].isdigit():
+        K = int(SEL_OBJ[4:]); return eval_mat(F, bundles, Ks=(K,))[K][1]
+    return eval_mat(F, bundles, Ks=(20,))[20][1]
 
 
 def mask(bundles, seed):
@@ -385,7 +450,7 @@ METH = ["popularity", "co-occurrence", "content-kNN", "item2vec", "Pairwise-Repl
 EASE = os.environ.get("EASE") and n <= 10000  # EASE needs an n x n solve: only tractable on small catalogues
 if EASE:
     METH = METH + ["EASE"]
-agg = {m: {10: ([], []), 20: ([], [])} for m in METH}
+agg = {m: {10: ([], []), 20: ([], []), 50: ([], [])} for m in METH}
 VALGAP = os.environ.get("VALGAP")  # validation->test generalization gap of greedy weight selection
 vg_rows = []
 AB = os.environ.get("ABLATE")  # operator OFAT ablation + exposure-bucket / variance-component diagnostics
@@ -406,7 +471,7 @@ for sd in range(SEEDS):
     Rt, Zt = score_split(tset, built)
 
     Zv_pair = dict(Zv); Zv_pair["simp"] = Zv["pair"]; Zv_pair["diff2"] = Zv["diff2_pair"]
-    w = {k: 0.0 for k in SIG}; best = -1.0
+    w = {k: 0.0 for k in SIG}; best = -1e18
     for _ in range(4):
         imp = False
         for k in SIG:
@@ -415,14 +480,14 @@ for sd in range(SEEDS):
                 if sum(w2.values()) == 0:
                     continue
                 F_v = sum(w2[k2] * Zv_pair[k2] for k2 in w2 if w2[k2])
-                nd = eval_mat(F_v, vset, Ks=(20,))[20][1]
-                if nd > best + 2e-4:
+                nd = sel_score(F_v, vset)
+                if nd > best + GATE_W:
                     best = nd; w = w2; imp = True
         if not imp:
             break
     bw = EmpiricalBayesRouter.prune_weights_val(
-        w, Zv_pair, lambda fmat: eval_mat(fmat, vset, Ks=(20,))[20][1],
-        optional_keys=("contrast", "homo"), val_eps=3e-4
+        w, Zv_pair, lambda fmat: sel_score(fmat, vset),
+        optional_keys=("contrast", "homo"), val_eps=GATE_PRUNE
     )
 
     if VALGAP:
@@ -446,11 +511,11 @@ for sd in range(SEEDS):
         return (1.0 - alpha_inc) * base_p + alpha_inc * base_i + g_rao * Z_dict["rao"]
 
     best_ho = (0.5, 0.25)
-    best_ho_nd = -1.0
+    best_ho_nd = -1e18
     for alpha_inc in [0.0, 0.5, 1.0]:
         for g_rao in [0.0, 0.2, 0.35]:
-            nd = eval_mat(build_Y(Zv, (alpha_inc, g_rao)), vset, Ks=(20,))[20][1]
-            if nd > best_ho_nd + 1e-5:
+            nd = sel_score(build_Y(Zv, (alpha_inc, g_rao)), vset)
+            if nd > best_ho_nd + GATE_HO:
                 best_ho_nd = nd; best_ho = (alpha_inc, g_rao)
     best = max(best, best_ho_nd)
 
@@ -473,8 +538,8 @@ for sd in range(SEEDS):
 
     best_kf = 0.0  # honest null: apply shrinkage only if a candidate beats no-shrinkage on validation
     for kf_cand in EmpiricalBayesRouter.shrinkage_candidates(vc, [0.0, 0.1, 0.5, vc["kappa_f"], 2.0]):
-        nd = eval_mat(apply_eb(Zv, best_ho, kf_cand, frozen_prior_scale), vset, Ks=(20,))[20][1]
-        if nd > best + 1e-4:
+        nd = sel_score(apply_eb(Zv, best_ho, kf_cand, frozen_prior_scale), vset)
+        if nd > best + GATE_EB:
             best = nd; best_kf = kf_cand
 
     if AB:
@@ -513,7 +578,7 @@ for sd in range(SEEDS):
     if EASE:
         res["EASE"] = eval_mat(ease_test_scores(trb, vset, tset, n), tset)
     for m in METH:
-        for K2 in (10, 20):
+        for K2 in (10, 20, 50):
             agg[m][K2][0].append(res[m][K2][0]); agg[m][K2][1].append(res[m][K2][1])
 
 if BASELINES:
@@ -566,11 +631,19 @@ if VALGAP:
           f"test_sel-test_unif={t_sel-t_un:+.4f} | nsig={nsig:.1f} | seeds={len(vg_rows)}", flush=True)
     sys.exit()
 
-print(f"\n=== {DS} MATRIX (full-ranking R/N@10,20; {SEEDS} duplicate-free seeds; aux={USE_AUX}; {time.time()-t0:.0f}s) ===", flush=True)
-print(f"{'method':16s} {'R@10':>8} {'N@10':>8} {'R@20':>8} {'N@20':>8}", flush=True)
+print(f"\n=== {DS} MATRIX (full-ranking R/N@10,20,50; sel={SEL_OBJ}; {SEEDS} duplicate-free seeds; aux={USE_AUX}; {time.time()-t0:.0f}s) ===", flush=True)
+print(f"{'method':16s} {'R@10':>8} {'N@10':>8} {'R@20':>8} {'N@20':>8} {'R@50':>8} {'N@50':>8}", flush=True)
 for m in METH:
     a = agg[m]
-    print(f"{m:16s} {np.mean(a[10][0]):8.4f} {np.mean(a[10][1]):8.4f} {np.mean(a[20][0]):8.4f} {np.mean(a[20][1]):8.4f}", flush=True)
+    print(f"{m:16s} {np.mean(a[10][0]):8.4f} {np.mean(a[10][1]):8.4f} {np.mean(a[20][0]):8.4f} {np.mean(a[20][1]):8.4f} {np.mean(a[50][0]):8.4f} {np.mean(a[50][1]):8.4f}", flush=True)
+if os.environ.get("SELDUMP"):
+    import json as _json
+    outp = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "results", f"selcmp_{DS}_{SEL_OBJ}.json")
+    dump = {"dataset": DS, "sel_obj": SEL_OBJ, "n": int(n), "seeds": SEEDS,
+            "methods": {m: {f"{M}@{K2}": float(np.mean(agg[m][K2][i]))
+                            for K2 in (10, 20, 50) for i, M in enumerate(("R", "N"))} for m in METH}}
+    _json.dump(dump, open(outp, "w"), indent=2)
+    print(f"{DS} SELDUMP ({SEL_OBJ}) -> {outp}", flush=True)
 if os.environ.get("MATRIX_STD", "0") == "1":
     # population std across the SEEDS held-out splits (matches fullrank error bars)
     for m in METH:
