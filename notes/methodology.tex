@@ -240,6 +240,26 @@ Read $C$ as: items $1$ and $2$ share $2$ bundles; items $3$ and $4$ never share 
 ($f_2=3$); item $4$ the rarest ($f_4=1$).
 \end{example}
 
+\begin{center}
+\resizebox{\linewidth}{!}{%
+\begin{tikzpicture}[>=Latex,
+  mat/.style={draw,rounded corners,fill=blue!4,inner sep=4pt},
+  lbl/.style={font=\footnotesize,align=center,midway,above,yshift=1pt}]
+\node[mat] (B) {$B=\left(\begin{smallmatrix}1&1&1&0\\1&1&0&1\\0&1&1&0\end{smallmatrix}\right)$};
+\node[mat,right=22mm of B] (C) {$C=\left(\begin{smallmatrix}0&2&1&1\\2&0&2&1\\1&2&0&0\\1&1&0&0\end{smallmatrix}\right)$};
+\node[mat,right=30mm of C] (P) {$\mathrm{PPMI}=\left(\begin{smallmatrix}0&.34&.15&.56\\.34&0&.62&.34\\.15&.62&0&0\\.56&.34&0&0\end{smallmatrix}\right)$};
+\node[mat,right=24mm of P] (U) {$u_i\in\R^{k}$};
+\draw[->](B)--(C) node[lbl]{$B^{\!\top}B$,\\[-1pt]zero diag};
+\draw[->](C)--(P) node[lbl]{$\max\!\big(0,\log\tfrac{C_{ij}T}{d_id_j}\big)$};
+\draw[->](P)--(U) node[lbl]{SVD$_k$,\\[-1pt]$L_2$-norm};
+\end{tikzpicture}}
+\end{center}
+\noindent\emph{The collaborative pipeline, built once from the bundles alone.} The bundle--item matrix $B$ becomes the
+item--item co-occurrence $C=B^{\!\top}B$ (diagonal zeroed); $C$ becomes the chance-corrected $\mathrm{PPMI}$
+(\S\ref{sec:pmi}); and a truncated SVD of $\mathrm{PPMI}$ gives each item a dense ``collaborative fingerprint'' $u_i$
+(\S\ref{sec:svd}). The partial bundle is \emph{not} involved yet: these are fixed structures a query is later scored
+\emph{against}.
+
 % ======================================================================
 \section{The vocabulary of operations (general idea $\to$ local definition $\to$ example)}
 \label{sec:vocab}
@@ -269,6 +289,19 @@ Query $S=\{1\}$, so $\xs=(1,0,0,0)^{\!\top}$ and $C\xs$ is column $1$ of $C$:
 Excluding the seed, the ranking is $2\succ 3\!\sim\!4$: item $2$ (shared $2$ bundles with item $1$) wins. Hold this
 result---PMI will \emph{overturn} it.
 \end{example}
+
+\begin{center}
+\begin{tikzpicture}[>=Latex]
+\node (eq) {$\underbrace{\left(\begin{smallmatrix}0&2&1&1\\2&0&2&1\\1&2&0&0\\1&1&0&0\end{smallmatrix}\right)}_{\textstyle C}\;
+\underbrace{\left(\begin{smallmatrix}1\\0\\0\\0\end{smallmatrix}\right)}_{\textstyle x_S,\ S=\{1\}}
+=\underbrace{\left(\begin{smallmatrix}\cdot\\2\\1\\1\end{smallmatrix}\right)}_{\textstyle \mathrm{score}(\cdot\mid S)}$};
+\end{tikzpicture}
+\end{center}
+\noindent\emph{Filling a partial bundle is one matrix--vector product.} The seed indicator $x_S$ carries a $1$ in each
+seed slot, so $Cx_S$ \textbf{sums the seed columns of $C$}. For $S=\{1\}$ it reads off column $1$: candidate $2$
+scores $2$, candidates $3,4$ score $1$; the seed itself ($c=1$, shown ``$\cdot$'') is masked to $-\infty$ before
+ranking. \emph{Every} collaborative signal has this exact shape $Wx_S$---only the matrix $W$ changes (raw $C$,
+$\mathrm{PPMI}$, the degree-normalised $W_{\text{pair}}$, or the household operator).
 
 \subsection{PMI / PPMI: ``is this pair together \emph{more than chance}?''}
 \label{sec:pmi}
@@ -367,6 +400,25 @@ structure: items $3$ and $4$ never co-occur ($C_{34}=0$), yet both co-occur with
 pulled closer. This is how the collaborative side reasons about pairs it has never literally observed together.
 \end{remark}
 
+\begin{center}
+\begin{tikzpicture}[>=Latex,dot/.style={circle,fill,inner sep=1.3pt}]
+\draw[->,gray!55](-3.1,0)--(3.1,0); \draw[->,gray!55](0,-2.5)--(0,2.5);
+\node[font=\scriptsize,gray] at (3.05,-0.22){dim 1}; \node[font=\scriptsize,gray] at (0.42,2.4){dim 2};
+\draw[->,thick,blue!70](0,0)--(2.54,0.56) node[dot]{} node[right,font=\scriptsize]{item $1$ (seed)};
+\draw[->,thick,blue!40](0,0)--(2.05,1.60) node[dot]{} node[above,font=\scriptsize]{item $2$};
+\draw[->,thick,orange!85](0,0)--(1.86,-1.82) node[dot]{} node[below,font=\scriptsize]{item $3$};
+\draw[->,thick,orange!55](0,0)--(2.19,-1.41) node[dot]{} node[right,font=\scriptsize]{item $4$};
+\node[font=\scriptsize,orange!85] at (1.15,-2.05){$\cos(3,4)=0.98$};
+\node[font=\scriptsize,blue!65] at (1.05,1.35){$\cos(1,2)=0.90$};
+\end{tikzpicture}
+\end{center}
+\noindent\emph{The fingerprint sees partners-of-partners, not just direct pairs.} These are the \textbf{exact} rank-$2$
+$L_2$-normalised fingerprints $u_i$ of the toy $\mathrm{PPMI}$ (machine-computed, $x$-sign flipped for display). Items
+$3$ and $4$ \textbf{never co-occur} ($C_{34}=0$), yet their fingerprints are almost identical ($\cos=0.98$) because
+both pair with $\{1,2\}$; the hubs $1,2$ likewise sit together ($\cos=0.90$). The \code{csvd} score of a candidate is
+the cosine between its fingerprint and the seeds' \emph{average} fingerprint---so a partial bundle recalls items with
+the same \emph{company}, even ones never literally seen with it.
+
 \subsection{Degree normalisation: taming hubs and big bundles}
 \label{sec:degnorm}
 
@@ -389,6 +441,26 @@ its size discount, land back on items. So $W_{\text{pair}}(c\mid S)=\sum_{b\ni c
 b}(f_s+5)^{-0.5}$: a \emph{smoothed, size-aware} co-occurrence. Setting both exponents to $0$ recovers plain $C$
 (the case used in Examples~\ref{ex:cooc}--\ref{ex:ppmi} for clarity).
 
+\begin{center}
+\resizebox{\linewidth}{!}{%
+\begin{tikzpicture}[>=Latex,
+  bl/.style={draw,rounded corners,fill=black!4,inner sep=4pt,font=\footnotesize,align=center}]
+\node[bl](x){seed\\column $x_S$};
+\node[bl,right=7mm of x](d1){$\times\,(f{+}5)^{-\frac12}$\\item discount};
+\node[bl,right=6mm of d1](B){$\times\,B$\\items$\to$bundles};
+\node[bl,right=6mm of B](db){$\times\,(|b|{+}1)^{-\frac12}$\\size discount};
+\node[bl,right=6mm of db](Bt){$\times\,B^{\!\top}$\\bundles$\to$items};
+\node[bl,right=7mm of Bt](s){candidate\\scores};
+\draw[->](x)--(d1);\draw[->](d1)--(B);\draw[->](B)--(db);\draw[->](db)--(Bt);\draw[->](Bt)--(s);
+\end{tikzpicture}}
+\end{center}
+\noindent\emph{$W_{\text{pair}}=B^{\!\top}\mathrm{diag}((|b|{+}1)^{-1/2})\,B\,\mathrm{diag}((f{+}5)^{-1/2})$, read
+right-to-left as a walk.} A seed's mass is first shrunk by its own popularity, carried up to the bundles it sits in
+(each discounted by its size), then back down to candidates. On the toy data the item discounts are
+$(f{+}5)^{-1/2}=(0.378,\,0.354,\,0.378,\,\mathbf{0.408})$: the \emph{rarest} item $4$ is damped least and the
+\emph{hub} item $2$ most---the same chance-correction PPMI applies, here multiplicative. Both exponents set to $0$
+recovers plain $C$.
+
 \subsection{Graph propagation: a two-hop smoothing walk}
 \label{sec:prop}
 
@@ -401,6 +473,27 @@ matters at $n=254{,}000$): \code{propagate(X)} computes $B\!\to\!\text{items}$ t
 both ends and the self-term subtracted (\code{operators.py}:121--131). It is used two ways: (i) to produce a
 \emph{two-hop} version \code{diff2} of the pairwise score, and (ii) to build the content ``bridge''
 (\S\ref{sec:content}) by smoothing content vectors over the co-purchase graph.
+
+\begin{center}
+\begin{tikzpicture}[>=Latex,
+  it/.style={circle,draw,fill=blue!8,minimum size=6.5mm,font=\scriptsize,inner sep=0pt},
+  bu/.style={rectangle,draw,fill=orange!14,minimum size=6mm,font=\scriptsize,inner sep=1pt}]
+\node[it](a){$c$};
+\node[bu,right=14mm of a,yshift=7mm](b1){$b$};
+\node[bu,right=14mm of a,yshift=-7mm](b2){$b'$};
+\node[it,right=30mm of a,yshift=12mm](t2){$j'$};
+\node[it,right=30mm of a,yshift=-5mm](t1){$j$};
+\draw[->](a)--(b1);\draw[->](a)--(b2);
+\draw[->](b1)--(t1);\draw[->](b2)--(t1);\draw[->](b1)--(t2);
+\node[font=\scriptsize,gray] at (1.0,-1.55){hop 1: item$\to$bundles};
+\node[font=\scriptsize,gray] at (3.9,-1.55){hop 2: bundles$\to$items};
+\end{tikzpicture}
+\end{center}
+\noindent\emph{One propagation step spreads a score two hops across the co-purchase graph.} Item $c$'s evidence flows
+out to the bundles it belongs to and back down to \emph{their} other members $j,j'$ (both ends carrying the item
+discount, the self-term subtracted). Applied to the pairwise score it yields the two-hop signal \code{diff2}; applied
+to content vectors it builds the \code{bridge} (\S\ref{sec:content}). It is the factored product $B^{\!\top}(\cdots)B$,
+never a dense $n\times n$ matrix---essential at $n=254{,}000$.
 
 % ======================================================================
 \section{The signals, built one by one}
