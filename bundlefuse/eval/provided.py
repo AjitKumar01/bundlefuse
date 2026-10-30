@@ -8,7 +8,7 @@ import numpy as np
 import torch
 
 from bundlefuse.artifacts import write_json, flat_metrics
-from bundlefuse.fusion_selection import ValidationSignals, fit_fusion, apply_fusion
+from bundlefuse.fusion_selection import ValidationSignals, fit_fusion, apply_fusion, required_fusion_signals
 from bundlefuse.metrics import ranking_metrics, as_numpy, TIE_POLICY
 
 
@@ -41,7 +41,7 @@ class DiskSignals:
         shutil.rmtree(self.directory)
 
 
-def run_provided(dataset, splits, scorer, signals, freq, music, objective, output):
+def run_provided(dataset, splits, scorer, signals, freq, music, objective, output, selected_scorer=None):
     output = Path(output)
     output.mkdir(parents=True, exist_ok=True)
     chunk = int(os.environ.get('PROVIDED_CHUNK', '64'))
@@ -77,9 +77,11 @@ def run_provided(dataset, splits, scorer, signals, freq, music, objective, outpu
         cache.close()
     totals = {k: np.zeros(2) for k in (10, 20, 50)}
     per_query = []
+    required = required_fusion_signals(w, priors, backoff, ho)
     for start in range(0, len(test), chunk):
         batch = test[start:start + chunk]
-        raw, z = scorer([s for s, _ in batch])
+        seeds = [s for s, _ in batch]
+        raw, z = scorer(seeds) if selected_scorer is None else selected_scorer(seeds, required)
         first = next(iter(z.values()))
         fused = apply_fusion(z, w, priors, backoff, torch.as_tensor(freq, device=first.device)[:, None], ho)
         scores = as_numpy(fused)

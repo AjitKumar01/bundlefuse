@@ -255,3 +255,16 @@ The cached learned ranker is faster in the measured warm-cache scoring pipeline.
 
 [Full findings, cost measurements, and operating limits](results/generalization_study/ANALYSIS.md). [Verification](results/generalization_study/VALIDATION.md) checks masks, chronology, hashes, checkpoints, reference agreement, and all 200 statistics. **51 regression tests passed.**
 <!-- END GENERALIZATION CONCLUSION -->
+
+## Compact-model feasibility pilot
+
+<!-- BEGIN COMPACT PILOT -->
+**0/2 dataset jobs complete.** Exact selected-signal optimization plus a raw-versus-engineered compact two-tower pilot.
+
+| Dataset | Status | BundleFuse R@20 | Raw mean ± SD | Engineered mean ± SD | Validation gate |
+|---|---|---:|---:|---:|---|
+| pog_dense | pending | pending | pending | pending | pending |
+| spotify | pending | pending | pending | pending | pending |
+
+[Protocol, live results and logs](results/compact_pilot/REPORT.md). No distillation or sparse-input adaptation in this stage.
+<!-- END COMPACT PILOT -->

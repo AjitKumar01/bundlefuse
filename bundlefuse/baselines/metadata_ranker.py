@@ -143,12 +143,13 @@ def training_batch(bundles, n_items, rng, negatives, exclusions=None):
 
 
 def train_ranker(content, categories, frequency, train_bundles, validate, hp, seed, output,
-                 auxiliary_bundles=None):
+                 auxiliary_bundles=None, model_factory=None):
     """Validation callback never receives test queries; retain the best validation checkpoint."""
     output = Path(output); output.mkdir(parents=True, exist_ok=True)
     torch.manual_seed(seed)
     rng = np.random.default_rng(seed)
-    model = MetadataRanker(content, categories, frequency, hp['dim'])
+    model = (MetadataRanker(content, categories, frequency, hp['dim']) if model_factory is None
+             else model_factory())
     optimizers = model.optimizers(hp['lr'], hp['regularization'])
     train = [list(bundle) for bundle in train_bundles if len(bundle) >= 2]
     auxiliary = [list(bundle) for bundle in (auxiliary_bundles or []) if len(bundle) >= 2]

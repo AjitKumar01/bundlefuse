@@ -41,3 +41,4 @@ notes/*.toc
 
 # Local end-to-end smoke run; full verified refresh is retained.
 results/runner_smoke/
+results/**/.runner.lock

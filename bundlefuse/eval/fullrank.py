@@ -278,8 +278,14 @@ if not ENCODER:
     SIG = [s for s in SIG if s != "contrast"]
 
 
-def score_all_signals(bundles):
+from bundlefuse.selected_signals import SelectedSignals
+selected_signal_scorer = SelectedSignals(graph_op, onto_op, FEAT_T, cat_lbl, rao_dense_feat, MUSIC, DEVICE)
+
+
+def score_all_signals(bundles, required=None):
     """Computes raw score matrices R[k] and column-wise z-normalized Z[k] per query."""
+    if required is not None:
+        return selected_signal_scorer.score(bundles, required)
     nb = len(bundles)
     Ind = graph_op.build_indicator(bundles)
     sc_pair, sc_diff2_pair = graph_op.score_pairwise_and_diff2(bundles)
@@ -408,7 +414,12 @@ def make_hybrid():
 
 
 if PROTOCOL == "provided":
-    if os.environ.get("PROVIDED_STUDY", "provided") == "generalization":
+    if os.environ.get("PROVIDED_STUDY", "provided") == "compact":
+        from bundlefuse.eval.compact import run_compact
+        run_compact(DS, provided, score_all_signals, graph_op, onto_op, feats, Fnp,
+                    cat_lbl, alb_lbl, MUSIC, RESULTS_DIR,
+                    preprocessing_seconds=time.perf_counter() - EVALUATOR_STARTED)
+    elif os.environ.get("PROVIDED_STUDY", "provided") == "generalization":
         from bundlefuse.eval.generalization import run_generalization
         from bundlefuse.eval.components import query_groups
         category_inputs = [cat_lbl] + ([alb_lbl] if alb_lbl is not None else [])
@@ -424,7 +435,8 @@ if PROTOCOL == "provided":
         run_components(DS, provided, score_all_signals, SIG, freq, MUSIC, SEL_OBJ, RESULTS_DIR, make_hybrid())
     else:
         from bundlefuse.eval.provided import run_provided
-        run_provided(DS, provided, score_all_signals, SIG, freq, MUSIC, SEL_OBJ, RESULTS_DIR)
+        run_provided(DS, provided, score_all_signals, SIG, freq, MUSIC, SEL_OBJ, RESULTS_DIR,
+                     selected_scorer=selected_signal_scorer.score)
     sys.exit()
 
 

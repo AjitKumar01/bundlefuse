@@ -8,8 +8,8 @@ from .selection import sel_score
 
 
 def fusion_observed(signals, weights, higher_order):
-    pair = dict(signals, simp=signals['pair'], diff2=signals['diff2_pair'])
-    base_pair = sum(weights[k] * pair[k] for k in weights if weights[k])
+    aliases = {'simp': 'pair', 'diff2': 'diff2_pair'}
+    base_pair = sum(weights[k] * signals[aliases.get(k, k)] for k in weights if weights[k])
     alpha, gamma = higher_order
     observed = base_pair
     if alpha:
@@ -23,7 +23,9 @@ def fusion_observed(signals, weights, higher_order):
 def fusion_parts(signals, weights, prior_keys, higher_order):
     observed = fusion_observed(signals, weights, higher_order)
     _, gamma = higher_order
-    prior = sum(weights.get(k, 0.5) * signals[k] for k in prior_keys) + gamma * signals['rao']
+    prior = sum(weights.get(k, 0.5) * signals[k] for k in prior_keys)
+    if gamma:
+        prior = prior + gamma * signals['rao']
     if weights.get('pop', 0) > 0:
         prior = prior + weights['pop'] * signals['pop']
     return observed, prior
@@ -35,6 +37,22 @@ def apply_fusion(signals, weights, prior_keys, backoff, freq, higher_order):
         return fusion_observed(signals, weights, higher_order)
     observed, prior = fusion_parts(signals, weights, prior_keys, higher_order)
     return EmpiricalBayesRouter.conjugate_posterior(observed, prior * scale, freq, kappa)
+
+
+def required_fusion_signals(weights, prior_keys, backoff, higher_order):
+    """Exact dependencies of a frozen fusion; selection still needs the complete signal set."""
+    aliases = {'simp': 'pair', 'diff2': 'diff2_pair'}
+    required = {aliases.get(k, k) for k, value in weights.items() if value}
+    alpha, gamma = higher_order
+    if alpha:
+        required.update(k for k, value in weights.items() if value)
+    if gamma:
+        required.add('rao')
+    if backoff[0] > 0:
+        required.update(k for k in prior_keys if weights.get(k, .5))
+        if weights.get('pop', 0) > 0:
+            required.add('pop')
+    return required
 
 
 class ValidationSignals:
