@@ -1,0 +1,94 @@
+[
+  {
+    "hp": {
+      "dim": 64,
+      "lr": 0.001,
+      "regularization": 1e-05,
+      "negatives": 32,
+      "batch_size": 128,
+      "max_epochs": 100,
+      "evaluate_every": 5,
+      "patience": 4
+    },
+    "seed": 0,
+    "best_epoch": 30,
+    "val_ndcg20": 0.13441535303422347,
+    "epochs_run": 50,
+    "stopped": "patience",
+    "best_at_final_check": false,
+    "training_bundles": 8739,
+    "auxiliary_bundles": 0,
+    "parameter_count": 22985231,
+    "seconds": 93.23633149988018,
+    "checkpoint": "grid_0/best.pt"
+  },
+  {
+    "hp": {
+      "dim": 64,
+      "lr": 0.001,
+      "regularization": 0.001,
+      "negatives": 32,
+      "batch_size": 128,
+      "max_epochs": 100,
+      "evaluate_every": 5,
+      "patience": 4
+    },
+    "seed": 0,
+    "best_epoch": 30,
+    "val_ndcg20": 0.13436708049753826,
+    "epochs_run": 50,
+    "stopped": "patience",
+    "best_at_final_check": false,
+    "training_bundles": 8739,
+    "auxiliary_bundles": 0,
+    "parameter_count": 22985231,
+    "seconds": 92.95454058400355,
+    "checkpoint": "grid_1/best.pt"
+  },
+  {
+    "hp": {
+      "dim": 64,
+      "lr": 0.003,
+      "regularization": 1e-05,
+      "negatives": 32,
+      "batch_size": 128,
+      "max_epochs": 100,
+      "evaluate_every": 5,
+      "patience": 4
+    },
+    "seed": 0,
+    "best_epoch": 95,
+    "val_ndcg20": 0.13170336816535805,
+    "epochs_run": 100,
+    "stopped": "epoch_budget",
+    "best_at_final_check": false,
+    "training_bundles": 8739,
+    "auxiliary_bundles": 0,
+    "parameter_count": 22985231,
+    "seconds": 185.79581737495027,
+    "checkpoint": "grid_2/best.pt"
+  },
+  {
+    "hp": {
+      "dim": 64,
+      "lr": 0.003,
+      "regularization": 0.001,
+      "negatives": 32,
+      "batch_size": 128,
+      "max_epochs": 100,
+      "evaluate_every": 5,
+      "patience": 4
+    },
+    "seed": 0,
+    "best_epoch": 95,
+    "val_ndcg20": 0.1316465553080714,
+    "epochs_run": 100,
+    "stopped": "epoch_budget",
+    "best_at_final_check": false,
+    "training_bundles": 8739,
+    "auxiliary_bundles": 0,
+    "parameter_count": 22985231,
+    "seconds": 185.59013241692446,
+    "checkpoint": "grid_3/best.pt"
+  }
+]

@@ -1,0 +1,22 @@
+{
+  "hp": {
+    "dim": 64,
+    "lr": 0.001,
+    "regularization": 0.001,
+    "negatives": 32,
+    "batch_size": 128,
+    "max_epochs": 100,
+    "evaluate_every": 5,
+    "patience": 4
+  },
+  "seed": 0,
+  "best_epoch": 10,
+  "val_ndcg20": 0.06209572554403326,
+  "epochs_run": 30,
+  "stopped": "patience",
+  "best_at_final_check": false,
+  "training_bundles": 21000,
+  "auxiliary_bundles": 2321,
+  "parameter_count": 6684163,
+  "seconds": 92.60662633390166
+}

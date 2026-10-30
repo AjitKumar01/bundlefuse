@@ -1,0 +1,232 @@
+{
+  "baselines": {
+    "BundleFuse": {
+      "kind": "fusion",
+      "weights": {
+        "cat": 0.5,
+        "style": 0.25,
+        "bridge": 0.25,
+        "simp": 0.25
+      },
+      "prior_keys": [
+        "cat",
+        "style",
+        "bridge"
+      ],
+      "kappa": 0.5,
+      "prior_scale": 1.0424024296056245,
+      "alpha_inc": 0.0,
+      "gamma_rao": 0.0,
+      "variance_components": {
+        "identifiable": true,
+        "raw_sigma0_sq": 0.2863996062791611,
+        "raw_sigma_eps_sq": -0.273238429657863,
+        "sigma0_sq": 0.2863996062791611,
+        "sigma_eps_sq": 0.0001,
+        "kappa_f": 0.05,
+        "raw_slope_negative": true,
+        "truncated": true
+      },
+      "constraints": {
+        "remove_bridge": false
+      }
+    },
+    "SimpleHybrid": {
+      "kind": "hybrid",
+      "weights": {
+        "raw_cooc": 0.25,
+        "raw_content": 0.25,
+        "raw_category": 0.5
+      },
+      "gate": null,
+      "val_ndcg20": 0.02549303703275673
+    },
+    "HardSwitchHybrid": {
+      "kind": "hybrid",
+      "weights": {
+        "raw_cooc": 0.25,
+        "raw_content": 0.25,
+        "raw_category": 0.5
+      },
+      "gate": [
+        0,
+        2.0
+      ],
+      "val_ndcg20": 0.030671762566938494
+    }
+  },
+  "learned": {
+    "grid": [
+      {
+        "hp": {
+          "dim": 64,
+          "lr": 0.001,
+          "regularization": 1e-05,
+          "negatives": 32,
+          "batch_size": 128,
+          "max_epochs": 100,
+          "evaluate_every": 5,
+          "patience": 4
+        },
+        "seed": 0,
+        "best_epoch": 20,
+        "val_ndcg20": 0.015690874447271474,
+        "epochs_run": 40,
+        "stopped": "patience",
+        "best_at_final_check": false,
+        "training_bundles": 14000,
+        "auxiliary_bundles": 0,
+        "parameter_count": 3316326,
+        "seconds": 60.62922404217534,
+        "checkpoint": "grid_0/best.pt"
+      },
+      {
+        "hp": {
+          "dim": 64,
+          "lr": 0.001,
+          "regularization": 0.001,
+          "negatives": 32,
+          "batch_size": 128,
+          "max_epochs": 100,
+          "evaluate_every": 5,
+          "patience": 4
+        },
+        "seed": 0,
+        "best_epoch": 20,
+        "val_ndcg20": 0.015705493095836773,
+        "epochs_run": 40,
+        "stopped": "patience",
+        "best_at_final_check": false,
+        "training_bundles": 14000,
+        "auxiliary_bundles": 0,
+        "parameter_count": 3316326,
+        "seconds": 61.19344741711393,
+        "checkpoint": "grid_1/best.pt",
+        "checkpoint_sha256": "7ec2b29dc3b2789739f18e645fed03cddfed43e1b9c8874ecb4da8d8fd6b05d3"
+      },
+      {
+        "hp": {
+          "dim": 64,
+          "lr": 0.003,
+          "regularization": 1e-05,
+          "negatives": 32,
+          "batch_size": 128,
+          "max_epochs": 100,
+          "evaluate_every": 5,
+          "patience": 4
+        },
+        "seed": 0,
+        "best_epoch": 35,
+        "val_ndcg20": 0.014546126784808534,
+        "epochs_run": 55,
+        "stopped": "patience",
+        "best_at_final_check": false,
+        "training_bundles": 14000,
+        "auxiliary_bundles": 0,
+        "parameter_count": 3316326,
+        "seconds": 84.66755108302459,
+        "checkpoint": "grid_2/best.pt"
+      },
+      {
+        "hp": {
+          "dim": 64,
+          "lr": 0.003,
+          "regularization": 0.001,
+          "negatives": 32,
+          "batch_size": 128,
+          "max_epochs": 100,
+          "evaluate_every": 5,
+          "patience": 4
+        },
+        "seed": 0,
+        "best_epoch": 10,
+        "val_ndcg20": 0.013166209011983373,
+        "epochs_run": 30,
+        "stopped": "patience",
+        "best_at_final_check": false,
+        "training_bundles": 14000,
+        "auxiliary_bundles": 0,
+        "parameter_count": 3316326,
+        "seconds": 46.409743666881695,
+        "checkpoint": "grid_3/best.pt"
+      }
+    ],
+    "selected_grid": 1,
+    "selected": {
+      "MetadataRanker_s0": {
+        "hp": {
+          "dim": 64,
+          "lr": 0.001,
+          "regularization": 0.001,
+          "negatives": 32,
+          "batch_size": 128,
+          "max_epochs": 100,
+          "evaluate_every": 5,
+          "patience": 4
+        },
+        "seed": 0,
+        "best_epoch": 20,
+        "val_ndcg20": 0.015705493095836773,
+        "epochs_run": 40,
+        "stopped": "patience",
+        "best_at_final_check": false,
+        "training_bundles": 14000,
+        "auxiliary_bundles": 0,
+        "parameter_count": 3316326,
+        "seconds": 61.19344741711393,
+        "checkpoint": "grid_1/best.pt",
+        "checkpoint_sha256": "7ec2b29dc3b2789739f18e645fed03cddfed43e1b9c8874ecb4da8d8fd6b05d3"
+      },
+      "MetadataRanker_s1": {
+        "hp": {
+          "dim": 64,
+          "lr": 0.001,
+          "regularization": 0.001,
+          "negatives": 32,
+          "batch_size": 128,
+          "max_epochs": 100,
+          "evaluate_every": 5,
+          "patience": 4
+        },
+        "seed": 1,
+        "best_epoch": 10,
+        "val_ndcg20": 0.015711285616527616,
+        "epochs_run": 30,
+        "stopped": "patience",
+        "best_at_final_check": false,
+        "training_bundles": 14000,
+        "auxiliary_bundles": 0,
+        "parameter_count": 3316326,
+        "seconds": 46.41554216691293,
+        "checkpoint": "seed_1/best.pt",
+        "checkpoint_sha256": "c5891096df36705223418215280a4ebb56c323a3f735b24eee4a5a7b0aed5e38"
+      },
+      "MetadataRanker_s2": {
+        "hp": {
+          "dim": 64,
+          "lr": 0.001,
+          "regularization": 0.001,
+          "negatives": 32,
+          "batch_size": 128,
+          "max_epochs": 100,
+          "evaluate_every": 5,
+          "patience": 4
+        },
+        "seed": 2,
+        "best_epoch": 10,
+        "val_ndcg20": 0.01602542539442916,
+        "epochs_run": 30,
+        "stopped": "patience",
+        "best_at_final_check": false,
+        "training_bundles": 14000,
+        "auxiliary_bundles": 0,
+        "parameter_count": 3316326,
+        "seconds": 47.38262470881455,
+        "checkpoint": "seed_2/best.pt",
+        "checkpoint_sha256": "1581cb277b269fd7448b2d72f951c5973755041b07569631b791879973b282bc"
+      }
+    },
+    "selection": "Seed-0 hyperparameters and each seed checkpoint selected by full supplied validation NDCG@20; no test selection"
+  },
+  "stress_test_policy": "All settings selected on the original validation masks, then frozen for all test cases"
+}

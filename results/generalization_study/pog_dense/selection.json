@@ -1,0 +1,232 @@
+{
+  "baselines": {
+    "BundleFuse": {
+      "kind": "fusion",
+      "weights": {
+        "cat": 0.5,
+        "bridge": 0.25,
+        "simp": 0.5,
+        "pop": 0.25,
+        "csvd": 0.25
+      },
+      "prior_keys": [
+        "cat",
+        "bridge"
+      ],
+      "kappa": 0.5,
+      "prior_scale": 1.4605515925404695,
+      "alpha_inc": 1.0,
+      "gamma_rao": 0.0,
+      "variance_components": {
+        "identifiable": true,
+        "raw_sigma0_sq": 2.474907838035391,
+        "raw_sigma_eps_sq": -2.5281071910569533,
+        "sigma0_sq": 2.474907838035391,
+        "sigma_eps_sq": 0.0001,
+        "kappa_f": 0.05,
+        "raw_slope_negative": true,
+        "truncated": true
+      },
+      "constraints": {
+        "remove_bridge": false
+      }
+    },
+    "SimpleHybrid": {
+      "kind": "hybrid",
+      "weights": {
+        "raw_cooc": 0.5,
+        "raw_category": 1.0,
+        "raw_popularity": 0.5
+      },
+      "gate": null,
+      "val_ndcg20": 0.2558877469707587
+    },
+    "HardSwitchHybrid": {
+      "kind": "hybrid",
+      "weights": {
+        "raw_cooc": 0.5,
+        "raw_category": 1.0,
+        "raw_popularity": 0.5
+      },
+      "gate": [
+        1,
+        0.5
+      ],
+      "val_ndcg20": 0.2568822088482575
+    }
+  },
+  "learned": {
+    "grid": [
+      {
+        "hp": {
+          "dim": 64,
+          "lr": 0.001,
+          "regularization": 1e-05,
+          "negatives": 32,
+          "batch_size": 128,
+          "max_epochs": 100,
+          "evaluate_every": 5,
+          "patience": 4
+        },
+        "seed": 0,
+        "best_epoch": 15,
+        "val_ndcg20": 0.22471183901421454,
+        "epochs_run": 35,
+        "stopped": "patience",
+        "best_at_final_check": false,
+        "training_bundles": 20780,
+        "auxiliary_bundles": 0,
+        "parameter_count": 2181171,
+        "seconds": 73.42077491688542,
+        "checkpoint": "grid_0/best.pt"
+      },
+      {
+        "hp": {
+          "dim": 64,
+          "lr": 0.001,
+          "regularization": 0.001,
+          "negatives": 32,
+          "batch_size": 128,
+          "max_epochs": 100,
+          "evaluate_every": 5,
+          "patience": 4
+        },
+        "seed": 0,
+        "best_epoch": 15,
+        "val_ndcg20": 0.22500876807150866,
+        "epochs_run": 35,
+        "stopped": "patience",
+        "best_at_final_check": false,
+        "training_bundles": 20780,
+        "auxiliary_bundles": 0,
+        "parameter_count": 2181171,
+        "seconds": 73.71931433305144,
+        "checkpoint": "grid_1/best.pt"
+      },
+      {
+        "hp": {
+          "dim": 64,
+          "lr": 0.003,
+          "regularization": 1e-05,
+          "negatives": 32,
+          "batch_size": 128,
+          "max_epochs": 100,
+          "evaluate_every": 5,
+          "patience": 4
+        },
+        "seed": 0,
+        "best_epoch": 25,
+        "val_ndcg20": 0.2421880860134069,
+        "epochs_run": 45,
+        "stopped": "patience",
+        "best_at_final_check": false,
+        "training_bundles": 20780,
+        "auxiliary_bundles": 0,
+        "parameter_count": 2181171,
+        "seconds": 94.7738989579957,
+        "checkpoint": "grid_2/best.pt",
+        "checkpoint_sha256": "a3d847e393609b37214627e13207698035d3f4343d4f061939953959a753c597"
+      },
+      {
+        "hp": {
+          "dim": 64,
+          "lr": 0.003,
+          "regularization": 0.001,
+          "negatives": 32,
+          "batch_size": 128,
+          "max_epochs": 100,
+          "evaluate_every": 5,
+          "patience": 4
+        },
+        "seed": 0,
+        "best_epoch": 10,
+        "val_ndcg20": 0.2413826635776108,
+        "epochs_run": 30,
+        "stopped": "patience",
+        "best_at_final_check": false,
+        "training_bundles": 20780,
+        "auxiliary_bundles": 0,
+        "parameter_count": 2181171,
+        "seconds": 63.50784662505612,
+        "checkpoint": "grid_3/best.pt"
+      }
+    ],
+    "selected_grid": 2,
+    "selected": {
+      "MetadataRanker_s0": {
+        "hp": {
+          "dim": 64,
+          "lr": 0.003,
+          "regularization": 1e-05,
+          "negatives": 32,
+          "batch_size": 128,
+          "max_epochs": 100,
+          "evaluate_every": 5,
+          "patience": 4
+        },
+        "seed": 0,
+        "best_epoch": 25,
+        "val_ndcg20": 0.2421880860134069,
+        "epochs_run": 45,
+        "stopped": "patience",
+        "best_at_final_check": false,
+        "training_bundles": 20780,
+        "auxiliary_bundles": 0,
+        "parameter_count": 2181171,
+        "seconds": 94.7738989579957,
+        "checkpoint": "grid_2/best.pt",
+        "checkpoint_sha256": "a3d847e393609b37214627e13207698035d3f4343d4f061939953959a753c597"
+      },
+      "MetadataRanker_s1": {
+        "hp": {
+          "dim": 64,
+          "lr": 0.003,
+          "regularization": 1e-05,
+          "negatives": 32,
+          "batch_size": 128,
+          "max_epochs": 100,
+          "evaluate_every": 5,
+          "patience": 4
+        },
+        "seed": 1,
+        "best_epoch": 20,
+        "val_ndcg20": 0.2461602118605094,
+        "epochs_run": 40,
+        "stopped": "patience",
+        "best_at_final_check": false,
+        "training_bundles": 20780,
+        "auxiliary_bundles": 0,
+        "parameter_count": 2181171,
+        "seconds": 84.7306805420667,
+        "checkpoint": "seed_1/best.pt",
+        "checkpoint_sha256": "65772124c7c0c376ed042b3f20895fc25be6999a818a2e691dc2c6ec20a4c9e7"
+      },
+      "MetadataRanker_s2": {
+        "hp": {
+          "dim": 64,
+          "lr": 0.003,
+          "regularization": 1e-05,
+          "negatives": 32,
+          "batch_size": 128,
+          "max_epochs": 100,
+          "evaluate_every": 5,
+          "patience": 4
+        },
+        "seed": 2,
+        "best_epoch": 10,
+        "val_ndcg20": 0.2441751452796948,
+        "epochs_run": 30,
+        "stopped": "patience",
+        "best_at_final_check": false,
+        "training_bundles": 20780,
+        "auxiliary_bundles": 0,
+        "parameter_count": 2181171,
+        "seconds": 63.666865166975185,
+        "checkpoint": "seed_2/best.pt",
+        "checkpoint_sha256": "9f7314ebc61f48a890ab82e7fcf2c7fd84477bfb9480cfb16359dbeecd23268b"
+      }
+    },
+    "selection": "Seed-0 hyperparameters and each seed checkpoint selected by full supplied validation NDCG@20; no test selection"
+  },
+  "stress_test_policy": "All settings selected on the original validation masks, then frozen for all test cases"
+}

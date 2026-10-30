@@ -21,6 +21,13 @@ are conditional: higher-order effects are clearest on music; bridging can reduce
 most of the R@20 gap over HardSwitch survives removal of all higher-order terms. The manuscript's
 component explanations must reflect these results before it is presented as the current paper.
 
+The [learned-baseline and generalization study](../results/generalization_study/ANALYSIS.md)
+is now verified. BundleFuse leads the tested trained competitor in original-input conditions,
+including future retail baskets under a fixed catalogue. Sparse-retail Recall and one-seed dense
+POG reveal counterexamples to uniform robustness. The cached learned ranker is faster in the
+measured warm-cache pipeline, so a general inference-speed or zero-cost claim is unsupported.
+The ledger records these boundaries and the two epoch-limited Spotify confirmation runs.
+
 The corrected runner does not reproduce the DDBC F1 or triple2vec+adaLoyal tables: their evaluation
 paths are absent from this checkout. RaMen's published ablation is evidence about its own model;
 it does not precisely identify the cause of the cross-model performance gap.

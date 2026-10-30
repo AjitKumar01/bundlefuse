@@ -12,11 +12,11 @@ be reconciled with it before publication.
 | Bridging always improves ranking | Unsupported. It helps Spotify, is pruned on Spotify_sparse, and its removal improves POG NDCG. |
 | No gradient-trained encoder in the default BundleFuse scorer | Supported. Fusion/routing weights are nevertheless selected on validation; SVD, graph and taxonomy statistics are estimated. External pretrained embeddings have an upstream cost. |
 | No fitted parameters / zero total cost | Unsupported wording. Describe the specific closed-form scorer and report preprocessing, selection, inference and upstream exclusions separately. |
-| Competitive with a trained feature-matched ranker | New learned-baseline study pending. Inspect full validation learning curves, training seeds and epoch-budget diagnostics before drawing a conclusion. |
-| Robust to sparse inputs and future retail baskets | New sparse-input / chronological study pending. The retail experiment assumes a fixed metadata catalogue, retains cold targets and builds interaction statistics only from the training period. It cannot simulate unavailable product introduction dates. |
-| Faster / less memory than trained alternatives | Requires the new measured-cost records. Warm-cache scoring, catalogue encoding, training/search, feature/graph preprocessing and whole-worker RSS measure different quantities. External embedding extraction remains excluded. |
+| Competitive with the tested trained feature-matched ranker | Supported in original-input conditions on all five datasets, for all three trained seeds in both R@20 and NDCG@20 after the planned Holm correction. This covers one architecture/grid, not every learned model. Two Spotify confirmation seeds hit the epoch budget. |
+| Robust to sparse inputs and future retail baskets | Conditional. The original chronological retail condition favors BundleFuse, but the learned model wins sparse-retail R@20 and SimpleHybrid wins one-seed POG_dense. Temporal graphs are trained only on earlier interactions; catalogue metadata is fixed and transductive. Product introduction dates are unavailable. |
+| Faster / less memory than trained alternatives | A blanket advantage is unsupported. The trained ranker with cached catalogue vectors is faster in measured warm-cache scoring and scoring-plus-metrics. Whole-worker RSS cannot establish per-method memory superiority. External embedding extraction and earlier supplied-fold baseline search remain excluded from new totals. |
 | Verified DDBC / triple2vec superiority | Historical claims remain outside the reproduced experiment suite. |
 
 Evidence: [supplied splits](../results/provided_splits/ANALYSIS.md),
 [controls and ablations](../results/component_study/ANALYSIS.md), and
-[learned/generalization study](../results/generalization_study/REPORT.md).
+[verified learned/generalization findings](../results/generalization_study/ANALYSIS.md).

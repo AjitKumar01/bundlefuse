@@ -1,0 +1,427 @@
+pog_dense: 31217 items, 20780 supplied train bundles, 2968 validation / 5938 test queries; no deduplication or remasking
+TRAIN MetadataRanker grid=0 seed=0 hp={'dim': 64, 'lr': 0.001, 'regularization': 1e-05, 'negatives': 32, 'batch_size': 128, 'max_epochs': 100, 'evaluate_every': 5, 'patience': 4}
+LEARNED seed=0 epoch=5 loss=0.981955 val_N20=0.213373 best=0.213373
+LEARNED seed=0 epoch=10 loss=0.289703 val_N20=0.224314 best=0.224314
+LEARNED seed=0 epoch=15 loss=0.149484 val_N20=0.224712 best=0.224712
+LEARNED seed=0 epoch=20 loss=0.110659 val_N20=0.203930 best=0.224712
+LEARNED seed=0 epoch=25 loss=0.090923 val_N20=0.205924 best=0.224712
+LEARNED seed=0 epoch=30 loss=0.080129 val_N20=0.213173 best=0.224712
+LEARNED seed=0 epoch=35 loss=0.071555 val_N20=0.222062 best=0.224712
+TRAIN MetadataRanker grid=1 seed=0 hp={'dim': 64, 'lr': 0.001, 'regularization': 0.001, 'negatives': 32, 'batch_size': 128, 'max_epochs': 100, 'evaluate_every': 5, 'patience': 4}
+LEARNED seed=0 epoch=5 loss=0.981615 val_N20=0.213610 best=0.213610
+LEARNED seed=0 epoch=10 loss=0.289416 val_N20=0.224497 best=0.224497
+LEARNED seed=0 epoch=15 loss=0.149327 val_N20=0.225009 best=0.225009
+LEARNED seed=0 epoch=20 loss=0.110544 val_N20=0.203850 best=0.225009
+LEARNED seed=0 epoch=25 loss=0.090775 val_N20=0.206097 best=0.225009
+LEARNED seed=0 epoch=30 loss=0.079991 val_N20=0.213428 best=0.225009
+LEARNED seed=0 epoch=35 loss=0.071293 val_N20=0.222998 best=0.225009
+TRAIN MetadataRanker grid=2 seed=0 hp={'dim': 64, 'lr': 0.003, 'regularization': 1e-05, 'negatives': 32, 'batch_size': 128, 'max_epochs': 100, 'evaluate_every': 5, 'patience': 4}
+LEARNED seed=0 epoch=5 loss=1.032388 val_N20=0.237088 best=0.237088
+LEARNED seed=0 epoch=10 loss=0.538328 val_N20=0.241642 best=0.241642
+LEARNED seed=0 epoch=15 loss=0.278440 val_N20=0.223117 best=0.241642
+LEARNED seed=0 epoch=20 loss=0.183852 val_N20=0.222241 best=0.241642
+LEARNED seed=0 epoch=25 loss=0.148555 val_N20=0.242188 best=0.242188
+LEARNED seed=0 epoch=30 loss=0.112011 val_N20=0.228260 best=0.242188
+LEARNED seed=0 epoch=35 loss=0.099365 val_N20=0.206304 best=0.242188
+LEARNED seed=0 epoch=40 loss=0.087293 val_N20=0.214009 best=0.242188
+LEARNED seed=0 epoch=45 loss=0.083110 val_N20=0.215160 best=0.242188
+TRAIN MetadataRanker grid=3 seed=0 hp={'dim': 64, 'lr': 0.003, 'regularization': 0.001, 'negatives': 32, 'batch_size': 128, 'max_epochs': 100, 'evaluate_every': 5, 'patience': 4}
+LEARNED seed=0 epoch=5 loss=1.032135 val_N20=0.236568 best=0.236568
+LEARNED seed=0 epoch=10 loss=0.536006 val_N20=0.241383 best=0.241383
+LEARNED seed=0 epoch=15 loss=0.276613 val_N20=0.223599 best=0.241383
+LEARNED seed=0 epoch=20 loss=0.182846 val_N20=0.221703 best=0.241383
+LEARNED seed=0 epoch=25 loss=0.145371 val_N20=0.239440 best=0.241383
+LEARNED seed=0 epoch=30 loss=0.110219 val_N20=0.220648 best=0.241383
+TRAIN MetadataRanker confirmation seed=1 hp selected on seed-0 validation
+LEARNED seed=1 epoch=5 loss=1.046777 val_N20=0.244037 best=0.244037
+LEARNED seed=1 epoch=10 loss=0.522712 val_N20=0.200848 best=0.244037
+LEARNED seed=1 epoch=15 loss=0.262565 val_N20=0.226861 best=0.244037
+LEARNED seed=1 epoch=20 loss=0.176064 val_N20=0.246160 best=0.246160
+LEARNED seed=1 epoch=25 loss=0.137785 val_N20=0.224070 best=0.246160
+LEARNED seed=1 epoch=30 loss=0.107880 val_N20=0.218255 best=0.246160
+LEARNED seed=1 epoch=35 loss=0.089395 val_N20=0.203695 best=0.246160
+LEARNED seed=1 epoch=40 loss=0.083800 val_N20=0.225142 best=0.246160
+TRAIN MetadataRanker confirmation seed=2 hp selected on seed-0 validation
+LEARNED seed=2 epoch=5 loss=0.996898 val_N20=0.243279 best=0.243279
+LEARNED seed=2 epoch=10 loss=0.514243 val_N20=0.244175 best=0.244175
+LEARNED seed=2 epoch=15 loss=0.288283 val_N20=0.239122 best=0.244175
+LEARNED seed=2 epoch=20 loss=0.195429 val_N20=0.239139 best=0.244175
+LEARNED seed=2 epoch=25 loss=0.135013 val_N20=0.220609 best=0.244175
+LEARNED seed=2 epoch=30 loss=0.109904 val_N20=0.242423 best=0.244175
+TEST pog_dense supplied: 64/5938
+TEST pog_dense supplied: 128/5938
+TEST pog_dense supplied: 192/5938
+TEST pog_dense supplied: 256/5938
+TEST pog_dense supplied: 320/5938
+TEST pog_dense supplied: 384/5938
+TEST pog_dense supplied: 448/5938
+TEST pog_dense supplied: 512/5938
+TEST pog_dense supplied: 576/5938
+TEST pog_dense supplied: 640/5938
+TEST pog_dense supplied: 704/5938
+TEST pog_dense supplied: 768/5938
+TEST pog_dense supplied: 832/5938
+TEST pog_dense supplied: 896/5938
+TEST pog_dense supplied: 960/5938
+TEST pog_dense supplied: 1024/5938
+TEST pog_dense supplied: 1088/5938
+TEST pog_dense supplied: 1152/5938
+TEST pog_dense supplied: 1216/5938
+TEST pog_dense supplied: 1280/5938
+TEST pog_dense supplied: 1344/5938
+TEST pog_dense supplied: 1408/5938
+TEST pog_dense supplied: 1472/5938
+TEST pog_dense supplied: 1536/5938
+TEST pog_dense supplied: 1600/5938
+TEST pog_dense supplied: 1664/5938
+TEST pog_dense supplied: 1728/5938
+TEST pog_dense supplied: 1792/5938
+TEST pog_dense supplied: 1856/5938
+TEST pog_dense supplied: 1920/5938
+TEST pog_dense supplied: 1984/5938
+TEST pog_dense supplied: 2048/5938
+TEST pog_dense supplied: 2112/5938
+TEST pog_dense supplied: 2176/5938
+TEST pog_dense supplied: 2240/5938
+TEST pog_dense supplied: 2304/5938
+TEST pog_dense supplied: 2368/5938
+TEST pog_dense supplied: 2432/5938
+TEST pog_dense supplied: 2496/5938
+TEST pog_dense supplied: 2560/5938
+TEST pog_dense supplied: 2624/5938
+TEST pog_dense supplied: 2688/5938
+TEST pog_dense supplied: 2752/5938
+TEST pog_dense supplied: 2816/5938
+TEST pog_dense supplied: 2880/5938
+TEST pog_dense supplied: 2944/5938
+TEST pog_dense supplied: 3008/5938
+TEST pog_dense supplied: 3072/5938
+TEST pog_dense supplied: 3136/5938
+TEST pog_dense supplied: 3200/5938
+TEST pog_dense supplied: 3264/5938
+TEST pog_dense supplied: 3328/5938
+TEST pog_dense supplied: 3392/5938
+TEST pog_dense supplied: 3456/5938
+TEST pog_dense supplied: 3520/5938
+TEST pog_dense supplied: 3584/5938
+TEST pog_dense supplied: 3648/5938
+TEST pog_dense supplied: 3712/5938
+TEST pog_dense supplied: 3776/5938
+TEST pog_dense supplied: 3840/5938
+TEST pog_dense supplied: 3904/5938
+TEST pog_dense supplied: 3968/5938
+TEST pog_dense supplied: 4032/5938
+TEST pog_dense supplied: 4096/5938
+TEST pog_dense supplied: 4160/5938
+TEST pog_dense supplied: 4224/5938
+TEST pog_dense supplied: 4288/5938
+TEST pog_dense supplied: 4352/5938
+TEST pog_dense supplied: 4416/5938
+TEST pog_dense supplied: 4480/5938
+TEST pog_dense supplied: 4544/5938
+TEST pog_dense supplied: 4608/5938
+TEST pog_dense supplied: 4672/5938
+TEST pog_dense supplied: 4736/5938
+TEST pog_dense supplied: 4800/5938
+TEST pog_dense supplied: 4864/5938
+TEST pog_dense supplied: 4928/5938
+TEST pog_dense supplied: 4992/5938
+TEST pog_dense supplied: 5056/5938
+TEST pog_dense supplied: 5120/5938
+TEST pog_dense supplied: 5184/5938
+TEST pog_dense supplied: 5248/5938
+TEST pog_dense supplied: 5312/5938
+TEST pog_dense supplied: 5376/5938
+TEST pog_dense supplied: 5440/5938
+TEST pog_dense supplied: 5504/5938
+TEST pog_dense supplied: 5568/5938
+TEST pog_dense supplied: 5632/5938
+TEST pog_dense supplied: 5696/5938
+TEST pog_dense supplied: 5760/5938
+TEST pog_dense supplied: 5824/5938
+TEST pog_dense supplied: 5888/5938
+TEST pog_dense supplied: 5938/5938
+COMPLETE CASE pog_dense supplied: {"BundleFuse": 0.39522285842595706, "SimpleHybrid": 0.3636465701133939, "HardSwitchHybrid": 0.36474121477489607, "MetadataRanker_s0": 0.35856629617155045, "MetadataRanker_s1": 0.35671382059054674, "MetadataRanker_s2": 0.3598012798922196}
+TEST pog_dense half_seeds: 64/5938
+TEST pog_dense half_seeds: 128/5938
+TEST pog_dense half_seeds: 192/5938
+TEST pog_dense half_seeds: 256/5938
+TEST pog_dense half_seeds: 320/5938
+TEST pog_dense half_seeds: 384/5938
+TEST pog_dense half_seeds: 448/5938
+TEST pog_dense half_seeds: 512/5938
+TEST pog_dense half_seeds: 576/5938
+TEST pog_dense half_seeds: 640/5938
+TEST pog_dense half_seeds: 704/5938
+TEST pog_dense half_seeds: 768/5938
+TEST pog_dense half_seeds: 832/5938
+TEST pog_dense half_seeds: 896/5938
+TEST pog_dense half_seeds: 960/5938
+TEST pog_dense half_seeds: 1024/5938
+TEST pog_dense half_seeds: 1088/5938
+TEST pog_dense half_seeds: 1152/5938
+TEST pog_dense half_seeds: 1216/5938
+TEST pog_dense half_seeds: 1280/5938
+TEST pog_dense half_seeds: 1344/5938
+TEST pog_dense half_seeds: 1408/5938
+TEST pog_dense half_seeds: 1472/5938
+TEST pog_dense half_seeds: 1536/5938
+TEST pog_dense half_seeds: 1600/5938
+TEST pog_dense half_seeds: 1664/5938
+TEST pog_dense half_seeds: 1728/5938
+TEST pog_dense half_seeds: 1792/5938
+TEST pog_dense half_seeds: 1856/5938
+TEST pog_dense half_seeds: 1920/5938
+TEST pog_dense half_seeds: 1984/5938
+TEST pog_dense half_seeds: 2048/5938
+TEST pog_dense half_seeds: 2112/5938
+TEST pog_dense half_seeds: 2176/5938
+TEST pog_dense half_seeds: 2240/5938
+TEST pog_dense half_seeds: 2304/5938
+TEST pog_dense half_seeds: 2368/5938
+TEST pog_dense half_seeds: 2432/5938
+TEST pog_dense half_seeds: 2496/5938
+TEST pog_dense half_seeds: 2560/5938
+TEST pog_dense half_seeds: 2624/5938
+TEST pog_dense half_seeds: 2688/5938
+TEST pog_dense half_seeds: 2752/5938
+TEST pog_dense half_seeds: 2816/5938
+TEST pog_dense half_seeds: 2880/5938
+TEST pog_dense half_seeds: 2944/5938
+TEST pog_dense half_seeds: 3008/5938
+TEST pog_dense half_seeds: 3072/5938
+TEST pog_dense half_seeds: 3136/5938
+TEST pog_dense half_seeds: 3200/5938
+TEST pog_dense half_seeds: 3264/5938
+TEST pog_dense half_seeds: 3328/5938
+TEST pog_dense half_seeds: 3392/5938
+TEST pog_dense half_seeds: 3456/5938
+TEST pog_dense half_seeds: 3520/5938
+TEST pog_dense half_seeds: 3584/5938
+TEST pog_dense half_seeds: 3648/5938
+TEST pog_dense half_seeds: 3712/5938
+TEST pog_dense half_seeds: 3776/5938
+TEST pog_dense half_seeds: 3840/5938
+TEST pog_dense half_seeds: 3904/5938
+TEST pog_dense half_seeds: 3968/5938
+TEST pog_dense half_seeds: 4032/5938
+TEST pog_dense half_seeds: 4096/5938
+TEST pog_dense half_seeds: 4160/5938
+TEST pog_dense half_seeds: 4224/5938
+TEST pog_dense half_seeds: 4288/5938
+TEST pog_dense half_seeds: 4352/5938
+TEST pog_dense half_seeds: 4416/5938
+TEST pog_dense half_seeds: 4480/5938
+TEST pog_dense half_seeds: 4544/5938
+TEST pog_dense half_seeds: 4608/5938
+TEST pog_dense half_seeds: 4672/5938
+TEST pog_dense half_seeds: 4736/5938
+TEST pog_dense half_seeds: 4800/5938
+TEST pog_dense half_seeds: 4864/5938
+TEST pog_dense half_seeds: 4928/5938
+TEST pog_dense half_seeds: 4992/5938
+TEST pog_dense half_seeds: 5056/5938
+TEST pog_dense half_seeds: 5120/5938
+TEST pog_dense half_seeds: 5184/5938
+TEST pog_dense half_seeds: 5248/5938
+TEST pog_dense half_seeds: 5312/5938
+TEST pog_dense half_seeds: 5376/5938
+TEST pog_dense half_seeds: 5440/5938
+TEST pog_dense half_seeds: 5504/5938
+TEST pog_dense half_seeds: 5568/5938
+TEST pog_dense half_seeds: 5632/5938
+TEST pog_dense half_seeds: 5696/5938
+TEST pog_dense half_seeds: 5760/5938
+TEST pog_dense half_seeds: 5824/5938
+TEST pog_dense half_seeds: 5888/5938
+TEST pog_dense half_seeds: 5938/5938
+COMPLETE CASE pog_dense half_seeds: {"BundleFuse": 0.3544712024250589, "SimpleHybrid": 0.36102784326933873, "HardSwitchHybrid": 0.3582631638037499, "MetadataRanker_s0": 0.3204361737958909, "MetadataRanker_s1": 0.32012742786572357, "MetadataRanker_s2": 0.32227180868979455}
+TEST pog_dense quarter_seeds: 64/5938
+TEST pog_dense quarter_seeds: 128/5938
+TEST pog_dense quarter_seeds: 192/5938
+TEST pog_dense quarter_seeds: 256/5938
+TEST pog_dense quarter_seeds: 320/5938
+TEST pog_dense quarter_seeds: 384/5938
+TEST pog_dense quarter_seeds: 448/5938
+TEST pog_dense quarter_seeds: 512/5938
+TEST pog_dense quarter_seeds: 576/5938
+TEST pog_dense quarter_seeds: 640/5938
+TEST pog_dense quarter_seeds: 704/5938
+TEST pog_dense quarter_seeds: 768/5938
+TEST pog_dense quarter_seeds: 832/5938
+TEST pog_dense quarter_seeds: 896/5938
+TEST pog_dense quarter_seeds: 960/5938
+TEST pog_dense quarter_seeds: 1024/5938
+TEST pog_dense quarter_seeds: 1088/5938
+TEST pog_dense quarter_seeds: 1152/5938
+TEST pog_dense quarter_seeds: 1216/5938
+TEST pog_dense quarter_seeds: 1280/5938
+TEST pog_dense quarter_seeds: 1344/5938
+TEST pog_dense quarter_seeds: 1408/5938
+TEST pog_dense quarter_seeds: 1472/5938
+TEST pog_dense quarter_seeds: 1536/5938
+TEST pog_dense quarter_seeds: 1600/5938
+TEST pog_dense quarter_seeds: 1664/5938
+TEST pog_dense quarter_seeds: 1728/5938
+TEST pog_dense quarter_seeds: 1792/5938
+TEST pog_dense quarter_seeds: 1856/5938
+TEST pog_dense quarter_seeds: 1920/5938
+TEST pog_dense quarter_seeds: 1984/5938
+TEST pog_dense quarter_seeds: 2048/5938
+TEST pog_dense quarter_seeds: 2112/5938
+TEST pog_dense quarter_seeds: 2176/5938
+TEST pog_dense quarter_seeds: 2240/5938
+TEST pog_dense quarter_seeds: 2304/5938
+TEST pog_dense quarter_seeds: 2368/5938
+TEST pog_dense quarter_seeds: 2432/5938
+TEST pog_dense quarter_seeds: 2496/5938
+TEST pog_dense quarter_seeds: 2560/5938
+TEST pog_dense quarter_seeds: 2624/5938
+TEST pog_dense quarter_seeds: 2688/5938
+TEST pog_dense quarter_seeds: 2752/5938
+TEST pog_dense quarter_seeds: 2816/5938
+TEST pog_dense quarter_seeds: 2880/5938
+TEST pog_dense quarter_seeds: 2944/5938
+TEST pog_dense quarter_seeds: 3008/5938
+TEST pog_dense quarter_seeds: 3072/5938
+TEST pog_dense quarter_seeds: 3136/5938
+TEST pog_dense quarter_seeds: 3200/5938
+TEST pog_dense quarter_seeds: 3264/5938
+TEST pog_dense quarter_seeds: 3328/5938
+TEST pog_dense quarter_seeds: 3392/5938
+TEST pog_dense quarter_seeds: 3456/5938
+TEST pog_dense quarter_seeds: 3520/5938
+TEST pog_dense quarter_seeds: 3584/5938
+TEST pog_dense quarter_seeds: 3648/5938
+TEST pog_dense quarter_seeds: 3712/5938
+TEST pog_dense quarter_seeds: 3776/5938
+TEST pog_dense quarter_seeds: 3840/5938
+TEST pog_dense quarter_seeds: 3904/5938
+TEST pog_dense quarter_seeds: 3968/5938
+TEST pog_dense quarter_seeds: 4032/5938
+TEST pog_dense quarter_seeds: 4096/5938
+TEST pog_dense quarter_seeds: 4160/5938
+TEST pog_dense quarter_seeds: 4224/5938
+TEST pog_dense quarter_seeds: 4288/5938
+TEST pog_dense quarter_seeds: 4352/5938
+TEST pog_dense quarter_seeds: 4416/5938
+TEST pog_dense quarter_seeds: 4480/5938
+TEST pog_dense quarter_seeds: 4544/5938
+TEST pog_dense quarter_seeds: 4608/5938
+TEST pog_dense quarter_seeds: 4672/5938
+TEST pog_dense quarter_seeds: 4736/5938
+TEST pog_dense quarter_seeds: 4800/5938
+TEST pog_dense quarter_seeds: 4864/5938
+TEST pog_dense quarter_seeds: 4928/5938
+TEST pog_dense quarter_seeds: 4992/5938
+TEST pog_dense quarter_seeds: 5056/5938
+TEST pog_dense quarter_seeds: 5120/5938
+TEST pog_dense quarter_seeds: 5184/5938
+TEST pog_dense quarter_seeds: 5248/5938
+TEST pog_dense quarter_seeds: 5312/5938
+TEST pog_dense quarter_seeds: 5376/5938
+TEST pog_dense quarter_seeds: 5440/5938
+TEST pog_dense quarter_seeds: 5504/5938
+TEST pog_dense quarter_seeds: 5568/5938
+TEST pog_dense quarter_seeds: 5632/5938
+TEST pog_dense quarter_seeds: 5696/5938
+TEST pog_dense quarter_seeds: 5760/5938
+TEST pog_dense quarter_seeds: 5824/5938
+TEST pog_dense quarter_seeds: 5888/5938
+TEST pog_dense quarter_seeds: 5938/5938
+COMPLETE CASE pog_dense quarter_seeds: {"BundleFuse": 0.3544936566745257, "SimpleHybrid": 0.3610166161446054, "HardSwitchHybrid": 0.35825193667901656, "MetadataRanker_s0": 0.3204530144829909, "MetadataRanker_s1": 0.3201779499270237, "MetadataRanker_s2": 0.32231671718872795}
+TEST pog_dense one_seed: 64/5938
+TEST pog_dense one_seed: 128/5938
+TEST pog_dense one_seed: 192/5938
+TEST pog_dense one_seed: 256/5938
+TEST pog_dense one_seed: 320/5938
+TEST pog_dense one_seed: 384/5938
+TEST pog_dense one_seed: 448/5938
+TEST pog_dense one_seed: 512/5938
+TEST pog_dense one_seed: 576/5938
+TEST pog_dense one_seed: 640/5938
+TEST pog_dense one_seed: 704/5938
+TEST pog_dense one_seed: 768/5938
+TEST pog_dense one_seed: 832/5938
+TEST pog_dense one_seed: 896/5938
+TEST pog_dense one_seed: 960/5938
+TEST pog_dense one_seed: 1024/5938
+TEST pog_dense one_seed: 1088/5938
+TEST pog_dense one_seed: 1152/5938
+TEST pog_dense one_seed: 1216/5938
+TEST pog_dense one_seed: 1280/5938
+TEST pog_dense one_seed: 1344/5938
+TEST pog_dense one_seed: 1408/5938
+TEST pog_dense one_seed: 1472/5938
+TEST pog_dense one_seed: 1536/5938
+TEST pog_dense one_seed: 1600/5938
+TEST pog_dense one_seed: 1664/5938
+TEST pog_dense one_seed: 1728/5938
+TEST pog_dense one_seed: 1792/5938
+TEST pog_dense one_seed: 1856/5938
+TEST pog_dense one_seed: 1920/5938
+TEST pog_dense one_seed: 1984/5938
+TEST pog_dense one_seed: 2048/5938
+TEST pog_dense one_seed: 2112/5938
+TEST pog_dense one_seed: 2176/5938
+TEST pog_dense one_seed: 2240/5938
+TEST pog_dense one_seed: 2304/5938
+TEST pog_dense one_seed: 2368/5938
+TEST pog_dense one_seed: 2432/5938
+TEST pog_dense one_seed: 2496/5938
+TEST pog_dense one_seed: 2560/5938
+TEST pog_dense one_seed: 2624/5938
+TEST pog_dense one_seed: 2688/5938
+TEST pog_dense one_seed: 2752/5938
+TEST pog_dense one_seed: 2816/5938
+TEST pog_dense one_seed: 2880/5938
+TEST pog_dense one_seed: 2944/5938
+TEST pog_dense one_seed: 3008/5938
+TEST pog_dense one_seed: 3072/5938
+TEST pog_dense one_seed: 3136/5938
+TEST pog_dense one_seed: 3200/5938
+TEST pog_dense one_seed: 3264/5938
+TEST pog_dense one_seed: 3328/5938
+TEST pog_dense one_seed: 3392/5938
+TEST pog_dense one_seed: 3456/5938
+TEST pog_dense one_seed: 3520/5938
+TEST pog_dense one_seed: 3584/5938
+TEST pog_dense one_seed: 3648/5938
+TEST pog_dense one_seed: 3712/5938
+TEST pog_dense one_seed: 3776/5938
+TEST pog_dense one_seed: 3840/5938
+TEST pog_dense one_seed: 3904/5938
+TEST pog_dense one_seed: 3968/5938
+TEST pog_dense one_seed: 4032/5938
+TEST pog_dense one_seed: 4096/5938
+TEST pog_dense one_seed: 4160/5938
+TEST pog_dense one_seed: 4224/5938
+TEST pog_dense one_seed: 4288/5938
+TEST pog_dense one_seed: 4352/5938
+TEST pog_dense one_seed: 4416/5938
+TEST pog_dense one_seed: 4480/5938
+TEST pog_dense one_seed: 4544/5938
+TEST pog_dense one_seed: 4608/5938
+TEST pog_dense one_seed: 4672/5938
+TEST pog_dense one_seed: 4736/5938
+TEST pog_dense one_seed: 4800/5938
+TEST pog_dense one_seed: 4864/5938
+TEST pog_dense one_seed: 4928/5938
+TEST pog_dense one_seed: 4992/5938
+TEST pog_dense one_seed: 5056/5938
+TEST pog_dense one_seed: 5120/5938
+TEST pog_dense one_seed: 5184/5938
+TEST pog_dense one_seed: 5248/5938
+TEST pog_dense one_seed: 5312/5938
+TEST pog_dense one_seed: 5376/5938
+TEST pog_dense one_seed: 5440/5938
+TEST pog_dense one_seed: 5504/5938
+TEST pog_dense one_seed: 5568/5938
+TEST pog_dense one_seed: 5632/5938
+TEST pog_dense one_seed: 5696/5938
+TEST pog_dense one_seed: 5760/5938
+TEST pog_dense one_seed: 5824/5938
+TEST pog_dense one_seed: 5888/5938
+TEST pog_dense one_seed: 5938/5938
+COMPLETE CASE pog_dense one_seed: {"BundleFuse": 0.3544936566745257, "SimpleHybrid": 0.3610166161446054, "HardSwitchHybrid": 0.35825193667901656, "MetadataRanker_s0": 0.3204530144829909, "MetadataRanker_s1": 0.3201779499270237, "MetadataRanker_s2": 0.32231671718872795}
+COMPLETE DATASET pog_dense

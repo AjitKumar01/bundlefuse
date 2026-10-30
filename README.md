@@ -223,5 +223,35 @@ All **32 method/dataset evaluations** are complete and verified. BundleFuse beat
 
 The ablations support dataset-dependent benefits. Higher-order terms help music but do nothing on POG; shrinkage improves three datasets reliably; removing bridging improves POG NDCG while bridging helps Spotify. Removing all higher-order terms still retains roughly **92–100%** of the R@20 advantage over HardSwitchHybrid, so they do not explain most of the baseline gap.
 
-[Full interpretation, effect sizes, and remaining limitations](results/component_study/ANALYSIS.md). [Verification](results/component_study/VALIDATION.md) recomputes all 56 paired contrasts from per-query metrics. **42 tests passed**, and every full-model per-query metric exactly reproduced the preceding verified run. Uncertainty estimates condition on these fitted models and supplied splits; learned metadata baselines and mask/temporal robustness remain open.
+[Full interpretation, effect sizes, and remaining limitations](results/component_study/ANALYSIS.md). [Verification](results/component_study/VALIDATION.md) recomputes all 56 paired contrasts from per-query metrics. **42 tests passed**, and every full-model per-query metric exactly reproduced the preceding verified run. Uncertainty estimates condition on these fitted models and supplied splits. The subsequent learned-baseline, mask and temporal study below tests those remaining questions.
 <!-- END COMPONENT CONCLUSION -->
+
+## Learned baseline and generalization
+
+<!-- BEGIN GENERALIZATION STUDY -->
+**5/5 dataset jobs complete.** A trained metadata/collaborative ranker (three seeds), sparse-input stress tests, chronological retail evaluation, and measured costs.
+
+| Dataset | Status | BundleFuse R@20 | Learned seed 0 | Learned mean ± SD (3 seeds) |
+|---|---|---:|---:|---:|
+| pog | complete | 0.054458 | 0.023167 | 0.023625 ± 0.000863 |
+| pog_dense | complete | 0.395223 | 0.358566 | 0.358360 ± 0.001269 |
+| dunnhumby_chrono | complete | 0.118867 | 0.096630 | 0.096970 ± 0.001112 |
+| spotify | complete | 0.155646 | 0.120616 | 0.118988 ± 0.001154 |
+| spotify_sparse | complete | 0.154288 | 0.109306 | 0.111407 ± 0.001769 |
+
+[Live results and logs](results/generalization_study/REPORT.md).
+
+```bash
+python -m bundlefuse.generalization_experiments --output results/generalization_study
+```
+<!-- END GENERALIZATION STUDY -->
+
+<!-- BEGIN GENERALIZATION CONCLUSION -->
+All **five jobs, 120 method/case evaluations, and 200 paired contrasts are verified**. BundleFuse beats both simple controls and all three learned-ranker seeds in R@20 and NDCG@20 under the original input condition on all five datasets, including chronological retail, after Holm correction.
+
+Sparse-input limitations are confirmed. With one seed, **POG_dense SimpleHybrid scores 0.36102 versus BundleFuse 0.35449**; on chronological retail, **learned seed 0 scores 0.07577 versus BundleFuse 0.06562** in R@20. Both Recall reversals survive correction. These are separate stress conditions; original POG_dense remains **0.39522**. Spotify one-seed NDCG also favors HardSwitch.
+
+The cached learned ranker is faster in the measured warm-cache scoring pipeline. Report preprocessing, fitting, catalogue encoding, scoring/metric time and whole-worker RSS separately; the earlier supplied-fold baseline search and external feature extraction are excluded from the new totals. Two Spotify confirmation seeds reached the epoch budget, so universal convergence is unestablished.
+
+[Full findings, cost measurements, and operating limits](results/generalization_study/ANALYSIS.md). [Verification](results/generalization_study/VALIDATION.md) checks masks, chronology, hashes, checkpoints, reference agreement, and all 200 statistics. **51 regression tests passed.**
+<!-- END GENERALIZATION CONCLUSION -->

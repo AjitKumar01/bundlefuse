@@ -145,6 +145,10 @@ Costs are measured separately: feature/graph preprocessing, learned training and
 catalogue-vector encoding, warm-cache scoring, scoring plus metrics, and whole-worker peak RSS.
 Inference uses the same 32 sampled queries and three repeats per method. External embedding
 extraction/pretraining is excluded; whole-worker RSS is not a per-method memory measurement.
+For the supplied POG/Spotify folds, `baseline_selection_seconds` measures loading the frozen
+reference settings, not their earlier grid-search cost. That earlier search is outside this run's
+cost totals. The chronological job includes its newly performed validation search. Warm-cache
+latency therefore supports inference comparisons, not a claim about total optimization cost.
 
 ## Current experiment plan
 
