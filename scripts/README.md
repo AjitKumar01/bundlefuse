@@ -1,16 +1,18 @@
-# `scripts/` — one-off drivers and table builders
+# Experiment helpers
 
-These wrap the evaluators in `bundlefuse.eval` for specific tables/figures or data prep. They are not
-part of the core library; run them from the repo root (`python scripts/<name>.py`).
+The primary runner is `python -m bundlefuse.experiments`; see
+[../docs/EXPERIMENTS.md](../docs/EXPERIMENTS.md).
 
-| Script | Purpose | Feeds |
-|---|---|---|
-| `regen_zeroparam.py` | Re-run all 8 evaluators and write the canonical zero-parameter matrix. | `results/matrix_zeroparam.{csv,json}` → `tab:main` |
-| `add_retail_stds.py` | Add cross-seed error bars to the e-commerce/retail rows of that matrix. | `results/matrix_zeroparam.*` std column |
-| `head2head.py` | Encoder on/off head-to-head on identical seeds. | `results/encoder_head2head.log` |
-| `kfold_ab.py` | K-fold vs single-split weight selection probe (claim later **retracted** — see RESULTS.md). | `results/kfold_ab.log` |
-| `trainfrac_study.py` | Train-fraction data-efficiency curve on POG. | `results/data_efficiency_pog.log` |
-| `harvest_image_urls.py` | Harvest product image URLs for the multimodal-image experiment. | CLIP pipeline input |
-| `clip_embed.py` | Embed harvested images with CLIP into an `.npz` cache. | `IMG_FEATS=` input to `eval.bundlerec` |
+| Script | Purpose |
+|---|---|
+| `fingerprint_data.py` | Records/checks SHA-256 hashes of the 52 evaluator input files |
+| `report_refresh.py` | Verifies paired hybrid outputs, source fingerprint, and canonical consistency; renders selection results |
+| `regen_zeroparam.py` | Runs the fail-closed engine in matrix-only mode with paired split seeds |
+| `add_retail_stds.py` | Checks canonical CSV/JSON means and standard deviations agree; no longer patches tables |
+| `head2head.py` | Historical optional-encoder comparison |
+| `kfold_ab.py` | Historical fold-averaging probe; not genuine cross-validation |
+| `trainfrac_study.py` | Training-fraction learning curve |
+| `harvest_image_urls.py`, `clip_embed.py` | Optional public-image feature preparation |
 
-See `docs/EXPERIMENTS.md` for how these relate to the env-gated modes built into the evaluators.
+The historical helpers other than `regen_zeroparam.py` have not been promoted to the new
+provenance/paired-seed runner. Use isolated result directories for exploratory runs.

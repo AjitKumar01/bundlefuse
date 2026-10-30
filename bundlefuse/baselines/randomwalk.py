@@ -6,7 +6,7 @@ P3ALPHA_GRID = [(a,) for a in (0.5, 1.0, 1.5)]
 RP3BETA_GRID = [(a, b) for a in (0.5, 1.0, 1.5) for b in (0.0, 0.3, 0.6, 1.0)]
 
 
-def bipartite_item_item(B, freq):
+def bipartite_item_item(B, freq, alpha=1.0):
     """``W0[c, i] = sum_u P(u | i) P(c | u)``: the length-2 item->bundle->item random-walk matrix.
     ``P(u|i) = B[u,i]/f_i`` (item->bundle, column-normalized B); ``P(c|u) = B[u,c]/|u|`` (bundle->item)."""
     B = B.tocsr().astype(np.float32)
@@ -15,22 +15,26 @@ def bipartite_item_item(B, freq):
     inv_s = np.divide(1.0, size, out=np.zeros_like(size, dtype=np.float64), where=size > 0).astype(np.float32)
     Pib = B.multiply(inv_f[None, :]).tocsr()                 # P(u|i): (bundles x items)
     Pbi = B.multiply(inv_s[:, None]).tocsr()                 # P(c|u): (bundles x items)
-    return (Pbi.T @ Pib).tocsr()                             # (items x items), W[c, i]
+    # P3alpha raises each transition, BEFORE summing paths through bundles.
+    # Reference: MaurizioFD/RecSys2019_DeepLearning_Evaluation, GraphBased/P3alphaRecommender.py.
+    if alpha != 1.0:
+        Pib.data = np.power(Pib.data, alpha)
+        Pbi.data = np.power(Pbi.data, alpha)
+    W = (Pbi.T @ Pib).tocsr()                               # (items x items), W[c, i]
+    W.setdiag(0.0)
+    W.eliminate_zeros()
+    return W
 
 
 def p3alpha_W(B, freq, alpha=1.0, topk=200):
     """P3alpha: the length-3 bipartite random walk, transition weights raised to ``alpha``."""
-    W = bipartite_item_item(B, freq)
-    if alpha != 1.0:
-        W.data = np.power(W.data, alpha, dtype=np.float32)
+    W = bipartite_item_item(B, freq, alpha)
     return topk_per_column(W, topk)
 
 
 def rp3beta_W(B, freq, alpha=1.0, beta=0.0, topk=200):
     """RP3beta: P3alpha re-weighted by the target item's popularity, ``W[c,i] /= f_c^beta``."""
-    W = bipartite_item_item(B, freq)
-    if alpha != 1.0:
-        W.data = np.power(W.data, alpha, dtype=np.float32)
+    W = bipartite_item_item(B, freq, alpha)
     if beta != 0.0:
         pen = np.divide(1.0, np.power(freq, beta), out=np.zeros_like(freq, dtype=np.float64),
                         where=freq > 0).astype(np.float32)   # 1 / f_c^beta

@@ -22,6 +22,9 @@ from sklearn.cluster import MiniBatchKMeans
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from bundlefuse._device import DEVICE
+from bundlefuse.metrics import ranking_metrics, as_numpy
+from bundlefuse.baselines.hybrid import SimpleHybrid, category_scores
+from bundlefuse.artifacts import write_json, baseline_artifact, flat_metrics
 from bundlefuse.operators import (
     SimplicialGraphOperator,
     DualSpectrumOntology,
@@ -208,8 +211,8 @@ class Contrast(nn.Module):
 
 
 torch.manual_seed(0)
-model = Contrast(Fnp.shape[1]).to(DEVICE)
-opt = torch.optim.AdamW(model.parameters(), lr=1e-3, weight_decay=1e-3)
+model = Contrast(Fnp.shape[1]).to(DEVICE) if ENCODER else None
+opt = torch.optim.AdamW(model.parameters(), lr=1e-3, weight_decay=1e-3) if ENCODER else None
 bids = [b for b in train if len(train[b]) >= 2]
 rng = random.Random(0); npr = np.random.default_rng(0)
 
@@ -302,21 +305,7 @@ def score_all_signals(bundles):
 
 
 def eval_fused(fused, bundles, gts, Ks=(10, 20)):
-    Kmax = max(Ks)
-    f = fused + torch.rand_like(fused) * 1e-6
-    for j, s in enumerate(bundles):
-        f[s, j] = -1e9
-    top = f.topk(Kmax, dim=0).indices.cpu().numpy()
-    acc = {K2: ([], []) for K2 in Ks}
-    for j, gt in enumerate(gts):
-        gtset = set(gt); pred = top[:, j]
-        for K2 in Ks:
-            hits = [1 if p in gtset else 0 for p in pred[:K2]]
-            dcg = sum(h / math.log2(i + 2) for i, h in enumerate(hits))
-            idcg = sum(1 / math.log2(i + 2) for i in range(min(len(gtset), K2)))
-            acc[K2][0].append(sum(hits) / len(gtset))
-            acc[K2][1].append(dcg / idcg if idcg else 0.0)
-    return {K2: (float(np.mean(acc[K2][0])), float(np.mean(acc[K2][1]))) for K2 in Ks}
+    return ranking_metrics(fused, list(zip(bundles, gts)), Ks)
 
 
 # ---------------------------------------------------------------------------
@@ -332,68 +321,9 @@ def eval_fused(fused, bundles, gts, Ks=(10, 20)):
 SEL_OBJ = os.environ.get("SEL_OBJ", "ndcg20")
 
 
-def _softmax_nll(fused, bundles, gts):
-    """Standardised listwise softmax NLL of the held-out items (lower=better).
-    Per query: z-standardise the score column so the overall weight scale is irrelevant,
-    drop the seeds from the denominator, average -log softmax over the held-out items."""
-    mu = fused.mean(0, keepdim=True); sd = fused.std(0, keepdim=True) + 1e-9
-    Z = ((fused - mu) / sd).clone()
-    for j, s in enumerate(bundles):
-        Z[s, j] = -1e9
-    logden = torch.logsumexp(Z, dim=0)
-    tot, cnt = 0.0, 0
-    for j, gt in enumerate(gts):
-        if not gt:
-            continue
-        lp = Z[gt, j] - logden[j]
-        tot += float((-lp.mean()).item()); cnt += 1
-    return tot / max(cnt, 1)
-
-
-def _full_ndcg(fused, bundles, gts):
-    """Untruncated NDCG (no cutoff): discounted gain over the WHOLE ranking (higher=better)."""
-    f = fused.clone()
-    for j, s in enumerate(bundles):
-        f[s, j] = -1e9
-    tot, cnt = 0.0, 0
-    for j, gt in enumerate(gts):
-        if not gt:
-            continue
-        col = f[:, j]
-        dcg = sum(1.0 / math.log2(int((col > col[h]).sum().item()) + 2) for h in gt)
-        idcg = sum(1.0 / math.log2(i + 2) for i in range(len(gt)))
-        tot += dcg / idcg; cnt += 1
-    return tot / max(cnt, 1)
-
-
-def _mrr(fused, bundles, gts):
-    """Mean reciprocal rank (cutoff-free, top-weighted by 1/rank; higher=better)."""
-    f = fused.clone()
-    for j, s in enumerate(bundles):
-        f[s, j] = -1e9
-    tot, cnt = 0.0, 0
-    for j, gt in enumerate(gts):
-        if not gt:
-            continue
-        col = f[:, j]
-        rr = sum(1.0 / (int((col > col[h]).sum().item()) + 1) for h in gt)
-        tot += rr / len(gt); cnt += 1
-    return tot / max(cnt, 1)
-
-
 def _sel_metric(fused, bundles, gts):
-    """Selection objective (higher=better). ndcg<K>/recall<K> select at cutoff K; ndcgfull/mrr/nll cutoff-free."""
-    if SEL_OBJ == "nll":
-        return -_softmax_nll(fused, bundles, gts)
-    if SEL_OBJ == "ndcgfull":
-        return _full_ndcg(fused, bundles, gts)
-    if SEL_OBJ == "mrr":
-        return _mrr(fused, bundles, gts)
-    if SEL_OBJ.startswith("recall") and SEL_OBJ[6:].isdigit():
-        K = int(SEL_OBJ[6:]); return eval_fused(fused, bundles, gts, Ks=(K,))[K][0]
-    if SEL_OBJ.startswith("ndcg") and SEL_OBJ[4:].isdigit():
-        K = int(SEL_OBJ[4:]); return eval_fused(fused, bundles, gts, Ks=(K,))[K][1]
-    return eval_fused(fused, bundles, gts, Ks=(20,))[20][1]
+    from bundlefuse.selection import sel_score
+    return sel_score(as_numpy(fused), list(zip(bundles, gts)), SEL_OBJ, ranking_metrics)
 
 
 def fit_simba(vb, vg, Rv, Zv):
@@ -530,7 +460,7 @@ def train_item2vec_W(dim=64, epochs=5, neg=5, bs=4096, maxpairs=3_000_000):
 
 
 if os.environ.get("TIMING"):
-    nparam = sum(p.numel() for p in model.parameters())
+    nparam = sum(p.numel() for p in model.parameters()) if model is not None else 0
     vb, vg = load_split("valid", VAL_N)
     Rv, Zv = score_all_signals(vb)
     w_ad, prior_keys, best_eb, freq_t, best_ho, vc_ab = fit_simba(vb, vg, Rv, Zv)
@@ -734,128 +664,31 @@ if os.environ.get("CASE_STUDY"):
     sys.exit()
 
 
+def make_hybrid():
+    def categories(seeds):
+        score = category_scores(onto_op.Pcat, cat_lbl, seeds)
+        if MUSIC:
+            indicator = graph_op.build_indicator(seeds)
+            score += (onto_op.I_art_w @ (onto_op.I_art_w.T @ indicator)).toarray()
+            score += 2.0 * (onto_op.I_alb_w @ (onto_op.I_alb_w.T @ indicator)).toarray()
+        return score
+    raw_content = Fnp / (np.linalg.norm(Fnp, axis=1, keepdims=True) + 1e-8)
+    return SimpleHybrid(graph_op, raw_content, categories)
+
+
 if os.environ.get("BASELINES"):
-    # Tuned neighbourhood baselines (ItemKNN, P3alpha, RP3beta) on the IDENTICAL splits/candidates/
-    # metrics as BundleFuse: each is a sparse item-item W with score = W @ Ind, hyperparameters
-    # selected on validation NDCG@20, evaluated on test. 100% matched protocol.
-    from bundlefuse import baselines as BL
-    from tqdm import tqdm
-    cap = int(os.environ.get("BASELINES_CAP", "0"))  # 0 => full test
-    t0 = time.time()
+    from bundlefuse.baselines.suite import run_matched_seed
     vb, vg = load_split("valid", VAL_N)
     tb, tg = load_split("test", TEST_N)
+    cap = int(os.environ.get("BASELINES_CAP", "0"))
     if cap:
         tb, tg = tb[:cap], tg[:cap]
-    Cmat, Bmat = graph_op.C, graph_op.B
-    print(f"{DS} BASELINES | n={n:,} | val={len(vb)} test={len(tb)}", flush=True)
-
-    # Each method exposes a score_fn: bundles -> torch (n x nb) score matrix. Item-item models wrap W;
-    # bundle-KNN is query-dependent. Eval reuses the harness's own eval_fused (identical protocol).
-    def _wfn(W):
-        return lambda bundles: torch.tensor(np.asarray((W @ graph_op.build_indicator(bundles)).todense()),
-                                            dtype=torch.float32, device=DEVICE)
-
-    def _eval(score_fn, bundles, gts):
-        agg = {K2: [[], []] for K2 in (10, 20)}
-        for off in range(0, len(bundles), 200):
-            cb, cg = bundles[off:off + 200], gts[off:off + 200]
-            res = eval_fused(score_fn(cb), cb, cg, Ks=(10, 20))
-            for K2 in (10, 20):
-                agg[K2][0].extend([res[K2][0]] * len(cb)); agg[K2][1].extend([res[K2][1]] * len(cb))
-        return {K2: (float(np.mean(agg[K2][0])), float(np.mean(agg[K2][1]))) for K2 in (10, 20)}
-
-    def _select_W(name, build, grid):
-        best, best_nd, best_hp = None, -1.0, None
-        for hp in tqdm(grid, desc=f"{DS} {name}", unit="hp"):
-            W = build(*hp)
-            if W is None:
-                return None, None, None            # gated out (e.g. SLIM at large n)
-            nd = _eval(_wfn(W), vb, vg)[20][1]
-            if nd > best_nd:
-                best_nd, best_hp, best = nd, hp, W
-        return best, best_hp, best_nd
-
-    out = {"dataset": DS, "n": int(n), "methods": {}}; rows = []
-    comp = {}  # reusable item-item W's for the combiner
-
-    def _record(name, hp, te, val_nd=None):
-        out["methods"][name] = {"hp": hp, "val_ndcg20": val_nd,
-                                "test": {"R@10": te[10][0], "N@10": te[10][1], "R@20": te[20][0], "N@20": te[20][1]}}
-        rows.append((name, hp, te))
-        print(f"{DS} {name:12s} hp={hp} | test R@10 {te[10][0]:.4f} N@10 {te[10][1]:.4f} "
-              f"R@20 {te[20][0]:.4f} N@20 {te[20][1]:.4f}", flush=True)
-
-    for name, build, grid in [
-        ("ItemKNN", lambda k, h: BL.itemknn_W(Cmat, freq, topk=int(k), shrink=h), BL.ITEMKNN_GRID),
-        ("P3alpha", lambda a: BL.p3alpha_W(Bmat, freq, alpha=a, topk=200), BL.P3ALPHA_GRID),
-        ("RP3beta", lambda a, b: BL.rp3beta_W(Bmat, freq, alpha=a, beta=b, topk=200), BL.RP3BETA_GRID),
-    ]:
-        W, hp, vnd = _select_W(name, build, grid)
-        comp[name] = W
-        _record(name, hp, _eval(_wfn(W), tb, tg), vnd)
-
-    # SLIM (gated to small catalogues; EASE represents the sparse-linear family at larger scale)
-    Ws, hps, vnd = _select_W("SLIM", lambda a, l: BL.slim_W(Bmat, alpha=a, l1_ratio=l, topk=200), BL.SLIM_GRID)
-    if Ws is None:
-        out["methods"]["SLIM"] = {"skipped": f"n={int(n)} > n_max (see EASE for the sparse-linear family)"}
-        print(f"{DS} SLIM         skipped (n={n:,} > n_max; EASE covers the sparse-linear family)", flush=True)
-    else:
-        _record("SLIM", hps, _eval(_wfn(Ws), tb, tg), vnd)
-
-    # bundle(user)-based KNN -- query-dependent, tuned over neighbourhood size
-    def _bkfn(tn):
-        return lambda bundles: torch.tensor(BL.bundleknn_scores(Bmat, graph_op.build_indicator(bundles), topn=tn),
-                                            dtype=torch.float32, device=DEVICE)
-    bk_best, bk_nd, bk_hp = None, -1.0, None
-    for (tn,) in tqdm(BL.BUNDLEKNN_GRID, desc=f"{DS} BundleKNN", unit="hp"):
-        nd = _eval(_bkfn(tn), vb, vg)[20][1]
-        if nd > bk_nd:
-            bk_nd, bk_hp, bk_best = nd, (tn,), tn
-    _record("BundleKNN", bk_hp, _eval(_bkfn(bk_best), tb, tg), bk_nd)
-
-    # iALS (implicit-feedback ALS; trained item factors, closed-form fold-in)
-    def _ialsfn(Y, YtY, reg, al):
-        return lambda bundles: torch.tensor(BL.ials_scores(Y, YtY, bundles, reg=reg, alpha=al),
-                                            dtype=torch.float32, device=DEVICE)
-    ia_best, ia_nd = None, -1.0
-    for (reg, al) in tqdm(BL.IALS_GRID, desc=f"{DS} iALS", unit="hp"):
-        Y, YtY = BL.ials_item_factors(Bmat, reg=reg, alpha=al)
-        nd = _eval(_ialsfn(Y, YtY, reg, al), vb, vg)[20][1]
-        if nd > ia_nd:
-            ia_nd, ia_best = nd, (Y, YtY, reg, al)
-    _record("iALS", (ia_best[2], ia_best[3]), _eval(_ialsfn(*ia_best), tb, tg), ia_nd)
-
-    # Validation-tuned linear combiner of the neighbourhood W's (max-normalized so scales are comparable),
-    # greedy non-negative coordinate ascent -- a naive blend, the foil for BundleFuse's regime-aware fusion.
-    cnames = [k for k in ("ItemKNN", "P3alpha", "RP3beta") if comp.get(k) is not None]
-    normW = {}
-    for k in cnames:
-        W = comp[k].tocsr().copy().astype(np.float32)
-        mx = float(W.data.max()) if W.nnz else 1.0
-        W.data = W.data / (mx + 1e-12); normW[k] = W
-    cw = {k: 0.0 for k in cnames}; comb_nd = -1.0
-    for _ in range(3):
-        improved = False
-        for k in cnames:
-            for v in (0.0, 0.5, 1.0, 2.0):
-                cand = dict(cw); cand[k] = v
-                if sum(cand.values()) == 0:
-                    continue
-                Wc = sum(cand[k2] * normW[k2] for k2 in cnames if cand[k2])
-                nd = _eval(_wfn(Wc), vb, vg)[20][1]
-                if nd > comb_nd + 1e-5:
-                    comb_nd, cw, improved = nd, cand, True
-        if not improved:
-            break
-    Wc = sum(cw[k2] * normW[k2] for k2 in cnames if cw[k2])
-    _record("LinearCombiner", {k: cw[k] for k in cnames if cw[k]}, _eval(_wfn(Wc), tb, tg), comb_nd)
-
-    outp = os.path.join(RESULTS_DIR, f"baselines_{DS}.json")
-    json.dump(out, open(outp, "w"), indent=2)
-    print(f"\n=== {DS} BASELINES ({time.time()-t0:.0f}s) -> {outp} ===", flush=True)
-    print(f"{'method':12s} {'R@10':>8} {'N@10':>8} {'R@20':>8} {'N@20':>8}", flush=True)
-    for name, hp, te in rows:
-        print(f"{name:12s} {te[10][0]:8.4f} {te[10][1]:8.4f} {te[20][0]:8.4f} {te[20][1]:8.4f}", flush=True)
+    record = run_matched_seed(graph_op, freq, ranking_metrics, list(zip(vb, vg)), list(zip(tb, tg)),
+                              make_hybrid(), rseed)
+    output = baseline_artifact(DS, n, [record])
+    write_json(os.path.join(RESULTS_DIR, f"baselines_{DS}.json"), output)
+    for method, metrics in output["methods"].items():
+        print(f"{method:18s} R@20={metrics['R@20']:.6f}", flush=True)
     sys.exit()
 
 
@@ -865,7 +698,7 @@ vb, vg = load_split("valid", VAL_N)
 Rv, Zv = score_all_signals(vb)
 w_ad, prior_keys, best_eb, freq_t, best_ho, vc_ab = fit_simba(vb, vg, Rv, Zv)
 W = train_item2vec_W()
-tb, tg = load_split("test", TEST_N); CHUNK = 200; Ks = (10, 20, 50)
+tb, tg = load_split("test", TEST_N); CHUNK = 100; Ks = (10, 20, 50)
 
 if os.environ.get("VALGAP"):
     # Validation->test generalization gap of the greedy weight selection.
@@ -927,6 +760,8 @@ if os.environ.get("ABLATE"):
           f"| cold {cpre:.1f}->{cpost:.1f} (n={ct}) rare {rpre:.1f}->{rpost:.1f} (n={rt}) warm {wpre:.1f}->{wpost:.1f} (n={wt})", flush=True)
     sys.exit()
 
+del Rv, Zv  # validation raw matrices are no longer needed; bound catalogue-scale memory
+hybrid_results = make_hybrid().select(ranking_metrics, list(zip(vb, vg)), list(zip(tb, tg)))
 methods = ["popularity", "co-occurrence", "content-kNN", "item2vec", "Pairwise-Repl", "SIMBA-NoRes", "Ours"]
 agg = {m: {K2: ([], []) for K2 in Ks} for m in methods}
 cold_hits, cold_tot = 0, 0
@@ -966,6 +801,10 @@ for off in range(0, len(tb), CHUNK):
             agg[m][K2][0].extend([res[K2][0]] * len(cb))
             agg[m][K2][1].extend([res[K2][1]] * len(cb))
 
+for name, record in hybrid_results.items():
+    methods.append(name)
+    agg[name] = {k: ([record["test"][k][0]], [record["test"][k][1]]) for k in Ks}
+
 print(f"\n=== {DS} MATRIX (full-ranking R/N@10,20,50; sel={SEL_OBJ}; test N={len(tb)}; cold R@20={100*cold_hits/max(cold_tot,1):.2f}% [{cold_hits}/{cold_tot}]; {time.time()-t:.0f}s) ===", flush=True)
 print(f"{'method':16s} {'R@10':>8} {'N@10':>8} {'R@20':>8} {'N@20':>8} {'R@50':>8} {'N@50':>8}", flush=True)
 for m in methods:
@@ -974,10 +813,10 @@ for m in methods:
 
 if os.environ.get("SELDUMP"):
     outp = os.path.join(RESULTS_DIR, f"selcmp_{DS}_{SEL_OBJ}.json")
-    dump = {"dataset": DS, "sel_obj": SEL_OBJ, "n": int(n), "test_bundles": len(tb),
+    dump = {"dataset": DS, "sel_obj": SEL_OBJ, "n": int(n), "test_bundles": len(tb), "seed": rseed,
             "selected_w": {k: float(w_ad.get(k, 0.0)) for k in SIG if w_ad.get(k, 0)},
             "alpha_inc": float(best_ho[0]), "gamma_rao": float(best_ho[1]), "kappa": float(best_eb[0]),
             "methods": {m: {f"{M}@{K2}": float(np.mean(agg[m][K2][i]))
                             for K2 in Ks for i, M in enumerate(("R", "N"))} for m in methods}}
-    json.dump(dump, open(outp, "w"), indent=2)
+    write_json(outp, dump)
     print(f"{DS} SELDUMP ({SEL_OBJ}) -> {outp}", flush=True)

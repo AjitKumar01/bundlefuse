@@ -23,6 +23,7 @@ from .slim import SLIM, slim_W, SLIM_GRID
 from .bundleknn import BundleKNN, bundleknn_scores, BUNDLEKNN_GRID
 from .ials import IALS, ials_item_factors, ials_scores, IALS_GRID
 from .combiner import run_linear_combiner
+from .hybrid import SimpleHybrid
 from .suite import run_matched_seed
 
 # the suite, in reported order

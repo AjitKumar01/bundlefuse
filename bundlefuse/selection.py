@@ -7,7 +7,7 @@ reported cutoff so the comparison is not "we tuned to our own metric":
 ======== ===================================================================================
 name      meaning
 ======== ===================================================================================
-ndcg<K>   NDCG at cutoff K (``ndcg20`` is the default; self-referential with the headline K=20)
+ndcg<K>   NDCG at cutoff K (``ndcg20`` is the default; selected on held-out validation)
 recall<K> Recall at cutoff K
 ndcgfull  untruncated NDCG over the whole ranking (no cutoff)
 mrr       mean reciprocal rank (cutoff-free, top-weighted)
@@ -17,11 +17,12 @@ nll       standardised listwise softmax negative log-likelihood (a proper scorin
 All objectives are returned *higher-is-better* by :func:`sel_score` (``nll`` is negated), so the
 greedy coordinate-ascent search is written once against a single sign convention. These numpy
 implementations are shared verbatim by ``eval/bundlerec.py`` and ``eval/dunnhumby.py``; the
-``eval/fullrank.py`` full-ranking evaluator keeps torch-tensor counterparts for its GPU path.
+``eval/fullrank.py`` evaluator delegates here too, so definitions cannot diverge.
 See ``notes/methodology.tex`` §"Why validate at NDCG@20" for why ~20 is the operating point.
 """
 import math
 import numpy as np
+from .metrics import full_ndcg, mean_reciprocal_rank
 
 
 def softmax_nll_np(F, bundles):
@@ -44,28 +45,11 @@ def softmax_nll_np(F, bundles):
 
 
 def full_ndcg_np(F, bundles):
-    """Untruncated NDCG (no cutoff): discounted gain over the WHOLE ranking (higher=better)."""
-    tot, cnt = 0.0, 0
-    for j, (s, gt) in enumerate(bundles):
-        if not gt:
-            continue
-        col = F[:, j].copy(); col[list(s)] = -1e9
-        dcg = sum(1.0 / math.log2(int(np.count_nonzero(col > col[h])) + 2) for h in gt)
-        idcg = sum(1.0 / math.log2(i + 2) for i in range(len(gt)))
-        tot += dcg / idcg; cnt += 1
-    return tot / max(cnt, 1)
+    return full_ndcg(F, bundles)
 
 
 def mrr_np(F, bundles):
-    """Mean reciprocal rank (cutoff-free, top-weighted by 1/rank; higher=better)."""
-    tot, cnt = 0.0, 0
-    for j, (s, gt) in enumerate(bundles):
-        if not gt:
-            continue
-        col = F[:, j].copy(); col[list(s)] = -1e9
-        rr = sum(1.0 / (int(np.count_nonzero(col > col[h])) + 1) for h in gt)
-        tot += rr / len(gt); cnt += 1
-    return tot / max(cnt, 1)
+    return mean_reciprocal_rank(F, bundles)
 
 
 def sel_score(F, bundles, sel_obj, eval_mat):
@@ -85,4 +69,4 @@ def sel_score(F, bundles, sel_obj, eval_mat):
         K = int(sel_obj[6:]); return eval_mat(F, bundles, Ks=(K,))[K][0]
     if sel_obj.startswith("ndcg") and sel_obj[4:].isdigit():
         K = int(sel_obj[4:]); return eval_mat(F, bundles, Ks=(K,))[K][1]
-    return eval_mat(F, bundles, Ks=(20,))[20][1]
+    raise ValueError(f"Unknown validation objective: {sel_obj}")

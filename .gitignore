@@ -16,6 +16,7 @@ results/*.csv
 # canonical regenerated tables are version-controlled on purpose
 !results/matrix_zeroparam.csv
 !results/matrix_zeroparam.json
+!results/matrix_zeroparam.meta.json
 # measured weight-sensitivity sweeps that back fig_wsweep (make_figs.py reads these)
 !results/wsweep_pog.json
 !results/wsweep_spotify.json
@@ -37,3 +38,6 @@ notes/*.aux
 notes/*.log
 notes/*.out
 notes/*.toc
+
+# Local end-to-end smoke run; full verified refresh is retained.
+results/runner_smoke/

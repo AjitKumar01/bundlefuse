@@ -18,6 +18,30 @@ import numpy as np
 import scipy.sparse as sp
 
 
+def evaluate_scorer(scorer, eval_mat, pairs, chunk_size=100, Ks=(10, 20)):
+    """Evaluate in bounded-memory chunks, weighted by their actual query counts."""
+    total = {k: np.zeros(2, dtype=np.float64) for k in Ks}
+    for start in range(0, len(pairs), chunk_size):
+        chunk = pairs[start:start + chunk_size]
+        metrics = eval_mat(scorer(_seeds(chunk)), chunk, Ks=Ks)
+        for k in Ks:
+            total[k] += np.asarray(metrics[k]) * len(chunk)
+    return {k: tuple(total[k] / len(pairs)) for k in Ks}
+
+
+def select_scorer(baseline, graph_op, freq, eval_mat, vset):
+    """Fit each candidate using training structures; select strictly on validation."""
+    best_hp, best_nd, best_scorer = None, -np.inf, None
+    for hp in baseline.grid:
+        scorer = baseline.make_scorer(graph_op, freq, hp)
+        if scorer is None:
+            return None, None, None
+        nd = evaluate_scorer(scorer, eval_mat, vset, Ks=(20,))[20][1]
+        if nd > best_nd:
+            best_nd, best_hp, best_scorer = nd, hp, scorer
+    return best_scorer, best_hp, float(best_nd)
+
+
 def topk_per_column(W, k):
     """Keep the ``k`` largest entries in each column of ``W`` (drop the rest); return csr.
 
@@ -34,7 +58,11 @@ def topk_per_column(W, k):
             continue
         col_d = data[s:e]; col_r = indices[s:e]
         if e - s > k:
-            top = np.argpartition(col_d, -k)[-k:]
+            threshold = np.partition(col_d, -k)[-k]
+            above = np.flatnonzero(col_d > threshold)
+            tied = np.flatnonzero(col_d == threshold)
+            tied = tied[np.argsort(col_r[tied])][:k - len(above)]
+            top = np.concatenate((above, tied))
             col_d = col_d[top]; col_r = col_r[top]
         keep_d.append(col_d); keep_r.append(col_r)
         keep_c.append(np.full(col_r.shape[0], j))
@@ -67,15 +95,8 @@ class Baseline:
         caller's own metric: ``eval_mat(score_matrix, pairs, Ks) -> {K: (recall, ndcg)}``. The
         selection rule is strict-greater (first maximiser wins), matching the original harness.
         """
-        best_hp, best_nd, best_scorer = None, -1.0, None
-        for hp in self.grid:
-            scorer = self.make_scorer(graph_op, freq, hp)
-            if scorer is None:
-                return None, None
-            nd = eval_mat(scorer(_seeds(vset)), vset, Ks=(10, 20))[20][1]
-            if nd > best_nd:
-                best_nd, best_hp, best_scorer = nd, hp, scorer
-        return best_hp, eval_mat(best_scorer(_seeds(tset)), tset, Ks=(10, 20))
+        scorer, hp, _ = select_scorer(self, graph_op, freq, eval_mat, vset)
+        return (hp, evaluate_scorer(scorer, eval_mat, tset)) if scorer else (None, None)
 
 
 class ItemItemBaseline(Baseline):

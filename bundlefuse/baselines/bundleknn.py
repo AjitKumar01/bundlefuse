@@ -1,6 +1,7 @@
 """BundleKNN: user(=bundle)-based KNN in bundle space (query-dependent)."""
 import numpy as np
 from .base import Baseline
+from ..metrics import top_items
 
 BUNDLEKNN_GRID = [(tn,) for tn in (25, 50, 100, 200)]
 
@@ -14,8 +15,11 @@ def bundleknn_scores(B, Ind, topn=100):
     qnorm = np.sqrt(np.asarray(Q.multiply(Q).sum(1)).ravel()) + 1e-9    # ||S||
     sim = np.asarray((Q @ B.T).todense()) / (np.outer(qnorm, bnorm))   # (nb x n_bundles) cosine
     if topn and topn < sim.shape[1]:
-        cut = np.partition(sim, -topn, axis=1)[:, -topn][:, None]
-        sim = np.where(sim >= cut, sim, 0.0)
+        for j in range(sim.shape[0]):
+            keep = top_items(sim[j], [], topn)
+            selected = sim[j, keep].copy()
+            sim[j] = 0.0
+            sim[j, keep] = selected
     scores = sim @ B                                                   # (nb x n)
     return np.asarray(scores).T                                        # (n x nb)
 

@@ -6,7 +6,7 @@ from .base import ItemItemBaseline, topk_per_column
 SLIM_GRID = [(a, l) for a in (1e-4, 1e-3, 1e-2) for l in (0.01, 0.1, 0.5)]
 
 
-def slim_W(B, alpha=1e-3, l1_ratio=0.1, topk=200, max_iter=100, n_max=8000):
+def slim_W(B, alpha=1e-3, l1_ratio=0.1, topk=200, max_iter=1000, n_max=8000):
     """Per-item non-negative elastic-net regression ``B[:,c] ~ B[:,!=c]``. O(n) ElasticNet solves,
     so gated to small catalogues (``n <= n_max``); at larger scale the closed-form EASE in the harness
     represents the sparse-linear family. Returns ``W`` (score = ``W @ Ind``), or ``None`` if gated out."""
@@ -18,17 +18,20 @@ def slim_W(B, alpha=1e-3, l1_ratio=0.1, topk=200, max_iter=100, n_max=8000):
     if n > n_max:
         return None
     model = ElasticNet(alpha=alpha, l1_ratio=l1_ratio, positive=True, fit_intercept=False,
-                       copy_X=False, max_iter=max_iter, tol=1e-3, selection="random")
+                       copy_X=False, max_iter=max_iter, tol=1e-4, selection="random", random_state=0)
     rows, cols, vals = [], [], []
     allcols = np.arange(n)
-    warnings.simplefilter("ignore", ConvergenceWarning)  # SLIM coordinate descent rarely fully converges
+    failures = 0
     for c in range(n):
         y = B[:, c].toarray().ravel()
         if y.sum() == 0:
             continue
         others = allcols[allcols != c]
         X = B[:, others]
-        model.fit(X, y)
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always", ConvergenceWarning)
+            model.fit(X, y)
+        failures += sum(issubclass(w.category, ConvergenceWarning) for w in caught)
         w = model.coef_
         nz = np.nonzero(w)[0]
         if nz.size == 0:
@@ -39,6 +42,8 @@ def slim_W(B, alpha=1e-3, l1_ratio=0.1, topk=200, max_iter=100, n_max=8000):
         return sp.csr_matrix((n, n), dtype=np.float32)
     W = sp.csr_matrix((np.concatenate(vals), (np.concatenate(rows), np.concatenate(cols))),
                       shape=(n, n), dtype=np.float32)
+    if failures:
+        warnings.warn(f"SLIM alpha={alpha}, l1_ratio={l1_ratio}: {failures} item fits did not converge", RuntimeWarning)
     return topk_per_column(W, topk)
 
 

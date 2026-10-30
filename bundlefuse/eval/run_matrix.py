@@ -11,6 +11,7 @@ import os, sys, json, subprocess, re, csv
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from bundlefuse.paths import RESULTS_DIR
+from bundlefuse.experiment_io import run_checked, parse_matrix
 
 HERE = os.path.dirname(os.path.abspath(__file__))   # the eval/ package dir (holds the evaluators)
 RESULTS = RESULTS_DIR
@@ -28,7 +29,7 @@ RUN = {
     "dunnhumby":      ("dunnhumby.py", {"MATRIX": "1"}),
 }
 ORDER = ["pog", "pog_dense", "spotify", "spotify_sparse", "electronic", "food", "clothing", "dunnhumby"]
-PRINT_METHODS = ["popularity", "co-occurrence", "content-kNN", "item2vec", "CLHE", "RaMen", "Ours"]
+PRINT_METHODS = ["popularity", "co-occurrence", "content-kNN", "item2vec", "CLHE", "RaMen", "Ours", "SimpleHybrid", "HardSwitchHybrid"]
 
 # Published / reproduced heavy baselines (full-ranking R@10, N@10, R@20, N@20)
 PUBLISHED = {
@@ -48,15 +49,9 @@ def run_ds(ds):
     e = dict(os.environ, **env)
     e.setdefault("PYTHONWARNINGS", "ignore")
     print(f"[run] {ds:15s} -> {script}", flush=True)
-    p = subprocess.run([PY, "-u", os.path.join(HERE, script)], cwd=HERE, env=e, capture_output=True, text=True)
-    rows = {}
-    for line in p.stdout.splitlines():
-        m = ROW_RE.match(line.strip())
-        if m:
-            rows[m.group(1)] = [float(m.group(i)) for i in range(2, 6)]
-    if not rows:
-        print(f"  !! no rows parsed for {ds}. stderr tail:\n" + "\n".join(p.stderr.splitlines()[-8:]), flush=True)
-    return rows
+    p = run_checked([PY, "-u", os.path.join(HERE, script)], cwd=HERE, env=e,
+                    log_path=os.path.join(RESULTS, f"matrix_{ds}.log"))
+    return parse_matrix(p.stdout)
 
 
 def main():

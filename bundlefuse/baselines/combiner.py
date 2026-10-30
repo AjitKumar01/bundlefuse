@@ -6,12 +6,12 @@ found by greedy non-negative coordinate ascent on validation NDCG@20. It reuses 
 / RP3beta weight matrices already selected for this seed, so it adds no new hyperparameter search.
 """
 import numpy as np
-from .base import _seeds
+from .base import _seeds, evaluate_scorer
 
 COMPONENTS = ("ItemKNN", "P3alpha", "RP3beta")
 
 
-def run_linear_combiner(comp_W, graph_op, eval_mat, vset, tset):
+def run_linear_combiner(comp_W, graph_op, eval_mat, vset, tset, details=False):
     """``comp_W`` maps component name -> its selected sparse ``W`` (or None). Returns test metrics."""
     cn = [k for k in COMPONENTS if comp_W.get(k) is not None]
     nW = {}
@@ -34,10 +34,13 @@ def run_linear_combiner(comp_W, graph_op, eval_mat, vset, tset):
                 if sum(cand.values()) == 0:
                     continue
                 Wc = sum(cand[k2] * nW[k2] for k2 in cn if cand[k2])
-                nd = eval_mat(_score(Wc, vset), vset, Ks=(10, 20))[20][1]
+                nd = evaluate_scorer(lambda seeds: np.asarray((Wc @ graph_op.build_indicator(seeds)).todense()),
+                                     eval_mat, vset, Ks=(20,))[20][1]
                 if nd > cnd + 1e-5:
                     cnd, cw, improved = nd, cand, True
         if not improved:
             break
     Wc = sum(cw[k2] * nW[k2] for k2 in cn if cw[k2])
-    return eval_mat(_score(Wc, tset), tset, Ks=(10, 20))
+    test = evaluate_scorer(lambda seeds: np.asarray((Wc @ graph_op.build_indicator(seeds)).todense()),
+                           eval_mat, tset)
+    return {"hp": cw, "val_ndcg20": float(cnd), "test": test} if details else test

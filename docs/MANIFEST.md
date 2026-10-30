@@ -1,3 +1,7 @@
+> Historical salvage record. Its completed-task claims predate the corrected evaluation refresh.
+> Current status is tracked in the root README and `results/evaluation_refresh/REPORT.md`.
+> In particular, a cross-model performance gap is not precisely identified by another model’s ablation.
+
 # Salvage manifest
 
 This repo was forked from the prior `simba/` codebase at its last **verified-honest committed state**

@@ -23,6 +23,9 @@ from sklearn.preprocessing import normalize
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from bundlefuse._device import DEVICE
+from bundlefuse.metrics import ranking_metrics, as_numpy
+from bundlefuse.baselines.hybrid import SimpleHybrid, category_scores
+from bundlefuse.artifacts import write_json, baseline_artifact, flat_metrics
 from bundlefuse.operators import SimplicialGraphOperator, EmpiricalBayesRouter, zcols
 from bundlefuse.paths import DATA_ROOT, RESULTS_DIR
 from bundlefuse import selection, protocol
@@ -247,24 +250,15 @@ def score_all(bundles, built):
     return R, Z
 
 
+def make_hybrid(built):
+    return SimpleHybrid(built[0], tf_mat, lambda seeds: category_scores(built[3], cat_lbl, seeds),
+                        {"household": built[2]})
+
+
 def eval_mat(F_mat, bundles, Ks=(10, 20, 50)):
-    nb = len(bundles); rng = np.random.default_rng(0)
-    F = F_mat + rng.random((n, nb)).astype(np.float32) * 1e-6
-    for j, (s, _) in enumerate(bundles):
-        F[s, j] = -1e9
-    top = np.argpartition(-F, max(Ks), axis=0)[:max(Ks)]
-    acc = {K2: ([], []) for K2 in Ks}
-    for j, (_, gt) in enumerate(bundles):
-        col = top[:, j]; order = col[np.argsort(-F[col, j])]; g = set(gt)
-        for K2 in Ks:
-            hits = [1 if p in g else 0 for p in order[:K2]]
-            dcg = sum(x / math.log2(i + 2) for i, x in enumerate(hits))
-            idcg = sum(1 / math.log2(i + 2) for i in range(min(len(g), K2)))
-            acc[K2][0].append(sum(hits) / len(g)); acc[K2][1].append(dcg / idcg if idcg else 0.0)
-    return {K2: (float(np.mean(acc[K2][0])), float(np.mean(acc[K2][1]))) for K2 in Ks}
+    return ranking_metrics(F_mat, bundles, Ks)
 
 
-# Validation selection objective, decoupled from the reported cutoff (see bundlefuse.selection).
 SEL_OBJ = os.environ.get("SEL_OBJ", "ndcg20")
 
 
@@ -304,10 +298,11 @@ def ease_test_scores(trb, vset, tset, n_items, lam_grid=(1.0, 10.0, 25.0, 50.0, 
     return score_set(best_W, tset)
 
 
-METH = ["popularity", "co-occurrence", "content-kNN", "item2vec", "Pairwise-Repl", "SIMBA-NoRes", "Ours"]
+METH = ["popularity", "co-occurrence", "content-kNN", "item2vec", "Pairwise-Repl", "SIMBA-NoRes", "Ours", "SimpleHybrid", "HardSwitchHybrid"]
 EASE = os.environ.get("EASE") and n <= 10000  # EASE needs an n x n solve: only tractable on small catalogues
 if EASE:
     METH = METH + ["EASE"]
+seed_records = []
 agg = {m: {10: ([], []), 20: ([], []), 50: ([], [])} for m in METH}
 cold_recalls = []
 VALGAP = os.environ.get("VALGAP")  # validation->test generalization gap of greedy weight selection
@@ -326,7 +321,8 @@ if SPLIT_MODE == "chrono":
     tri, vai, tei = chrono_idx[:ntr], chrono_idx[ntr:ntr + nva], chrono_idx[ntr + nva:]
     trb_c = [bundles_all[i] for i in tri]; tru_c = [users_all[i] for i in tri]
     vab_c = [bundles_all[i] for i in vai]; teb_c = [bundles_all[i] for i in tei]
-    built_c = build(trb_c, tru_c); Ui_c, Vi_c = train_item2vec(trb_c)
+    built_c = build(trb_c, tru_c)
+    Ui_c, Vi_c = (None, None) if BASELINES else train_item2vec(trb_c)
 
 for sd in range(SEEDS):
     if SPLIT_MODE == "chrono":
@@ -338,12 +334,13 @@ for sd in range(SEEDS):
         tri, vai, tei = idx[:ntr], idx[ntr:ntr + nva], idx[ntr + nva:]
         trb = [bundles_all[i] for i in tri]; tru = [users_all[i] for i in tri]
         vab = [bundles_all[i] for i in vai]; teb = [bundles_all[i] for i in tei]
-        built = build(trb, tru); Ui, Vi = train_item2vec(trb)
+        built = build(trb, tru)
+        Ui, Vi = (None, None) if BASELINES else train_item2vec(trb)
 
     freq = built[1]
     vset = mask(vab, sd + 1)[:VAL_N]; tset = mask(teb, sd + 2)[:TEST_N]
     if BASELINES:
-        BL_SEEDS.append(_BL.run_matched_seed(built[0], freq, eval_mat, vset, tset))
+        BL_SEEDS.append(_BL.run_matched_seed(built[0], freq, eval_mat, vset, tset, make_hybrid(built), sd))
         continue
     Rv, Zv = score_all(vset, built)
     Rt, Zt = score_all(tset, built)
@@ -475,32 +472,20 @@ for sd in range(SEEDS):
         "SIMBA-NoRes": eval_mat(build_Y(Zt, best_ho), tset),
         "Ours": eval_mat(F_ours, tset),
     }
+    hybrid_results = make_hybrid(built).select(eval_mat, vset, tset)
+    res.update({key: value["test"] for key, value in hybrid_results.items()})
     if EASE:
         res["EASE"] = eval_mat(ease_test_scores(trb, vset, tset, n), tset)
+    seed_records.append({"seed": sd, "methods": {m: flat_metrics(res[m]) for m in METH}})
     for m in METH:
         for K2 in (10, 20, 50):
             agg[m][K2][0].append(res[m][K2][0]); agg[m][K2][1].append(res[m][K2][1])
 
 if BASELINES:
-    import json as _json
-    order_m = ["ItemKNN", "P3alpha", "RP3beta", "SLIM", "iALS", "BundleKNN", "LinearCombiner"]
-    present = [m for m in order_m if any(m in s for s in BL_SEEDS)]
-    out = {"dataset": "dunnhumby", "n": int(n), "seeds": len(BL_SEEDS), "methods": {}}
-    print(f"\n=== dunnhumby BASELINES ({len(BL_SEEDS)} seeds; matched protocol; {time.time()-t0:.0f}s) ===", flush=True)
-    print(f"{'method':14s} {'R@10':>8} {'N@10':>8} {'R@20':>8} {'N@20':>8}", flush=True)
-    for m in present:
-        acc = {K2: ([], []) for K2 in (10, 20)}
-        for s in BL_SEEDS:
-            if m in s:
-                for K2 in (10, 20):
-                    acc[K2][0].append(s[m][K2][0]); acc[K2][1].append(s[m][K2][1])
-        vals = {K2: (float(np.mean(acc[K2][0])), float(np.mean(acc[K2][1]))) for K2 in (10, 20)}
-        out["methods"][m] = {"R@10": vals[10][0], "N@10": vals[10][1], "R@20": vals[20][0], "N@20": vals[20][1],
-                             "seeds": len(acc[20][0])}
-        print(f"{m:14s} {vals[10][0]:8.4f} {vals[10][1]:8.4f} {vals[20][0]:8.4f} {vals[20][1]:8.4f}", flush=True)
-    if "SLIM" not in present:
-        print(f"dunnhumby SLIM skipped (n={n:,} > n_max; EASE covers the sparse-linear family)", flush=True)
-    _json.dump(out, open(os.path.join(RESULTS_DIR, "baselines_dunnhumby.json"), "w"), indent=2)
+    output = baseline_artifact("dunnhumby", n, BL_SEEDS)
+    write_json(os.path.join(RESULTS_DIR, "baselines_dunnhumby.json"), output)
+    for method, metrics in output["methods"].items():
+        print(f"{method:18s} R@20={metrics['R@20']:.6f} +/- {metrics['R@20_std']:.6f}", flush=True)
     sys.exit()
 
 if AB:
@@ -537,7 +522,7 @@ for m in METH:
 if os.environ.get("SELDUMP"):
     import json as _json
     outp = os.path.join(RESULTS_DIR, f"selcmp_dunnhumby_{SEL_OBJ}.json")
-    dump = {"dataset": "dunnhumby", "sel_obj": SEL_OBJ, "n": int(n), "seeds": SEEDS,
+    dump = {"dataset": "dunnhumby", "sel_obj": SEL_OBJ, "n": int(n), "seeds": SEEDS, "per_seed": seed_records,
             "methods": {m: {f"{M}@{K2}": float(np.mean(agg[m][K2][i]))
                             for K2 in (10, 20, 50) for i, M in enumerate(("R", "N"))} for m in METH}}
     _json.dump(dump, open(outp, "w"), indent=2)

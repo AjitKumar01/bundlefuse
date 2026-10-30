@@ -28,7 +28,8 @@ PROJECT_ROOT = os.path.dirname(_PKG_DIR)
 # are siblings); on a fresh machine point BUNDLEFUSE_DATA_ROOT at wherever you unpacked the datasets,
 # or override a single dataset with DATA_DIR / BR_DIR / DUNN_DIR when launching an evaluator.
 DATA_ROOT = os.environ.get("BUNDLEFUSE_DATA_ROOT") or os.path.dirname(PROJECT_ROOT)
-RESULTS_DIR = os.path.join(PROJECT_ROOT, "results")
+RESULTS_DIR = os.path.abspath(os.environ.get("BUNDLEFUSE_RESULTS_DIR") or os.path.join(PROJECT_ROOT, "results"))
+os.makedirs(RESULTS_DIR, exist_ok=True)
 
 
 def dataset_dir(family, ds):

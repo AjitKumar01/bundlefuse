@@ -41,6 +41,7 @@ def set_determinism(seed: int = SEED):
     if np is not None:
         np.random.seed(seed)
     if torch is not None:
+        torch.set_num_threads(int(os.environ.get("BUNDLEFUSE_THREADS", "1")))
         torch.manual_seed(seed)
         os.environ.setdefault("PYTHONHASHSEED", str(seed))
         # CPU + fixed seeds already reproduces bit-identically here. The deterministic-kernel
