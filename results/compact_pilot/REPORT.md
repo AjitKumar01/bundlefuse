@@ -5,13 +5,15 @@ Raw/engineered arms share architecture, raw columns, parameter count and tuning 
 
 | Dataset | Status | BundleFuse R@20 | Raw mean ± SD | Engineered mean ± SD | Validation gate |
 |---|---|---:|---:|---:|---|
-| pog_dense | pending | pending | pending | pending | pending |
-| spotify | pending | pending | pending | pending | pending |
+| pog_dense | complete | 0.395223 | 0.344869 ± 0.002084 | 0.354422 ± 0.001444 | False |
+| spotify | complete | 0.155646 | 0.075347 ± 0.001446 | 0.105349 ± 0.000078 | False |
 
 ## Warm-cache scoring costs
 
 | Dataset | Reference ms/query | Optimized ms/query | Raw ms/query | Engineered ms/query |
 |---|---:|---:|---:|---:|
+| pog_dense | 7.9110 | 2.0191 | 0.0228 | 0.0217 |
+| spotify | 80.4412 | 54.9487 | 0.1383 | 0.1390 |
 
 Timings are amortized over the same 32-query CPU batch after warmup; three repeats.
 Scoring-plus-metrics, offline preprocessing, encoding, training and cache bytes are in each timing.json.
@@ -22,7 +24,11 @@ No later stage starts automatically from test results. This pilot cannot establi
 
 ## Logs
 
-- [pog_dense](pog_dense/run.log) — pending
-- [spotify](spotify/run.log) — pending
+- [pog_dense](pog_dense/run.log) — complete
+- [spotify](spotify/run.log) — complete
 
 Protocol and limits: [PLAN.md](PLAN.md).
+
+Both jobs are now independently verified. [Interpretation and decision](ANALYSIS.md) ·
+[Verification record](VALIDATION.md). Engineering helps the compact learner, but both
+validation feasibility gates fail. The exact BundleFuse scoring optimization is retained.

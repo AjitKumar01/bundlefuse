@@ -1,0 +1,61 @@
+{
+  "input_dimensions": 256,
+  "shared_raw_columns": 97,
+  "shared_blocks": {
+    "raw_content": [
+      0,
+      64
+    ],
+    "raw_taxonomy": [
+      64,
+      96
+    ],
+    "log_frequency": [
+      96,
+      97
+    ]
+  },
+  "raw_additional_blocks": {
+    "extra_content": [
+      97,
+      225
+    ],
+    "extra_taxonomy": [
+      225,
+      256
+    ]
+  },
+  "engineered_blocks": {
+    "pair_svd_left": [
+      97,
+      129
+    ],
+    "pair_svd_right": [
+      129,
+      161
+    ],
+    "style": [
+      161,
+      193
+    ],
+    "bridge": [
+      193,
+      225
+    ],
+    "ontology": [
+      225,
+      256
+    ]
+  },
+  "pair_svd_explained_variance_ratio": 0.3114699423313141,
+  "seconds": 14.235276791965589,
+  "sha256": {
+    "Raw": "cfb3722cd1189b70086a9bb58a6238daab65860af7fb4f3d72e76cd7056ddc7e",
+    "Engineered": "5b6a8bd2a3e7310969d80b6ee3c45fd9d93379c9355d3ad6142ed306b64a49bf"
+  },
+  "frozen_input_bytes": {
+    "Raw": 260254720,
+    "Engineered": 260254720
+  },
+  "limitation": "Fixed 256-column input budget; engineering may lose information under compression. No claim about every feature representation or rank."
+}

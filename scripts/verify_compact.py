@@ -52,7 +52,8 @@ def main():
             assert len(rows) == len(ids)
             for key, value in result['methods'][name].items():
                 values = np.asarray([row[key] for row in rows])
-                assert np.isfinite(values).all() and np.all((values >= 0) & (values <= 1))
+                # A perfect ranking can round to 1 + one float64 ULP in DCG/IDCG.
+                assert np.isfinite(values).all() and np.all((values >= 0) & (values <= 1 + 1e-12))
                 np.testing.assert_allclose(value, values.mean(), rtol=0, atol=1e-12)
         for arm in ('Raw', 'Engineered'):
             grid = json.loads((directory / 'learned' / arm / 'grid.json').read_text())

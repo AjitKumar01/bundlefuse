@@ -1,0 +1,185 @@
+pog_dense: 31217 items, 20780 supplied train bundles, 2968 validation / 5938 test queries; no deduplication or remasking
+PARITY 64/5938 bit-identical fused scores and historical metrics
+PARITY 128/5938 bit-identical fused scores and historical metrics
+PARITY 192/5938 bit-identical fused scores and historical metrics
+PARITY 256/5938 bit-identical fused scores and historical metrics
+PARITY 320/5938 bit-identical fused scores and historical metrics
+PARITY 384/5938 bit-identical fused scores and historical metrics
+PARITY 448/5938 bit-identical fused scores and historical metrics
+PARITY 512/5938 bit-identical fused scores and historical metrics
+PARITY 576/5938 bit-identical fused scores and historical metrics
+PARITY 640/5938 bit-identical fused scores and historical metrics
+PARITY 704/5938 bit-identical fused scores and historical metrics
+PARITY 768/5938 bit-identical fused scores and historical metrics
+PARITY 832/5938 bit-identical fused scores and historical metrics
+PARITY 896/5938 bit-identical fused scores and historical metrics
+PARITY 960/5938 bit-identical fused scores and historical metrics
+PARITY 1024/5938 bit-identical fused scores and historical metrics
+PARITY 1088/5938 bit-identical fused scores and historical metrics
+PARITY 1152/5938 bit-identical fused scores and historical metrics
+PARITY 1216/5938 bit-identical fused scores and historical metrics
+PARITY 1280/5938 bit-identical fused scores and historical metrics
+PARITY 1344/5938 bit-identical fused scores and historical metrics
+PARITY 1408/5938 bit-identical fused scores and historical metrics
+PARITY 1472/5938 bit-identical fused scores and historical metrics
+PARITY 1536/5938 bit-identical fused scores and historical metrics
+PARITY 1600/5938 bit-identical fused scores and historical metrics
+PARITY 1664/5938 bit-identical fused scores and historical metrics
+PARITY 1728/5938 bit-identical fused scores and historical metrics
+PARITY 1792/5938 bit-identical fused scores and historical metrics
+PARITY 1856/5938 bit-identical fused scores and historical metrics
+PARITY 1920/5938 bit-identical fused scores and historical metrics
+PARITY 1984/5938 bit-identical fused scores and historical metrics
+PARITY 2048/5938 bit-identical fused scores and historical metrics
+PARITY 2112/5938 bit-identical fused scores and historical metrics
+PARITY 2176/5938 bit-identical fused scores and historical metrics
+PARITY 2240/5938 bit-identical fused scores and historical metrics
+PARITY 2304/5938 bit-identical fused scores and historical metrics
+PARITY 2368/5938 bit-identical fused scores and historical metrics
+PARITY 2432/5938 bit-identical fused scores and historical metrics
+PARITY 2496/5938 bit-identical fused scores and historical metrics
+PARITY 2560/5938 bit-identical fused scores and historical metrics
+PARITY 2624/5938 bit-identical fused scores and historical metrics
+PARITY 2688/5938 bit-identical fused scores and historical metrics
+PARITY 2752/5938 bit-identical fused scores and historical metrics
+PARITY 2816/5938 bit-identical fused scores and historical metrics
+PARITY 2880/5938 bit-identical fused scores and historical metrics
+PARITY 2944/5938 bit-identical fused scores and historical metrics
+PARITY 3008/5938 bit-identical fused scores and historical metrics
+PARITY 3072/5938 bit-identical fused scores and historical metrics
+PARITY 3136/5938 bit-identical fused scores and historical metrics
+PARITY 3200/5938 bit-identical fused scores and historical metrics
+PARITY 3264/5938 bit-identical fused scores and historical metrics
+PARITY 3328/5938 bit-identical fused scores and historical metrics
+PARITY 3392/5938 bit-identical fused scores and historical metrics
+PARITY 3456/5938 bit-identical fused scores and historical metrics
+PARITY 3520/5938 bit-identical fused scores and historical metrics
+PARITY 3584/5938 bit-identical fused scores and historical metrics
+PARITY 3648/5938 bit-identical fused scores and historical metrics
+PARITY 3712/5938 bit-identical fused scores and historical metrics
+PARITY 3776/5938 bit-identical fused scores and historical metrics
+PARITY 3840/5938 bit-identical fused scores and historical metrics
+PARITY 3904/5938 bit-identical fused scores and historical metrics
+PARITY 3968/5938 bit-identical fused scores and historical metrics
+PARITY 4032/5938 bit-identical fused scores and historical metrics
+PARITY 4096/5938 bit-identical fused scores and historical metrics
+PARITY 4160/5938 bit-identical fused scores and historical metrics
+PARITY 4224/5938 bit-identical fused scores and historical metrics
+PARITY 4288/5938 bit-identical fused scores and historical metrics
+PARITY 4352/5938 bit-identical fused scores and historical metrics
+PARITY 4416/5938 bit-identical fused scores and historical metrics
+PARITY 4480/5938 bit-identical fused scores and historical metrics
+PARITY 4544/5938 bit-identical fused scores and historical metrics
+PARITY 4608/5938 bit-identical fused scores and historical metrics
+PARITY 4672/5938 bit-identical fused scores and historical metrics
+PARITY 4736/5938 bit-identical fused scores and historical metrics
+PARITY 4800/5938 bit-identical fused scores and historical metrics
+PARITY 4864/5938 bit-identical fused scores and historical metrics
+PARITY 4928/5938 bit-identical fused scores and historical metrics
+PARITY 4992/5938 bit-identical fused scores and historical metrics
+PARITY 5056/5938 bit-identical fused scores and historical metrics
+PARITY 5120/5938 bit-identical fused scores and historical metrics
+PARITY 5184/5938 bit-identical fused scores and historical metrics
+PARITY 5248/5938 bit-identical fused scores and historical metrics
+PARITY 5312/5938 bit-identical fused scores and historical metrics
+PARITY 5376/5938 bit-identical fused scores and historical metrics
+PARITY 5440/5938 bit-identical fused scores and historical metrics
+PARITY 5504/5938 bit-identical fused scores and historical metrics
+PARITY 5568/5938 bit-identical fused scores and historical metrics
+PARITY 5632/5938 bit-identical fused scores and historical metrics
+PARITY 5696/5938 bit-identical fused scores and historical metrics
+PARITY 5760/5938 bit-identical fused scores and historical metrics
+PARITY 5824/5938 bit-identical fused scores and historical metrics
+PARITY 5888/5938 bit-identical fused scores and historical metrics
+PARITY 5938/5938 bit-identical fused scores and historical metrics
+TRAIN Raw grid=0 seed=0 hp={'dim': 128, 'lr': 0.001, 'regularization': 0.0001, 'negatives': 32, 'batch_size': 128, 'max_epochs': 100, 'evaluate_every': 5, 'patience': 4}
+LEARNED seed=0 epoch=5 loss=1.572103 val_N20=0.183462 best=0.183462
+LEARNED seed=0 epoch=10 loss=1.520898 val_N20=0.207599 best=0.207599
+LEARNED seed=0 epoch=15 loss=1.398078 val_N20=0.205454 best=0.207599
+LEARNED seed=0 epoch=20 loss=1.366867 val_N20=0.196054 best=0.207599
+LEARNED seed=0 epoch=25 loss=1.293346 val_N20=0.205293 best=0.207599
+LEARNED seed=0 epoch=30 loss=1.283640 val_N20=0.200906 best=0.207599
+TRAIN Raw grid=1 seed=0 hp={'dim': 128, 'lr': 0.003, 'regularization': 0.0001, 'negatives': 32, 'batch_size': 128, 'max_epochs': 100, 'evaluate_every': 5, 'patience': 4}
+LEARNED seed=0 epoch=5 loss=1.493148 val_N20=0.210200 best=0.210200
+LEARNED seed=0 epoch=10 loss=1.378112 val_N20=0.209628 best=0.210200
+LEARNED seed=0 epoch=15 loss=1.299873 val_N20=0.213650 best=0.213650
+LEARNED seed=0 epoch=20 loss=1.264507 val_N20=0.220134 best=0.220134
+LEARNED seed=0 epoch=25 loss=1.225260 val_N20=0.219923 best=0.220134
+LEARNED seed=0 epoch=30 loss=1.240435 val_N20=0.224448 best=0.224448
+LEARNED seed=0 epoch=35 loss=1.222097 val_N20=0.214706 best=0.224448
+LEARNED seed=0 epoch=40 loss=1.206685 val_N20=0.220521 best=0.224448
+LEARNED seed=0 epoch=45 loss=1.181817 val_N20=0.223155 best=0.224448
+LEARNED seed=0 epoch=50 loss=1.184471 val_N20=0.217026 best=0.224448
+TRAIN Raw seed=1 validation-selected grid=1
+LEARNED seed=1 epoch=5 loss=1.496638 val_N20=0.209912 best=0.209912
+LEARNED seed=1 epoch=10 loss=1.376462 val_N20=0.215829 best=0.215829
+LEARNED seed=1 epoch=15 loss=1.282636 val_N20=0.217233 best=0.217233
+LEARNED seed=1 epoch=20 loss=1.252347 val_N20=0.214416 best=0.217233
+LEARNED seed=1 epoch=25 loss=1.240000 val_N20=0.216766 best=0.217233
+LEARNED seed=1 epoch=30 loss=1.213226 val_N20=0.219430 best=0.219430
+LEARNED seed=1 epoch=35 loss=1.206440 val_N20=0.217670 best=0.219430
+LEARNED seed=1 epoch=40 loss=1.196305 val_N20=0.224228 best=0.224228
+LEARNED seed=1 epoch=45 loss=1.183357 val_N20=0.220644 best=0.224228
+LEARNED seed=1 epoch=50 loss=1.182754 val_N20=0.222013 best=0.224228
+LEARNED seed=1 epoch=55 loss=1.170194 val_N20=0.224964 best=0.224964
+LEARNED seed=1 epoch=60 loss=1.176855 val_N20=0.220969 best=0.224964
+LEARNED seed=1 epoch=65 loss=1.156295 val_N20=0.221393 best=0.224964
+LEARNED seed=1 epoch=70 loss=1.149833 val_N20=0.222828 best=0.224964
+LEARNED seed=1 epoch=75 loss=1.150322 val_N20=0.221008 best=0.224964
+TRAIN Raw seed=2 validation-selected grid=1
+LEARNED seed=2 epoch=5 loss=1.476120 val_N20=0.214184 best=0.214184
+LEARNED seed=2 epoch=10 loss=1.372664 val_N20=0.204718 best=0.214184
+LEARNED seed=2 epoch=15 loss=1.283228 val_N20=0.214809 best=0.214809
+LEARNED seed=2 epoch=20 loss=1.251417 val_N20=0.219380 best=0.219380
+LEARNED seed=2 epoch=25 loss=1.244307 val_N20=0.221037 best=0.221037
+LEARNED seed=2 epoch=30 loss=1.219128 val_N20=0.220938 best=0.221037
+LEARNED seed=2 epoch=35 loss=1.191091 val_N20=0.216597 best=0.221037
+LEARNED seed=2 epoch=40 loss=1.218182 val_N20=0.220608 best=0.221037
+LEARNED seed=2 epoch=45 loss=1.205550 val_N20=0.222842 best=0.222842
+LEARNED seed=2 epoch=50 loss=1.194362 val_N20=0.214772 best=0.222842
+LEARNED seed=2 epoch=55 loss=1.171475 val_N20=0.216690 best=0.222842
+LEARNED seed=2 epoch=60 loss=1.169995 val_N20=0.221260 best=0.222842
+LEARNED seed=2 epoch=65 loss=1.148543 val_N20=0.222210 best=0.222842
+TRAIN Engineered grid=0 seed=0 hp={'dim': 128, 'lr': 0.001, 'regularization': 0.0001, 'negatives': 32, 'batch_size': 128, 'max_epochs': 100, 'evaluate_every': 5, 'patience': 4}
+LEARNED seed=0 epoch=5 loss=0.154451 val_N20=0.199357 best=0.199357
+LEARNED seed=0 epoch=10 loss=0.127645 val_N20=0.218616 best=0.218616
+LEARNED seed=0 epoch=15 loss=0.116813 val_N20=0.230724 best=0.230724
+LEARNED seed=0 epoch=20 loss=0.111023 val_N20=0.232372 best=0.232372
+LEARNED seed=0 epoch=25 loss=0.095923 val_N20=0.237137 best=0.237137
+LEARNED seed=0 epoch=30 loss=0.103185 val_N20=0.224186 best=0.237137
+LEARNED seed=0 epoch=35 loss=0.092186 val_N20=0.223050 best=0.237137
+LEARNED seed=0 epoch=40 loss=0.097114 val_N20=0.236550 best=0.237137
+LEARNED seed=0 epoch=45 loss=0.092489 val_N20=0.234929 best=0.237137
+TRAIN Engineered grid=1 seed=0 hp={'dim': 128, 'lr': 0.003, 'regularization': 0.0001, 'negatives': 32, 'batch_size': 128, 'max_epochs': 100, 'evaluate_every': 5, 'patience': 4}
+LEARNED seed=0 epoch=5 loss=0.153920 val_N20=0.214580 best=0.214580
+LEARNED seed=0 epoch=10 loss=0.132935 val_N20=0.225288 best=0.225288
+LEARNED seed=0 epoch=15 loss=0.124107 val_N20=0.234027 best=0.234027
+LEARNED seed=0 epoch=20 loss=0.116788 val_N20=0.231872 best=0.234027
+LEARNED seed=0 epoch=25 loss=0.102496 val_N20=0.243167 best=0.243167
+LEARNED seed=0 epoch=30 loss=0.108863 val_N20=0.230145 best=0.243167
+LEARNED seed=0 epoch=35 loss=0.098610 val_N20=0.228564 best=0.243167
+LEARNED seed=0 epoch=40 loss=0.103150 val_N20=0.241287 best=0.243167
+LEARNED seed=0 epoch=45 loss=0.097368 val_N20=0.240727 best=0.243167
+TRAIN Engineered seed=1 validation-selected grid=1
+LEARNED seed=1 epoch=5 loss=0.150829 val_N20=0.228332 best=0.228332
+LEARNED seed=1 epoch=10 loss=0.131667 val_N20=0.231960 best=0.231960
+LEARNED seed=1 epoch=15 loss=0.119532 val_N20=0.239715 best=0.239715
+LEARNED seed=1 epoch=20 loss=0.111362 val_N20=0.232912 best=0.239715
+LEARNED seed=1 epoch=25 loss=0.112977 val_N20=0.228705 best=0.239715
+LEARNED seed=1 epoch=30 loss=0.108840 val_N20=0.230954 best=0.239715
+LEARNED seed=1 epoch=35 loss=0.103902 val_N20=0.234234 best=0.239715
+TRAIN Engineered seed=2 validation-selected grid=1
+LEARNED seed=2 epoch=5 loss=0.152306 val_N20=0.220863 best=0.220863
+LEARNED seed=2 epoch=10 loss=0.127112 val_N20=0.233965 best=0.233965
+LEARNED seed=2 epoch=15 loss=0.122419 val_N20=0.239031 best=0.239031
+LEARNED seed=2 epoch=20 loss=0.112069 val_N20=0.231289 best=0.239031
+LEARNED seed=2 epoch=25 loss=0.110325 val_N20=0.233718 best=0.239031
+LEARNED seed=2 epoch=30 loss=0.099448 val_N20=0.227849 best=0.239031
+LEARNED seed=2 epoch=35 loss=0.102671 val_N20=0.221000 best=0.239031
+TEST pog_dense Raw_s0: {'R@10': 0.3051813180644437, 'N@10': 0.21677521612769227, 'R@20': 0.34335354215785335, 'N@20': 0.22747947249492423, 'R@50': 0.38938475356461205, 'N@50': 0.23794104728117818}
+TEST pog_dense Raw_s1: {'R@10': 0.30984057482878635, 'N@10': 0.21661006610689826, 'R@20': 0.34781632423936226, 'N@20': 0.2272847580053242, 'R@50': 0.3916582463231167, 'N@50': 0.2372128206607239}
+TEST pog_dense Raw_s2: {'R@10': 0.30849331986078365, 'N@10': 0.2188832505473475, 'R@20': 0.3434377455933535, 'N@20': 0.22879438161170892, 'R@50': 0.3907039407207814, 'N@50': 0.23957218702584554}
+TEST pog_dense Engineered_s0: {'R@10': 0.3055742674301111, 'N@10': 0.23078352133152186, 'R@20': 0.353486022229707, 'N@20': 0.24408861368820547, 'R@50': 0.396513977770293, 'N@50': 0.25387926091345636}
+TEST pog_dense Engineered_s1: {'R@10': 0.30546199618277764, 'N@10': 0.23004208751590327, 'R@20': 0.35331761535870665, 'N@20': 0.2434905793989968, 'R@50': 0.400976759851802, 'N@50': 0.25421408461021383}
+TEST pog_dense Engineered_s2: {'R@10': 0.2978836869877624, 'N@10': 0.2272875716134538, 'R@20': 0.3564612102840462, 'N@20': 0.24337840254944396, 'R@50': 0.40257662512630515, 'N@50': 0.25375422500779504}
+COMPLETE DATASET pog_dense; validation feasibility gate=False

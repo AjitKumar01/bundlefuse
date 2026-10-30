@@ -259,12 +259,30 @@ The cached learned ranker is faster in the measured warm-cache scoring pipeline.
 ## Compact-model feasibility pilot
 
 <!-- BEGIN COMPACT PILOT -->
-**0/2 dataset jobs complete.** Exact selected-signal optimization plus a raw-versus-engineered compact two-tower pilot.
+**2/2 dataset jobs complete.** Exact selected-signal optimization plus a raw-versus-engineered compact two-tower pilot.
 
 | Dataset | Status | BundleFuse R@20 | Raw mean ± SD | Engineered mean ± SD | Validation gate |
 |---|---|---:|---:|---:|---|
-| pog_dense | pending | pending | pending | pending | pending |
-| spotify | pending | pending | pending | pending | pending |
+| pog_dense | complete | 0.395223 | 0.344869 ± 0.002084 | 0.354422 ± 0.001444 | False |
+| spotify | complete | 0.155646 | 0.075347 ± 0.001446 | 0.105349 ± 0.000078 | False |
 
 [Protocol, live results and logs](results/compact_pilot/REPORT.md). No distillation or sparse-input adaptation in this stage.
 <!-- END COMPACT PILOT -->
+
+<!-- BEGIN COMPACT CONCLUSION -->
+Both pilot jobs are verified: **9,938 original test queries**, exact reference/optimized fused-score
+bit equality, unchanged historical metrics, and all **12 planned paired comparisons** recomputed.
+Skipping unused signals makes BundleFuse scoring **3.92× faster on POG_dense** and **1.46× faster
+on Spotify** in the measured warm 32-query CPU batches, with identical accuracy.
+
+The **58,314-parameter** engineered student beats its matched raw-feature student on both metrics
+and datasets after Holm correction. It retains only **89.68% / 67.68%** of BundleFuse test Recall
+(three-seed means, POG_dense / Spotify). Both validation-only 97.5% retention gates fail. The
+student is faster, but this representation does not meet the accuracy-preserving replacement
+goal; no distillation or sparse-input adaptation was started. Two raw Spotify fits hit the epoch
+budget; all engineered fits stopped by validation patience. These are architecture/budget-specific
+findings, not a proof that every compact model fails.
+
+[Full interpretation and measured costs](results/compact_pilot/ANALYSIS.md) ·
+[Verification](results/compact_pilot/VALIDATION.md). The implementation passed **57 regression tests**.
+<!-- END COMPACT CONCLUSION -->

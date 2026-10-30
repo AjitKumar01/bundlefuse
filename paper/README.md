@@ -28,6 +28,12 @@ POG reveal counterexamples to uniform robustness. The cached learned ranker is f
 measured warm-cache pipeline, so a general inference-speed or zero-cost claim is unsupported.
 The ledger records these boundaries and the two epoch-limited Spotify confirmation runs.
 
+The [compact-model pilot](../results/compact_pilot/ANALYSIS.md) verifies an exact scorer
+optimization on POG_dense/Spotify (3.92× / 1.46× warm-batch scoring speedups). Engineered
+features improve the matched small trained ranker, but it fails the prespecified validation
+accuracy-retention gate on both datasets. This is not an accuracy-preserving neural replacement
+or a verified distillation result. The original BundleFuse scores remain unchanged.
+
 The corrected runner does not reproduce the DDBC F1 or triple2vec+adaLoyal tables: their evaluation
 paths are absent from this checkout. RaMen's published ablation is evidence about its own model;
 it does not precisely identify the cause of the cross-model performance gap.

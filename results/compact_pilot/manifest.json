@@ -1,0 +1,225 @@
+{
+  "configuration": {
+    "code_sha256": "e3e17eee66dc3971c1ecbad2908a4a2a569aaf176964dfa4a111779da0e783d2",
+    "plan_sha256": "2f2f031ba2736065d5a2562f9f0e7282f036bd118183cf69f05344d3f1cd2e34",
+    "grid": [
+      {
+        "dim": 128,
+        "lr": 0.001,
+        "regularization": 0.0001,
+        "negatives": 32,
+        "batch_size": 128,
+        "max_epochs": 100,
+        "evaluate_every": 5,
+        "patience": 4
+      },
+      {
+        "dim": 128,
+        "lr": 0.003,
+        "regularization": 0.0001,
+        "negatives": 32,
+        "batch_size": 128,
+        "max_epochs": 100,
+        "evaluate_every": 5,
+        "patience": 4
+      }
+    ],
+    "inputs": [
+      {
+        "dataset": "pog_dense",
+        "directory": "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/pog_dense",
+        "protocol": {
+          "protocol": "provided",
+          "directory": "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/pog_dense",
+          "sha256": {
+            "bi_train.txt": "c6943aed7ec0be22cf2f7ee4383ec5b067d0c814f14d42446a34019700b93a4b",
+            "bi_valid_input.txt": "405468b777fe67b317e17ec4b21d9b0bb48850e9e115816c40633b1b10c2614d",
+            "bi_valid_gt.txt": "db871bc7be893dc07f065931fde05dc743dd3a6f357429d92a91124c0d23885c",
+            "bi_test_input.txt": "e7993ffd5ff4cb5fc0b7e4462eee3e48a9fba91462c03ac6446f38b5d1a73b59",
+            "bi_test_gt.txt": "e7ca4dbe4260f3cfc6ff3848c33617d73a17209b7d365e6eeb924d550dd9be2e",
+            "count.json": "9a15a12c1437fd0b38d067dd0c9fb1ee74e63fa9b577df321764d934ffb61e57"
+          },
+          "train_bundles": 20780,
+          "valid_queries": 2968,
+          "test_queries": 5938,
+          "deduplicate_bundles": false,
+          "regenerate_masks": false,
+          "query_cap": null
+        },
+        "input_sha256": {
+          "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/pog_dense/bi_train.txt": "c6943aed7ec0be22cf2f7ee4383ec5b067d0c814f14d42446a34019700b93a4b",
+          "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/pog_dense/bi_valid_input.txt": "405468b777fe67b317e17ec4b21d9b0bb48850e9e115816c40633b1b10c2614d",
+          "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/pog_dense/bi_valid_gt.txt": "db871bc7be893dc07f065931fde05dc743dd3a6f357429d92a91124c0d23885c",
+          "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/pog_dense/bi_test_input.txt": "e7993ffd5ff4cb5fc0b7e4462eee3e48a9fba91462c03ac6446f38b5d1a73b59",
+          "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/pog_dense/bi_test_gt.txt": "e7ca4dbe4260f3cfc6ff3848c33617d73a17209b7d365e6eeb924d550dd9be2e",
+          "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/pog_dense/count.json": "9a15a12c1437fd0b38d067dd0c9fb1ee74e63fa9b577df321764d934ffb61e57",
+          "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/pog_dense/title_emb.npy": "d9c1047deafa745f4cb0bb4f44eaa9aa616de5e7b6c7b1f9ea29e345406290be",
+          "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/pog_dense/content_feature.pt": "3bf198b402ca48892e00941397687ef23ea4ca72cd4535789fa844fa4ed0cb80",
+          "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/pog_dense/description_feature.pt": "3938b0546d9c604fda99f24cd4cadb2ac9bb95ca2bd1a7dec0e798dad8d5bf53",
+          "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/pog_dense/item_info.json": "69d872a551cf8f317662943a79b70ae3fd9a1fb8f58147f63a253171316bfb59",
+          "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/results/component_study/pog_dense/result.json": "204144afc3247acaa581cc018f81b5e604e4840437db319ae86d87d092e7e217"
+        }
+      },
+      {
+        "dataset": "spotify",
+        "directory": "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/spotify",
+        "protocol": {
+          "protocol": "provided",
+          "directory": "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/spotify",
+          "sha256": {
+            "bi_train.txt": "c79fbd6a966b043eb65d100fb1626c2c6762d2db99b0f59079693df6184dcc60",
+            "bi_valid_input.txt": "85dfbd33c16ec491e2507bcee1c44a96bb0aacbf0d2ec54fd9b27d8fee089b8a",
+            "bi_valid_gt.txt": "a377bb6acfd1b2e50d38e8d41f779e943d006e5f681796922dc1f75faf1bbb93",
+            "bi_test_input.txt": "b65346b8aefd7425d7d42ddaf798c6ec9ef14623c771336d43f9a4b01f3891a6",
+            "bi_test_gt.txt": "c74a0814eed5b3e00482143141747156da55b58e076c846e353862f00b6f8ee2",
+            "count.json": "2c1a4d51f5b2b9fb743e5db93059a710f8ac32b4f709c631c513ae27ae9a3ff9"
+          },
+          "train_bundles": 14000,
+          "valid_queries": 2000,
+          "test_queries": 4000,
+          "deduplicate_bundles": false,
+          "regenerate_masks": false,
+          "query_cap": null
+        },
+        "input_sha256": {
+          "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/spotify/bi_train.txt": "c79fbd6a966b043eb65d100fb1626c2c6762d2db99b0f59079693df6184dcc60",
+          "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/spotify/bi_valid_input.txt": "85dfbd33c16ec491e2507bcee1c44a96bb0aacbf0d2ec54fd9b27d8fee089b8a",
+          "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/spotify/bi_valid_gt.txt": "a377bb6acfd1b2e50d38e8d41f779e943d006e5f681796922dc1f75faf1bbb93",
+          "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/spotify/bi_test_input.txt": "b65346b8aefd7425d7d42ddaf798c6ec9ef14623c771336d43f9a4b01f3891a6",
+          "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/spotify/bi_test_gt.txt": "c74a0814eed5b3e00482143141747156da55b58e076c846e353862f00b6f8ee2",
+          "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/spotify/count.json": "2c1a4d51f5b2b9fb743e5db93059a710f8ac32b4f709c631c513ae27ae9a3ff9",
+          "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/spotify/content_feature.pt": "8bd3eb5572aeca9b6bacd643c092a265d586a2f50137c7bf0d96f681fc6bed1f",
+          "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/spotify/item_info.json": "10723939a80346b61968827634ea6bd5d9d40a3d37fa06e39d1952ea07d2151c",
+          "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/results/component_study/spotify/result.json": "a48bbfaf100e95114acdc107ddab07d59ade4481a0b0215183f2343b435e58a3"
+        }
+      }
+    ]
+  },
+  "python": "3.13.4 (main, Jun  6 2025, 22:30:22) [Clang 17.0.0 (clang-1700.0.13.3)]",
+  "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+  "versions": {
+    "numpy": "2.3.5",
+    "scipy": "1.16.3",
+    "sklearn": "1.7.2",
+    "torch": "2.9.1"
+  },
+  "implementation_commit": "29e6ca3a90eeb85d2c528f72db349f3533e74e02",
+  "jobs": [
+    {
+      "dataset": "pog_dense",
+      "directory": "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/pog_dense",
+      "protocol": {
+        "protocol": "provided",
+        "directory": "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/pog_dense",
+        "sha256": {
+          "bi_train.txt": "c6943aed7ec0be22cf2f7ee4383ec5b067d0c814f14d42446a34019700b93a4b",
+          "bi_valid_input.txt": "405468b777fe67b317e17ec4b21d9b0bb48850e9e115816c40633b1b10c2614d",
+          "bi_valid_gt.txt": "db871bc7be893dc07f065931fde05dc743dd3a6f357429d92a91124c0d23885c",
+          "bi_test_input.txt": "e7993ffd5ff4cb5fc0b7e4462eee3e48a9fba91462c03ac6446f38b5d1a73b59",
+          "bi_test_gt.txt": "e7ca4dbe4260f3cfc6ff3848c33617d73a17209b7d365e6eeb924d550dd9be2e",
+          "count.json": "9a15a12c1437fd0b38d067dd0c9fb1ee74e63fa9b577df321764d934ffb61e57"
+        },
+        "train_bundles": 20780,
+        "valid_queries": 2968,
+        "test_queries": 5938,
+        "deduplicate_bundles": false,
+        "regenerate_masks": false,
+        "query_cap": null
+      },
+      "status": "complete",
+      "input_sha256": {
+        "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/pog_dense/bi_train.txt": "c6943aed7ec0be22cf2f7ee4383ec5b067d0c814f14d42446a34019700b93a4b",
+        "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/pog_dense/bi_valid_input.txt": "405468b777fe67b317e17ec4b21d9b0bb48850e9e115816c40633b1b10c2614d",
+        "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/pog_dense/bi_valid_gt.txt": "db871bc7be893dc07f065931fde05dc743dd3a6f357429d92a91124c0d23885c",
+        "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/pog_dense/bi_test_input.txt": "e7993ffd5ff4cb5fc0b7e4462eee3e48a9fba91462c03ac6446f38b5d1a73b59",
+        "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/pog_dense/bi_test_gt.txt": "e7ca4dbe4260f3cfc6ff3848c33617d73a17209b7d365e6eeb924d550dd9be2e",
+        "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/pog_dense/count.json": "9a15a12c1437fd0b38d067dd0c9fb1ee74e63fa9b577df321764d934ffb61e57",
+        "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/pog_dense/title_emb.npy": "d9c1047deafa745f4cb0bb4f44eaa9aa616de5e7b6c7b1f9ea29e345406290be",
+        "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/pog_dense/content_feature.pt": "3bf198b402ca48892e00941397687ef23ea4ca72cd4535789fa844fa4ed0cb80",
+        "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/pog_dense/description_feature.pt": "3938b0546d9c604fda99f24cd4cadb2ac9bb95ca2bd1a7dec0e798dad8d5bf53",
+        "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/pog_dense/item_info.json": "69d872a551cf8f317662943a79b70ae3fd9a1fb8f58147f63a253171316bfb59",
+        "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/results/component_study/pog_dense/result.json": "204144afc3247acaa581cc018f81b5e604e4840437db319ae86d87d092e7e217"
+      },
+      "started": 1793376102.45362,
+      "command": [
+        "/Users/ajit/.pyenv/versions/3.13.4/bin/python3",
+        "-u",
+        "-m",
+        "bundlefuse.eval.fullrank"
+      ],
+      "log": "pog_dense/run.log",
+      "env": {
+        "FULLRANK_PROTOCOL": "provided",
+        "PROVIDED_STUDY": "compact",
+        "SPLIT_DIR": "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/pog_dense",
+        "DATA_DIR": "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/pog_dense",
+        "FORCE_DEVICE": "cpu",
+        "BUNDLEFUSE_THREADS": "1",
+        "BUNDLEFUSE_RESULTS_DIR": "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/results/compact_pilot/pog_dense",
+        "SEED": "0",
+        "PYTHONHASHSEED": "0",
+        "BUNDLE_DS": "pog_dense",
+        "PROVIDED_CHUNK": "64"
+      },
+      "returncode": 0,
+      "seconds": 540.8396558761597
+    },
+    {
+      "dataset": "spotify",
+      "directory": "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/spotify",
+      "protocol": {
+        "protocol": "provided",
+        "directory": "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/spotify",
+        "sha256": {
+          "bi_train.txt": "c79fbd6a966b043eb65d100fb1626c2c6762d2db99b0f59079693df6184dcc60",
+          "bi_valid_input.txt": "85dfbd33c16ec491e2507bcee1c44a96bb0aacbf0d2ec54fd9b27d8fee089b8a",
+          "bi_valid_gt.txt": "a377bb6acfd1b2e50d38e8d41f779e943d006e5f681796922dc1f75faf1bbb93",
+          "bi_test_input.txt": "b65346b8aefd7425d7d42ddaf798c6ec9ef14623c771336d43f9a4b01f3891a6",
+          "bi_test_gt.txt": "c74a0814eed5b3e00482143141747156da55b58e076c846e353862f00b6f8ee2",
+          "count.json": "2c1a4d51f5b2b9fb743e5db93059a710f8ac32b4f709c631c513ae27ae9a3ff9"
+        },
+        "train_bundles": 14000,
+        "valid_queries": 2000,
+        "test_queries": 4000,
+        "deduplicate_bundles": false,
+        "regenerate_masks": false,
+        "query_cap": null
+      },
+      "status": "complete",
+      "input_sha256": {
+        "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/spotify/bi_train.txt": "c79fbd6a966b043eb65d100fb1626c2c6762d2db99b0f59079693df6184dcc60",
+        "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/spotify/bi_valid_input.txt": "85dfbd33c16ec491e2507bcee1c44a96bb0aacbf0d2ec54fd9b27d8fee089b8a",
+        "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/spotify/bi_valid_gt.txt": "a377bb6acfd1b2e50d38e8d41f779e943d006e5f681796922dc1f75faf1bbb93",
+        "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/spotify/bi_test_input.txt": "b65346b8aefd7425d7d42ddaf798c6ec9ef14623c771336d43f9a4b01f3891a6",
+        "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/spotify/bi_test_gt.txt": "c74a0814eed5b3e00482143141747156da55b58e076c846e353862f00b6f8ee2",
+        "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/spotify/count.json": "2c1a4d51f5b2b9fb743e5db93059a710f8ac32b4f709c631c513ae27ae9a3ff9",
+        "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/spotify/content_feature.pt": "8bd3eb5572aeca9b6bacd643c092a265d586a2f50137c7bf0d96f681fc6bed1f",
+        "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/spotify/item_info.json": "10723939a80346b61968827634ea6bd5d9d40a3d37fa06e39d1952ea07d2151c",
+        "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/results/component_study/spotify/result.json": "a48bbfaf100e95114acdc107ddab07d59ade4481a0b0215183f2343b435e58a3"
+      },
+      "started": 1793376644.042602,
+      "command": [
+        "/Users/ajit/.pyenv/versions/3.13.4/bin/python3",
+        "-u",
+        "-m",
+        "bundlefuse.eval.fullrank"
+      ],
+      "log": "spotify/run.log",
+      "env": {
+        "FULLRANK_PROTOCOL": "provided",
+        "PROVIDED_STUDY": "compact",
+        "SPLIT_DIR": "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/spotify",
+        "DATA_DIR": "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/spotify",
+        "FORCE_DEVICE": "cpu",
+        "BUNDLEFUSE_THREADS": "1",
+        "BUNDLEFUSE_RESULTS_DIR": "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/results/compact_pilot/spotify",
+        "SEED": "0",
+        "PYTHONHASHSEED": "0",
+        "BUNDLE_DS": "spotify",
+        "PROVIDED_CHUNK": "64"
+      },
+      "returncode": 0,
+      "seconds": 2268.826078891754
+    }
+  ]
+}
