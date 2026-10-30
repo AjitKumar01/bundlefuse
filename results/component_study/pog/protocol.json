@@ -1,0 +1,18 @@
+{
+  "protocol": "provided",
+  "directory": "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/pog",
+  "sha256": {
+    "bi_train.txt": "984a40495aa3afe519fad733e402eb7cfd76d9db14ddaa098d4db24b3890c22d",
+    "bi_valid_input.txt": "ebc64bf6ad97c0619ac848b1157a989b7224626b815808823db694272fbfb595",
+    "bi_valid_gt.txt": "a1d49115b963422bab75deb4df4c871f92e5cab0e7d4694f9dcc0462c6db0469",
+    "bi_test_input.txt": "a6425f2d41cf5ec0366354a4fd21ea431e2428294c375c5ff93a1adb75449ac7",
+    "bi_test_gt.txt": "7274703720f26196fd08153f602ea76a952aa5a606948269544bb657020122b8",
+    "count.json": "f5032baaadeacb88e14fb346bec0bfd670de14b6026616934949ddbb95fe118b"
+  },
+  "train_bundles": 14000,
+  "valid_queries": 2000,
+  "test_queries": 4000,
+  "deduplicate_bundles": false,
+  "regenerate_masks": false,
+  "query_cap": null
+}

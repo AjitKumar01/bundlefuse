@@ -11,6 +11,13 @@ as newly constructed local variants: both are present in the original CLHE paper
 variant scores and stated split ratio also differ from the historical local reproductions;
 the new report distinguishes these sources explicitly.
 
+The [completed component study](../results/component_study/ANALYSIS.md) now tests retuned
+ablations and the raw-information hybrid controls on all four supplied splits. Gains over both
+controls are supported after the planned multiple-comparison adjustment. Component benefits
+are conditional: higher-order effects are clearest on music; bridging can reduce POG NDCG;
+most of the R@20 gap over HardSwitch survives removal of all higher-order terms. The manuscript's
+component explanations must reflect these results before it is presented as the current paper.
+
 The corrected runner does not reproduce the DDBC F1 or triple2vec+adaLoyal tables: their evaluation
 paths are absent from this checkout. RaMen's published ablation is evidence about its own model;
 it does not precisely identify the cause of the cross-model performance gap.

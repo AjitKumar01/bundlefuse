@@ -1,0 +1,8 @@
+RUN pog: /Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/results/component_study/pog/run.log
+COMPLETE pog: {'R@10': 0.04250000000000001, 'N@10': 0.032341750641940614, 'R@20': 0.05445833333333333, 'N@20': 0.03609231307391123, 'R@50': 0.07250000000000002, 'N@50': 0.040519840386770756}
+RUN pog_dense: /Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/results/component_study/pog_dense/run.log
+COMPLETE pog_dense: {'R@10': 0.3493319860783655, 'N@10': 0.2751288395785689, 'R@20': 0.3952228584259572, 'N@20': 0.2878758077142881, 'R@50': 0.44203996856405076, 'N@50': 0.2983350365448517}
+RUN spotify: /Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/results/component_study/spotify/run.log
+COMPLETE spotify: {'R@10': 0.10003909005171445, 'N@10': 0.28363740931730935, 'R@20': 0.15564639701529595, 'N@20': 0.2579255301623896, 'R@50': 0.24818867624101426, 'N@50': 0.25557468714898246}
+RUN spotify_sparse: /Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/results/component_study/spotify_sparse/run.log
+COMPLETE spotify_sparse: {'R@10': 0.09899716414831886, 'N@10': 0.23479415013064042, 'R@20': 0.15428809469261948, 'N@20': 0.22191161436632392, 'R@50': 0.24893191313671156, 'N@50': 0.23607944498086836}

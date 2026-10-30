@@ -1,0 +1,228 @@
+pog_dense: 31217 items, 20780 supplied train bundles, 2968 validation / 5938 test queries; no deduplication or remasking
+validation cache 64/2968
+validation cache 128/2968
+validation cache 192/2968
+validation cache 256/2968
+validation cache 320/2968
+validation cache 384/2968
+validation cache 448/2968
+validation cache 512/2968
+validation cache 576/2968
+validation cache 640/2968
+validation cache 704/2968
+validation cache 768/2968
+validation cache 832/2968
+validation cache 896/2968
+validation cache 960/2968
+validation cache 1024/2968
+validation cache 1088/2968
+validation cache 1152/2968
+validation cache 1216/2968
+validation cache 1280/2968
+validation cache 1344/2968
+validation cache 1408/2968
+validation cache 1472/2968
+validation cache 1536/2968
+validation cache 1600/2968
+validation cache 1664/2968
+validation cache 1728/2968
+validation cache 1792/2968
+validation cache 1856/2968
+validation cache 1920/2968
+validation cache 1984/2968
+validation cache 2048/2968
+validation cache 2112/2968
+validation cache 2176/2968
+validation cache 2240/2968
+validation cache 2304/2968
+validation cache 2368/2968
+validation cache 2432/2968
+validation cache 2496/2968
+validation cache 2560/2968
+validation cache 2624/2968
+validation cache 2688/2968
+validation cache 2752/2968
+validation cache 2816/2968
+validation cache 2880/2968
+validation cache 2944/2968
+validation cache 2968/2968
+SELECT pog_dense BundleFuse: validation queries=2968 constraints={}
+validation candidates evaluated: 10; latest ndcg20=0.008954
+validation candidates evaluated: 20; latest ndcg20=0.056045
+validation candidates evaluated: 30; latest ndcg20=0.256297
+validation candidates evaluated: 40; latest ndcg20=0.223484
+validation candidates evaluated: 50; latest ndcg20=0.260824
+validation candidates evaluated: 60; latest ndcg20=0.214049
+validation candidates evaluated: 70; latest ndcg20=0.227402
+validation candidates evaluated: 80; latest ndcg20=0.251426
+validation candidates evaluated: 90; latest ndcg20=0.272405
+validation candidates evaluated: 100; latest ndcg20=0.198305
+validation candidates evaluated: 110; latest ndcg20=0.268238
+validation candidates evaluated: 120; latest ndcg20=0.284345
+SELECT pog_dense NoIncidence: validation queries=2968 constraints={'incidence': (0.0,)}
+validation candidates evaluated: 130; latest ndcg20=0.274581
+SELECT pog_dense NoRao: validation queries=2968 constraints={'rao': (0.0,)}
+SELECT pog_dense NoHigherOrder: validation queries=2968 constraints={'incidence': (0.0,), 'rao': (0.0,)}
+SELECT pog_dense NoShrinkage: validation queries=2968 constraints={'shrinkage': False}
+SELECT pog_dense NoBridge: validation queries=2968 constraints={}
+validation candidates evaluated: 140; latest ndcg20=0.001413
+validation candidates evaluated: 150; latest ndcg20=0.004871
+validation candidates evaluated: 160; latest ndcg20=0.211462
+validation candidates evaluated: 170; latest ndcg20=0.248331
+validation candidates evaluated: 180; latest ndcg20=0.263679
+validation candidates evaluated: 190; latest ndcg20=0.223182
+validation candidates evaluated: 200; latest ndcg20=0.243302
+validation candidates evaluated: 210; latest ndcg20=0.241106
+validation candidates evaluated: 220; latest ndcg20=0.268850
+validation candidates evaluated: 230; latest ndcg20=0.218792
+validation candidates evaluated: 240; latest ndcg20=0.235328
+validation candidates evaluated: 250; latest ndcg20=0.253075
+validation candidates evaluated: 260; latest ndcg20=0.266548
+validation candidates evaluated: 270; latest ndcg20=0.269826
+validation candidates evaluated: 280; latest ndcg20=0.282627
+validation candidates evaluated: 290; latest ndcg20=0.281930
+SELECT pog_dense SimpleHybrid / HardSwitchHybrid
+validation candidates evaluated: 300; latest ndcg20=0.186340
+validation candidates evaluated: 310; latest ndcg20=0.255888
+validation candidates evaluated: 320; latest ndcg20=0.254695
+validation evaluation 64/2968
+validation evaluation 128/2968
+validation evaluation 192/2968
+validation evaluation 256/2968
+validation evaluation 320/2968
+validation evaluation 384/2968
+validation evaluation 448/2968
+validation evaluation 512/2968
+validation evaluation 576/2968
+validation evaluation 640/2968
+validation evaluation 704/2968
+validation evaluation 768/2968
+validation evaluation 832/2968
+validation evaluation 896/2968
+validation evaluation 960/2968
+validation evaluation 1024/2968
+validation evaluation 1088/2968
+validation evaluation 1152/2968
+validation evaluation 1216/2968
+validation evaluation 1280/2968
+validation evaluation 1344/2968
+validation evaluation 1408/2968
+validation evaluation 1472/2968
+validation evaluation 1536/2968
+validation evaluation 1600/2968
+validation evaluation 1664/2968
+validation evaluation 1728/2968
+validation evaluation 1792/2968
+validation evaluation 1856/2968
+validation evaluation 1920/2968
+validation evaluation 1984/2968
+validation evaluation 2048/2968
+validation evaluation 2112/2968
+validation evaluation 2176/2968
+validation evaluation 2240/2968
+validation evaluation 2304/2968
+validation evaluation 2368/2968
+validation evaluation 2432/2968
+validation evaluation 2496/2968
+validation evaluation 2560/2968
+validation evaluation 2624/2968
+validation evaluation 2688/2968
+validation evaluation 2752/2968
+validation evaluation 2816/2968
+validation evaluation 2880/2968
+validation evaluation 2944/2968
+validation evaluation 2968/2968
+test evaluation 64/5938
+test evaluation 128/5938
+test evaluation 192/5938
+test evaluation 256/5938
+test evaluation 320/5938
+test evaluation 384/5938
+test evaluation 448/5938
+test evaluation 512/5938
+test evaluation 576/5938
+test evaluation 640/5938
+test evaluation 704/5938
+test evaluation 768/5938
+test evaluation 832/5938
+test evaluation 896/5938
+test evaluation 960/5938
+test evaluation 1024/5938
+test evaluation 1088/5938
+test evaluation 1152/5938
+test evaluation 1216/5938
+test evaluation 1280/5938
+test evaluation 1344/5938
+test evaluation 1408/5938
+test evaluation 1472/5938
+test evaluation 1536/5938
+test evaluation 1600/5938
+test evaluation 1664/5938
+test evaluation 1728/5938
+test evaluation 1792/5938
+test evaluation 1856/5938
+test evaluation 1920/5938
+test evaluation 1984/5938
+test evaluation 2048/5938
+test evaluation 2112/5938
+test evaluation 2176/5938
+test evaluation 2240/5938
+test evaluation 2304/5938
+test evaluation 2368/5938
+test evaluation 2432/5938
+test evaluation 2496/5938
+test evaluation 2560/5938
+test evaluation 2624/5938
+test evaluation 2688/5938
+test evaluation 2752/5938
+test evaluation 2816/5938
+test evaluation 2880/5938
+test evaluation 2944/5938
+test evaluation 3008/5938
+test evaluation 3072/5938
+test evaluation 3136/5938
+test evaluation 3200/5938
+test evaluation 3264/5938
+test evaluation 3328/5938
+test evaluation 3392/5938
+test evaluation 3456/5938
+test evaluation 3520/5938
+test evaluation 3584/5938
+test evaluation 3648/5938
+test evaluation 3712/5938
+test evaluation 3776/5938
+test evaluation 3840/5938
+test evaluation 3904/5938
+test evaluation 3968/5938
+test evaluation 4032/5938
+test evaluation 4096/5938
+test evaluation 4160/5938
+test evaluation 4224/5938
+test evaluation 4288/5938
+test evaluation 4352/5938
+test evaluation 4416/5938
+test evaluation 4480/5938
+test evaluation 4544/5938
+test evaluation 4608/5938
+test evaluation 4672/5938
+test evaluation 4736/5938
+test evaluation 4800/5938
+test evaluation 4864/5938
+test evaluation 4928/5938
+test evaluation 4992/5938
+test evaluation 5056/5938
+test evaluation 5120/5938
+test evaluation 5184/5938
+test evaluation 5248/5938
+test evaluation 5312/5938
+test evaluation 5376/5938
+test evaluation 5440/5938
+test evaluation 5504/5938
+test evaluation 5568/5938
+test evaluation 5632/5938
+test evaluation 5696/5938
+test evaluation 5760/5938
+test evaluation 5824/5938
+test evaluation 5888/5938
+test evaluation 5938/5938
+COMPLETE pog_dense: {"BundleFuse": 0.3952228584259572, "NoIncidence": 0.39289323004378585, "NoRao": 0.3952228584259572, "NoHigherOrder": 0.39289323004378585, "NoShrinkage": 0.39390367126978787, "NoBridge": 0.39143370382844966, "SimpleHybrid": 0.3636465701133941, "HardSwitchHybrid": 0.36474121477489607}

@@ -1,0 +1,215 @@
+{
+  "BundleFuse": {
+    "kind": "fusion",
+    "weights": {
+      "cat": 0.5,
+      "style": 0.25,
+      "bridge": 0.25,
+      "simp": 0.25
+    },
+    "prior_keys": [
+      "cat",
+      "style",
+      "bridge"
+    ],
+    "kappa": 0.5,
+    "prior_scale": 1.0424024296056245,
+    "alpha_inc": 0.0,
+    "gamma_rao": 0.0,
+    "variance_components": {
+      "identifiable": true,
+      "raw_sigma0_sq": 0.2863996062791611,
+      "raw_sigma_eps_sq": -0.273238429657863,
+      "sigma0_sq": 0.2863996062791611,
+      "sigma_eps_sq": 0.0001,
+      "kappa_f": 0.05,
+      "raw_slope_negative": true,
+      "truncated": true
+    },
+    "constraints": {
+      "remove_bridge": false
+    }
+  },
+  "NoIncidence": {
+    "kind": "fusion",
+    "weights": {
+      "cat": 0.5,
+      "style": 0.25,
+      "bridge": 0.25,
+      "simp": 0.25
+    },
+    "prior_keys": [
+      "cat",
+      "style",
+      "bridge"
+    ],
+    "kappa": 0.5,
+    "prior_scale": 1.0424024296056245,
+    "alpha_inc": 0.0,
+    "gamma_rao": 0.0,
+    "variance_components": {
+      "identifiable": true,
+      "raw_sigma0_sq": 0.2863996062791611,
+      "raw_sigma_eps_sq": -0.273238429657863,
+      "sigma0_sq": 0.2863996062791611,
+      "sigma_eps_sq": 0.0001,
+      "kappa_f": 0.05,
+      "raw_slope_negative": true,
+      "truncated": true
+    },
+    "constraints": {
+      "incidence": [
+        0.0
+      ],
+      "remove_bridge": false
+    }
+  },
+  "NoRao": {
+    "kind": "fusion",
+    "weights": {
+      "cat": 0.5,
+      "style": 0.25,
+      "bridge": 0.25,
+      "simp": 0.25
+    },
+    "prior_keys": [
+      "cat",
+      "style",
+      "bridge"
+    ],
+    "kappa": 0.5,
+    "prior_scale": 1.0424024296056245,
+    "alpha_inc": 0.0,
+    "gamma_rao": 0.0,
+    "variance_components": {
+      "identifiable": true,
+      "raw_sigma0_sq": 0.2863996062791611,
+      "raw_sigma_eps_sq": -0.273238429657863,
+      "sigma0_sq": 0.2863996062791611,
+      "sigma_eps_sq": 0.0001,
+      "kappa_f": 0.05,
+      "raw_slope_negative": true,
+      "truncated": true
+    },
+    "constraints": {
+      "rao": [
+        0.0
+      ],
+      "remove_bridge": false
+    }
+  },
+  "NoHigherOrder": {
+    "kind": "fusion",
+    "weights": {
+      "cat": 0.5,
+      "style": 0.25,
+      "bridge": 0.25,
+      "simp": 0.25
+    },
+    "prior_keys": [
+      "cat",
+      "style",
+      "bridge"
+    ],
+    "kappa": 0.5,
+    "prior_scale": 1.0424024296056245,
+    "alpha_inc": 0.0,
+    "gamma_rao": 0.0,
+    "variance_components": {
+      "identifiable": true,
+      "raw_sigma0_sq": 0.2863996062791611,
+      "raw_sigma_eps_sq": -0.273238429657863,
+      "sigma0_sq": 0.2863996062791611,
+      "sigma_eps_sq": 0.0001,
+      "kappa_f": 0.05,
+      "raw_slope_negative": true,
+      "truncated": true
+    },
+    "constraints": {
+      "incidence": [
+        0.0
+      ],
+      "rao": [
+        0.0
+      ],
+      "remove_bridge": false
+    }
+  },
+  "NoShrinkage": {
+    "kind": "fusion",
+    "weights": {
+      "cat": 0.5,
+      "style": 0.25,
+      "bridge": 0.25,
+      "simp": 0.25
+    },
+    "prior_keys": [
+      "cat",
+      "style",
+      "bridge"
+    ],
+    "kappa": 0.0,
+    "prior_scale": 1.0,
+    "alpha_inc": 0.0,
+    "gamma_rao": 0.0,
+    "variance_components": {
+      "disabled": true
+    },
+    "constraints": {
+      "shrinkage": false,
+      "remove_bridge": false
+    }
+  },
+  "NoBridge": {
+    "kind": "fusion",
+    "weights": {
+      "cat": 0.5,
+      "style": 0.25,
+      "simp": 0.25
+    },
+    "prior_keys": [
+      "cat",
+      "style"
+    ],
+    "kappa": 0.05,
+    "prior_scale": 1.0528337575254232,
+    "alpha_inc": 0.0,
+    "gamma_rao": 0.0,
+    "variance_components": {
+      "identifiable": true,
+      "raw_sigma0_sq": 0.28764652233302723,
+      "raw_sigma_eps_sq": -0.2742985286043515,
+      "sigma0_sq": 0.28764652233302723,
+      "sigma_eps_sq": 0.0001,
+      "kappa_f": 0.05,
+      "raw_slope_negative": true,
+      "truncated": true
+    },
+    "constraints": {
+      "remove_bridge": true
+    }
+  },
+  "SimpleHybrid": {
+    "kind": "hybrid",
+    "weights": {
+      "raw_cooc": 0.25,
+      "raw_content": 0.25,
+      "raw_category": 0.5
+    },
+    "gate": null,
+    "val_ndcg20": 0.02549303703275673
+  },
+  "HardSwitchHybrid": {
+    "kind": "hybrid",
+    "weights": {
+      "raw_cooc": 0.25,
+      "raw_content": 0.25,
+      "raw_category": 0.5
+    },
+    "gate": [
+      0,
+      2.0
+    ],
+    "val_ndcg20": 0.030671762566938494
+  }
+}

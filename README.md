@@ -102,10 +102,11 @@ validation-selected frequency threshold for backing off to its metadata prior. T
 receive the same source modalities and auxiliary interactions as the main scorer, without its
 style residualization, content bridging, or higher-order operators.
 
-All local methods share splits, candidate catalogues, seed exclusion, and deterministic ties
-(descending score, then ascending item ID). We report seed dispersion; it is not a significance
-test. Published CLHE/RaMen/LLM numbers remain literature context until reproduced on identical
-splits and features. RaMen's published visual-removal ablation rules out the earlier claim that
+Within each matched experiment, local methods share splits, candidate catalogues, seed exclusion,
+and deterministic ties (descending score, then ascending item ID). The resplit refresh reports
+seed dispersion; the supplied-split component study below adds paired uncertainty estimates.
+Published neural-score comparisons are documented in the supplied-split section with their
+release/protocol and feature-attribution limits. RaMen's published visual-removal ablation rules out the earlier claim that
 images alone explain its advantage; the precise cause of our cross-model gap remains unproven.
 
 ## Install and data
@@ -148,6 +149,7 @@ e-commerce use TF-IDF/SVD. CPU is the default; `FORCE_DEVICE` overrides it. See
 | `experiments.py` | Resumable experiment jobs, provenance, and README progress |
 | `provided_splits.py`, `provided_experiments.py` | Supplied neural benchmark split loading and BundleFuse-only runs |
 | `fusion_selection.py`, `eval/provided.py` | Shared fusion selection and bounded-memory full-validation evaluation |
+| `eval/components.py`, `paired_stats.py`, `component_report.py` | Retuned ablations, clustered paired inference, and live component-study reports |
 | `eval/` | Dataset loaders and evaluator entry points |
 | `tests/` | Core math and evaluation/runner regression checks |
 
@@ -193,3 +195,30 @@ All **4/4 supplied-split runs are complete and verified**, covering 16,436 test 
 
 The released split/mask mismatch is resolved. The CLHE preprint’s different split-ratio description still limits strict paper-equivalence claims for dense/sparse variants. See the [full metric comparison and interpretation](results/provided_splits/ANALYSIS.md) and [verification record](results/provided_splits/VALIDATION.md). **32 regression tests passed**; all recorded inputs remain unchanged.
 <!-- END PROVIDED CONCLUSION -->
+
+## Supplied-split controls and ablations
+
+<!-- BEGIN COMPONENT STUDY -->
+**4/4 datasets complete.** Full BundleFuse, five retuned ablations, SimpleHybrid, and HardSwitchHybrid use all supplied queries.
+
+| Dataset | Status | BundleFuse | SimpleHybrid | HardSwitchHybrid |
+|---|---|---:|---:|---:|
+| pog | complete | 0.054458 | 0.034083 | 0.041042 |
+| pog_dense | complete | 0.395223 | 0.363647 | 0.364741 |
+| spotify | complete | 0.155646 | 0.099754 | 0.099961 |
+| spotify_sparse | complete | 0.154288 | 0.115149 | 0.115458 |
+
+[Live results, paired uncertainty estimates, and logs](results/component_study/REPORT.md).
+
+```bash
+python -m bundlefuse.provided_experiments --study components --output results/component_study
+```
+<!-- END COMPONENT STUDY -->
+
+<!-- BEGIN COMPONENT CONCLUSION -->
+All **32 method/dataset evaluations** are complete and verified. BundleFuse beats both raw-information hybrid controls in R@20 and NDCG@20 on all four supplied splits, with significance after Holm adjustment over all 56 planned contrasts. R@20 gains over HardSwitchHybrid are **+1.342 pp (POG), +3.048 pp (POG_dense), +5.569 pp (Spotify), and +3.883 pp (Spotify_sparse)**.
+
+The ablations support dataset-dependent benefits. Higher-order terms help music but do nothing on POG; shrinkage improves three datasets reliably; removing bridging improves POG NDCG while bridging helps Spotify. Removing all higher-order terms still retains roughly **92–100%** of the R@20 advantage over HardSwitchHybrid, so they do not explain most of the baseline gap.
+
+[Full interpretation, effect sizes, and remaining limitations](results/component_study/ANALYSIS.md). [Verification](results/component_study/VALIDATION.md) recomputes all 56 paired contrasts from per-query metrics. **42 tests passed**, and every full-model per-query metric exactly reproduced the preceding verified run. Uncertainty estimates condition on these fitted models and supplied splits; learned metadata baselines and mask/temporal robustness remain open.
+<!-- END COMPONENT CONCLUSION -->

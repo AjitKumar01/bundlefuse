@@ -1,0 +1,30 @@
+[
+  {
+    "dataset": "pog",
+    "queries": 4000,
+    "methods": 8,
+    "hashes_match": true,
+    "constraints_verified": true
+  },
+  {
+    "dataset": "pog_dense",
+    "queries": 5938,
+    "methods": 8,
+    "hashes_match": true,
+    "constraints_verified": true
+  },
+  {
+    "dataset": "spotify",
+    "queries": 4000,
+    "methods": 8,
+    "hashes_match": true,
+    "constraints_verified": true
+  },
+  {
+    "dataset": "spotify_sparse",
+    "queries": 2498,
+    "methods": 8,
+    "hashes_match": true,
+    "constraints_verified": true
+  }
+]

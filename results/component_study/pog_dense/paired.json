@@ -1,0 +1,212 @@
+{
+  "NoIncidence": {
+    "R@20": {
+      "delta": 0.0023296283821713257,
+      "ci95": [
+        0.0007301289103805755,
+        0.003914338034101436
+      ],
+      "p_value": 0.0031996800319968005,
+      "queries": 5938,
+      "clusters": 5871,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.004883799259009768,
+      "seed": 0
+    },
+    "N@20": {
+      "delta": 0.008530968831739986,
+      "ci95": [
+        0.007049571615045801,
+        0.010052589861082437
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5938,
+      "clusters": 5871,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.054227012462108454,
+      "seed": 0
+    }
+  },
+  "NoRao": {
+    "R@20": {
+      "delta": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "p_value": 1.0,
+      "queries": 5938,
+      "clusters": 5871,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0,
+      "seed": 0
+    },
+    "N@20": {
+      "delta": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "p_value": 1.0,
+      "queries": 5938,
+      "clusters": 5871,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0,
+      "seed": 0
+    }
+  },
+  "NoHigherOrder": {
+    "R@20": {
+      "delta": 0.0023296283821713257,
+      "ci95": [
+        0.0007301289103805755,
+        0.003914338034101436
+      ],
+      "p_value": 0.0031996800319968005,
+      "queries": 5938,
+      "clusters": 5871,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.004883799259009768,
+      "seed": 0
+    },
+    "N@20": {
+      "delta": 0.008530968831739986,
+      "ci95": [
+        0.007049571615045801,
+        0.010052589861082437
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5938,
+      "clusters": 5871,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.054227012462108454,
+      "seed": 0
+    }
+  },
+  "NoShrinkage": {
+    "R@20": {
+      "delta": 0.0013191871561693048,
+      "ci95": [
+        -0.0002536336524440692,
+        0.002978222458994707
+      ],
+      "p_value": 0.13838616138386162,
+      "queries": 5938,
+      "clusters": 5871,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.006399461098012799,
+      "seed": 0
+    },
+    "N@20": {
+      "delta": 0.001543495107172243,
+      "ci95": [
+        0.00041612790343716397,
+        0.0027129508894280915
+      ],
+      "p_value": 0.0071992800719928,
+      "queries": 5938,
+      "clusters": 5871,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.06079488043112159,
+      "seed": 0
+    }
+  },
+  "NoBridge": {
+    "R@20": {
+      "delta": 0.0037891545975075784,
+      "ci95": [
+        0.000925026881576047,
+        0.006663629675729467
+      ],
+      "p_value": 0.010198980101989802,
+      "queries": 5938,
+      "clusters": 5871,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.015998652745031997,
+      "seed": 0
+    },
+    "N@20": {
+      "delta": 0.0030210478593815948,
+      "ci95": [
+        0.0013559527096347105,
+        0.004732783238125729
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5938,
+      "clusters": 5871,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.11586392724823173,
+      "seed": 0
+    }
+  },
+  "SimpleHybrid": {
+    "R@20": {
+      "delta": 0.03157628831256315,
+      "ci95": [
+        0.025856787412142524,
+        0.03699344371852114
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5938,
+      "clusters": 5871,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.057426743011114854,
+      "seed": 0
+    },
+    "N@20": {
+      "delta": 0.027751241471184917,
+      "ci95": [
+        0.023747242108251704,
+        0.03164118352877883
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5938,
+      "clusters": 5871,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.16773324351633548,
+      "seed": 0
+    }
+  },
+  "HardSwitchHybrid": {
+    "R@20": {
+      "delta": 0.030481643651060965,
+      "ci95": [
+        0.024739670341869323,
+        0.03592294696573445
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5938,
+      "clusters": 5871,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.05961603233411923,
+      "seed": 0
+    },
+    "N@20": {
+      "delta": 0.027170835410161773,
+      "ci95": [
+        0.02318957440963206,
+        0.0310420004386112
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5938,
+      "clusters": 5871,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.16318625799932637,
+      "seed": 0
+    }
+  }
+}
