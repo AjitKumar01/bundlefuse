@@ -60,6 +60,37 @@ remain published context until this discrepancy is resolved. The original CLHE p
 contains both variants; the historical claim that these were newly constructed local variants
 was incorrect. No neural model is trained or evaluated by this command.
 
+## Retuned component study on supplied splits
+
+```bash
+python -m bundlefuse.provided_experiments --study components --output results/component_study
+python scripts/verify_components.py
+```
+
+This study runs eight methods on each of the four released POG/Spotify splits: full BundleFuse,
+NoIncidence, NoRao, NoHigherOrder, NoShrinkage, NoBridge, SimpleHybrid, and HardSwitchHybrid.
+The full-model weights and every ablation's remaining settings are selected independently using
+all supplied validation queries. Ablations restrict the incidence/Rao grids to zero, disable
+posterior shrinkage, or remove the bridging signal from both the fusion and prior candidates.
+SimpleHybrid uses raw content, co-occurrence, category/artist/album evidence, and popularity.
+HardSwitchHybrid uses the same selected blend and a validation-selected frequency gate.
+
+All methods' settings are frozen before test evaluation. They share query IDs, candidates,
+seed exclusion, and metrics. Validation candidates within each coordinate are evaluated in one
+disk-cache pass without changing their order, thresholds, or tie policy. Completed full-model
+per-query metrics must agree with the preceding supplied-split run to within 1e-9.
+
+The report uses 2,000 cluster-bootstrap replicates for pointwise 95% CIs and 10,000 paired
+cluster sign flips for two-sided p-values. Identical complete held-out bundles form clusters;
+statistics retain original query multiplicities. Holm adjustment covers the prespecified family
+of 56 comparisons (seven contrasts × two metrics × four datasets). This measures uncertainty
+conditional on fitted models and these fixed splits. It does not include training-seed/split
+variation or infer significance against published neural summary numbers.
+
+The README and report update after each dataset completes. This phase tests component necessity
+and the existing simple controls; a newly trained metadata ranker, alternative masks, and temporal
+retail evaluation remain separate studies.
+
 ## Current experiment plan
 
 | Experiment | Datasets | Split seeds | Output |

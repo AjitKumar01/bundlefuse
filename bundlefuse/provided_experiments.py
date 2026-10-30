@@ -1,4 +1,4 @@
-"""Run only BundleFuse on the supplied POG/Spotify neural benchmark splits.
+"""Run BundleFuse, or its retuned component study, on supplied POG/Spotify benchmark splits.
 
 python -m bundlefuse.provided_experiments --output results/provided_splits
 """
@@ -33,6 +33,9 @@ SAVED_COPIES = {'pog': 'kaggle_out_pog/RaMen/datasets/pog',
 
 
 def report(manifest, output):
+    if manifest['configuration'].get('study') == 'components':
+        from .component_report import component_report
+        return component_report(manifest, output)
     rows = ['BundleFuse only; supplied training bundles and every supplied validation/test query.',
             'No bundle deduplication, resplitting, remasking, or query sampling.', '',
             '| Dataset | Status | BundleFuse R@20 | CLHE reference | RaMen reference | Reference source |',
@@ -75,11 +78,14 @@ def report(manifest, output):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--datasets', nargs='+', choices=DATASETS, default=list(DATASETS))
-    parser.add_argument('--output', default='results/provided_splits')
+    parser.add_argument('--study', choices=('provided', 'components'), default='provided')
+    parser.add_argument('--output')
     parser.add_argument('--chunk', type=int, default=64)
     parser.add_argument('--data-root', default=str(Path(DATA_ROOT) / 'bundlemllm' / 'datasets'))
     parser.add_argument('--split-root', help='Optional root containing <dataset>/bi_*.txt and count.json')
     args = parser.parse_args()
+    if args.output is None:
+        args.output = 'results/component_study' if args.study == 'components' else 'results/provided_splits'
     if args.chunk < 1:
         parser.error('--chunk must be positive')
     output = Path(args.output).resolve(); output.mkdir(parents=True, exist_ok=True)
@@ -102,7 +108,7 @@ def main():
                                         if (data / name).exists()},
                      'saved_neural_copy': str(saved), 'saved_copy_equal': equality,
                      'reference': REFERENCES[dataset], 'reference_urls': REFERENCE_URLS, 'status': 'pending'})
-    config = {'code_sha256': fingerprint, 'datasets': args.datasets, 'chunk': args.chunk,
+    config = {'code_sha256': fingerprint, 'study': args.study, 'datasets': args.datasets, 'chunk': args.chunk,
               'inputs': [{k: v for k, v in job.items() if k != 'status'} for job in jobs]}
     if path.exists():
         manifest = json.loads(path.read_text())
@@ -127,11 +133,11 @@ def main():
         env = job_environment({'mode': 'matrix', 'dataset': job['dataset'], 'splits': 1,
                                'seed': 0, 'objective': 'ndcg20'}, directory)
         env.update(FULLRANK_PROTOCOL='provided', SPLIT_DIR=job['protocol']['directory'],
-                   DATA_DIR=job['data'], PROVIDED_CHUNK=str(args.chunk), SEED='0')
+                   DATA_DIR=job['data'], PROVIDED_CHUNK=str(args.chunk), SEED='0', PROVIDED_STUDY=args.study)
         command = [sys.executable, '-u', '-m', 'bundlefuse.eval.fullrank']
         job.update(status='running', command=command, env={k: v for k, v in env.items()
                    if k in ('FULLRANK_PROTOCOL', 'SPLIT_DIR', 'DATA_DIR', 'PROVIDED_CHUNK', 'FORCE_DEVICE',
-                            'SEED', 'BUNDLE_DS', 'SEL_OBJ', 'BUNDLEFUSE_RESULTS_DIR', 'BUNDLEFUSE_THREADS')},
+                            'SEED', 'BUNDLE_DS', 'SEL_OBJ', 'BUNDLEFUSE_RESULTS_DIR', 'BUNDLEFUSE_THREADS', 'PROVIDED_STUDY')},
                    started=time.time())
         save()
         print(f'RUN {job["dataset"]}: {directory / "run.log"}', flush=True)
@@ -142,8 +148,31 @@ def main():
             if completed.returncode:
                 raise RuntimeError(f'exit status {completed.returncode}')
             result = json.loads((directory / 'result.json').read_text())
-            if result['protocol'] != job['protocol'] or len(result['per_query']) != job['protocol']['test_queries']:
+            counts = ([len(rows) for rows in result['per_query'].values()] if args.study == 'components' else
+                      [len(result['per_query'])])
+            if result['protocol'] != job['protocol'] or any(count != job['protocol']['test_queries'] for count in counts):
                 raise RuntimeError('Result protocol/query count differs from provided files')
+            if args.study == 'components':
+                from .eval.components import METHODS
+                if set(result['methods']) != set(METHODS) or set(result['per_query']) != set(METHODS):
+                    raise RuntimeError('Component study is missing a planned method')
+                import numpy as np
+                previous_path = Path(PROJECT_ROOT) / 'results' / 'provided_splits' / job['dataset'] / 'result.json'
+                if previous_path.exists():
+                    previous = json.loads(previous_path.read_text())
+                    if previous['protocol']['sha256'] == result['protocol']['sha256']:
+                        if previous['test_query_ids'] != result['test_query_ids']:
+                            raise RuntimeError('Full-model reference query IDs differ')
+                        difference = max(abs(a[key] - b[key]) for a, b in
+                                         zip(previous['per_query'], result['per_query']['BundleFuse']) for key in a)
+                        write_json(directory / 'reference_agreement.json', {'reference': str(previous_path),
+                                   'max_absolute_per_query_difference': difference})
+                        if difference > 1e-9:
+                            raise RuntimeError(f'Batched full-model results differ from the verified reference: {difference}')
+                for name, values in result['methods'].items():
+                    for metric, value in values.items():
+                        if not np.isfinite(value) or not 0 <= value <= 1 + 1e-12:
+                            raise RuntimeError(f'Invalid metric: {name} {metric}')
             if code_digest() != fingerprint:
                 raise RuntimeError('Source changed while the experiment was running')
             for name, digest in job['protocol']['sha256'].items():

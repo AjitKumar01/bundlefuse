@@ -394,9 +394,25 @@ def apply_simba_full(Z, w, prior_keys, best_eb, freq_t, best_ho):
     return apply_fusion(Z, w, prior_keys, best_eb, freq_t, best_ho)
 
 
+def make_hybrid():
+    def categories(seeds):
+        score = category_scores(onto_op.Pcat, cat_lbl, seeds)
+        if MUSIC:
+            indicator = graph_op.build_indicator(seeds)
+            score += (onto_op.I_art_w @ (onto_op.I_art_w.T @ indicator)).toarray()
+            score += 2.0 * (onto_op.I_alb_w @ (onto_op.I_alb_w.T @ indicator)).toarray()
+        return score
+    raw_content = Fnp / (np.linalg.norm(Fnp, axis=1, keepdims=True) + 1e-8)
+    return SimpleHybrid(graph_op, raw_content, categories)
+
+
 if PROTOCOL == "provided":
-    from bundlefuse.eval.provided import run_provided
-    run_provided(DS, provided, score_all_signals, SIG, freq, MUSIC, SEL_OBJ, RESULTS_DIR)
+    if os.environ.get("PROVIDED_STUDY", "provided") == "components":
+        from bundlefuse.eval.components import run_components
+        run_components(DS, provided, score_all_signals, SIG, freq, MUSIC, SEL_OBJ, RESULTS_DIR, make_hybrid())
+    else:
+        from bundlefuse.eval.provided import run_provided
+        run_provided(DS, provided, score_all_signals, SIG, freq, MUSIC, SEL_OBJ, RESULTS_DIR)
     sys.exit()
 
 
@@ -634,16 +650,6 @@ if os.environ.get("CASE_STUDY"):
     sys.exit()
 
 
-def make_hybrid():
-    def categories(seeds):
-        score = category_scores(onto_op.Pcat, cat_lbl, seeds)
-        if MUSIC:
-            indicator = graph_op.build_indicator(seeds)
-            score += (onto_op.I_art_w @ (onto_op.I_art_w.T @ indicator)).toarray()
-            score += 2.0 * (onto_op.I_alb_w @ (onto_op.I_alb_w.T @ indicator)).toarray()
-        return score
-    raw_content = Fnp / (np.linalg.norm(Fnp, axis=1, keepdims=True) + 1e-8)
-    return SimpleHybrid(graph_op, raw_content, categories)
 
 
 if os.environ.get("BASELINES"):

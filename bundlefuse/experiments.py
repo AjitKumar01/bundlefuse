@@ -28,7 +28,7 @@ OBJECTIVES = ('ndcg10', 'ndcg20', 'ndcg50', 'recall20', 'mrr', 'ndcgfull', 'nll'
 CONTROL_FLAGS = ('BASELINES', 'EASE', 'ABLATE', 'VALGAP', 'WSWEEP', 'CASE_STUDY', 'TIMING',
                  'BACKOFF', 'SELDUMP', 'KFOLD', 'SEL_OBJ', 'TRAIN_FRAC', 'IMG_FEATS', 'DDBC_K',
                  'BASELINES_CAP', 'VAL_N', 'TEST_N', 'SEEDS', 'RAMEN_SEED', 'BUNDLE_DS', 'BRDS', 'NO_AUX',
-                 'FULLRANK_PROTOCOL', 'SPLIT_DIR', 'MASK_FRAC')
+                 'FULLRANK_PROTOCOL', 'SPLIT_DIR', 'MASK_FRAC', 'PROVIDED_STUDY')
 
 
 def code_digest():

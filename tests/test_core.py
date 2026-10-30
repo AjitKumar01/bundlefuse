@@ -197,7 +197,7 @@ def test_nonidentifiable_evaluator_searches_disable_shrinkage():
                              ("eval/dunnhumby.py", "kf_cand")]:
         tree = ast.parse((root / "bundlefuse" / filename).read_text())
         searches = [node for node in ast.walk(tree)
-                    if isinstance(node, ast.For) and isinstance(node.target, ast.Name)
+                    if isinstance(node, (ast.For, ast.comprehension)) and isinstance(node.target, ast.Name)
                     and node.target.id == target]
         assert len(searches) == 1, f"Expected one posterior search in {filename}"
         expression = compile(ast.Expression(searches[0].iter), filename, "eval")
