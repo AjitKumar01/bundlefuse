@@ -6,11 +6,12 @@ import numpy as np
 from .metrics import TIE_POLICY
 
 
-def write_json(path, value):
+def write_json(path, value, *, compact=False):
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_name(path.name + ".tmp")
-    temporary.write_text(json.dumps(value, indent=2, allow_nan=False) + "\n")
+    temporary.write_text(json.dumps(value, indent=None if compact else 2,
+                                   separators=(',', ':') if compact else None, allow_nan=False) + "\n")
     os.replace(temporary, path)
 
 

@@ -1,5 +1,8 @@
 # Historical manuscript
 
+Use the [claims/evidence ledger](CLAIMS.md) to distinguish current verified claims, conditional
+component benefits, and experiments that are still pending.
+
 This draft and its compiled PDF predate the corrected evaluation refresh. Current paired results
 are in [../results/evaluation_refresh/REPORT.md](../results/evaluation_refresh/REPORT.md) and the
 root README. The manuscript tables, hardcoded exposure/regime figures, and runtime claims must be

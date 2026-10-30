@@ -150,6 +150,9 @@ e-commerce use TF-IDF/SVD. CPU is the default; `FORCE_DEVICE` overrides it. See
 | `provided_splits.py`, `provided_experiments.py` | Supplied neural benchmark split loading and BundleFuse-only runs |
 | `fusion_selection.py`, `eval/provided.py` | Shared fusion selection and bounded-memory full-validation evaluation |
 | `eval/components.py`, `paired_stats.py`, `component_report.py` | Retuned ablations, clustered paired inference, and live component-study reports |
+| `baselines/metadata_ranker.py`, `eval/generalization.py` | Train-fold metadata/collaborative ranker and fixed-selection sparse-input tests |
+| `temporal_data.py`, `retail_signals.py`, `eval/temporal.py` | Whole-day retail folds and training-only retail graph scoring |
+| `generalization_experiments.py`, `generalization_report.py`, `profiling.py` | Generalization jobs, live results, and separated cost measurements |
 | `eval/` | Dataset loaders and evaluator entry points |
 | `tests/` | Core math and evaluation/runner regression checks |
 

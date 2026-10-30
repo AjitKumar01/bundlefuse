@@ -39,8 +39,8 @@ def apply_method(z, selected, freq):
     return torch.where(freq <= threshold, scale * prior, base)
 
 
-def select_controls(validation, cache, freq):
-    weights, _, _, _, _ = fit_fusion(validation, CONTROL_KEYS, ('raw_content', 'raw_category'),
+def select_controls(validation, cache, freq, keys=None):
+    weights, _, _, _, _ = fit_fusion(validation, CONTROL_KEYS if keys is None else keys, ('raw_content', 'raw_category'),
                                     incidence=(0.0,), rao=(0.0,), shrinkage=False)
     baseline = {'kind': 'hybrid', 'weights': weights, 'gate': None}
     gates = [None] + [(threshold, scale) for threshold in (0, 1, 5) for scale in (0.5, 1.0, 2.0)]

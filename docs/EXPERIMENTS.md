@@ -91,6 +91,61 @@ The README and report update after each dataset completes. This phase tests comp
 and the existing simple controls; a newly trained metadata ranker, alternative masks, and temporal
 retail evaluation remain separate studies.
 
+## Learned baseline, sparse inputs, chronological retail, and costs
+
+```bash
+python -m bundlefuse.generalization_experiments --output results/generalization_study
+python scripts/verify_generalization.py
+```
+
+Five sequential CPU jobs cover POG, POG_dense, Spotify, Spotify_sparse, and a separate chronological
+Dunnhumby experiment. Each job evaluates six methods under four input conditions: frozen BundleFuse,
+SimpleHybrid, HardSwitchHybrid, and three training seeds of MetadataRanker. Supplied-split settings
+for the first three methods are reused from the verified component study; their original-mask
+per-query metrics must reproduce that reference. Temporal-retail settings are selected on its own
+validation fold. No old canonical tables are replaced.
+
+MetadataRanker is a shared item encoder with a trainable content projection, categorical embeddings,
+and collaborative item factors; a nonlinear residual encoder pools the revealed item set. Dense
+source embeddings are consumed directly. Retail uses the same raw TF-IDF metadata through a weighted
+embedding bag. Cold item-ID factors/biases are masked out; metadata still scores those items. Training
+uses only training bundles, sampled-softmax loss with 32 negatives excluding known positives, and
+training-only household histories for retail (20% auxiliary two-item samples). Sparse embedding
+gradients use SparseAdam; dense parameters use AdamW, with representation regularization.
+
+The prespecified grid is learning rate {0.001, 0.003} × regularization {1e-5, 1e-3}, 64 latent
+dimensions, batch size 128, at most 100 epochs, validation every five epochs, and patience of four
+checks. Hyperparameters are selected using seed-0 validation NDCG@20. Seeds 1 and 2 use those
+hyperparameters and select their own checkpoints on the same validation fold. All learning curves,
+stop reasons, and best-at-final-check flags are retained. A run that peaks at its epoch limit is
+reported as budget-limited rather than evidence of convergence. No best-test-seed or ensemble is used.
+Checkpoints remain local `.pt` files, with hashes recorded; they are excluded from Git.
+
+Sparse-input cases retain all supplied seeds, half of them, one quarter, or exactly one seed.
+A deterministic permutation makes the retained sets nested. Removed seed items join the hidden
+targets, preserving complete bundle membership and keeping at least one revealed item. All model
+settings are frozen using the original validation queries before scoring any test condition.
+
+The temporal experiment first chooses whole-day 70/10/20 boundaries from all eligible 3–20-item
+baskets, then samples at most 21,000 training, 3,000 validation, and 6,000 test baskets with seed 0.
+It does not deduplicate recurring baskets or filter catalogue items by future interaction frequency.
+Preflight day ranges are train 1–515, validation 516–580, and test 581–711. All 92,353 metadata-catalogue
+items remain candidates, including cold targets. This explicitly assumes a fixed, transductively
+available catalogue: product introduction dates are unavailable. Every interaction-derived graph,
+household history, and item-ID training signal uses only the sampled training period.
+
+The full default study prespecifies 200 paired contrasts: five datasets × four cases × five
+alternatives to BundleFuse × two metrics. The seed-0 learned model is the primary learned competitor;
+other seeds show training variability. Query-level inference conditions on each fitted configuration;
+cluster bootstrap/sign flips use complete-bundle clusters for POG/Spotify and household clusters for
+retail. Holm correction covers the whole family. Pointwise CIs use 2,000 bootstrap replicates and
+two-sided tests use 10,000 sign flips.
+
+Costs are measured separately: feature/graph preprocessing, learned training and validation search,
+catalogue-vector encoding, warm-cache scoring, scoring plus metrics, and whole-worker peak RSS.
+Inference uses the same 32 sampled queries and three repeats per method. External embedding
+extraction/pretraining is excluded; whole-worker RSS is not a per-method memory measurement.
+
 ## Current experiment plan
 
 | Experiment | Datasets | Split seeds | Output |

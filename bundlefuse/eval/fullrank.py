@@ -17,6 +17,7 @@ Weights/mixing/shrinkage are selected on validation via ``SEL_OBJ``. Env modes (
 Run: ``BUNDLE_DS=pog_dense python -m bundlefuse.eval.fullrank``  (see ``docs/EXPERIMENTS.md``).
 """
 import json, math, os, random, sys, time
+EVALUATOR_STARTED = time.perf_counter()
 import numpy as np, scipy.sparse as sp, torch, torch.nn as nn, torch.nn.functional as Fn
 from sklearn.cluster import MiniBatchKMeans
 
@@ -32,7 +33,7 @@ from bundlefuse.operators import (
     EmpiricalBayesRouter,
     zcols,
 )
-from bundlefuse.paths import DATA_ROOT, RESULTS_DIR
+from bundlefuse.paths import DATA_ROOT, RESULTS_DIR, PROJECT_ROOT
 
 DS = os.environ.get("BUNDLE_DS", "pog")
 POG = os.environ.get("DATA_DIR") or os.path.join(DATA_ROOT, "bundlemllm", "datasets", DS)
@@ -407,7 +408,18 @@ def make_hybrid():
 
 
 if PROTOCOL == "provided":
-    if os.environ.get("PROVIDED_STUDY", "provided") == "components":
+    if os.environ.get("PROVIDED_STUDY", "provided") == "generalization":
+        from bundlefuse.eval.generalization import run_generalization
+        from bundlefuse.eval.components import query_groups
+        category_inputs = [cat_lbl] + ([alb_lbl] if alb_lbl is not None else [])
+        run_generalization(DS, list(train.values()), provided.pairs('valid'), provided.pairs('test'),
+                           sorted(provided.splits['test'][0]), query_groups(provided.pairs('test')),
+                           provided.manifest(), score_all_signals, SIG, freq, make_hybrid(), FEAT,
+                           category_inputs, RESULTS_DIR,
+                           reference=os.path.join(PROJECT_ROOT, 'results', 'component_study', DS),
+                           preprocessing_seconds=time.perf_counter() - EVALUATOR_STARTED,
+                           chunk=int(os.environ.get('PROVIDED_CHUNK', '64')))
+    elif os.environ.get("PROVIDED_STUDY", "provided") == "components":
         from bundlefuse.eval.components import run_components
         run_components(DS, provided, score_all_signals, SIG, freq, MUSIC, SEL_OBJ, RESULTS_DIR, make_hybrid())
     else:
