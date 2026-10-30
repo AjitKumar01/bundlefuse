@@ -1,0 +1,14 @@
+spotify: 254155 items, 13991 duplicate-free train bundles, MUSIC=True
+
+=== spotify MATRIX (full-ranking R/N@10,20,50; sel=ndcg20; test N=3000; cold R@20=7.21% [989/13715]; 699s) ===
+method               R@10     N@10     R@20     N@20     R@50     N@50
+popularity         0.0078   0.0225   0.0136   0.0223   0.0284   0.0255
+co-occurrence      0.0623   0.1739   0.0960   0.1585   0.1635   0.1633
+content-kNN        0.0029   0.0095   0.0047   0.0085   0.0078   0.0084
+item2vec           0.0075   0.0205   0.0133   0.0203   0.0289   0.0248
+Pairwise-Repl      0.0969   0.2742   0.1520   0.2516   0.2518   0.2540
+SIMBA-NoRes        0.0989   0.2774   0.1501   0.2503   0.2388   0.2469
+Ours               0.1044   0.2884   0.1589   0.2618   0.2556   0.2623
+SimpleHybrid       0.0628   0.1755   0.0985   0.1609   0.1680   0.1666
+HardSwitchHybrid   0.0628   0.1755   0.0985   0.1609   0.1680   0.1666
+spotify SELDUMP (ndcg20) -> /Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/results/evaluation_refresh/matrix_spotify_seed1/selcmp_spotify_ndcg20.json

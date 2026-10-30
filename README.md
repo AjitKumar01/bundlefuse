@@ -1,165 +1,155 @@
 # BundleFuse
 
-A cheap, interpretable, **regime-adaptive** baseline for **bundle completion**: given a partial
-bundle `S`, rank catalogue items to recover the held-out members. It runs on a single CPU core in
-tens of seconds and is competitive with heavy GPU encoders, a 7B LLM, and a diffusion model on the
-cold/sparse regimes where those methods are supposed to dominate.
-
-The scorer has **zero trained parameters** — its handful of fusion weights are *selected* on a
-validation split, not learned by gradient descent.
+BundleFuse completes a partial bundle by ranking the remaining catalogue items. It combines
+training-fold collaborative statistics, content/category evidence, and exposure-dependent backoff:
 
 ```
-score(c | S) = (1 - u_c) · Y_fused(c | S)  +  u_c · μ₀(c | S) ,    u_c = κ_f / (f_c + κ_f)
+score(c | S) = (1 - u_c) * Y(c | S) + u_c * prior(c | S)
+u_c = kappa / (frequency_c + kappa)
 ```
 
-- **`Y_fused`** — a validation-weighted fusion of closed-form evidence: raw collaborative
-  co-occurrence (`BᵀB`), PPMI / PPMI-SVD, dual-spectrum taxonomic PMI, style-disentangled and
-  graph-bridged content. (Raw co-occurrence is kept *un-debiased* on purpose — **popularity is signal**.)
-- **`μ₀`** — a metadata/ontology+content prior; cold items (`f_c = 0`) are ranked entirely by it.
-- **`u_c`** — frequency-confidence **cold-start shrinkage** (classical Bell–Koren / RLFM); `κ_f` is
-  selected by validation grid search.
+The default scorer has no gradient-trained encoder. Fusion weights and routing settings **are fit
+on validation**; SVD factors, taxonomy statistics, and content preprocessing are also estimated.
+POG/Spotify consume externally pretrained embeddings, whose extraction cost is outside scoring.
+An optional set-attention encoder is enabled with `ENCODER=1`. A selected `kappa=0` disables
+backoff explicitly, including for zero-frequency candidates.
 
-An optional ~0.3M set-attention contrastive encoder exists as an **off-by-default** fused signal
-(`ENCODER=1`); the headline results do not depend on it.
+## Verified experiment refresh
 
-## Results at a glance (Recall@20)
+Branch `evaluation-reliability-experiments` starts from main commit `039e07c`. This refresh fixes
+P3α/RP3β transition powers, exact BundleKNN neighbour counts, NDCG/MRR definitions, deterministic
+ranking ties, and experiment failure handling. It adds raw-content/category hybrid controls.
 
-| Dataset | **Ours** (0 params) | Best matched baseline† | Heavy models (CLHE / RaMen)‡ |
-|---|---|---|---|
-| pog            | **0.0653** | 0.0259 (BundleKNN) | 0.0284 / 0.0375 |
-| pog_dense      | 0.3737     | 0.2842 (RP3β)      | **0.3815** / — |
-| spotify        | **0.1562** | 0.1314 (Combiner)  | 0.1082 / 0.1091 |
-| spotify_sparse | **0.1653** | 0.1180 (Combiner)  | 0.0969 / — |
-| electronic     | 0.5192     | 0.3341 (iALS)      | 0.4721 / **0.8371** |
-| food           | 0.5870     | 0.3362 (iALS)      | 0.5077 / **0.8459** |
-| clothing       | **0.5904** | 0.2651 (ItemKNN)   | — |
-| dunnhumby      | **0.1501** | 0.1370 (Combiner)  | — |
+<!-- BEGIN VERIFIED EXPERIMENTS -->
+Verified refresh: **53/53 jobs complete**, 0 failed.
+Run manifest and full logs: [`results/evaluation_refresh/manifest.json`](results/evaluation_refresh/manifest.json).
+CPU, one thread per process; deterministic item-ID tie breaks. Fullrank: 3 split seeds; retail/e-commerce: 5 splits.
 
-**Ours beats the best of six tuned matched baselines on all eight datasets**, and beats the heavy
-GPU encoder CLHE on six of six where both run (it edges us only on dense POG, within noise). RaMen
-wins e-commerce (electronic/food) — but via its heavy Collaborative Strategy Encoder, not a better
-bundle model (see MANIFEST/paper). Numbers are the committed `results/matrix_zeroparam.csv`,
-`results/baselines_*.json`, and reproduced/published heavy baselines.
+| Dataset | BundleFuse R@20 | SimpleHybrid | HardSwitchHybrid | Best other matched baseline |
+|---|---:|---:|---:|---|
+| pog | 0.0681 ± 0.0026 | 0.0378 ± 0.0010 | 0.0443 ± 0.0095 | 0.0243 (P3alpha) |
+| pog_dense | 0.3752 ± 0.0065 | 0.3637 ± 0.0082 | 0.3663 ± 0.0082 | 0.2857 (LinearCombiner) |
+| spotify | 0.1567 ± 0.0018 | 0.0988 ± 0.0021 | 0.0991 ± 0.0024 | 0.1305 (LinearCombiner) |
+| spotify_sparse | 0.1680 ± 0.0044 | 0.1134 ± 0.0012 | 0.1135 ± 0.0014 | 0.1169 (LinearCombiner) |
+| electronic | 0.5163 ± 0.0212 | 0.4745 ± 0.0470 | 0.4878 ± 0.0447 | 0.3343 (iALS) |
+| food | 0.5939 ± 0.0281 | 0.5488 ± 0.0186 | 0.5559 ± 0.0324 | 0.3389 (iALS) |
+| clothing | 0.5881 ± 0.0326 | 0.5412 ± 0.0315 | 0.5518 ± 0.0441 | 0.2657 (BundleKNN) |
+| dunnhumby | 0.1504 ± 0.0044 | 0.1422 ± 0.0034 | 0.1422 ± 0.0034 | 0.1405 (LinearCombiner) |
 
-<sub>†ItemKNN / P3α / RP3β / SLIM / iALS / BundleKNN / LinearCombiner, same splits/candidates/metrics.
-‡CLHE = 9.5–16M-param GPU encoder; RaMen = attention-GNN encoder.</sub>
+These are matched split/candidate comparisons. The simple hybrids also receive the available raw
+content, taxonomy, and auxiliary interactions. Heavy published models are literature context,
+not paired results from this refresh. Historical sensitivity/ablation tables have not been regenerated
+unless explicitly listed in this run. Missing DDBC/triple2vec reproduction paths remain open.
+<!-- END VERIFIED EXPERIMENTS -->
 
-## Repository layout
+BundleFuse has the highest **mean** Recall@20 among the local methods tested here on all eight
+datasets. The strongest controls narrow the gaps to about **0.90 percentage points on dense POG**
+and **0.81 points on Dunnhumby**; seed dispersion is not a significance test. These results support
+an effective hybrid reference method, not a claim of superiority over every published model.
 
-```
-bundlefuse/                 the package (library core)
-  operators.py              the scorer: collaborative / taxonomic / content operators + shrinkage
-  selection.py              validation selection objectives (ndcg@K, recall@K, mrr, ndcgfull, nll)
-  protocol.py               the bundle-completion masking protocol
-  baselines/                matched baselines, one file per method + OOP base class
-    base.py itemknn.py randomwalk.py slim.py bundleknn.py ials.py combiner.py suite.py
-  paths.py                  single source of truth for data / results locations
-  eval/                     one runnable evaluator per dataset family (+ run_matrix)
-    fullrank.py             POG / POG_dense / Spotify / Spotify_sparse
-    bundlerec.py            electronic / food / clothing
-    dunnhumby.py            transaction baskets
-    run_matrix.py           orchestrates all eight into one table
-  diagnostics/              sensitivity sweeps + the legacy OFAT ablation driver
-docs/        EXPERIMENTS.md (the reproducibility index) · MANIFEST.md (salvage log)
-notes/       methodology.tex / .pdf (how a partial bundle is filled, worked end-to-end)
-paper/       the write-up (main.tex → main.pdf)
-results/     regenerated logs + json (indexed in results/README.md)
-tests/       test_core.py (7 theoretical / numerical / no-leakage tests)
-```
+The [corrected selection study](results/evaluation_refresh/SELECTION.md) replaces the old MRR/full-NDCG
+conclusions. The [verification record](results/evaluation_refresh/VALIDATION.md) records completed jobs,
+paired checks, unchanged inputs, tests, and artifact consistency.
 
-The same five-step algorithm runs on every dataset — only the loader and the available content
-features change. It is written out once, with the exact command behind every reported number, in
-**[docs/EXPERIMENTS.md](docs/EXPERIMENTS.md)**. The step-by-step derivation — one real POG query
-(a bag + sandals, recovering earrings and a dress) carried through *every* equation and figure with
-the live scorer's actual numbers — is in **[notes/methodology.tex](notes/methodology.tex)** (20 pp;
-`pdflatex methodology.tex`).
-
-## Run it on a fresh machine
+Reproduce or resume the complete run:
 
 ```bash
-git clone https://github.com/AjitKumar01/bundlefuse && cd bundlefuse
-python3 -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt          # numpy scipy scikit-learn torch tqdm
-
-python3 tests/test_core.py               # 7 unit tests — need NO data, prove the install works
+python -m bundlefuse.experiments --output results/evaluation_refresh
 ```
 
-The tests and `import bundlefuse` run anywhere. The **evaluators need the datasets**, which are not
-vendored (they are large and third-party). Place them so the repo and the data are siblings, i.e.
-the default layout is:
+The runner records commands, split seeds, selected hyperparameters, package versions, a source
+fingerprint, and full logs. It updates this section after completed jobs. Music jobs run alone to
+limit RAM; other jobs can run two at a time, with one CPU thread per process. It refuses to publish
+canonical tables when a required job fails. A changed source fingerprint requires a new output
+directory. The full run includes paired matrix/baseline experiments on all eight datasets and a
+selection-objective study on POG, Electronic, and Dunnhumby. The selection study uses one split
+seed per dataset; POG uses 1,500 test queries, and the matrix uses its full configured test sample.
 
-```
-<parent>/bundlefuse/            ← this repo
-<parent>/bundlemllm/datasets/   ← POG / POG_dense / Spotify / Spotify_sparse   (the CLHE/BundleConstruction release)
-<parent>/BundleRec/dataset/     ← electronic / food / clothing                (BundleRec)
-<parent>/dunnhumby/             ← Dunnhumby "The Complete Journey" transactions
-```
-
-Put the data anywhere and point to it instead with **`BUNDLEFUSE_DATA_ROOT=/path/to/data`** (or override a
-single dataset with `DATA_DIR=` / `BR_DIR=` / `DUNN_DIR=`). See [docs/EXPERIMENTS.md](docs/EXPERIMENTS.md)
-for where each dataset comes from. Then:
+After the complete run, verify paired outputs, canonical tables, and unchanged input files:
 
 ```bash
-BUNDLE_DS=pog_dense MATRIX=1 python -m bundlefuse.eval.fullrank    # POG / Spotify family
-BRDS=electronic    MATRIX=1 python -m bundlefuse.eval.bundlerec    # e-commerce family
-MATRIX=1                     python -m bundlefuse.eval.dunnhumby    # retail baskets
-python -m bundlefuse.eval.run_matrix                              # full 8-dataset matrix
+python scripts/report_refresh.py
+python scripts/fingerprint_data.py --check
+python scripts/add_retail_stds.py
 ```
 
-CPU-deterministic by default (bit-identical across repeats; set `FORCE_DEVICE=mps|cuda` for speed,
-**not** for published numbers). No GPU is required.
+The measured top-level runtime versions are saved in
+`results/evaluation_refresh/requirements.txt`; the manifest also records Python and the platform.
+Recorded durations are wall times for entire evaluator/grid-search jobs, including comparison
+methods; they are not dedicated per-query latency benchmarks.
 
-## Baselines & encoders — what's in this repo vs external
+For a subset or an individual experiment:
 
-**Runnable here (self-contained, dependency-free):** the matched baseline suite in
-[`bundlefuse/baselines/`](bundlefuse/baselines/) — **ItemKNN, P3α, RP3β, SLIM, iALS, BundleKNN,
-LinearCombiner** — on the *same* splits/candidates/metrics as BundleFuse (`BASELINES=1`), plus EASE
-(`EASE=1`) and `item2vec` / `content-kNN` / `popularity` inside the matrix. These are the numbers in
-the "best matched baseline" column above and in `tab:neigh`.
+```bash
+python -m bundlefuse.experiments --datasets electronic --modes matrix baselines --output results/electronic_refresh
+BUNDLE_DS=pog MATRIX=1 SELDUMP=1 python -m bundlefuse.eval.fullrank
+BRDS=electronic SEEDS=5 BASELINES=1 python -m bundlefuse.eval.bundlerec
+SEL_OBJ=mrr BRDS=electronic SEEDS=1 SELDUMP=1 python -m bundlefuse.eval.bundlerec
+```
 
-**External, not vendored (the "heavy" comparison):** the neural encoders and sequence/LLM/diffusion
-baselines — **CLHE** (attention encoder, WSDM'24), **RaMen** (attention-GNN, ECAI'25), **Bundle-MLLM**
-(a 7B LLM), **DDBC** (diffusion), and sequence models such as a **Bi-LSTM**. These are separate research
-repos that need their own environments (and GPUs); this project does **not** re-implement them. Their
-results are the published / independently-reproduced numbers merged into the matrix via the `PUBLISHED`
-table in [`bundlefuse/eval/run_matrix.py`](bundlefuse/eval/run_matrix.py), and the fairness accounting
-(e.g. RaMen's e-commerce edge = its Collaborative Strategy Encoder, not better bundling) is in
-[docs/MANIFEST.md](docs/MANIFEST.md) and the paper. If you want to add one (Bi-LSTM, etc.) as a *matched*
-baseline, subclass `bundlefuse.baselines.base.Baseline` and drop a file in `bundlefuse/baselines/`.
+Subset runs retain their own results and do not replace the eight-dataset canonical tables.
+`BUNDLEFUSE_RESULTS_DIR=/path` isolates direct evaluator outputs from committed results.
 
-**Content encoders (BLIP / CLAP / BGE):** the content signals consume *pre-extracted* feature vectors
-shipped with the datasets — POG image/description = **BLIP**, Spotify audio = **CLAP**, POG titles =
-**BGE** (`archive/embed_titles.py`, outside this repo). The scorer **loads** these; it does not run the
-encoders, which is why it is "zero-parameter." The e-commerce/grocery datasets use **no** external
-encoder at all (in-pipeline TF-IDF + truncated SVD). Serving a genuinely new item on POG/Spotify means
-running the relevant encoder on it first — the only real model dependency, documented in
-`notes/methodology.tex` §"The embedding features".
+## Baselines and comparison scope
 
-## Honest findings (the contribution)
+The shared suite contains ItemKNN, P3α, RP3β, SLIM, iALS, BundleKNN, and a collaborative
+LinearCombiner. SLIM is explicitly skipped above its implementation's size limit; dense EASE is
+also gated and is **not** a substitute for a scalable sparse-linear baseline on those catalogues.
 
-1. **Cold-start shrinkage is the working mechanism** — it lifts cold-bucket Recall@20 by +2–5pp across
-   the cold/sparse datasets. This is the real driver of the wins.
-2. **A tiny CPU model is regime-competitive** with 9.5–16M-param GPU encoders (CLHE, RaMen), a 7B LLM
-   (Bundle-MLLM), and a diffusion model (DDBC), on POG / Spotify / sparse / retail.
-3. **Protocol audit (DDBC):** on DDBC's own 100-candidate protocol a *parameter-free co-occurrence
-   baseline* beats the diffusion SOTA — evidence the reported gains there are a protocol artifact.
-4. **Where heavy models win is data, not modelling:** RaMen's e-commerce edge comes from its heavy
-   Collaborative Strategy Encoder (a multi-head attention GNN), not from a better bundle model.
+`SimpleHybrid` blends raw co-occurrence, unbridged content similarity, category PMI, popularity,
+and available training-only user/session/pretraining interactions. `HardSwitchHybrid` tests a
+validation-selected frequency threshold for backing off to its metadata prior. These controls
+receive the same source modalities and auxiliary interactions as the main scorer, without its
+style residualization, content bridging, or higher-order operators.
 
-### Negative results we report honestly (not hidden)
+All local methods share splits, candidate catalogues, seed exclusion, and deterministic ties
+(descending score, then ascending item ID). We report seed dispersion; it is not a significance
+test. Published CLHE/RaMen/LLM numbers remain literature context until reproduced on identical
+splits and features. RaMen's published visual-removal ablation rules out the earlier claim that
+images alone explain its advantage; the precise cause of our cross-model gap remains unproven.
 
-- **Higher-order estimators are nearly inert.** Simplicial incidence and Rao concordance add at most
-  +0.79pp (Spotify), ≤+0.26pp on seven of eight datasets, once a strong pairwise base is in place.
-  They are retained only to *document* this.
-- **The empirical-Bayes variance model does not fit.** The homoscedastic model implies a positive OLS
-  slope, but it is negative on most datasets because the collaborative score is dominated by
-  popularity. We therefore do **not** claim a data-driven `κ_f`; it is grid-selected on validation,
-  and we say so.
+## Install and data
 
-## Provenance
+```bash
+git clone https://github.com/AjitKumar01/bundlefuse
+cd bundlefuse
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python3 tests/test_core.py
+# Additional regression tests:
+pip install pytest
+python3 -m pytest -q tests
+```
 
-This repository is a **cleaned, honest fork** of the prior `simba/` codebase — it keeps only what was
-independently verified correct and drops what was fabricated, inert, or non-reproducible. See
-**[docs/MANIFEST.md](docs/MANIFEST.md)** for the salvage/drop list, **[RESULTS.md](RESULTS.md)** for the
-full result tables with error bars and the documented negatives, and **[paper/](paper/)** for the
-write-up (`pdflatex main.tex`).
+Datasets are external. The default layout is:
+
+```
+<parent>/bundlefuse/                 this repository
+<parent>/bundlemllm/datasets/<ds>/   POG / POG_dense / Spotify / Spotify_sparse
+<parent>/BundleRec/dataset/<ds>/     electronic / food / clothing
+<parent>/dunnhumby/                  The Complete Journey transactions
+```
+
+Set `BUNDLEFUSE_DATA_ROOT` to change the parent, or `DATA_DIR`, `BR_DIR`, and `DUNN_DIR` for
+individual families. POG/Spotify require their released/precomputed content features. Retail and
+e-commerce use TF-IDF/SVD. CPU is the default; `FORCE_DEVICE` overrides it. See
+[docs/EXPERIMENTS.md](docs/EXPERIMENTS.md) for loaders and historical commands.
+
+## Code map
+
+| Module | Responsibility |
+|---|---|
+| `operators.py` | Collaborative, taxonomic, content, and shrinkage operators |
+| `metrics.py`, `selection.py` | Shared ranking/tie definitions and validation objectives |
+| `baselines/` | One implementation per baseline; shared selection and chunked evaluation |
+| `protocol.py`, `paths.py` | Masking protocol and configurable data/result paths |
+| `artifacts.py`, `experiment_io.py` | Atomic result writes, aggregation, and fail-closed execution |
+| `experiments.py` | Resumable experiment jobs, provenance, and README progress |
+| `eval/` | Dataset loaders and evaluator entry points |
+| `tests/` | Core math and evaluation/runner regression checks |
+
+The method derivation is in [notes/methodology.tex](notes/methodology.tex). The
+[paper](paper/) and [historical results](RESULTS.md) are retained for comparison; DDBC F1 and
+triple2vec+adaLoyal claims still lack reproduction paths in this checkout. Current results are
+limited to experiments explicitly completed in the verified refresh.

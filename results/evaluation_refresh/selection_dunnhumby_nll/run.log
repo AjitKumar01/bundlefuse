@@ -1,0 +1,13 @@
+
+=== dunnhumby MATRIX (mode=random; sel=nll; 1 seeds; cold R@20=0.00%; 93s) ===
+method               R@10     N@10     R@20     N@20     R@50     N@50
+popularity         0.0514   0.0473   0.0751   0.0561   0.1246   0.0706
+co-occurrence      0.0978   0.0814   0.1321   0.0941   0.1850   0.1098
+content-kNN        0.0181   0.0120   0.0310   0.0165   0.0666   0.0261
+item2vec           0.0249   0.0220   0.0324   0.0247   0.0464   0.0285
+Pairwise-Repl      0.1005   0.0819   0.1417   0.0971   0.2101   0.1173
+SIMBA-NoRes        0.1014   0.0840   0.1424   0.0990   0.2129   0.1197
+Ours               0.1007   0.0833   0.1427   0.0986   0.2129   0.1193
+SimpleHybrid       0.1103   0.0889   0.1481   0.1034   0.1999   0.1193
+HardSwitchHybrid   0.1103   0.0889   0.1481   0.1034   0.1999   0.1193
+dunnhumby SELDUMP (nll) -> /Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/results/evaluation_refresh/selection_dunnhumby_nll/selcmp_dunnhumby_nll.json

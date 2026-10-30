@@ -1,0 +1,13 @@
+
+=== food MATRIX (full-ranking R/N@10,20,50; sel=ndcg20; 5 duplicate-free seeds; aux=True; 56s) ===
+method               R@10     N@10     R@20     N@20     R@50     N@50
+popularity         0.0206   0.0112   0.0340   0.0151   0.0557   0.0199
+co-occurrence      0.3164   0.2412   0.3324   0.2457   0.3407   0.2477
+content-kNN        0.2410   0.1704   0.3003   0.1872   0.4002   0.2095
+item2vec           0.0717   0.0471   0.0990   0.0547   0.1355   0.0628
+Pairwise-Repl      0.5341   0.4281   0.5939   0.4454   0.6672   0.4618
+SIMBA-NoRes        0.5139   0.4147   0.5694   0.4311   0.6470   0.4486
+Ours               0.5340   0.4281   0.5939   0.4455   0.6673   0.4619
+SimpleHybrid       0.4935   0.4002   0.5488   0.4162   0.6106   0.4302
+HardSwitchHybrid   0.5007   0.4037   0.5559   0.4198   0.6237   0.4350
+food SELDUMP (ndcg20) -> /Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/results/evaluation_refresh/matrix_food_seed0/selcmp_food_ndcg20.json

@@ -2,6 +2,7 @@
 import argparse
 import csv
 import json
+import re
 from pathlib import Path
 import sys
 
@@ -56,6 +57,14 @@ def main():
               'directly; no blanket plateau or no-overfitting conclusion is inferred. Older MRR/full-NDCG',
               'tables were generated with incorrect definitions and are superseded.', '']
     (run / 'SELECTION.md').write_text('\n'.join(lines))
+    report_path = run / 'REPORT.md'
+    report = report_path.read_text()
+    # The live README block uses repo-relative links; its copy in the run directory needs local links.
+    report = re.sub(r"\[[^\]]*\]\([^\n)]*manifest\.json\)", '[manifest.json](manifest.json)', report)
+    if '## Final checks' not in report:
+        report += ('\n## Final checks\n\nSee [VALIDATION.md](VALIDATION.md) for the verification record and\n'
+                   '[SELECTION.md](SELECTION.md) for the corrected selection-objective study.\n')
+    report_path.write_text(report)
     print(f'Verified {len(manifest["jobs"])} completed jobs, matching source fingerprint,')
     print(f'{comparisons} paired hybrid metric comparisons, and canonical CSV/JSON consistency.')
     print('Wrote', run / 'SELECTION.md')

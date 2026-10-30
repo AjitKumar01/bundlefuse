@@ -1,0 +1,14 @@
+pog_dense: 31217 items, 19865 duplicate-free train bundles, MUSIC=False
+
+=== pog_dense MATRIX (full-ranking R/N@10,20,50; sel=ndcg20; test N=3000; cold R@20=0.09% [1/1151]; 68s) ===
+method               R@10     N@10     R@20     N@20     R@50     N@50
+popularity         0.2261   0.1364   0.3138   0.1611   0.3536   0.1704
+co-occurrence      0.2431   0.1908   0.2769   0.2002   0.3180   0.2094
+content-kNN        0.0043   0.0022   0.0069   0.0029   0.0120   0.0041
+item2vec           0.0065   0.0040   0.0106   0.0052   0.0210   0.0075
+Pairwise-Repl      0.3229   0.2441   0.3739   0.2584   0.4227   0.2695
+SIMBA-NoRes        0.3258   0.2459   0.3768   0.2602   0.4276   0.2716
+Ours               0.3247   0.2466   0.3757   0.2609   0.4243   0.2720
+SimpleHybrid       0.3222   0.2460   0.3690   0.2591   0.4163   0.2699
+HardSwitchHybrid   0.3285   0.2492   0.3702   0.2610   0.4085   0.2698
+pog_dense SELDUMP (ndcg20) -> /Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/results/evaluation_refresh/matrix_pog_dense_seed1/selcmp_pog_dense_ndcg20.json

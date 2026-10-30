@@ -1,3 +1,8 @@
+> **Historical results.** These tables predate the evaluation corrections on
+> `evaluation-reliability-experiments`. Use [the verified refresh](results/evaluation_refresh/REPORT.md)
+> and the root README for current paired measurements. Older cutoff-free selection, random-walk,
+> and BundleKNN results are superseded; other diagnostics remain unrefreshed.
+
 # Results
 
 All numbers below were regenerated **once, deterministically** (CPU, fixed seeds, `ENCODER=0`)

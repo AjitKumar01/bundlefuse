@@ -1,0 +1,13 @@
+
+=== clothing MATRIX (full-ranking R/N@10,20,50; sel=ndcg20; 5 duplicate-free seeds; aux=True; 29s) ===
+method               R@10     N@10     R@20     N@20     R@50     N@50
+popularity         0.0031   0.0016   0.0042   0.0018   0.0069   0.0025
+co-occurrence      0.2617   0.2095   0.2657   0.2106   0.2703   0.2116
+content-kNN        0.2568   0.1701   0.3253   0.1891   0.4397   0.2141
+item2vec           0.0627   0.0424   0.0841   0.0485   0.1147   0.0551
+Pairwise-Repl      0.5307   0.4381   0.5861   0.4536   0.6468   0.4671
+SIMBA-NoRes        0.5079   0.4242   0.5658   0.4400   0.6275   0.4537
+Ours               0.5320   0.4388   0.5881   0.4544   0.6478   0.4677
+SimpleHybrid       0.4843   0.4079   0.5412   0.4236   0.6125   0.4391
+HardSwitchHybrid   0.4939   0.4088   0.5518   0.4249   0.6245   0.4408
+clothing SELDUMP (ndcg20) -> /Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/results/evaluation_refresh/matrix_clothing_seed0/selcmp_clothing_ndcg20.json

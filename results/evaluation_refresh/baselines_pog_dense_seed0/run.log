@@ -1,0 +1,14 @@
+pog_dense: 31217 items, 19865 duplicate-free train bundles, MUSIC=False
+BASELINE seed=0 ItemKNN hp=(200, 100.0) R@20=0.258611
+BASELINE seed=0 P3alpha hp=(0.5,) R@20=0.286833
+BASELINE seed=0 RP3beta hp=(0.5, 0.0) R@20=0.286833
+BASELINE seed=0 BundleKNN hp=(50,) R@20=0.243667
+BASELINE seed=0 iALS hp=(100.0, 40.0) R@20=0.255944
+BundleKNN          R@20=0.243667
+HardSwitchHybrid   R@20=0.373722
+ItemKNN            R@20=0.258611
+LinearCombiner     R@20=0.286833
+P3alpha            R@20=0.286833
+RP3beta            R@20=0.286833
+SimpleHybrid       R@20=0.369944
+iALS               R@20=0.255944

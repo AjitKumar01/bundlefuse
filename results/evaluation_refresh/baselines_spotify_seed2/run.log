@@ -1,0 +1,14 @@
+spotify: 254155 items, 13991 duplicate-free train bundles, MUSIC=True
+BASELINE seed=2 ItemKNN hp=(400, 10.0) R@20=0.126441
+BASELINE seed=2 P3alpha hp=(1.0,) R@20=0.109515
+BASELINE seed=2 RP3beta hp=(0.5, 0.3) R@20=0.120765
+BASELINE seed=2 BundleKNN hp=(50,) R@20=0.119618
+BASELINE seed=2 iALS hp=(1.0, 40.0) R@20=0.108114
+BundleKNN          R@20=0.119618
+HardSwitchHybrid   R@20=0.096535
+ItemKNN            R@20=0.126441
+LinearCombiner     R@20=0.127937
+P3alpha            R@20=0.109515
+RP3beta            R@20=0.120765
+SimpleHybrid       R@20=0.096413
+iALS               R@20=0.108114

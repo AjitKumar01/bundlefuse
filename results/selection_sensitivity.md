@@ -1,3 +1,6 @@
+> Historical study: its MRR and full-NDCG definitions were incorrect. These conclusions are
+> superseded by the corrected selection jobs in [evaluation_refresh/](evaluation_refresh/REPORT.md).
+
 # Selection-objective sensitivity study
 
 **Question.** Does BundleFuse's result depend on validating/selecting the fusion weights at the
