@@ -63,65 +63,91 @@ rseed = int(RAMEN)
 MASK_FRAC = float(os.environ.get("MASK_FRAC", "0.5"))
 ENCODER = os.environ.get("ENCODER", "0") != "0"  # default off: zero-param closed-form. Set ENCODER=1 to add the optional set-attention encoder
 KFOLD = int(os.environ.get("KFOLD", "0"))  # >=2 => select hyperparameters by K-fold CV over the validation bundles
-if os.path.exists(os.path.join(POG, "bi_full.txt")):
-    fullb = list(rb("bi_full.txt").values())
+PROTOCOL = os.environ.get("FULLRANK_PROTOCOL", "resplit")
+if PROTOCOL not in ("resplit", "provided"):
+    raise ValueError(f"Unknown fullrank protocol: {PROTOCOL}")
+if PROTOCOL == "provided":
+    from bundlefuse.provided_splits import ProvidedSplits
+    if (float(os.environ.get("TRAIN_FRAC", "1")) != 1 or os.environ.get("DDBC_K")
+            or KFOLD or ENCODER):
+        raise ValueError("Provided protocol requires complete training data, no remasking, and the default scorer")
+    provided = ProvidedSplits(os.environ.get("SPLIT_DIR", POG), n)
+    train = provided.train
+    RAMEN_SPLITS = provided.splits
+    VAL_N = len(provided.splits["valid"][0])
+    TEST_N = len(provided.splits["test"][0])
+    for key in ("VAL_N", "TEST_N"):
+        if key in os.environ and int(os.environ[key]) != globals()[key]:
+            raise ValueError(f"Provided protocol does not allow query subsampling: {key}")
+
+    def load_split(split, cap):
+        pairs = provided.pairs(split)
+        if cap != len(pairs):
+            raise ValueError("Provided protocol does not allow query subsampling")
+        return [s for s, _ in pairs], [g for _, g in pairs]
+
+    print(f"{DS}: {n} items, {len(train)} supplied train bundles, "
+          f"{VAL_N} validation / {TEST_N} test queries; no deduplication or remasking", flush=True)
 else:
-    vi, vgt = rb("bi_valid_input.txt"), rb("bi_valid_gt.txt")
-    ti, tgt = rb("bi_test_input.txt"), rb("bi_test_gt.txt")
-    fullb = list(rb("bi_train.txt").values())
-    fullb += [vi[k] + vgt[k] for k in vi if k in vgt] + [ti[k] + tgt[k] for k in ti if k in tgt]
+    if os.path.exists(os.path.join(POG, "bi_full.txt")):
+        fullb = list(rb("bi_full.txt").values())
+    else:
+        vi, vgt = rb("bi_valid_input.txt"), rb("bi_valid_gt.txt")
+        ti, tgt = rb("bi_test_input.txt"), rb("bi_test_gt.txt")
+        fullb = list(rb("bi_train.txt").values())
+        fullb += [vi[k] + vgt[k] for k in vi if k in vgt] + [ti[k] + tgt[k] for k in ti if k in tgt]
 
-_ddbck = os.environ.get("DDBC_K")
-if _ddbck:
-    _k = int(_ddbck); _rt = random.Random(rseed + 99); _trunc = []
+    _ddbck = os.environ.get("DDBC_K")
+    if _ddbck:
+        _k = int(_ddbck); _rt = random.Random(rseed + 99); _trunc = []
+        for v in fullb:
+            if len(v) >= _k:
+                _st = _rt.randint(0, len(v) - _k); _trunc.append(v[_st:_st + _k])
+        fullb = _trunc
+
+    seen_bundles = set()
+    allb = []
     for v in fullb:
-        if len(v) >= _k:
-            _st = _rt.randint(0, len(v) - _k); _trunc.append(v[_st:_st + _k])
-    fullb = _trunc
+        u = list(dict.fromkeys(v))
+        if len(u) >= 2:
+            key = tuple(sorted(u))
+            if key not in seen_bundles:
+                seen_bundles.add(key)
+                allb.append(u)
 
-seen_bundles = set()
-allb = []
-for v in fullb:
-    u = list(dict.fromkeys(v))
-    if len(u) >= 2:
-        key = tuple(sorted(u))
-        if key not in seen_bundles:
-            seen_bundles.add(key)
-            allb.append(u)
-
-random.Random(rseed).shuffle(allb)
-ntr = int(0.7 * len(allb)); nva = int(0.1 * len(allb))
-trb, vab, teb = allb[:ntr], allb[ntr:ntr + nva], allb[ntr + nva:]
-# Training-data learning curve: keep val/test fixed, subsample the train fold to a fraction of itself.
-TRAIN_FRAC = float(os.environ.get("TRAIN_FRAC", "1.0"))
-if TRAIN_FRAC < 1.0:
-    trb = trb[:max(1, int(round(TRAIN_FRAC * len(trb))))]
-train = {i: b for i, b in enumerate(trb)}
+    random.Random(rseed).shuffle(allb)
+    ntr = int(0.7 * len(allb)); nva = int(0.1 * len(allb))
+    trb, vab, teb = allb[:ntr], allb[ntr:ntr + nva], allb[ntr + nva:]
+    # Training-data learning curve: keep val/test fixed, subsample the train fold to a fraction of itself.
+    TRAIN_FRAC = float(os.environ.get("TRAIN_FRAC", "1.0"))
+    if TRAIN_FRAC < 1.0:
+        trb = trb[:max(1, int(round(TRAIN_FRAC * len(trb))))]
+    train = {i: b for i, b in enumerate(trb)}
 
 
-def _mask(bundles, s0):
-    r = random.Random(s0); inp, gt = {}, {}
-    for i, b in enumerate(bundles):
-        bb = b[:]; r.shuffle(bb)
-        k = max(1, int(round(len(bb) * (1 - MASK_FRAC))))
-        seeds, held = bb[:k], bb[k:]
-        if not held:
-            seeds, held = bb[:-1], [bb[-1]]
-        inp[i], gt[i] = seeds, held
-    return inp, gt
+    def _mask(bundles, s0):
+        r = random.Random(s0); inp, gt = {}, {}
+        for i, b in enumerate(bundles):
+            bb = b[:]; r.shuffle(bb)
+            k = max(1, int(round(len(bb) * (1 - MASK_FRAC))))
+            seeds, held = bb[:k], bb[k:]
+            if not held:
+                seeds, held = bb[:-1], [bb[-1]]
+            inp[i], gt[i] = seeds, held
+        return inp, gt
 
 
-RAMEN_SPLITS = {"valid": _mask(vab, rseed + 1), "test": _mask(teb, rseed + 2)}
+    RAMEN_SPLITS = {"valid": _mask(vab, rseed + 1), "test": _mask(teb, rseed + 2)}
 
 
-def load_split(split, cap):
-    inp, gt = RAMEN_SPLITS[split]
-    bs = [b for b in inp if b in gt and inp[b] and gt[b]]
-    random.Random(0).shuffle(bs); bs = bs[:cap]
-    return [inp[b] for b in bs], [gt[b] for b in bs]
+    def load_split(split, cap):
+        inp, gt = RAMEN_SPLITS[split]
+        bs = [b for b in inp if b in gt and inp[b] and gt[b]]
+        random.Random(0).shuffle(bs); bs = bs[:cap]
+        return [inp[b] for b in bs], [gt[b] for b in bs]
 
 
-print(f"{DS}: {n} items, {len(train)} duplicate-free train bundles, MUSIC={MUSIC}", flush=True)
+    print(f"{DS}: {n} items, {len(train)} duplicate-free train bundles, MUSIC={MUSIC}", flush=True)
 
 graph_op = SimplicialGraphOperator(train, n_items=n, svd_dim=128)
 freq = graph_op.freq
@@ -353,81 +379,25 @@ def fit_simba(vb, vg, Rv, Zv):
         def sel_obj(X):
             return _sel_metric(X, vb, vg)
 
-    GPS = {k: [0.0, 0.25, 0.5, 1.0, 1.5] for k in SIG}
-    w = {k: 0.0 for k in SIG}; best_nd = -1e18
-    for _ in range(4):
-        improved = False
-        for k in SIG:
-            for v in GPS[k]:
-                w2 = dict(w); w2[k] = v
-                if sum(w2.values()) == 0:
-                    continue
-                fused = sum(w2[k2] * Z_pair_v[k2] for k2 in SIG if w2[k2])
-                nd = sel_obj(fused)
-                if nd > best_nd + 2e-4:
-                    best_nd = nd; w = w2; improved = True
-        if not improved:
-            break
-    w = EmpiricalBayesRouter.prune_weights_val(
-        w, Z_pair_v, lambda fmat: sel_obj(fmat),
-        optional_keys=("bridge", "contrast", "softcat", "homo"), val_eps=3e-4
-    )
-
+    from bundlefuse.fusion_selection import ValidationSignals, fit_fusion
+    validation = ValidationSignals(lambda: iter([(0, Zv)]), list(zip(vb, vg)), freq,
+                                   SEL_OBJ, metric=sel_obj)
+    prior_cand = (("cat", "homo", "audiostyle", "bridge", "contrast") if MUSIC else
+                  ("cat", "softcat", "style", "imgstyle", "bridge", "contrast"))
+    w, prior_keys, best_eb, best_ho, vc = fit_fusion(validation, SIG, prior_cand)
     freq_t = torch.tensor(freq, device=DEVICE)[:, None]
-    prior_cand = ("cat", "homo", "audiostyle", "bridge", "contrast") if MUSIC else ("cat", "softcat", "style", "imgstyle", "bridge", "contrast")
-    prior_keys = [k for k in prior_cand if k in SIG and w.get(k, 0) > 0]
-    if not prior_keys:
-        prior_keys = [k for k in prior_cand if k in SIG]
-
-    base_pair_v = sum(w[k] * Z_pair_v[k] for k in w)
-    base_inc_v = sum(w[k] * Zv[k] for k in w)
-    best_ho = (0.0, 0.0)
-    best_nd = sel_obj(base_pair_v)
-    for alpha_inc in [0.0, 0.5, 1.0]:
-        for g_rao in [0.0, 0.2, 0.35]:
-            cand_v = (1.0 - alpha_inc) * base_pair_v + alpha_inc * base_inc_v + g_rao * Zv["rao"]
-            nd = sel_obj(cand_v)
-            if nd > best_nd + 5e-5:
-                best_nd = nd; best_ho = (alpha_inc, g_rao)
-
-    alpha_inc, g_rao = best_ho
-    Y_v = (1.0 - alpha_inc) * base_pair_v + alpha_inc * base_inc_v + g_rao * Zv["rao"]
-
-    # Compute validation-frozen prior_scale so test predictions never depend on test batch composition
-    raw_prior_v = sum(w.get(k, 0.5) * Zv[k] for k in prior_keys) + g_rao * Zv["rao"]
-    if w.get("pop", 0) > 0:
-        raw_prior_v = raw_prior_v + w["pop"] * Zv["pop"]
-    val_prior_scale = float(((Y_v.std() + 1e-9) / (raw_prior_v.std() + 1e-9)).item())
-    mu0_scaled_v = raw_prior_v * val_prior_scale
-    vc = EmpiricalBayesRouter.fit_variance_components(freq, Y_v, mu0_scaled_v)
-    kf_est = vc["kappa_f"]
-
-    best_eb = (0.0, val_prior_scale)
-    for p_scale in (val_prior_scale, 1.0):
-        mu0_cand = raw_prior_v * p_scale
-        for kf in EmpiricalBayesRouter.shrinkage_candidates(vc, [0.0, 0.05, 0.5, 1.0, kf_est, 5.0]):
-            f_eb = EmpiricalBayesRouter.conjugate_posterior(Y_v, mu0_cand, freq_t, kf)
-            nd = sel_obj(f_eb)
-            if nd > best_nd + 5e-5:
-                best_nd = nd; best_eb = (kf, p_scale)
     return w, prior_keys, best_eb, freq_t, best_ho, vc
 
 
 def apply_simba_full(Z, w, prior_keys, best_eb, freq_t, best_ho):
-    """Applies SIMBA scoring using the validation-frozen scalar `prior_scale` from `best_eb`,
-    guaranteeing that each query column in `Z` is scored independently of other queries in the batch.
-    """
-    alpha_inc, g_rao = best_ho
-    Z_pair = dict(Z); Z_pair["simp"] = Z["pair"]; Z_pair["diff2"] = Z["diff2_pair"]
-    base_pair = sum(w[k] * Z_pair[k] for k in w)
-    base_inc = sum(w[k] * Z[k] for k in w)
-    Y = (1.0 - alpha_inc) * base_pair + alpha_inc * base_inc + g_rao * Z["rao"]
-    kf, frozen_prior_scale = best_eb
-    raw_prior = sum(w.get(k, 0.5) * Z[k] for k in prior_keys) + g_rao * Z["rao"]
-    if w.get("pop", 0) > 0:
-        raw_prior = raw_prior + w["pop"] * Z["pop"]
-    mu_0 = raw_prior * float(frozen_prior_scale)
-    return EmpiricalBayesRouter.conjugate_posterior(Y, mu_0, freq_t, kf)
+    from bundlefuse.fusion_selection import apply_fusion
+    return apply_fusion(Z, w, prior_keys, best_eb, freq_t, best_ho)
+
+
+if PROTOCOL == "provided":
+    from bundlefuse.eval.provided import run_provided
+    run_provided(DS, provided, score_all_signals, SIG, freq, MUSIC, SEL_OBJ, RESULTS_DIR)
+    sys.exit()
 
 
 def train_item2vec_W(dim=64, epochs=5, neg=5, bs=4096, maxpairs=3_000_000):

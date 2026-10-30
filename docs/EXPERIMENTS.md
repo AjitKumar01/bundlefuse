@@ -12,6 +12,54 @@ under `results/evaluation_refresh/`. The run is resumable with the same command 
 Changed Python source requires a new output directory. Failed or incomplete jobs prevent promotion
 of canonical tables. Subset runs never replace the complete eight-dataset canonical matrix.
 
+## Supplied neural benchmark splits
+
+```bash
+python -m bundlefuse.provided_experiments --output results/provided_splits
+```
+
+This separate run executes **only BundleFuse**, using `bi_train.txt`, `bi_valid_input.txt`,
+`bi_valid_gt.txt`, `bi_test_input.txt`, and `bi_test_gt.txt` verbatim. It preserves original bundle
+IDs and repeated bundles and never reads `bi_full.txt`, regenerates masks, or samples queries.
+The dataset populations are:
+
+| Dataset | Training bundles | Validation queries | Test queries |
+|---|---:|---:|---:|
+| POG | 14,000 | 2,000 | 4,000 |
+| POG_dense | 20,780 | 2,968 | 5,938 |
+| Spotify | 14,000 | 2,000 | 4,000 |
+| Spotify_sparse | 8,740 | 1,248 | 2,498 |
+
+All supplied validation queries select the same fusion/higher-order/shrinkage grids as the
+in-memory evaluator. Float32 validation signals are cached on disk in bounded query blocks;
+the cache is deleted after selection. The music jobs run sequentially. The output directory
+contains split and feature hashes, equality checks against available saved neural-run split
+copies, commands, source/version fingerprints, full logs, selected settings, and per-query metrics.
+The root README updates after each job. These artifacts do not replace the earlier resplit matrix.
+
+`--data-root` changes the feature/dataset root, `--split-root` optionally changes only the provided
+split root, and `--chunk` bounds the number of catalogue score columns held in memory. Resuming
+requires identical source, configuration, and input hashes. A leftover validation cache from an
+interrupted process is reported explicitly rather than silently reused.
+
+The direct evaluator equivalent is:
+
+```bash
+FULLRANK_PROTOCOL=provided BUNDLE_DS=pog BUNDLEFUSE_RESULTS_DIR=results/provided_pog python -m bundlefuse.eval.fullrank
+```
+
+`SPLIT_DIR` optionally points to a directory with the five split files and `count.json`; features
+continue to come from `DATA_DIR`. Provided mode rejects query caps, training subsampling, the
+optional encoder, and the legacy fold diagnostic. The default `FULLRANK_PROTOCOL=resplit` retains
+the earlier deduplication, generated splits/masks, and configured query sampling.
+
+Published references are taken from [RaMen Table 2](https://arxiv.org/html/2507.14361v1) for
+POG/Spotify and [CLHE Table 2](https://arxiv.org/html/2310.18770) for dense/sparse variants.
+The CLHE preprint describes 80/10/10 whereas the supplied files use 70/10/20; its variant scores
+remain published context until this discrepancy is resolved. The original CLHE paper already
+contains both variants; the historical claim that these were newly constructed local variants
+was incorrect. No neural model is trained or evaluated by this command.
+
 ## Current experiment plan
 
 | Experiment | Datasets | Split seeds | Output |

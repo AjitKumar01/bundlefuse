@@ -192,10 +192,10 @@ def test_nonidentifiable_evaluator_searches_disable_shrinkage():
     # Execute each production search's candidate expression without importing the
     # evaluators, whose module-level code starts dataset loading and training.
     root = Path(__file__).resolve().parents[1]
-    for filename, target in [("fullrank.py", "kf"),
-                             ("bundlerec.py", "kf_cand"),
-                             ("dunnhumby.py", "kf_cand")]:
-        tree = ast.parse((root / "bundlefuse" / "eval" / filename).read_text())
+    for filename, target in [("fusion_selection.py", "kappa"),
+                             ("eval/bundlerec.py", "kf_cand"),
+                             ("eval/dunnhumby.py", "kf_cand")]:
+        tree = ast.parse((root / "bundlefuse" / filename).read_text())
         searches = [node for node in ast.walk(tree)
                     if isinstance(node, ast.For) and isinstance(node.target, ast.Name)
                     and node.target.id == target]
@@ -206,7 +206,7 @@ def test_nonidentifiable_evaluator_searches_disable_shrinkage():
             prior = np.zeros_like(Y)
             vc = EmpiricalBayesRouter.fit_variance_components(freq, Y, prior)
             context = {"EmpiricalBayesRouter": EmpiricalBayesRouter,
-                       "vc": vc, "kf_est": vc["kappa_f"]}
+                       "vc": vc, "variance": vc, "kf_est": vc["kappa_f"]}
             candidates = tuple(eval(expression, {"__builtins__": {}}, context))
             assert candidates == (0.0,), f"{filename} re-enabled unidentified shrinkage: {candidates}"
             posterior = EmpiricalBayesRouter.conjugate_posterior(Y, prior, freq, candidates[0])
@@ -215,7 +215,7 @@ def test_nonidentifiable_evaluator_searches_disable_shrinkage():
         vc = {"identifiable": True, "kappa_f": 1.75}
         candidates = tuple(eval(expression, {"__builtins__": {}},
                                 {"EmpiricalBayesRouter": EmpiricalBayesRouter,
-                                 "vc": vc, "kf_est": vc["kappa_f"]}))
+                                 "vc": vc, "variance": vc, "kf_est": vc["kappa_f"]}))
         assert 0.0 in candidates and 1.75 in candidates and any(k > 0 for k in candidates)
 
 

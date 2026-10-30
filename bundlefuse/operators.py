@@ -440,11 +440,20 @@ class EmpiricalBayesRouter:
             v = np.mean(np.square((Y_np[warm] - M_np[warm]) / std_cond[:, None]), axis=1).astype(np.float64)
         else:
             v = np.mean(np.square(Y_np[warm] - M_np[warm]), axis=1).astype(np.float64)
-        x_bar = float(np.mean(x))
-        v_bar = float(np.mean(v))
+        return EmpiricalBayesRouter.fit_variance_components_from_mse(f[warm], v)
+
+    @staticmethod
+    def fit_variance_components_from_mse(freq, mse):
+        """Fit the same OLS model from query-averaged squared residuals (allows streaming)."""
+        f = np.asarray(freq, dtype=np.float64).ravel()
+        warm = f > 0
+        x = 1.0 / f[warm]
+        v = np.asarray(mse, dtype=np.float64).ravel()[warm]
+        x_bar = float(np.mean(x)) if len(x) else 0.0
+        v_bar = float(np.mean(v)) if len(v) else 0.0
         x_cent = x - x_bar
         denom = float(np.dot(x_cent, x_cent))
-        if denom <= 1e-12:
+        if len(x) < 2 or denom <= 1e-12:
             # Equal-frequency warm items: slope and intercept are not separately identifiable
             return {
                 "identifiable": False,

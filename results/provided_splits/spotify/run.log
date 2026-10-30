@@ -1,0 +1,115 @@
+spotify: 254155 items, 14000 supplied train bundles, 2000 validation / 4000 test queries; no deduplication or remasking
+validation cache 64/2000
+validation cache 128/2000
+validation cache 192/2000
+validation cache 256/2000
+validation cache 320/2000
+validation cache 384/2000
+validation cache 448/2000
+validation cache 512/2000
+validation cache 576/2000
+validation cache 640/2000
+validation cache 704/2000
+validation cache 768/2000
+validation cache 832/2000
+validation cache 896/2000
+validation cache 960/2000
+validation cache 1024/2000
+validation cache 1088/2000
+validation cache 1152/2000
+validation cache 1216/2000
+validation cache 1280/2000
+validation cache 1344/2000
+validation cache 1408/2000
+validation cache 1472/2000
+validation cache 1536/2000
+validation cache 1600/2000
+validation cache 1664/2000
+validation cache 1728/2000
+validation cache 1792/2000
+validation cache 1856/2000
+validation cache 1920/2000
+validation cache 1984/2000
+validation cache 2000/2000
+spotify: selecting fusion on ALL 2000 validation queries
+validation candidates evaluated: 10; latest ndcg20=0.173590
+validation candidates evaluated: 20; latest ndcg20=0.211619
+validation candidates evaluated: 30; latest ndcg20=0.222119
+validation candidates evaluated: 40; latest ndcg20=0.243999
+validation candidates evaluated: 50; latest ndcg20=0.247426
+validation candidates evaluated: 60; latest ndcg20=0.245241
+validation candidates evaluated: 70; latest ndcg20=0.232655
+validation candidates evaluated: 80; latest ndcg20=0.246942
+validation candidates evaluated: 90; latest ndcg20=0.246045
+validation candidates evaluated: 100; latest ndcg20=0.245060
+validation candidates evaluated: 110; latest ndcg20=0.232933
+validation candidates evaluated: 120; latest ndcg20=0.206161
+validation candidates evaluated: 130; latest ndcg20=0.247257
+validation candidates evaluated: 140; latest ndcg20=0.248273
+validation candidates evaluated: 150; latest ndcg20=0.250690
+validation candidates evaluated: 160; latest ndcg20=0.246112
+spotify: selected {'weights': {'simp': 0.25, 'pop': 1.0, 'ppmi': 1.0, 'csvd': 0.5, 'homo': 0.25, 'audiostyle': 0.25, 'bridge': 0.25}, 'prior_keys': ['homo', 'audiostyle', 'bridge'], 'kappa': 5.0, 'prior_scale': 1.8261066745139347, 'alpha_inc': 1.0, 'gamma_rao': 0.2, 'variance_components': {'identifiable': True, 'raw_sigma0_sq': 6.233984661694096, 'raw_sigma_eps_sq': -5.335896632285261, 'sigma0_sq': 6.233984661694096, 'sigma_eps_sq': 0.0001, 'kappa_f': 0.05, 'raw_slope_negative': True, 'truncated': True}}
+test 64/4000
+test 128/4000
+test 192/4000
+test 256/4000
+test 320/4000
+test 384/4000
+test 448/4000
+test 512/4000
+test 576/4000
+test 640/4000
+test 704/4000
+test 768/4000
+test 832/4000
+test 896/4000
+test 960/4000
+test 1024/4000
+test 1088/4000
+test 1152/4000
+test 1216/4000
+test 1280/4000
+test 1344/4000
+test 1408/4000
+test 1472/4000
+test 1536/4000
+test 1600/4000
+test 1664/4000
+test 1728/4000
+test 1792/4000
+test 1856/4000
+test 1920/4000
+test 1984/4000
+test 2048/4000
+test 2112/4000
+test 2176/4000
+test 2240/4000
+test 2304/4000
+test 2368/4000
+test 2432/4000
+test 2496/4000
+test 2560/4000
+test 2624/4000
+test 2688/4000
+test 2752/4000
+test 2816/4000
+test 2880/4000
+test 2944/4000
+test 3008/4000
+test 3072/4000
+test 3136/4000
+test 3200/4000
+test 3264/4000
+test 3328/4000
+test 3392/4000
+test 3456/4000
+test 3520/4000
+test 3584/4000
+test 3648/4000
+test 3712/4000
+test 3776/4000
+test 3840/4000
+test 3904/4000
+test 3968/4000
+test 4000/4000
+spotify: COMPLETE {'BundleFuse': {'R@10': 0.10003909005171417, 'N@10': 0.28363740931730735, 'R@20': 0.15564639701529576, 'N@20': 0.2579255301623899, 'R@50': 0.24818867624101468, 'N@50': 0.25557468714898207}}

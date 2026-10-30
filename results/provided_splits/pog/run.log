@@ -1,0 +1,110 @@
+pog: 48676 items, 14000 supplied train bundles, 2000 validation / 4000 test queries; no deduplication or remasking
+validation cache 64/2000
+validation cache 128/2000
+validation cache 192/2000
+validation cache 256/2000
+validation cache 320/2000
+validation cache 384/2000
+validation cache 448/2000
+validation cache 512/2000
+validation cache 576/2000
+validation cache 640/2000
+validation cache 704/2000
+validation cache 768/2000
+validation cache 832/2000
+validation cache 896/2000
+validation cache 960/2000
+validation cache 1024/2000
+validation cache 1088/2000
+validation cache 1152/2000
+validation cache 1216/2000
+validation cache 1280/2000
+validation cache 1344/2000
+validation cache 1408/2000
+validation cache 1472/2000
+validation cache 1536/2000
+validation cache 1600/2000
+validation cache 1664/2000
+validation cache 1728/2000
+validation cache 1792/2000
+validation cache 1856/2000
+validation cache 1920/2000
+validation cache 1984/2000
+validation cache 2000/2000
+pog: selecting fusion on ALL 2000 validation queries
+validation candidates evaluated: 10; latest ndcg20=0.021159
+validation candidates evaluated: 20; latest ndcg20=0.021970
+validation candidates evaluated: 30; latest ndcg20=0.027397
+validation candidates evaluated: 40; latest ndcg20=0.031658
+validation candidates evaluated: 50; latest ndcg20=0.033954
+validation candidates evaluated: 60; latest ndcg20=0.017902
+validation candidates evaluated: 70; latest ndcg20=0.033024
+validation candidates evaluated: 80; latest ndcg20=0.037281
+validation candidates evaluated: 90; latest ndcg20=0.033810
+validation candidates evaluated: 100; latest ndcg20=0.037292
+validation candidates evaluated: 110; latest ndcg20=0.038590
+pog: selected {'weights': {'cat': 0.5, 'style': 0.25, 'bridge': 0.25, 'simp': 0.25}, 'prior_keys': ['cat', 'style', 'bridge'], 'kappa': 0.5, 'prior_scale': 1.0424024296056245, 'alpha_inc': 0.0, 'gamma_rao': 0.0, 'variance_components': {'identifiable': True, 'raw_sigma0_sq': 0.2863996062791611, 'raw_sigma_eps_sq': -0.273238429657863, 'sigma0_sq': 0.2863996062791611, 'sigma_eps_sq': 0.0001, 'kappa_f': 0.05, 'raw_slope_negative': True, 'truncated': True}}
+test 64/4000
+test 128/4000
+test 192/4000
+test 256/4000
+test 320/4000
+test 384/4000
+test 448/4000
+test 512/4000
+test 576/4000
+test 640/4000
+test 704/4000
+test 768/4000
+test 832/4000
+test 896/4000
+test 960/4000
+test 1024/4000
+test 1088/4000
+test 1152/4000
+test 1216/4000
+test 1280/4000
+test 1344/4000
+test 1408/4000
+test 1472/4000
+test 1536/4000
+test 1600/4000
+test 1664/4000
+test 1728/4000
+test 1792/4000
+test 1856/4000
+test 1920/4000
+test 1984/4000
+test 2048/4000
+test 2112/4000
+test 2176/4000
+test 2240/4000
+test 2304/4000
+test 2368/4000
+test 2432/4000
+test 2496/4000
+test 2560/4000
+test 2624/4000
+test 2688/4000
+test 2752/4000
+test 2816/4000
+test 2880/4000
+test 2944/4000
+test 3008/4000
+test 3072/4000
+test 3136/4000
+test 3200/4000
+test 3264/4000
+test 3328/4000
+test 3392/4000
+test 3456/4000
+test 3520/4000
+test 3584/4000
+test 3648/4000
+test 3712/4000
+test 3776/4000
+test 3840/4000
+test 3904/4000
+test 3968/4000
+test 4000/4000
+pog: COMPLETE {'BundleFuse': {'R@10': 0.04250000000000001, 'N@10': 0.03234175064194066, 'R@20': 0.05445833333333335, 'N@20': 0.03609231307391131, 'R@50': 0.07250000000000002, 'N@50': 0.040519840386770804}}

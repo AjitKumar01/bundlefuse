@@ -2,6 +2,13 @@
 > `evaluation-reliability-experiments`. Use [the verified refresh](results/evaluation_refresh/REPORT.md)
 > and the root README for current paired measurements. Older cutoff-free selection, random-walk,
 > and BundleKNN results are superseded; other diagnostics remain unrefreshed.
+>
+> **Neural comparison correction:** POG_dense and Spotify_sparse are already datasets in the
+> [CLHE paper](https://arxiv.org/html/2310.18770), rather than newly constructed local variants.
+> Its published R@20 values are 0.3811 and 0.0980; 0.3815 and 0.0969 below are local reproduction
+> values. CLHE's published Spotify R@20 is 0.1081. The new
+> [supplied-split run](results/provided_splits/REPORT.md) preserves released training bundles and
+> query masks. The CLHE preprint's stated 80/10/10 split differs from the supplied 70/10/20 files.
 
 # Results
 

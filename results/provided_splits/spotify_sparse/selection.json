@@ -1,0 +1,25 @@
+{
+  "weights": {
+    "simp": 1.0,
+    "homo": 1.5,
+    "audiostyle": 1.5
+  },
+  "prior_keys": [
+    "homo",
+    "audiostyle"
+  ],
+  "kappa": 0.05,
+  "prior_scale": 1.1623643722388652,
+  "alpha_inc": 0.0,
+  "gamma_rao": 0.35,
+  "variance_components": {
+    "identifiable": true,
+    "raw_sigma0_sq": 5.809335015654445,
+    "raw_sigma_eps_sq": -5.869038370892266,
+    "sigma0_sq": 5.809335015654445,
+    "sigma_eps_sq": 0.0001,
+    "kappa_f": 0.05,
+    "raw_slope_negative": true,
+    "truncated": true
+  }
+}

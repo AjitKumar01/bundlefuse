@@ -5,6 +5,12 @@ are in [../results/evaluation_refresh/REPORT.md](../results/evaluation_refresh/R
 root README. The manuscript tables, hardcoded exposure/regime figures, and runtime claims must be
 reconciled before using this draft as a report of the current implementation.
 
+The [supplied-split comparison](../results/provided_splits/REPORT.md) evaluates only BundleFuse
+on the released POG/Spotify split files. The draft incorrectly describes POG_dense/Spotify_sparse
+as newly constructed local variants: both are present in the original CLHE paper. Its published
+variant scores and stated split ratio also differ from the historical local reproductions;
+the new report distinguishes these sources explicitly.
+
 The corrected runner does not reproduce the DDBC F1 or triple2vec+adaLoyal tables: their evaluation
 paths are absent from this checkout. RaMen's published ablation is evidence about its own model;
 it does not precisely identify the cause of the cross-model performance gap.

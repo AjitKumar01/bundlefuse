@@ -1,0 +1,18 @@
+{
+  "protocol": "provided",
+  "directory": "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/spotify_sparse",
+  "sha256": {
+    "bi_train.txt": "6ba88dcdaef70be5cbe1a055b85f1810cb1ef0a6348e88119c5b9cfc30ce79cb",
+    "bi_valid_input.txt": "7ae4154fe4344117016e4458ff5c33843ee417e90cb1223bba09e22b3bfd0be2",
+    "bi_valid_gt.txt": "4e63e4b1464c0bd33bff69c1bcaadaba086321a3ad1c57540ba633479e418d9a",
+    "bi_test_input.txt": "5a7f232e665c29cc1fbe6f190796332e2e65aca778bf63cf0c2110f95086aa31",
+    "bi_test_gt.txt": "62f6056711f15b8c468001b711c3998c31d5f6b6d98e88d7bb4b089a95213696",
+    "count.json": "7cb2c6fe5fa065bf2a141996b6de9c2a93dcab8d09f6cbf9477052f7817698b6"
+  },
+  "train_bundles": 8740,
+  "valid_queries": 1248,
+  "test_queries": 2498,
+  "deduplicate_bundles": false,
+  "regenerate_masks": false,
+  "query_cap": null
+}
