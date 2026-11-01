@@ -37,6 +37,9 @@ from bundlefuse.operators import SimplicialGraphOperator
 from bundlefuse.paths import DATA_ROOT, PROJECT_ROOT
 from bundlefuse.provided_splits import ProvidedSplits
 from bundlefuse.metrics import ranking_metrics
+from bundlefuse import protocol
+
+DUNN_MASK_FRAC = float(os.environ.get("MASK_FRAC", "0.5"))
 
 DATASETS = os.environ.get("DATASETS", "pog_dense").split(",")
 DIM = int(os.environ.get("DIM", "64"))
@@ -226,38 +229,83 @@ def train(model, C, bundles, val_pairs, n, pad, seed=0):
     model.eval(); return model
 
 
-# BundleFuse / CLHE reference numbers from this session's matched SEEDTYPE tables (provided split).
+# BundleFuse / CLHE reference numbers from this session's matched SEEDTYPE tables (provided split),
+# and dunnhumby from matrix_zeroparam.csv ("Ours" R@20/N@20; co-occurrence baseline 0.1286).
 REF = {
     "pog_dense": {"BundleFuse": {0: (0.3952, 0.2879), 1: (0.3512, None)},
                   "CLHE": {0: (0.3779, None), 1: (0.3354, None)}},
     "spotify_sparse": {"BundleFuse": {0: (0.1627, 0.2267), 3: (0.0962, 0.1170), 2: (0.0813, 0.1006), 1: (0.0639, 0.0804)},
                        "CLHE": {0: (0.0960, 0.1142), 3: (0.0744, 0.0823), 2: (0.0666, 0.0719), 1: (0.0507, 0.0542)}},
+    "dunnhumby": {"BundleFuse": {0: (0.1504, 0.1079)}},   # co-occurrence baseline R@20=0.1286
 }
+
+
+def load_dunnhumby(split_seed=0):
+    """Replicate dunnhumby.py's basket build (transaction_data.csv, 3<=|b|<=20, MIN_FREQ=2, cap 30000,
+    dedup) + a random 70/10/20 split. Returns n, train bundles, and masked val/test (seeds, gt) pairs
+    (reveal-fraction MASK_FRAC, same protocol.mask as the BundleFuse dunnhumby eval)."""
+    import csv
+    import random
+    from collections import defaultdict
+    root = os.environ.get("DUNN_DIR") or os.path.join(DATA_ROOT, "dunnhumby")
+    cap = int(os.environ.get("BASKET_CAP", "30000"))
+    raw = defaultdict(set)
+    with open(os.path.join(root, "transaction_data.csv")) as f:
+        r = csv.reader(f); h = next(r); bi = h.index("BASKET_ID"); pi = h.index("PRODUCT_ID")
+        for row in r:
+            raw[row[bi]].add(int(row[pi]))
+    bask = [sorted(v) for v in raw.values() if 3 <= len(v) <= 20]
+    random.Random(0).shuffle(bask); bask = bask[:cap]
+    fa = defaultdict(int)
+    for b in bask:
+        for it in b:
+            fa[it] += 1
+    keep = {it for it, c in fa.items() if c >= 2}
+    tmp = [[it for it in b if it in keep] for b in bask]
+    tmp = [b for b in tmp if len(b) >= 3]
+    items = sorted({i for b in tmp for i in b}); imap = {it: k for k, it in enumerate(items)}; n = len(items)
+    seen = set(); bundles_all = []
+    for b in tmp:
+        mapped = [imap[i] for i in sorted(set(b))]; key = tuple(mapped)
+        if key not in seen:
+            seen.add(key); bundles_all.append(mapped)
+    idx = list(range(len(bundles_all))); random.Random(split_seed).shuffle(idx)
+    ntr = int(0.7 * len(idx)); nva = int(0.1 * len(idx))
+    trb = [bundles_all[i] for i in idx[:ntr]]
+    vab = [bundles_all[i] for i in idx[ntr:ntr + nva]]
+    teb = [bundles_all[i] for i in idx[ntr + nva:]]
+    val_pairs = protocol.mask(vab, split_seed + 1, DUNN_MASK_FRAC)[:VAL_N]
+    test_pairs = protocol.mask(teb, split_seed + 2, DUNN_MASK_FRAC)[:(TEST_N or None)]
+    return n, trb, val_pairs, test_pairs
 
 
 def run(dataset):
     t0 = time.time()
-    dd = os.path.join(DATA_ROOT, "bundlemllm", "datasets", dataset)
-    n = json.load(open(os.path.join(dd, "count.json")))["#I"]
-    provided = ProvidedSplits(dd, n)
-    graph = SimplicialGraphOperator(provided.train, n_items=n, svd_dim=2)
-    C = graph.C.tocsr()
+    if dataset == "dunnhumby":
+        n, bundles, val_pairs, test_pairs = load_dunnhumby()
+        graph = SimplicialGraphOperator(bundles, n_items=n, svd_dim=2)
+        C = graph.C.tocsr()
+    else:
+        dd = os.path.join(DATA_ROOT, "bundlemllm", "datasets", dataset)
+        n = json.load(open(os.path.join(dd, "count.json")))["#I"]
+        provided = ProvidedSplits(dd, n)
+        graph = SimplicialGraphOperator(provided.train, n_items=n, svd_dim=2)
+        C = graph.C.tocsr()
+        val_pairs = provided.pairs("valid")[:VAL_N]
+        test_pairs = provided.pairs("test")
+        if TEST_N:
+            test_pairs = test_pairs[:TEST_N]
+        bundles = list(provided.train.values())
     pad = n
     model = STBR(n, DIM, HEADS)
-    if INIT == "content" and os.path.exists(os.path.join(dd, "content_feature.pt")):
-        x = torch.load(os.path.join(dd, "content_feature.pt"), map_location="cpu", weights_only=False).detach().float()
+    if INIT == "content" and dataset != "dunnhumby" and os.path.exists(os.path.join(DATA_ROOT, "bundlemllm", "datasets", dataset, "content_feature.pt")):
+        x = torch.load(os.path.join(DATA_ROOT, "bundlemllm", "datasets", dataset, "content_feature.pt"), map_location="cpu", weights_only=False).detach().float()
         x = x / (x.norm(dim=1, keepdim=True) + 1e-8)
         with torch.no_grad():
             if x.shape[1] >= DIM:
                 model.emb.weight[:n] = x[:, :DIM] * 0.1
     nparams = sum(p.numel() for p in model.parameters())
     log(f"\n### {dataset}: n={n} DIM={DIM} heads={HEADS} loss={LOSS} init={INIT} params={nparams:,} | setup {time.time()-t0:.0f}s")
-
-    val_pairs = provided.pairs("valid")[:VAL_N]
-    test_pairs = provided.pairs("test")
-    if TEST_N:
-        test_pairs = test_pairs[:TEST_N]
-    bundles = list(provided.train.values())
     log(f"  training STBR ({len(bundles):,} train bundles, {len(val_pairs)} val, {len(test_pairs)} test)...")
     model = train(model, C, bundles, val_pairs, n, pad)
 
