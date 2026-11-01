@@ -30,12 +30,17 @@ from collections import Counter, defaultdict
 
 import numpy as np
 import scipy.sparse as sp
+import torch
+import torch.nn as nn
+import torch.nn.functional as Fn
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from bundlefuse.operators import SimplicialGraphOperator
 from bundlefuse.paths import DATA_ROOT
 from bundlefuse.metrics import ranking_metrics
 from bundlefuse import protocol
+from stbr import SAB, PMA   # Set Transformer blocks (faithful STBR encoder)
 
 ROOT = os.environ.get("DUNN_DIR") or os.path.join(DATA_ROOT, "dunnhumby")
 BASKET_CAP = int(os.environ.get("BASKET_CAP", "30000"))
@@ -47,6 +52,114 @@ SPLIT_SEED = int(os.environ.get("SPLIT_SEED", "0"))
 EPS = 1e-8
 BASE = ["seed_cooc", "seed_ppmi", "seed_csvd"]
 USER = ["user_freq", "user_cooc", "user_csvd"]
+
+
+# --- personalized STBR (faithful: user token as a set element, learnable item+user embeddings) ---
+S_DIM, S_HEADS, S_NEG, S_HARD = 64, 4, 64, 0.5
+S_BATCH, S_CAP, S_LR, S_WD = 128, 20, 1e-3, 1e-4
+S_EPOCHS, S_EVAL, S_PAT = 40, 4, 4
+
+
+class STBRPers(nn.Module):
+    def __init__(self, n, nusers, d, heads, use_user):
+        super().__init__()
+        self.n, self.use_user = n, use_user
+        self.item = nn.Embedding(n + 1, d, padding_idx=n)
+        nn.init.normal_(self.item.weight, std=0.1)
+        with torch.no_grad():
+            self.item.weight[n].zero_()
+        if use_user:
+            self.user = nn.Embedding(nusers, d); nn.init.normal_(self.user.weight, std=0.1)
+        self.sab1 = SAB(d, heads); self.sab2 = SAB(d, heads); self.pma = PMA(d, heads, seeds=1)
+        self.out = nn.Linear(d, d)
+
+    def encode(self, uidx, sidx, smask):
+        x = self.item(sidx); m = smask
+        if self.use_user:
+            x = torch.cat([self.user(uidx).unsqueeze(1), x], dim=1)
+            m = torch.cat([torch.ones(x.shape[0], 1), smask], dim=1)
+        x = self.sab1(x, m); x = self.sab2(x, m)
+        return self.out(self.pma(x, m).squeeze(1))
+
+    def forward(self, uidx, sidx, smask, cidx):
+        q = self.encode(uidx, sidx, smask)
+        return torch.einsum("bd,bcd->bc", q, self.item(cidx))
+
+    @torch.no_grad()
+    def score_all(self, uidx, sidx, smask):
+        return self.encode(uidx, sidx, smask) @ self.item.weight[:self.n].T
+
+
+def make_batch_pers(batch_su, C, rng, n):
+    us, seeds, pos, negs = [], [], [], []
+    for its, u in batch_su:
+        it = np.asarray(its, np.int64).copy(); rng.shuffle(it)
+        sp_ = int(rng.integers(1, len(it)))
+        s = it[:sp_][:S_CAP].tolist(); p = int(rng.choice(it[sp_:]))
+        itset = set(it.tolist()); nh = int(round(S_NEG * S_HARD)); hard = []
+        if nh > 0:
+            pool = set()
+            for ss in s:
+                pool.update(C.indices[C.indptr[ss]:C.indptr[ss + 1]].tolist())
+            pool.difference_update(itset)
+            if pool:
+                pool = np.fromiter(pool, np.int64)
+                hard = rng.choice(pool, size=min(nh, len(pool)), replace=len(pool) < nh).tolist()
+        need = S_NEG - len(hard); forb = itset.union(hard)
+        ng = rng.integers(n, size=need); bad = np.array([x in forb for x in ng])
+        while bad.any():
+            ng[bad] = rng.integers(n, size=int(bad.sum())); bad = np.array([x in forb for x in ng])
+        us.append(u); seeds.append(s); pos.append(p); negs.append(hard + ng.tolist())
+    Ks = max(len(s) for s in seeds); B = len(seeds)
+    sidx = torch.full((B, Ks), n, dtype=torch.long); smask = torch.zeros(B, Ks)
+    for j, s in enumerate(seeds):
+        sidx[j, :len(s)] = torch.tensor(s); smask[j, :len(s)] = 1.0
+    cidx = torch.tensor([[pos[j]] + negs[j] for j in range(B)], dtype=torch.long)
+    return torch.tensor(us, dtype=torch.long), sidx, smask, cidx
+
+
+def eval_stbr(model, queries, n):
+    agg = np.zeros(2); tot = 0
+    for off in range(0, len(queries), 200):
+        ch = queries[off:off + 200]
+        us = torch.tensor([u for u, _, _ in ch], dtype=torch.long)
+        sl = [sorted(s)[:S_CAP] for _, s, _ in ch]
+        Ks = max(len(s) for s in sl); sidx = torch.full((len(ch), Ks), n, dtype=torch.long); smask = torch.zeros(len(ch), Ks)
+        for j, s in enumerate(sl):
+            sidx[j, :len(s)] = torch.tensor(s); smask[j, :len(s)] = 1.0
+        sc = model.score_all(us, sidx, smask).T.cpu().numpy()
+        pairs = [(s, g) for _, s, g in ch]
+        agg += np.asarray(ranking_metrics(sc, pairs, (20,))[20]) * len(ch); tot += len(ch)
+    return agg / tot
+
+
+def train_stbr(n, nusers, train_su, C, valq, use_user, seed=0):
+    rng = np.random.default_rng(seed); torch.manual_seed(seed)
+    model = STBRPers(n, nusers, S_DIM, S_HEADS, use_user)
+    opt = torch.optim.AdamW(model.parameters(), lr=S_LR, weight_decay=S_WD)
+    steps = max(1, len(train_su) // S_BATCH); best, best_state, stale = -1, None, 0
+    for ep in range(1, S_EPOCHS + 1):
+        model.train(); order = rng.permutation(len(train_su))
+        for st in range(steps):
+            bi = order[(st * S_BATCH) % len(order): (st * S_BATCH) % len(order) + S_BATCH]
+            if len(bi) < 2:
+                continue
+            us, sidx, smask, cidx = make_batch_pers([train_su[i] for i in bi], C, rng, n)
+            logits = model(us, sidx, smask, cidx)
+            loss = Fn.cross_entropy(logits, torch.zeros(len(bi), dtype=torch.long))
+            opt.zero_grad(set_to_none=True); loss.backward()
+            torch.nn.utils.clip_grad_norm_(model.parameters(), 5.0); opt.step()
+        if ep % S_EVAL == 0:
+            model.eval(); v = eval_stbr(model, valq, n)[0]
+            if v > best + 1e-5:
+                best, best_state, stale = v, {k: vv.detach().clone() for k, vv in model.state_dict().items()}, 0
+            else:
+                stale += 1
+            if stale >= S_PAT:
+                break
+    if best_state:
+        model.load_state_dict(best_state)
+    model.eval(); return model
 
 
 def log(*a):
@@ -179,11 +292,23 @@ def main():
 
     rb = eval_test(w_base); rf = eval_test(w_full)
     log(f"\n  TEST ({len(testq)} queries):")
-    log(f"    user-agnostic (base)   R@20={rb[0]:.4f}  N@20={rb[1]:.4f}")
-    log(f"    personalized (+user)   R@20={rf[0]:.4f}  N@20={rf[1]:.4f}   "
+    log(f"    BundleFuse user-agnostic (base)   R@20={rb[0]:.4f}  N@20={rb[1]:.4f}")
+    log(f"    BundleFuse personalized (+user)   R@20={rf[0]:.4f}  N@20={rf[1]:.4f}   "
         f"(dR@20={rf[0]-rb[0]:+.4f} {100*(rf[0]-rb[0])/max(rb[0],1e-9):+.0f}%, "
         f"dN@20={rf[1]-rb[1]:+.4f})")
-    log(f"    [ref] BundleFuse user-agnostic (full signal set): R@20 0.150 / N@20 0.108")
+
+    if os.environ.get("STBR", "1") != "0":
+        train_su = [bundles[i] for i in tri if len(bundles[i][0]) >= 2]
+        log(f"\n  training STBR on the SAME split ({len(train_su):,} train baskets, {nusers} users)...")
+        t1 = time.time()
+        m_ag = train_stbr(n, nusers, train_su, C, valq, use_user=False)
+        s_ag = eval_stbr(m_ag, testq, n)
+        m_pe = train_stbr(n, nusers, train_su, C, valq, use_user=True)
+        s_pe = eval_stbr(m_pe, testq, n)
+        log(f"    STBR user-agnostic (no user tok)  R@20={s_ag[0]:.4f}  N@20={s_ag[1]:.4f}")
+        log(f"    STBR personalized (+user tok)     R@20={s_pe[0]:.4f}  N@20={s_pe[1]:.4f}   "
+            f"(dR@20={s_pe[0]-s_ag[0]:+.4f})   [{time.time()-t1:.0f}s]")
+
     log(f"  (done in {time.time()-t0:.0f}s)")
 
 
