@@ -325,6 +325,7 @@ agg = {m: {10: ([], []), 20: ([], []), 50: ([], [])} for m in METH}
 cold_recalls = []
 VALGAP = os.environ.get("VALGAP")  # validation->test generalization gap of greedy weight selection
 vg_rows = []
+PERS = os.environ.get("PERS")  # add per-user personalization signals (user_freq/user_cooc) to the full set
 AB = os.environ.get("ABLATE")  # operator OFAT ablation + exposure-bucket / variance-component diagnostics
 ab_op, ab_vc = [], []
 ab_bk = {"cold": [0, 0, 0], "rare": [0, 0, 0], "warm": [0, 0, 0]}  # [pre_hit, post_hit, tot]
@@ -379,12 +380,46 @@ for sd in range(SEEDS):
     Rv, Zv = score_all(vset, built)
     Rt, Zt = score_all(tset, built)
 
+    # PERS: inject per-user personalization signals (zero extra parameters) on top of the FULL signal
+    # set. user_freq = the query household's own training purchase counts (repurchase); user_cooc =
+    # items co-occurring with the household's training history. Built leakage-safely from TRAIN baskets;
+    # added to Z and to the greedy signal list so fit_simba selects/weights them like any other signal.
+    SIGf = SIG
+    if PERS:
+        from collections import Counter as _Ctr
+        _gop = built[0]
+        _ucnt = defaultdict(_Ctr)
+        for _its, _u in zip(trb, tru):
+            _ucnt[_u].update(_its)
+        _rows, _cols, _data = [], [], []
+        for _u, _c in _ucnt.items():
+            for _it, _k in _c.items():
+                _rows.append(_it); _cols.append(_u); _data.append(float(_k))
+        _UI = sp.csr_matrix((_data, (_rows, _cols)), shape=(n, nusers))
+        _vusers = [users_all[i] for i in vai][:VAL_N]
+        _tusers = [users_all[i] for i in tei][:TEST_N]
+
+        def _usig(users):
+            B = len(users)
+            uf = np.asarray(_UI[:, users].todense(), dtype=np.float32)
+            Hind = sp.lil_matrix((n, B))
+            for _j, _u in enumerate(users):
+                _h = list(_ucnt.get(_u, {}).keys())
+                if _h:
+                    Hind[_h, _j] = 1.0
+            uc = np.asarray((_gop.C @ Hind.tocsr()).todense(), dtype=np.float32)
+            return zcols(uf), zcols(uc)
+
+        Zv["user_freq"], Zv["user_cooc"] = _usig(_vusers)
+        Zt["user_freq"], Zt["user_cooc"] = _usig(_tusers)
+        SIGf = SIG + ["user_freq", "user_cooc"]
+
     # 1. Fit base weights on Pairwise signals first + validation-tolerance pruning
     Zv_pair = dict(Zv); Zv_pair["simp"] = Zv["pair"]; Zv_pair["diff2"] = Zv["diff2_pair"]
-    w = {k: 0.0 for k in SIG}; best = -1e18
+    w = {k: 0.0 for k in SIGf}; best = -1e18
     for _ in range(4):
         imp = False
-        for k in SIG:
+        for k in SIGf:
             for val in [0.0, 0.25, 0.5, 1.0, 1.5]:
                 w2 = dict(w); w2[k] = val
                 if sum(w2.values()) == 0:
