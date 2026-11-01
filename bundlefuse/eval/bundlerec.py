@@ -394,6 +394,7 @@ def ease_test_scores(trb, vset, tset, n_items, lam_grid=(1.0, 10.0, 25.0, 50.0, 
 
 
 BASELINES = os.environ.get("BASELINES")  # matched-protocol tuned-neighbourhood baselines
+PERS = os.environ.get("PERS")  # add per-user personalization signals (user_freq/user_cooc) via b2u + user_item_pretrain
 BL_SEEDS = []
 if BASELINES:
     from bundlefuse import baselines as _BL
@@ -415,7 +416,7 @@ for sd in range(SEEDS):
     allb = [bundles_all[i] for i in order]; allk = [bkeys_all[i] for i in order]
     ntr = int(0.7 * len(allb)); nva = int(0.1 * len(allb))
     trb, vab, teb = allb[:ntr], allb[ntr:ntr + nva], allb[ntr + nva:]
-    trk = allk[:ntr]
+    trk = allk[:ntr]; vkeys = allk[ntr:ntr + nva]; tkeys = allk[ntr + nva:]
     built = build(trb, trk); graph_op = built[0]; freq = graph_op.freq
     W = None if BASELINES else train_item2vec_br(trb)
     vset, tset = mask(vab, sd + 1), mask(teb, sd + 2)
@@ -425,11 +426,37 @@ for sd in range(SEEDS):
     Rv, Zv = score_split(vset, built)
     Rt, Zt = score_split(tset, built)
 
+    # PERS: per-user personalization signals (zero extra params). Each test/val bundle's owner is b2u[key];
+    # the owner's liked items come from user_item_pretrain (X_pre, via uip_map). user_freq = owner-affinity
+    # indicator; user_cooc = items co-occurring (in bundles) with the owner's history. Added to Z + the
+    # greedy signal list. Leakage-safe: pretrain history is disjoint from the masked bundle.
+    SIGf = SIG
+    if PERS:
+        _gC = graph_op.C
+
+        def _usig(keys):
+            B = len(keys)
+            uf = np.zeros((n, B), np.float32); Hind = sp.lil_matrix((n, B))
+            for j, k in enumerate(keys):
+                row = uip_map.get(b2u.get(k, -1))
+                if row is not None:
+                    cols = X_pre.indices[X_pre.indptr[row]:X_pre.indptr[row + 1]]
+                    if len(cols):
+                        uf[cols, j] = 1.0; Hind[cols, j] = 1.0
+            uc = np.asarray((_gC @ Hind.tocsr()).todense(), dtype=np.float32)
+            return zcols(uf), zcols(uc)
+
+        Zv["user_freq"], Zv["user_cooc"] = _usig(vkeys)
+        Zt["user_freq"], Zt["user_cooc"] = _usig(tkeys)
+        cov = np.mean([uip_map.get(b2u.get(k, -1)) is not None for k in tkeys])
+        print(f"  [PERS] user-history coverage on test: {100*cov:.0f}% of {len(tkeys)} bundles", flush=True)
+        SIGf = SIG + ["user_freq", "user_cooc"]
+
     Zv_pair = dict(Zv); Zv_pair["simp"] = Zv["pair"]; Zv_pair["diff2"] = Zv["diff2_pair"]
-    w = {k: 0.0 for k in SIG}; best = -1e18
+    w = {k: 0.0 for k in SIGf}; best = -1e18
     for _ in range(4):
         imp = False
-        for k in SIG:
+        for k in SIGf:
             for val in [0.0, 0.25, 0.5, 1.0, 1.5]:
                 w2 = dict(w); w2[k] = val
                 if sum(w2.values()) == 0:
