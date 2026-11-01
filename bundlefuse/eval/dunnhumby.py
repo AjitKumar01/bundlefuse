@@ -173,6 +173,7 @@ def build(trb, tru):
     udeg = np.asarray(X_u.sum(1)).ravel() + 1.0
     X_uw = sp.diags(1.0 / np.sqrt(udeg)) @ X_u
     C_hh = (X_uw.T @ X_uw).tocsr(); C_hh.setdiag(0)
+    graph_op._X_uw = X_uw.tocsr()
 
     tr_, tc_ = [], []
     for bi_idx, b in enumerate(trb):
@@ -217,9 +218,26 @@ def score_all(bundles, built):
     )
 
     sc_pop = np.tile(np.log1p(freq)[:, None], (1, nb)).astype(np.float32)
-    sc_cooc = np.asarray((graph_op.C @ Ind).todense()).astype(np.float32)
-    sc_hh = np.asarray((C_hh @ Ind_w).todense()).astype(np.float32)
-    sc_ppmi = np.asarray((graph_op.PPMI @ Ind).todense()).astype(np.float32)
+    if os.environ.get("INCIDENCE"):
+        # cooc/ppmi/hh from sparse incidences (basket B and household X_uw), no materialized C/PPMI/C_hh
+        Bm = graph_op.B; Xw = graph_op._X_uw
+        if not hasattr(graph_op, "_fc"):
+            graph_op._fc = np.asarray(graph_op.C.sum(1)).ravel() + 1e-9
+            graph_op._totc = float(graph_op.C.sum())
+        fc, totc = graph_op._fc, graph_op._totc
+        sc_cooc = np.asarray((Bm.T @ (Bm @ Ind)).todense()).astype(np.float32)
+        sc_hh = np.asarray((Xw.T @ (Xw @ Ind_w)).todense()).astype(np.float32)
+        sc_ppmi = np.zeros((n, nb), np.float32)
+        for j, s in enumerate(seeds_list):
+            Cs = np.asarray((Bm.T @ Bm[:, list(s)]).todense())
+            with np.errstate(divide="ignore", invalid="ignore"):
+                pp = np.log(Cs * totc / (fc[:, None] * fc[list(s)][None, :] + 1e-12))
+            pp = np.maximum(pp, 0.0); pp[Cs <= 0] = 0.0
+            sc_ppmi[:, j] = pp.sum(1)
+    else:
+        sc_cooc = np.asarray((graph_op.C @ Ind).todense()).astype(np.float32)
+        sc_hh = np.asarray((C_hh @ Ind_w).todense()).astype(np.float32)
+        sc_ppmi = np.asarray((graph_op.PPMI @ Ind).todense()).astype(np.float32)
     Us = np.stack([graph_op.Ucsvd[s].mean(0) for s in seeds_list], 1)
     sc_csvd = (graph_op.Ucsvd @ Us).astype(np.float32)
     sc_cat = np.zeros((n, nb), np.float32)
@@ -335,6 +353,22 @@ for sd in range(SEEDS):
         trb = [bundles_all[i] for i in tri]; tru = [users_all[i] for i in tri]
         vab = [bundles_all[i] for i in vai]; teb = [bundles_all[i] for i in tei]
         built = build(trb, tru)
+        if os.environ.get("MEM_REPORT"):
+            go = built[0]; C_hh = built[2]
+            def _smb(m):
+                m = m.tocsr(); return (m.data.nbytes + m.indices.nbytes + m.indptr.nbytes) / 1e6
+            mat = _smb(go.C) + _smb(go.PPMI) + _smb(C_hh)
+            inc = _smb(go.B) + _smb(go._X_uw) if hasattr(go, "_X_uw") else _smb(go.B)
+            print(f"\n  dunnhumby MEM: materialized C+PPMI+C_hh = {mat:.1f}MB  vs  incidence B(+X_uw) = {inc:.1f}MB  ({mat/max(inc,1e-9):.0f}x)", flush=True)
+            import sys as _s; _s.exit()
+        if os.environ.get("DH_TIMING"):
+            import time as _t
+            tb = mask(teb, 99)[:200]
+            _ = score_all(tb, built)                       # warmup
+            _t0 = _t.time(); _ = score_all(tb, built); _dt = _t.time() - _t0
+            print(f"\n  dunnhumby TIMING (n={n}, INCIDENCE={bool(os.environ.get('INCIDENCE'))}): "
+                  f"{_dt:.2f}s / {len(tb)} queries = {1000*_dt/len(tb):.1f} ms/query", flush=True)
+            import sys as _s; _s.exit()
         Ui, Vi = (None, None) if BASELINES else train_item2vec(trb)
 
     freq = built[1]

@@ -1,0 +1,152 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{bm}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\indic}{\mathbf{1}}
+\newcommand{\z}{\operatorname{z}}
+\newcommand{\relu}[1]{(#1)_{+}}
+\newcommand{\seeds}{S}
+
+\title{Compressed BundleFuse: Inference Algorithm}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Conventions}
+
+Indices: items $i,c \in \{1,\dots,n\}$; bundles $b \in \{1,\dots,m\}$; seeds $s \in \seeds$.
+For a matrix $M$, $M_{:,J}$ is the sub-matrix of columns in $J$, and $M_{j,:}$ is row $j$.
+$\odot$ is the Hadamard (element-wise) product. $\relu{x}=\max(x,0)$.
+For a vector $\bm{r}\in\R^n$, its \emph{column standardisation} is
+\[
+  \z(\bm{r}) \in \R^n, \qquad \z(\bm{r})_c = \frac{r_c - \mu(\bm{r})}{\sigma(\bm{r}) + \varepsilon},
+\]
+where $\mu(\bm{r}),\sigma(\bm{r})$ are the mean and (population) standard deviation of the $n$ entries of
+$\bm{r}$, and $\varepsilon = 10^{-8}$.
+
+\section{Inputs}
+The algorithm is fully specified by the following inputs; all are fixed offline except the query $\seeds$.
+
+\paragraph{Query.}
+\begin{itemize}\itemsep0pt
+  \item $n \in \mathbb{N}$: number of catalogue items.
+  \item $\seeds \subseteq \{1,\dots,n\}$, $\seeds \neq \varnothing$: the seed set (partial bundle).
+  \item $K \in \mathbb{N}$, $1 \le K \le n-|\seeds|$: number of items to return.
+\end{itemize}
+
+\paragraph{Collaborative artifacts.}
+\begin{itemize}\itemsep0pt
+  \item $B \in \R^{m \times n}$: bundle incidence ($B_{b,i}$ = weight of item $i$ in bundle $b$);
+        $B^{\mathrm{bin}} \in \{0,1\}^{m \times n}$: its binary pattern.
+  \item $\bm{f} \in \R^{n}_{\ge 0}$: item frequency, $f_i = \sum_b B^{\mathrm{bin}}_{b,i}$.
+  \item $\bm{f}^{c} \in \R^{n}_{>0}$: co-occurrence degree, $f^{c}_i = \big(\textstyle\sum_{j\neq i} C_{ij}\big) + 10^{-9}$,
+        where $C = B^\top B$ with zeroed diagonal (never materialised; see Step~3).
+  \item $T \in \R_{>0}$: total co-occurrence mass, $T = \sum_{i}\sum_{j\neq i} C_{ij}$ (scalar).
+  \item $\bm{a} \in \R^{n}$: item normaliser ($a_i = (f_i+5)^{-\alpha_{\mathrm{deg}}}$);\quad
+        $\bm{v} \in \R^{m}$: bundle normaliser (volume weights);\quad
+        $\beta \in \R_{>0}$: clique coefficient.
+  \item \emph{(optional, auxiliary co-occurrence, e.g.\ household)} $X_w \in \R^{u \times n}$:
+        degree-weighted user/basket incidence over $u$ contexts.
+\end{itemize}
+
+\paragraph{Embedding and taxonomy artifacts.}
+\begin{itemize}\itemsep0pt
+  \item $U \in \R^{n \times d}$: collaborative SVD fingerprint ($d$ latent dims).
+  \item $\{E^{(k)} \in \R^{n \times r_k}\}_{k \in \mathcal{K}_{\mathrm{cont}}}$: rank-$r_k$ content embeddings,
+        one per content signal $k$ in the content index set $\mathcal{K}_{\mathrm{cont}}$.
+  \item $\bm{\ell} \in \{1,\dots,N_{\mathrm{cat}}\}^{n}$: item category labels;\quad
+        $P \in \R^{N_{\mathrm{cat}} \times N_{\mathrm{cat}}}$: category co-occurrence.
+\end{itemize}
+
+\paragraph{Fitted scalars (selected on validation).}
+\begin{itemize}\itemsep0pt
+  \item Signal index set $\mathcal{G}$ (all signals with nonzero weight) and weights $\{w_k \ge 0\}_{k\in\mathcal{G}}$.
+  \item Prior subset $\mathcal{P} \subseteq \mathcal{G}$ with weights $\{w^{p}_k \ge 0\}_{k\in\mathcal{P}}$ and
+        scale $s \in \R_{>0}$.
+  \item Shrinkage rate $\kappa \in \R_{>0}$.
+\end{itemize}
+
+\section{Algorithm}
+
+\begin{algorithm}[h]
+\caption{\textsc{Complete}$(\seeds)$ --- score all $n$ candidates and return the top $K$}
+\begin{algorithmic}[1]
+\Require all inputs of Section~2.
+\Ensure an ordered list of $K$ item indices.
+
+\State $\indic \gets \bm{0}\in\R^{n}$;\quad $\indic_i \gets 1$ for each $i \in \seeds$
+       \Comment{seed indicator, $\indic\in\R^{n}$}
+\State $\indic^{w} \gets \bm{a} \odot \indic \in \R^{n}$
+       \Comment{item-normalised indicator}
+\State initialise the score table $\{\bm{z}_k\}_{k\in\mathcal{G}}$, each $\bm{z}_k\in\R^{n}$
+
+\Statex \emph{Collaborative signals --- recomputed from $B$ (Steps 4--7); compute only those $k\in\mathcal{G}$.}
+\If{$\mathrm{cooc}\in\mathcal{G}$}
+  \State $\bm{z}_{\mathrm{cooc}} \gets \z\!\big(B^\top (B\,\indic)\big)$
+         \Comment{$B\indic\in\R^{m}$, then $B^\top(\cdot)\in\R^{n}$; equals $\z(C\indic)$}
+\EndIf
+\If{$\mathrm{ppmi}\in\mathcal{G}$}
+  \State $G \gets B^\top B_{:,\seeds} \in \R^{\,n\times|\seeds|}$ \Comment{$G_{c,s} = C_{c,s}$ for $c\notin\seeds$}
+  \State $(\bm{r})_c \gets \displaystyle\sum_{s\in\seeds}\;\relu{\,\log\!\dfrac{G_{c,s}\,T}{f^{c}_c\,f^{c}_{s}}\,}\cdot\mathbb{1}[G_{c,s}>0]$,\quad for all $c$
+  \State $\bm{z}_{\mathrm{ppmi}} \gets \z(\bm{r})$
+\EndIf
+\If{$\mathrm{simp}\in\mathcal{G}$}
+  \State $\bm{o} \gets \bm{v} \odot (B\,\indic^{w}) \in \R^{m}$;\quad
+         $\bm{q} \gets B^{\mathrm{bin}}\,\indic \in \R^{m}$ \Comment{per-bundle overlap; \# seeds in bundle}
+  \State $\bm{z}_{\mathrm{simp}} \gets \z\!\Big(\underbrace{B^\top \bm{o}}_{\text{pairwise}} \;+\;
+         \underbrace{B^\top\!\big(\bm{o}\odot \beta\,\relu{\bm{q}-\bm{1}}\big)}_{\text{incidence surplus}}\Big)$
+\EndIf
+\If{$\mathrm{aux}\in\mathcal{G}$} \Comment{optional, if $X_w$ provided}
+  \State $\bm{z}_{\mathrm{aux}} \gets \z\!\big(X_w^\top (X_w\,\indic^{w})\big)$
+\EndIf
+
+\Statex \emph{Embedding signals --- dot products in stored tables.}
+\If{$\mathrm{csvd}\in\mathcal{G}$}
+  \State $\bm{u}_\seeds \gets \sum_{s\in\seeds} U_{s,:} \in \R^{d}$;\quad
+         $\bm{z}_{\mathrm{csvd}} \gets \z\!\big(U\,\bm{u}_\seeds\big)$
+\EndIf
+\ForAll{$k \in \mathcal{G}\cap\mathcal{K}_{\mathrm{cont}}$}
+  \State $\bm{e}_\seeds \gets \tfrac{1}{|\seeds|}\sum_{s\in\seeds} E^{(k)}_{s,:} \in \R^{r_k}$;\quad
+         $\bm{z}_{k} \gets \z\!\big(E^{(k)}\,\bm{e}_\seeds\big)$
+\EndFor
+
+\Statex \emph{Cheap signals.}
+\If{$\mathrm{pop}\in\mathcal{G}$}\quad $\bm{z}_{\mathrm{pop}} \gets \z\!\big(\log(\bm{1}+\bm{f})\big)$ \EndIf
+\If{$\mathrm{cat}\in\mathcal{G}$}
+  \State $(\bm{r})_c \gets \sum_{s\in\seeds} P_{\,\ell_c,\,\ell_s}$ for all $c$;\quad $\bm{z}_{\mathrm{cat}} \gets \z(\bm{r})$
+\EndIf
+
+\Statex \emph{Fuse, frequency-shrink, rank.}
+\State $\bm{Y} \gets \sum_{k\in\mathcal{G}} w_k\,\bm{z}_k \in \R^{n}$
+\State $\bm{\mu} \gets s \sum_{k\in\mathcal{P}} w^{p}_k\,\bm{z}_k \in \R^{n}$ \Comment{cold-start prior; $\mathcal{P}\subseteq\mathcal{G}$}
+\For{$c = 1,\dots,n$}
+  \State $u_c \gets \dfrac{\kappa}{f_c + \kappa}$;\qquad
+         $\theta_c \gets (1-u_c)\,Y_c + u_c\,\mu_c$
+\EndFor
+\State $\theta_s \gets -\infty$ for all $s\in\seeds$ \Comment{seeds are not candidates}
+\State \Return indices of the $K$ largest entries of $\bm{\theta}$, in decreasing order
+       (ties broken by smaller index)
+\end{algorithmic}
+\end{algorithm}
+
+\section{Guarantees and cost}
+\begin{itemize}\itemsep1pt
+  \item \textbf{Well-defined.} Every quantity used in a step is an input (Section~2) or defined in an
+        earlier step; all dimensions match as annotated. A signal $k\notin\mathcal{G}$ is never computed.
+  \item \textbf{Exactness.} Steps 5, 8--10, 13 reproduce the materialised-matrix scores exactly:
+        $B^\top(B\indic)=C\indic$, and $G_{c,s}=C_{c,s}$ for candidates $c\notin\seeds$ (the removed
+        diagonal affects only $c\in\seeds$, which are masked in Step~26). The sole approximation is the
+        rank-$r_k$ truncation of the content embeddings $E^{(k)}$ in Step~18.
+  \item \textbf{Cost.} Time $O\!\big(|\mathcal{G}|\,n + \mathrm{nnz}(B) + |\seeds|\,\mathrm{nnz}(B)\big)$ per
+        query (the last term only when $\mathrm{ppmi}\in\mathcal{G}$); the $O(n\log K)$ selection is
+        dominated. Resident memory is the inputs; the per-query working set is $O(|\mathcal{G}|\,n)$ for the
+        score vectors plus $O(n\,|\seeds|)$ for the slice $G$.
+\end{itemize}
+
+\end{document}

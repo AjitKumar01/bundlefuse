@@ -1,0 +1,24 @@
+  pog_dense orig: 1000/5938
+  pog_dense orig: 2000/5938
+  pog_dense orig: 3000/5938
+  pog_dense orig: 4000/5938
+  pog_dense orig: 5000/5938
+done pog_dense original    (25.4s): union@500=0.492 hard_ceiling=99.92% vs BF R@20=0.395223
+  pog_dense single: 1000/5938
+  pog_dense single: 2000/5938
+  pog_dense single: 3000/5938
+  pog_dense single: 4000/5938
+  pog_dense single: 5000/5938
+done pog_dense single_seed (24.4s): union@500=0.314 hard_ceiling=98.4% vs BF R@20=0.395223
+  spotify orig: 1000/4000
+  spotify orig: 2000/4000
+  spotify orig: 3000/4000
+  spotify orig: 4000/4000
+done spotify original    (524.6s): union@500=0.508 hard_ceiling=95.26% vs BF R@20=0.155646
+  spotify single: 1000/4000
+  spotify single: 2000/4000
+  spotify single: 3000/4000
+  spotify single: 4000/4000
+done spotify single_seed (489.9s): union@500=0.290 hard_ceiling=76.52% vs BF R@20=0.155646
+
+wrote /Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/results/gate0/coverage.json and REPORT.md

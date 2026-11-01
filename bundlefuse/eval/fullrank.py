@@ -269,7 +269,26 @@ if ENCODER:
         Emb = model.emb(FEAT)
 
 feats["csvd"] = graph_op.Ucsvd
+if os.environ.get("CONTENT_RANK"):
+    # low-rank the DERIVED content tensors to rank-r. SVD gives orthonormal row-space, so <f_c,f_s>
+    # over the rank-r embedding U*S equals the rank-r approximation of the original dot product -> the
+    # existing dot-product scoring is unchanged, memory drops n*d -> n*r. (csvd left alone = collab.)
+    from sklearn.decomposition import TruncatedSVD as _TSVD
+    _r = int(os.environ["CONTENT_RANK"]); _ck = {"style", "imgstyle", "audiostyle", "bridge", "descstyle", "content", "image", "desc", "audio"}
+    feats = {k: (_TSVD(n_components=_r, random_state=0).fit_transform(v).astype(np.float32)
+                 if (k in _ck and np.asarray(v).shape[1] > _r) else v) for k, v in feats.items()}
 FEAT_T = {k: torch.tensor(v, device=DEVICE) for k, v in feats.items()}
+
+if os.environ.get("CONTENT_REPORT"):
+    _scored = {"csvd", "style", "imgstyle", "audiostyle", "bridge"}
+    print(f"\n  {DS} FEATURE TENSORS (dense content):", flush=True)
+    for k, t in FEAT_T.items():
+        mb = t.numel() * t.element_size() / 1e6
+        print(f"    {k:12s} shape={tuple(t.shape)!s:16s} {mb:8.1f}MB  scored={k in _scored}", flush=True)
+    sc = sum(t.numel() * t.element_size() for k, t in FEAT_T.items() if k in _scored) / 1e6
+    allmb = sum(t.numel() * t.element_size() for t in FEAT_T.values()) / 1e6
+    print(f"    -> all held fp32 = {allmb:.1f}MB ; inference-needed (scored) = {sc:.1f}MB ; scored fp16 = {sc/2:.1f}MB", flush=True)
+    sys.exit()
 
 SIG = (["simp", "diff2", "pop", "cooc", "ppmi", "csvd", "cat", "homo", "contrast", "audiostyle", "bridge"]) if MUSIC else \
       (["cat", "softcat", "style", "imgstyle", "bridge", "simp", "diff2", "pop", "cooc", "ppmi", "csvd", "contrast"])
@@ -304,9 +323,27 @@ def score_all_signals(bundles, required=None):
         "delta_inc": torch.tensor(delta_inc, device=DEVICE),
         "rao": torch.tensor(sc_rao, device=DEVICE),
         "pop": torch.tensor(np.tile(np.log1p(freq)[:, None], (1, nb)), dtype=torch.float32, device=DEVICE),
-        "cooc": torch.tensor(np.asarray((graph_op.C @ Ind).todense()), dtype=torch.float32, device=DEVICE),
-        "ppmi": torch.tensor(np.asarray((graph_op.PPMI @ Ind).todense()), dtype=torch.float32, device=DEVICE),
     }
+    if os.environ.get("INCIDENCE"):
+        # compute cooc/ppmi from the sparse incidence B (bundles x items) -- no materialized C/PPMI.
+        Bm = graph_op.B
+        if not hasattr(graph_op, "_fc"):
+            graph_op._fc = np.asarray(graph_op.C.sum(1)).ravel() + 1e-9
+            graph_op._totc = float(graph_op.C.sum())
+        fc, totc = graph_op._fc, graph_op._totc
+        cooc_B = np.asarray((Bm.T @ (Bm @ Ind)).todense()).astype(np.float32)   # (B^T B) 1_S
+        ppmi_B = np.zeros((n, nb), np.float32)
+        for j, s in enumerate(bundles):
+            Cs = np.asarray((Bm.T @ Bm[:, list(s)]).todense())                  # C[:, S] = (n,|S|)
+            with np.errstate(divide="ignore", invalid="ignore"):
+                pp = np.log(Cs * totc / (fc[:, None] * fc[list(s)][None, :] + 1e-12))
+            pp = np.maximum(pp, 0.0); pp[Cs <= 0] = 0.0
+            ppmi_B[:, j] = pp.sum(1)
+        R["cooc"] = torch.tensor(cooc_B, device=DEVICE)
+        R["ppmi"] = torch.tensor(ppmi_B, device=DEVICE)
+    else:
+        R["cooc"] = torch.tensor(np.asarray((graph_op.C @ Ind).todense()), dtype=torch.float32, device=DEVICE)
+        R["ppmi"] = torch.tensor(np.asarray((graph_op.PPMI @ Ind).todense()), dtype=torch.float32, device=DEVICE)
     out_cat = np.zeros((n, nb), np.float32)
     for j, s in enumerate(bundles):
         sa = [cat_lbl[i] for i in s]
@@ -411,6 +448,341 @@ def make_hybrid():
         return score
     raw_content = Fnp / (np.linalg.norm(Fnp, axis=1, keepdims=True) + 1e-8)
     return SimpleHybrid(graph_op, raw_content, categories)
+
+
+if os.environ.get("GAP_DECOMP"):
+    # Per-item-frequency decomposition of BundleFuse ("Ours") full-ranking recall, so the MMFuse gap
+    # can be localised to a frequency bucket. For every held-out target we record whether it lands in
+    # top-10/20 (seeds masked), bucketed by TRAIN co-occurrence frequency freq[t] (identical buckets to
+    # the MMFuse side, which uses the same SimplicialGraphOperator(train).freq). Additive, gated, exits.
+    # Placed BEFORE the provided-protocol dispatch (which sys.exits) so it fires in either protocol.
+    # Output: results/sefp/gap_bundlefuse_<DS>.json. Env: TEST_N via the usual split cap.
+    import json as _json
+    t0 = time.time()
+    print(f"{DS} GAP_DECOMP: fitting on validation...", flush=True)
+    vb, vg = load_split("valid", VAL_N)
+    Rv, Zv = score_all_signals(vb)
+    w_ad, prior_keys, best_eb, freq_t, best_ho, _ = fit_simba(vb, vg, Rv, Zv)
+    tb, tg = load_split("test", TEST_N)
+    print(f"{DS} GAP_DECOMP: scoring {len(tb)} test queries...", flush=True)
+    EDGES = [(0, 0, "cold(f=0)"), (1, 2, "rare(1-2)"), (3, 10, "mid(3-10)"), (11, 10**12, "head(>10)")]
+    def _bucket(f):
+        for lo, hi, name in EDGES:
+            if lo <= f <= hi:
+                return name
+        return "head(>10)"
+    buck = {name: {"hit10": 0, "hit20": 0, "n": 0} for _, _, name in EDGES}
+    # Per-INDIVIDUAL-SIGNAL per-bucket Hit@20: which single signal ranks rare/mid? (pins the fix.)
+    sig_buck = {}
+    CH = 200
+    for off in range(0, len(tb), CH):
+        cb, cg = tb[off:off + CH], tg[off:off + CH]
+        _, Zc = score_all_signals(cb)
+        fused = apply_simba_full(Zc, w_ad, prior_keys, best_eb, freq_t, best_ho)
+        for j, s in enumerate(cb):
+            fused[s, j] = -1e9
+        top = fused.topk(20, dim=0).indices.cpu().numpy()   # (20, nb)
+        for j, gts in enumerate(cg):
+            t20 = top[:, j]; t10 = set(t20[:10].tolist()); t20s = set(t20.tolist())
+            for t in set(gts):
+                b = buck[_bucket(int(freq[t]))]; b["n"] += 1
+                b["hit10"] += int(t in t10); b["hit20"] += int(t in t20s)
+        # rank by each single signal alone (seeds masked), bucket its Hit@20
+        for k in [k for k in SIG if k in Zc]:
+            zk = Zc[k].clone()
+            for j, s in enumerate(cb):
+                zk[s, j] = -1e9
+            tk = zk.topk(20, dim=0).indices.cpu().numpy()
+            sb = sig_buck.setdefault(k, {name: {"hit20": 0, "n": 0} for _, _, name in EDGES})
+            for j, gts in enumerate(cg):
+                s20 = set(tk[:, j].tolist())
+                for t in set(gts):
+                    bb = sb[_bucket(int(freq[t]))]; bb["n"] += 1; bb["hit20"] += int(t in s20)
+    rows = {name: {"n": v["n"],
+                   "hit@10": (v["hit10"] / v["n"] if v["n"] else float("nan")),
+                   "hit@20": (v["hit20"] / v["n"] if v["n"] else float("nan"))}
+            for name in buck for v in [buck[name]]}
+    print(f"\n=== {DS} BundleFuse per-target Hit@K by TRAIN frequency ({time.time()-t0:.0f}s) ===", flush=True)
+    print(f"  {'bucket':12s} {'n':>7} {'Hit@10':>8} {'Hit@20':>8}", flush=True)
+    for name in ("cold(f=0)", "rare(1-2)", "mid(3-10)", "head(>10)"):
+        r = rows[name]
+        print(f"  {name:12s} {r['n']:7d} {r['hit@10']:8.4f} {r['hit@20']:8.4f}", flush=True)
+    order = ["cold(f=0)", "rare(1-2)", "mid(3-10)", "head(>10)"]
+    sig_rows = {k: {b: (v[b]["hit20"] / v[b]["n"] if v[b]["n"] else float("nan")) for b in order}
+                for k, v in sig_buck.items()}
+    print(f"\n  per-SINGLE-SIGNAL Hit@20 by bucket (which signal ranks rare/mid?):", flush=True)
+    print(f"    {'signal':10s} " + " ".join(f"{b:>11}" for b in order), flush=True)
+    for k in [k for k in SIG if k in sig_rows]:
+        print(f"    {k:10s} " + " ".join(f"{sig_rows[k][b]:11.4f}" for b in order), flush=True)
+    outp = os.path.join(RESULTS_DIR, "sefp", f"gap_bundlefuse_{DS}.json")
+    os.makedirs(os.path.dirname(outp), exist_ok=True)
+    _json.dump({"dataset": DS, "model": "BundleFuse", "edges": [(e[0], e[1], e[2]) for e in EDGES],
+                "buckets": rows, "selected_w": {k: float(w_ad.get(k, 0.0)) for k in SIG},
+                "prior_keys": list(prior_keys), "per_signal": sig_rows}, open(outp, "w"), indent=2)
+    print(f"wrote {outp}", flush=True)
+    sys.exit()
+
+
+if os.environ.get("DUMP_SIGNALS"):
+    # Compute the exact per-signal z-scores ONCE and cache to disk, so router experiments iterate in
+    # seconds (reports/router_lab.py) without recomputing score_all_signals. Dumps: train pos/neg signal
+    # tensors (for CE training) + full test signal tensor (nsig,n,nb) + test gts + freq. Env: SIG_CACHE
+    # (dir), ROUTER_TRAINQ, ROUTER_NEG, POPNEG, ROUTER_SIG.
+    import pickle as _pkl
+    t0 = time.time()
+    CACHE = os.environ.get("SIG_CACHE", os.path.join(RESULTS_DIR, "sefp", "sigcache"))
+    os.makedirs(CACHE, exist_ok=True)
+    RSIG = [s for s in os.environ.get("ROUTER_SIG", ",".join(SIG)).split(",") if s in SIG]
+    R_NEG = int(os.environ.get("ROUTER_NEG", "128")); R_TRAINQ = int(os.environ.get("ROUTER_TRAINQ", "5000"))
+    POPNEG = os.environ.get("POPNEG", "1") != "0"
+    rng = np.random.default_rng(0); Cm = graph_op.C.tocsr()
+    pn_neg = (freq + 1e-9) ** 0.75; pn_neg = pn_neg / pn_neg.sum()
+    tb_all = [list(b) for b in train.values() if len(b) >= 2]; rng.shuffle(tb_all); tb_all = tb_all[:R_TRAINQ]
+    print(f"{DS} DUMP_SIGNALS: {len(RSIG)} signals; train {len(tb_all)} queries...", flush=True)
+    Zrows, Frows = [], []
+    for off in range(0, len(tb_all), 64):
+        chunk = tb_all[off:off + 64]; seedsets, poss, negss = [], [], []
+        for b in chunk:
+            it = np.array(b); rng.shuffle(it); split = max(1, len(it) // 2)
+            s = it[:split].tolist(); pos = int(rng.choice(it[split:])) if split < len(it) else int(it[-1])
+            itset = set(b); pool = set()
+            for ss in s:
+                pool.update(Cm.indices[Cm.indptr[ss]:Cm.indptr[ss + 1]].tolist())
+            pool.difference_update(itset); pool = list(pool)
+            nh = min(R_NEG // 2, len(pool)); hard = rng.choice(pool, nh, replace=False).tolist() if nh > 0 else []
+            need = R_NEG - len(hard); forb = itset.union(hard); rnd = []
+            while len(rnd) < need:
+                cand = rng.choice(n, size=2 * need, p=pn_neg) if POPNEG else rng.integers(n, size=2 * need)
+                for x in cand.tolist():
+                    if x not in forb:
+                        rnd.append(x); forb.add(x)
+                        if len(rnd) >= need:
+                            break
+            seedsets.append(s); poss.append(pos); negss.append(hard + rnd)
+        _, Z = score_all_signals(seedsets)
+        for j in range(len(chunk)):
+            cand = [poss[j]] + negss[j]
+            Zrows.append(torch.stack([Z[k][cand, j] for k in RSIG], 1).detach().cpu().numpy().astype(np.float32))
+            Frows.append(np.array([freq[c] for c in cand], np.float32))
+    train_Z = np.stack(Zrows); train_F = np.stack(Frows)
+    def dump_split(split_name, cap):
+        sb, sg = load_split(split_name, cap)
+        print(f"{DS} DUMP_SIGNALS: {split_name} {len(sb)} queries (full catalogue)... ({time.time()-t0:.0f}s)", flush=True)
+        Zf = np.zeros((len(RSIG), n, len(sb)), np.float16)
+        for off in range(0, len(sb), 100):
+            cb = sb[off:off + 100]; _, Z = score_all_signals(cb)
+            for ki, k in enumerate(RSIG):
+                Zf[ki, :, off:off + len(cb)] = Z[k].cpu().numpy().astype(np.float16)
+        np.save(os.path.join(CACHE, f"{DS}_{split_name}Z.npy"), Zf)
+        return [list(s) for s in sb], [list(g) for g in sg]
+    test_seeds, test_gt = dump_split("test", TEST_N)
+    val_seeds, val_gt = dump_split("valid", VAL_N)
+    _pkl.dump({"rsig": RSIG, "train_Z": train_Z, "train_F": train_F, "freq": freq.astype(np.float32),
+               "test_seeds": test_seeds, "test_gt": test_gt, "val_seeds": val_seeds, "val_gt": val_gt, "n": n},
+              open(os.path.join(CACHE, f"{DS}_meta.pkl"), "wb"))
+    print(f"{DS} DUMP_SIGNALS done ({time.time()-t0:.0f}s) -> {CACHE}/{DS}_* (test {len(test_seeds)}, val {len(val_seeds)} queries)", flush=True)
+    sys.exit()
+
+
+if os.environ.get("SEEDTYPE"):
+    # BundleFuse Recall@/NDCG@20 by seed-set type, on the provided test split (same bundles as CLHE).
+    # Fit ONCE on full validation seeds (cached to disk; loaded on reruns -- fit is a one-time offline
+    # artifact, never per query); then for each cut k, truncate every test query to its sorted first-k
+    # seeds and score with the SAME fit. Output: stdout.
+    import pickle as _pkl
+    t0 = time.time()
+    _fcache = os.environ.get("FIT_CACHE", os.path.join(RESULTS_DIR, "sefp", f"fit_{DS}.pkl"))
+    if os.path.exists(_fcache):
+        w_ad, prior_keys, best_eb, freq_t, best_ho = _pkl.load(open(_fcache, "rb"))
+        print(f"  loaded cached fit <- {_fcache} ({time.time()-t0:.0f}s)", flush=True)
+    else:
+        vb, vg = load_split("valid", VAL_N)
+        Rv, Zv = score_all_signals(vb)
+        w_ad, prior_keys, best_eb, freq_t, best_ho, _ = fit_simba(vb, vg, Rv, Zv)
+        os.makedirs(os.path.dirname(_fcache), exist_ok=True)
+        _pkl.dump((w_ad, prior_keys, best_eb, freq_t, best_ho), open(_fcache, "wb"))
+        print(f"  fit done and cached -> {_fcache} ({time.time()-t0:.0f}s)", flush=True)
+    tb, tg = load_split("test", TEST_N)
+    cuts = [int(x) for x in os.environ.get("SEED_CUTS", "1,2,3,0").split(",")]  # 0 = all (supplied)
+    print(f"\n  BundleFuse {DS}, Recall@20 / NDCG@20 by seed-set type ({len(tb)} test bundles):", flush=True)
+    for k in cuts:
+        tbk = [sorted(s)[:k] if k > 0 else list(s) for s in tb]
+        name = f"{k}-seed" if k > 0 else "supplied(all)"
+        agg = np.zeros(2); CH = 200
+        for off in range(0, len(tbk), CH):
+            cb, cg = tbk[off:off + CH], tg[off:off + CH]
+            _, Zc = score_all_signals(cb)
+            fused = apply_simba_full(Zc, w_ad, prior_keys, best_eb, freq_t, best_ho)
+            m = ranking_metrics(fused, list(zip(cb, cg)), (20,))
+            agg += np.asarray(m[20]) * len(cb)
+        agg /= len(tbk)
+        print(f"    {name:14s} R@20={agg[0]:.4f}  N@20={agg[1]:.4f}", flush=True)
+    print(f"  (done in {time.time()-t0:.0f}s)", flush=True)
+    sys.exit()
+
+
+if os.environ.get("LEARN_ROUTER"):
+    # Learned per-frequency-bucket combiner over the EXACT signal z-scores. No learned embeddings
+    # (-> no data-starvation) and no head-dominated embedding training. Tests whether a learned router
+    # can BEAT BundleFuse's hand-tuned fusion+shrinkage -- motivated by the per-signal finding that pure
+    # PPMI on RARE (0.127) beats BundleFuse's fused (0.094): the fusion dilutes PPMI for rare. A router
+    # that selects per frequency bucket should recover it. Trains standard AND frequency-reweighted CE
+    # (reweight ~ 1/sqrt(f_pos) so rare positives are not drowned). Output: results/sefp/router_<DS>.json.
+    import json as _json
+    import torch.nn as _nn
+    t0 = time.time()
+    RSIG = [s for s in os.environ.get("ROUTER_SIG", ",".join(SIG)).split(",") if s in SIG]
+    R_EPOCHS = int(os.environ.get("ROUTER_EPOCHS", "400"))
+    R_NEG = int(os.environ.get("ROUTER_NEG", "128"))
+    R_TRAINQ = int(os.environ.get("ROUTER_TRAINQ", "5000"))
+    EDGES = [(0, 0, "cold"), (1, 2, "rare"), (3, 10, "mid"), (11, 10**12, "head")]
+    def _bk(f):
+        for i, (lo, hi, nm) in enumerate(EDGES):
+            if lo <= f <= hi:
+                return i
+        return 3
+    rng = np.random.default_rng(0); Cm = graph_op.C.tocsr()
+    POPNEG = os.environ.get("POPNEG", "1") != "0"                        # sample random negs ~ freq^0.75 (popular)
+    pn_neg = (freq + 1e-9) ** 0.75; pn_neg = pn_neg / pn_neg.sum()
+    tb_all = [list(b) for b in train.values() if len(b) >= 2]
+    rng.shuffle(tb_all); tb_all = tb_all[:R_TRAINQ]
+    print(f"{DS} LEARN_ROUTER: signals={RSIG} | building train signals for {len(tb_all)} queries...", flush=True)
+    Zrows, Frows = [], []
+    CH = 64
+    for off in range(0, len(tb_all), CH):
+        chunk = tb_all[off:off + CH]; seedsets, poss, negss = [], [], []
+        for b in chunk:
+            it = np.array(b); rng.shuffle(it); split = max(1, len(it) // 2)
+            s = it[:split].tolist(); pos = int(rng.choice(it[split:])) if split < len(it) else int(it[-1])
+            itset = set(b); pool = set()
+            for ss in s:
+                pool.update(Cm.indices[Cm.indptr[ss]:Cm.indptr[ss + 1]].tolist())
+            pool.difference_update(itset); pool = list(pool)
+            nh = min(R_NEG // 2, len(pool))
+            hard = rng.choice(pool, nh, replace=False).tolist() if nh > 0 else []
+            need = R_NEG - len(hard); forb = itset.union(hard); rnd = []
+            while len(rnd) < need:
+                cand = rng.choice(n, size=2 * need, p=pn_neg) if POPNEG else rng.integers(n, size=2 * need)
+                for x in cand.tolist():
+                    if x not in forb:
+                        rnd.append(x); forb.add(x)
+                        if len(rnd) >= need:
+                            break
+            seedsets.append(s); poss.append(pos); negss.append(hard + rnd)
+        _, Z = score_all_signals(seedsets)
+        for j in range(len(chunk)):
+            cand = [poss[j]] + negss[j]
+            Zrows.append(torch.stack([Z[k][cand, j] for k in RSIG], 1).detach().cpu())
+            Frows.append(torch.tensor([freq[c] for c in cand], dtype=torch.float32))
+    Zt = torch.stack(Zrows); Ft = torch.stack(Frows)                     # (Q,ncand,nsig),(Q,ncand)
+    bidx = torch.zeros_like(Ft, dtype=torch.long)
+    for i, (lo, hi, nm) in enumerate(EDGES):
+        bidx[(Ft >= lo) & (Ft <= hi)] = i
+    posfreq = Ft[:, 0]
+    print(f"{DS} router train set {tuple(Zt.shape)} ({time.time()-t0:.0f}s); training routers...", flush=True)
+
+    posbk = bidx[:, 0]                                                    # pos-bucket per train query
+    bkcount = torch.tensor([max(1, int((posbk == i).sum())) for i in range(len(EDGES))], dtype=torch.float32)
+    def _wq(mode):
+        if mode == "standard":
+            wq = torch.ones_like(posfreq)
+        elif mode == "invsqrt":
+            wq = 1.0 / torch.sqrt(posfreq + 1.0)
+        elif mode == "balanced":                                         # each pos-bucket contributes equally
+            wq = 1.0 / bkcount[posbk]
+        return wq / wq.mean()
+    def train_router(mode):
+        W = _nn.Parameter(torch.full((len(EDGES), len(RSIG)), 0.1))
+        opt = torch.optim.Adam([W], lr=0.05)
+        wq = _wq(mode)
+        for ep in range(1, R_EPOCHS + 1):
+            logits = (W[bidx] * Zt).sum(-1)
+            loss = (Fn.cross_entropy(logits, torch.zeros(len(Zt), dtype=torch.long), reduction="none") * wq).mean()
+            opt.zero_grad(); loss.backward(); opt.step()
+        return W.detach()
+
+    fb = torch.zeros(n, dtype=torch.long); ftt = torch.tensor(freq)
+    for i, (lo, hi, nm) in enumerate(EDGES):
+        fb[(ftt >= lo) & (ftt <= hi)] = i
+    tb, tg = load_split("test", TEST_N)
+
+    def eval_router(Wd):
+        buck = {nm: [0, 0] for _, _, nm in EDGES}; Rk = {10: np.zeros(2), 20: np.zeros(2)}
+        Wc = Wd[fb]                                                       # (n,nsig)
+        for off in range(0, len(tb), 100):
+            cb, cg = tb[off:off + 100], tg[off:off + 100]
+            _, Z = score_all_signals(cb)
+            Zc = torch.stack([Z[k] for k in RSIG], 0)                     # (nsig,n,nb)
+            fused = torch.einsum("ns,snb->nb", Wc, Zc)
+            for j, s in enumerate(cb):
+                fused[s, j] = -1e9
+            m = ranking_metrics(fused, list(zip(cb, cg)), (10, 20))
+            for K in (10, 20):
+                Rk[K] += np.array(m[K]) * len(cb)
+            top = fused.topk(20, dim=0).indices.cpu().numpy()
+            for j, gts in enumerate(cg):
+                t20 = set(top[:, j].tolist())
+                for t in set(gts):
+                    bb = buck[EDGES[_bk(int(freq[t]))][2]]; bb[1] += 1; bb[0] += int(t in t20)
+        for K in (10, 20):
+            Rk[K] /= len(tb)
+        return ({nm: (v[0] / v[1] if v[1] else float("nan")) for nm, v in buck.items()},
+                {f"R@{K}": float(Rk[K][0]) for K in (10, 20)} | {f"N@{K}": float(Rk[K][1]) for K in (10, 20)})
+
+    out = {"dataset": DS, "signals": RSIG, "routers": {}}
+    BFbk = {"cold": 0.0, "rare": 0.0935, "mid": 0.1578, "head": 0.7503}
+    print(f"\n=== {DS} LEARN_ROUTER ({time.time()-t0:.0f}s) ===", flush=True)
+    print(f"  BundleFuse buckets: cold {BFbk['cold']:.4f}  rare {BFbk['rare']:.4f}  mid {BFbk['mid']:.4f}  head {BFbk['head']:.4f}  | R@20 0.3969", flush=True)
+    for name in ("standard", "invsqrt", "balanced"):
+        Wd = train_router(name); bk, agg = eval_router(Wd)
+        out["routers"][name] = {"buckets": bk, "agg": agg, "W": Wd.tolist()}
+        print(f"  [{name:10s}] cold {bk['cold']:.4f}  rare {bk['rare']:.4f}  mid {bk['mid']:.4f}  head {bk['head']:.4f}  | "
+              f"R@10 {agg['R@10']:.4f} R@20 {agg['R@20']:.4f} N@20 {agg['N@20']:.4f}", flush=True)
+
+    # freq-aware MLP router: nonlinear combiner over [signals, log f_c] -> learns head fusion AND
+    # per-frequency routing jointly (subsumes the per-bucket linear). Trained balanced.
+    class _MLP(_nn.Module):
+        def __init__(self, din, h=32):
+            super().__init__(); self.net = _nn.Sequential(_nn.Linear(din, h), _nn.GELU(), _nn.Linear(h, 1))
+        def forward(self, x):
+            return self.net(x).squeeze(-1)
+    logf_tr = torch.log1p(Ft).unsqueeze(-1)
+    Xtr = torch.cat([Zt, logf_tr], -1)                                   # (Q,ncand,nsig+1)
+    mlp = _MLP(len(RSIG) + 1); optm = torch.optim.Adam(mlp.parameters(), lr=0.01, weight_decay=1e-4)
+    wqb = _wq("balanced")
+    for ep in range(1, R_EPOCHS + 1):
+        logits = mlp(Xtr)
+        loss = (Fn.cross_entropy(logits, torch.zeros(len(Xtr), dtype=torch.long), reduction="none") * wqb).mean()
+        optm.zero_grad(); loss.backward(); optm.step()
+    logf_all = torch.log1p(ftt.float())
+    buckm = {nm: [0, 0] for _, _, nm in EDGES}; Rkm = {10: np.zeros(2), 20: np.zeros(2)}
+    with torch.no_grad():
+        for off in range(0, len(tb), 100):
+            cb, cg = tb[off:off + 100], tg[off:off + 100]
+            _, Z = score_all_signals(cb); nb = len(cb)
+            Zc = torch.stack([Z[k] for k in RSIG], -1)                   # (n,nb,nsig)
+            X = torch.cat([Zc, logf_all[:, None, None].expand(n, nb, 1)], -1)
+            fused = mlp(X)
+            for j, s in enumerate(cb):
+                fused[s, j] = -1e9
+            m = ranking_metrics(fused, list(zip(cb, cg)), (10, 20))
+            for K in (10, 20):
+                Rkm[K] += np.array(m[K]) * nb
+            top = fused.topk(20, dim=0).indices.cpu().numpy()
+            for j, gts in enumerate(cg):
+                t20 = set(top[:, j].tolist())
+                for t in set(gts):
+                    bb = buckm[EDGES[_bk(int(freq[t]))][2]]; bb[1] += 1; bb[0] += int(t in t20)
+        for K in (10, 20):
+            Rkm[K] /= len(tb)
+    bkm = {nm: (v[0] / v[1] if v[1] else float("nan")) for nm, v in buckm.items()}
+    aggm = {f"R@{K}": float(Rkm[K][0]) for K in (10, 20)} | {f"N@{K}": float(Rkm[K][1]) for K in (10, 20)}
+    out["routers"]["mlp"] = {"buckets": bkm, "agg": aggm}
+    print(f"  [{'mlp':10s}] cold {bkm['cold']:.4f}  rare {bkm['rare']:.4f}  mid {bkm['mid']:.4f}  head {bkm['head']:.4f}  | "
+          f"R@10 {aggm['R@10']:.4f} R@20 {aggm['R@20']:.4f} N@20 {aggm['N@20']:.4f}", flush=True)
+    outp = os.path.join(RESULTS_DIR, "sefp", f"router_{DS}.json"); os.makedirs(os.path.dirname(outp), exist_ok=True)
+    _json.dump(out, open(outp, "w"), indent=2); print(f"wrote {outp}", flush=True)
+    sys.exit()
 
 
 if PROTOCOL == "provided":

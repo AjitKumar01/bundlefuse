@@ -62,9 +62,28 @@ class SelectedSignals:
                 gamma=1.0 if self.music else -1.0, alpha_dense=.15, tau=.05))
         if 'pop' in required:
             tensor('pop', np.tile(np.log1p(graph.freq)[:, None], (1, len(bundles))))
-        for key, operator in (('cooc', graph.C), ('ppmi', graph.PPMI)):
-            if key in required:
-                tensor(key, np.asarray((operator @ ind()).todense()))
+        if __import__('os').environ.get('INCIDENCE') and ({'cooc', 'ppmi'} & required):
+            # compute cooc/ppmi from the sparse incidence B (no materialized C/PPMI)
+            Bm = graph.B; nb = len(bundles)
+            if not hasattr(graph, '_fc'):
+                graph._fc = np.asarray(graph.C.sum(1)).ravel() + 1e-9
+                graph._totc = float(graph.C.sum())
+            fc, totc = graph._fc, graph._totc
+            if 'cooc' in required:
+                tensor('cooc', np.asarray((Bm.T @ (Bm @ ind())).todense()).astype(np.float32))
+            if 'ppmi' in required:
+                pm = np.zeros((graph.n, nb), np.float32)
+                for j, s in enumerate(bundles):
+                    Cs = np.asarray((Bm.T @ Bm[:, list(s)]).todense())
+                    with np.errstate(divide='ignore', invalid='ignore'):
+                        pp = np.log(Cs * totc / (fc[:, None] * fc[list(s)][None, :] + 1e-12))
+                    pp = np.maximum(pp, 0.0); pp[Cs <= 0] = 0.0
+                    pm[:, j] = pp.sum(1)
+                tensor('ppmi', pm)
+        else:
+            for key, operator in (('cooc', graph.C), ('ppmi', graph.PPMI)):
+                if key in required:
+                    tensor(key, np.asarray((operator @ ind()).todense()))
         if 'cat' in required:
             score = np.zeros((graph.n, len(bundles)), np.float32)
             for j, seeds in enumerate(bundles):
