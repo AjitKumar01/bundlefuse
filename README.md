@@ -41,10 +41,14 @@ owns its loader, its families, and the BundleFuse object configured for it.
 
 ### Command line
 
+`evaluator.py` (at the project root) trains a dataset from CLI arguments and stores a checkpoint:
+
 ```bash
-python -m bundlefuse.run pog_dense                       # train + evaluate (Recall@20 / NDCG@20)
-python -m bundlefuse.run dunnhumby --save ckpt/dh.pt     # with a checkpoint
-python -m bundlefuse.run electronic --families collaborative,content,taxonomy,popularity
+python evaluator.py pog_dense                                   # train + evaluate, checkpoint -> checkpoints/pog_dense.pt
+python evaluator.py dunnhumby --test-n 2000 --ckpt-dir ckpts    # choose where to store checkpoints
+python evaluator.py electronic --families collaborative,content,taxonomy,popularity --svd-dim 64
+python evaluator.py spotify --beta-clique 1.0 --seed-cap 20 --no-eval   # train + checkpoint only
+python evaluator.py --help                                      # all fit-config flags
 ```
 
 Datasets: `pog`, `pog_dense`, `spotify`, `spotify_sparse` (bundlemllm); `dunnhumby`; `electronic`,
@@ -53,10 +57,10 @@ Datasets: `pog`, `pog_dense`, `spotify`, `spotify_sparse` (bundlemllm); `dunnhum
 ## Layout
 
 ```
+evaluator.py       # CLI entry point (outside the package): args -> fit -> evaluate -> checkpoint
 bundlefuse/
   model.py         # the BundleFuse class (fit / predict / score / save / load) + signal families
   operators.py     # the closed-form math (hypergraph operator, content bridge, EB shrinkage)
-  run.py           # CLI entry point: build dataset object -> fit -> evaluate -> optional checkpoint
   datasets/        # ONE FILE PER DATASET -- each builds the object configured for it
     base.py        #   shared family loaders (bundlemllm / dunnhumby / BundleRec) + Dataset
     pog.py pog_dense.py spotify.py spotify_sparse.py
