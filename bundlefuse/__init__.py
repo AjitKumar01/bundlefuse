@@ -1,17 +1,31 @@
-"""BundleFuse: a cheap, interpretable, regime-adaptive baseline for bundle completion.
+"""BundleFuse: a zero-parameter, config-driven, regime-adaptive scorer for bundle completion.
 
-A closed-form evidence-fusion scorer (collaborative co-occurrence + taxonomic ontology
-+ style-disentangled/graph-bridged content) with cold-start shrinkage toward a metadata
-prior. Validation-selected fusion weights; optional (off-by-default) set-attention encoder.
+A closed-form evidence-fusion model: collaborative co-occurrence + taxonomic ontology +
+graph-bridged content, with empirical-Bayes cold-start shrinkage and validation-selected fusion
+weights. Signals are organised into families (collaborative / content / taxonomy / popularity /
+personalization) switched on by the config.
 
-See docs/MANIFEST.md for exactly what was salvaged from the prior "SIMBA" codebase and what was
-dropped, and why; docs/EXPERIMENTS.md maps every reported number to its command.
+Train and evaluate any dataset through the one model class::
+
+    from bundlefuse.model import BundleFuse, BundleFuseConfig
+    from bundlefuse.data import load_dataset
+
+    ds = load_dataset("pog_dense")
+    model = BundleFuse(BundleFuseConfig(n_items=ds.n_items, families=ds.families))
+    model.fit(ds.train, ds.val_pairs, content=ds.content, cat_labels=ds.cat_labels)
+    items = model.predict(seeds, k=20)
+
+or from the command line::  python -m bundlefuse.run pog_dense
 """
-from ._device import DEVICE, set_determinism
+from .model import BundleFuse, BundleFuseConfig
 from .operators import (
     SimplicialGraphOperator,
-    DualSpectrumOntology,
     BilateralContentBridge,
     EmpiricalBayesRouter,
     zcols,
 )
+
+__all__ = [
+    "BundleFuse", "BundleFuseConfig",
+    "SimplicialGraphOperator", "BilateralContentBridge", "EmpiricalBayesRouter", "zcols",
+]

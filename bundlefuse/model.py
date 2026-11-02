@@ -194,14 +194,16 @@ class BundleFuse:
                 rows.append(it); cols.append(u); data.append(float(c))
         self.UI = sp.csr_matrix((data, (rows, cols)), shape=(self.cfg.n_items, nusers))
 
-    def fit(self, train_bundles, val_pairs, *, content=None, cat_labels=None, user_items=None):
+    def fit(self, train_bundles, val_pairs, *, content=None, cat_labels=None,
+            user_items=None, val_users=None):
         """Build all artifacts and select fusion weights + shrinkage on the validation pairs.
 
         train_bundles : list of item-index lists (the training bundles).
         val_pairs     : list of (seeds, ground_truth) for weight selection.
-        content       : optional (n, d) float array -> enables the content family.
-        cat_labels    : optional (n,) int array      -> enables the taxonomy family.
-        user_items    : optional dict user->list[int] -> enables personalization.
+        content       : optional (n, d) float array   -> enables the content family.
+        cat_labels    : optional (n,) int array        -> enables the taxonomy family.
+        user_items    : optional dict user->list[int]  -> enables personalization.
+        val_users     : optional list of user ids aligned to val_pairs (personalization fit).
         """
         cfg = self.cfg
         self.graph = SimplicialGraphOperator(
@@ -221,11 +223,10 @@ class BundleFuse:
         # active signal menu = signals of active families whose data exists
         self.signals_ = [s for f in self._active_families() for s in FAMILY_SIGNALS[f]]
         # content/personalization signals may be missing if a tensor wasn't built
-        probe = self._signals([val_pairs[0][0]], [None])
+        probe = self._signals([val_pairs[0][0]], [val_users[0] if val_users else None])
         self.signals_ = [s for s in self.signals_ if s in probe]
 
         val_seeds = [s for s, _ in val_pairs]
-        val_users = [getattr(p, "user", None) for p in val_pairs] if False else None
         Zv = self._signals(val_seeds, val_users)
         self._fit_fusion(Zv, val_pairs)
         self.fitted_ = True
