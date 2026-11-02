@@ -51,6 +51,12 @@ case/suffix; match by the counts in each `count.json` if unsure). Each folder mu
 `bi_train.txt`, `bi_{valid,test}_{input,gt}.txt`, `count.json`, `item_info.json`,
 `content_feature.pt` (and, for the POG/fashion sets, `title_emb.npy`, `description_feature.pt`).
 
+**Content-feature provenance.** BundleFuse consumes these features as-is (it never re-extracts them).
+They are the released encoder outputs: **BLIP** (768-d) for POG image/description
+(`content_feature.pt`, `description_feature.pt`), **BGE** (`bge-large-zh-v1.5`, 1024-d) for POG titles
+(`title_emb.npy`), and **CLAP** (512-d) for Spotify audio (`content_feature.pt`). The `content` /
+`bridge` signal families use these; for dunnhumby / BundleRec the content is TF-IDF over product text.
+
 ### 2. BundleRec — `electronic`, `food`, `clothing`
 Crowd-sourced bundles from **"Revisiting Bundle Recommendation"** (Sun et al., SIGIR'22):
 - **Data + code (GitHub):** https://github.com/BundleRec/bundle_recommendation

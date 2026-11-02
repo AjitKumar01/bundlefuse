@@ -25,7 +25,7 @@ results/*.csv
 # worked case study backing notes/methodology.tex
 !results/case_study_*.json
 
-# derived CLIP feature caches (regenerate via scripts/clip_embed.py)
+# derived feature caches
 *.npz
 
 # LaTeX build artifacts (keep main.pdf)
