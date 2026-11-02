@@ -159,6 +159,16 @@ class BundleFuse:
             I = sp.csr_matrix((np.ones(n, np.float32), (np.arange(n), lbl)), shape=(n, ng))
             deg = np.asarray(I.sum(0)).ravel() + 1.0
             self.group_inc.append(((I @ sp.diags(1.0 / np.sqrt(deg))).tocsr(), float(weight)))
+        # category-homophily matrix (same-category affinity, diagonal kept) -> the non-music `homo` signal
+        self.Pcat_homo = None
+        if (not music) and not self.group_inc:
+            b_iter = train_bundles.values() if isinstance(train_bundles, dict) else train_bundles
+            rr, cc, bi = [], [], 0
+            for bi, items in enumerate(b_iter):
+                for it in dict.fromkeys(items):
+                    rr.append(bi); cc.append(int(cat_lbl[it]))
+            T = sp.csr_matrix((np.ones(len(rr), np.float32), (rr, cc)), shape=(max(bi + 1, 1), NC))
+            self.Pcat_homo = (T.T @ T).tocsr()
 
         if cfg.compressed:
             r = cfg.content_rank
@@ -276,6 +286,11 @@ class BundleFuse:
         elif self.group_inc:
             homo = sum(w * np.asarray((I @ (I.T @ Ind)).todense()) for I, w in self.group_inc)
             R["homo"] = torch.tensor(homo.astype(np.float32), device=DEVICE)
+        elif self.Pcat_homo is not None:
+            hh = np.zeros((n, nb), np.float32)
+            for j, s in enumerate(bundles):
+                hh[:, j] = np.asarray(self.Pcat_homo[[self.cat_lbl[i] for i in s]].sum(0)).ravel()[self.cat_lbl]
+            R["homo"] = torch.tensor(hh, device=DEVICE)
         if (not self.music) and onto.MP_t is not None:
             Ms = torch.stack([onto.Msoft_t[s].sum(0) for s in bundles], 1)
             R["softcat"] = onto.MP_t @ Ms

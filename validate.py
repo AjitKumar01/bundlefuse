@@ -29,7 +29,7 @@ RESEARCH = {
     "electronic": (0.5163, 0.3708, 0.0212), "food": (0.5939, 0.4455, 0.0281),
     "clothing": (0.5881, 0.4544, 0.0326), "dunnhumby": (0.1504, 0.1079, 0.0044),
 }
-MULTISEED = {"dunnhumby", "electronic", "food", "clothing"}      # research averaged 5 random splits
+MULTISEED = {"pog", "pog_dense", "spotify", "spotify_sparse", "dunnhumby", "electronic", "food", "clothing"}      # research averaged 5 random splits
 N_SEEDS = int(os.environ.get("VAL_SEEDS", "5"))
 BUNDLEMLLM_TESTN = int(os.environ.get("BUNDLEMLLM_TESTN", "100000"))   # effectively full provided test
 DUNN_TESTN = int(os.environ.get("DUNN_TESTN", "2000"))

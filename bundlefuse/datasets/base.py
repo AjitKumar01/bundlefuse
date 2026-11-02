@@ -81,7 +81,7 @@ def _kmeans(feat, k=400):
 
 
 # ---------------------------------------------------------------- bundlemllm
-def load_bundlemllm(name, val_n, test_n):
+def load_bundlemllm(name, val_n, test_n, mask_frac=0.5, split_seed=0, protocol_mode="resplit"):
     import torch
     dd = os.path.join(DATA_ROOT, "bundlemllm", "datasets", name)
     n = json.load(open(os.path.join(dd, "count.json")))["#I"]
@@ -121,8 +121,25 @@ def load_bundlemllm(name, val_n, test_n):
             alb[int(k)] = alm.setdefault(v.get("album_uri", "?"), len(alm))
 
     fams = ["collaborative", "popularity", "content", "taxonomy"]
-    return Dataset(name, n, list(sp_.train.values()), sp_.pairs("valid")[:val_n], sp_.pairs("test")[:test_n],
-                   fams, features=feats, cat_labels=cat, music=music, alb_labels=alb, cluster_feat=cluster_feat)
+    if protocol_mode == "provided":
+        train = list(sp_.train.values()); vp = sp_.pairs("valid")[:val_n]; tp = sp_.pairs("test")[:test_n]
+    else:
+        # the research matrix protocol: reconstruct all bundles, resplit 70/10/20 by seed, reveal-mask
+        fullb = list(sp_.train.values())
+        for inp, gt in sp_.pairs("valid") + sp_.pairs("test"):
+            fullb.append(list(inp) + list(gt))
+        seen = set(); allb = []
+        for v in fullb:
+            u = list(dict.fromkeys(v))
+            if len(u) >= 2 and tuple(sorted(u)) not in seen:
+                seen.add(tuple(sorted(u))); allb.append(u)
+        random.Random(split_seed).shuffle(allb)
+        ntr, nva = int(0.7 * len(allb)), int(0.1 * len(allb))
+        train, vab, teb = allb[:ntr], allb[ntr:ntr + nva], allb[ntr + nva:]
+        vp = protocol.mask(vab, split_seed + 1, mask_frac)[:val_n]
+        tp = protocol.mask(teb, split_seed + 2, mask_frac)[:test_n]
+    return Dataset(name, n, train, vp, tp, fams, features=feats, cat_labels=cat,
+                   music=music, alb_labels=alb, cluster_feat=cluster_feat)
 
 
 # ---------------------------------------------------------------- dunnhumby

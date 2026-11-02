@@ -8,8 +8,8 @@ FAMILIES = ["collaborative", "content", "taxonomy", "popularity"]   # fallback i
 SVD_DIM = 128
 
 
-def load(val_n=800, test_n=2000):
-    return load_bundlemllm(NAME, val_n, test_n)
+def load(val_n=800, test_n=2000, mask_frac=0.5, split_seed=0):
+    return load_bundlemllm(NAME, val_n, test_n, mask_frac, split_seed)
 
 
 def config(n_items, families=None, svd_dim=None, use_config=True, config_file=None):
