@@ -41,7 +41,8 @@ export BUNDLEFUSE_DATA_ROOT=/path/to/data     # optional; defaults to the repo's
 
 ### 1. bundlemllm — `pog`, `pog_dense`, `spotify`, `spotify_sparse`
 Pre-extracted features from **BundleMLLM** (Liu et al., KDD'25):
-➡ **https://huggingface.co/datasets/xhLiu/BundleConstruction**
+- **Data (HuggingFace):** https://huggingface.co/datasets/xhLiu/BundleConstruction
+- **Code (GitHub):** https://github.com/Xiaohao-Liu/Bundle-MLLM
 
 Download the four BundleConstruction datasets and place each under
 `<DATA_ROOT>/bundlemllm/datasets/<name>/` so the folder name matches the value you pass to
@@ -52,15 +53,16 @@ case/suffix; match by the counts in each `count.json` if unsure). Each folder mu
 
 ### 2. BundleRec — `electronic`, `food`, `clothing`
 Crowd-sourced bundles from **"Revisiting Bundle Recommendation"** (Sun et al., SIGIR'22):
-➡ **https://github.com/BundleRec/bundle_recommendation**
+- **Data + code (GitHub):** https://github.com/BundleRec/bundle_recommendation
 
 Copy its `dataset/<name>/` folders to `<DATA_ROOT>/BundleRec/dataset/<name>/`. Files used:
 `bundle_item.csv`, `user_bundle.csv`, `item_titles.csv`, `item_categories.csv`, `user_item_pretrain.csv`.
 
 ### 3. dunnhumby — `dunnhumby`
 **"The Complete Journey"** grocery transactions:
-➡ **https://www.dunnhumby.com/source-files/** (form-gated) — or the Mendeley mirror
-**https://data.mendeley.com/datasets/7myy93ym6k/1**
+- **Kaggle (easiest):** https://www.kaggle.com/datasets/frtgnn/dunnhumby-the-complete-journey
+- **GitHub mirror:** https://github.com/omerfarukeker/The-Complete-Journey
+- **Official (form-gated):** https://www.dunnhumby.com/source-files/ · **Mendeley:** https://data.mendeley.com/datasets/7myy93ym6k/1
 
 Put **`transaction_data.csv`** and **`product.csv`** in `<DATA_ROOT>/dunnhumby/`
 (override the location with `DUNN_DIR=/path/to/dunnhumby`).
