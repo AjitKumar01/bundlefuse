@@ -13,8 +13,7 @@ import time
 
 import numpy as np
 
-from bundlefuse.data import load_dataset
-from bundlefuse.model import BundleFuse, BundleFuseConfig
+from bundlefuse import datasets
 from bundlefuse.metrics import ranking_metrics
 
 
@@ -34,17 +33,17 @@ def main():
     ap.add_argument("--families", default=None, help="comma-separated subset to enable (default: dataset's own)")
     ap.add_argument("--val-n", type=int, default=800)
     ap.add_argument("--test-n", type=int, default=2000)
-    ap.add_argument("--svd-dim", type=int, default=128)
+    ap.add_argument("--svd-dim", type=int, default=None, help="override the dataset's default SVD dim")
     ap.add_argument("--save", default=None, help="write a checkpoint to this path")
     args = ap.parse_args()
 
     t0 = time.time()
-    ds = load_dataset(args.dataset, val_n=args.val_n, test_n=args.test_n)
-    fams = args.families.split(",") if args.families else ds.families
+    fams = args.families.split(",") if args.families else None
+    model, ds = datasets.build(args.dataset, val_n=args.val_n, test_n=args.test_n,
+                               families=fams, svd_dim=args.svd_dim)
     print(f"{ds.name}: n={ds.n_items} train={len(ds.train)} val={len(ds.val_pairs)} test={len(ds.test_pairs)} "
-          f"| families={fams} | load {time.time()-t0:.0f}s", flush=True)
+          f"| families={model.cfg.families} | load {time.time()-t0:.0f}s", flush=True)
 
-    model = BundleFuse(BundleFuseConfig(n_items=ds.n_items, families=fams, svd_dim=args.svd_dim))
     model.fit(ds.train, ds.val_pairs, content=ds.content, cat_labels=ds.cat_labels,
               user_items=ds.user_items, val_users=ds.val_users)
     print(f"  fitted in {time.time()-t0:.0f}s | signals={model.signals_} "

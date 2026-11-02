@@ -1,14 +1,15 @@
-"""Dataset loaders for BundleFuse -- thin, dataset-specific I/O that feeds the model class.
+"""Shared dataset loaders for BundleFuse -- thin, dataset-family I/O that feeds the model class.
 
-``load_dataset(name)`` returns a :class:`Dataset` with everything ``BundleFuse.fit`` needs:
-train bundles, validation / test (seeds, ground-truth) pairs, and the optional content array,
-category labels and per-user histories that switch the content / taxonomy / personalization
-families on. All modelling lives in :mod:`bundlefuse.model`; this module only reads files.
+Each per-dataset module (``bundlefuse/datasets/<name>.py``) calls one of these family loaders and
+returns a :class:`Dataset` with everything ``BundleFuse.fit`` needs: train bundles, validation / test
+(seeds, ground-truth) pairs, and the optional content array, category labels and per-user histories
+that switch the content / taxonomy / personalization families on. All modelling lives in
+:mod:`bundlefuse.model`; this module only reads files.
 
-Supported names:
-  bundlemllm  : pog, pog_dense, spotify, spotify_sparse   (provided completion splits; no users)
-  dunnhumby   : dunnhumby                                  (grocery baskets; households as users)
-  BundleRec   : electronic, food, clothing                (user_bundle + item_titles + pretrain)
+Family loaders:
+  load_bundlemllm : pog, pog_dense, spotify, spotify_sparse   (provided completion splits; no users)
+  load_dunnhumby  : dunnhumby                                  (grocery baskets; households as users)
+  load_bundlerec  : electronic, food, clothing                (user_bundle + item_titles + pretrain)
 """
 from __future__ import annotations
 
@@ -46,16 +47,6 @@ class Dataset:
     test_users: Optional[list] = None
 
 
-def load_dataset(name, *, val_n=800, test_n=2000, mask_frac=0.5, split_seed=0):
-    if name in BUNDLEMLLM:
-        return _load_bundlemllm(name, val_n, test_n)
-    if name == "dunnhumby":
-        return _load_dunnhumby(val_n, test_n, mask_frac, split_seed)
-    if name in BUNDLEREC:
-        return _load_bundlerec(name, val_n, test_n, mask_frac, split_seed)
-    raise ValueError(f"unknown dataset {name!r}")
-
-
 def _tfidf_svd(texts, dim=128):
     from sklearn.feature_extraction.text import TfidfVectorizer
     from sklearn.preprocessing import normalize
@@ -72,7 +63,7 @@ def _kmeans(feat, k=400):
 
 
 # ---------------------------------------------------------------- bundlemllm
-def _load_bundlemllm(name, val_n, test_n):
+def load_bundlemllm(name, val_n, test_n):
     import torch
     dd = os.path.join(DATA_ROOT, "bundlemllm", "datasets", name)
     n = json.load(open(os.path.join(dd, "count.json")))["#I"]
@@ -115,7 +106,7 @@ def _load_bundlemllm(name, val_n, test_n):
 
 
 # ---------------------------------------------------------------- dunnhumby
-def _load_dunnhumby(val_n, test_n, mask_frac, split_seed, basket_cap=30000):
+def load_dunnhumby(val_n, test_n, mask_frac, split_seed, basket_cap=30000):
     root = os.environ.get("DUNN_DIR") or os.path.join(DATA_ROOT, "dunnhumby")
     raw = defaultdict(set); buser = {}
     with open(os.path.join(root, "transaction_data.csv")) as f:
@@ -167,7 +158,7 @@ def _load_dunnhumby(val_n, test_n, mask_frac, split_seed, basket_cap=30000):
 
 
 # ---------------------------------------------------------------- BundleRec
-def _load_bundlerec(name, val_n, test_n, mask_frac, split_seed):
+def load_bundlerec(name, val_n, test_n, mask_frac, split_seed):
     root = os.path.join(DATA_ROOT, "BundleRec", "dataset", name)
     raw = defaultdict(list)
     with open(os.path.join(root, "bundle_item.csv")) as f:

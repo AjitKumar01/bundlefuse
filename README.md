@@ -19,11 +19,9 @@ Switched on per dataset via the config:
 ## Use
 
 ```python
-from bundlefuse.model import BundleFuse, BundleFuseConfig
-from bundlefuse.data import load_dataset
+from bundlefuse import datasets
 
-ds = load_dataset("pog_dense")
-model = BundleFuse(BundleFuseConfig(n_items=ds.n_items, families=ds.families))
+model, ds = datasets.build("pog_dense")        # object configured for this dataset + its data
 model.fit(ds.train, ds.val_pairs, content=ds.content, cat_labels=ds.cat_labels,
           user_items=ds.user_items, val_users=ds.val_users)   # all processing, once
 
@@ -31,6 +29,9 @@ model.save("pog_dense.pt")                 # checkpoint: artifacts + fitted weig
 model = BundleFuse.load("pog_dense.pt")
 items = model.predict(seeds, k=20, user=None)   # fast: one pass over the seed set
 ```
+
+Each dataset has its own file under `bundlefuse/datasets/` (`pog_dense.py`, `dunnhumby.py`, …) that
+owns its loader, its families, and the BundleFuse object configured for it.
 
 - **`fit`** builds every artifact (hypergraph operator, content bridge, taxonomy co-occurrence,
   user histories) and selects the fusion weights + shrinkage on the validation pairs.
@@ -55,9 +56,12 @@ Datasets: `pog`, `pog_dense`, `spotify`, `spotify_sparse` (bundlemllm); `dunnhum
 bundlefuse/
   model.py         # the BundleFuse class (fit / predict / score / save / load) + signal families
   operators.py     # the closed-form math (hypergraph operator, content bridge, EB shrinkage)
-  data.py          # per-dataset loaders -> (train, val/test pairs, content, cat, user histories)
-  run.py           # CLI entry point: load -> fit -> evaluate -> optional checkpoint
+  run.py           # CLI entry point: build dataset object -> fit -> evaluate -> optional checkpoint
+  datasets/        # ONE FILE PER DATASET -- each builds the object configured for it
+    base.py        #   shared family loaders (bundlemllm / dunnhumby / BundleRec) + Dataset
+    pog.py pog_dense.py spotify.py spotify_sparse.py
+    dunnhumby.py electronic.py food.py clothing.py
   metrics.py       # Recall / NDCG
   provided_splits.py, protocol.py, paths.py   # split I/O, reveal-fraction masking, data roots
-tests/             # core operator + split tests
+tests/test_model.py  # fit / predict / checkpoint / family-switch
 ```
