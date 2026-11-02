@@ -17,7 +17,8 @@ Train and evaluate any dataset through the one model class::
 
 or from the command line::  python -m bundlefuse.run pog_dense
 """
-from .model import BundleFuse, BundleFuseConfig
+from .model import BundleFuse, BundleFuseConfig, load_model
+from .baselines import BASELINES, Baseline
 from .operators import (
     SimplicialGraphOperator,
     BilateralContentBridge,
@@ -26,6 +27,7 @@ from .operators import (
 )
 
 __all__ = [
-    "BundleFuse", "BundleFuseConfig",
+    "BundleFuse", "BundleFuseConfig", "load_model",
+    "BASELINES", "Baseline",
     "SimplicialGraphOperator", "BilateralContentBridge", "EmpiricalBayesRouter", "zcols",
 ]

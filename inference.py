@@ -26,19 +26,25 @@ import numpy as np
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from bundlefuse import datasets
-from bundlefuse.model import BundleFuse
+from bundlefuse.model import load_model
+from bundlefuse.baselines import BASELINES
 from bundlefuse.metrics import ranking_metrics
+
+MODELS = ["bundlefuse"] + sorted(BASELINES)
 
 
 def _ckpt_path(args):
-    return args.ckpt or os.path.join(args.ckpt_dir, f"{args.dataset}.pt")
+    model = getattr(args, "model", "bundlefuse")
+    stem = args.dataset if model == "bundlefuse" else f"{args.dataset}_{model}"
+    return args.ckpt or os.path.join(args.ckpt_dir, f"{stem}.pt")
 
 
 def _load_model(args):
     path = _ckpt_path(args)
     if not os.path.exists(path):
-        sys.exit(f"checkpoint not found: {path}  (train it first: python evaluator.py {args.dataset})")
-    return BundleFuse.load(path)
+        hint = args.dataset + ("" if getattr(args, "model", "bundlefuse") == "bundlefuse" else f" --model {args.model}")
+        sys.exit(f"checkpoint not found: {path}  (train it first: python evaluator.py {hint})")
+    return load_model(path)
 
 
 def _parse_metric(s):
@@ -115,13 +121,14 @@ def cmd_report(args):
         by_seed[label] = {f"recall@{k}": round(r[k][0], 4) for k in Ks} | {f"ndcg@{k}": round(r[k][1], 4) for k in Ks}
     out = {
         "dataset": args.dataset,
+        "model": args.model,
         "checkpoint": _ckpt_path(args),
         "n_items": ds.n_items,
         "n_test": len(ds.test_pairs),
-        "families": model.cfg.families,
-        "signals": model.signals_,
-        "weights": {k: round(v, 3) for k, v in model.weights_.items()},
-        "kappa_f": round(float(model.kappa_f_), 4),
+        "families": getattr(getattr(model, "cfg", None), "families", None),
+        "signals": getattr(model, "signals_", [getattr(model, "name", args.model)]),
+        "weights": {k: round(v, 3) for k, v in getattr(model, "weights_", {}).items()},
+        "kappa_f": round(float(getattr(model, "kappa_f_", 0.0)), 4),
         "overall": {f"recall@{k}": round(overall[k][0], 4) for k in Ks} | {f"ndcg@{k}": round(overall[k][1], 4) for k in Ks},
         "by_seed_count": by_seed,
     }
@@ -139,6 +146,7 @@ def main(argv=None):
 
     p = sub.add_parser("predict", help="complete a seed bundle -> top-k items")
     p.add_argument("dataset", choices=sorted(datasets.REGISTRY))
+    p.add_argument("--model", choices=MODELS, default="bundlefuse", help="which trained model to use")
     p.add_argument("--seeds", default=None, help="comma-separated seed item indices")
     p.add_argument("--from-test", type=int, default=None, help="use the seeds of test bundle #INDEX")
     p.add_argument("--k", type=int, default=10, help="how many items to return (e.g. 5 or 10)")
@@ -147,19 +155,22 @@ def main(argv=None):
 
     e = sub.add_parser("evaluate", help="score the test set under one metric")
     e.add_argument("dataset", choices=sorted(datasets.REGISTRY))
+    e.add_argument("--model", choices=MODELS, default="bundlefuse", help="which trained model to use")
     e.add_argument("--metric", type=_parse_metric, default=_parse_metric("recall@20"), help="recall@K or ndcg@K")
     e.add_argument("--test-n", type=int, default=2000)
     e.set_defaults(func=cmd_evaluate)
 
     r = sub.add_parser("report", help="full evaluation (R/N @10/20/50, overall + by seed count) -> JSON")
     r.add_argument("dataset", choices=sorted(datasets.REGISTRY))
-    r.add_argument("--out", default=None, help="output JSON path (default reports/<dataset>.json)")
+    r.add_argument("--model", choices=MODELS, default="bundlefuse", help="which trained model to use")
+    r.add_argument("--out", default=None, help="output JSON path (default reports/<dataset>_<model>.json)")
     r.add_argument("--test-n", type=int, default=2000)
     r.set_defaults(func=cmd_report)
 
     args = ap.parse_args(argv)
     if args.mode == "report" and args.out is None:
-        args.out = os.path.join("reports", f"{args.dataset}.json")
+        stem = args.dataset if args.model == "bundlefuse" else f"{args.dataset}_{args.model}"
+        args.out = os.path.join("reports", f"{stem}.json")
     args.func(args)
 
 

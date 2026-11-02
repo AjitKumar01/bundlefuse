@@ -336,29 +336,27 @@ class BundleFuse:
 
     # ===================== checkpoint =====================
 
-    _STATE_KEYS = ("cfg", "graph", "E", "BR", "cat_lbl", "Pcat", "UI", "user_items",
-                   "freq_c", "totc", "signals_", "weights_", "prior_keys_", "kappa_f_",
-                   "prior_scale_", "fitted_")
     # materialised operator matrices derivable from the incidence B -- dropped in a compressed save,
     # after which cooc / ppmi / user_cooc are recomputed from B at predict time (lossless to ~1e-4).
     _DROP_WHEN_COMPRESSED = ("C", "C_bin", "PPMI", "W_pair", "W_pair_sq", "W_csc", "P_rw")
 
     def save(self, path):
-        """Serialise the fitted artifacts + weights. With cfg.compressed, store only the incidence B
-        (plus the small vectors and low-rank content) and drop the materialised co-occurrence matrices."""
+        """Pickle the fitted model (same format as the baselines). With cfg.compressed, first drop the
+        materialised co-occurrence matrices (kept derivable from the stored incidence B)."""
         if self.cfg.compressed and self.graph is not None:
             for attr in self._DROP_WHEN_COMPRESSED:
                 if getattr(self.graph, attr, None) is not None:
                     setattr(self.graph, attr, None)
-        state = {k: getattr(self, k) for k in self._STATE_KEYS}
         with open(path, "wb") as f:
-            pickle.dump(state, f, protocol=pickle.HIGHEST_PROTOCOL)
+            pickle.dump(self, f, protocol=pickle.HIGHEST_PROTOCOL)
 
     @classmethod
     def load(cls, path):
         with open(path, "rb") as f:
-            state = pickle.load(f)
-        obj = cls(state["cfg"])
-        for k in cls._STATE_KEYS:
-            setattr(obj, k, state[k])
-        return obj
+            return pickle.load(f)
+
+
+def load_model(path):
+    """Load any saved model (BundleFuse or a baseline) -- all pickle the object itself."""
+    with open(path, "rb") as f:
+        return pickle.load(f)

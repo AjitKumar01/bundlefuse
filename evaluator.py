@@ -23,7 +23,10 @@ import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from bundlefuse import datasets
 from bundlefuse.model import BundleFuse
+from bundlefuse.baselines import BASELINES
 from bundlefuse.metrics import ranking_metrics
+
+MODELS = ["bundlefuse"] + sorted(BASELINES)
 
 # fit-config overrides exposed on the command line -> BundleFuseConfig fields
 CONFIG_OVERRIDES = ("alpha_deg", "gamma_vol", "beta_clique", "alpha_bridge", "fit_rounds", "seed_cap")
@@ -43,7 +46,8 @@ def build_parser():
     ap = argparse.ArgumentParser(description="Train BundleFuse on a dataset and store a checkpoint.",
                                  formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     ap.add_argument("dataset", choices=sorted(datasets.REGISTRY), help="which dataset to train on")
-    # data / fit configuration
+    ap.add_argument("--model", choices=MODELS, default="bundlefuse", help="BundleFuse or a baseline")
+    # data / fit configuration (BundleFuse only; ignored by baselines)
     ap.add_argument("--families", default=None, help="comma-separated families to enable (default: the dataset's own)")
     ap.add_argument("--svd-dim", type=int, default=None, help="collaborative SVD dimension (default: dataset's own)")
     ap.add_argument("--val-n", type=int, default=800, help="number of validation queries for weight selection")
@@ -68,27 +72,36 @@ def main(argv=None):
 
     mod = datasets.get(args.dataset)
     ds = mod.load(val_n=args.val_n, test_n=args.test_n)
-    fams = args.families.split(",") if args.families else None
-    cfg = mod.config(ds.n_items, families=fams, svd_dim=args.svd_dim)
-    for field in CONFIG_OVERRIDES:
-        val = getattr(args, field)
-        if val is not None:
-            setattr(cfg, field, val)
-    model = BundleFuse(cfg)
-    print(f"{ds.name}: n={ds.n_items} train={len(ds.train)} val={len(ds.val_pairs)} test={len(ds.test_pairs)} "
-          f"| families={cfg.families} svd_dim={cfg.svd_dim} | load {time.time()-t0:.0f}s", flush=True)
+    if args.model == "bundlefuse":
+        fams = args.families.split(",") if args.families else None
+        cfg = mod.config(ds.n_items, families=fams, svd_dim=args.svd_dim)
+        for field in CONFIG_OVERRIDES:
+            val = getattr(args, field)
+            if val is not None:
+                setattr(cfg, field, val)
+        model = BundleFuse(cfg)
+        desc = f"families={cfg.families} svd_dim={cfg.svd_dim}"
+    else:
+        model = BASELINES[args.model](ds.n_items)
+        desc = f"baseline={args.model}"
+    print(f"{ds.name} [{args.model}]: n={ds.n_items} train={len(ds.train)} val={len(ds.val_pairs)} "
+          f"test={len(ds.test_pairs)} | {desc} | load {time.time()-t0:.0f}s", flush=True)
 
     model.fit(ds.train, ds.val_pairs, content=ds.content, cat_labels=ds.cat_labels,
               user_items=ds.user_items, val_users=ds.val_users)
-    print(f"  fitted in {time.time()-t0:.0f}s | signals={model.signals_} "
-          f"| weights={ {k: round(v,2) for k,v in model.weights_.items()} } kappa_f={model.kappa_f_:.3g}", flush=True)
+    if hasattr(model, "signals_"):
+        print(f"  fitted in {time.time()-t0:.0f}s | signals={model.signals_} "
+              f"| weights={ {k: round(v,2) for k,v in model.weights_.items()} } kappa_f={model.kappa_f_:.3g}", flush=True)
+    else:
+        print(f"  fitted in {time.time()-t0:.0f}s", flush=True)
 
     if not args.no_eval:
         r, nd = evaluate(model, ds.test_pairs, ds.test_users)
         print(f"  TEST ({len(ds.test_pairs)} queries): Recall@20={r:.4f}  NDCG@20={nd:.4f}", flush=True)
 
     if not args.no_save:
-        path = args.save or os.path.join(args.ckpt_dir, f"{args.dataset}.pt")
+        stem = args.dataset if args.model == "bundlefuse" else f"{args.dataset}_{args.model}"
+        path = args.save or os.path.join(args.ckpt_dir, f"{stem}.pt")
         os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
         model.save(path)
         print(f"  checkpoint -> {path} ({os.path.getsize(path)/1e6:.1f} MB)", flush=True)
