@@ -33,9 +33,9 @@ def test_fit_predict_and_checkpoint():
 
     model = BundleFuse(BundleFuseConfig(n_items=n, svd_dim=8,
                                         families=["collaborative", "content", "taxonomy", "popularity"]))
-    model.fit(tr, val_pairs, content=content, cat_labels=cat)
-    assert model.fitted_ and model.signals_, "model did not fit"
-    assert set(model.weights_), "no signals selected"
+    model.fit(tr, val_pairs, features={"content": content}, cat_labels=cat)
+    assert model.fitted_ and model.SIG, "model did not fit"
+    assert any(model.w.values()), "no signals selected"
 
     seeds = test_pairs[0][0]
     top = model.predict(seeds, k=10)
@@ -59,8 +59,8 @@ def test_family_switch():
     val_pairs = protocol.mask(bundles[ntr:ntr + nva], 1, 0.5)
     m = BundleFuse(BundleFuseConfig(n_items=n, svd_dim=8, families=["collaborative", "popularity"]))
     m.fit(bundles[:ntr], val_pairs)                       # no content/cat passed
-    assert "content" not in m.signals_ and "cat" not in m.signals_
-    assert "cooc" in m.signals_ and "pop" in m.signals_
+    assert "style" not in m.SIG and "cat" not in m.SIG, m.SIG
+    assert "cooc" in m.SIG and "pop" in m.SIG, m.SIG
     print("test_family_switch OK")
 
 

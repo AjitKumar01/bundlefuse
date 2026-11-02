@@ -97,7 +97,9 @@ def main(argv=None):
     print(f"{ds.name} [{args.model}]: n={ds.n_items} train={len(ds.train)} val={len(ds.val_pairs)} "
           f"test={len(ds.test_pairs)} | {desc} | load {time.time()-t0:.0f}s", flush=True)
 
-    model.fit(ds.train, ds.val_pairs, content=ds.content, cat_labels=ds.cat_labels,
+    model.fit(ds.train, ds.val_pairs, features=ds.features, cat_labels=ds.cat_labels,
+              music=ds.music, alb_labels=ds.alb_labels, cluster_feat=ds.cluster_feat,
+              aux_incidences=ds.aux_incidences, group_labels=ds.group_labels,
               user_items=ds.user_items, val_users=ds.val_users)
     if hasattr(model, "signals_"):
         print(f"  fitted in {time.time()-t0:.0f}s | signals={model.signals_} "

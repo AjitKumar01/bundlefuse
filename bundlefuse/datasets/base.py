@@ -40,8 +40,13 @@ class Dataset:
     val_pairs: list
     test_pairs: list
     families: list
-    content: Optional[np.ndarray] = None
+    features: Optional[dict] = None          # content modalities, e.g. {"content":title,"image":img,"desc":desc}
     cat_labels: Optional[np.ndarray] = None
+    music: bool = False
+    alb_labels: Optional[np.ndarray] = None
+    cluster_feat: Optional[np.ndarray] = None
+    aux_incidences: Optional[dict] = None
+    group_labels: Optional[dict] = None
     user_items: Optional[dict] = None
     val_users: Optional[list] = None
     test_users: Optional[list] = None
@@ -55,6 +60,19 @@ def _tfidf_svd(texts, dim=128):
     tf = normalize(tf, norm="l2", axis=1)
     d = min(dim, tf.shape[1] - 1)
     return TruncatedSVD(d, random_state=0).fit_transform(tf).astype(np.float32)
+
+
+def _user_incidence(user_items, n):
+    """Degree-normalised (users x items) incidence for an auxiliary co-occurrence signal."""
+    from collections import Counter
+    nu = (max(user_items) + 1) if user_items else 1
+    r, c, d = [], [], []
+    for u, its in user_items.items():
+        for it, cnt in Counter(its).items():
+            r.append(u); c.append(it); d.append(float(cnt))
+    X = sp.csr_matrix((d, (r, c)), shape=(nu, n))
+    deg = np.asarray(X.sum(1)).ravel() + 1.0
+    return (sp.diags(1.0 / np.sqrt(deg)) @ X).tocsr()
 
 
 def _kmeans(feat, k=400):
@@ -74,35 +92,37 @@ def load_bundlemllm(name, val_n, test_n):
     def _pt(f):
         return torch.load(os.path.join(dd, f), map_location="cpu", weights_only=False).detach().float().numpy()
 
-    parts = []
+    # per-modality content features (kept separate so the model disentangles each, as the research build)
+    feats = {}
     if music:
         if os.path.exists(os.path.join(dd, "content_feature.pt")):
-            parts.append(_pt("content_feature.pt"))
+            feats["audio"] = _pt("content_feature.pt")
     else:
         if os.path.exists(os.path.join(dd, "title_emb.npy")):
-            parts.append(np.load(os.path.join(dd, "title_emb.npy")).astype(np.float32))
-        for f in ("content_feature.pt", "description_feature.pt"):
-            if os.path.exists(os.path.join(dd, f)):
-                parts.append(_pt(f))
-    content = None
-    if parts:
-        parts = [p / (np.linalg.norm(p, axis=1, keepdims=True) + 1e-8) for p in parts]
-        content = np.concatenate(parts, axis=1).astype(np.float32)
+            feats["content"] = np.load(os.path.join(dd, "title_emb.npy")).astype(np.float32)
+        if os.path.exists(os.path.join(dd, "content_feature.pt")):
+            feats["image"] = _pt("content_feature.pt")
+        if os.path.exists(os.path.join(dd, "description_feature.pt")):
+            feats["desc"] = _pt("description_feature.pt")
+    feats = {k: (v / (np.linalg.norm(v, axis=1, keepdims=True) + 1e-8)).astype(np.float32) for k, v in feats.items()}
+    cluster_feat = np.concatenate(list(feats.values()), 1).astype(np.float32) if feats else None
 
-    # taxonomy: explicit category if present, else cluster the content
-    cat = None
+    # taxonomy labels: explicit category (fashion) or artist indices (music); album labels for homophily
+    cat = None; alb = None
     cval = info["0"].get("cate", info["0"].get("cate_id"))
-    if cval is not None:
+    if (not music) and cval is not None:
         cmap = {}; cat = np.zeros(n, int)
         for k, v in info.items():
-            c = v.get("cate", v.get("cate_id"))
-            cat[int(k)] = cmap.setdefault(c, len(cmap))
-    elif content is not None:
-        cat = _kmeans(content)
+            cat[int(k)] = cmap.setdefault(v.get("cate", v.get("cate_id")), len(cmap))
+    elif music and info["0"].get("artist_uri") is not None:
+        am = {}; cat = np.zeros(n, int); alm = {}; alb = np.zeros(n, int)
+        for k, v in info.items():
+            cat[int(k)] = am.setdefault(v.get("artist_uri", "?"), len(am))
+            alb[int(k)] = alm.setdefault(v.get("album_uri", "?"), len(alm))
 
-    fams = ["collaborative", "popularity"] + (["content"] if content is not None else []) + (["taxonomy"] if cat is not None else [])
+    fams = ["collaborative", "popularity", "content", "taxonomy"]
     return Dataset(name, n, list(sp_.train.values()), sp_.pairs("valid")[:val_n], sp_.pairs("test")[:test_n],
-                   fams, content=content, cat_labels=cat)
+                   fams, features=feats, cat_labels=cat, music=music, alb_labels=alb, cluster_feat=cluster_feat)
 
 
 # ---------------------------------------------------------------- dunnhumby
@@ -153,8 +173,9 @@ def load_dunnhumby(val_n, test_n, mask_frac, split_seed, basket_cap=30000):
     tp = protocol.mask([bundles[i] for i in tei], split_seed + 2, mask_frac)[:test_n]
     vu = [busers[i] for i in vai][:val_n]; tu = [busers[i] for i in tei][:test_n]
     fams = ["collaborative", "content", "taxonomy", "popularity", "personalization"]
-    return Dataset("dunnhumby", n, train, vp, tp, fams, content=content, cat_labels=cat,
-                   user_items=dict(user_items), val_users=vu, test_users=tu)
+    aux = {"hh_cooc": (_user_incidence(dict(user_items), n), True)}   # household co-occurrence (degree-weighted)
+    return Dataset("dunnhumby", n, train, vp, tp, fams, features={"content": content}, cat_labels=cat,
+                   aux_incidences=aux, user_items=dict(user_items), val_users=vu, test_users=tu)
 
 
 # ---------------------------------------------------------------- BundleRec
@@ -217,5 +238,6 @@ def load_bundlerec(name, val_n, test_n, mask_frac, split_seed):
     tp_ = protocol.mask([bundles[i] for i in tei], split_seed + 2, mask_frac)[:test_n]
     vu = [b2u.get(bkeys[i], -1) for i in vai][:val_n]; tu = [b2u.get(bkeys[i], -1) for i in tei][:test_n]
     fams = ["collaborative", "content", "taxonomy", "popularity", "personalization"]
-    return Dataset(name, n, train, vp, tp_, fams, content=content, cat_labels=cat,
-                   user_items=dict(user_items), val_users=vu, test_users=tu)
+    aux = {"pretrain": (_user_incidence(dict(user_items), n), False)}   # user-item pretrain co-occurrence
+    return Dataset(name, n, train, vp, tp_, fams, features={"content": content}, cat_labels=cat,
+                   aux_incidences=aux, user_items=dict(user_items), val_users=vu, test_users=tu)
