@@ -3,10 +3,104 @@
 A zero-parameter, config-driven scorer for **bundle completion**: given a partial bundle (seed items),
 rank the catalogue for the items that complete it. BundleFuse fuses a handful of closed-form signals —
 organised into families — with validation-selected weights and empirical-Bayes cold-start shrinkage.
-No gradient training; one model object per dataset.
+No gradient training; one model object per dataset; compressed checkpoints.
 
-## Signal families
-Switched on per dataset via the config:
+```python
+from bundlefuse import datasets
+model, ds = datasets.build("pog_dense")        # object configured for this dataset + its data
+model.fit(ds.train, ds.val_pairs, content=ds.content, cat_labels=ds.cat_labels,
+          user_items=ds.user_items, val_users=ds.val_users)
+model.save("checkpoints/pog_dense.pt")
+items = model.predict(seeds=[7917, 15610], k=10)     # fast: one pass over the seed set
+```
+
+## Install
+
+```bash
+git clone https://github.com/AjitKumar01/bundlefuse.git
+cd bundlefuse
+pip install -r requirements.txt          # numpy, scipy, scikit-learn, torch, tqdm
+python -m pytest tests/ -q               # or: python tests/test_model.py
+```
+
+## Get the data
+
+The datasets are **not vendored**. By default BundleFuse looks for them **one level above the repo**
+(so the repo and the data are siblings); point `BUNDLEFUSE_DATA_ROOT` somewhere else if you prefer:
+
+```
+<DATA_ROOT>/                         # default: the parent of this repo
+  bundlemllm/datasets/<name>/        # pog, pog_dense, spotify, spotify_sparse
+  BundleRec/dataset/<name>/          # electronic, food, clothing
+  dunnhumby/                         # transaction_data.csv, product.csv
+```
+
+```bash
+export BUNDLEFUSE_DATA_ROOT=/path/to/data     # optional; defaults to the repo's parent dir
+```
+
+### 1. bundlemllm — `pog`, `pog_dense`, `spotify`, `spotify_sparse`
+Pre-extracted features from **BundleMLLM** (Liu et al., KDD'25):
+➡ **https://huggingface.co/datasets/xhLiu/BundleConstruction**
+
+Download the four BundleConstruction datasets and place each under
+`<DATA_ROOT>/bundlemllm/datasets/<name>/` so the folder name matches the value you pass to
+`--dataset` (`pog`, `pog_dense`, `spotify`, `spotify_sparse` — rename if the archive uses a different
+case/suffix; match by the counts in each `count.json` if unsure). Each folder must contain:
+`bi_train.txt`, `bi_{valid,test}_{input,gt}.txt`, `count.json`, `item_info.json`,
+`content_feature.pt` (and, for the POG/fashion sets, `title_emb.npy`, `description_feature.pt`).
+
+### 2. BundleRec — `electronic`, `food`, `clothing`
+Crowd-sourced bundles from **"Revisiting Bundle Recommendation"** (Sun et al., SIGIR'22):
+➡ **https://github.com/BundleRec/bundle_recommendation**
+
+Copy its `dataset/<name>/` folders to `<DATA_ROOT>/BundleRec/dataset/<name>/`. Files used:
+`bundle_item.csv`, `user_bundle.csv`, `item_titles.csv`, `item_categories.csv`, `user_item_pretrain.csv`.
+
+### 3. dunnhumby — `dunnhumby`
+**"The Complete Journey"** grocery transactions:
+➡ **https://www.dunnhumby.com/source-files/** (form-gated) — or the Mendeley mirror
+**https://data.mendeley.com/datasets/7myy93ym6k/1**
+
+Put **`transaction_data.csv`** and **`product.csv`** in `<DATA_ROOT>/dunnhumby/`
+(override the location with `DUNN_DIR=/path/to/dunnhumby`).
+
+## Train — `evaluator.py`
+
+Reads the dataset and fit-config from the command line, trains the per-dataset model, evaluates, and
+writes a checkpoint to `checkpoints/<dataset>.pt`:
+
+```bash
+python evaluator.py pog_dense                              # BundleFuse (default)
+python evaluator.py dunnhumby --test-n 2000 --ckpt-dir checkpoints
+python evaluator.py spotify --beta-clique 1.0 --seed-cap 20 --no-eval
+python evaluator.py electronic --model itemknn             # a baseline instead
+python evaluator.py --help                                 # all flags
+```
+
+Fit flags: `--families`, `--svd-dim`, `--val-n/--test-n`, `--alpha-deg/--gamma-vol/--beta-clique/`
+`--alpha-bridge/--fit-rounds/--seed-cap`. Checkpoint flags: `--ckpt-dir/--save/--no-save/--no-eval`.
+Checkpoints are **compressed by default** (incidence `B` + low-rank content; pog 834 MB → 50 MB).
+
+## Use a checkpoint — `inference.py`
+
+```bash
+# complete a seed bundle -> top-k
+python inference.py predict pog_dense --seeds 7917,15610 --k 5
+python inference.py predict dunnhumby --from-test 0 --k 10 --user 42
+
+# test set under one metric
+python inference.py evaluate spotify --metric ndcg@50 --test-n 2000
+
+# full evaluation (R/N @10/20/50, overall + by seed count) -> JSON
+python inference.py report dunnhumby --out reports/dunnhumby.json
+```
+
+Add `--model <baseline>` to use a baseline checkpoint instead of BundleFuse.
+
+## Models & signal families
+
+BundleFuse's signals, switched on per dataset by the config:
 
 | family | signals | needs |
 |---|---|---|
@@ -16,56 +110,22 @@ Switched on per dataset via the config:
 | `popularity` | pop | train bundles (always) |
 | `personalization` | user_freq, user_cooc | per-user histories |
 
-## Use
-
-```python
-from bundlefuse import datasets
-
-model, ds = datasets.build("pog_dense")        # object configured for this dataset + its data
-model.fit(ds.train, ds.val_pairs, content=ds.content, cat_labels=ds.cat_labels,
-          user_items=ds.user_items, val_users=ds.val_users)   # all processing, once
-
-model.save("pog_dense.pt")                 # checkpoint: artifacts + fitted weights
-model = BundleFuse.load("pog_dense.pt")
-items = model.predict(seeds, k=20, user=None)   # fast: one pass over the seed set
-```
-
-Each dataset has its own file under `bundlefuse/datasets/` (`pog_dense.py`, `dunnhumby.py`, …) that
-owns its loader, its families, and the BundleFuse object configured for it.
-
-- **`fit`** builds every artifact (hypergraph operator, content bridge, taxonomy co-occurrence,
-  user histories) and selects the fusion weights + shrinkage on the validation pairs.
-- **`predict` / `score`** only compute the active signals for the given seed set, fuse, shrink and
-  rank — no training at predict time.
-- **`save` / `load`** is a self-contained checkpoint.
-
-### Command line
-
-`evaluator.py` (at the project root) trains a dataset from CLI arguments and stores a checkpoint:
-
-```bash
-python evaluator.py pog_dense                                   # train + evaluate, checkpoint -> checkpoints/pog_dense.pt
-python evaluator.py dunnhumby --test-n 2000 --ckpt-dir ckpts    # choose where to store checkpoints
-python evaluator.py electronic --families collaborative,content,taxonomy,popularity --svd-dim 64
-python evaluator.py spotify --beta-clique 1.0 --seed-cap 20 --no-eval   # train + checkpoint only
-python evaluator.py --help                                      # all fit-config flags
-```
-
-Datasets: `pog`, `pog_dense`, `spotify`, `spotify_sparse` (bundlemllm); `dunnhumby`; `electronic`,
-`food`, `clothing` (BundleRec). Data is read from `../bundlemllm`, `../dunnhumby`, `../BundleRec`.
+Baselines (same interface, selectable with `--model`): `popularity`, `cooccurrence`, `itemknn`,
+`p3alpha`, `rp3beta`, `contentknn`.
 
 ## Layout
 
 ```
-evaluator.py       # CLI entry point (outside the package): args -> fit -> evaluate -> checkpoint
+evaluator.py        # CLI: train a model -> checkpoint
+inference.py        # CLI: predict / evaluate / report from a checkpoint
 bundlefuse/
-  model.py         # the BundleFuse class (fit / predict / score / save / load) + signal families
-  operators.py     # the closed-form math (hypergraph operator, content bridge, EB shrinkage)
-  datasets/        # ONE FILE PER DATASET -- each builds the object configured for it
-    base.py        #   shared family loaders (bundlemllm / dunnhumby / BundleRec) + Dataset
-    pog.py pog_dense.py spotify.py spotify_sparse.py
-    dunnhumby.py electronic.py food.py clothing.py
-  metrics.py       # Recall / NDCG
-  provided_splits.py, protocol.py, paths.py   # split I/O, reveal-fraction masking, data roots
-tests/test_model.py  # fit / predict / checkpoint / family-switch
+  model.py          # the BundleFuse class (fit/predict/score/save/load) + signal families
+  baselines.py      # the baseline models
+  operators.py      # the closed-form math (hypergraph operator, content bridge, EB shrinkage)
+  datasets/         # one file per dataset (each builds its configured object) + base.py loaders
+  metrics.py  provided_splits.py  protocol.py  paths.py  __init__.py
+tests/test_model.py
+checkpoints/        # written by evaluator.py (gitignored)
 ```
+
+Datasets are read from `<DATA_ROOT>/{bundlemllm,BundleRec,dunnhumby}`; see **Get the data** above.
