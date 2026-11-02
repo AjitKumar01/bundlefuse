@@ -25,6 +25,7 @@ from typing import Optional
 
 import numpy as np
 import scipy.sparse as sp
+from sklearn.decomposition import TruncatedSVD
 
 from bundlefuse.operators import (
     SimplicialGraphOperator,
@@ -66,6 +67,9 @@ class BundleFuseConfig:
     fit_rounds: int = 4
     shrink_grid: tuple = (0.0, 0.05, 0.25, 1.0)
     seed_cap: int = 0                        # 0 = use all seeds; else truncate to first `seed_cap`
+    # ---- compressed checkpoint (the default, production, form) ----
+    compressed: bool = True                  # store incidence B (recompute cooc/ppmi on the fly) +
+    content_rank: int = 64                   # low-rank content/bridge; drops materialised C/PPMI/W_pair
 
 
 class BundleFuse:
@@ -78,6 +82,8 @@ class BundleFuse:
         self.Pcat = None         # (NC, NC) category co-occurrence
         self.UI = None           # (n, n_users) user purchase counts (personalization)
         self.user_items = None   # dict user -> list[int] (history item indices)
+        self.freq_c = None       # (n,) co-occurrence degree (for PPMI recomputed from B)
+        self.totc = None         # scalar total co-occurrence mass
         self.signals_: list = []
         self.weights_: dict = {}
         self.prior_keys_: list = []
@@ -88,12 +94,35 @@ class BundleFuse:
     # ===================== signal families (organised blocks) =====================
     # Each block takes a list of seed-sets and returns {signal_name: (n, nb) raw score matrix}.
 
+    def _cooc_from_B(self, Ind):
+        """cooc(c|S) = C @ 1_S = Bᵀ(B·1_S); lossless, no materialised C."""
+        B = self.graph.B
+        return np.asarray((B.T @ (B @ Ind)).todense(), dtype=np.float32)
+
+    def _ppmi_from_B(self, seeds_list):
+        """PPMI(c|S) recomputed from B slices + stored freq_c/totc (matches materialised to ~1e-4)."""
+        B = self.graph.B; fc, tot = self.freq_c, self.totc
+        out = np.zeros((self.cfg.n_items, len(seeds_list)), np.float32)
+        for j, s in enumerate(seeds_list):
+            if not len(s):
+                continue
+            Cs = np.asarray((B.T @ B[:, list(s)]).todense())
+            with np.errstate(divide="ignore", invalid="ignore"):
+                pp = np.log(Cs * tot / (fc[:, None] * fc[list(s)][None, :] + 1e-12))
+            pp = np.maximum(pp, 0.0); pp[Cs <= 0] = 0.0
+            out[:, j] = pp.sum(1)
+        return out
+
     def _collaborative(self, seeds_list):
         g = self.graph
         out = {}
         Ind = g.build_indicator(seeds_list)
-        out["cooc"] = np.asarray((g.C @ Ind).todense(), dtype=np.float32)
-        out["ppmi"] = np.asarray((g.PPMI @ Ind).todense(), dtype=np.float32)
+        if getattr(g, "PPMI", None) is not None:          # fit / uncompressed: use materialised
+            out["cooc"] = np.asarray((g.C @ Ind).todense(), dtype=np.float32)
+            out["ppmi"] = np.asarray((g.PPMI @ Ind).todense(), dtype=np.float32)
+        else:                                             # compressed load: recompute from B
+            out["cooc"] = self._cooc_from_B(Ind)
+            out["ppmi"] = self._ppmi_from_B(seeds_list)
         sc_pair, sc_diff2 = g.score_pairwise_and_diff2(seeds_list)
         d_inc, d_diff2 = g.score_simplicial_incidence_only(seeds_list, beta_clique=self.cfg.beta_clique)
         out["simp"] = (sc_pair + d_inc).astype(np.float32)
@@ -137,7 +166,11 @@ class BundleFuse:
                 uf[:, j] = np.asarray(self.UI[:, u].todense()).ravel()
                 if hist:
                     Hind[hist, j] = 1.0
-        uc = np.asarray((self.graph.C @ Hind.tocsr()).todense(), dtype=np.float32)
+        Hind = Hind.tocsr()
+        if getattr(self.graph, "C", None) is not None:
+            uc = np.asarray((self.graph.C @ Hind).todense(), dtype=np.float32)
+        else:
+            uc = self._cooc_from_B(Hind)
         return {"user_freq": uf, "user_cooc": uc}
 
     def _signals(self, seeds_list, users=None):
@@ -210,9 +243,16 @@ class BundleFuse:
             train_bundles, n_items=cfg.n_items, svd_dim=cfg.svd_dim,
             alpha_deg=cfg.alpha_deg, gamma_vol=cfg.gamma_vol, beta_clique=cfg.beta_clique,
         )
+        # co-occurrence degree + total mass, so PPMI can be recomputed from B after compression
+        self.freq_c = (np.asarray(self.graph.C.sum(1)).ravel() + 1e-9).astype(np.float32)
+        self.totc = float(self.graph.C.sum())
         if content is not None:
             E = np.asarray(content, np.float32)
-            self.E = E / (np.linalg.norm(E, axis=1, keepdims=True) + EPS)
+            E = E / (np.linalg.norm(E, axis=1, keepdims=True) + EPS)
+            if cfg.compressed and E.shape[1] > cfg.content_rank:
+                # low-rank embedding whose dot product is the exact rank-r content similarity
+                E = TruncatedSVD(cfg.content_rank, random_state=0).fit_transform(E).astype(np.float32)
+            self.E = E
             self.BR = BilateralContentBridge.build_dense_bridge(self.E, self.graph, alpha_bridge=cfg.alpha_bridge)
         if cat_labels is not None:
             self.cat_lbl = np.asarray(cat_labels, int)
@@ -297,10 +337,19 @@ class BundleFuse:
     # ===================== checkpoint =====================
 
     _STATE_KEYS = ("cfg", "graph", "E", "BR", "cat_lbl", "Pcat", "UI", "user_items",
-                   "signals_", "weights_", "prior_keys_", "kappa_f_", "prior_scale_", "fitted_")
+                   "freq_c", "totc", "signals_", "weights_", "prior_keys_", "kappa_f_",
+                   "prior_scale_", "fitted_")
+    # materialised operator matrices derivable from the incidence B -- dropped in a compressed save,
+    # after which cooc / ppmi / user_cooc are recomputed from B at predict time (lossless to ~1e-4).
+    _DROP_WHEN_COMPRESSED = ("C", "C_bin", "PPMI", "W_pair", "W_pair_sq", "W_csc", "P_rw")
 
     def save(self, path):
-        """Serialise all fitted artifacts + weights (a self-contained checkpoint)."""
+        """Serialise the fitted artifacts + weights. With cfg.compressed, store only the incidence B
+        (plus the small vectors and low-rank content) and drop the materialised co-occurrence matrices."""
+        if self.cfg.compressed and self.graph is not None:
+            for attr in self._DROP_WHEN_COMPRESSED:
+                if getattr(self.graph, attr, None) is not None:
+                    setattr(self.graph, attr, None)
         state = {k: getattr(self, k) for k in self._STATE_KEYS}
         with open(path, "wb") as f:
             pickle.dump(state, f, protocol=pickle.HIGHEST_PROTOCOL)
