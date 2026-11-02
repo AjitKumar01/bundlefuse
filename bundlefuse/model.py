@@ -352,11 +352,21 @@ class BundleFuse:
 
     @classmethod
     def load(cls, path):
-        with open(path, "rb") as f:
-            return pickle.load(f)
+        return load_model(path)
+
+    @classmethod
+    def _from_state(cls, state):
+        obj = cls(state["cfg"])
+        for k, v in state.items():
+            setattr(obj, k, v)
+        return obj
 
 
 def load_model(path):
-    """Load any saved model (BundleFuse or a baseline) -- all pickle the object itself."""
+    """Load any saved model (BundleFuse or a baseline). Models pickle themselves; a legacy
+    BundleFuse checkpoint (a state dict with 'cfg') is reconstructed for compatibility."""
     with open(path, "rb") as f:
-        return pickle.load(f)
+        obj = pickle.load(f)
+    if isinstance(obj, dict) and "cfg" in obj:
+        return BundleFuse._from_state(obj)
+    return obj
