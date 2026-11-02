@@ -47,7 +47,9 @@ def build_parser():
                                  formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     ap.add_argument("dataset", choices=sorted(datasets.REGISTRY), help="which dataset to train on")
     ap.add_argument("--model", choices=MODELS, default="bundlefuse", help="BundleFuse or a baseline")
-    # data / fit configuration (BundleFuse only; ignored by baselines)
+    ap.add_argument("--config", default=None, help="dataset config JSON (default: configs/<dataset>.json)")
+    ap.add_argument("--no-config", action="store_true", help="ignore the config file; use built-in defaults")
+    # data / fit configuration (BundleFuse only; ignored by baselines). These override the config file.
     ap.add_argument("--families", default=None, help="comma-separated families to enable (default: the dataset's own)")
     ap.add_argument("--svd-dim", type=int, default=None, help="collaborative SVD dimension (default: dataset's own)")
     ap.add_argument("--val-n", type=int, default=800, help="number of validation queries for weight selection")
@@ -58,6 +60,8 @@ def build_parser():
     ap.add_argument("--alpha-bridge", type=float, default=None, help="content-bridge mixing")
     ap.add_argument("--fit-rounds", type=int, default=None, help="greedy weight-selection rounds")
     ap.add_argument("--seed-cap", type=int, default=None, help="truncate seed sets to this many items (0 = all)")
+    ap.add_argument("--content-rank", type=int, default=None, help="low-rank content dim for compressed checkpoints")
+    ap.add_argument("--no-compress", action="store_true", help="store the full (uncompressed) checkpoint")
     # checkpoint / eval control
     ap.add_argument("--ckpt-dir", default="checkpoints", help="directory to write <dataset>.pt into")
     ap.add_argument("--save", default=None, help="explicit checkpoint path (overrides --ckpt-dir)")
@@ -74,13 +78,19 @@ def main(argv=None):
     ds = mod.load(val_n=args.val_n, test_n=args.test_n)
     if args.model == "bundlefuse":
         fams = args.families.split(",") if args.families else None
-        cfg = mod.config(ds.n_items, families=fams, svd_dim=args.svd_dim)
-        for field in CONFIG_OVERRIDES:
+        cfg = mod.config(ds.n_items, families=fams, svd_dim=args.svd_dim,
+                         use_config=not args.no_config, config_file=args.config)
+        for field in CONFIG_OVERRIDES:          # CLI flags override the config file
             val = getattr(args, field)
             if val is not None:
                 setattr(cfg, field, val)
+        if args.content_rank is not None:
+            cfg.content_rank = args.content_rank
+        if args.no_compress:
+            cfg.compressed = False
         model = BundleFuse(cfg)
-        desc = f"families={cfg.families} svd_dim={cfg.svd_dim}"
+        src = "built-in" if args.no_config else (args.config or f"configs/{args.dataset}.json")
+        desc = f"families={cfg.families} svd_dim={cfg.svd_dim} content_rank={cfg.content_rank} [config: {src}]"
     else:
         model = BASELINES[args.model](ds.n_items)
         desc = f"baseline={args.model}"

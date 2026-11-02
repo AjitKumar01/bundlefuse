@@ -78,9 +78,17 @@ python evaluator.py electronic --model itemknn             # a baseline instead
 python evaluator.py --help                                 # all flags
 ```
 
-Fit flags: `--families`, `--svd-dim`, `--val-n/--test-n`, `--alpha-deg/--gamma-vol/--beta-clique/`
-`--alpha-bridge/--fit-rounds/--seed-cap`. Checkpoint flags: `--ckpt-dir/--save/--no-save/--no-eval`.
-Checkpoints are **compressed by default** (incidence `B` + low-rank content; pog 834 MB → 50 MB).
+Each dataset has a **default config** in `configs/<dataset>.json` (families, `svd_dim`, `content_rank`,
+operator hyper-parameters, compression) tuned to match the research results; `evaluator.py` loads it
+automatically. Override it with `--config <path>`, ignore it with `--no-config`, and any explicit flag
+below wins over the file.
+
+Fit flags: `--families`, `--svd-dim`, `--content-rank`, `--no-compress`, `--val-n/--test-n`,
+`--alpha-deg/--gamma-vol/--beta-clique/--alpha-bridge/--fit-rounds/--seed-cap`.
+Checkpoint flags: `--ckpt-dir/--save/--no-save/--no-eval`.
+Checkpoints are **compressed by default** (incidence `B` + low-rank content; pog 834 MB → 50 MB). The
+per-dataset `content_rank` is set so compression stays ~lossless: 64 for the high-dim multimodal
+bundlemllm sets, 128 (= full, since their content is 128-dim) for dunnhumby / BundleRec.
 
 ## Use a checkpoint — `inference.py`
 
@@ -118,10 +126,12 @@ Baselines (same interface, selectable with `--model`): `popularity`, `cooccurren
 ```
 evaluator.py        # CLI: train a model -> checkpoint
 inference.py        # CLI: predict / evaluate / report from a checkpoint
+configs/            # one JSON per dataset: the research-matched default config
 bundlefuse/
   model.py          # the BundleFuse class (fit/predict/score/save/load) + signal families
   baselines.py      # the baseline models
   operators.py      # the closed-form math (hypergraph operator, content bridge, EB shrinkage)
+  config.py         # load configs/<dataset>.json -> BundleFuseConfig
   datasets/         # one file per dataset (each builds its configured object) + base.py loaders
   metrics.py  provided_splits.py  protocol.py  paths.py  __init__.py
 tests/test_model.py
