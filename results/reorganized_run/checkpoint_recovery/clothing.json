@@ -1,0 +1,37 @@
+{
+  "dataset": "clothing",
+  "path": "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/checkpoints/reorganized_162dd8c/clothing/seed_0/model.pt",
+  "sha256": "8bac15b6c7838f6a93b8732bb906929ecbcbfe07e01f369bef243f6fda520cac",
+  "bytes": 38048138,
+  "method": "rebuilt_from_recorded_selection",
+  "verified": true,
+  "original_result_sha256": "08e642aa31b5e6e3fda1b0561a0bb293cc0c5516f838e1209cf6b22023ecde74",
+  "metrics": {
+    "recall@10": 0.46796945193171613,
+    "ndcg@10": 0.3911450707638827,
+    "recall@20": 0.5169362084456424,
+    "ndcg@20": 0.40486260690481496,
+    "recall@50": 0.5844564240790655,
+    "ndcg@50": 0.42024796640187867
+  },
+  "max_recorded_metric_error": 0.0,
+  "queries_verified": 371,
+  "checkpoint_score_bit_identity": true,
+  "runtime": {
+    "package_source_sha256": "9fd3860955b4061607d141c51f314fac1bd6acbd25fce771ac5836566e7ac63e",
+    "python": "3.13.4 (main, Jun  6 2025, 22:30:22) [Clang 17.0.0 (clang-1700.0.13.3)]",
+    "platform": "macOS-27.2-arm64-arm-64bit-Mach-O",
+    "entrypoint_sha256": {
+      "evaluator.py": "1bb3f8bf8b1f078a25b6fb44d8c506011f2f49544cd9ec0fe46288be8d1de956",
+      "inference.py": "90fc030fb8454a4ef9f563b4331aad3aca7bd216fd2d6a8cefe9b29bdb05ad9a",
+      "validate.py": "cbe654f0168bd3bc253d2a40a5769e2aace8c98583d572137cee37a2ecf14766"
+    },
+    "versions": {
+      "numpy": "2.3.5",
+      "scipy": "1.16.3",
+      "sklearn": "1.7.2",
+      "torch": "2.9.1"
+    },
+    "torch_threads": 1
+  }
+}

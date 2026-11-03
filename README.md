@@ -158,6 +158,10 @@ python validate.py --datasets pog_dense --protocol provided --val-n 0 --test-n 0
 python validate.py --datasets food --protocol resplit --split-seeds 0 1 2
 ```
 
+`validate.py` retains each fitted checkpoint permanently under `checkpoints/validation/`.
+Use `--checkpoint-dir PATH` to choose another location. Each fit gets a unique directory;
+the JSON result records its path, SHA-256 and size. Verification never deletes the checkpoint.
+
 The mandatory golden test uses a committed synthetic reference captured from `15bd250` before
 the fixes. It requires no external datasets. Tests cover pre-save versus loaded score bits,
 selected versus full scoring, failed writes, dataset masks/IDs, ties, all baseline interfaces and
@@ -195,16 +199,87 @@ configs/            # one JSON per dataset: the research-matched default config
 bundlefuse/
   model.py          # the BundleFuse class (fit/predict/score/save/load) + signal families
   baselines.py      # the baseline models
-  operators.py      # the closed-form math (hypergraph operator, content bridge, EB shrinkage)
+  operators.py      # closed-form math + exact checkpoint graph reconstruction
   config.py         # load configs/<dataset>.json -> BundleFuseConfig
-  selected_signals.py # compute only dependencies of the fitted fusion
-  graph_state.py    # exact reconstruction of matrices omitted from checkpoints
-  validation_cache.py # bounded-RAM, temporary disk-backed validation signals
-  evaluation.py  cli_data.py  provenance.py # shared CLI contracts, metrics and fingerprints
-  datasets/         # one file per dataset (each builds its configured object) + base.py loaders
-  metrics.py  provided_splits.py  protocol.py  paths.py  __init__.py
-tests/test_model.py
-checkpoints/        # written by evaluator.py (gitignored)
+  selected_signals.py # selected-signal scoring for POG/Spotify and extended profiles
+  basket_signals.py  # retail/commerce signals: full reference + selected dependencies
+  fusion.py         # validation objectives, weight selection and final score fusion
+  validation_cache.py # bounded-RAM validation signal cache
+  splits.py         # supplied split files + deterministic resplit masking
+  evaluation.py     # shared evaluation and seed-stress measurements
+  cli_data.py       # checkpoint-bound dataset arguments
+  provenance.py     # input/code fingerprints and run metadata
+  metrics.py  paths.py  __init__.py
+  datasets/
+    __init__.py     # all eight datasets in one registry; shared load/config/build API
+    base.py         # Dataset contract, full-ranking and extended-profile loaders
+    baskets.py      # retail/commerce loaders for the original experiment recipe
+tests/              # unit, pipeline and independent historical recipe checks
+checkpoints/        # retained fitted models (gitignored)
 ```
 
 Datasets are read from `<DATA_ROOT>/{bundlemllm,BundleRec,dunnhumby}`; see **Get the data** above.
+
+The package has 18 Python files. Dataset names and their loader families live in one registry;
+dataset model settings remain in `configs/<name>.json`. Use `datasets.load(name)` or
+`datasets.build(name)`; `datasets.get(name)` returns the shared dataset definition with
+`load`, `config` and `build` methods. Separate per-dataset Python wrappers are no longer needed.
+
+`research` selects the original experiment's preprocessing and signal recipe; `extended` keeps
+the expanded feature path for ablations and older checkpoints. Both recipes share the public
+fit/predict/evaluate pipeline. Their normalization and validation tie rules remain distinct
+where necessary to reproduce results. Older saved model checkpoints remain loadable.
+
+The simplified pipeline passed all 29 tests, including loading the previous basket-signal
+checkpoint class name. An Electronic seed-0 fit/save/reload check reproduced the historical
+R@20 **0.517919** and NDCG@20 **0.359460**, with identical scores across all 346 test queries
+before and after reloading; its checkpoint is retained. See the
+[verification result](results/reorganized_run/simplified_verification.json). Full corrected
+benchmark reruns remain pending; the table below records the original reorganized snapshot.
+
+## Full reorganized pipeline run
+
+Inference timing for the retained eight-dataset checkpoints is measured separately from fitting:
+
+```bash
+python scripts/benchmark_inference.py --queries 256 --repeats 3 --batch-size 32
+```
+
+The [timing report](results/inference_timing/REPORT.md) records warm top-20 prediction latency,
+batch throughput, checkpoint loading and the first request separately. Measurements use one CPU
+thread and the simplified runtime, with the projected-feature checkpoints from the original
+reorganized run. They do not time the pending corrected research-profile fits. Per-dataset JSON
+files retain every timing sample, query IDs, fitted settings, checkpoint hashes and source hashes;
+per-dataset logs are in the same directory. Benchmarking never fits or rewrites a checkpoint.
+
+On the Apple M5 Pro (24 GiB), the measured warm single-query medians were: Electronic 4.89 ms,
+Food 1.31 ms, Clothing 1.68 ms, Dunnhumby 8.08 ms, POG Dense 5.25 ms, POG 8.22 ms,
+Spotify 559.59 ms and Spotify Sparse 264.75 ms. Each uses 256 test queries repeated three times.
+Spotify's first request took 2.62 s; this is excluded from its warm timing. A separate
+[three-query diagnostic profile](results/inference_timing/spotify_profile.json) spent 58.6% of
+its time in sparse format conversion, identifying an optimization target for subsequent work.
+
+<!-- BEGIN REORGANIZED RUN -->
+| Dataset | Status | R@20 | NDCG@20 | Earlier R@20 | Comparison |
+|---|---|---:|---:|---:|---|
+| pog_dense | complete | 0.391939 | 0.286365 | 0.395223 | supplied files |
+| pog | complete | 0.053542 | 0.036320 | 0.054458 | supplied files |
+| electronic | complete | 0.486802 | 0.343218 | separate protocol | seed 0 only |
+| food | complete | 0.594854 | 0.462355 | separate protocol | seed 0 only |
+| clothing | complete | 0.516936 | 0.404863 | separate protocol | seed 0 only |
+| dunnhumby | complete | 0.207513 | 0.153609 | separate protocol | seed 0 only |
+| spotify | complete | 0.154316 | 0.255460 | 0.155646 | supplied files |
+| spotify_sparse | complete | 0.162959 | 0.228914 | 0.154288 | supplied files |
+
+[Protocol, results and logs](results/reorganized_run/REPORT.md). Original snapshot and repaired runs are distinguished.
+<!-- END REORGANIZED RUN -->
+
+## Code-derived pipeline theory
+
+The [standalone LaTeX source](docs/pipeline_theory.tex) and
+[compiled PDF](output/pdf/pipeline_theory.pdf) explain the implemented pipeline step by step:
+predefined notation, data construction, graph/content/context artifacts, signal equations,
+validation search, checkpoint storage, prediction and evaluation. Dataset-specific and extended
+paths are stated explicitly. The document was derived from the current code independently of
+earlier notes; its [source manifest](docs/pipeline_theory_sources.json) identifies the exact
+working-tree files and records compilation/equation checks.

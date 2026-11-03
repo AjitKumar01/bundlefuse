@@ -1,0 +1,517 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,mathtools,booktabs,tabularx,microtype,xcolor,hyperref}
+\usepackage[margin=26mm]{geometry}
+\usepackage{enumitem,fancyhdr}
+\definecolor{ink}{HTML}{244B68}
+\hypersetup{colorlinks=true,linkcolor=ink,urlcolor=ink,pdftitle={BundleFuse: A Theory of Completing Bundles}}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small BundleFuse: completing bundles}\fancyhead[R]{\small Theory}\fancyfoot[C]{\thepage}
+\setlength{\headheight}{14pt}\setlength{\parindent}{0pt}\setlength{\parskip}{6pt}\setlength{\emergencystretch}{2em}
+\newcommand{\R}{\mathbb R}\newcommand{\I}{\mathcal I}\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\off}{\operatorname{off}}\newcommand{\pos}[1]{\left[#1\right]_+}
+\newcommand{\normrow}{\mathcal N}\newcommand{\sd}{\operatorname{sd}}
+\numberwithin{equation}{section}
+\title{\textcolor{ink}{BundleFuse}\\[5pt]\large A Theory of Completing Bundles}
+\author{}\date{}
+\begin{document}\maketitle
+\begin{abstract}
+How can we suggest an item that fits a partly completed collection? This chapter develops
+an answer from first principles. It begins with past collections and the items they contain,
+then builds several kinds of evidence: shared history, support from groups of known items,
+item descriptions, and categories. It explains how those pieces are put on a common scale,
+combined, and adjusted when an item has little history. A small numerical example follows
+the calculation through to a ranked recommendation.
+\end{abstract}
+\tableofcontents\clearpage
+\section{The big picture: from a partial bundle to suggestions}
+A \emph{bundle} is a collection of items that belong together. A bundle could be an outfit,
+a shopping basket, or a music playlist. Suppose we are shown a few items from a bundle and
+asked to suggest the missing items. The items already shown are called the \emph{known items}.
+A possible missing item is called a \emph{candidate}.
+
+A good candidate should fit the known items as a group. History helps: items previously
+found in the same bundles often fit together. Descriptions and categories help too: a new
+item may have no purchase or playlist history but may still resemble useful items. These
+clues need not agree. BundleFuse assigns a score to every candidate, combines the clues,
+and returns the highest-scoring items that are not already known.
+
+\subsection{One question, five steps}
+Imagine a store with five items, numbered 0 to 4. Someone has chosen items 0 and 1. We
+want to decide whether to suggest item 2, 3, or 4. Suppose two earlier baskets were
+$\{0,1,2\}$ and $\{0,3\}$. Item 2 appeared with both chosen items, item 3 appeared
+with one of them, and item 4 has no basket history. The answer is not automatic: item 4
+may still have a useful description, while an item seen often may simply be popular.
+
+BundleFuse addresses this decision in five connected steps:
+\begin{enumerate}[leftmargin=*]
+\item \textbf{Gather evidence.} Look at past bundles and, when available, item descriptions,
+      categories, and other relationships. Each kind of evidence gives each candidate a score.
+\item \textbf{Make the scores comparable.} A count and a description similarity have
+      different units. Rescale each kind of evidence across the available items.
+\item \textbf{Combine the scores.} Give each kind of evidence an importance, and allow
+      extra credit when several known items support a candidate together.
+\item \textbf{Account for limited history.} Blend the combined score with an estimate
+      based on descriptions and categories, giving that estimate more influence for an item
+      with little history.
+\item \textbf{Rank and check.} Remove the items already chosen, rank the remaining items,
+      and assess the suggestions on examples whose hidden items are known.
+\end{enumerate}
+The following sections explain each step in this order. We start by putting past bundles
+into a table, because every score based on shared history needs that table. We return to
+the five-item example throughout, and finish its numerical calculation in
+Section~\ref{example}. The equations make the rules precise; the paragraphs around them
+explain what each rule contributes to the decision.
+
+\subsection{The symbols we will use}
+\begin{center}\small
+\begin{tabularx}{\linewidth}{@{}p{.20\linewidth}X@{}}\toprule
+Symbol & Meaning \\\midrule
+$\I$ & Set of all available items; $n=|\I|$ is the number of items. \\
+$b_e$ & Past bundle number $e$; there are $m$ past bundles. \\
+$S$ & Set of known items for the bundle we want to complete. \\
+$i,s,t$ & Item labels: $i$ is usually a candidate; $s,t$ are known items. \\
+$B$ & A table with one row per past bundle and one column per item. \\
+$f_i$ & Number of past bundles containing item $i$. \\
+$d_e$ & Number of items in past bundle $e$. \\
+$r_i^h(S)$ & Raw evidence for candidate $i$ from source $h$, given $S$. \\
+$z_i^h(S)$ & The same evidence after it has been put on a common scale. \\
+$w_h$ & Nonnegative importance assigned to source $h$. \\
+$Y_i(S)$ & Combined evidence from the available sources. \\
+$P_i(S)$ & A second, content-oriented estimate used when history is limited. \\
+$\widehat\theta_i(S)$ & Final score for candidate $i$. \\
+$K$ & Number of suggestions requested. \\
+\bottomrule\end{tabularx}\end{center}
+We use $[x]_+=\max(x,0)$, so $[-2]_+=0$ and $[3]_+=3$. A small positive number $\varepsilon$
+in a denominator prevents division by zero. When a number is stated as a usual setting, it
+is a choice of the method rather than a mathematical necessity.
+
+\section{Representing past bundles}
+Define the entry in row $e$ and column $i$ of $B$ as
+\begin{equation}
+ B_{ei}=\begin{cases}1,&i\in b_e,\\0,&i\notin b_e.\end{cases}
+\end{equation}
+The number of past bundles containing item $i$, and the size of bundle $e$, are
+\begin{equation}
+ f_i=\sum_{e=1}^{m}B_{ei},\qquad d_e=\sum_{i\in\I}B_{ei}.
+\end{equation}
+For example, if the past bundles are \{tea, milk, sugar\} and \{tea, biscuits\}, then
+tea occurs twice, and the first bundle contains three items. If two different past bundles
+contain exactly the same items, they count as two observations.
+
+For the current request, let $x_i=1$ when $i\in S$ and $x_i=0$ otherwise. The vector $x$
+therefore marks the known items. For our example, the table has two rows: the first marks items 0, 1, and 2, and the second
+marks 0 and 3. The indicator marks items 0 and 1. This gives us the basic information
+needed for the first question: how much does each past bundle support each candidate?
+
+\section{Evidence from shared history}
+\subsection{Simple counts}
+For distinct items $i$ and $j$, let $C_{ij}$ be the number of past bundles containing both.
+Set $C_{ii}=0$. In matrix form,
+\begin{equation}
+ C=\operatorname{off}(B^\top B),
+\end{equation}
+where $B^\top$ turns rows into columns and $\operatorname{off}$ replaces diagonal entries
+by zero. A simple score for $i$ is $\sum_{s\in S} C_{is}$: add the number of times $i$
+appeared with each known item. In the example, item 2 appeared with both known items,
+while item 3 appeared with item 0 only. This is easy to understand, but very common items can
+receive large scores merely because they appear in many bundles.
+
+\subsection{Giving each past bundle a suitable weight}
+Let $\alpha_d\ge0$ and $\gamma_v\ge0$ control two adjustments. A usual choice is
+$\alpha_d=\gamma_v=\tfrac12$. Define the weight of a known item $s$ and the weight of a
+past bundle $e$ by
+\begin{equation}
+ a_s=(f_s+5)^{-\alpha_d},\qquad v_e=(d_e+1)^{-\gamma_v}.
+\end{equation}
+The first reduces the influence of a very common known item. The second reduces the
+influence of a very large past bundle. The constants 5 and 1 keep the weights finite and
+soften the adjustment for small counts.
+
+The weighted overlap between past bundle $e$ and the known items is
+\begin{equation}\label{overlap}
+ o_e(S)=v_e\sum_{s\in S}B_{es}a_s.
+\end{equation}
+The first history-based score of candidate $i$ is the sum of these overlaps over past
+bundles containing it:
+\begin{equation}\label{pair}
+ p_i(S)=\sum_{e=1}^{m}B_{ei}\,o_e(S).
+\end{equation}
+A candidate is supported when it occurs in past bundles that also contain known items.
+Equation~\eqref{pair} adds the contributions of known items; it does not demand that every
+known item be present in the same past bundle.
+
+\subsection{Extra support from several known items}
+Let $k_e(S)=\sum_{s\in S}B_{es}$ be the number of known items in past bundle $e$.
+Let $\beta\ge0$ control the extra credit for group overlap; a usual value is $1.5$.
+Define
+\begin{equation}\label{surplus}
+ \delta_i(S)=\sum_{e=1}^{m}B_{ei}\,o_e(S)\,\beta[k_e(S)-1]_+.
+\end{equation}
+If a past bundle contains one known item, its extra contribution is zero. If it contains
+two, it receives extra credit; three receive more. The strengthened history score is
+$p_i(S)+\delta_i(S)$. With only one known item, $\delta_i(S)=0$ for every candidate.
+In our example, this extra support goes to item 2 through the first basket. The second
+basket cannot contribute extra group support to item 3, because it contains only one known
+item. We now have a direct score and a group-strengthened score. The next step asks whether
+connections through other items can provide additional evidence.
+
+\subsection{Following connections one step farther}
+A candidate can be related to the known items through other items even if the direct
+connection is weak. To describe this, let $D$ be the diagonal table with entries
+$D_{ii}=(f_i+5)^{-\alpha_d}$, and let $E$ be the diagonal table with entries
+$E_{ee}=(d_e+1)^{-1}$. Define the item-to-item table
+\begin{equation}\label{L}
+ L=\operatorname{off}(DB^\top EBD).
+\end{equation}
+For any vector $a$ of item scores, $La$ spreads those scores across items that have appeared
+in the same past bundles, while the zero diagonal prevents an item from sending its score
+straight back to itself. The two longer-range scores are $Lp$ and $L(p+\delta)$.
+For shopping data with additional user and session histories, a different table can take
+the place of $L$; Section~\ref{context} explains that variation.
+
+\section{When pairs occur together more often than expected}
+The preceding scores use observed overlaps, adjusted for the frequency of known items and
+the size of past bundles. There is another question: did two items occur together more often
+than we would expect from how common they are individually? Answering it gives us a
+second view of the same history.
+
+A raw shared-history count can be large simply because both items are common. Let
+$g_i=\sum_j C_{ij}+\varepsilon$ be the total shared-history count of item $i$, and let
+$Z_C=\sum_{i,j}C_{ij}$ be the total of the table. For a pair observed at least once, define
+\begin{equation}\label{pmi}
+ M_{ij}=\left[\log\left(\frac{C_{ij}Z_C}{g_i g_j}+10^{-12}\right)\right]_+.
+\end{equation}
+For a pair never observed together, set $M_{ij}=0$. This number is large when the pair's
+count is strong relative to its overall counts, and zero when the expression is not positive.
+A candidate's score from this source is $\sum_{s\in S}M_{is}$.
+
+A second source makes a shorter description of the rows of $M$. Choose a dimension $r$;
+find a rank-$r$ approximation to $M$ by a method called \emph{singular value decomposition},
+which finds directions that summarize much of a table's variation. Each item then has a
+short vector $u_i\in\R^r$; normalize each nonzero vector to length approximately one.
+The score is the dot product of the candidate vector with the mean known-item vector:
+\begin{equation}\label{meanfeature}
+ r_i^{\mathrm{history}}(S)=u_i\cdot\left(\frac1{|S|}\sum_{s\in S}u_s\right).
+\end{equation}
+A dot product adds the products of corresponding vector entries. Here it measures how
+closely the candidate's summary of history agrees with the average known item.
+
+\section{Evidence from descriptions and categories}\label{content}
+History can tell us little about an item that rarely appears, and nothing about an item
+with no appearances. In our example, item 4 would receive no direct shared-history support.
+Its description or category may still tell us something useful. We now develop those sources,
+which will later give such items a way to compete with well-observed candidates.
+
+\subsection{Comparing item descriptions}
+Suppose item $i$ has a vector $c_i$ describing its text, image, or audio. These vectors
+can come from measurements or from an existing representation of the item. Normalize the
+vectors and compare a candidate with the mean description of the known items:
+\begin{equation}
+ r_i^{\mathrm{description}}(S)=c_i\cdot\left(\frac1{|S|}\sum_{s\in S}c_s\right).
+\end{equation}
+A dot product near one means that normalized vectors point in similar directions; near
+zero indicates little agreement in that representation. Different types of description
+can produce separate scores and receive different weights.
+
+For text, one possible description counts words and two-word phrases, gives less weight
+to terms appearing in many item descriptions, and then shortens the resulting table by
+singular value decomposition. The resulting coordinates summarize descriptions; they do
+not require that a candidate has appeared in a past bundle.
+
+\subsection{Separating category from the rest of a description}
+Items in the same category may share broad features that say little about which particular
+items fit together. Let $c_i$ now denote a vector from one description type, and let
+$g(i)$ be the group of item $i$. Write $\bar c_g$ for the average vector of all items in
+group $g$. The remaining description after removing the group average is
+\begin{equation}
+ d_i=\frac{c_i-\bar c_{g(i)}}{\lVert c_i-\bar c_{g(i)}\rVert_2+\varepsilon}.
+\end{equation}
+Here $\lVert\cdot\rVert_2$ is ordinary vector length. For an outfit, the group might be a
+clothing category; for audio, it may be a group of items with similar sound. The vectors
+$d_i$ describe how items differ within their broad groups. They can be scored by the same
+mean-and-dot-product rule as equation~\eqref{meanfeature}.
+
+\subsection{Joining descriptions with history}
+Let $D_c$ be the table whose row $i$ is $d_i$. Apply $L$ from equation~\eqref{L} to its
+columns, and normalize each resulting row; call that normalized table $H$. For a chosen
+weight $\lambda\ge0$, form and row-normalize
+\begin{equation}
+ F=\operatorname{normalize\ rows}(D_c+\lambda H).
+\end{equation}
+A row of $F$ blends an item's own description with descriptions of historically connected
+items. Comparing its rows using equation~\eqref{meanfeature} supplies another score.
+A usual value is $\lambda=0.5$.
+
+\subsection{Do categories complement each other?}
+Let $g(i)$ be the category of item $i$. Define $A_{ec}$ as the number of items of category
+$c$ in past bundle $e$, and let $a_c=\sum_e A_{ec}+\varepsilon$. Define
+$H=\operatorname{off}(A^\top A)$ and $A_+=\sum_c a_c$. For observed category pairs,
+\begin{equation}
+ Q_{cd}=\left[\log\left(\frac{H_{cd}A_+}{a_c a_d}+10^{-12}\right)\right]_+,
+\end{equation}
+and set unobserved entries to zero. The category score for candidate $i$ is
+\begin{equation}
+ r_i^{\mathrm{category}}(S)=\sum_{s\in S}Q_{g(s),g(i)}.
+\end{equation}
+For example, if shirts and trousers frequently occur together, that relationship can help
+score trousers when a shirt is known. In some applications, an additional penalty discourages
+repeating a category that seldom appears twice in the same past bundle. In others, shared
+artist or album membership adds a separate score. The appropriate category evidence
+depends on what a bundle represents.
+
+\section{Additional relationships in shopping data}\label{context}
+The past-bundle table and item descriptions are not always the only available evidence.
+In shopping data, for example, several baskets may belong to the same household. These
+relationships supply another view of how items are connected. They are optional: the
+reasoning up to this point works without them.
+
+Some data contain households, users, sessions, or an additional record of user--item
+interactions. These can provide extra evidence without changing the purpose of the method.
+For example, create a table $Z$ whose rows are households and whose columns are items,
+with each entry counting appearances in a household's past training baskets. Divide each
+household row by the square root of one plus its total count. The product of the resulting
+table's transpose and itself measures how often items are associated through households;
+its diagonal is removed. A candidate can then receive evidence when it shares household
+history with the known items.
+
+For some commerce data, separate user and session tables give item-pair tables $C_u$ and
+$C_s$, and an additional interaction record gives a weighted pair table $C_p$. Define
+$D_c=\diag((f_i+1)^{-1/2})$. One longer-range table is
+\begin{equation}
+ L_c=D_c(C+0.5C_s+0.5C_u+0.2C_p)D_c.
+\end{equation}
+It spreads evidence through several kinds of shared history. The particular coefficients
+are choices that define this version of the method. Their presence means that a result for
+this setting should be understood in the light of the extra information it uses.
+
+\section{Agreement among known items}\label{agreement}
+So far, we have considered whether each candidate has historical, descriptive, or category
+support. We can also ask how that support is distributed across the known items. Is it
+coming from just one known item, or do several known items agree? This question matters
+in our example because item 2 is connected to both 0 and 1.
+
+A candidate is especially interesting when several known items support it together. To
+measure this, let $q_{is}\ge0$ be the support that known item $s$ gives candidate $i$.
+For a concrete definition, let $W_{is}=0$ when $i=s$; otherwise let
+$W_{is}=\sum_e B_{ei}v_e B_{es}a_s$, using the weights defined above. Let $d_i$ be a
+normalized description vector and $\lambda_d\ge0$ a chosen description weight. Then
+\begin{equation}
+ q_{is}=W_{is}+\lambda_d[d_i\cdot d_s]_+,\qquad
+ A_i=\sum_{s\in S}q_{is}.
+\end{equation}
+If description vectors are unavailable, the second term is omitted.
+
+Known items may be nearly duplicates of one another. Let $G_{st}$ measure similarity
+between known items $s$ and $t$. When both category labels $g(\cdot)$ and description
+vectors are available, one choice is
+\begin{equation}
+ G_{st}=\tfrac12\mathbf1[g(s)=g(t)]+\tfrac12[d_s\cdot d_t]_+.
+\end{equation}
+With only one kind of information, use that part alone. For distinct known items, choose a coefficient $\eta$ and define
+\begin{equation}
+ K_{st}=\begin{cases}[1+\eta G_{st}]_+,&\eta<0,\\1+\eta G_{st},&\eta\ge0,\end{cases}
+ \qquad K_{ss}=0.
+\end{equation}
+A negative $\eta$ reduces the extra credit for similar known items; a positive one can
+increase it. Let $\tau>0$ be a small stabilizing number, commonly $0.05$. Define the
+agreement score
+\begin{equation}\label{agreementeq}
+ r_i^{\mathrm{agreement}}(S)=
+ \frac{\displaystyle\sum_{s\in S}\sum_{t\in S}q_{is}K_{st}q_{it}}{A_i+\tau}.
+\end{equation}
+Both orders of a distinct pair are included in the double sum. If fewer than two known
+items are given, the score is zero. This score rewards support from pairs of known items;
+it does not require the candidate to match every item simultaneously.
+
+\section{Putting different evidence on the same scale}\label{scale}
+We now have several possible scores for the same candidate. To make one decision, we need
+to combine them. Before doing so, we must address a simple problem: counts, dot products,
+and category scores have different units. A count of 10 is not automatically stronger than
+a similarity of 0.8.
+
+Counts, dot products, and category scores have different units. For each evidence source
+$h$ and a fixed set of known items $S$, let $r_i^h(S)$ be its raw score for item $i$.
+Its mean across all $n$ items is
+\begin{equation}
+ \mu_h(S)=\frac1n\sum_{i\in\I}r_i^h(S).
+\end{equation}
+Let $\sigma_h(S)$ be the corresponding standard deviation: a measure of how much the
+scores vary around their mean. The common-scale score is
+\begin{equation}\label{standard}
+ z_i^h(S)=\frac{r_i^h(S)-\mu_h(S)}{\sigma_h(S)+\varepsilon}.
+\end{equation}
+A positive value means above-average evidence for that source; a negative value means
+below average. If all items receive the same raw score, the common-scale scores are zero.
+The mean and spread are calculated for each request across the whole item set, before the
+known items are removed from the final list. Some settings use a sample standard deviation
+(dividing the sum of squared deviations by $n-1$); others use a population standard deviation
+(dividing by $n$). Keeping this choice fixed matters for exact comparisons.
+
+The strengthened history score and the simple history score are each standardized
+separately. Therefore, the standardized value of $p+\delta$ is generally not the sum of
+the separately standardized values of $p$ and $\delta$.
+
+\section{Combining the evidence}\label{combine}
+The preceding step expresses each kind of evidence relative to its own average and spread.
+We can now decide how much importance to give each kind and combine them into one score.
+This yields an answer based on the available observations; the next section will adjust
+that answer for items whose history is scarce.
+
+Let $\mathcal H$ be the set of evidence sources under consideration, and let $w_h\ge0$
+be the importance of source $h$. For each source, let $z_i^{h,0}$ be its score with the
+extra group contribution removed; for sources without such a contribution, let
+$z_i^{h,0}=z_i^h$. Define
+\begin{equation}
+ Y_i^0=\sum_{h\in\mathcal H}w_h z_i^{h,0},\qquad
+ Y_i^1=\sum_{h\in\mathcal H}w_h z_i^h.
+\end{equation}
+Choose $a\in[0,1]$ for the amount of group evidence, and $b\ge0$ for the amount of
+agreement evidence from equation~\eqref{agreementeq}. The combined observed score is
+\begin{equation}\label{observed}
+ Y_i=(1-a)Y_i^0+aY_i^1+bz_i^{\mathrm{agreement}}.
+\end{equation}
+When $a=0$, the calculation uses the simpler history scores. When $a=1$, it uses their
+strengthened counterparts. The agreement term is an additional piece of evidence.
+
+The weights are selected using held-out examples for which the hidden items are known.
+One can try a short list of nonnegative values for one weight at a time, retain a change
+when it improves a chosen ranking measure, and repeat. A small tolerance can remove a
+source that adds little. The amounts $a$ and $b$ are then chosen from small lists. This is
+a search over settings informed by examples; it does not require a neural network.
+The held-out examples used for selecting settings are kept separate from the final test
+examples used to report performance.
+
+\section{Making a sensible choice when history is limited}\label{shrink}
+The combined score answers what the available evidence suggests. But an item seen once and
+an item seen hundreds of times do not have equally rich histories. In our example, item 4
+has no past-bundle history at all. We therefore bring in a second estimate that can rely
+on information available even for that item.
+
+A rare item has less historical evidence than a frequent one. BundleFuse therefore also
+forms a second estimate from selected sources such as descriptions and categories. Let
+$P_i$ be their weighted, common-scale sum. Depending on the setting, it can also include
+the same agreement or popularity contributions used in the combined score. Let $s_0\ge0$
+be a scale chosen using the held-out selection examples, and define the second estimate
+$\mu_i=s_0P_i$.
+
+Let $\kappa\ge0$ control how strongly the method relies on this second estimate. If
+$\kappa=0$, the final score is simply $Y_i$. For $\kappa>0$, define
+\begin{equation}\label{final}
+ u_i=\frac{\kappa}{f_i+\kappa},\qquad
+ \widehat\theta_i=(1-u_i)Y_i+u_i\mu_i.
+\end{equation}
+The weights in this average add to one. An item with $f_i=0$ receives the second estimate
+entirely. As $f_i$ increases, $u_i$ decreases, and the observed score $Y_i$ has more
+influence. For example, with $\kappa=2$, an item seen in two past bundles has $u_i=1/2$;
+an item seen in 18 has $u_i=1/10$. If the method selects $\kappa=0$, this adjustment is
+disabled for every item.
+
+\subsection{A probability interpretation}
+The weighted average above has a useful interpretation, provided we state its assumptions.
+Suppose an unobserved true suitability $\theta_i$ follows a normal distribution with mean
+$\mu_i$ and variance $\sigma_0^2$. Suppose also that the observed score $Y_i$, conditional
+on $\theta_i$, has mean $\theta_i$ and variance $\sigma_e^2/f_i$ for $f_i>0$. Assume
+$\sigma_0^2$ and $\sigma_e^2$ are positive. Then the conditional mean of $\theta_i$ given
+$Y_i$ is equation~\eqref{final} with
+\begin{equation}
+ \kappa=\frac{\sigma_e^2}{\sigma_0^2}.
+\end{equation}
+The assumption says that more appearances reduce uncertainty in the observed evidence.
+At $f_i=0$, the formula uses the prior-only limit. In practice, the final $\kappa$ can be
+chosen from several values using held-out examples, so it need not equal a single fitted
+variance ratio. The final scores are ranking scores, not probabilities that items belong
+in the bundle; the assumptions do not by themselves establish that they are calibrated.
+
+\subsection{Estimating a useful range for the adjustment}
+Let there be $v$ held-out selection requests, and write $Y_{ij}$ and $\mu_{ij}$ for item
+$i$ on request $j$. For each item with $f_i>0$, calculate its average squared difference
+between the two estimates and its inverse history count:
+\begin{equation}
+ e_i=\frac1v\sum_{j=1}^{v}(Y_{ij}-\mu_{ij})^2,\qquad x_i=\frac1{f_i}.
+\end{equation}
+Fit a straight line to points $(x_i,e_i)$ across items. Its intercept suggests the prior
+variance and its slope suggests the extra observation variance. If there are fewer than two
+items with history, or all positive history counts are effectively equal, the two parts
+cannot be distinguished from these points and the adjustment is disabled. Otherwise,
+small positive lower bounds keep the estimated variances usable, and their ratio supplies
+one candidate value of $\kappa$. Several fixed values and this fitted value can be compared
+on the held-out selection examples. These squared differences compare two score estimates;
+they are not squared prediction errors against the hidden-item labels.
+
+\section{Putting the pieces together: the five-item example}\label{example}
+We have now defined all five steps in the map at the beginning. Let us return to the same
+five items and follow a candidate from past baskets to final score. This makes clear where
+the group evidence and the adjustment for limited history enter.
+
+Consider five available items numbered 0 through 4. The two past bundles are
+$b_1=\{0,1,2\}$ and $b_2=\{0,3\}$; the known items are $S=\{0,1\}$. Item 4 has no past
+bundle history. The history counts are $(f_0,f_1,f_2,f_3,f_4)=(2,1,1,1,0)$.
+
+Use $\alpha_d=\gamma_v=\tfrac12$ and $\beta=1.5$. Define $a=1/\sqrt7$ and
+$b=1/\sqrt6$. The two past-bundle overlaps from equation~\eqref{overlap} are
+\begin{equation}
+ o_1=\frac{a+b}{2},\qquad o_2=\frac{a}{\sqrt3}.
+\end{equation}
+The first bundle contains both known items; the second contains just item 0. Equations
+\eqref{pair} and \eqref{surplus} give, in item order,
+\begin{equation}
+ p=(o_1+o_2,o_1,o_1,o_2,0),\quad
+ \delta=(1.5o_1,1.5o_1,1.5o_1,0,0).
+\end{equation}
+Item 2 receives extra group support because it appeared with both 0 and 1. Item 3 receives
+history support from item 0 but no group extra. Item 4 has no history support.
+
+For a concrete illustration, suppose the selected settings use only the standardized
+$p+\delta$ as $Y$, and the second estimate is half of a standardized description score.
+Suppose those description scores after standardization are approximately
+$(-1.265,-0.632,0,0.632,1.265)$, and use $\kappa=1$. The final scores for the three
+candidates are approximately
+\begin{center}\begin{tabular}{@{}lrrr@{}}\toprule
+Candidate & History count $f_i$ & Weight $u_i$ & Final score \\\midrule
+2 & 1 & $1/2$ & 0.288 \\
+3 & 1 & $1/2$ & $-0.273$ \\
+4 & 0 & $1$ & 0.632 \\\bottomrule\end{tabular}\end{center}
+The top two suggestions are therefore items 4 and 2. Items 0 and 1 were included when
+standardizing the evidence but are removed from the suggestion list because they were
+already known. The values chosen here illustrate the calculation; different data and
+held-out selection examples can lead to different weights and rankings.
+
+\section{Choosing suggestions and measuring their quality}
+The example produced a score for each candidate, but a practical answer needs a short list.
+After forming that list, we need a separate way to check whether it recovers items that
+were actually hidden. This final step connects the score to a measurable completion task.
+
+Once every item has a final score $\widehat\theta_i$, remove all items already in $S$.
+Sort the remaining items by decreasing score and return the first $K$, or all remaining items if fewer than $K$ are available. When two scores are
+exactly equal, order the tied items by their item labels, from smaller to larger. This makes
+the answer repeatable.
+
+For evaluation, assume $K$ does not exceed the number of available candidates. Take a complete bundle and hide some items. Let $G$ be its nonempty set of
+hidden items, and let $R_K$ be the top-$K$ suggestions from the revealed items. Recall at
+$K$ is
+\begin{equation}
+ \operatorname{Recall}@K=\frac{|R_K\cap G|}{|G|}.
+\end{equation}
+It measures what fraction of the hidden items were recovered. It does not distinguish a
+hit at rank 1 from a hit at rank $K$.
+
+To value earlier hits more, let $h_r=1$ when the item at rank $r$ is hidden ground truth,
+and $h_r=0$ otherwise. The discounted gain and its best possible value are
+\begin{align}
+ \operatorname{DCG}@K&=\sum_{r=1}^{K}\frac{h_r}{\log_2(r+1)},\\
+ \operatorname{IDCG}@K&=\sum_{r=1}^{\min(K,|G|)}\frac1{\log_2(r+1)}.
+\end{align}
+The normalized discounted gain is $\operatorname{NDCG}@K=\operatorname{DCG}@K/
+\operatorname{IDCG}@K$. A hit near the top contributes more. Scores for multiple bundles
+are averaged, giving every evaluated bundle the same weight. Selection examples choose
+settings; a separate test set measures their performance after those settings are fixed.
+
+\section{What the theory does and does not establish}
+The method combines several interpretable pieces of evidence, and the exposure-based
+average offers a clear way to rely more on descriptions when history is scarce. The
+construction alone does not prove that the pieces improve a particular dataset or that the
+normal-distribution interpretation is accurate. Those questions require comparisons on
+matched data, splits, inputs, and evaluation rules. Scores and rankings describe the method's
+preferences under the available evidence; they do not establish causation or guarantee that
+all recommended items are appropriate for every user.
+\end{document}

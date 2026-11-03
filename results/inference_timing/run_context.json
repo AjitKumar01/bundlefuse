@@ -1,0 +1,12 @@
+{
+  "benchmark_script": "scripts/benchmark_inference.py",
+  "sha256": "2c93f23fb023b36f8ec6a3030b866837a7a36be1010e72ed82e61135b9174c7c",
+  "hardware": "Apple M5 Pro",
+  "memory_gib": 24,
+  "logical_cpus": 15,
+  "concurrent_dataset_workers": 1,
+  "cpu_affinity_pinned": false,
+  "timing_clock": "time.perf_counter_ns",
+  "process": "current local interactive machine",
+  "checkpoint_policy": "read only; verified SHA-256 before and after each worker"
+}

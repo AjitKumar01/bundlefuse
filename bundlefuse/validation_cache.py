@@ -7,7 +7,7 @@ import torch
 
 
 class ValidationCache:
-    def __init__(self, pairs, users, scorer, n_items, chunk=32):
+    def __init__(self, pairs, users, scorer, n_items, chunk=32, keys=None):
         if not pairs or chunk < 1:
             raise ValueError('Validation queries and a positive chunk size are required')
         if users is not None and len(users) != len(pairs):
@@ -20,7 +20,7 @@ class ValidationCache:
                 us = users[start:start + chunk] if users is not None else None
                 raw, normalized = scorer(seeds, us)
                 if not self.arrays:
-                    self.keys = list(normalized)
+                    self.keys = list(normalized) if keys is None else [k for k in keys if k in normalized]
                     for i, key in enumerate(self.keys):
                         self.arrays[key] = np.lib.format.open_memmap(
                             Path(self.temporary.name) / f'{i}.npy', mode='w+', dtype=np.float32,

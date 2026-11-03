@@ -1,0 +1,37 @@
+{
+  "dataset": "food",
+  "path": "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/checkpoints/reorganized_162dd8c/food/seed_0/model.pt",
+  "sha256": "6a0a92928ed0f43f80f8364db0fbf24c389b52e410e47531604ae89ed198c41b",
+  "bytes": 30730869,
+  "method": "rebuilt_from_recorded_selection",
+  "verified": true,
+  "original_result_sha256": "7ea2e0ccc95be500a397bdc6c5bc8a5ae80ce989bfec93b0a20761869c17dae1",
+  "metrics": {
+    "recall@10": 0.5398961284230405,
+    "ndcg@10": 0.4462857132240876,
+    "recall@20": 0.5948536355051935,
+    "ndcg@20": 0.46235458088796394,
+    "recall@50": 0.6531161473087819,
+    "ndcg@50": 0.47519784236501256
+  },
+  "max_recorded_metric_error": 0.0,
+  "queries_verified": 353,
+  "checkpoint_score_bit_identity": true,
+  "runtime": {
+    "package_source_sha256": "9fd3860955b4061607d141c51f314fac1bd6acbd25fce771ac5836566e7ac63e",
+    "python": "3.13.4 (main, Jun  6 2025, 22:30:22) [Clang 17.0.0 (clang-1700.0.13.3)]",
+    "platform": "macOS-27.2-arm64-arm-64bit-Mach-O",
+    "entrypoint_sha256": {
+      "evaluator.py": "1bb3f8bf8b1f078a25b6fb44d8c506011f2f49544cd9ec0fe46288be8d1de956",
+      "inference.py": "90fc030fb8454a4ef9f563b4331aad3aca7bd216fd2d6a8cefe9b29bdb05ad9a",
+      "validate.py": "cbe654f0168bd3bc253d2a40a5769e2aace8c98583d572137cee37a2ecf14766"
+    },
+    "versions": {
+      "numpy": "2.3.5",
+      "scipy": "1.16.3",
+      "sklearn": "1.7.2",
+      "torch": "2.9.1"
+    },
+    "torch_threads": 1
+  }
+}

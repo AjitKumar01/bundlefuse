@@ -1,0 +1,13 @@
+START food resplit seed 0; validation 800; test 2000
+VALIDATION 20 candidates; latest objective 0.25650636974437524
+VALIDATION 40 candidates; latest objective 0.2897714977959113
+VALIDATION 60 candidates; latest objective 0.20429082209859722
+VALIDATION 80 candidates; latest objective 0.3784943122326691
+VALIDATION 100 candidates; latest objective 0.3953413845911477
+VALIDATION 120 candidates; latest objective 0.26549065243978576
+VALIDATION 140 candidates; latest objective 0.391428400603591
+VALIDATION 160 candidates; latest objective 0.3944460007130688
+VALIDATION 180 candidates; latest objective 0.2635181077890553
+VALIDATION 200 candidates; latest objective 0.3889070730943768
+VALIDATION 220 candidates; latest objective 0.3136565075681727
+COMPLETE food {'recall@10': 0.5398961284230405, 'ndcg@10': 0.4462857132240876, 'recall@20': 0.5948536355051935, 'ndcg@20': 0.46235458088796394, 'recall@50': 0.6531161473087819, 'ndcg@50': 0.47519784236501256}

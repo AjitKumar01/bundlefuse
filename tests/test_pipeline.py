@@ -13,7 +13,7 @@ from bundlefuse.baselines import BASELINES
 from bundlefuse.evaluation import sparse_pairs
 from bundlefuse.metrics import top_items
 from bundlefuse.model import BundleFuse, BundleFuseConfig
-from bundlefuse.provided_splits import ProvidedSplits
+from bundlefuse.splits import ProvidedSplits
 
 
 @pytest.fixture
@@ -94,7 +94,7 @@ def test_zero_weight_expensive_signals_are_skipped(catalogue,monkeypatch):
 
 def test_configured_rounds_and_seed_cap_reach_the_computation(catalogue,monkeypatch):
     import bundlefuse.model as module
-    from bundlefuse.fusion_selection import fit_fusion
+    from bundlefuse.fusion import fit_fusion
     seen=[]
     def capture(*args,**kwargs):
         seen.append(kwargs['rounds'])
@@ -190,6 +190,11 @@ def test_fit_save_reload_report_cli_contract(catalogue,tmp_path,name):
 def test_verification_cli_checks_all_queries(catalogue,tmp_path):
     config=tmp_path/'config.json';config.write_text(json.dumps({'svd_dim':8,'fit_rounds':1,'n_soft_clusters':5}))
     output=tmp_path/'verified.json'
-    result=validate.main(['--datasets','pog_dense','--config',str(config),'--chunk','2','--out',str(output)])
+    result=validate.main(['--datasets','pog_dense','--config',str(config),'--chunk','2','--out',str(output),
+                          '--checkpoint-dir',str(tmp_path/'permanent')])
     assert result['status']=='complete' and result['runs'][0]['queries_verified']==3
     assert result['runs'][0]['checkpoint_score_bit_identity']
+    checkpoint=result['runs'][0]['checkpoint']
+    assert checkpoint['retained'] and Path(checkpoint['path']).is_file()
+    loaded=BundleFuse.load(checkpoint['path'])
+    assert loaded.fitted_ and loaded.score([0,1]).shape==(60,)

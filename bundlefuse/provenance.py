@@ -5,7 +5,7 @@ from pathlib import Path
 import platform
 import sys
 
-from .provided_splits import file_hash
+from .splits import file_hash
 
 
 def digest_rows(rows):
@@ -13,11 +13,12 @@ def digest_rows(rows):
 
 
 def record_dataset(dataset, root, files, *, protocol, split_seed, mask_frac, val_limit, test_limit,
-                   val_total, test_total, val_ids=None, test_ids=None):
+                   val_total, test_total, val_ids=None, test_ids=None, data_profile='extended'):
     dataset.val_ids = list(range(len(dataset.val_pairs))) if val_ids is None else list(val_ids)
     dataset.test_ids = list(range(len(dataset.test_pairs))) if test_ids is None else list(test_ids)
     dataset.metadata = {
         'dataset': dataset.name, 'n_items': dataset.n_items, 'protocol': protocol,
+        'data_profile': data_profile,
         'split_seed': split_seed if protocol == 'resplit' else None,
         'mask_frac': mask_frac if protocol == 'resplit' else None,
         'val_limit': val_limit, 'test_limit': test_limit,

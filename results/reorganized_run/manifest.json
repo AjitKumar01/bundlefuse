@@ -1,0 +1,89 @@
+{
+  "plan": {
+    "implementation_commit": "162dd8c",
+    "snapshot": "/private/tmp/bundlefuse_reorganized_162dd8c",
+    "python": "/Users/ajit/.pyenv/versions/3.13.4/bin/python3",
+    "started_utc": "2026-11-03T04:52:06.375005+00:00",
+    "stage": "original_reorganized_defaults",
+    "datasets": [
+      "pog_dense",
+      "pog",
+      "electronic",
+      "food",
+      "clothing",
+      "dunnhumby",
+      "spotify",
+      "spotify_sparse"
+    ],
+    "provided": "full released train/validation/test; seed 0",
+    "resplit": "seed 0, val 800, test 2000; comparison with old multi-seed averages is contextual until folds are matched",
+    "scope": "BundleFuse only; no CLHE/RaMen reruns; no test-based weight selection"
+  },
+  "source_snapshot_sha256": "932c28bfd54ae8f757bb741d550837ff0b042b772ca605253be1912921fc9211",
+  "jobs": [
+    {
+      "dataset": "pog_dense",
+      "status": "complete",
+      "started": 1793681792.579884,
+      "log": "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/results/reorganized_run/original/pog_dense/run.log",
+      "returncode": 0,
+      "seconds": 224.23403906822205
+    },
+    {
+      "dataset": "pog",
+      "status": "complete",
+      "started": 1793682016.819971,
+      "log": "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/results/reorganized_run/original/pog/run.log",
+      "returncode": 0,
+      "seconds": 169.4415638446808
+    },
+    {
+      "dataset": "electronic",
+      "status": "complete",
+      "started": 1793682186.26459,
+      "log": "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/results/reorganized_run/original/electronic/run.log",
+      "returncode": 0,
+      "seconds": 6.201940059661865
+    },
+    {
+      "dataset": "food",
+      "status": "complete",
+      "started": 1793682192.4689121,
+      "log": "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/results/reorganized_run/original/food/run.log",
+      "returncode": 0,
+      "seconds": 4.211355924606323
+    },
+    {
+      "dataset": "clothing",
+      "status": "complete",
+      "started": 1793682196.6828249,
+      "log": "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/results/reorganized_run/original/clothing/run.log",
+      "returncode": 0,
+      "seconds": 5.086652994155884
+    },
+    {
+      "dataset": "dunnhumby",
+      "status": "complete",
+      "started": 1793682201.772206,
+      "log": "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/results/reorganized_run/original/dunnhumby/run.log",
+      "returncode": 0,
+      "seconds": 45.99775004386902
+    },
+    {
+      "dataset": "spotify",
+      "status": "complete",
+      "started": 1793682247.772694,
+      "log": "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/results/reorganized_run/original/spotify/run.log",
+      "returncode": 0,
+      "seconds": 2203.55384683609
+    },
+    {
+      "dataset": "spotify_sparse",
+      "status": "complete",
+      "started": 1793684451.3321118,
+      "log": "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/results/reorganized_run/original/spotify_sparse/run.log",
+      "returncode": 0,
+      "seconds": 584.0451292991638
+    }
+  ]
+}

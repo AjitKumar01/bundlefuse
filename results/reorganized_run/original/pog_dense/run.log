@@ -1,0 +1,11 @@
+START pog_dense original configs; full provided splits
+VALIDATION 20 candidates; latest objective 0.20361737590610218
+VALIDATION 40 candidates; latest objective 0.2168515082986375
+VALIDATION 60 candidates; latest objective 0.26175812061558495
+VALIDATION 80 candidates; latest objective 0.26216307474730605
+VALIDATION 100 candidates; latest objective 0.2214045841955526
+VALIDATION 120 candidates; latest objective 0.19357460955231603
+VALIDATION 140 candidates; latest objective 0.22865782373741583
+VALIDATION 160 candidates; latest objective 0.19327486299396165
+VALIDATION 180 candidates; latest objective 0.2823786843599885
+COMPLETE pog_dense {'recall@10': 0.34944425732569895, 'ndcg@10': 0.27450638365358926, 'recall@20': 0.39193892444145056, 'ndcg@20': 0.2863647287921692, 'recall@50': 0.4389805770742113, 'ndcg@50': 0.29696005189082536}

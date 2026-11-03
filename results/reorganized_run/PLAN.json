@@ -1,0 +1,20 @@
+{
+  "implementation_commit": "162dd8c",
+  "snapshot": "/private/tmp/bundlefuse_reorganized_162dd8c",
+  "python": "/Users/ajit/.pyenv/versions/3.13.4/bin/python3",
+  "started_utc": "2026-11-03T04:52:06.375005+00:00",
+  "stage": "original_reorganized_defaults",
+  "datasets": [
+    "pog_dense",
+    "pog",
+    "electronic",
+    "food",
+    "clothing",
+    "dunnhumby",
+    "spotify",
+    "spotify_sparse"
+  ],
+  "provided": "full released train/validation/test; seed 0",
+  "resplit": "seed 0, val 800, test 2000; comparison with old multi-seed averages is contextual until folds are matched",
+  "scope": "BundleFuse only; no CLHE/RaMen reruns; no test-based weight selection"
+}

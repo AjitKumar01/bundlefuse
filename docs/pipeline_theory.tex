@@ -1,0 +1,1270 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=25mm,headheight=14pt]{geometry}
+\usepackage{amsmath,amssymb,mathtools,bm}
+\usepackage{booktabs,longtable,tabularx,array}
+\usepackage{enumitem,microtype,xcolor,fancyhdr,listings}
+\usepackage[obeyspaces]{url}
+\usepackage{hyperref}
+\definecolor{inkblue}{HTML}{244B68}
+\hypersetup{colorlinks=true,linkcolor=inkblue,urlcolor=inkblue,
+ pdftitle={BundleFuse: the pipeline implemented in code},pdfauthor={BundleFuse implementation notes}}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small BundleFuse: code-derived pipeline}
+\fancyhead[R]{\small 3 November 2026}
+\fancyfoot[C]{\thepage}
+\setlength{\parindent}{0pt}\setlength{\parskip}{6pt}
+\setlength{\emergencystretch}{2em}
+\setlist{itemsep=3pt,topsep=4pt}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\def\UrlFont{\small\ttfamily}
+\newcommand{\code}[1]{\nolinkurl{#1}}
+\expandafter\def\expandafter\UrlBreaks\expandafter{\UrlBreaks\do\,\do\;}
+\newcommand{\src}[1]{\par\begingroup\raggedright\textit{Code: }\code{#1}\par\endgroup}
+\newcommand{\R}{\mathbb R}
+\newcommand{\I}{\mathcal I}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\off}{\operatorname{off}}
+\newcommand{\pos}[1]{\left[#1\right]_+}
+\newcommand{\normrows}{\mathcal N}
+\newcommand{\mean}{\operatorname{mean}}
+\newcommand{\std}{\operatorname{std}}
+\newcommand{\nnz}{\operatorname{nnz}}
+\newcommand{\sig}[1]{\mathrm{#1}}
+\lstset{basicstyle=\ttfamily\small,breaklines=true,columns=fullflexible,
+ frame=single,framerule=.3pt,rulecolor=\color{inkblue},showstringspaces=false}
+\numberwithin{equation}{section}
+\title{\textcolor{inkblue}{BundleFuse}\\[5pt]
+ The pipeline implemented in code\\[7pt]
+ \large A step-by-step mathematical specification}
+\author{Derived directly from the current working source}
+\date{3 November 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+This document follows the executable pipeline: resolve configuration, construct data folds,
+build fixed artifacts, compute and standardize candidate signals, select fusion settings on
+validation queries, save a fitted checkpoint, predict, and evaluate. It describes both the
+POG/Spotify path and the distinct retail/commerce path, as well as the optional extended
+profile. Equations specify what the functions compute; interpretation is separated from
+implementation facts. Earlier documentation, paper descriptions, and historical result tables
+are not sources for this account. No accuracy or novelty claim is inferred from the formulas.
+\end{abstract}
+
+\textbf{Snapshot.} The branch is \code{reorganized}. Its base commit is
+\begin{center}\code{162dd8ce8846b91bca3b508ede45fc6ebeaab576}\end{center}
+The working tree contains changes,
+so that commit alone does not identify this implementation. The companion
+\code{pipeline_theory_sources.json} records SHA-256 hashes for the 30 inspected runtime,
+configuration, entry-point, and timing-script files. Their combined source-set digest is
+\begin{center}\small\ttfamily d9fe136d0d7a084d3c2e99510e5ea4acde35785b4515bf3a5e6018b8366b8033\end{center}
+The source map in Appendix~\ref{app:map} connects the derivations to functions.
+
+\clearpage
+\tableofcontents
+\clearpage
+
+\section*{Notation and the execution contract}
+\addcontentsline{toc}{section}{Notation and the execution contract}\label{sec:notation}
+All core symbols are defined here before use. Additional symbols are introduced locally,
+immediately before their equations. Bold lower-case letters are column vectors; matrices
+are upper-case. A matrix row stores an item's features, and a score-matrix column stores
+one query's scores over the entire catalogue.
+
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{.21\linewidth}>{\raggedright\arraybackslash}p{.73\linewidth}@{}}
+\toprule Symbol & Definition \\\midrule\endhead
+$n$, $\I$ & Number of catalogue items and the internal ID set $\I=\{0,\ldots,n-1\}$. \\
+$m$, $b_e$ & Number of training bundles and training bundle $e$, $1\le e\le m$. Different training rows may contain the same item set. \\
+$S_j$, $G_j$ & Original revealed seeds and held-out ground-truth items for query $j$; $S_j\cap G_j=\varnothing$. \\
+$S_j^\star$ & Seeds actually used for scoring after the optional seed cap. All original $S_j$ are excluded from recommendations. \\
+$v$, $q$ & Number of validation queries and number of queries in a scoring batch. \\
+$\bm x_j$, $X$ & Indicator $x_{ij}=\mathbf 1[i\in S_j^\star]$ and batch matrix $X=[\bm x_1,\ldots,\bm x_q]\in\R^{n\times q}$. \\
+$B$, $B_0$ & Training bundle--item incidence and its binary incidence, both $m\times n$. In ordinary \code{BundleFuse.fit}, both are binary and equal. \\
+$f_i$, $d_e$ & Training exposure of item $i$ and size of bundle $e$. \\
+$\ell_i$, $a_i$ & Item category/artist label and, when available, album label. \\
+$F$ & A generic dense item-feature matrix; $F_i$ is row $i$. A subscript identifies a particular feature family. \\
+$C$, $M$, $U$ & Zero-diagonal item co-occurrence, its positive-PMI matrix, and row-normalized collaborative SVD features. \\
+$r^t_{ij}$, $z^t_{ij}$ & Raw and catalogue-standardized score of signal key $t$ for item $i$, query $j$. \\
+$\mathcal K$, $\mathcal P$ & Ordered selectable signal menu and selected prior-key list. \\
+$w_t$ & Nonnegative, validation-selected weight of signal key $t$; zero keys are removed after pruning. \\
+$\alpha_d,\gamma_v,\beta$ & Item-exposure exponent, training-bundle volume exponent, and incidence-surplus coefficient. Defaults: $0.5,0.5,1.5$. \\
+$\alpha_b$ & Dense content-bridge mixing coefficient; default $0.5$. \\
+$\alpha_h$, $\gamma_R$ & Validation-selected incidence-mixture and concordance coefficients. These differ from $\alpha_d,\alpha_b$ and the concordance kernel parameter. \\
+$Y_{ij}$, $P_{ij}$ & Fused observed score and unscaled prior score. \\
+$s_0$, $\kappa$ & Validation-frozen prior scale and exposure shrinkage ratio. \\
+$\widehat\theta_{ij}$ & Final fused score before original revealed items are excluded. \\
+$K$ & Requested recommendation or metric cutoff. \\
+\bottomrule
+\end{longtable}
+
+\textbf{Basic operations.} Define $[x]_+=\max(0,x)$, elementwise product $\odot$,
+$\diag(\bm u)$ as a diagonal matrix, and $\off(A)$ as $A$ with diagonal set to zero.
+For dense rows define
+\begin{equation}\tag{N.1}\label{eq:norm}
+ \normrows(F)_i=\frac{F_i}{\lVert F_i\rVert_2+10^{-8}}.
+\end{equation}
+Sparse text rows use scikit-learn's exact L2 normalization, which leaves zero rows zero;
+it is not the epsilon-normalization in \eqref{eq:norm}. Most final signal arrays are float32.
+The formulas below describe real-valued arithmetic; where operation order or precision
+matters, the actual code order is stated explicitly.
+
+\textbf{What fitting means.} There is no gradient-trained neural network in this path.
+Fitting constructs empirical graph statistics, SVD features and sometimes k-means clusters,
+then searches validation-selected weights and routing settings. These are data-fitted
+artifacts and selected parameters; calling the algorithm ``parameter-free'' would obscure
+that distinction. Test ground truth is not passed into \code{BundleFuse.fit}.
+
+\textbf{End-to-end order.}
+\begin{enumerate}
+\item Resolve a dataset definition, preprocessing profile, split protocol, and model configuration.
+\item Load training bundles, validation queries, test queries, catalogue features, and context metadata.
+\item Build training-incidence operators and the appropriate content/context artifacts.
+\item Compute and standardize validation signal columns over all catalogue items.
+\item Select weights, higher-order mixture, prior scale, and shrinkage on validation only.
+\item Retain fitted state; optionally evaluate and save it through the CLI.
+\item For a new query, compute only the dependencies of the frozen fusion, then rank.
+\item Evaluate with the same ranking rule and the checkpoint's reconstructed data protocol.
+\end{enumerate}
+The fit CLI evaluates before saving by default; saving is skipped with \code{--no-save},
+and evaluation is skipped with \code{--no-eval}. The conceptual distinction between
+fitting and inference is unchanged by that ordering.
+
+\section{Step 1: resolve configuration and dispatch}\label{sec:dispatch}
+\src{bundlefuse/datasets/__init__.py; bundlefuse/config.py; evaluator.py}
+The registry maps eight dataset names into three loader families. Shared methods implement
+\code{datasets.load(name)}, \code{datasets.get(name).config(n_items)}, and
+\code{datasets.build(name)}. The last returns an \emph{unfitted} model and loaded dataset.
+The standard fit call is
+\begin{lstlisting}
+model, ds = datasets.build("pog_dense")
+model.fit(ds.train, ds.val_pairs, **ds.fit_kwargs())
+\end{lstlisting}
+\code{fit_kwargs()} forwards features, labels, optional context inputs, validation users,
+preprocessing-specific data, and a copied provenance specification. Dataset loading by
+itself does not fit or save a model.
+
+\begin{table}[htbp]\centering\small
+\begin{tabularx}{\linewidth}{@{}p{.25\linewidth}YYY@{}}
+\toprule Datasets & Loader family & Default protocol & Ordinary query limits \\\midrule
+POG, POG Dense, Spotify, Spotify Sparse & BundleMLLM & Supplied files & All validation/test queries \\
+Dunnhumby & Retail & Random resplit & 800 validation, 2,000 test \\
+Electronic, Food, Clothing & BundleRec commerce & Random resplit & 800 validation, 2,000 test \\
+\bottomrule
+\end{tabularx}
+\caption{Registry and fit-CLI defaults. Explicit zero or explicit Python \code{None} limits mean full folds. \code{validate.py} passes \code{None} by default and therefore uses full folds.}
+\end{table}
+
+There are \emph{two independent profile settings}. The \code{data_profile} chooses
+preprocessing; the model's \code{signal_profile} chooses the scorer/selection recipe.
+Both support \code{research} and \code{extended}. All eight current dataset JSON files
+set \code{signal_profile="research"}; default dataset loading also chooses
+\code{data_profile="research"}. In contrast, constructing \code{BundleFuseConfig}
+directly defaults its signal profile to \code{extended}. A caller that disables JSON
+configuration does not automatically recover the dataset JSON's research profile.
+
+Configuration precedence is: dataset JSON (or fallback when no JSON is used), then non-null
+caller overrides, then explicitly supplied CLI overrides. The catalogue size comes from
+the loaded dataset. Current JSON files set collaborative SVD dimension 128,
+$\alpha_d=\gamma_v=0.5$, $\beta=1.5$, $\alpha_b=0.5$,
+\code{compressed=true}, and \code{content_rank=null}. Thus the current default does
+\emph{not} apply an additional content projection, despite compressed checkpoint storage.
+Other dataclass defaults include four coordinate-search rounds, 32-query validation blocks,
+400 soft clusters, and a zero seed cap (use all seeds).
+
+After the common graph is built, the special basket path is taken exactly when
+\code{signal_profile == 'research'} and the preprocessing payload's kind is
+\code{retail} or \code{bundlerec}. Otherwise fitting uses the general path. A research
+signal setting without the basket payload therefore does not activate basket scoring.
+Research baskets require their full family set; family ablations use the extended path.
+They also reject a non-null content projection or $\alpha_b\ne0.5$ rather than silently
+ignoring those overrides.
+
+\section{Step 2: construct the data and query contract}\label{sec:data}
+\src{bundlefuse/datasets/base.py; bundlefuse/datasets/baskets.py; bundlefuse/splits.py}
+
+\subsection{Supplied POG/Spotify folds}
+\code{ProvidedSplits} reads training rows and paired input/ground-truth files for validation
+and test. It checks catalogue size, item bounds, unique row IDs, nonempty rows, no duplicate
+items inside a row, matching input/target query IDs, disjoint fold IDs, and no seed/target
+overlap within a query. Query pairs are emitted in ascending original bundle-ID order.
+Distinct training IDs with identical item contents are retained. Supplied mode neither
+regenerates masks nor deduplicates bundles. Non-default resplit seeds or mask fractions
+are rejected in supplied mode.
+
+For non-music data, available title, image and description arrays are loaded separately.
+For music, the available content tensor is loaded under the audio key. Each modality is
+row-normalized by \eqref{eq:norm}; their concatenation is also supplied as clustering
+input. Fashion labels come from \code{cate}/\code{cate_id}; music labels are artist
+indices with separate album indices. Music is recognized by dataset name or artist metadata.
+
+\subsection{Random resplit and reveal masking}
+Let $M_b$ denote the number of retained complete bundles and let $r$ be the requested split
+seed. Resplitting shuffles their index/order list with Python's \code{random.Random(r)};
+training uses the first $\lfloor0.7M_b\rfloor$ bundles, validation the next
+$\lfloor0.1M_b\rfloor$, and test the remainder. For POG/Spotify resplit mode, complete
+bundles are first reconstructed from supplied inputs plus targets, deduplicated by sorted
+item set, and restricted to at least two distinct items.
+
+Let $\phi\in(0,1)$ be the hidden fraction, default $0.5$, and let $\widetilde b$ be a shuffled
+copy of a held-out complete bundle. Before forming each query define the reveal count
+\begin{equation}
+ h(b)=\max\{1,\operatorname{round}((1-\phi)|b|)\}.
+\end{equation}
+The first $h(b)$ shuffled items form $S$, and the rest form $G$. If the latter is empty,
+the last item is hidden and the others are revealed. Python rounding, including its
+half-to-even rule, is used. A single RNG is reused across all bundles in each masking call;
+validation uses seed $r+1$, test $r+2$. Positive query caps retain a prefix after masking;
+zero/\code{None} retain the full fold. A query cap is not a new random sample.
+
+\subsection{Default Dunnhumby preprocessing}
+\begin{enumerate}
+\item Group transaction rows by basket ID into unique product sets, retaining household and day metadata.
+\item Keep baskets of 3--20 products; shuffle once with seed zero and cap at 30,000 baskets.
+\item Count product appearances in that capped pool, retain products occurring at least twice,
+      remove other products, and discard resulting baskets shorter than three items.
+\item Map retained products, sorted by original ID, to contiguous internal IDs. Globally
+      deduplicate identical mapped baskets, keeping the first household/day association.
+\item Read product text from department, commodity, subcommodity and brand. Subcommodity
+      gives a category; a product with missing metadata receives its own missing category.
+\item Fit catalogue TF--IDF and SVD content features as described below, then resplit and mask.
+      Household counts used by the model are built from the training fold only.
+\end{enumerate}
+The day column is read, but this loader uses a random split, not a chronological split.
+
+\subsection{Default commerce preprocessing}
+\begin{enumerate}
+\item Read bundle--item rows, build the catalogue from all listed items, deduplicate items
+      within bundles, retain bundles of at least two items, and globally deduplicate equal item sets.
+\item Retain the first original bundle key and load its user and session associations.
+\item Read the external user--item pretraining file and restrict its items to this catalogue.
+      Its weighted co-occurrence graph is defined in Section~\ref{sec:contexts}.
+\item Parse the first bracketed category path. The entire parsed path defines the leaf label;
+      its first up-to-two entries define a second-level label. Missing labels are unique per item.
+\item Construct text by concatenating the comma-joined title fields and parsed category path.
+      Build TF--IDF/SVD features, then shuffle, resplit and mask the retained bundles.
+\end{enumerate}
+User-bundle timestamps are read but not used for a temporal restriction. User/session
+co-occurrence from bundle interactions uses training bundles only; the external pretraining
+file is loaded as supplied, with no timestamp filtering in this code.
+
+\subsection{Text features and information available before splitting}\label{sec:text}
+Let $c_{it}$ be the count of retained token/ngram $t$ in item document $i$, and let
+$\operatorname{df}_t$ be the number of catalogue documents containing $t$. The configured
+vectorizer uses English stop words, unigrams and bigrams, and sublinear term frequency.
+With the installed library's smoothed-IDF defaults, the pre-normalized text weight is
+\begin{equation}
+ t_{it}=\begin{cases}
+ (1+\log c_{it})\left(1+\log\dfrac{n+1}{\operatorname{df}_t+1}\right),&c_{it}>0,\\
+ 0,&c_{it}=0.
+ \end{cases}
+\end{equation}
+Let $T\in\R^{n\times d_t}$ be the resulting sparse L2-normalized text matrix, where
+$d_t$ is its retained vocabulary size. The vocabulary cap is 8,000 for retail and 12,000
+for default commerce. Define $r_t=\min(128,d_t-1)$, and let $V_t$ denote the right
+singular vectors returned by \code{TruncatedSVD(r_t, random_state=0)}. Dense basket
+content is $F_c=\normrows(TV_t)$.
+
+This preprocessing is catalogue-transductive: text vocabulary/SVD use all retained item
+metadata before the bundle split. Retail's frequency filter also examines the pre-split
+basket pool. This differs from fitting graph co-occurrence on training bundles. The code
+therefore supports a known catalogue, not a claim that every preprocessing decision is
+estimated from the training fold alone. Predictions use contiguous internal IDs; the
+loaders do not export a dedicated original-ID mapping inside the fitted model.
+
+\section{Step 3: build the common training graph}\label{sec:graph}
+\src{bundlefuse/operators.py: SimplicialGraphOperator}
+In ordinary model fitting define $B_{ei}=\mathbf1[i\in b_e]$ and $B_0=B$; repeated items
+inside a training row are removed by the graph constructor. The helper also accepts bundle
+weights, but \code{BundleFuse.fit} does not pass them. The equations in this section apply
+to the binary incidence used by that public fit path. Define
+\begin{align}
+ f_i&=\sum_e B_{ei},&d_e&=\sum_i(B_0)_{ei},\\
+ D&=\diag((f_i+5)^{-\alpha_d}),&
+ V&=\diag((d_e+1)^{-\gamma_v}),&
+ E&=\diag((d_e+1)^{-1}).
+\end{align}
+$f_i$ counts appearances in retained \emph{training rows}, so retained duplicate rows affect
+exposure. The additive constants 5 and 1 are implementation choices, not symbolic limits.
+
+\subsection{Co-occurrence, positive PMI and collaborative SVD}
+Define $g_i=\sum_j C_{ij}+10^{-9}$ and $z_C=\sum_{i,j}C_{ij}$ after computing
+\begin{equation}
+ C=\off(B^\top B).
+\end{equation}
+For stored nonzero co-occurrences define
+\begin{equation}\label{eq:itempmi}
+ M_{ij}=\pos{\log\left(\frac{C_{ij}z_C}{g_i g_j}+10^{-12}\right)};
+ \qquad M_{ij}=0\ \text{when }C_{ij}=0.
+\end{equation}
+The denominator uses co-occurrence row masses $g_i$, not bundle exposure $f_i$.
+Let $r_c=\min(\text{\code{svd_dim}},\max(1,n-2))$ and $V_c$ be the truncated right singular
+basis of $M$. The stored collaborative feature matrix is
+\begin{equation}
+ U=\normrows(MV_c).
+\end{equation}
+The SVD uses random seed zero; if $M$ has no nonzeros, $U$ is a zero matrix of the requested
+clamped width. The feature is the transformed matrix (left singular vectors times singular
+values), followed by row normalization, not the unscaled left singular vectors alone.
+
+\subsection{The zero-diagonal propagation operator}
+Define the symmetric propagation operator $L\in\R^{n\times n}$ by
+\begin{equation}\label{eq:L}
+ L=DB^\top EBD-\diag\left(D_{ii}^2\sum_eB_{ei}E_{ee}\right).
+\end{equation}
+Since $B$ is binary, the subtracted vector is the diagonal of the preceding product.
+\code{propagate(A)} computes $LA$ by multiplying in the order
+$B(DA)$, then $B^\top E[B(DA)]$, then left-scaling by $D$ and subtracting the diagonal
+correction. It accepts a score vector or an $n$-row dense feature/score matrix and returns
+float32. It does not use row-stochastic normalization.
+
+\subsection{Two different pairwise objects}\label{sec:pairdistinction}
+For a query indicator $\bm x$ define its training-bundle overlap vector
+$\bm o=VB D\bm x$. The ordinary \code{pair} score is
+\begin{equation}\label{eq:pair}
+ \bm p=B^\top\bm o=B^\top VB D\bm x.
+\end{equation}
+Separately, the graph stores
+\begin{equation}\label{eq:W}
+ W=\off(B^\top VB D),
+\end{equation}
+under \code{W_pair}. $W$ is used for concordance; \eqref{eq:pair} is used for the
+\code{pair} signal. They differ on the diagonal. Although revealed candidates are excluded
+at the final ranking step, their scores participate in standardization and diffusion.
+Thus replacing \eqref{eq:pair} by $W\bm x$ would change the implemented pipeline.
+
+\subsection{Pure incidence surplus}
+Define overlap counts $\bm k=B_0\bm x$ and let $\bm\delta$ denote the incidence-surplus
+score vector. The code computes
+\begin{equation}\label{eq:delta}
+ \bm\delta=B^\top\bigl[\bm o\odot\beta\pos{\bm k-\bm1}\bigr].
+\end{equation}
+For candidate $i$, this adds evidence from training bundles that contain $i$ and at least
+two revealed seeds. It is exactly zero for a single-seed query or whenever no training
+bundle overlaps two scoring seeds. This is excess over a linear overlap score; the code
+never requires all revealed seeds to occur in the same training bundle.
+
+\section{Step 4: build dense content and ontology artifacts}\label{sec:features}
+\src{bundlefuse/model.py: BundleFuse.fit; bundlefuse/operators.py: DualSpectrumOntology, BilateralContentBridge}
+This section describes the general POG/Spotify path. Research basket content/context
+artifacts are specified separately in Section~\ref{sec:contexts}.
+
+\subsection{Input normalization, category labels and style residuals}
+Let $F^{(1)},\ldots,F^{(b)}$ be the available content modalities, with $b$ denoting the
+number of modalities. The loader normalizes each modality. A research full-ranking
+preprocessing payload marks them as already normalized; otherwise the model normalizes
+them again. Their raw content feature is
+\begin{equation}
+ F_{\mathrm{content}}=\normrows\bigl([F^{(1)}|\cdots|F^{(b)}]\bigr).
+\end{equation}
+If explicit category labels are absent, the model obtains them by k-means on supplied
+clustering features, concatenated modalities, or collaborative features, in that priority.
+The effective cluster count is $k_s=\max(2,\min(\text{\code{n_soft_clusters}},n-1))$.
+Every k-means call uses \code{MiniBatchKMeans}, random seed zero, three initializations,
+and batch size 4,096.
+
+For each modality, define a style-group label $c_i$. For fashion, $c_i=\ell_i$; for music,
+$c_i$ is a k-means cluster of audio/content features, not the artist label. For each group
+$c$ define its catalogue centroid $\overline F_c$, then its normalized residual feature
+\begin{equation}\label{eq:style}
+ \overline F_c=\frac{1}{|\{i:c_i=c\}|}\sum_{i:c_i=c}F_i,
+ \qquad F_{\mathrm{style},i}
+ =\frac{F_i-\overline F_{c_i}}{\lVert F_i-\overline F_{c_i}\rVert_2+10^{-8}}.
+\end{equation}
+The keys are \code{style}, \code{imgstyle}, \code{descstyle}, and \code{audiostyle}
+for title/content, image, description, and audio respectively. These are deterministic
+centroid residuals after clustering/label construction, not outputs of a neural encoder.
+
+\subsection{Dense bridge and optional content projection}
+Let $F_s$ be the normalized concatenation of available style residuals. In the research
+music path, $F_s$ is the audio style residual itself, with no extra normalization.
+Define the propagated and bridged features
+\begin{equation}\label{eq:bridge}
+ F_p=\normrows(LF_s),\qquad
+ F_{\mathrm{bridge}}=\normrows(F_s+\alpha_b F_p).
+\end{equation}
+This mixes item content with graph-neighbor content once. It is built during fitting and
+reused at prediction time.
+
+Only when both \code{compressed=true} and \code{content_rank=r} is non-null does the model
+apply an additional rank-$r$ truncated-SVD transform to any content/style/bridge feature
+whose input width exceeds $r$. Each eligible feature is projected separately, using seed
+zero. Projected rows are \emph{not} normalized again. Collaborative $U$ is excluded from
+this projection. The concordance descriptor is retained separately before projection,
+so projecting the scoring feature table does not necessarily project concordance features.
+With the current JSON defaults, this entire additional projection step is skipped.
+
+\subsection{Category complementarity and saturation}
+Let $c$ index the $n_c$ distinct category labels, and define the training category-count
+matrix $A\in\R^{m\times n_c}$ by $A_{ec}=|\{i\in b_e:\ell_i=c\}|$.
+Define category masses $a_c=\sum_e A_{ec}+10^{-9}$, total $a_+=\sum_c a_c$, and
+$H=\off(A^\top A)$. For nonzero $H_{cd}$ define
+\begin{equation}\label{eq:catpmi}
+ Q_{cd}=\pos{\log\left(\frac{H_{cd}a_+}{a_c a_d}+10^{-12}\right)};
+ \quad Q_{cd}=0\text{ otherwise}.
+\end{equation}
+The marginal in this category formula is a count of category appearances, not the row sum
+of $H$. Different items with the same label contribute repeated counts to $A$.
+
+For each category $c$, define $u_c$ as the number of training bundles containing that
+category at least once and $v_c$ as the number containing it at least twice. Define the
+smoothed duplication rate $\rho_c=(v_c+0.5)/(u_c+1)$. The non-music saturation score is
+\begin{equation}\label{eq:saturation}
+ r^{\sig{slot}}_i(S^\star)=
+ -\sum_{s\in S^\star}\mathbf1[\ell_i=\ell_s]\,
+ \mathbf1[\rho_{\ell_s}<0.15]\,(1-\rho_{\ell_s}).
+\end{equation}
+It penalizes a candidate sharing a rarely duplicated category with each matching seed.
+The general fashion category signal adds one half of this score. General music and the
+research basket category signals do not add this term.
+
+\subsection{Soft ontology for the general non-music path}
+Let $F_o$ be the concatenated modality input used by the ontology. The research fashion
+path row-normalizes this concatenation; the extended path uses the concatenation directly.
+Let $\bm\mu_c$ be k-means centre $c$, normalized to unit length with epsilon $10^{-8}$,
+for $1\le c\le k_s$. Let $\tau_s$ be \code{soft_tau}, default $0.05$.
+The soft membership matrix $J\in\R^{n\times k_s}$ is
+\begin{align}
+ t_{ic}&=F_{o,i}\bm\mu_c^\top/\tau_s,
+ &J_{ic}&=\frac{\exp(t_{ic}-\max_d t_{id})}
+ {\sum_d\exp(t_{id}-\max_d t_{id})+10^{-9}}.
+\end{align}
+Define each training bundle's soft sum $\bm b_e^s=\sum_{i\in b_e}J_i$ and the matrix
+$B_s$ with those rows. The off-diagonal nonnegative soft co-occurrence is
+\begin{equation}
+ H_s=\left[\off\left(B_s^\top B_s-
+             \sum_e\sum_{i\in b_e}J_i^\top J_i\right)\right]_+.
+\end{equation}
+The subtracted term removes each item's self-outer-product inside a training bundle.
+Define catalogue soft masses $a^s_c=\sum_i J_{ic}$ and $a^s_+=\sum_c a^s_c$. The
+stored soft compatibility matrix is computed over all entries as
+\begin{equation}
+ (Q_s)_{cd}=\pos{\log\left(
+ \frac{(H_s)_{cd}a^s_+}{a^s_c a^s_d+10^{-9}}+10^{-12}\right)}.
+\end{equation}
+The model stores $J$ and $JQ_s$. The soft signal later matches a candidate's soft
+compatibility row against the \emph{sum} of seed membership rows. This is separate from
+the category-count PMI in \eqref{eq:catpmi}. If the ontology has no clustering features,
+these soft artifacts are absent and \code{softcat} is unavailable.
+
+\section{Step 5: build the research basket context artifacts}\label{sec:contexts}
+\src{bundlefuse/datasets/baskets.py; bundlefuse/basket_signals.py: BasketSignals}
+The research basket path returns before the general ontology/style construction. Its
+content $F_c$ is the catalogue text-SVD matrix from Section~\ref{sec:text}. Its category
+PMI uses the count construction of \eqref{eq:catpmi}, without slot saturation or soft labels.
+
+\subsection{Retail household context and bridge}
+Let $Z_h$ be the household-by-item training count matrix; $(Z_h)_{ui}$ counts appearances
+of item $i$ in training baskets belonging to household $u$. Let
+$d^h_u=\sum_i(Z_h)_{ui}+1$. Define
+\begin{equation}
+ \widetilde Z_h=\diag((d^h_u)^{-1/2})Z_h,
+ \qquad C_h=\off(\widetilde Z_h^\top\widetilde Z_h).
+\end{equation}
+The retail household signal will use $C_hD\bm x$, including the common seed-exposure
+weight $D$. Its dense bridge is
+\begin{equation}
+ F_h=\normrows\bigl(F_c+0.5\normrows(LF_c)\bigr).
+\end{equation}
+Household context is shared evidence across the training fold. It is not a per-query
+household-personalization term in this research basket path; supplied query users do not
+change \code{BasketSignals.score}.
+
+\subsection{Commerce user/session graphs and external pretraining graph}
+Let $Z_u$ and $Z_s$ be user-by-item and session-by-item count matrices built only from
+training bundles and their recorded associations. Missing negative associations are skipped.
+Define $C_u=\off(Z_u^\top Z_u)$ and $C_s=\off(Z_s^\top Z_s)$; these two contexts
+are not degree-normalized here.
+
+Let $Z_p$ be the external pretraining user-by-item count matrix after catalogue restriction,
+and define $d^p_u=\max(\sum_i(Z_p)_{ui},1)$. Define its degree-normalized co-occurrence
+and the commerce diffusion operator $L_c$ as
+\begin{align}
+ C_p&=\off\left(Z_p^\top\diag((d^p_u)^{-1})Z_p\right),\\
+ D_c&=\diag((f_i+1)^{-1/2}),\\
+ L_c&=D_c(C+0.5C_s+0.5C_u+0.2C_p)D_c.\label{eq:Lcommerce}
+\end{align}
+$L_c$ replaces $L$ for commerce score diffusion. It does not replace $L$ inside the
+common graph constructor or the separately stored concordance matrix $W$.
+
+Using sparse text $T$ and dense text-SVD content $F_c$, define
+\begin{align}
+ T_b&=\operatorname{L2rows}(T+1.5L_cT+0.5L_c(L_cT)),\\
+ F_b&=\normrows(F_c+1.5L_cF_c+0.5L_c(L_cF_c)).
+\end{align}
+$T_b$ is the selectable sparse bridge; $F_b$ is a dense descriptor for concordance.
+The two are different artifacts, and the dense one is not an additional selectable
+\code{content} signal in the default commerce menu.
+
+For commerce taxonomy, build three versions of \eqref{eq:catpmi}: leaf-category
+$Q_\ell^{\mathrm{off}}$ with diagonal removed, leaf-category $Q_\ell^{\mathrm{keep}}$
+with diagonal retained, and second-level $Q_2^{\mathrm{keep}}$ with diagonal retained.
+In each version the appropriate label-count matrix supplies its own marginals. The
+last two support the commerce homophily signal.
+
+\section{Step 6: compute raw candidate signals}\label{sec:signals}
+All formulas here use scoring seeds $S^\star$ and indicator $\bm x$. They produce one
+score for \emph{every} catalogue item, including seeds; seed exclusion occurs only when
+ranking. Batch implementations perform these same operations for columns of $X$.
+
+\subsection{Shared collaborative, diffusion and content signals}
+Define $\bm p$ and $\bm\delta$ by \eqref{eq:pair} and \eqref{eq:delta}. In commerce,
+first replace the pair score by
+\begin{equation}
+ \bm p_c=\bm p+0.35C_u\bm x+0.35C_s\bm x.
+\end{equation}
+The family-specific raw score definitions are then:
+\begin{center}\small
+\begin{tabularx}{\linewidth}{@{}p{.20\linewidth}YY@{}}
+\toprule Code key & General / research retail & Research commerce \\\midrule
+\code{pair} & $\bm p$ & $\bm p_c$ \\
+\code{simp} & $\bm p+\bm\delta$ & $\bm p_c+\bm\delta$ \\
+\code{diff2_pair} & $L\bm p$ & $L_c\bm p_c$ \\
+\code{diff2} & $L\bm p+L\bm\delta$ & $L_c(\bm p_c+\bm\delta)$ \\
+\code{cooc} & $C\bm x$ & $C\bm x$ \\
+\code{ppmi} & $M\bm x$ & $M\bm x$ \\
+\code{pop} & $\log(1+f_i)$ for candidate $i$ & Not in the selectable menu \\
+\code{csvd} & $U_i\bigl(|S^\star|^{-1}\sum_{s\in S^\star}U_s\bigr)^\top$ & Same \\
+\bottomrule
+\end{tabularx}
+\end{center}
+The code evaluates $L\bm p$ and $L\bm\delta$ separately before adding for general/retail
+\code{diff2}. Algebraically it equals $L(\bm p+\bm\delta)$, but the prescribed float32
+operation order is retained. Commerce uses the latter summed-input form with $L_c$.
+
+For any selectable dense feature $F_t$, the raw content score is
+\begin{equation}\label{eq:densescore}
+ r^t_i(S^\star)=F_{t,i}\left(\frac{1}{|S^\star|}\sum_{s\in S^\star}F_{t,s}\right)^\top.
+\end{equation}
+This applies to raw content, styles, dense bridges, and collaborative SVD features when
+they are in the selected menu. Research retail uses $F_c$ for \code{content} and $F_h$
+for \code{bridge}. Research commerce instead scores
+\begin{equation}
+ \bm r^{\sig{tfidf}}=T(T^\top\bm x),\quad
+ \bm r^{\sig{bridge}}=T_b(T_b^\top\bm x),\quad
+ \bm r^{\sig{pretrain}}=C_p\bm x.
+\end{equation}
+Sparse text uses a \emph{sum} of seed columns; dense \eqref{eq:densescore} uses a mean.
+Retail also computes TF--IDF in its full reference scorer, but that key is not selectable
+in its default menu. Placeholder \code{contrast}/\code{img} values in the basket full
+scorer are \code{None}, not trained neural components.
+
+\subsection{Taxonomy, homophily and household scores}
+For the relevant category matrix $Q$, the basic category score is
+\begin{equation}
+ r^{\sig{cat}}_i(S^\star)=\sum_{s\in S^\star}Q_{\ell_s,\ell_i}.
+\end{equation}
+General non-music scoring adds $0.5r_i^{\sig{slot}}$ from \eqref{eq:saturation}.
+General music uses artist labels without that penalty. Commerce uses
+$Q_\ell^{\mathrm{off}}$ without the penalty. Its homophily score, using second-level
+label $h_i$, is
+\begin{equation}
+ r^{\sig{homo}}_i(S^\star)=\sum_{s\in S^\star}
+ \left[(Q_\ell^{\mathrm{keep}})_{\ell_s,\ell_i}
+       +0.5(Q_2^{\mathrm{keep}})_{h_s,h_i}\right].
+\end{equation}
+For soft ontology, the score is
+\begin{equation}
+ \bm r^{\sig{softcat}}=(JQ_s)\left(\sum_{s\in S^\star}J_s\right)^\top.
+\end{equation}
+
+For general music, let $H_a$ and $H_b$ be the item-by-artist and item-by-album binary
+membership matrices. Let their column sizes be $n^a_c$ and $n^b_c$. Define
+$\widetilde H_a=H_a\diag((n^a_c+5)^{-1/2})$ and
+$\widetilde H_b=H_b\diag((n^b_c+2)^{-1/2})$. Then
+\begin{equation}
+ \bm r^{\sig{homo}}=\widetilde H_a\widetilde H_a^\top\bm x
+                   +2\widetilde H_b\widetilde H_b^\top\bm x.
+\end{equation}
+The album term is zero if album labels are absent. Research retail's separate household
+signal is $\bm r^{\sig{hh}}=C_hD\bm x$, code key \code{hh_cooc}.
+
+\subsection{Concordance: support from pairs of revealed seeds}\label{sec:rao}
+The concordance routine uses $W$ in \eqref{eq:W}, not the \code{pair} score matrix.
+Let $F_R$ be the descriptor used only for this routine, $\eta$ the seed-kernel parameter,
+$\lambda_d$ the dense-support coefficient, and $\tau_R=0.05$ its denominator stabilizer.
+Before defining the kernel, define candidate-to-seed support and total support by
+\begin{equation}
+ q_{is}=W_{is}+\lambda_d[F_{R,i}F_{R,s}^\top]_+,
+ \qquad A_i=\sum_{s\in S^\star}q_{is}.
+\end{equation}
+If no descriptor is available, omit the dense term. For seeds $s,t$, define similarity
+$G_{st}=0.5\mathbf1[\ell_s=\ell_t]+0.5[F_{R,s}F_{R,t}^\top]_+$ when both labels and
+features are available. With only one source use that source alone; with neither, the
+routine starts with the identity. Its diagonal is set to one. Define the off-diagonal
+seed kernel $K^S$ by
+\begin{equation}
+ K^S_{st}=\begin{cases}
+ 0,&s=t,\\
+ [1+\eta G_{st}]_+,&s\ne t,\ \eta<0,\\
+ 1+\eta G_{st},&s\ne t,\ \eta\ge0.
+ \end{cases}
+\end{equation}
+The raw concordance score is
+\begin{equation}\label{eq:rao}
+ r^{\sig{rao}}_i(S^\star)=
+ \frac{\displaystyle\sum_{s\in S^\star}\sum_{t\in S^\star}
+                 q_{is}K^S_{st}q_{it}}
+      {A_i+\tau_R}.
+\end{equation}
+The double sum includes both ordered directions of each distinct seed pair; it is not
+halved. It vanishes for fewer than two scoring seeds. For $A_i>0$, setting
+$p_{is}=q_{is}/A_i$ rewrites \eqref{eq:rao} as
+$A_i^2(A_i+\tau_R)^{-1}\sum_{s\ne t}K^S_{st}p_{is}p_{it}$.
+This equivalent form explains agreement weighting; the implementation uses the quadratic
+matrix expression directly, without dividing by $A_i$.
+
+\begin{center}\small
+\begin{tabularx}{\linewidth}{@{}p{.29\linewidth}Ycc@{}}
+\toprule Path & Descriptor $F_R$ & $\eta$ & $\lambda_d$ \\\midrule
+General fashion & Title/content style residual & $-1$ & $0.15$ \\
+General music & Audio style residual & $+1$ & $0.15$ \\
+Research retail & Dense retail bridge $F_h$ & $-1$ & $0.15$ \\
+Research commerce & Dense commerce bridge $F_b$ & $-1$ & $0.25$ \\
+\bottomrule
+\end{tabularx}
+\end{center}
+The general full scorer creates this signal only when its descriptor exists. The selected
+scorer requests it only when the frozen fusion needs it. $\eta$ inside the kernel is
+\emph{not} the validation-selected multiplier $\gamma_R$ later applied to the entire
+standardized concordance score.
+
+\section{Step 7: standardize signals and fix their ordered menu}\label{sec:normalization}
+\src{bundlefuse/operators.py: zcols; bundlefuse/model.py; bundlefuse/basket_signals.py}
+For every signal $t$ and query $j$, define the catalogue mean
+$\mu^t_j=n^{-1}\sum_i r^t_{ij}$. Define $\nu$ as the standard-deviation correction:
+$\nu=1$ on the general Torch path and $\nu=0$ on the NumPy research basket path. Then
+\begin{equation}\label{eq:z}
+ z^t_{ij}=\frac{r^t_{ij}-\mu^t_j}
+ {\sqrt{\frac{1}{n-\nu}\sum_{i'}(r^t_{i'j}-\mu^t_j)^2}+10^{-9}}.
+\end{equation}
+This normalization is over catalogue items \emph{within each query}, not over other queries,
+not just warm items, and not after seeds have been masked. Constant columns become zero.
+The Python types determine which standard deviation the shared \code{zcols} uses.
+
+The auxiliary keys \code{pair}, \code{diff2_pair} and \code{rao} are standardized
+separately. In particular, $z^{\sig{simp}}$ is the normalization of
+$\bm p+\bm\delta$, not $z^{\sig{pair}}+z^{\sig{delta}}$. This matters for fusion.
+
+The research menus below are ordered; coordinate selection visits keys in this order.
+Unavailable feature keys are removed on the general path, and family filtering is applied.
+Research basket menus are fixed and require their associated families.
+\begin{description}[style=nextline]
+\item[POG / POG Dense]
+\code{cat, softcat, style, imgstyle, bridge, simp, diff2, pop, cooc, ppmi, csvd}.
+Description style may contribute to the bridge, but is not a separate selectable key here.
+Raw \code{content} is also excluded from this research menu.
+\item[Spotify / Spotify Sparse]
+\code{simp, diff2, pop, cooc, ppmi, csvd, cat, homo, audiostyle, bridge}.
+\item[Research retail]
+\code{simp, diff2, pop, cooc, hh_cooc, ppmi, csvd, cat, content, bridge}.
+\item[Research commerce]
+\code{simp, diff2, cooc, ppmi, csvd, cat, homo, tfidf, bridge, pretrain}.
+\end{description}
+The auxiliary keys are not themselves coordinate-selected weights. They are dependencies
+of the higher-order mixture. On the extended path the menu instead follows the full
+scorer's computed dictionary order, excluding auxiliary keys and applying the configured
+family filter. Appendix~\ref{app:extended} specifies those additional signals.
+
+\section{Step 8: select the frozen fusion on validation queries}\label{sec:selection}
+\src{bundlefuse/fusion.py; bundlefuse/validation_cache.py; bundlefuse/operators.py: EmpiricalBayesRouter}
+The selection routine needs a precise objective, score construction and search order.
+This section defines them in that dependency order. Validation labels affect metric-based
+choices; graph/content artifacts remain fixed during this search.
+
+\subsection{Define the ranking rule and validation objective first}\label{sec:objectives}
+Let $A^{\mathrm{score}}\in\R^{n\times v}$ denote any candidate validation score matrix.
+For query $j$, let $\pi_{j1},\pi_{j2},\ldots$ be the items outside original $S_j$, ordered
+by decreasing $A^{\mathrm{score}}_{ij}$ and then increasing internal item ID for exact ties.
+Define $h_{jr}=\mathbf1[\pi_{jr}\in G_j]$ and
+$K_j=\min(K,n-|S_j|)$. For nonempty ground truth, the per-query metrics are
+\begin{align}
+ \operatorname{Recall}_j@K&=\frac{\sum_{r=1}^{K_j}h_{jr}}{|G_j|},\\
+ \operatorname{NDCG}_j@K&=
+ \frac{\sum_{r=1}^{K_j}h_{jr}/\log_2(r+1)}
+      {\sum_{r=1}^{\min(K,|G_j|)}1/\log_2(r+1)}.
+\end{align}
+The objective $\mathcal J$ is a macro mean over validation queries. By default it is mean
+NDCG@20. The accepted objective names also include \code{recallK}, \code{ndcgK},
+\code{ndcgfull}, \code{mrr} and \code{nll}, where $K$ in the first two names is a positive
+integer. Full NDCG uses the ranks of all distinct ground-truth items. MRR averages the
+reciprocal of the \emph{first} relevant item's rank.
+
+For \code{nll}, first re-standardize each candidate score column using NumPy's population
+standard deviation and epsilon $10^{-9}$; call it $\widetilde A_{ij}$. Define
+$\ell_{ij}=\widetilde A_{ij}$ for non-seeds and $\ell_{ij}=-10^9$ for original seeds.
+The higher-is-better objective is the negative of
+\begin{equation}
+ \operatorname{NLL}(A^{\mathrm{score}})=\frac1v\sum_j
+ \left[\log\sum_{i\in\I}\exp(\ell_{ij})
+       -\frac1{|G_j|}\sum_{i\in G_j}\ell_{ij}\right].
+\end{equation}
+The code uses a stable log-sum-exp calculation and float64 after this standardization.
+The seed mask is the finite value $-10^9$, rather than literal negative infinity.
+
+\subsection{Define observed evidence, prior and the final score}
+Define an alias map $a(t)$ that replaces \code{simp} by \code{pair}, replaces
+\code{diff2} by \code{diff2_pair}, and leaves every other signal key unchanged. For a
+weight dictionary $w$, define the pair-only and full-incidence standardized fusions
+\begin{equation}
+ Y^{(0)}_{ij}=\sum_t w_t z^{a(t)}_{ij},\qquad
+ Y^{(1)}_{ij}=\sum_t w_t z^t_{ij}.
+\end{equation}
+Given higher-order settings $(\alpha_h,\gamma_R)$, observed evidence is
+\begin{equation}\label{eq:Y}
+ Y_{ij}=(1-\alpha_h)Y^{(0)}_{ij}+\alpha_hY^{(1)}_{ij}
+                         +\gamma_R z^{\sig{rao}}_{ij}.
+\end{equation}
+The $\alpha_h=0$ path uses only aliased pair signals. Increasing $\alpha_h$ mixes in
+\emph{separately standardized} full signals. It does not simply add $\alpha_h$ times
+raw incidence surplus to a fixed normalized pair score. Concordance enters through its
+own standardized column and a single selected multiplier.
+
+Before defining the prior, define the fallback key weight
+$\widetilde w_t=w_t$ if key $t$ remains in the pruned dictionary, and
+$\widetilde w_t=0.5$ otherwise. For prior-key list $\mathcal P$, define
+\begin{equation}\label{eq:prior}
+ P_{ij}=\sum_{t\in\mathcal P}\widetilde w_t z^t_{ij}
+        +\gamma_R z^{\sig{rao}}_{ij}
+        +\mathbf1[w_{\sig{pop}}>0]w_{\sig{pop}}z^{\sig{pop}}_{ij}.
+\end{equation}
+A missing popularity weight is interpreted as zero. The code includes the same concordance
+term in the observed score and the prior. Popularity is also explicitly added to the prior
+when selected, even though it was not one of the content/taxonomy prior candidates.
+
+For nonnegative shrinkage $\kappa$ and scalar prior scale $s_0$, define the prior mean
+$\mu_{0,ij}=s_0P_{ij}$ and candidate-dependent prior fraction
+$u_i=\kappa/(f_i+\kappa)$ when $\kappa>0$. The final score is
+\begin{equation}\label{eq:posterior}
+ \widehat\theta_{ij}=\begin{cases}
+ Y_{ij},&\kappa\le0,\\
+ (1-u_i)Y_{ij}+u_i\mu_{0,ij},&\kappa>0.
+ \end{cases}
+\end{equation}
+Thus a training-cold item ($f_i=0$) receives the scaled prior when shrinkage is enabled;
+a high-exposure item receives more observed evidence. If selection disables shrinkage,
+even a cold item follows $Y$. Scores can be negative and are not probabilities.
+
+\subsection{Why this is called an empirical-Bayes router}
+For interpretation, define latent compatibility $\theta_{ij}$, prior variance
+$\sigma_0^2$ and observation-noise coefficient $\sigma_\epsilon^2$. The algebra of
+\eqref{eq:posterior} matches the Gaussian assumptions
+\begin{equation}
+ \theta_{ij}\mid\mu_{0,ij}\sim\mathcal N(\mu_{0,ij},\sigma_0^2),\qquad
+ Y_{ij}\mid\theta_{ij},f_i\sim
+       \mathcal N(\theta_{ij},\sigma_\epsilon^2/f_i),\quad f_i>0,
+\end{equation}
+with ratio $\kappa=\sigma_\epsilon^2/\sigma_0^2$. The implemented extension to $f_i=0$
+is the prior-only limit in \eqref{eq:posterior}. This is an interpretation of the scoring
+rule; the code neither tests Gaussianity nor returns a posterior uncertainty distribution.
+Moreover, the final ratio is selected from a validation grid, not forced to equal its
+moment estimate.
+
+\subsection{Stage A: coordinate search and backward pruning}
+Initialize every menu weight to zero and the incumbent objective to $-10^{18}$. For at
+most \code{fit_rounds} passes, visit the ordered menu. At coordinate $t$, try
+$w_t\in\{0,0.25,0.5,1,1.5\}$ while holding other coordinates fixed. Skip an all-zero
+candidate. Evaluate $\mathcal J(Y^{(0)})$, with concordance, incidence mixing and shrinkage
+disabled. Accept a candidate only if its score exceeds the incumbent by $2\times10^{-4}$.
+Stop after a pass with no accepted change. This is ordered greedy coordinate selection,
+not an exhaustive search over all weight combinations.
+
+Remove zero weights. Try removing each listed optional key, retaining at least one
+positive-weight key; accept a removal if its objective is at least the current score minus
+$3\times10^{-4}$. The visited pruning keys are:
+\begin{center}\small
+\begin{tabular}{@{}ll@{}}
+\toprule Path & Optional keys, in order \\\midrule
+General & \code{bridge}, \code{contrast}, \code{softcat}, \code{homo} \\
+Research retail & \code{bridge}, \code{contrast}, \code{cat} \\
+Research commerce & \code{contrast}, \code{homo} \\
+\bottomrule
+\end{tabular}
+\end{center}
+Absent keys, including unused \code{contrast} placeholders, are skipped. On the general
+path, prior keys are chosen next; on baskets they are chosen after the higher-order grid.
+
+\subsection{Stage B: choose prior keys and higher-order settings}
+The ordered general research prior candidates are
+\code{cat}, \code{softcat}, \code{style}, \code{imgstyle}, \code{bridge} for fashion and
+\code{cat}, \code{homo}, \code{audiostyle}, \code{bridge} for music. The extended general path uses
+\code{cat}, \code{softcat}, \code{homo}, \code{content}, \code{style}, \code{imgstyle}, \code{audiostyle}, \code{bridge}.
+Keep available candidates with positive selected weights. If none remain, use all available
+candidates in that order, allowing fallback weight $0.5$ in \eqref{eq:prior}.
+
+Research retail uses positive-weight keys from \code{cat}, \code{content}, \code{bridge}, \code{contrast}; if
+empty, its fallback is \code{cat}, \code{bridge}. Research commerce uses positive-weight keys
+from \code{cat}, \code{homo}, \code{tfidf}, \code{bridge}, \code{pretrain}, \code{contrast}, \code{img}; its fallback is
+\code{bridge}, \code{tfidf}, \code{cat}. Actual menus exclude the unimplemented placeholders.
+
+Evaluate the score in \eqref{eq:Y} with $\kappa=0$, visiting $\alpha_h$ in
+$\{0,0.5,1\}$ as the outer grid and $\gamma_R$ as the inner grid. The precise rules are:
+\begin{center}\small
+\begin{tabularx}{\linewidth}{@{}p{.19\linewidth}p{.18\linewidth}Y@{}}
+\toprule Path & Concordance grid & Acceptance and incumbent \\\midrule
+General & $0,0.2,0.35$ & Start with $(0,0)$ and its actual post-pruning score. Replace only for improvement $>5\times10^{-5}$. If concordance is unavailable, use only $\gamma_R=0$. \\
+Retail & $0,0.15,0.25$ & Start objective at $-10^{18}$. Replace when candidate score is $\ge$ incumbent minus $10^{-5}$; a later near-tie can win. \\
+Commerce & $0,0.2,0.35$ & Start objective at $-10^{18}$. Replace only for improvement $>10^{-5}$. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+The retail rule permits small downward steps between successive accepted near-ties. It is
+not equivalent to taking the first global argmax. The basket function subsequently carries
+$\max(\text{coordinate-search incumbent},\text{accepted higher-order score})$ into its
+shrinkage comparison. Unlike the general selector, it does not simply reset that baseline
+to the final pruned higher-order score. These details are part of the current execution.
+
+\subsection{Stage C: freeze prior scale and estimate exposure moments}\label{sec:moments}
+With selected weights, prior keys and higher-order settings, flatten $Y$ and $P$ over
+\emph{all} validation queries and catalogue items. Let $\operatorname{sd}_\nu$ be standard
+deviation with correction $\nu$ on this flattened population. The scale is
+\begin{equation}
+ s_0=\begin{cases}
+ \dfrac{\operatorname{sd}_1(Y)+10^{-9}}
+       {\operatorname{sd}_1(P)+10^{-9}},&\text{general streaming path},\\[6pt]
+ \dfrac{\operatorname{sd}_0(Y)}
+       {\operatorname{sd}_0(P)+10^{-9}},&\text{NumPy research baskets}.
+ \end{cases}
+\end{equation}
+This one scalar is fitted once and frozen. It is not re-estimated on a test batch.
+The general selector computes global sums and squared sums in float64 across cached
+blocks; standard deviations are not averaged block by block.
+
+For each warm item define its validation mean squared residual $e_i$, inverse exposure
+$x_i$, and their warm-item means $\overline e,\overline x$:
+\begin{equation}
+ e_i=\frac1v\sum_{j=1}^v(Y_{ij}-s_0P_{ij})^2,
+ \qquad x_i=1/f_i,\qquad f_i>0.
+\end{equation}
+These are residuals between two score constructions, not squared errors against binary
+relevance labels. The raw ordinary-least-squares estimates of slope $b_0$ and intercept
+$a_0$ are
+\begin{equation}
+ b_0=\frac{\sum_i(x_i-\overline x)(e_i-\overline e)}
+            {\sum_i(x_i-\overline x)^2},\qquad
+ a_0=\overline e-b_0\overline x,
+\end{equation}
+where sums run over warm items. If fewer than two warm items exist or the denominator is
+$\le10^{-12}$, the components are marked unidentifiable and $\widehat\kappa=0$.
+Otherwise define the admissible plug-in quantities
+\begin{equation}
+ \widehat\sigma_0^2=\max(a_0,10^{-4}),\quad
+ \widehat\sigma_\epsilon^2=\max(b_0,10^{-4}),\quad
+ \widehat\kappa=\operatorname{clip}
+ \left(\frac{\widehat\sigma_\epsilon^2}{\widehat\sigma_0^2},0.05,50\right).
+\end{equation}
+Raw estimates and truncation/identifiability flags are retained. These are clipped OLS
+moment estimates, not an iterative constrained-optimization fit. The general streaming
+path forms residuals and squares in the score dtype before float64 accumulation; NumPy
+basket estimation converts its input score arrays to float64 before forming residuals.
+One should not infer bit identity between those two numerical paths.
+
+\subsection{Stage D: choose the shrinkage setting}
+Use the following grids for $\kappa$, in the stated order:
+\begin{center}\small
+\begin{tabular}{@{}ll@{}}
+\toprule Path & Candidate values \\\midrule
+General & $0,0.05,0.5,1,\widehat\kappa,5$ \\
+Research retail & $0,0.05,0.25,\widehat\kappa,1$ \\
+Research commerce & $0,0.1,0.5,\widehat\kappa,2$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+Unidentifiable variance components restrict every grid to the single value zero, even if
+positive constants were otherwise listed. The general selector tries the fitted scale
+$s_0$ and then scale $1$, using the ratio grid inside each scale. It accepts objective
+improvements $>5\times10^{-5}$. Basket selectors keep the fitted scale and accept
+improvements $>10^{-4}$ relative to their carried incumbent. If scale 1 wins on the general path, it becomes the frozen $s_0$; the recorded moment
+estimates remain those fitted using the originally estimated scale. All start with shrinkage
+disabled. A grid may contain a repeated value; the code does not require deduplication.
+
+The resulting frozen state is the ordered menu, pruned weight dictionary, prior-key list,
+$(\alpha_h,\gamma_R)$, $(\kappa,s_0)$, variance diagnostics, graph/content artifacts,
+and dataset provenance. Test evaluation never changes these selected values.
+
+\subsection{How validation memory and replay work}
+The general path calls the independent all-signal scorer in blocks of
+\code{validation_chunk}, default 32. It writes each required standardized signal to a
+query-major float32 memory-mapped array with shape $(v,n)$. The approximate cache payload
+for $d_z$ retained signal keys is $4vnd_z$ bytes, excluding headers. All validation queries
+remain in the selection population; the block size limits resident scoring work, not the
+number of validation examples. Candidate scores are macro-averaged with query-count
+weights across blocks. Objective values are memoized by weights, higher-order settings,
+backoff and prior-key order. Independent candidates can share one pass through the cache.
+
+The cache is temporary and is closed/deleted after selection, including on exceptions.
+It is not a fitted checkpoint. Research baskets instead compute their complete validation
+signal matrices in memory and call the NumPy selector; \code{validation_chunk} does not
+bound this basket validation allocation in the current code.
+
+\section{Step 9: save fitted state and restore it exactly}\label{sec:checkpoint}
+\src{bundlefuse/model.py: save, load_model; evaluator.py; validate.py}
+\code{fit} marks the object fitted only after selection succeeds. It does not save a file.
+A later \code{save(path)} makes a shallow model snapshot and a separate graph snapshot.
+For baskets it also copies the provider and rebinds that provider to the copied graph.
+The live fitted graph is not modified by checkpoint storage.
+
+With \code{compressed=true}, the copied graph omits the derived attributes
+\code{C}, \code{C_bin}, \code{PPMI}, \code{W_pair_sq}, \code{W_csc}, and \code{P_rw}.
+It retains incidence matrices, exposure/size vectors, $W$, spectral features, selected
+weights/routing, content/context artifacts and provenance. The file is Python pickle
+with highest available protocol, despite its \code{.pt} extension. It is not a gzip archive,
+and compression here does not mean quantizing weights or changing retained numeric values.
+The optional fit-time content projection in Section~\ref{sec:features} is a separate,
+score-changing approximation; current dataset JSONs disable that projection.
+
+The snapshot is written to a temporary file in the destination directory, then atomically
+replaces the destination. Temporary partial-write files are cleaned up; the final checkpoint
+is retained. The ordinary evaluator's default destination is
+\code{checkpoints/<dataset>.pt}, so a later save to that same name replaces it.
+\code{validate.py} instead allocates a unique dataset/protocol/seed/UUID directory under
+\code{checkpoints/validation/}, or under the supplied checkpoint root.
+
+On inference, \code{ensure_graph_matrices} reconstructs missing $C$ from $B^\top B$
+with its diagonal removed, and reconstructs $M$ using exactly \eqref{eq:itempmi} when
+requested. These reconstructed matrices are retained on that loaded graph. It does not
+rebuild every omitted helper artifact. In particular, concordance converts retained $W$
+to CSC format if \code{W_csc} is missing, but keeps the conversion in a local variable:
+the current routine can repeat that conversion on later calls. Core prediction uses the
+factored $L$, so it does not need stored \code{P_rw} or \code{W_pair_sq}.
+
+The custom unpickler remaps the earlier basket-provider module name to
+\code{bundlefuse.basket_signals.BasketSignals}. Loading an ordinary checkpoint does not
+refit SVD, clustering, weights, prior scale or shrinkage.
+
+The fit CLI checks a validation-score probe before save, after save on the live model,
+and after reload; the comparison is NumPy array-value equality. The validation runner
+additionally compares every requested test score through its float32 unsigned-integer
+view, giving an actual bit-pattern equality check. Both write checkpoint paths/hashes and
+sizes to run reports. The temporary signal cache and atomic-write staging files are the
+objects cleaned up automatically, not the validation runner's completed model files.
+
+\section{Step 10: execute a new prediction}\label{sec:predict}
+\src{bundlefuse/model.py: score_batch, score, predict; bundlefuse/selected_signals.py; bundlefuse/metrics.py}
+
+\subsection{Validate the query and choose scoring seeds}
+A fitted model accepts nonempty queries of distinct integer IDs in $[0,n)$; an explicit
+user list must align with the query count. Define the seed-cap setting $c_{\max}\ge0$.
+The prepared scoring context is
+\begin{equation}
+ S^\star=\begin{cases}
+ S\text{ in its supplied order},&c_{\max}=0,\\
+ \text{first }\min(c_{\max},|S|)\text{ IDs in sorted }S,&c_{\max}>0.
+ \end{cases}
+\end{equation}
+This preparation is also used when computing validation signals. Original $S$ remains
+available to metric/ranking code. Thus capped-away revealed items are neither scoring
+seeds nor recommendation candidates. Seed capping does not turn them into ground truth;
+the separate stress experiment below does change ground truth.
+
+\subsection{Determine dependencies of the frozen fusion}
+Let $\mathcal W=\{t:w_t\ne0\}$ be the remaining positive-weight keys. Before computing
+scores, define the required set
+\begin{align}
+ \mathcal D={}&\{a(t):t\in\mathcal W\}\\
+ &{}\cup\begin{cases}\mathcal W,&\alpha_h\ne0,\\\varnothing,&\alpha_h=0\end{cases}
+ \cup\begin{cases}\{\sig{rao}\},&\gamma_R\ne0,\\\varnothing,&\gamma_R=0\end{cases}\nonumber\\
+ &{}\cup\begin{cases}
+ \{t\in\mathcal P:\widetilde w_t\ne0\}
+ \cup\{\sig{pop}:w_{\sig{pop}}>0\},&\kappa>0,\\
+ \varnothing,&\kappa\le0.
+ \end{cases}\nonumber
+\end{align}
+This is \code{required_fusion_signals}. General \code{SelectedSignals} and basket
+\code{score_selected} compute exactly those keys and their operator dependencies.
+Indicators and overlap products are shared within a call; zero-weight/unneeded score
+families are skipped. Candidate items are not pruned: this still scores the full catalogue.
+
+For example, if only \code{simp} has positive weight, $\alpha_h=0$, $\gamma_R=0$ and
+$\kappa=0$, the required signal is only \code{pair}; incidence surplus, concordance,
+content and taxonomy are unnecessary. With $\alpha_h>0$, both \code{pair} and
+\code{simp} are required. With $\kappa>0$, any fallback-prior keys are required too.
+
+\subsection{Compute, standardize, fuse and rank}
+\begin{enumerate}
+\item Restore only missing graph matrices required by $\mathcal D$.
+\item Build indicators for $S^\star$, compute required raw scores from
+      Section~\ref{sec:signals}, and standardize them with \eqref{eq:z}.
+\item Apply \eqref{eq:Y}, then \eqref{eq:prior} and \eqref{eq:posterior} when shrinkage is enabled.
+      General scoring returns an $n\times q$ float32 NumPy array; basket fusion also returns NumPy scores.
+\item For top-$K$ prediction, copy each score column and assign $-\infty$ to \emph{all}
+      original revealed IDs $S$. Clamp output length to the number of available non-seed items.
+\item Use partitioning to find the top-$K$ boundary. Include all strictly higher items,
+      fill boundary ties in ascending ID order, then sort the selected candidates by
+      descending score and ascending ID.
+\end{enumerate}
+\code{score_batch} returns unmasked full-catalogue scores; \code{score} extracts one
+column; \code{predict} adds seed exclusion and deterministic top-$K$ selection.
+\code{reference=True} uses the all-signal reference scorer before the same fusion.
+The code's optimized and reference paths are intended to preserve operation order,
+while general floating-point batching can still select different low-level matrix kernels.
+Per-query standardization and frozen prior scale introduce no dependence on \emph{other}
+query columns, but this is not a claim of bit equality across all BLAS kernels or batch shapes.
+
+\section{Step 11: run evaluation and bind it to the fitted data}\label{sec:evaluate}
+\src{inference.py; bundlefuse/cli_data.py; bundlefuse/evaluation.py; bundlefuse/provenance.py}
+\code{inference.py} has three modes: direct/query-from-test prediction, test evaluation
+at a requested Recall/NDCG cutoff, and a fuller JSON report. No mode refits the model.
+The loaded object's model type and recorded dataset are checked against the requested CLI
+arguments. Direct \code{--seeds} prediction can run from a checkpoint alone; prediction
+with \code{--from-test}, evaluation and reporting reconstruct a dataset.
+
+\subsection{Recorded fingerprints and actual acceptance checks}
+The dataset specification records dataset name, item count, profile, split seed/mask,
+query limits and totals, complete/partial-fold flags, original query IDs, and hashes of
+training rows, validation/test pairs and available input files. Row hashes are SHA-256 of
+compact JSON serialization in the actual row order.
+
+For checkpoint-bound reconstruction, omitted CLI options inherit the checkpoint's protocol,
+profile, split seed, mask and validation limit. A different dataset/profile/protocol, or a
+changed resplit seed/mask, is rejected. A legacy checkpoint missing the profile field is
+interpreted as extended. The loader then compares \code{n_items},
+\code{train_sha256}, \code{val_pairs_sha256} and \code{input_sha256} with fitted
+metadata and rejects mismatches. An empty validation or test set is also rejected.
+
+The test pair hash is recorded but is not in that four-key equality loop. Test query caps
+can be changed, for example to inspect a prefix through \code{--from-test}. Direct
+explicit-seed prediction does not read and re-hash the raw dataset files. This describes
+the implemented checks, rather than assuming that every stored field is always compared.
+Runtime metadata additionally hashes Python package sources and the three entry points,
+and records Python/platform/library versions and Torch thread count. Such hashes identify
+a run; ordinary inference does not reject every change in runtime source hash.
+
+\subsection{Macro test metrics and seed experiments}
+Metrics use the ranking and equations in Section~\ref{sec:objectives}. Evaluation scores
+query blocks, computes each block's macro metrics, multiplies by block query count, and
+divides the total by the complete number of evaluated queries. A small final block
+therefore has its correct weight. The standard full report includes cutoffs 10, 20 and 50.
+
+Two different analyses appear in \code{report}:
+\begin{description}[style=nextline]
+\item[Observed seed-count cohorts]
+Group existing test pairs by original $|S_j|$ and evaluate those unchanged pairs. The number
+of queries per cohort is reported; the model's seed cap can further restrict actual context.
+\item[Controlled seed stress]
+For requested count $c\in\{1,2,3\}$, let $S_j^{(c)}$ be the first $\min(c,|S_j|)$ sorted
+seeds and define
+\begin{equation}
+ G_j^{(c)}=G_j\cup(S_j\setminus S_j^{(c)}).
+\end{equation}
+Evaluate the new pair $(S_j^{(c)},G_j^{(c)})$. Removed seeds become targets, preserving total
+bundle membership; the number of targets can increase. No fitting is repeated. This is a
+new completion task, not merely a timing shortcut for the original test pair.
+\end{description}
+\code{validate.py} is a separate integration runner: it fits, saves permanently, reloads,
+checks every requested test-score bit pattern, and records per-query metrics. It does
+not prove equality with an external published result unless an independent matched
+reference comparison is performed separately.
+
+\section{A small numerical walk-through}\label{sec:example}
+This example illustrates the equations; its frozen fusion settings are supplied for
+explanation, not claimed to be settings selected by the validation routine. Let $n=5$,
+training bundles be $b_1=\{0,1,2\}$ and $b_2=\{0,3\}$, and let original seeds be
+$S=S^\star=\{0,1\}$. Item 4 is in the known catalogue but never appears in training.
+Use the default exponents and $\beta=1.5$. Then
+\begin{equation}
+ B=\begin{pmatrix}1&1&1&0&0\\1&0&0&1&0\end{pmatrix},\qquad
+ \bm f=(2,1,1,1,0)^\top.
+\end{equation}
+Define $a=1/\sqrt7$ and $b=1/\sqrt6$. The weighted overlaps and counts are
+\begin{equation}
+ \bm o=\left(\frac{a+b}{2},\frac{a}{\sqrt3}\right)^\top,
+ \qquad \bm k=(2,1)^\top.
+\end{equation}
+The common pair score and surplus are therefore
+\begin{align}
+ \bm p&=(o_1+o_2,o_1,o_1,o_2,0)^\top,\\
+ \bm\delta&=(1.5o_1,1.5o_1,1.5o_1,0,0)^\top.
+\end{align}
+Only the first training bundle receives incidence activation, because only it overlaps
+both seeds. Suppose the frozen settings are $w_{\sig{simp}}=1$, $\alpha_h=1$,
+$\gamma_R=0$, prior keys $\{\sig{content}\}$, $\kappa=1$, and $s_0=1$.
+The prior key lacks a selected weight, so \eqref{eq:prior} assigns it weight $0.5$.
+For illustration, supply raw content scores proportional to $(0,1,2,3,4)^\top$; their
+Torch-standardized column is approximately
+\begin{equation}
+ \bm z^{\sig{content}}=(-1.265,-0.632,0,0.632,1.265)^\top.
+\end{equation}
+The observations are $Y=\bm z^{\sig{simp}}$, obtained by standardizing
+$\bm p+\bm\delta$ across all \emph{five} catalogue items, including both seeds and item 4.
+The warm candidate weights are $u_2=u_3=1/2$, while $u_4=1$. Consequently
+\begin{equation}
+ \widehat\theta_2=\tfrac12 z^{\sig{simp}}_2,\qquad
+ \widehat\theta_3=\tfrac12 z^{\sig{simp}}_3+\tfrac14 z^{\sig{content}}_3,\qquad
+ \widehat\theta_4=\tfrac12 z^{\sig{content}}_4\simeq0.632.
+\end{equation}
+The resulting candidate scores are approximately $\widehat\theta_2=0.288$,
+$\widehat\theta_3=-0.273$, and $\widehat\theta_4=0.632$. For $K=2$, the returned
+IDs are therefore $[4,2]$. Original IDs 0 and 1 are excluded only at ranking. This shows how exposure controls the
+mixture: item 4 can receive content-prior evidence despite zero collaborative exposure,
+while item 2 receives the bundle-overlap surplus. The model does not infer a new graph
+edge or retrain a network to produce this cold-item score.
+
+\appendix
+\section{Extended-profile behavior and additional signals}\label{app:extended}
+The extended profile uses the general model/scorer with a larger signal pool and different
+basket preprocessing. It is part of the current code and helps explain checkpoints fitted
+under earlier configurations; it is not interchangeable with the default research basket path.
+
+\subsection{Preprocessing differences}
+Extended retail reads the same capped/filterable basket pool but deduplicates by
+\emph{household plus item set}, rather than item set alone. Missing product metadata share
+a common fallback category. TF--IDF/SVD uses the shared 8,000-feature helper; the model
+later normalizes its dense output. It builds training household histories and query users,
+and provides a weighted auxiliary household incidence to the general model.
+
+Extended commerce uses joined title text only with the 8,000-feature helper, treats the
+category CSV field as a literal label rather than parsing category paths, and reads external
+pretraining interactions as user histories. It does not construct the research commerce
+session graph or two-hop sparse text bridge. Shared split/masking rules still apply.
+The profile settings remain independent: crossing a research loader with an extended scorer,
+or the reverse, follows the dispatch condition in Section~\ref{sec:dispatch}; it does not
+recreate the paired research recipe automatically.
+
+\subsection{Auxiliary co-occurrence and group signals}
+Let $Z\in\R^{n_u\times n}$ be a supplied context-by-item incidence. The actual scorer
+uses $Z^\top Z\bm x$, or $Z^\top ZD\bm x$ when its weighted-seed flag is set. It does
+not remove the resulting diagonal. The basket loader's shared helper first normalizes
+context rows by $(\sum_i Z_{ui}+1)^{-1/2}$. Extended retail uses this for household context
+with weighted seeds; extended commerce uses it for pretraining with unweighted seeds.
+
+The optional \code{group_labels} API instead constructs item-by-group membership $H_g$,
+normalizes each group column by the square root of its catalogue size plus one, and sums
+$\omega_g\widetilde H_g\widetilde H_g^\top\bm x$ over supplied groupings with their
+provided weights $\omega_g$. This supplies non-music \code{homo}. Without such groups,
+the general non-music fallback is raw category-count co-occurrence $A^\top A$, diagonal
+kept, scored using the seed labels. This fallback is not the commerce category-PMI formula.
+
+\subsection{Optional personalization}
+Let $R_{iu}$ be the number of times item $i$ occurs in the supplied history of user $u$,
+and let $\bm h_u$ be its binary item indicator. The general path supplies
+\begin{equation}
+ r^{\sig{userfreq}}_i(S,u)=R_{iu},\qquad
+ \bm r^{\sig{usercooc}}(S,u)=C\bm h_u.
+\end{equation}
+These have code keys \code{user_freq} and \code{user_cooc}. An unknown/omitted user gives
+zero columns. The scoring seed set does not define the history. Extended retail histories
+use training baskets; extended commerce histories come from its supplied external
+pretraining interactions. The research basket provider ignores per-query user arguments
+and instead uses its shared training context graphs.
+
+\subsection{Extended menu order}
+For the general path, computed keys begin with \code{simp, diff2, pair, diff2_pair, pop},
+then available \code{rao}, \code{cooc}, \code{ppmi}, and auxiliary keys in supplied dictionary
+order. They continue with \code{cat}, available \code{homo}, available \code{softcat},
+feature keys in construction order, then available user keys. Feature construction begins
+with raw \code{content}, then styles in modality order, then \code{bridge}, then
+\code{csvd}; with no modalities it contains only \code{csvd}. The selectable menu filters
+out auxiliary mixture keys and disallowed families. Thus feature order and profile are
+relevant inputs to the ordered coordinate search, even when two paths contain similar
+mathematical score families.
+
+\section{Baseline paths implemented beside BundleFuse}\label{app:baselines}
+\src{bundlefuse/baselines.py}
+These baselines share the CLI and ranking/metric functions, but do not run BundleFuse's
+fusion search. Their graph fit constructs a common graph and retains incidence and
+frequency vectors. Define $A_B=B^\top B$ \emph{with diagonal retained}, and define
+$g_i$ as the zero-diagonal co-occurrence row mass plus $10^{-9}$ from
+\eqref{eq:itempmi}. Define $D_1=\diag((f_i+1)^{-1/2})$ and
+$G_1=\diag(g_i^{-1})$. The implemented scores are
+\begin{center}\small
+\begin{tabularx}{\linewidth}{@{}p{.23\linewidth}Y@{}}
+\toprule Name & Actual score computation \\\midrule
+\code{popularity} & $\log(1+\bm f)$, independent of seeds. \\
+\code{cooccurrence} & $A_B\bm x$. \\
+\code{itemknn} & $D_1A_BD_1\bm x$, with no explicit neighbor truncation. \\
+\code{p3alpha} & Three iterations $\bm w\leftarrow G_1A_B\bm w$, starting at $\bm x$. \\
+\code{rp3beta} & The preceding three-step output divided by $(f_i+1)^{0.5}$. \\
+\code{contentknn} & Dot product of normalized concatenated content with the mean normalized seed feature; no explicit neighbor truncation. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+The names are interface labels: the implemented \code{p3alpha} numerator retains a
+self-diagonal while its denominator uses off-diagonal degree, so it is not literally a
+row-stochastic walk on the matrix used in the numerator. No tunable alpha exponent is
+applied by that class. These exact baselines should not be silently identified with every
+published variant bearing a similar name. Their supplied features and data folds still
+follow the same chosen loader profile.
+
+\section{Runtime cost and the timing entry point}\label{app:runtime}
+\src{scripts/benchmark_inference.py; bundlefuse/operators.py: build_indicator, score_rao_concordance}
+Let $d$ be the dense feature width, $k=|S^\star|$, and $\nnz(A)$ the stored nonzero
+count of sparse matrix $A$. Dense candidate dot products require approximately $O(nd)$
+work per query after forming the seed mean. Sparse incidence/co-occurrence operations
+have costs driven by their nonzero structure. A dense score block requires $O(nq)$
+memory per simultaneously materialized score family. Retaining item vectors does not
+turn this implementation into an approximate nearest-neighbor index: candidates are
+still scored over all $n$ items.
+
+Concordance forms an $n\times k$ support matrix; its dense-feature multiplication costs
+$O(ndk)$ and its direct support--kernel product costs $O(nk^2)$. A missing CSC copy of
+$W$ introduces conversion/storage work on the order of $\nnz(W)+n$ per concordance call
+in the current implementation. The query indicator currently starts as an $n$-row LIL
+matrix before conversion to CSR, which also has allocation overhead. These are actual
+execution costs, not extra mathematical terms in the score.
+
+The benchmark script hashes and loads retained checkpoints, reconstructs/fingerprints
+queries, performs one first request, warms up, and times the public \code{predict(k=20)}
+call on sampled distinct test queries in shuffled repetitions. Its default sample is 256
+queries, three repetitions, up to 16 warm-up queries, and one thread for Torch and native
+thread pools. Dataset workers run sequentially in fresh processes. Timed online work
+includes input checks, scoring, fusion, exclusion and top-$K$ ranking; it excludes
+checkpoint/query loading, warm-up, metric evaluation and consistency hashing. A separate
+batch-size-32 timing includes both \code{score_batch} and per-column top-$K$. It reports
+amortized batch throughput separately from single-request latency, and does not modify
+checkpoints. This explains what a timing measurement of this code represents without
+importing empirical performance numbers into the theory.
+
+\section{Active pipeline versus helper methods}\label{app:inactive}
+The call path above uses incidence surplus, \code{score_rao_concordance}, dense/sparse
+content bridges, validation selection and conjugate score mixing. Several other helpers
+exist in \code{operators.py} but are not called by the described \code{BundleFuse.fit}
+and ordinary prediction path: \code{propagate_rw}, \code{score_concordance_e2},
+\code{score_simplicial_and_diff2}, \code{build_cold_warm_knn},
+\code{fit_eb_moments}, \code{apply_tail_cold_calibration}, and
+\code{precision_backoff_weights}. In particular, this pipeline does not insert cold items
+into reserved top-$K$ slots, perform an extra KNN cold-item transfer, or add the separate
+unweighted elementary-symmetric concordance helper. Their presence in the file is not
+evidence that those mechanisms execute. The theoretical interpretation must follow the
+caller, not every function name found in the module.
+
+\section{Source map and reproduction}\label{app:map}
+Each row below identifies the code responsible for a stage. Paths are relative to the
+repository root. The companion JSON manifest supplies full file hashes; no previous
+LaTeX notes or paper sections are inputs to the derivation.
+\small
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{.26\linewidth}>{\raggedright\arraybackslash}p{.68\linewidth}@{}}
+\toprule Stage & Source / callable \\\midrule\endhead
+Configuration and registry & \code{bundlefuse/config.py}: \code{make_config}; \code{bundlefuse/datasets/__init__.py}: \code{DatasetSpec}. \\
+Provided folds and masks & \code{bundlefuse/splits.py}: \code{ProvidedSplits}, \code{mask}. \\
+Data objects and full-ranking load & \code{bundlefuse/datasets/base.py}: \code{Dataset.fit_kwargs}, \code{load_bundlemllm}. \\
+Research basket load & \code{bundlefuse/datasets/baskets.py}: \code{load_retail}, \code{load_commerce}. \\
+Graph and collaborative features & \code{bundlefuse/operators.py}: \code{SimplicialGraphOperator.__init__}, \code{propagate}, \code{score_pairwise_and_diff2}. \\
+Higher-order scores & Same class: \code{score_simplicial_incidence_only}, \code{score_rao_concordance}. \\
+Content and ontology & \code{bundlefuse/operators.py}: \code{BilateralContentBridge}, \code{DualSpectrumOntology}; \code{bundlefuse/model.py}: \code{BundleFuse.fit}. \\
+General full/selected scores & \code{bundlefuse/model.py}: \code{_score_all}; \code{bundlefuse/selected_signals.py}: \code{SelectedSignals.score}. \\
+Research basket scores & \code{bundlefuse/basket_signals.py}: \code{BasketSignals}, \code{score_selected}. \\
+Standardization & \code{bundlefuse/operators.py}: \code{zcols}. \\
+Fusion and dependency selection & \code{bundlefuse/fusion.py}: \code{apply_fusion}, \code{apply_basket_fusion}, \code{required_fusion_signals}. \\
+Validation selection & Same module: \code{fit_fusion}, \code{fit_basket_fusion}, \code{ValidationSignals}. \\
+Validation storage & \code{bundlefuse/validation_cache.py}: \code{ValidationCache}. \\
+Exposure moments and posterior & \code{bundlefuse/operators.py}: \code{EmpiricalBayesRouter}. \\
+Public inference / checkpoint & \code{bundlefuse/model.py}: \code{score_batch}, \code{score}, \code{predict}, \code{save}, \code{load_model}. \\
+Ranking and metrics & \code{bundlefuse/metrics.py}: \code{top_items}, \code{ranking_metrics}, \code{full_ndcg}, \code{mean_reciprocal_rank}. \\
+Dataset binding and reports & \code{bundlefuse/cli_data.py}: \code{load_data}; \code{bundlefuse/evaluation.py}; \code{bundlefuse/provenance.py}. \\
+Executables & \code{evaluator.py}, \code{inference.py}, \code{validate.py}, \code{scripts/benchmark_inference.py}. \\
+\bottomrule
+\end{longtable}
+\normalsize
+To compile this standalone source from the repository root:
+\begin{lstlisting}
+pdflatex -interaction=nonstopmode -halt-on-error \
+  -output-directory=output/pdf docs/pipeline_theory.tex
+pdflatex -interaction=nonstopmode -halt-on-error \
+  -output-directory=output/pdf docs/pipeline_theory.tex
+\end{lstlisting}
+Run twice to resolve the table of contents and cross-references. The generated PDF is
+\code{output/pdf/pipeline_theory.pdf}. The document and companion manifest describe the
+inspected working-tree snapshot; later code changes require checking the equations and
+updating the source hashes rather than merely changing a document date.
+\end{document}

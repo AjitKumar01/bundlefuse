@@ -9,7 +9,7 @@ import scipy.sparse as sp
 import torch
 
 from .operators import zcols
-from .graph_state import ensure_graph_matrices
+from .operators import ensure_graph_matrices
 
 
 class SelectedSignals:

@@ -1,0 +1,10 @@
+START pog original configs; full provided splits
+VALIDATION 20 candidates; latest objective 0.016380112563203868
+VALIDATION 40 candidates; latest objective 0.027331468861805916
+VALIDATION 60 candidates; latest objective 0.0308996805499851
+VALIDATION 80 candidates; latest objective 0.03592629395707774
+VALIDATION 100 candidates; latest objective 0.021466260447252014
+VALIDATION 120 candidates; latest objective 0.03225696780004893
+VALIDATION 140 candidates; latest objective 0.019507888745374895
+VALIDATION 160 candidates; latest objective 0.03740711286554802
+COMPLETE pog {'recall@10': 0.04141666666666668, 'ndcg@10': 0.0325879991261987, 'recall@20': 0.05354166666666668, 'ndcg@20': 0.03631953980830551, 'recall@50': 0.06775000000000002, 'ndcg@50': 0.03980681886572096}

@@ -1,10 +1,16 @@
 {
-  "families": ["collaborative", "content", "taxonomy", "popularity", "personalization"],
+  "families": [
+    "collaborative",
+    "content",
+    "taxonomy",
+    "popularity"
+  ],
   "svd_dim": 128,
-  "content_rank": 128,
+  "content_rank": null,
   "alpha_deg": 0.5,
   "gamma_vol": 0.5,
   "beta_clique": 1.5,
   "alpha_bridge": 0.5,
-  "compressed": true
+  "compressed": true,
+  "signal_profile": "research"
 }

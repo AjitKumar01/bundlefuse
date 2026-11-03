@@ -1,0 +1,12 @@
+START clothing resplit seed 0; validation 800; test 2000
+VALIDATION 20 candidates; latest objective 0.27427196331317444
+VALIDATION 40 candidates; latest objective 0.3698636479230307
+VALIDATION 60 candidates; latest objective 0.2431127576937804
+VALIDATION 80 candidates; latest objective 0.3702284933960701
+VALIDATION 100 candidates; latest objective 0.38080633623503524
+VALIDATION 120 candidates; latest objective 0.24920434639704842
+VALIDATION 140 candidates; latest objective 0.38529769259317825
+VALIDATION 160 candidates; latest objective 0.3846404337382501
+VALIDATION 180 candidates; latest objective 0.28925108264135935
+VALIDATION 200 candidates; latest objective 0.3876059065095346
+COMPLETE clothing {'recall@10': 0.46796945193171613, 'ndcg@10': 0.3911450707638827, 'recall@20': 0.5169362084456424, 'ndcg@20': 0.40486260690481496, 'recall@50': 0.5844564240790655, 'ndcg@50': 0.42024796640187867}

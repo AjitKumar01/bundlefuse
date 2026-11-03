@@ -1,0 +1,17 @@
+RUN pog_dense /Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/results/reorganized_run/original/pog_dense/run.log
+COMPLETE pog_dense
+RUN pog /Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/results/reorganized_run/original/pog/run.log
+COMPLETE pog
+RUN electronic /Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/results/reorganized_run/original/electronic/run.log
+COMPLETE electronic
+RUN food /Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/results/reorganized_run/original/food/run.log
+COMPLETE food
+RUN clothing /Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/results/reorganized_run/original/clothing/run.log
+COMPLETE clothing
+RUN dunnhumby /Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/results/reorganized_run/original/dunnhumby/run.log
+COMPLETE dunnhumby
+RUN spotify /Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/results/reorganized_run/original/spotify/run.log
+COMPLETE spotify
+RUN spotify_sparse /Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/results/reorganized_run/original/spotify_sparse/run.log
+COMPLETE spotify_sparse
+FINISHED [["pog_dense", "complete"], ["pog", "complete"], ["electronic", "complete"], ["food", "complete"], ["clothing", "complete"], ["dunnhumby", "complete"], ["spotify", "complete"], ["spotify_sparse", "complete"]]

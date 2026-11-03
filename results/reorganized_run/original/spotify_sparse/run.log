@@ -1,0 +1,10 @@
+START spotify_sparse original configs; full provided splits
+VALIDATION 20 candidates; latest objective 0.12695009178980496
+VALIDATION 40 candidates; latest objective 0.20727397441356119
+VALIDATION 60 candidates; latest objective 0.1599468862002686
+VALIDATION 80 candidates; latest objective 0.21353111679556527
+VALIDATION 100 candidates; latest objective 0.20710630860390586
+VALIDATION 120 candidates; latest objective 0.2143967351736124
+VALIDATION 140 candidates; latest objective 0.16198208631114241
+VALIDATION 160 candidates; latest objective 0.22481582533611347
+COMPLETE spotify_sparse {'recall@10': 0.10553206687484155, 'ndcg@10': 0.24087045224111572, 'recall@20': 0.16295925399967182, 'ndcg@20': 0.2289142223124216, 'recall@50': 0.25929456929637956, 'ndcg@50': 0.2450474453549912}

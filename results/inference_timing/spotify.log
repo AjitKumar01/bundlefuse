@@ -1,0 +1,5 @@
+LOADED spotify: 254155 items, 256 queries; checkpoint 0.134s; first request 2619.990ms
+ONLINE spotify repeat 1/3: mean 562.184ms
+ONLINE spotify repeat 2/3: mean 559.204ms
+ONLINE spotify repeat 3/3: mean 563.707ms
+DONE spotify: median 559.592ms; p95 599.408ms; batch 69.868ms/query

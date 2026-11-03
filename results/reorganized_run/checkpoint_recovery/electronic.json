@@ -1,0 +1,37 @@
+{
+  "dataset": "electronic",
+  "path": "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/checkpoints/reorganized_162dd8c/electronic/seed_0/model.pt",
+  "sha256": "04acd2ae88f22087da1e88f0cbd90f2fa24d1cd239965002889ee97ebc89ba86",
+  "bytes": 57652172,
+  "method": "rebuilt_from_recorded_selection",
+  "verified": true,
+  "original_result_sha256": "fcdd19a454d937b2ad4c7567f315e3edcd190ad984d833eb5acb4b3f1ba789f7",
+  "metrics": {
+    "recall@10": 0.42789017341040464,
+    "ndcg@10": 0.32689943917825526,
+    "recall@20": 0.4868015414258189,
+    "ndcg@20": 0.34321750156399117,
+    "recall@50": 0.55621387283237,
+    "ndcg@50": 0.3600695190411172
+  },
+  "max_recorded_metric_error": 0.0,
+  "queries_verified": 346,
+  "checkpoint_score_bit_identity": true,
+  "runtime": {
+    "package_source_sha256": "9fd3860955b4061607d141c51f314fac1bd6acbd25fce771ac5836566e7ac63e",
+    "python": "3.13.4 (main, Jun  6 2025, 22:30:22) [Clang 17.0.0 (clang-1700.0.13.3)]",
+    "platform": "macOS-27.2-arm64-arm-64bit-Mach-O",
+    "entrypoint_sha256": {
+      "evaluator.py": "1bb3f8bf8b1f078a25b6fb44d8c506011f2f49544cd9ec0fe46288be8d1de956",
+      "inference.py": "90fc030fb8454a4ef9f563b4331aad3aca7bd216fd2d6a8cefe9b29bdb05ad9a",
+      "validate.py": "cbe654f0168bd3bc253d2a40a5769e2aace8c98583d572137cee37a2ecf14766"
+    },
+    "versions": {
+      "numpy": "2.3.5",
+      "scipy": "1.16.3",
+      "sklearn": "1.7.2",
+      "torch": "2.9.1"
+    },
+    "torch_threads": 1
+  }
+}

@@ -152,7 +152,7 @@ def cmd_report(args):
         'inference_runtime': run_metadata(),
     }
     os.makedirs(os.path.dirname(args.out) or ".", exist_ok=True)
-    from bundlefuse.provided_splits import file_hash
+    from bundlefuse.splits import file_hash
     out['checkpoint_sha256'] = file_hash(_ckpt_path(args))
     write_json(args.out, out)
     print(f"[{args.dataset}] full report ({len(ds.test_pairs)} queries) -> {args.out}  ({time.time()-t0:.0f}s)")

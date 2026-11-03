@@ -1,0 +1,13 @@
+START electronic resplit seed 0; validation 800; test 2000
+VALIDATION 20 candidates; latest objective 0.23045602244304045
+VALIDATION 40 candidates; latest objective 0.28860370140069286
+VALIDATION 60 candidates; latest objective 0.15996825062442874
+VALIDATION 80 candidates; latest objective 0.3141715245769687
+VALIDATION 100 candidates; latest objective 0.3118579263056921
+VALIDATION 120 candidates; latest objective 0.1812614762343713
+VALIDATION 140 candidates; latest objective 0.3414624474677393
+VALIDATION 160 candidates; latest objective 0.34058715281090496
+VALIDATION 180 candidates; latest objective 0.284344965410077
+VALIDATION 200 candidates; latest objective 0.34042667979923397
+VALIDATION 220 candidates; latest objective 0.3297774438706577
+COMPLETE electronic {'recall@10': 0.42789017341040464, 'ndcg@10': 0.32689943917825526, 'recall@20': 0.4868015414258189, 'ndcg@20': 0.34321750156399117, 'recall@50': 0.55621387283237, 'ndcg@50': 0.3600695190411172}

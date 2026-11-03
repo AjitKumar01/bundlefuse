@@ -1,0 +1,5 @@
+LOADED pog_dense: 31217 items, 256 queries; checkpoint 0.027s; first request 6.385ms
+ONLINE pog_dense repeat 1/3: mean 11.714ms
+ONLINE pog_dense repeat 2/3: mean 12.014ms
+ONLINE pog_dense repeat 3/3: mean 11.830ms
+DONE pog_dense: median 5.246ms; p95 34.385ms; batch 2.246ms/query

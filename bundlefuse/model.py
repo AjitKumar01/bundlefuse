@@ -22,11 +22,10 @@ from sklearn.decomposition import TruncatedSVD
 
 from bundlefuse.operators import (
     SimplicialGraphOperator, DualSpectrumOntology, BilateralContentBridge,
-    EmpiricalBayesRouter, zcols,
+    EmpiricalBayesRouter, zcols, ensure_graph_matrices,
 )
-from bundlefuse.fusion_selection import fit_fusion, apply_fusion, ValidationSignals, required_fusion_signals
-from bundlefuse.metrics import top_items
-from bundlefuse.graph_state import ensure_graph_matrices
+from bundlefuse.fusion import fit_fusion, apply_fusion, ValidationSignals, required_fusion_signals
+from bundlefuse.metrics import top_items, as_numpy
 from bundlefuse.selected_signals import SelectedSignals
 from bundlefuse.validation_cache import ValidationCache
 
@@ -72,14 +71,19 @@ class BundleFuseConfig:
     soft_tau: float = 0.05
     sel_obj: str = "ndcg20"
     compressed: bool = True
-    content_rank: int = 64
+    content_rank: Optional[int] = None
+    signal_profile: str = 'extended'
     fit_rounds: int = 4
     seed_cap: int = 0
     validation_chunk: int = 32
 
     def __post_init__(self):
-        if min(self.n_items, self.svd_dim, self.content_rank, self.fit_rounds, self.validation_chunk) < 1:
+        if min(self.n_items, self.svd_dim, self.fit_rounds, self.validation_chunk) < 1:
             raise ValueError('Catalogue size, dimensions, fit rounds and chunk size must be positive')
+        if self.content_rank is not None and self.content_rank < 1:
+            raise ValueError('Content rank must be positive, or None for original features')
+        if self.signal_profile not in ('extended','research'):
+            raise ValueError('Signal profile must be research or extended')
         if self.n_items < 3 or self.seed_cap < 0:
             raise ValueError('Need at least three items and a nonnegative seed cap')
         known = {'collaborative', 'content', 'taxonomy', 'popularity', 'personalization'}
@@ -95,7 +99,7 @@ class BundleFuse:
     # ===================== fit =====================
     def fit(self, train_bundles, val_pairs, *, features=None, cat_labels=None, music=False,
             alb_labels=None, cluster_feat=None, aux_incidences=None, group_labels=None,
-            user_items=None, val_users=None, data_spec=None):
+            user_items=None, val_users=None, data_spec=None, research_data=None):
         """Build the signal-pool artifacts, then select the fusion on validation. Each dataset supplies
         whatever inputs it has; the model computes every applicable signal and the fit selects them.
 
@@ -119,11 +123,32 @@ class BundleFuse:
                                     alpha_deg=cfg.alpha_deg, gamma_vol=cfg.gamma_vol, beta_clique=cfg.beta_clique)
         self.graph = g
         self.freq = g.freq
+        self.research_provider = None
+        if cfg.signal_profile == 'research' and research_data and research_data['kind'] in ('retail','bundlerec'):
+            if cfg.content_rank is not None or cfg.alpha_bridge != .5:
+                raise ValueError('Research basket profiles preserve the original sparse bridge/content; use the extended profile for these overrides')
+            from .basket_signals import BasketSignals
+            from .fusion import fit_basket_fusion
+            self.research_provider = BasketSignals(g, np.asarray(cat_labels), research_data, train_bundles)
+            self.SIG = list(self.research_provider.keys)
+            families = {'collaborative','content','taxonomy'} | ({'popularity'} if research_data['kind']=='retail' else set())
+            if cfg.families is not None and not families <= set(cfg.families):
+                raise ValueError('Research basket profile has a fixed research signal menu; use extended for family ablations')
+            _, z = self.research_provider.score(self._scoring_seeds([s for s,_ in val_pairs]))
+            self.w, self.prior_keys, self.best_eb, self.best_ho, self.variance_components_ = fit_basket_fusion(
+                z, self.SIG, val_pairs, self.freq, research_data['kind'], cfg.sel_obj, cfg.fit_rounds)
+            self.freq_t = self.freq
+            self.data_spec = deepcopy(data_spec)
+            self.fitted_ = True
+            return self
         self.freq_c = (np.asarray(g.C.sum(1)).ravel() + 1e-9).astype(np.float32)
         self.totc = float(g.C.sum())
         n_soft = max(2, min(cfg.n_soft_clusters, n - 1))   # clamp for tiny catalogues
 
-        mods = {k: self._norm(np.asarray(v, np.float32)) for k, v in (features or {}).items()}
+        normalized = research_data and research_data.get('features_normalized')
+        mods = {k: (np.asarray(v,np.float32) if normalized else self._norm(np.asarray(v,np.float32)))
+                for k,v in (features or {}).items()}
+        faithful_fullrank = cfg.signal_profile == 'research'
 
         # category labels (explicit) or k-means on the content/cluster features
         if cat_labels is not None:
@@ -138,7 +163,8 @@ class BundleFuse:
 
         self.onto = DualSpectrumOntology(
             train_bundles, cat_lbl=cat_lbl, n_items=n, alb_lbl=alb_labels,
-            cluster_feat=(np.concatenate(list(mods.values()), 1).astype(np.float32)
+            cluster_feat=((self._norm(np.concatenate(list(mods.values()),1)) if faithful_fullrank
+                           else np.concatenate(list(mods.values()), 1).astype(np.float32))
                           if (mods and not music) else None),
             n_soft_clusters=n_soft, soft_tau=cfg.soft_tau, device=DEVICE)
 
@@ -149,14 +175,16 @@ class BundleFuse:
         if mods:
             feats["content"] = self._norm(np.concatenate(list(mods.values()), 1).astype(np.float32))
             if music:
+                cluster_input = cluster_feat if faithful_fullrank and cluster_feat is not None else feats['content']
                 style_lbl = MiniBatchKMeans(n_clusters=n_soft, random_state=0, n_init=3,
-                                            batch_size=4096).fit(feats["content"]).labels_.astype(int)
+                                            batch_size=4096).fit(cluster_input).labels_.astype(int)
                 style_nc = int(style_lbl.max()) + 1
             else:
                 style_lbl, style_nc = cat_lbl, NC
             styles = {_STYLE_OF.get(mod, "style"): BilateralContentBridge.disentangle(arr, style_lbl, style_nc)
                       for mod, arr in mods.items()}
-            st_all = self._norm(np.concatenate(list(styles.values()), 1).astype(np.float32))
+            st_all = (styles['audiostyle'] if music and faithful_fullrank else
+                      self._norm(np.concatenate(list(styles.values()), 1).astype(np.float32)))
             feats.update(styles)
             feats["bridge"] = BilateralContentBridge.build_dense_bridge(st_all, g, alpha_bridge=cfg.alpha_bridge)
             self.rao_dense = styles.get("audiostyle" if music else "style")
@@ -185,7 +213,7 @@ class BundleFuse:
             T = sp.csr_matrix((np.ones(len(rr), np.float32), (rr, cc)), shape=(max(bi + 1, 1), NC))
             self.Pcat_homo = (T.T @ T).tocsr()
 
-        if cfg.compressed:
+        if cfg.compressed and cfg.content_rank is not None:
             r = cfg.content_rank
             feats = {k: (TruncatedSVD(r, random_state=0).fit_transform(v).astype(np.float32)
                          if (k in _COMPRESS_KEYS and np.asarray(v).shape[1] > r) else np.asarray(v, np.float32))
@@ -199,12 +227,14 @@ class BundleFuse:
 
         # compute every applicable signal on validation, then the active SIG = selectable signals
         # (co-occurrence, content, taxonomy, popularity, personalization) kept by config.families
-        with ValidationCache(val_pairs, val_users, self._score_all, n, cfg.validation_chunk) as cache:
+        menu = (SIG_MUSIC if music else SIG_FASHION) if faithful_fullrank else None
+        cache_keys = menu + ['pair','diff2_pair','rao'] if menu is not None else None
+        with ValidationCache(val_pairs, val_users, self._score_all, n, cfg.validation_chunk, keys=cache_keys) as cache:
             fams = cfg.families
             self.SIG = [k for k in cache.keys if k not in AUX_KEYS and (fams is None or FAMILY_OF.get(k) in fams)]
             validation = ValidationSignals(cache.blocks, list(val_pairs), self.freq, cfg.sel_obj)
-            prior_cand = tuple(k for k in ('cat', 'softcat', 'homo', 'content', 'style', 'imgstyle',
-                                           'audiostyle', 'bridge') if k in self.SIG)
+            prior_order = (('cat','homo','audiostyle','bridge') if music else ('cat','softcat','style','imgstyle','bridge')) if faithful_fullrank else ('cat','softcat','homo','content','style','imgstyle','audiostyle','bridge')
+            prior_cand = tuple(k for k in prior_order if k in self.SIG)
             rao_grid = (0., .2, .35) if 'rao' in cache.keys else (0.,)
             self.w, self.prior_keys, self.best_eb, self.best_ho, self.variance_components_ = fit_fusion(
                 validation, self.SIG, prior_cand, rao=rao_grid, rounds=cfg.fit_rounds)
@@ -212,22 +242,6 @@ class BundleFuse:
         self.data_spec = deepcopy(data_spec)
         self.fitted_ = True
         return self
-
-    def _active_sig(self):
-        base = SIG_MUSIC if self.music else SIG_FASHION
-        if self.UI is not None:
-            base = base + SIG_PERS
-        fams = self.cfg.families
-        out = []
-        for s in base:
-            if fams is not None and FAMILY_OF.get(s) not in fams:
-                continue
-            if s in ("style", "imgstyle", "audiostyle", "descstyle", "bridge") and s not in self.FEAT:
-                continue
-            if s in SIG_PERS and self.UI is None:
-                continue
-            out.append(s)
-        return out
 
     @staticmethod
     def _norm(x):
@@ -246,6 +260,8 @@ class BundleFuse:
     # ===================== scoring (verbatim score_all_signals) =====================
     def _score_all(self, bundles, users=None):
         bundles = self._scoring_seeds(bundles)
+        if getattr(self,'research_provider',None) is not None:
+            return self.research_provider.score(bundles)
         g = self.graph; onto = self.onto; n = self.cfg.n_items; nb = len(bundles)
         ensure_graph_matrices(g, {'cooc', 'ppmi', 'user_cooc'})
         Ind = g.build_indicator(bundles)
@@ -333,6 +349,12 @@ class BundleFuse:
         if not bundles or (users is not None and len(users) != len(bundles)):
             raise ValueError('Nonempty queries and aligned users are required')
         users = [None] * len(bundles) if users is None else users
+        provider = getattr(self,'research_provider',None)
+        if provider is not None:
+            required = None if reference else required_fusion_signals(self.w,self.prior_keys,self.best_eb,self.best_ho)
+            _, Z = provider.score(self._scoring_seeds(bundles),required)
+            from .fusion import apply_basket_fusion
+            return apply_basket_fusion(Z,self.w,self.prior_keys,self.best_eb,self.freq,self.best_ho)
         if reference:
             _, Z = self._score_all(bundles, users)
         else:
@@ -343,7 +365,7 @@ class BundleFuse:
                                      user_incidence=self.UI, user_items=self.user_items)
             _, Z = scorer.score(self._scoring_seeds(bundles), required, users)
         F = apply_fusion(Z, self.w, self.prior_keys, self.best_eb, self.freq_t, self.best_ho)
-        return F.detach().cpu().numpy().astype(np.float32, copy=False)
+        return as_numpy(F).astype(np.float32, copy=False)
 
     def score(self, seeds, user=None):
         return self.score_batch([list(seeds)], [user])[:, 0]
@@ -360,6 +382,9 @@ class BundleFuse:
             raise RuntimeError('Fit a model before saving it')
         snapshot = copy(self)
         snapshot.graph = copy(self.graph)
+        if getattr(self,'research_provider',None) is not None:
+            snapshot.research_provider = copy(self.research_provider)
+            snapshot.research_provider.graph = snapshot.graph
         if self.cfg.compressed:
             for attr in self._DROP_WHEN_COMPRESSED:
                 setattr(snapshot.graph, attr, None)
@@ -379,6 +404,15 @@ class BundleFuse:
         return load_model(path)
 
 
+class _CheckpointUnpickler(pickle.Unpickler):
+    """Resolve the one serialized class moved by the package simplification."""
+
+    def find_class(self, module, name):
+        if module == 'bundlefuse.research_signals' and name == 'BasketSignals':
+            module = 'bundlefuse.basket_signals'
+        return super().find_class(module, name)
+
+
 def load_model(path):
     with open(path, "rb") as f:
-        return pickle.load(f)
+        return _CheckpointUnpickler(f).load()

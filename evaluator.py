@@ -49,6 +49,8 @@ def build_parser():
     # data / fit configuration (BundleFuse only; ignored by baselines). These override the config file.
     ap.add_argument("--families", default=None, help="comma-separated families to enable (default: the dataset's own)")
     ap.add_argument("--svd-dim", type=int, default=None, help="collaborative SVD dimension (default: dataset's own)")
+    ap.add_argument('--signal-profile', choices=('research','extended'), default=None,
+                    help='historical research scorer or expanded signal pool')
     add_data_arguments(ap, training=True)
     ap.add_argument("--chunk", type=int, default=32, help="bounded validation/evaluation query block")
     ap.add_argument("--threads", type=int, default=1, help="CPU computation threads")
@@ -90,6 +92,8 @@ def main(argv=None):
                 setattr(cfg, field, val)
         if args.content_rank is not None:
             cfg.content_rank = args.content_rank
+        if args.signal_profile is not None:
+            cfg.signal_profile = args.signal_profile
         if args.no_compress:
             cfg.compressed = False
         cfg.validation_chunk = args.chunk
@@ -125,7 +129,7 @@ def main(argv=None):
         loaded = load_model(path)
         if not np.array_equal(before, model.score_batch(probe, us)) or not np.array_equal(before, loaded.score_batch(probe, us)):
             raise RuntimeError('Checkpoint changed scores; refusing to publish a successful run report')
-        from bundlefuse.provided_splits import file_hash
+        from bundlefuse.splits import file_hash
         result['checkpoint'] = {'path': path, 'sha256': file_hash(path), 'bytes': os.path.getsize(path),
                                 'validation_probe_queries': len(probe), 'score_bit_identity': True}
         print(f"  checkpoint -> {path} ({os.path.getsize(path)/1e6:.1f} MB), score parity verified", flush=True)

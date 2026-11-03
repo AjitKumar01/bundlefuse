@@ -1,0 +1,41 @@
+{
+  "status": "complete",
+  "hardware": "Apple M5 Pro, 24 GiB RAM",
+  "cpu_threads": 1,
+  "top_k": 20,
+  "query_seed": 20261103,
+  "jobs": [
+    {
+      "dataset": "electronic",
+      "status": "complete"
+    },
+    {
+      "dataset": "food",
+      "status": "complete"
+    },
+    {
+      "dataset": "clothing",
+      "status": "complete"
+    },
+    {
+      "dataset": "dunnhumby",
+      "status": "complete"
+    },
+    {
+      "dataset": "pog_dense",
+      "status": "complete"
+    },
+    {
+      "dataset": "pog",
+      "status": "complete"
+    },
+    {
+      "dataset": "spotify",
+      "status": "complete"
+    },
+    {
+      "dataset": "spotify_sparse",
+      "status": "complete"
+    }
+  ]
+}

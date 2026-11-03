@@ -1,0 +1,9 @@
+START spotify original configs; full provided splits
+VALIDATION 20 candidates; latest objective 0.2116187417019403
+VALIDATION 40 candidates; latest objective 0.2447274250445458
+VALIDATION 60 candidates; latest objective 0.18577419275498486
+VALIDATION 80 candidates; latest objective 0.24534608955567058
+VALIDATION 100 candidates; latest objective 0.24711368826458632
+VALIDATION 120 candidates; latest objective 0.24762594054648152
+VALIDATION 140 candidates; latest objective 0.253138688269941
+COMPLETE spotify {'recall@10': 0.09979896814779106, 'ndcg@10': 0.28109594731009147, 'recall@20': 0.1543158228025462, 'ndcg@20': 0.25545961123789007, 'recall@50': 0.24735691662289802, 'ndcg@50': 0.25414287060270957}

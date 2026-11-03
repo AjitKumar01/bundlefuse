@@ -7,7 +7,7 @@ import json
 from pathlib import Path
 import numpy as np
 from bundlefuse.model import BundleFuse, BundleFuseConfig
-from bundlefuse import protocol
+from bundlefuse import splits
 from bundlefuse.metrics import ranking_metrics
 from test_model import _synthetic
 
@@ -15,8 +15,8 @@ from test_model import _synthetic
 def test_pre_fix_full_scorer_golden():
     golden = json.loads((Path(__file__).parent / 'fixtures/model_golden.json').read_text())
     n, bundles, ntr, nva = _synthetic()
-    valid = protocol.mask(bundles[ntr:ntr+nva], 1, .5)
-    test = protocol.mask(bundles[ntr+nva:], 2, .5)
+    valid = splits.mask(bundles[ntr:ntr+nva], 1, .5)
+    test = splits.mask(bundles[ntr+nva:], 2, .5)
     content = np.random.default_rng(1).standard_normal((n,16)).astype(np.float32)
     model = BundleFuse(BundleFuseConfig(n_items=n, svd_dim=8,
                        families=['collaborative','content','taxonomy','popularity']))

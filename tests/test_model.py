@@ -8,7 +8,7 @@ import pytest
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from bundlefuse.model import BundleFuse, BundleFuseConfig
-from bundlefuse import protocol
+from bundlefuse import splits
 
 
 def _synthetic(n=60, n_bundles=800, seed=0):
@@ -28,8 +28,8 @@ def _synthetic(n=60, n_bundles=800, seed=0):
 def test_fit_predict_and_checkpoint(compressed):
     n, bundles, ntr, nva = _synthetic()
     tr, va, te = bundles[:ntr], bundles[ntr:ntr + nva], bundles[ntr + nva:]
-    val_pairs = protocol.mask(va, 1, 0.5)
-    test_pairs = protocol.mask(te, 2, 0.5)
+    val_pairs = splits.mask(va, 1, 0.5)
+    test_pairs = splits.mask(te, 2, 0.5)
     content = np.random.default_rng(1).standard_normal((n, 16)).astype(np.float32)
     cat = (np.arange(n) // 6).astype(int)
 
@@ -65,7 +65,7 @@ def test_fit_predict_and_checkpoint(compressed):
 def test_family_switch():
     """Disabling a family removes its signals from the active menu."""
     n, bundles, ntr, nva = _synthetic()
-    val_pairs = protocol.mask(bundles[ntr:ntr + nva], 1, 0.5)
+    val_pairs = splits.mask(bundles[ntr:ntr + nva], 1, 0.5)
     m = BundleFuse(BundleFuseConfig(n_items=n, svd_dim=8, families=["collaborative", "popularity"]))
     m.fit(bundles[:ntr], val_pairs)                       # no content/cat passed
     assert "style" not in m.SIG and "cat" not in m.SIG, m.SIG
