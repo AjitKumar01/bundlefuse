@@ -15,10 +15,12 @@ Models (all derived from the bundle incidence B, so they store only B + small ve
 from __future__ import annotations
 
 import pickle
+from copy import deepcopy
 
 import numpy as np
 
 from bundlefuse.operators import SimplicialGraphOperator
+from bundlefuse.metrics import top_items
 
 EPS = 1e-8
 
@@ -41,11 +43,14 @@ class Baseline:
         raise NotImplementedError
 
     def predict(self, seeds, k=20, user=None):
-        sc = self.score(seeds, user).copy()
-        sc[list(seeds)] = -np.inf
-        k = min(k, int((sc > -np.inf).sum()))
-        top = np.argpartition(-sc, k - 1)[:k]
-        return top[np.argsort(-sc[top])].tolist()
+        seeds = list(seeds)
+        return top_items(self.score(seeds, user), seeds, k).tolist()
+
+    def score_batch(self, bundles, users=None):
+        users = [None] * len(bundles) if users is None else users
+        if not bundles or len(users) != len(bundles):
+            raise ValueError('Nonempty queries and aligned users are required')
+        return np.stack([self.score(s, u) for s, u in zip(bundles, users)], 1)
 
     def _ind(self, seeds):
         v = np.zeros(self.n, np.float32)
@@ -71,6 +76,7 @@ class Popularity(Baseline):
             for i in set(b):
                 f[i] += 1
         self.logf = np.log1p(f).astype(np.float32)
+        self.data_spec = deepcopy(kw.get('data_spec'))
         return self
 
     def score(self, seeds, user=None):
@@ -85,6 +91,7 @@ class _GraphBaseline(Baseline):
         self.B = g.B
         self.freq = g.freq.astype(np.float32)
         self.freq_c = (np.asarray(g.C.sum(1)).ravel() + 1e-9).astype(np.float32)
+        self.data_spec = deepcopy(kw.get('data_spec'))
         return self
 
     def _cooc(self, w):
@@ -130,11 +137,17 @@ class RP3beta(P3alpha):
 class ContentKNN(Baseline):
     name = "contentknn"
 
-    def fit(self, train_bundles, val_pairs=None, *, content=None, **kw):
+    def fit(self, train_bundles, val_pairs=None, *, content=None, features=None, **kw):
+        if features:
+            if content is not None:
+                raise ValueError('Supply features or content, not both')
+            parts = [np.asarray(value, np.float32) for value in features.values()]
+            content = np.concatenate([v / (np.linalg.norm(v, axis=1, keepdims=True) + EPS) for v in parts], 1)
         if content is None:
             raise ValueError("contentknn needs a content array")
         E = np.asarray(content, np.float32)
         self.E = E / (np.linalg.norm(E, axis=1, keepdims=True) + EPS)
+        self.data_spec = deepcopy(kw.get('data_spec'))
         return self
 
     def score(self, seeds, user=None):

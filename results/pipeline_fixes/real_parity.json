@@ -1,0 +1,37 @@
+{
+  "dataset": "pog_dense",
+  "queries": 16,
+  "n_items": 31217,
+  "scores_checked": 499472,
+  "max_error": 0.0,
+  "selected_reference_score_bit_identity": true,
+  "pre_save_reload_score_bit_identity": true,
+  "required_signals": [
+    "bridge",
+    "cat",
+    "content",
+    "descstyle",
+    "imgstyle",
+    "pair",
+    "pop",
+    "softcat"
+  ],
+  "runtime": {
+    "package_source_sha256": "919386357c99088b2352e4061ad833ea10c204b532e83a36b1be36b4d6d769ee",
+    "python": "3.13.4 (main, Jun  6 2025, 22:30:22) [Clang 17.0.0 (clang-1700.0.13.3)]",
+    "platform": "macOS-27.2-arm64-arm-64bit-Mach-O",
+    "entrypoint_sha256": {
+      "evaluator.py": "1bb3f8bf8b1f078a25b6fb44d8c506011f2f49544cd9ec0fe46288be8d1de956",
+      "inference.py": "90fc030fb8454a4ef9f563b4331aad3aca7bd216fd2d6a8cefe9b29bdb05ad9a",
+      "validate.py": "cbe654f0168bd3bc253d2a40a5769e2aace8c98583d572137cee37a2ecf14766"
+    },
+    "versions": {
+      "numpy": "2.3.5",
+      "scipy": "1.16.3",
+      "sklearn": "1.7.2",
+      "torch": "2.9.1"
+    },
+    "torch_threads": 1
+  },
+  "scope": "Integration smoke only: 8 supplied validation queries, 16 supplied test queries, rank-16 content and one selection round; not a full benchmark claim."
+}

@@ -145,11 +145,13 @@ class ValidationSignals:
 
 
 def fit_fusion(validation, signals, prior_candidates, *, incidence=(0.0, 0.5, 1.0),
-               rao=(0.0, 0.2, 0.35), shrinkage=True):
+               rao=(0.0, 0.2, 0.35), shrinkage=True, rounds=4):
     """The existing greedy weight, higher-order, and shrinkage grids, on all validation queries."""
     weights = dict.fromkeys(signals, 0.0)
     best = -1e18
-    for _ in range(4):
+    if rounds < 1 or not signals:
+        raise ValueError('Fusion selection needs positive rounds and at least one signal')
+    for _ in range(rounds):
         improved = False
         for key in signals:
             grid = [dict(weights, **{key: value}) for value in (0.0, 0.25, 0.5, 1.0, 1.5)]

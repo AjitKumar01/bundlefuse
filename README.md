@@ -1,17 +1,17 @@
 # BundleFuse
 
-A zero-parameter, config-driven scorer for **bundle completion**: given a partial bundle (seed items),
+A config-driven closed-form scorer for **bundle completion**: given a partial bundle (seed items),
 rank the catalogue for the items that complete it. BundleFuse fuses a handful of closed-form signals —
 organised into families — with validation-selected weights and empirical-Bayes cold-start shrinkage.
-No gradient training; one model object per dataset; compressed checkpoints.
+No gradient-trained encoder; fusion weights and shrinkage are fitted on validation. One model
+object per dataset supports fitting, exact checkpoint round trips, batched scoring and reporting.
 
 ```python
 from bundlefuse import datasets
 model, ds = datasets.build("pog_dense")        # object configured for this dataset + its data
-model.fit(ds.train, ds.val_pairs, content=ds.content, cat_labels=ds.cat_labels,
-          user_items=ds.user_items, val_users=ds.val_users)
+model.fit(ds.train, ds.val_pairs, **ds.fit_kwargs())
 model.save("checkpoints/pog_dense.pt")
-items = model.predict(seeds=[7917, 15610], k=10)     # fast: one pass over the seed set
+items = model.predict(seeds=[7917, 15610], k=10)
 ```
 
 ## Install
@@ -19,7 +19,7 @@ items = model.predict(seeds=[7917, 15610], k=10)     # fast: one pass over the s
 ```bash
 git clone https://github.com/AjitKumar01/bundlefuse.git
 cd bundlefuse
-pip install -r requirements.txt          # numpy, scipy, scikit-learn, torch, tqdm
+pip install -r requirements-dev.txt      # runtime dependencies + pytest
 python -m pytest tests/ -q               # or: python tests/test_model.py
 ```
 
@@ -80,6 +80,8 @@ writes a checkpoint to `checkpoints/<dataset>.pt`:
 
 ```bash
 python evaluator.py pog_dense                              # BundleFuse (default)
+python evaluator.py pog_dense --protocol provided --val-n 0 --test-n 0
+python evaluator.py pog_dense --protocol resplit --split-seed 2 --mask-frac 0.5
 python evaluator.py dunnhumby --test-n 2000 --ckpt-dir checkpoints
 python evaluator.py spotify --beta-clique 1.0 --seed-cap 20 --no-eval
 python evaluator.py electronic --model itemknn             # a baseline instead
@@ -87,16 +89,36 @@ python evaluator.py --help                                 # all flags
 ```
 
 Each dataset has a **default config** in `configs/<dataset>.json` (families, `svd_dim`, `content_rank`,
-operator hyper-parameters, compression) tuned to match the research results; `evaluator.py` loads it
+operator hyper-parameters, compression); `evaluator.py` loads it
 automatically. Override it with `--config <path>`, ignore it with `--no-config`, and any explicit flag
 below wins over the file.
 
 Fit flags: `--families`, `--svd-dim`, `--content-rank`, `--no-compress`, `--val-n/--test-n`,
 `--alpha-deg/--gamma-vol/--beta-clique/--alpha-bridge/--fit-rounds/--seed-cap`.
 Checkpoint flags: `--ckpt-dir/--save/--no-save/--no-eval`.
-Checkpoints are **compressed by default** (incidence `B` + low-rank content; pog 834 MB → 50 MB). The
-per-dataset `content_rank` is set so compression stays ~lossless: 64 for the high-dim multimodal
-bundlemllm sets, 128 (= full, since their content is 128-dim) for dunnhumby / BundleRec.
+`--fit-rounds` controls the validation coordinate-search passes. `--seed-cap` limits the seeds used
+to compute signals (0 means all); every revealed item is still excluded from predictions.
+`--chunk` bounds validation/scoring batches and `--threads` controls CPU computation threads.
+
+**Protocols are explicit.** POG/Spotify default to the supplied train/validation/test files, retaining
+duplicate training bundles, original query IDs and masks. Their validation/test defaults are the
+full supplied splits. `--val-n 0 --test-n 0` also means full; positive limits produce a labelled
+partial run. `--protocol resplit` explicitly enables deduplication, new splits and reveal masks.
+BundleRec/Dunnhumby support their existing random-resplit completion task; their CLI defaults
+remain 800 validation / 2,000 test queries. This retail loader is not a chronological benchmark.
+
+Checkpoints omit derived graph matrices without mutating the fitted object. Required matrices
+are rebuilt lazily using the original zero-diagonal formulas, so storage compression preserves
+scores; rebuilding can add first-query time and memory. Separately, `content_rank` applies a
+**lossy projection during fitting**, before validation selection. It is not guaranteed lossless:
+defaults are 256 for POG, 64 for the other POG/Spotify datasets and 128 for retail/BundleRec.
+`--no-compress` disables both that projection and derived-matrix omission.
+
+Every fitted CLI run writes a JSON sidecar (`<checkpoint>.json`, or `--report PATH`) with effective
+configuration, actual selected weights/routing, query IDs, protocol, data/code hashes, versions,
+metrics and checkpoint hash. Saving includes a validation-query score parity probe. `--no-eval`
+does not score the test set. Validation signals use a temporary disk cache rather than retaining
+all catalogue-by-query matrices in RAM; full-catalogue validation still needs temporary disk space.
 
 ## Use a checkpoint — `inference.py`
 
@@ -113,6 +135,41 @@ python inference.py report dunnhumby --out reports/dunnhumby.json
 ```
 
 Add `--model <baseline>` to use a baseline checkpoint instead of BundleFuse.
+For an explicit checkpoint, put its global option before the subcommand:
+
+```bash
+python inference.py --ckpt checkpoints/pog_dense.pt report pog_dense --out reports/pog_dense.json
+```
+
+Evaluation reconstructs the checkpoint's recorded protocol/seed/mask and verifies source-data
+and training-fold hashes. A different protocol or changed input files are rejected. `--test-n`
+can select a prefix of the same test split. Legacy checkpoints without dataset provenance can
+still predict supplied item indices, but must be refitted with this pipeline for dataset evaluation.
+Reports keep full-precision metrics and true fitted model metadata. `by_seed_count` groups the
+original queries; `seed_stress` reduces context and moves removed seeds into the hidden targets.
+
+## Verification
+
+```bash
+python -m pytest tests/ -q
+# Explicit dataset integration check; fit, save, reload, compare every requested test score:
+python validate.py --datasets pog_dense --protocol provided --val-n 0 --test-n 0
+# Random-split repetitions are a separate experiment:
+python validate.py --datasets food --protocol resplit --split-seeds 0 1 2
+```
+
+The mandatory golden test uses a committed synthetic reference captured from `15bd250` before
+the fixes. It requires no external datasets. Tests cover pre-save versus loaded score bits,
+selected versus full scoring, failed writes, dataset masks/IDs, ties, all baseline interfaces and
+the CLI fit/save/report path. `validate.py` writes a protocol-bound, fail-closed JSON report; it
+does not silently compare different protocols or invent missing historical benchmark goldens.
+
+The reorganized signal pool and content compression need their own full benchmark measurements.
+Successful integration tests do not establish equality with an earlier paper score or transfer
+the earlier branch's measured inference speedups to this implementation.
+
+Pipeline fix verification is recorded in [`results/pipeline_fixes/README.md`](results/pipeline_fixes/README.md),
+including the real-data smoke commands and their deliberately limited scope.
 
 ## Models & signal families
 
@@ -140,6 +197,10 @@ bundlefuse/
   baselines.py      # the baseline models
   operators.py      # the closed-form math (hypergraph operator, content bridge, EB shrinkage)
   config.py         # load configs/<dataset>.json -> BundleFuseConfig
+  selected_signals.py # compute only dependencies of the fitted fusion
+  graph_state.py    # exact reconstruction of matrices omitted from checkpoints
+  validation_cache.py # bounded-RAM, temporary disk-backed validation signals
+  evaluation.py  cli_data.py  provenance.py # shared CLI contracts, metrics and fingerprints
   datasets/         # one file per dataset (each builds its configured object) + base.py loaders
   metrics.py  provided_splits.py  protocol.py  paths.py  __init__.py
 tests/test_model.py

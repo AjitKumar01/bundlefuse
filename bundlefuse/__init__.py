@@ -8,14 +8,13 @@ personalization) switched on by the config.
 Train and evaluate any dataset through the one model class::
 
     from bundlefuse.model import BundleFuse, BundleFuseConfig
-    from bundlefuse.data import load_dataset
+    from bundlefuse import datasets
 
-    ds = load_dataset("pog_dense")
-    model = BundleFuse(BundleFuseConfig(n_items=ds.n_items, families=ds.families))
-    model.fit(ds.train, ds.val_pairs, content=ds.content, cat_labels=ds.cat_labels)
+    model, ds = datasets.build("pog_dense")
+    model.fit(ds.train, ds.val_pairs, **ds.fit_kwargs())
     items = model.predict(seeds, k=20)
 
-or from the command line::  python -m bundlefuse.run pog_dense
+or from the command line::  python evaluator.py pog_dense --protocol provided
 """
 from .model import BundleFuse, BundleFuseConfig, load_model
 from .baselines import BASELINES, Baseline

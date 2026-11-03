@@ -1,20 +1,16 @@
-"""BundleFuse -- the config-driven model class, implementing the SAME pipeline as the research
-evaluators (bundlefuse/eval/fullrank.py etc. on the compressed-inference branch).
+"""Config-driven closed-form bundle scorer with validation-fitted fusion and exact checkpoints.
 
-The scoring (``_score_all`` == the original ``score_all_signals``) and the fit/apply engine
-(``fusion_selection.fit_fusion`` / ``apply_fusion``) are the verified originals -- this class only
-assembles the artifacts the original built at module level (graph operator, DualSpectrumOntology,
-disentangled content styles + bridge, Rao concordance, SIG) inside ``fit`` and reuses them, so the
-numbers reproduce the research matrix.
-
-Signals are grouped into families; ``config.families`` keeps a subset of the full research SIG
-(default: all). ``fit`` does all processing once; ``predict``/``score`` run one scoring pass over a
-seed set + the frozen fusion; ``save``/``load`` is a compressed checkpoint.
+The full-signal method is the reference for selected-signal serving. Dataset protocol, signal
+menu and content compression are explicit settings; historical benchmark parity is not implied
+merely by sharing the mathematical operators with an earlier research evaluator.
 """
 from __future__ import annotations
 
 import math
 import pickle
+from copy import copy, deepcopy
+import os
+import tempfile
 from dataclasses import dataclass
 from typing import Optional
 
@@ -28,8 +24,11 @@ from bundlefuse.operators import (
     SimplicialGraphOperator, DualSpectrumOntology, BilateralContentBridge,
     EmpiricalBayesRouter, zcols,
 )
-from bundlefuse.fusion_selection import fit_fusion, apply_fusion, ValidationSignals
-from bundlefuse.metrics import ranking_metrics
+from bundlefuse.fusion_selection import fit_fusion, apply_fusion, ValidationSignals, required_fusion_signals
+from bundlefuse.metrics import top_items
+from bundlefuse.graph_state import ensure_graph_matrices
+from bundlefuse.selected_signals import SelectedSignals
+from bundlefuse.validation_cache import ValidationCache
 
 DEVICE = torch.device("cpu")
 EPS = 1e-8
@@ -74,6 +73,18 @@ class BundleFuseConfig:
     sel_obj: str = "ndcg20"
     compressed: bool = True
     content_rank: int = 64
+    fit_rounds: int = 4
+    seed_cap: int = 0
+    validation_chunk: int = 32
+
+    def __post_init__(self):
+        if min(self.n_items, self.svd_dim, self.content_rank, self.fit_rounds, self.validation_chunk) < 1:
+            raise ValueError('Catalogue size, dimensions, fit rounds and chunk size must be positive')
+        if self.n_items < 3 or self.seed_cap < 0:
+            raise ValueError('Need at least three items and a nonnegative seed cap')
+        known = {'collaborative', 'content', 'taxonomy', 'popularity', 'personalization'}
+        if self.families is not None and (not self.families or set(self.families) - known):
+            raise ValueError('Unknown or empty signal families')
 
 
 class BundleFuse:
@@ -84,7 +95,7 @@ class BundleFuse:
     # ===================== fit =====================
     def fit(self, train_bundles, val_pairs, *, features=None, cat_labels=None, music=False,
             alb_labels=None, cluster_feat=None, aux_incidences=None, group_labels=None,
-            user_items=None, val_users=None):
+            user_items=None, val_users=None, data_spec=None):
         """Build the signal-pool artifacts, then select the fusion on validation. Each dataset supplies
         whatever inputs it has; the model computes every applicable signal and the fit selects them.
 
@@ -98,6 +109,10 @@ class BundleFuse:
         user_items / val_users : personalization signals (`user_freq`, `user_cooc`).
         """
         cfg = self.cfg
+        cfg.__post_init__()
+        self.fitted_ = False
+        if not val_pairs:
+            raise ValueError('Nonempty held-out validation queries are required')
         n = cfg.n_items
         self.music = bool(music)
         g = SimplicialGraphOperator(train_bundles, n_items=n, svd_dim=cfg.svd_dim,
@@ -184,19 +199,17 @@ class BundleFuse:
 
         # compute every applicable signal on validation, then the active SIG = selectable signals
         # (co-occurrence, content, taxonomy, popularity, personalization) kept by config.families
-        val_seeds = [s for s, _ in val_pairs]
-        _, Zv = self._score_all(val_seeds, val_users)
-        fams = cfg.families
-        self.SIG = [k for k in Zv if k not in AUX_KEYS and (fams is None or FAMILY_OF.get(k) in fams)]
-
-        # fit the fusion on validation (the verified engine)
-        validation = ValidationSignals(lambda: iter([(0, Zv)]), list(val_pairs), self.freq, cfg.sel_obj)
-        prior_cand = tuple(k for k in ("cat", "softcat", "homo", "content", "style", "imgstyle",
-                                       "audiostyle", "bridge") if k in self.SIG)
-        rao_grid = (0.0, 0.2, 0.35) if "rao" in Zv else (0.0,)
-        self.w, self.prior_keys, self.best_eb, self.best_ho, _ = fit_fusion(
-            validation, self.SIG, prior_cand, rao=rao_grid)
+        with ValidationCache(val_pairs, val_users, self._score_all, n, cfg.validation_chunk) as cache:
+            fams = cfg.families
+            self.SIG = [k for k in cache.keys if k not in AUX_KEYS and (fams is None or FAMILY_OF.get(k) in fams)]
+            validation = ValidationSignals(cache.blocks, list(val_pairs), self.freq, cfg.sel_obj)
+            prior_cand = tuple(k for k in ('cat', 'softcat', 'homo', 'content', 'style', 'imgstyle',
+                                           'audiostyle', 'bridge') if k in self.SIG)
+            rao_grid = (0., .2, .35) if 'rao' in cache.keys else (0.,)
+            self.w, self.prior_keys, self.best_eb, self.best_ho, self.variance_components_ = fit_fusion(
+                validation, self.SIG, prior_cand, rao=rao_grid, rounds=cfg.fit_rounds)
         self.freq_t = torch.tensor(self.freq, device=DEVICE)[:, None]
+        self.data_spec = deepcopy(data_spec)
         self.fitted_ = True
         return self
 
@@ -232,7 +245,9 @@ class BundleFuse:
 
     # ===================== scoring (verbatim score_all_signals) =====================
     def _score_all(self, bundles, users=None):
+        bundles = self._scoring_seeds(bundles)
         g = self.graph; onto = self.onto; n = self.cfg.n_items; nb = len(bundles)
+        ensure_graph_matrices(g, {'cooc', 'ppmi', 'user_cooc'})
         Ind = g.build_indicator(bundles)
         sc_pair, sc_diff2_pair = g.score_pairwise_and_diff2(bundles)
         delta_inc, diff2_delta = g.score_simplicial_incidence_only(bundles, beta_clique=self.cfg.beta_clique)
@@ -248,22 +263,8 @@ class BundleFuse:
                                              gamma=(1.0 if self.music else -1.0), alpha_dense=0.15, tau=0.05)
             R["rao"] = torch.tensor(sc_rao, device=DEVICE)
         # cooc / ppmi -- from materialised C/PPMI, or from the incidence B when compressed-stripped
-        if getattr(g, "PPMI", None) is not None:
-            R["cooc"] = torch.tensor(np.asarray((g.C @ Ind).todense()), dtype=torch.float32, device=DEVICE)
-            R["ppmi"] = torch.tensor(np.asarray((g.PPMI @ Ind).todense()), dtype=torch.float32, device=DEVICE)
-        else:
-            B = g.B
-            R["cooc"] = torch.tensor(np.asarray((B.T @ (B @ Ind)).todense()).astype(np.float32), device=DEVICE)
-            ppmi = np.zeros((n, nb), np.float32)
-            for j, s in enumerate(bundles):
-                if not len(s):
-                    continue
-                Cs = np.asarray((B.T @ B[:, list(s)]).todense())
-                with np.errstate(divide="ignore", invalid="ignore"):
-                    pp = np.log(Cs * self.totc / (self.freq_c[:, None] * self.freq_c[list(s)][None, :] + 1e-12))
-                pp = np.maximum(pp, 0.0); pp[Cs <= 0] = 0.0
-                ppmi[:, j] = pp.sum(1)
-            R["ppmi"] = torch.tensor(ppmi, device=DEVICE)
+        R["cooc"] = torch.tensor(np.asarray((g.C @ Ind).todense()), dtype=torch.float32, device=DEVICE)
+        R["ppmi"] = torch.tensor(np.asarray((g.PPMI @ Ind).todense()), dtype=torch.float32, device=DEVICE)
         # auxiliary co-occurrence (household / user-item pretrain / ...): I^T (I @ indicator)
         if self.aux:
             Ind_w = Ind.multiply(g.inv_sqrt_f[:, None]).tocsr()
@@ -308,36 +309,70 @@ class BundleFuse:
                     if h:
                         Hind[h, j] = 1.0
             R["user_freq"] = torch.tensor(uf, device=DEVICE)
-            uc = (g.C @ Hind.tocsr()) if getattr(g, "C", None) is not None else (g.B.T @ (g.B @ Hind.tocsr()))
+            uc = g.C @ Hind.tocsr()
             R["user_cooc"] = torch.tensor(np.asarray(uc.todense()).astype(np.float32), device=DEVICE)
         Z = {k: zcols(R[k]) for k in R}      # z-score every computed signal (SIG is derived from these)
         return R, Z
 
     # ===================== predict / score =====================
-    def score(self, seeds, user=None):
+    def _scoring_seeds(self, bundles):
+        prepared = []
+        for seeds in bundles:
+            seeds = list(seeds)
+            if not seeds or any(not isinstance(i, (int, np.integer)) or i < 0 or i >= self.cfg.n_items for i in seeds):
+                raise ValueError('Each query needs valid catalogue item IDs')
+            if len(set(seeds)) != len(seeds):
+                raise ValueError('Repeated seed IDs are not supported')
+            cap = getattr(self.cfg, 'seed_cap', 0)
+            prepared.append(sorted(seeds)[:cap] if cap else seeds)
+        return prepared
+
+    def score_batch(self, bundles, users=None, *, reference=False):
         if not self.fitted_:
             raise RuntimeError("call fit() or load() first")
-        _, Z = self._score_all([list(seeds)], [user])
+        if not bundles or (users is not None and len(users) != len(bundles)):
+            raise ValueError('Nonempty queries and aligned users are required')
+        users = [None] * len(bundles) if users is None else users
+        if reference:
+            _, Z = self._score_all(bundles, users)
+        else:
+            required = required_fusion_signals(self.w, self.prior_keys, self.best_eb, self.best_ho)
+            scorer = SelectedSignals(self.graph, self.onto, self.FEAT, self.cat_lbl, self.rao_dense,
+                                     self.music, DEVICE, beta_clique=self.cfg.beta_clique,
+                                     aux=self.aux, groups=self.group_inc, category_homo=self.Pcat_homo,
+                                     user_incidence=self.UI, user_items=self.user_items)
+            _, Z = scorer.score(self._scoring_seeds(bundles), required, users)
         F = apply_fusion(Z, self.w, self.prior_keys, self.best_eb, self.freq_t, self.best_ho)
-        return np.asarray(F[:, 0].cpu().numpy() if hasattr(F, "cpu") else F[:, 0], np.float32)
+        return F.detach().cpu().numpy().astype(np.float32, copy=False)
+
+    def score(self, seeds, user=None):
+        return self.score_batch([list(seeds)], [user])[:, 0]
 
     def predict(self, seeds, k=20, user=None):
-        sc = self.score(seeds, user).copy()
-        sc[list(seeds)] = -np.inf
-        k = min(k, int((sc > -np.inf).sum()))
-        top = np.argpartition(-sc, k - 1)[:k]
-        return top[np.argsort(-sc[top])].tolist()
+        seeds = list(seeds)
+        return top_items(self.score(seeds, user), seeds, k).tolist()
 
     # ===================== checkpoint =====================
     _DROP_WHEN_COMPRESSED = ("C", "C_bin", "PPMI", "W_pair_sq", "W_csc", "P_rw")  # W_pair kept (needed by rao)
 
     def save(self, path):
-        if self.cfg.compressed and getattr(self, "graph", None) is not None:
+        if not self.fitted_:
+            raise RuntimeError('Fit a model before saving it')
+        snapshot = copy(self)
+        snapshot.graph = copy(self.graph)
+        if self.cfg.compressed:
             for attr in self._DROP_WHEN_COMPRESSED:
-                if getattr(self.graph, attr, None) is not None:
-                    setattr(self.graph, attr, None)
-        with open(path, "wb") as f:
-            pickle.dump(self, f, protocol=pickle.HIGHEST_PROTOCOL)
+                setattr(snapshot.graph, attr, None)
+        path = os.fspath(path)
+        os.makedirs(os.path.dirname(path) or '.', exist_ok=True)
+        handle, temporary = tempfile.mkstemp(prefix='.bundlefuse_', dir=os.path.dirname(path) or '.')
+        try:
+            with os.fdopen(handle, 'wb') as stream:
+                pickle.dump(snapshot, stream, protocol=pickle.HIGHEST_PROTOCOL)
+            os.replace(temporary, path)
+        finally:
+            if os.path.exists(temporary):
+                os.unlink(temporary)
 
     @classmethod
     def load(cls, path):

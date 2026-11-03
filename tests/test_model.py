@@ -4,6 +4,7 @@ import sys
 import tempfile
 
 import numpy as np
+import pytest
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from bundlefuse.model import BundleFuse, BundleFuseConfig
@@ -23,7 +24,8 @@ def _synthetic(n=60, n_bundles=800, seed=0):
     return n, bundles, ntr, nva
 
 
-def test_fit_predict_and_checkpoint():
+@pytest.mark.parametrize('compressed', [True, False])
+def test_fit_predict_and_checkpoint(compressed):
     n, bundles, ntr, nva = _synthetic()
     tr, va, te = bundles[:ntr], bundles[ntr:ntr + nva], bundles[ntr + nva:]
     val_pairs = protocol.mask(va, 1, 0.5)
@@ -32,7 +34,8 @@ def test_fit_predict_and_checkpoint():
     cat = (np.arange(n) // 6).astype(int)
 
     model = BundleFuse(BundleFuseConfig(n_items=n, svd_dim=8,
-                                        families=["collaborative", "content", "taxonomy", "popularity"]))
+                                        families=["collaborative", "content", "taxonomy", "popularity"],
+                                        compressed=compressed))
     model.fit(tr, val_pairs, features={"content": content}, cat_labels=cat)
     assert model.fitted_ and model.SIG, "model did not fit"
     assert any(model.w.values()), "no signals selected"
@@ -45,11 +48,17 @@ def test_fit_predict_and_checkpoint():
 
     # checkpoint round-trips to identical predictions
     with tempfile.TemporaryDirectory() as d:
-        p = os.path.join(d, "m.pt")
+        p = os.path.join(d, 'nested', 'm.pt')
+        before = [model.score(s).copy() for s, _ in test_pairs[:20]]
+        predictions = [model.predict(s) for s, _ in test_pairs[:20]]
+        original_c = model.graph.C
         model.save(p)
+        assert model.graph.C is original_c, 'save must not strip the live model'
         m2 = BundleFuse.load(p)
-        for s, _ in test_pairs[:20]:
-            assert model.predict(s) == m2.predict(s), "reloaded model predicts differently"
+        for i, (s, _) in enumerate(test_pairs[:20]):
+            np.testing.assert_array_equal(before[i].view(np.uint32), model.score(s).view(np.uint32))
+            np.testing.assert_array_equal(before[i].view(np.uint32), m2.score(s).view(np.uint32))
+            assert predictions[i] == m2.predict(s), 'reloaded model differs from pre-save predictions'
     print("test_fit_predict_and_checkpoint OK")
 
 
@@ -65,6 +74,7 @@ def test_family_switch():
 
 
 if __name__ == "__main__":
-    test_fit_predict_and_checkpoint()
+    test_fit_predict_and_checkpoint(True)
+    test_fit_predict_and_checkpoint(False)
     test_family_switch()
     print("all tests passed")

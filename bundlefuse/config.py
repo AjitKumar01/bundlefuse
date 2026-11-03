@@ -22,6 +22,8 @@ def config_file_path(name):
 def load_config_file(name, config_file=None):
     """Return the dataset's config dict, or {} if no file is present."""
     p = config_file or config_file_path(name)
+    if config_file is not None and not os.path.isfile(p):
+        raise FileNotFoundError(f'Explicit config does not exist: {p}')
     if os.path.exists(p):
         with open(p) as f:
             return json.load(f)

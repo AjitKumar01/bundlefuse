@@ -27,6 +27,7 @@ import scipy.sparse as sp
 from bundlefuse.paths import DATA_ROOT
 from bundlefuse.provided_splits import ProvidedSplits
 from bundlefuse import protocol
+from bundlefuse.provenance import record_dataset
 
 BUNDLEMLLM = {"pog", "pog_dense", "spotify", "spotify_sparse"}
 BUNDLEREC = {"electronic", "food", "clothing"}
@@ -50,6 +51,25 @@ class Dataset:
     user_items: Optional[dict] = None
     val_users: Optional[list] = None
     test_users: Optional[list] = None
+    metadata: dict = field(default_factory=dict)
+    val_ids: list = field(default_factory=list)
+    test_ids: list = field(default_factory=list)
+
+    def fit_kwargs(self):
+        return {**{key: getattr(self, key) for key in ('features', 'cat_labels', 'music', 'alb_labels',
+                'cluster_feat', 'aux_incidences', 'group_labels', 'user_items', 'val_users')},
+                'data_spec': self.metadata}
+
+
+def _limits(val_n, test_n, mask_frac):
+    if any(value is not None and value < 0 for value in (val_n, test_n)):
+        raise ValueError('Query limits must be nonnegative; 0/None means the full split')
+    if not 0 < mask_frac < 1:
+        raise ValueError('Mask fraction must be between zero and one')
+
+
+def _limit(rows, count):
+    return rows[:count] if count else rows
 
 
 def _tfidf_svd(texts, dim=128):
@@ -81,7 +101,12 @@ def _kmeans(feat, k=400):
 
 
 # ---------------------------------------------------------------- bundlemllm
-def load_bundlemllm(name, val_n, test_n, mask_frac=0.5, split_seed=0, protocol_mode="resplit"):
+def load_bundlemllm(name, val_n=None, test_n=None, mask_frac=0.5, split_seed=0, protocol_mode="provided"):
+    _limits(val_n, test_n, mask_frac)
+    if protocol_mode not in ('provided', 'resplit'):
+        raise ValueError('Protocol must be provided or resplit')
+    if protocol_mode == 'provided' and (split_seed != 0 or mask_frac != .5):
+        raise ValueError('Provided splits cannot be resplit or remasked; use protocol_mode="resplit"')
     import torch
     dd = os.path.join(DATA_ROOT, "bundlemllm", "datasets", name)
     n = json.load(open(os.path.join(dd, "count.json")))["#I"]
@@ -122,7 +147,9 @@ def load_bundlemllm(name, val_n, test_n, mask_frac=0.5, split_seed=0, protocol_m
 
     fams = ["collaborative", "popularity", "content", "taxonomy"]
     if protocol_mode == "provided":
-        train = list(sp_.train.values()); vp = sp_.pairs("valid")[:val_n]; tp = sp_.pairs("test")[:test_n]
+        train = list(sp_.train.values()); full_vp = sp_.pairs('valid'); full_tp = sp_.pairs('test')
+        vp = _limit(full_vp, val_n); tp = _limit(full_tp, test_n)
+        vi = _limit(sorted(sp_.splits['valid'][0]), val_n); ti = _limit(sorted(sp_.splits['test'][0]), test_n)
     else:
         # the research matrix protocol: reconstruct all bundles, resplit 70/10/20 by seed, reveal-mask
         fullb = list(sp_.train.values())
@@ -136,14 +163,23 @@ def load_bundlemllm(name, val_n, test_n, mask_frac=0.5, split_seed=0, protocol_m
         random.Random(split_seed).shuffle(allb)
         ntr, nva = int(0.7 * len(allb)), int(0.1 * len(allb))
         train, vab, teb = allb[:ntr], allb[ntr:ntr + nva], allb[ntr + nva:]
-        vp = protocol.mask(vab, split_seed + 1, mask_frac)[:val_n]
-        tp = protocol.mask(teb, split_seed + 2, mask_frac)[:test_n]
-    return Dataset(name, n, train, vp, tp, fams, features=feats, cat_labels=cat,
-                   music=music, alb_labels=alb, cluster_feat=cluster_feat)
+        full_vp = protocol.mask(vab, split_seed + 1, mask_frac)
+        full_tp = protocol.mask(teb, split_seed + 2, mask_frac)
+        vp, tp = _limit(full_vp, val_n), _limit(full_tp, test_n)
+        vi, ti = list(range(len(vp))), list(range(len(tp)))
+    ds = Dataset(name, n, train, vp, tp, fams, features=feats, cat_labels=cat,
+                 music=music, alb_labels=alb, cluster_feat=cluster_feat)
+    files = list(sp_.hashes) + ['item_info.json', 'title_emb.npy', 'content_feature.pt', 'description_feature.pt']
+    return record_dataset(ds, dd, files, protocol=protocol_mode, split_seed=split_seed, mask_frac=mask_frac,
+                          val_limit=val_n, test_limit=test_n, val_total=len(full_vp), test_total=len(full_tp),
+                          val_ids=vi, test_ids=ti)
 
 
 # ---------------------------------------------------------------- dunnhumby
-def load_dunnhumby(val_n, test_n, mask_frac, split_seed, basket_cap=30000):
+def load_dunnhumby(val_n, test_n, mask_frac, split_seed, basket_cap=30000, protocol_mode='resplit'):
+    _limits(val_n, test_n, mask_frac)
+    if protocol_mode != 'resplit':
+        raise ValueError('This retail loader supports resplit only; it is not the historical chronological study')
     root = os.environ.get("DUNN_DIR") or os.path.join(DATA_ROOT, "dunnhumby")
     raw = defaultdict(set); buser = {}
     with open(os.path.join(root, "transaction_data.csv")) as f:
@@ -186,17 +222,23 @@ def load_dunnhumby(val_n, test_n, mask_frac, split_seed, basket_cap=30000):
     user_items = defaultdict(list)
     for i in tri:
         user_items[busers[i]] += bundles[i]
-    vp = protocol.mask([bundles[i] for i in vai], split_seed + 1, mask_frac)[:val_n]
-    tp = protocol.mask([bundles[i] for i in tei], split_seed + 2, mask_frac)[:test_n]
-    vu = [busers[i] for i in vai][:val_n]; tu = [busers[i] for i in tei][:test_n]
+    vp = _limit(protocol.mask([bundles[i] for i in vai], split_seed + 1, mask_frac), val_n)
+    tp = _limit(protocol.mask([bundles[i] for i in tei], split_seed + 2, mask_frac), test_n)
+    vu = _limit([busers[i] for i in vai], val_n); tu = _limit([busers[i] for i in tei], test_n)
     fams = ["collaborative", "content", "taxonomy", "popularity", "personalization"]
     aux = {"hh_cooc": (_user_incidence(dict(user_items), n), True)}   # household co-occurrence (degree-weighted)
-    return Dataset("dunnhumby", n, train, vp, tp, fams, features={"content": content}, cat_labels=cat,
-                   aux_incidences=aux, user_items=dict(user_items), val_users=vu, test_users=tu)
+    ds = Dataset('dunnhumby', n, train, vp, tp, fams, features={'content': content}, cat_labels=cat,
+                 aux_incidences=aux, user_items=dict(user_items), val_users=vu, test_users=tu)
+    return record_dataset(ds, root, ['transaction_data.csv', 'product.csv'], protocol='resplit',
+                          split_seed=split_seed, mask_frac=mask_frac, val_limit=val_n, test_limit=test_n,
+                          val_total=len(vai), test_total=len(tei), val_ids=_limit(vai,val_n), test_ids=_limit(tei,test_n))
 
 
 # ---------------------------------------------------------------- BundleRec
-def load_bundlerec(name, val_n, test_n, mask_frac, split_seed):
+def load_bundlerec(name, val_n, test_n, mask_frac, split_seed, protocol_mode='resplit'):
+    _limits(val_n, test_n, mask_frac)
+    if protocol_mode != 'resplit':
+        raise ValueError('BundleRec completion supports resplit only')
     root = os.path.join(DATA_ROOT, "BundleRec", "dataset", name)
     raw = defaultdict(list)
     with open(os.path.join(root, "bundle_item.csv")) as f:
@@ -251,10 +293,15 @@ def load_bundlerec(name, val_n, test_n, mask_frac, split_seed):
     ntr, nva = int(0.7 * len(idx)), int(0.1 * len(idx))
     vai, tei = idx[ntr:ntr + nva], idx[ntr + nva:]
     train = [bundles[i] for i in idx[:ntr]]
-    vp = protocol.mask([bundles[i] for i in vai], split_seed + 1, mask_frac)[:val_n]
-    tp_ = protocol.mask([bundles[i] for i in tei], split_seed + 2, mask_frac)[:test_n]
-    vu = [b2u.get(bkeys[i], -1) for i in vai][:val_n]; tu = [b2u.get(bkeys[i], -1) for i in tei][:test_n]
+    vp = _limit(protocol.mask([bundles[i] for i in vai], split_seed + 1, mask_frac), val_n)
+    tp_ = _limit(protocol.mask([bundles[i] for i in tei], split_seed + 2, mask_frac), test_n)
+    vu = _limit([b2u.get(bkeys[i], -1) for i in vai], val_n); tu = _limit([b2u.get(bkeys[i], -1) for i in tei], test_n)
     fams = ["collaborative", "content", "taxonomy", "popularity", "personalization"]
     aux = {"pretrain": (_user_incidence(dict(user_items), n), False)}   # user-item pretrain co-occurrence
-    return Dataset(name, n, train, vp, tp_, fams, features={"content": content}, cat_labels=cat,
-                   aux_incidences=aux, user_items=dict(user_items), val_users=vu, test_users=tu)
+    ds = Dataset(name, n, train, vp, tp_, fams, features={'content': content}, cat_labels=cat,
+                 aux_incidences=aux, user_items=dict(user_items), val_users=vu, test_users=tu)
+    return record_dataset(ds, root, ['bundle_item.csv', 'user_bundle.csv', 'item_titles.csv',
+                          'item_categories.csv', 'user_item_pretrain.csv'], protocol='resplit',
+                          split_seed=split_seed, mask_frac=mask_frac, val_limit=val_n, test_limit=test_n,
+                          val_total=len(vai), test_total=len(tei),
+                          val_ids=[bkeys[i] for i in _limit(vai,val_n)], test_ids=[bkeys[i] for i in _limit(tei,test_n)])

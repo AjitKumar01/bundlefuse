@@ -1,5 +1,11 @@
 # Historical manuscript
 
+On `reorganized`, the current pipeline verification is in
+[../results/pipeline_fixes/README.md](../results/pipeline_fixes/README.md). Historical experiment
+artifacts referenced below remain on `evaluation-reliability-experiments` (commit `4516eab`);
+this branch's smaller smoke checks do not regenerate those results or establish benchmark parity
+for the reorganized model and compression settings.
+
 Use the [claims/evidence ledger](CLAIMS.md) to distinguish current verified claims, conditional
 component benefits, and experiments that are still pending.
 

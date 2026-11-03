@@ -8,8 +8,8 @@ FAMILIES = ["collaborative", "content", "taxonomy", "popularity"]   # fallback i
 SVD_DIM = 128
 
 
-def load(val_n=800, test_n=2000, mask_frac=0.5, split_seed=0):
-    return load_bundlemllm(NAME, val_n, test_n, mask_frac, split_seed)
+def load(val_n=None, test_n=None, mask_frac=0.5, split_seed=0, protocol_mode="provided"):
+    return load_bundlemllm(NAME, val_n, test_n, mask_frac, split_seed, protocol_mode=protocol_mode)
 
 
 def config(n_items, families=None, svd_dim=None, use_config=True, config_file=None):
@@ -18,7 +18,8 @@ def config(n_items, families=None, svd_dim=None, use_config=True, config_file=No
                        families=families, svd_dim=svd_dim)
 
 
-def build(val_n=800, test_n=2000, families=None, svd_dim=None, use_config=True, config_file=None):
+def build(val_n=None, test_n=None, families=None, svd_dim=None, use_config=True, config_file=None,
+          mask_frac=0.5, split_seed=0, protocol_mode="provided"):
     """Return an (unfitted) BundleFuse object for pog (from configs/pog.json) and its Dataset."""
-    ds = load(val_n, test_n)
+    ds = load(val_n, test_n, mask_frac, split_seed, protocol_mode)
     return BundleFuse(config(ds.n_items, families, svd_dim, use_config, config_file)), ds
