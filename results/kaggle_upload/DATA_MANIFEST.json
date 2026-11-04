@@ -1,0 +1,568 @@
+{
+  "schema_version": 1,
+  "datasets": [
+    "pog",
+    "pog_dense",
+    "spotify",
+    "spotify_sparse",
+    "electronic",
+    "food",
+    "clothing",
+    "dunnhumby"
+  ],
+  "file_count": 90,
+  "total_original_bytes": 3112509492,
+  "bytes_by_dataset": {
+    "pog": 653246304,
+    "pog_dense": 283698644,
+    "spotify": 679160474,
+    "spotify_sparse": 565033703,
+    "electronic": 51430840,
+    "food": 9361072,
+    "clothing": 23530111,
+    "dunnhumby": 847048344
+  },
+  "files": [
+    {
+      "dataset": "pog",
+      "path": "bundlemllm/datasets/pog/bi_full.txt",
+      "bytes": 597841,
+      "sha256": "f69b8b0c65686580bb43a857ac4d5c55ac553621ea7a01c642f52987e01494d1"
+    },
+    {
+      "dataset": "pog",
+      "path": "bundlemllm/datasets/pog/bi_test_gt.txt",
+      "bytes": 78721,
+      "sha256": "7274703720f26196fd08153f602ea76a952aa5a606948269544bb657020122b8"
+    },
+    {
+      "dataset": "pog",
+      "path": "bundlemllm/datasets/pog/bi_test_input.txt",
+      "bytes": 62436,
+      "sha256": "a6425f2d41cf5ec0366354a4fd21ea431e2428294c375c5ff93a1adb75449ac7"
+    },
+    {
+      "dataset": "pog",
+      "path": "bundlemllm/datasets/pog/bi_train.txt",
+      "bytes": 418917,
+      "sha256": "984a40495aa3afe519fad733e402eb7cfd76d9db14ddaa098d4db24b3890c22d"
+    },
+    {
+      "dataset": "pog",
+      "path": "bundlemllm/datasets/pog/bi_valid_gt.txt",
+      "bytes": 39415,
+      "sha256": "a1d49115b963422bab75deb4df4c871f92e5cab0e7d4694f9dcc0462c6db0469"
+    },
+    {
+      "dataset": "pog",
+      "path": "bundlemllm/datasets/pog/bi_valid_input.txt",
+      "bytes": 31045,
+      "sha256": "ebc64bf6ad97c0619ac848b1157a989b7224626b815808823db694272fbfb595"
+    },
+    {
+      "dataset": "pog",
+      "path": "bundlemllm/datasets/pog/content_feature.pt",
+      "bytes": 149533443,
+      "sha256": "9e37f8a0fa5add74f7aafd1e2088eb59981efce8be87a727550fb8aed57a597e"
+    },
+    {
+      "dataset": "pog",
+      "path": "bundlemllm/datasets/pog/count.json",
+      "bytes": 124,
+      "sha256": "f5032baaadeacb88e14fb346bec0bfd670de14b6026616934949ddbb95fe118b"
+    },
+    {
+      "dataset": "pog",
+      "path": "bundlemllm/datasets/pog/description_feature.pt",
+      "bytes": 149533455,
+      "sha256": "c4f4477990a5a9753dc31563b180d3496121f598efac318591a8b1d83958d02c"
+    },
+    {
+      "dataset": "pog",
+      "path": "bundlemllm/datasets/pog/item_cf_feature.pt",
+      "bytes": 16929043,
+      "sha256": "9561ac0c97f186c4d3d399fdb04b081926777ccbc0cf6d8612cf32e70472988a"
+    },
+    {
+      "dataset": "pog",
+      "path": "bundlemllm/datasets/pog/item_info.json",
+      "bytes": 17658073,
+      "sha256": "17a6667f63d9b2f4d8b1b799e95e4465c0ed1dfa311549e034c85fe3e11c6747"
+    },
+    {
+      "dataset": "pog",
+      "path": "bundlemllm/datasets/pog/iui_edge_index.npy",
+      "bytes": 10752,
+      "sha256": "aec2a6d63b19bc94cbb4ba4ea86ef3ffebc62c9db6745ba6229153869b90cf17"
+    },
+    {
+      "dataset": "pog",
+      "path": "bundlemllm/datasets/pog/pog_LightGCN_bi_feature.pt",
+      "bytes": 17582380,
+      "sha256": "2efa5fab783c5a89b86264f102dee38deb1c45f3de3a5702d35aa341e9a51d27"
+    },
+    {
+      "dataset": "pog",
+      "path": "bundlemllm/datasets/pog/title_emb.npy",
+      "bytes": 99688576,
+      "sha256": "2e68d508553fac84c7a1267e7b004cdcb61e1a31f36eab957a8f61a26f6bfdc3"
+    },
+    {
+      "dataset": "pog",
+      "path": "bundlemllm/datasets/pog/title_emb_large.npy",
+      "bytes": 199377024,
+      "sha256": "01e14160c57165c644cf6bf4685acb5c6a0ca89493f4a6ea219cf6162f07ae21"
+    },
+    {
+      "dataset": "pog",
+      "path": "bundlemllm/datasets/pog/ui_full.txt",
+      "bytes": 1705059,
+      "sha256": "f4df684381078ccf65fbb0f3275c63b5cbef8529dc83aa4ac5bf75b186f179af"
+    },
+    {
+      "dataset": "pog_dense",
+      "path": "bundlemllm/datasets/pog_dense/bi_test_gt.txt",
+      "bytes": 95136,
+      "sha256": "e7ca4dbe4260f3cfc6ff3848c33617d73a17209b7d365e6eeb924d550dd9be2e"
+    },
+    {
+      "dataset": "pog_dense",
+      "path": "bundlemllm/datasets/pog_dense/bi_test_input.txt",
+      "bytes": 113508,
+      "sha256": "e7993ffd5ff4cb5fc0b7e4462eee3e48a9fba91462c03ac6446f38b5d1a73b59"
+    },
+    {
+      "dataset": "pog_dense",
+      "path": "bundlemllm/datasets/pog_dense/bi_train.txt",
+      "bytes": 615131,
+      "sha256": "c6943aed7ec0be22cf2f7ee4383ec5b067d0c814f14d42446a34019700b93a4b"
+    },
+    {
+      "dataset": "pog_dense",
+      "path": "bundlemllm/datasets/pog_dense/bi_valid_gt.txt",
+      "bytes": 47663,
+      "sha256": "db871bc7be893dc07f065931fde05dc743dd3a6f357429d92a91124c0d23885c"
+    },
+    {
+      "dataset": "pog_dense",
+      "path": "bundlemllm/datasets/pog_dense/bi_valid_input.txt",
+      "bytes": 56608,
+      "sha256": "405468b777fe67b317e17ec4b21d9b0bb48850e9e115816c40633b1b10c2614d"
+    },
+    {
+      "dataset": "pog_dense",
+      "path": "bundlemllm/datasets/pog_dense/content_feature.pt",
+      "bytes": 95899389,
+      "sha256": "3bf198b402ca48892e00941397687ef23ea4ca72cd4535789fa844fa4ed0cb80"
+    },
+    {
+      "dataset": "pog_dense",
+      "path": "bundlemllm/datasets/pog_dense/count.json",
+      "bytes": 139,
+      "sha256": "9a15a12c1437fd0b38d067dd0c9fb1ee74e63fa9b577df321764d934ffb61e57"
+    },
+    {
+      "dataset": "pog_dense",
+      "path": "bundlemllm/datasets/pog_dense/description_feature.pt",
+      "bytes": 95899386,
+      "sha256": "3938b0546d9c604fda99f24cd4cadb2ac9bb95ca2bd1a7dec0e798dad8d5bf53"
+    },
+    {
+      "dataset": "pog_dense",
+      "path": "bundlemllm/datasets/pog_dense/item_info.json",
+      "bytes": 11446618,
+      "sha256": "69d872a551cf8f317662943a79b70ae3fd9a1fb8f58147f63a253171316bfb59"
+    },
+    {
+      "dataset": "pog_dense",
+      "path": "bundlemllm/datasets/pog_dense/pog_dense_LightGCN_bi_feature.pt",
+      "bytes": 15592522,
+      "sha256": "e6bf9b295c44dc30ee4b86210bf3da0582d07c7fef3ae8cc298145181409b3eb"
+    },
+    {
+      "dataset": "pog_dense",
+      "path": "bundlemllm/datasets/pog_dense/title_emb.npy",
+      "bytes": 63932544,
+      "sha256": "d9c1047deafa745f4cb0bb4f44eaa9aa616de5e7b6c7b1f9ea29e345406290be"
+    },
+    {
+      "dataset": "spotify",
+      "path": "bundlemllm/datasets/spotify/bi_test_gt.txt",
+      "bytes": 980783,
+      "sha256": "c74a0814eed5b3e00482143141747156da55b58e076c846e353862f00b6f8ee2"
+    },
+    {
+      "dataset": "spotify",
+      "path": "bundlemllm/datasets/spotify/bi_test_input.txt",
+      "bytes": 965755,
+      "sha256": "b65346b8aefd7425d7d42ddaf798c6ec9ef14623c771336d43f9a4b01f3891a6"
+    },
+    {
+      "dataset": "spotify",
+      "path": "bundlemllm/datasets/spotify/bi_train.txt",
+      "bytes": 6817974,
+      "sha256": "c79fbd6a966b043eb65d100fb1626c2c6762d2db99b0f59079693df6184dcc60"
+    },
+    {
+      "dataset": "spotify",
+      "path": "bundlemllm/datasets/spotify/bi_valid_gt.txt",
+      "bytes": 492616,
+      "sha256": "a377bb6acfd1b2e50d38e8d41f779e943d006e5f681796922dc1f75faf1bbb93"
+    },
+    {
+      "dataset": "spotify",
+      "path": "bundlemllm/datasets/spotify/bi_valid_input.txt",
+      "bytes": 485320,
+      "sha256": "85dfbd33c16ec491e2507bcee1c44a96bb0aacbf0d2ec54fd9b27d8fee089b8a"
+    },
+    {
+      "dataset": "spotify",
+      "path": "bundlemllm/datasets/spotify/content_feature.pt",
+      "bytes": 520510187,
+      "sha256": "8bd3eb5572aeca9b6bacd643c092a265d586a2f50137c7bf0d96f681fc6bed1f"
+    },
+    {
+      "dataset": "spotify",
+      "path": "bundlemllm/datasets/spotify/count.json",
+      "bytes": 127,
+      "sha256": "2c1a4d51f5b2b9fb743e5db93059a710f8ac32b4f709c631c513ae27ae9a3ff9"
+    },
+    {
+      "dataset": "spotify",
+      "path": "bundlemllm/datasets/spotify/item_info.json",
+      "bytes": 78722688,
+      "sha256": "10723939a80346b61968827634ea6bd5d9d40a3d37fa06e39d1952ea07d2151c"
+    },
+    {
+      "dataset": "spotify",
+      "path": "bundlemllm/datasets/spotify/spotify_LightGCN_bi_feature.pt",
+      "bytes": 70185024,
+      "sha256": "5e9b0465f463ed565cb5faabf04352be40322613af4f6499f0acec6849087990"
+    },
+    {
+      "dataset": "spotify_sparse",
+      "path": "bundlemllm/datasets/spotify_sparse/bi_test_gt.txt",
+      "bytes": 421397,
+      "sha256": "62f6056711f15b8c468001b711c3998c31d5f6b6d98e88d7bb4b089a95213696"
+    },
+    {
+      "dataset": "spotify_sparse",
+      "path": "bundlemllm/datasets/spotify_sparse/bi_test_input.txt",
+      "bytes": 421006,
+      "sha256": "5a7f232e665c29cc1fbe6f190796332e2e65aca778bf63cf0c2110f95086aa31"
+    },
+    {
+      "dataset": "spotify_sparse",
+      "path": "bundlemllm/datasets/spotify_sparse/bi_train.txt",
+      "bytes": 2936607,
+      "sha256": "6ba88dcdaef70be5cbe1a055b85f1810cb1ef0a6348e88119c5b9cfc30ce79cb"
+    },
+    {
+      "dataset": "spotify_sparse",
+      "path": "bundlemllm/datasets/spotify_sparse/bi_valid_gt.txt",
+      "bytes": 209495,
+      "sha256": "4e63e4b1464c0bd33bff69c1bcaadaba086321a3ad1c57540ba633479e418d9a"
+    },
+    {
+      "dataset": "spotify_sparse",
+      "path": "bundlemllm/datasets/spotify_sparse/bi_valid_input.txt",
+      "bytes": 209751,
+      "sha256": "7ae4154fe4344117016e4458ff5c33843ee417e90cb1223bba09e22b3bfd0be2"
+    },
+    {
+      "dataset": "spotify_sparse",
+      "path": "bundlemllm/datasets/spotify_sparse/content_feature.pt",
+      "bytes": 436890371,
+      "sha256": "a47f2d8f71e58d3016aa189710e8c63c60534e76b7dfd5b48e8bbdd7a857e8c8"
+    },
+    {
+      "dataset": "spotify_sparse",
+      "path": "bundlemllm/datasets/spotify_sparse/count.json",
+      "bytes": 112,
+      "sha256": "7cb2c6fe5fa065bf2a141996b6de9c2a93dcab8d09f6cbf9477052f7817698b6"
+    },
+    {
+      "dataset": "spotify_sparse",
+      "path": "bundlemllm/datasets/spotify_sparse/item_info.json",
+      "bytes": 66135905,
+      "sha256": "0eed2b495c20cf41c6b52c84642d23a9a88d38a843443b481971ed6d29709f4c"
+    },
+    {
+      "dataset": "spotify_sparse",
+      "path": "bundlemllm/datasets/spotify_sparse/spotify_sparse_LightGCN_bi_feature.pt",
+      "bytes": 57809059,
+      "sha256": "1f7aa0e55cffae4c99f4d1b8e62807d94d763f4a29269bbc7a0d2cb11cf40850"
+    },
+    {
+      "dataset": "electronic",
+      "path": "BundleRec/dataset/electronic/bundle_intent.csv",
+      "bytes": 45807,
+      "sha256": "4842c8d9bde56585bac0cc08918038aa2d27b61a988070fadea9089d4dc16660"
+    },
+    {
+      "dataset": "electronic",
+      "path": "BundleRec/dataset/electronic/bundle_item.csv",
+      "bytes": 66259,
+      "sha256": "86e10270825961063ff1ae4a9557bc8d590f0f79356c77fce26a08dce9d1f824"
+    },
+    {
+      "dataset": "electronic",
+      "path": "BundleRec/dataset/electronic/img_urls.csv",
+      "bytes": 31509,
+      "sha256": "809661b521c732ffec50f25bb1750d475e11c87a0edf8238dd03d4ce4a45056d"
+    },
+    {
+      "dataset": "electronic",
+      "path": "BundleRec/dataset/electronic/item_categories.csv",
+      "bytes": 320055,
+      "sha256": "04a0cdb5b5567b0c0c18e22a29a38f77718ff9770281c3f0672a3c57ddcc4d25"
+    },
+    {
+      "dataset": "electronic",
+      "path": "BundleRec/dataset/electronic/item_idx_mapping.csv",
+      "bytes": 3106534,
+      "sha256": "c0e42db41e068006a86bed8ff14d6e6cc70ef647bec7aafe77ad0f9ad9222697"
+    },
+    {
+      "dataset": "electronic",
+      "path": "BundleRec/dataset/electronic/item_titles.csv",
+      "bytes": 342557,
+      "sha256": "8d77a35db7527bd87f0a8fb4630e5412446d15140ad4210b5a28a738dc274ae1"
+    },
+    {
+      "dataset": "electronic",
+      "path": "BundleRec/dataset/electronic/session_bundle.csv",
+      "bytes": 14451,
+      "sha256": "2721967c6f05dfeb12511f9e15d6d6673a7c43a796fc74f1115546e0881c6ec5"
+    },
+    {
+      "dataset": "electronic",
+      "path": "BundleRec/dataset/electronic/session_item.csv",
+      "bytes": 67885,
+      "sha256": "d7447a47a145fb7bfdc0ac94f6912897832b4cf464f4b33f95ada1b3c110790f"
+    },
+    {
+      "dataset": "electronic",
+      "path": "BundleRec/dataset/electronic/user_bundle.csv",
+      "bytes": 33784,
+      "sha256": "adfe1efff2e0e14a2cad85e139e028ed433baeb135f2222af1a212e063b96a05"
+    },
+    {
+      "dataset": "electronic",
+      "path": "BundleRec/dataset/electronic/user_idx_mapping.csv",
+      "bytes": 16553,
+      "sha256": "ec52e752d4993ef49792dacaebb99c7b06b7b8197acc888e583adfd47642303f"
+    },
+    {
+      "dataset": "electronic",
+      "path": "BundleRec/dataset/electronic/user_item.csv",
+      "bytes": 131524,
+      "sha256": "a8778af786d00404e32be48b43ae2cddd7ce60ad898c56f3615042240e278a67"
+    },
+    {
+      "dataset": "electronic",
+      "path": "BundleRec/dataset/electronic/user_item_pretrain.csv",
+      "bytes": 47231967,
+      "sha256": "b0f0d52d3928b4b120f054f06c2bdf95c3581c131653dbdf29862db9650bf88a"
+    },
+    {
+      "dataset": "electronic",
+      "path": "BundleRec/dataset/electronic/user_session.csv",
+      "bytes": 21955,
+      "sha256": "67c4e36f806a6b928a72c73a54975664d82e938aa6ba81ebe6d7af10b8dcbe34"
+    },
+    {
+      "dataset": "food",
+      "path": "BundleRec/dataset/food/bundle_intent.csv",
+      "bytes": 36949,
+      "sha256": "c752f42b40d6bfddea78771afdbdcfc0141dc1bf8d80a9522b14619318545fca"
+    },
+    {
+      "dataset": "food",
+      "path": "BundleRec/dataset/food/bundle_item.csv",
+      "bytes": 65253,
+      "sha256": "78bbe8e0ecc323c669460467393e5062c8253e03b0fe485f1cdbf7f1f41b077b"
+    },
+    {
+      "dataset": "food",
+      "path": "BundleRec/dataset/food/item_categories.csv",
+      "bytes": 303714,
+      "sha256": "bb395a3e0e9a79163322022c7e0132889002baa20258e2cda61dec1fbc0a974c"
+    },
+    {
+      "dataset": "food",
+      "path": "BundleRec/dataset/food/item_idx_mapping.csv",
+      "bytes": 921902,
+      "sha256": "0dfeab34c3526e6aabafc80e248c11e6d62ea41559accd4f9f6e271e3e0b03ea"
+    },
+    {
+      "dataset": "food",
+      "path": "BundleRec/dataset/food/item_titles.csv",
+      "bytes": 260559,
+      "sha256": "04d517844a92d491c2e0528364e66d3d996dd5162089bcf010e1607b76d1f19b"
+    },
+    {
+      "dataset": "food",
+      "path": "BundleRec/dataset/food/session_bundle.csv",
+      "bytes": 14753,
+      "sha256": "63144470b7ba0c7c87f0e55feadfa51945bf61a85418f5f34fb3ba5bbd7436bd"
+    },
+    {
+      "dataset": "food",
+      "path": "BundleRec/dataset/food/session_item.csv",
+      "bytes": 64289,
+      "sha256": "4a18225416e34c5b6584f1c08321529d9f92f0a3f041574c17f995f4ddfa1210"
+    },
+    {
+      "dataset": "food",
+      "path": "BundleRec/dataset/food/user_bundle.csv",
+      "bytes": 34458,
+      "sha256": "eb22b8ee0e52e1d5e989ebbef22a254fc7f6b46f30b3f7d172da492cfdb2a0ec"
+    },
+    {
+      "dataset": "food",
+      "path": "BundleRec/dataset/food/user_idx_mapping.csv",
+      "bytes": 16389,
+      "sha256": "6966feedeb2220cdcf1683403d679171e1eaee52a3536f8804c2be04083fa401"
+    },
+    {
+      "dataset": "food",
+      "path": "BundleRec/dataset/food/user_item.csv",
+      "bytes": 132772,
+      "sha256": "edd6f5d34f27e54b79edfb5d6f3b1580a0d79d2b35b781f86b93d011b299580e"
+    },
+    {
+      "dataset": "food",
+      "path": "BundleRec/dataset/food/user_item_pretrain.csv",
+      "bytes": 7487899,
+      "sha256": "7d72b0d607b54eb007f4a24880491bf86ec2898fe562272f02b48a09f05d3b29"
+    },
+    {
+      "dataset": "food",
+      "path": "BundleRec/dataset/food/user_session.csv",
+      "bytes": 22135,
+      "sha256": "f784fe581b3da5e7afdfe703bf981a6bf41f2f107880c341cbcf552ae0a880ee"
+    },
+    {
+      "dataset": "clothing",
+      "path": "BundleRec/dataset/clothing/bundle_intent.csv",
+      "bytes": 49162,
+      "sha256": "aa014189976bc1b6b16baa3e3418ce205f6422cad70249e251ea8af217fe97c1"
+    },
+    {
+      "dataset": "clothing",
+      "path": "BundleRec/dataset/clothing/bundle_item.csv",
+      "bytes": 69813,
+      "sha256": "5eb5ad2104e6ac7340abe76c358b700dfc72c075fe1afcb5d7d7a916e7753e82"
+    },
+    {
+      "dataset": "clothing",
+      "path": "BundleRec/dataset/clothing/item_categories.csv",
+      "bytes": 638675,
+      "sha256": "1a62964575d3d0a87ef2e4b8a0de1c6ce45b649ee27d139512b3de5ffedc24a3"
+    },
+    {
+      "dataset": "clothing",
+      "path": "BundleRec/dataset/clothing/item_idx_mapping.csv",
+      "bytes": 4169902,
+      "sha256": "189f80a29fd901dcee8ca6800b379fc814a25c604204318137928f1f9113e038"
+    },
+    {
+      "dataset": "clothing",
+      "path": "BundleRec/dataset/clothing/item_titles.csv",
+      "bytes": 299249,
+      "sha256": "4719a0d21d7a9072c726299781f4d9ee6504f00932f7b748141a8c3c44388a07"
+    },
+    {
+      "dataset": "clothing",
+      "path": "BundleRec/dataset/clothing/session_bundle.csv",
+      "bytes": 15880,
+      "sha256": "3ffe1444c10332c9585b890eef1828d920ec7b30da32e1bb3a79d4e04f3fdd28"
+    },
+    {
+      "dataset": "clothing",
+      "path": "BundleRec/dataset/clothing/session_item.csv",
+      "bytes": 72356,
+      "sha256": "0c9ac82a1bace2deb0a5c84e2cfc18210958053784351b6925f0342417849741"
+    },
+    {
+      "dataset": "clothing",
+      "path": "BundleRec/dataset/clothing/user_bundle.csv",
+      "bytes": 36989,
+      "sha256": "24fde36824c259bcb22dd86c06356781b5c7b2e72d1c8a3e520ceb273f038c06"
+    },
+    {
+      "dataset": "clothing",
+      "path": "BundleRec/dataset/clothing/user_idx_mapping.csv",
+      "bytes": 18005,
+      "sha256": "8d4ffdc609c7ffac9f504e82118d37c4a3156f7338f296af3a9b14367f7b60f3"
+    },
+    {
+      "dataset": "clothing",
+      "path": "BundleRec/dataset/clothing/user_item.csv",
+      "bytes": 136473,
+      "sha256": "7cecea6149c8be073ecf7e5ba21be868cd5fd2122a0cba57198c7f6746a90e09"
+    },
+    {
+      "dataset": "clothing",
+      "path": "BundleRec/dataset/clothing/user_item_pretrain.csv",
+      "bytes": 18005407,
+      "sha256": "84bf274476e059e53be9c41e205df6832f4b08984324051e12748075b7879f90"
+    },
+    {
+      "dataset": "clothing",
+      "path": "BundleRec/dataset/clothing/user_session.csv",
+      "bytes": 18200,
+      "sha256": "9da0398159962a9591c6d635303a0eec8d4dc187593fbe157a4d4ea64fddc98b"
+    },
+    {
+      "dataset": "dunnhumby",
+      "path": "dunnhumby/campaign_desc.csv",
+      "bytes": 540,
+      "sha256": "632535c6bcdd97b5681e84c2c0652ddc4eaca8a0f899a3bb37dae8dbdc089684"
+    },
+    {
+      "dataset": "dunnhumby",
+      "path": "dunnhumby/campaign_table.csv",
+      "bytes": 95874,
+      "sha256": "a716f88953c9ddf8847e191d862e8d022afd19cf7419f52cbe6dde950a121f21"
+    },
+    {
+      "dataset": "dunnhumby",
+      "path": "dunnhumby/causal_data.csv",
+      "bytes": 695858427,
+      "sha256": "60ed7021fefc209c0caf36fcf95d1e93693775acfdac01fc9ee38273da88937a"
+    },
+    {
+      "dataset": "dunnhumby",
+      "path": "dunnhumby/coupon.csv",
+      "bytes": 2822804,
+      "sha256": "718f4d466df8a54bbff45f340e0b601049721b0715503394a601bac3093c727d"
+    },
+    {
+      "dataset": "dunnhumby",
+      "path": "dunnhumby/coupon_redempt.csv",
+      "bytes": 54108,
+      "sha256": "70a98f3bfb28be0dd850f19c8d806d2a23e44014546651367b21538db6fba1f8"
+    },
+    {
+      "dataset": "dunnhumby",
+      "path": "dunnhumby/hh_demographic.csv",
+      "bytes": 44349,
+      "sha256": "aeb10246d0c4f3d3433d1f441265b6c7e70b0926129b834a3b589517948b9f22"
+    },
+    {
+      "dataset": "dunnhumby",
+      "path": "dunnhumby/product.csv",
+      "bytes": 6429896,
+      "sha256": "7ecbcec41e0f1e5a51b43a359965cc50dc5586a2b900a378b64032750fedc949"
+    },
+    {
+      "dataset": "dunnhumby",
+      "path": "dunnhumby/transaction_data.csv",
+      "bytes": 141742346,
+      "sha256": "3a685c0729cef664d634486189f774518b84f53cde7cbf701a5963238692b476"
+    }
+  ],
+  "notes": "Complete local dataset directories. No model checkpoints or credentials."
+}

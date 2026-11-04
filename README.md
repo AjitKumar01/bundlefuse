@@ -25,6 +25,13 @@ python -m pytest tests/ -q               # or: python tests/test_model.py
 
 ## Get the data
 
+All eight dataset directories are available in the public
+[BundleFuse Project Datasets on Kaggle](https://www.kaggle.com/datasets/ajit1729/bundlefuse-project-datasets).
+The collection includes 90 original files, supplied splits, feature arrays and auxiliary inputs.
+Inside Kaggle, set `BUNDLEFUSE_DATA_ROOT` to the input mount's `bundlefuse-data/` subdirectory
+before importing the package. [Upload verification and setup](results/kaggle_upload/README.md)
+include the original hashes and a data-root discovery cell.
+
 The datasets are **not vendored**. By default BundleFuse looks for them **one level above the repo**
 (so the repo and the data are siblings); point `BUNDLEFUSE_DATA_ROOT` somewhere else if you prefer:
 
@@ -275,6 +282,12 @@ its time in sparse format conversion, identifying an optimization target for sub
 <!-- END REORGANIZED RUN -->
 
 ## Code-derived pipeline theory
+
+The [POG standardization audit](results/standardization_audit/README.md) checks that changing
+hidden targets leaves fitted-model scores and predictions unchanged, and that normalizing one
+query does not pool information from other query columns. Reproduce it with
+`python scripts/audit_standardization.py`; the audit retains full numerical results and identifies
+the exact fitted checkpoint used.
 
 The [standalone LaTeX source](docs/pipeline_theory.tex) and
 [compiled PDF](output/pdf/pipeline_theory.pdf) explain the implemented pipeline step by step:

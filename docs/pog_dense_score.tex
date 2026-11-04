@@ -1,0 +1,397 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,mathtools,booktabs,tabularx,microtype,xcolor}
+\usepackage[bookmarks=false]{hyperref}
+\usepackage[margin=24mm,headheight=14pt]{geometry}
+\usepackage{fancyhdr}
+\definecolor{ink}{HTML}{244B68}
+\hypersetup{colorlinks=true,linkcolor=ink,pdftitle={POG DENSE: Expanding the Candidate Score}}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small POG\_DENSE: expanding the score}\fancyfoot[C]{\thepage}
+\setlength{\parindent}{0pt}\setlength{\parskip}{5pt}\setlength{\emergencystretch}{2em}
+\newcommand{\I}{\mathcal I}\newcommand{\pos}[1]{\left[#1\right]_+}
+\newcommand{\off}{\operatorname{off}}\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\N}{\mathcal N}\newcommand{\sd}{\operatorname{sd}}
+\newcommand{\why}{\par\textbf{Why this term?} }
+\numberwithin{equation}{section}
+\title{\textcolor{ink}{POG\_DENSE: Expanding the Candidate Score}\\[4pt]
+\large From $\theta(c\mid S)$ to training bundles and item descriptions}
+\author{}\date{}
+\begin{document}
+\begin{center}
+{\LARGE\textcolor{ink}{POG\_DENSE: Expanding the Candidate Score}}\\[6pt]
+{\large From $\theta(c\mid S)$ to training bundles and item descriptions}
+\end{center}\medskip
+Take a candidate item $c$ and a nonempty partially filled set $S$, with $c\notin S$.
+Let $\I$ be the catalogue, $n=|\I|$, and $B\in\{0,1\}^{m\times n}$ the training table:
+row $e$ is a past bundle, and $B_{ei}=1$ if it contains item $i$. Define the observed
+frequency $f_i=\sum_e B_{ei}$. Our task is to compute $\theta(c\mid S)$ and rank candidates
+by this score. This note follows the POG\_DENSE formulation with full item features.
+We use the default uncapped known set $S$. The item categories and title, image, and
+other description vectors are additional observed inputs; they cannot be recovered from
+$B$ alone. Their construction is not assumed to follow from bundle membership.
+Define $[x]_+=\max(x,0)$, $\varepsilon_8=10^{-8}$,
+$\varepsilon_9=10^{-9}$, and $\varepsilon_{12}=10^{-12}$.
+$\mathbf1[A]$ is one when statement $A$ is true and zero otherwise; $\lVert v\rVert_2$
+is vector length, and $v\cdot w$ is the sum of products of corresponding entries.
+The numerical constants below specify this version of the method. Their roles can be
+explained, but their exact values are design choices rather than mathematical consequences.
+
+\section{Start with the score: two explicitly weighted estimates}
+Before giving the score, define $Y(c\mid S)$ as the combined evidence, $P(c\mid S)$ as
+an estimate drawn mainly from categories and item descriptions, $s_0\ge0$ as its scale,
+and $\kappa\ge0$ as the strength of the fallback. These are fixed after selection on
+held-out examples. The final score is
+\begin{equation}\label{theta}
+\boxed{\theta(c\mid S)=
+\begin{cases}
+ Y(c\mid S),&\kappa=0,\\[2pt]
+ \displaystyle\frac{f_c}{f_c+\kappa}Y(c\mid S)
+ +\frac{\kappa}{f_c+\kappa}s_0P(c\mid S),&\kappa>0.
+\end{cases}}
+\end{equation}
+\why The assumption behind this mixture is that more appearances make history-based evidence more dependable. Frequency alone does not prove that assumption for every item.
+A candidate with no appearances receives $s_0P$ when the fallback is enabled. For example,
+if $f_c=\kappa$, both estimates receive weight $1/2$. The result is a ranking score.
+The next question is what goes into the two estimates $Y$ and $P$.
+
+\subsection{Expand the combined evidence $Y$}
+Let $p(c\mid S)$ denote a weighted sum of training-bundle matches. Let
+$\delta(c\mid S)$ denote a second sum that includes only training bundles containing
+at least two members of $S$. Let $L$ be a fixed item-to-item matrix built from $B$.
+Section~\ref{bundledefs} gives their complete definitions. Here the important distinction
+is the exact pair of raw calculations used for each source:
+\begin{center}\small
+\begin{tabular}{@{}lll@{}}\toprule
+Source $h$ & Raw score $r_h^0$ & Raw score $r_h$ \\\midrule
+bundle & $p_c$ & $p_c+\delta_c$ \\
+propagated & $(Lp)_c$ & $(Lp)_c+(L\delta)_c$ \\
+Each remaining source & $r_h$ & $r_h$ \\\bottomrule
+\end{tabular}\end{center}
+Here $p,\delta$ are column vectors, with $p_c=p(c\mid S)$ and
+$\delta_c=\delta(c\mid S)$. Let $\mathcal H$ be the following ordered list:
+\[
+(\mathrm{cat,soft,text,image,bridge,bundle,propagated,pop,cooc,pmi,svd}).
+\]
+These are labels for the formulas expanded below, not additional assumptions. Let
+$w_h\ge0$ be the selected weight of source $h$. Apply the same standardization rule
+$\mathcal Z_S$ separately to each raw column, as defined in Section~\ref{standard}:
+$z_h^0=\mathcal Z_S[r_h^0]$ and $z_h=\mathcal Z_S[r_h]$.
+Let $\alpha\in[0,1]$ be a mixing coefficient, $\lambda_R\ge0$ an agreement coefficient, and $z_R$
+the standardized pair-of-known-items score defined in Section~\ref{agreementdef}. Then
+\begin{align}
+Y_0(c\mid S)&=\sum_{h\in\mathcal H}w_h z_h^0(c\mid S),\\
+Y_1(c\mid S)&=\sum_{h\in\mathcal H}w_h z_h(c\mid S),\\
+Y(c\mid S)&=(1-\alpha)Y_0(c\mid S)+\alpha Y_1(c\mid S)+\lambda_R z_R(c\mid S).\label{Y}
+\end{align}
+\why The only difference between $Y_0$ and $Y_1$ is the explicit $\delta$ contribution
+in the two rows of the table. This is a definition of this model: descriptions, category
+scores and the other counts are held fixed during this comparison. It is not a claim
+that only these two sources can describe relationships among several items. For instance,
+$r_R$ also uses pairs of known items, but it is a separate term with its own coefficient $\lambda_R$.
+Restricting $\alpha$ to $[0,1]$ makes $1-\alpha$ and $\alpha$ nonnegative weights adding to one; values outside this interval would extrapolate rather than average. Requiring $\lambda_R\ge0$ keeps a positive relative agreement score from being penalized through a negative coefficient. These are modeling restrictions. At $\alpha=0$, the two rows use their left-hand formulas; at $\alpha=1$, they use their right-hand
+formulas. Intermediate $\alpha$ mixes the separately standardized scores. It does not replace
+$p$ by $p+\alpha\delta$ before standardization.
+
+\subsection{Expand the fallback $P$}
+Define $\mathcal Q=\{\mathrm{cat,soft,text,image,bridge}\}$ restricted to available
+sources, and let $\mathcal A=\{h\in\mathcal H:w_h>0\}$ after removal of rejected weights.
+The prior-source set is defined precisely by
+\[
+\mathcal P=\begin{cases}\mathcal Q\cap\mathcal A,&\mathcal Q\cap\mathcal A\ne\varnothing,\\
+\mathcal Q,&\mathcal Q\cap\mathcal A=\varnothing.\end{cases}
+\]
+This is a prescribed choice of prior sources, not a set forced by a theorem. For $h\in\mathcal P$, let $\widetilde w_h=w_h$ when its
+positive weight was retained, and $\widetilde w_h=0.5$ otherwise. An omitted source has $w_h=0$ in $Y$; the value $0.5$ in $P$ is a separate default rule. Let $z_{\rm pop}$ denote
+the standardized popularity score. Then
+\begin{equation}\label{P}
+ \boxed{P(c\mid S)=\sum_{h\in\mathcal P}\widetilde w_hz_h(c\mid S)
+       +\lambda_R z_R(c\mid S)+w_{\rm pop}z_{\rm pop}(c\mid S).}
+\end{equation}
+\why For an item with $f_c=0$, its row in $B^\top B$ and in the associated training-only
+item matrices is zero. Such rows cannot provide item-specific positive shared-history
+support. Categories and supplied feature vectors can still distinguish that item, so
+$\mathcal Q$ selects those kinds of sources. This is the motivation for this restriction,
+not a proof that this particular restriction is best. Bridge and category tables still
+use training history; the fallback is not independent of $B$. Selected popularity and agreement also enter this estimate. The scale
+$s_0$ makes its overall standard deviation comparable to that of $Y$. We now expand the standardized
+scores $z_h$ used in both equations.
+
+\section{Expand $z_h$: put each source on a common scale}\label{standard}
+Let $r_h(i\mid S)$ be the raw score of source $h$ for catalogue item $i$. Define
+$\varepsilon_9=10^{-9}$, the catalogue mean $\mu_h$, and sample standard deviation $\sigma_h$ by
+\begin{align}
+ \mu_h(S)&=\frac1n\sum_{i\in\I}r_h(i\mid S),\\
+ \sigma_h(S)&=\sqrt{\frac1{n-1}\sum_{i\in\I}(r_h(i\mid S)-\mu_h(S))^2},\\
+ \boxed{z_h(c\mid S)}&\boxed{=\frac{r_h(c\mid S)-\mu_h(S)}{\sigma_h(S)+\varepsilon_9}.}\label{z}
+\end{align}
+Denote this column operation by $\mathcal Z_S[r_h]$. Apply it separately to $r_h^0$ and to the agreement score $r_R$.
+The sums include the known items; they are excluded only when producing suggestions.
+\why A shared-history count and an image similarity have different units. This conversion
+expresses each as above or below its own catalogue average. A constant raw score becomes
+zero and carries no distinction between candidates. In particular, normalizing $p+\delta$
+is different from separately normalizing $p$ and $\delta$ and adding them. The inclusion of known items and the divisor $n-1$ are fixed conventions of this formulation; neither is required by the definition of a ranking task.
+
+The remaining task is to define each raw source in the ordered list $\mathcal H$ already given.
+We expand the bundle and propagated scores first, since they also define the connections used
+by the other parts of the score.
+
+\section{Expand the two training-bundle formulas}\label{bundledefs}
+\subsection{Direct bundle matches: $p(c\mid S)$ and the extra overlap $\delta(c\mid S)$}
+Define bundle size $d_e=\sum_i B_{ei}$, known-item weight
+$u_s=(f_s+5)^{-1/2}$, and bundle weight $v_e=(d_e+1)^{-1/2}$. Let $o_e$ be the weighted
+overlap with the known items, and $k_e$ their unweighted overlap count:
+\begin{align}
+ o_e(S)&=v_e\sum_{s\in S}B_{es}u_s,& k_e(S)&=\sum_{s\in S}B_{es},\\
+ p(c\mid S)&=\sum_e B_{ec}o_e(S),&
+ \delta(c\mid S)&=\sum_e B_{ec}o_e(S)\,1.5[k_e(S)-1]_+ .\label{delta}
+\end{align}
+Here $[x]_+=\max(x,0)$. The two raw versions entering $Y_0$ and $Y_1$ are
+\begin{equation}\label{bundle}
+ \boxed{r_{\rm bundle}^0(c\mid S)=p(c\mid S),\qquad
+ r_{\rm bundle}(c\mid S)=p(c\mid S)+\delta(c\mid S).}
+\end{equation}
+\why $p$ adds evidence from past bundles containing the candidate and known items.
+For example, the factor $(f_s+5)^{-1/2}$ decreases when a known item's count increases,
+and $(d_e+1)^{-1/2}$ decreases as a bundle becomes larger. The offsets 5 and 1 prevent
+singular weights and soften the adjustment. The exponent $1/2$ and these offsets are
+fixed choices; many alternative decreasing functions would also be mathematically valid. More explicitly, a bundle with $k_e=0$ or $1$ contributes zero to $\delta$; $k_e=2$
+contributes $1.5 B_{ec}o_e$; $k_e=3$ contributes $3 B_{ec}o_e$. This condition concerns
+how many members of $S$ occur in a particular training row, as specified by $k_e(S)$.
+The candidate must also occur in that row, through $B_{ec}$. Thus $\delta=0$ for $|S|=1$,
+and also whenever no training row contains two known items. The factor $1.5$ and the linear
+increase in $k_e-1$ specify a chosen strength and shape; they are not derived optimal values.
+
+\subsection{Spread history: apply the table $L$ to the bundle scores}
+Let $D=\diag((f_i+5)^{-1/2})$ and $E=\diag((d_e+1)^{-1})$ be diagonal tables, and let
+$\off(A)$ mean $A$ with its diagonal replaced by zero. Define
+\begin{equation}\label{L}
+ L=\off(DB^\top EBD).
+\end{equation}
+For a vector $q$ with one entry per item, $(Lq)_c=\sum_i L_{ci}q_i$.
+Write $p$ and $\delta$ for the vectors of the scores just defined. Then
+\begin{equation}
+ \boxed{r_{\rm propagated}^0(c\mid S)=(Lp)_c,\qquad
+ r_{\rm propagated}(c\mid S)=(Lp)_c+(L\delta)_c.}
+\end{equation}
+\why A candidate can benefit from its connection to another item that already has strong
+support. $L$ passes evidence through shared training bundles while excluding direct
+self-transfer. Entry by entry, for $c\ne i$,
+\[
+L_{ci}=\frac{1}{\sqrt{f_c+5}\sqrt{f_i+5}}\sum_e\frac{B_{ec}B_{ei}}{d_e+1},\qquad L_{cc}=0.
+\]
+Thus $(Lp)_c$ adds $p_i$ from each other item $i$, weighted by an explicitly defined
+shared-bundle connection. This is what ``propagated'' means here. A previously unseen
+item has a zero row in $L$ and receives no such transfer.
+
+\section{Expand the other history sources}
+\subsection{Popularity, shared counts, and unexpectedly frequent pairs}
+Define $C=\off(B^\top B)$, $g_i=\sum_j C_{ij}+\varepsilon_9$, and
+$Z_C=\sum_{i,j}C_{ij}$. Introduce $\varepsilon_{12}=10^{-12}$ and define
+\begin{equation}
+ M_{ij}=\begin{cases}
+ [\log(C_{ij}Z_C/(g_i g_j)+\varepsilon_{12})]_+,&C_{ij}>0,\\
+ 0,&C_{ij}=0.
+ \end{cases}
+\end{equation}
+The raw scores are
+\begin{equation}
+ \boxed{r_{\rm pop}(c\mid S)=\log(1+f_c),\quad
+ r_{\rm cooc}(c\mid S)=\sum_{s\in S}C_{cs},\quad
+ r_{\rm pmi}(c\mid S)=\sum_{s\in S}M_{cs}.}
+\end{equation}
+\why Popularity gives a general frequency preference. Shared counts measure direct
+pair evidence. $M$ instead asks whether the pair is strong relative to the overall shared
+counts of its two items. Taking a logarithm compresses large ratios; taking the positive part discards below-expected associations from this source rather than assigning them a negative raw penalty. These are distinct views of the same training table.
+
+\subsection{A short summary of the pair table}
+Set $r=\min(128,n-2)$. The limit 128 is a chosen summary width, not an intrinsic rank of the data. Let $V_r$ contain the leading $r$ right singular vectors of
+$M$: orthogonal directions that, for an exact decomposition, give its best rank-$r$ approximation in squared error. A numerical approximation to these directions is sufficient to define the fitted feature table.
+Introduce $\varepsilon_8=10^{-8}$ and the row-normalization rule
+$\N(F)_i=F_i/(\lVert F_i\rVert_2+\varepsilon_8)$. Define $U=\N(MV_r)$; if $M$ is
+zero, use $U=0$. The score is
+\begin{equation}
+ \boxed{r_{\rm svd}(c\mid S)=U_c\cdot\left(\frac1{|S|}\sum_{s\in S}U_s\right).}
+\end{equation}
+\why This summarizes many shared-history relationships in a shorter vector per item.
+The dot product compares the candidate's summary with the mean summary of the known items.
+It supplements the full pair table rather than replacing all history scores with a short vector.
+
+\section{Expand the text, image, and bridged-description sources}
+Let $F^{t},F^{i},F^{d}$ denote the available title, image, and description feature tables,
+with rows normalized by $\N$. Let $\ell(i)$ be item $i$'s clothing category. For modality
+$\nu\in\{t,i,d\}$, define the category average $\bar F^\nu_a$ and the remaining feature $D^\nu$:
+\begin{equation}
+ \bar F^\nu_a=\frac{\sum_{i:\ell(i)=a}F^\nu_i}{|\{i:\ell(i)=a\}|},\qquad
+ D^\nu_i=\frac{F^\nu_i-\bar F^\nu_{\ell(i)}}
+ {\lVert F^\nu_i-\bar F^\nu_{\ell(i)}\rVert_2+\varepsilon_8}.
+\end{equation}
+\why Removing the category average focuses on what distinguishes items within a clothing
+category. This subtracts the mean feature vector of the category. It does not guarantee statistical independence from category, nor does it prove that the remaining features measure compatibility.
+
+Let $D_* =\N([D^t|D^i|D^d])$, where brackets mean concatenating feature columns.
+The table $LD_*$ is a weighted sum of other items' feature rows, using exactly the entries of $L$ above. Define
+\begin{equation}
+ F_b=\N\bigl(D_*+0.5\N(LD_*)\bigr).
+\end{equation}
+The three selectable feature scores are
+\begin{align}
+ r_{\rm text}(c\mid S)&=D^t_c\cdot\frac1{|S|}\sum_{s\in S}D^t_s,\\
+ r_{\rm image}(c\mid S)&=D^i_c\cdot\frac1{|S|}\sum_{s\in S}D^i_s,\\
+ \boxed{r_{\rm bridge}(c\mid S)}&\boxed{=F_{b,c}\cdot\frac1{|S|}\sum_{s\in S}F_{b,s}.}
+\end{align}
+\why Text and images provide information even for items with no training appearances.
+The bridge adds information from historically connected items to each item's own features.
+Description features contribute to this bridge. Their absence as a separately weighted source is a restriction of the chosen POG\_DENSE model, not a consequence of their being mathematically redundant. The bridge coefficient $0.5$ is a fixed choice. Unavailable modalities and their separately weighted sources are omitted. If title features are unavailable, the agreement term is omitted and $\lambda_R=0$.
+
+\section{Expand the category sources}
+\subsection{Named clothing categories}
+Let $A_{ea}=\sum_i B_{ei}\mathbf1[\ell(i)=a]$ count category $a$ in bundle $e$.
+Define $H=\off(A^\top A)$, $h_a=\sum_e A_{ea}+\varepsilon_9$, and $H_+=\sum_a h_a$.
+Define the category-pair table
+\begin{equation}
+ Q_{ab}=\begin{cases}[\log(H_{ab}H_+/(h_a h_b)+\varepsilon_{12})]_+,&H_{ab}>0,\\0,&H_{ab}=0.\end{cases}
+\end{equation}
+Let $n_a^{(1)}$ and $n_a^{(2)}$ be the numbers of training bundles containing at least
+one and at least two items of category $a$, respectively. Define
+$\rho_a=(n_a^{(2)}+0.5)/(n_a^{(1)}+1)$. Then
+\begin{equation}
+ \boxed{r_{\rm cat}(c\mid S)=\sum_{s\in S}Q_{\ell(s),\ell(c)}
+ -0.5\sum_{s\in S}\mathbf1[\ell(s)=\ell(c)]\mathbf1[\rho_{\ell(s)}<0.15](1-\rho_{\ell(s)}).}
+\end{equation}
+\why The first part rewards category combinations seen together more often than their
+category counts suggest. The second discourages repeating a category that rarely appears
+twice in a training bundle. The counts come from training bundles; the smoothing constants $0.5,1$, the penalty multiplier $0.5$, and threshold $0.15$ are prescribed choices. The ratio $\rho_a$ estimates how frequently the category is repeated among bundles containing it; smoothing keeps it defined even for a category absent from training.
+
+\subsection{Groups suggested by item features}
+Named categories are coarse. Let $X=\N([F^t|F^i|F^d])$ and choose
+$k=\max(2,\min(400,n-1))$ feature groups using alternating assignment to a nearest center and center updates. This aims to reduce within-group squared distances, without requiring a global minimum. The limit 400 is a chosen number of groups, not the number of clothing categories.
+Let $v_a$ be the center of feature group $a$, normalized with $\N$. The constant $\tau_s=0.05$ controls how sharply membership favors the most similar center: smaller values make membership more concentrated. It is a chosen setting. Define
+item $i$'s degree of membership in feature group $a$ by
+\begin{equation}
+ t_{ia}=X_i\cdot v_a/\tau_s,\qquad
+ J_{ia}=\frac{\exp(t_{ia}-\max_b t_{ib})}
+ {\sum_b\exp(t_{ib}-\max_b t_{ib})+\varepsilon_9}.
+\end{equation}
+Let $T=BJ$ be the training-bundle group totals. Define group-pair counts, catalogue group
+masses, and their total by
+\begin{equation}
+ H^s=\pos{\off\left(T^\top T-\sum_e\sum_{i:B_{ei}=1}J_i^\top J_i\right)},\qquad
+ a_u=\sum_iJ_{iu},\qquad A_s=\sum_u a_u.
+\end{equation}
+Finally, define $Q^s_{uv}=[\log(H^s_{uv}A_s/(a_u a_v+\varepsilon_9)+\varepsilon_{12})]_+$.
+The raw score is
+\begin{equation}
+ \boxed{r_{\rm soft}(c\mid S)=(JQ^s)_c\cdot\left(\sum_{s\in S}J_s\right).}
+\end{equation}
+\why An item can partly belong to several feature groups. Their training-bundle
+relationships may capture combinations missed by a single clothing label. In fact, before the diagonal is removed, the table being counted is
+\[
+T^\top T-\sum_e\sum_i B_{ei}J_i^\top J_i
+=\sum_e\sum_{i\ne j}B_{ei}B_{ej}J_i^\top J_j.
+\]
+This is a sum over distinct items in the same training bundle. The subtraction therefore
+removes an item's contribution paired with itself; otherwise a feature group
+could appear to complement itself merely because it describes the same item twice.
+
+\section{Expand the pair-of-known-items term $r_R$}\label{agreementdef}
+The terms in $\mathcal H$ are now defined. The remaining term in $Y$ and $P$ is agreement
+among known items. Define $V=\diag((d_e+1)^{-1/2})$ and
+$W=\off(B^\top VBD)$. For known item $s$, define its support for the candidate by
+\begin{equation}
+ q_{cs}=W_{cs}+0.15[D^t_c\cdot D^t_s]_+,\qquad A_c=\sum_{s\in S}q_{cs}.
+\end{equation}
+For two distinct known items define their similarity $G_{st}$ and their pair weight $K_{st}$:
+\begin{equation}
+ G_{st}=0.5\mathbf1[\ell(s)=\ell(t)]+0.5[D^t_s\cdot D^t_t]_+,\qquad
+ K_{st}=[1-G_{st}]_+,\qquad K_{ss}=0.
+\end{equation}
+The raw agreement score, standardized using equation~\eqref{z}, is
+\begin{equation}
+ \boxed{r_R(c\mid S)=\frac{\sum_{s\in S}\sum_{t\in S}q_{cs}K_{st}q_{ct}}{A_c+0.05}.}
+\end{equation}
+\why This rewards a candidate supported by several known items, while reducing the extra
+credit for support from very similar known items. Both orders of a pair enter the sum.
+For $S=\{s,t\}$ with $s\ne t$, the numerator is exactly
+$2q_{cs}q_{ct}K_{st}$. It is zero if either known item supplies zero support, or if $K_{st}=0$.
+The denominator controls the scale of this product. For a single known item it is zero
+because $K_{ss}=0$. It is not a logical requirement to match all of $S$: for a larger
+set, any supported pair can contribute. The values $0.15$, $0.5$, and $0.05$ are fixed
+choices specifying the feature contribution, similarity mixture, and denominator smoothing.
+No derivation requires those particular values. The table $W$ has zero diagonal; the bundle score $p$ defined
+earlier retains self-contributions before final candidate exclusion. These differ when
+computing the catalogue-wide scaling and propagated scores.
+
+\section{Where the fixed settings come from}
+The expansion of $\theta$ is now complete except for how $w_h,\alpha,\lambda_R,s_0,\kappa$ and
+$\mathcal P$ are chosen. They are selected on separate examples with known hidden items,
+then held fixed when scoring new requests. The hidden items in the final test examples
+are not used for these choices. In particular, $\alpha$ could mathematically be any value in
+$[0,1]$, and $\lambda_R$ any nonnegative value. The finite sets below are the search candidates
+chosen for this method, so that fitting uses finitely many evaluations. They are not the
+only admissible values, and no claim of optimal spacing or exhaustive optimization follows.
+The same distinction applies to the weight grid, tolerances, four-pass limit and clipping
+bounds. Their numerical values specify this procedure; a mathematical justification for
+these exact values is not supplied by the scoring equations.
+
+\textbf{Weights and mixture.} Visit the sources in the order
+cat, soft, text, image, bridge, bundle, propagated, pop, cooc, pmi, svd. Starting at zero,
+try each weight in $\{0,0.25,0.5,1,1.5\}$, skipping the all-zero weight vector and using $Y_0$ and keeping changes that improve
+mean NDCG@20 by more than $2\times10^{-4}$, for at most four passes. For request $j$, let $G_j$ be its nonempty hidden-item set, let $\pi_j(r)$ be its
+$r$th ranked non-known item, and let $K_j=\min(20,n-|S_j|)$. Define
+\[
+\mathrm{NDCG}_{20,j}=\frac{\sum_{r=1}^{K_j}\mathbf1[\pi_j(r)\in G_j]/\log_2(r+1)}
+{\sum_{r=1}^{\min(20,|G_j|)}1/\log_2(r+1)}.
+\]
+Mean NDCG@20 is its average across held-out requests.
+Try removing bridge and soft-category sources if doing so loses at most $3\times10^{-4}$, retaining at least one positive-weight source.
+Choose $\mathcal P$ from positive-weight category/soft-category/text/image/bridge sources,
+falling back to all available ones if necessary. Then compare $\alpha\in\{0,0.5,1\}$ and
+$\lambda_R\in\{0,0.2,0.35\}$, retaining improvements exceeding $5\times10^{-5}$.
+\why The method learns which evidence is useful for the completion task without assuming
+that every source deserves equal importance.
+
+\textbf{Scale.} Across all catalogue items and held-out requests, let $\sd$ denote sample
+standard deviation. With the selected weights and mixture, first estimate
+\begin{equation}
+ s_* =\frac{\sd(Y)+\varepsilon_9}{\sd(P)+\varepsilon_9}.
+\end{equation}
+\why This aligns the overall size of variations in the two estimates before mixing them.
+
+\textbf{History adjustment.} Let there be $v$ held-out requests indexed by $j$. For each
+item with $f_i>0$, define $x_i=1/f_i$ and
+$e_i=v^{-1}\sum_j(Y(i\mid S_j)-s_*P(i\mid S_j))^2$.
+Let $\bar x,\bar e$ be their means across such items. Fit a straight line to these values:
+\begin{align}
+ b_*&=\frac{\sum_i(x_i-\bar x)(e_i-\bar e)}{\sum_i(x_i-\bar x)^2},&
+ a_*&=\bar e-b_*\bar x,\\
+ \kappa_*&=\operatorname{clip}\left(\frac{\max(b_*,10^{-4})}{\max(a_*,10^{-4})},0.05,50\right).
+\end{align}
+If fewer than two items have history, or the denominator is at most $10^{-12}$, use only
+$\kappa=0$. Otherwise compare $\kappa\in\{0,0.05,0.5,1,\kappa_*,5\}$ with
+$s_0\in\{s_*,1\}$, retaining NDCG@20 improvements greater than $5\times10^{-5}$.
+\why Let $\theta_i^*$ be an unobserved suitability, and $\mu_i=s_*P(i\mid S)$.
+Assume $\theta_i^*=\mu_i+\xi_i$ and $Y_i=\theta_i^*+\eta_i$, with independent,
+zero-mean normal errors of variances $\sigma_0^2$ and $\sigma_e^2/f_i$, respectively.
+For $f_i>0$ these assumptions imply
+\[
+\mathbb E[(Y_i-\mu_i)^2\mid f_i]=\sigma_0^2+\frac{\sigma_e^2}{f_i},
+\qquad
+\mathbb E[\theta_i^*\mid Y_i,\mu_i,f_i]
+=\frac{f_iY_i+\kappa\mu_i}{f_i+\kappa},\quad
+\kappa=\frac{\sigma_e^2}{\sigma_0^2}.
+\]
+This explains both the fitted line and the rational weights in equation~\eqref{theta}.
+The assumptions are a model of score errors, not a consequence of the observed counts.
+The slope and intercept estimate the two variances; positivity bounds and clipping turn
+their ratio into one search candidate. Held-out ranking quality chooses the final setting.
+The squared residuals compare $Y$ and $s_*P$, not either score with a binary item label.
+
+\section{Read the expansion back upward}
+For a candidate $c$ and known set $S$, compute the required raw components from $B$,
+category labels, and item features. Apply equation~\eqref{z} to each component, substitute
+the results into $Y$ and $P$ in equations~\eqref{Y}--\eqref{P}, then substitute those into
+$\theta$ in equation~\eqref{theta}. Exclude all items already in $S$ and rank the others by
+descending $\theta$, resolving exact ties by increasing item ID. The highest $K$ scores
+are the requested completion. Sources with zero weight and no role in the fallback
+contribute nothing to this calculation.
+\end{document}

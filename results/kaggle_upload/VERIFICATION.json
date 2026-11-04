@@ -1,0 +1,83 @@
+{
+  "dataset_ref": "ajit1729/bundlefuse-project-datasets",
+  "url": "https://www.kaggle.com/datasets/ajit1729/bundlefuse-project-datasets",
+  "dataset_id": 13079653,
+  "version": 1,
+  "status": "ready",
+  "is_private": false,
+  "anonymous_metadata_http_status": 200,
+  "datasets": [
+    "pog",
+    "pog_dense",
+    "spotify",
+    "spotify_sparse",
+    "electronic",
+    "food",
+    "clothing",
+    "dunnhumby"
+  ],
+  "original_files_verified_by_remote_size": 90,
+  "remote_total_files": 97,
+  "original_bytes": 3112509492,
+  "archive_original_hashes_verified_before_upload": true,
+  "remote_data_root_suffix": "bundlefuse-data",
+  "verified_utc": "2026-11-04T07:29:54.347476+00:00",
+  "downloaded_sample_sha256_checks": [
+    {
+      "dataset": "pog",
+      "path": "bundlemllm/datasets/pog/count.json",
+      "bytes": 124,
+      "sha256": "f5032baaadeacb88e14fb346bec0bfd670de14b6026616934949ddbb95fe118b",
+      "matches_original": true
+    },
+    {
+      "dataset": "pog_dense",
+      "path": "bundlemllm/datasets/pog_dense/count.json",
+      "bytes": 139,
+      "sha256": "9a15a12c1437fd0b38d067dd0c9fb1ee74e63fa9b577df321764d934ffb61e57",
+      "matches_original": true
+    },
+    {
+      "dataset": "spotify",
+      "path": "bundlemllm/datasets/spotify/count.json",
+      "bytes": 127,
+      "sha256": "2c1a4d51f5b2b9fb743e5db93059a710f8ac32b4f709c631c513ae27ae9a3ff9",
+      "matches_original": true
+    },
+    {
+      "dataset": "spotify_sparse",
+      "path": "bundlemllm/datasets/spotify_sparse/count.json",
+      "bytes": 112,
+      "sha256": "7cb2c6fe5fa065bf2a141996b6de9c2a93dcab8d09f6cbf9477052f7817698b6",
+      "matches_original": true
+    },
+    {
+      "dataset": "electronic",
+      "path": "BundleRec/dataset/electronic/bundle_item.csv",
+      "bytes": 66259,
+      "sha256": "86e10270825961063ff1ae4a9557bc8d590f0f79356c77fce26a08dce9d1f824",
+      "matches_original": true
+    },
+    {
+      "dataset": "food",
+      "path": "BundleRec/dataset/food/bundle_item.csv",
+      "bytes": 65253,
+      "sha256": "78bbe8e0ecc323c669460467393e5062c8253e03b0fe485f1cdbf7f1f41b077b",
+      "matches_original": true
+    },
+    {
+      "dataset": "clothing",
+      "path": "BundleRec/dataset/clothing/bundle_item.csv",
+      "bytes": 69813,
+      "sha256": "5eb5ad2104e6ac7340abe76c358b700dfc72c075fe1afcb5d7d7a916e7753e82",
+      "matches_original": true
+    },
+    {
+      "dataset": "dunnhumby",
+      "path": "dunnhumby/product.csv",
+      "bytes": 6429896,
+      "sha256": "7ecbcec41e0f1e5a51b43a359965cc50dc5586a2b900a378b64032750fedc949",
+      "matches_original": true
+    }
+  ]
+}

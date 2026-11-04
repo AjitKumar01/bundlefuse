@@ -198,3 +198,38 @@ def test_verification_cli_checks_all_queries(catalogue,tmp_path):
     assert checkpoint['retained'] and Path(checkpoint['path']).is_file()
     loaded=BundleFuse.load(checkpoint['path'])
     assert loaded.fitted_ and loaded.score([0,1]).shape==(60,)
+
+
+@pytest.mark.parametrize('tensor',[False,True])
+def test_standardization_does_not_pool_queries(tensor):
+    import torch
+    from bundlefuse.operators import zcols
+    scores=np.asarray([[1.,2.],[3.,5.],[8.,-1.],[2.,3.]],dtype=np.float32)
+    values=torch.tensor(scores) if tensor else scores
+    expected=np.asarray(zcols(values)[:,0]).copy()
+    altered=values.clone() if tensor else values.copy()
+    altered[:,1]=1e6
+    np.testing.assert_array_equal(expected,np.asarray(zcols(altered)[:,0]))
+    np.testing.assert_allclose(expected,np.asarray(zcols(values[:,:1])[:,0]),rtol=1e-6,atol=1e-6)
+
+
+def test_hidden_targets_only_affect_metrics(catalogue):
+    from bundlefuse.evaluation import evaluate
+    ds=datasets.load('pog_dense')
+    cfg=datasets.get('pog_dense').config(ds.n_items,svd_dim=8)
+    cfg.fit_rounds=1;cfg.n_soft_clusters=5
+    model=BundleFuse(cfg).fit(ds.train,ds.val_pairs,**ds.fit_kwargs())
+    seeds=[s for s,_ in ds.test_pairs]
+    before=model.score_batch(seeds)
+    top=[top_items(before[:,j],s,20).tolist() for j,s in enumerate(seeds)]
+    observed=[]
+    class Probe:
+        def score_batch(self,bundles,users):
+            scores=model.score_batch(bundles,users);observed.append(scores.copy());return scores
+    positive=[(s,[top[j][0]]) for j,s in enumerate(seeds)]
+    negative=[(s,[next(i for i in range(ds.n_items) if i not in set(s)|set(top[j]))])
+              for j,s in enumerate(seeds)]
+    assert evaluate(Probe(),positive,Ks=(20,),chunk=len(seeds))[20][0]==1.
+    assert evaluate(Probe(),negative,Ks=(20,),chunk=len(seeds))[20][0]==0.
+    for scores in observed:
+        np.testing.assert_array_equal(before.view(np.uint32),scores.view(np.uint32))

@@ -1,0 +1,322 @@
+{
+  "dataset": "pog",
+  "status": "passed",
+  "checkpoint": "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/checkpoints/reorganized_162dd8c/pog/seed_0/model.pt",
+  "checkpoint_sha256": "ab4a9f2018ca2015e97a48e483d23c73f9fb1a12488041fcce1bf2fb946bd092",
+  "checkpoint_unchanged": true,
+  "model": {
+    "name": "bundlefuse",
+    "n_items": 48676,
+    "config": {
+      "n_items": 48676,
+      "families": [
+        "collaborative",
+        "content",
+        "taxonomy",
+        "popularity"
+      ],
+      "svd_dim": 128,
+      "alpha_deg": 0.5,
+      "gamma_vol": 0.5,
+      "beta_clique": 1.5,
+      "alpha_bridge": 0.5,
+      "n_soft_clusters": 400,
+      "soft_tau": 0.05,
+      "sel_obj": "ndcg20",
+      "compressed": true,
+      "content_rank": 256,
+      "signal_profile": "extended",
+      "fit_rounds": 4,
+      "seed_cap": 0,
+      "validation_chunk": 64
+    },
+    "signals": [
+      "simp",
+      "diff2",
+      "pop",
+      "cooc",
+      "ppmi",
+      "cat",
+      "homo",
+      "softcat",
+      "content",
+      "style",
+      "imgstyle",
+      "descstyle",
+      "bridge",
+      "csvd"
+    ],
+    "weights": {
+      "simp": 0.25,
+      "cat": 1.0,
+      "softcat": 0.25,
+      "content": 0.25,
+      "style": 0.5
+    },
+    "prior_keys": [
+      "cat",
+      "softcat",
+      "content",
+      "style"
+    ],
+    "kappa_f": 0.5,
+    "prior_scale": 1.0109218394774113,
+    "alpha_inc": 0.0,
+    "gamma_rao": 0.0,
+    "tie_policy": "score_desc_item_id_asc",
+    "variance_components": {
+      "identifiable": true,
+      "raw_sigma0_sq": 0.28755323171370856,
+      "raw_sigma_eps_sq": -0.2748437578259864,
+      "sigma0_sq": 0.28755323171370856,
+      "sigma_eps_sq": 0.0001,
+      "kappa_f": 0.05,
+      "raw_slope_negative": true,
+      "truncated": true
+    }
+  },
+  "fitted_settings_unchanged": true,
+  "sample_queries": 128,
+  "query_ids": [
+    11489,
+    13295,
+    15172,
+    6029,
+    11851,
+    8451,
+    12451,
+    14478,
+    18581,
+    6313,
+    11810,
+    425,
+    17067,
+    13614,
+    3175,
+    5760,
+    19915,
+    18741,
+    10353,
+    5863,
+    17223,
+    18422,
+    9406,
+    4360,
+    9504,
+    17595,
+    10597,
+    13085,
+    8908,
+    2285,
+    706,
+    16527,
+    6938,
+    1462,
+    11557,
+    4071,
+    8709,
+    11732,
+    19138,
+    10620,
+    8309,
+    19169,
+    2224,
+    16603,
+    1926,
+    9042,
+    1409,
+    20,
+    6583,
+    2837,
+    3725,
+    17313,
+    7001,
+    8990,
+    13,
+    2071,
+    3366,
+    5919,
+    10156,
+    7904,
+    16341,
+    6852,
+    14777,
+    3224,
+    3646,
+    12448,
+    12121,
+    19644,
+    19050,
+    19799,
+    671,
+    8394,
+    10902,
+    16453,
+    17316,
+    16364,
+    18307,
+    1411,
+    19095,
+    1163,
+    18129,
+    10881,
+    11392,
+    13353,
+    4894,
+    15532,
+    18113,
+    14453,
+    9410,
+    377,
+    17532,
+    14862,
+    17910,
+    2838,
+    4730,
+    13888,
+    1332,
+    1630,
+    8352,
+    5945,
+    14665,
+    9267,
+    12485,
+    15999,
+    17241,
+    14326,
+    12735,
+    19893,
+    815,
+    10146,
+    7490,
+    16995,
+    15318,
+    13807,
+    4225,
+    10287,
+    10115,
+    626,
+    13646,
+    17654,
+    7590,
+    17964,
+    7436,
+    19824,
+    10018,
+    4796,
+    16280,
+    4911
+  ],
+  "seed": 20261104,
+  "chunk": 32,
+  "original_metrics": {
+    "recall@20": 0.07421875,
+    "ndcg@20": 0.04871826329033984
+  },
+  "target_mutations": {
+    "top_prediction_as_target": {
+      "metrics": {
+        "recall@20": 1.0,
+        "ndcg@20": 1.0
+      },
+      "score_bits_identical": true,
+      "top20_identical": true
+    },
+    "non_top20_item_as_target": {
+      "metrics": {
+        "recall@20": 0.0,
+        "ndcg@20": 0.0
+      },
+      "score_bits_identical": true,
+      "top20_identical": true
+    }
+  },
+  "normalization_by_signal": {
+    "simp": {
+      "other_queries_changed_score_bits_identical": true,
+      "alone_vs_batch_max_abs_error": 0.0
+    },
+    "diff2": {
+      "other_queries_changed_score_bits_identical": true,
+      "alone_vs_batch_max_abs_error": 0.0
+    },
+    "pair": {
+      "other_queries_changed_score_bits_identical": true,
+      "alone_vs_batch_max_abs_error": 0.0
+    },
+    "diff2_pair": {
+      "other_queries_changed_score_bits_identical": true,
+      "alone_vs_batch_max_abs_error": 0.0
+    },
+    "pop": {
+      "other_queries_changed_score_bits_identical": true,
+      "alone_vs_batch_max_abs_error": 0.0
+    },
+    "rao": {
+      "other_queries_changed_score_bits_identical": true,
+      "alone_vs_batch_max_abs_error": 0.0
+    },
+    "cooc": {
+      "other_queries_changed_score_bits_identical": true,
+      "alone_vs_batch_max_abs_error": 0.0
+    },
+    "ppmi": {
+      "other_queries_changed_score_bits_identical": true,
+      "alone_vs_batch_max_abs_error": 0.0
+    },
+    "cat": {
+      "other_queries_changed_score_bits_identical": true,
+      "alone_vs_batch_max_abs_error": 2.384185791015625e-07
+    },
+    "homo": {
+      "other_queries_changed_score_bits_identical": true,
+      "alone_vs_batch_max_abs_error": 0.0
+    },
+    "softcat": {
+      "other_queries_changed_score_bits_identical": true,
+      "alone_vs_batch_max_abs_error": 0.0
+    },
+    "content": {
+      "other_queries_changed_score_bits_identical": true,
+      "alone_vs_batch_max_abs_error": 9.5367431640625e-07
+    },
+    "style": {
+      "other_queries_changed_score_bits_identical": true,
+      "alone_vs_batch_max_abs_error": 0.0
+    },
+    "imgstyle": {
+      "other_queries_changed_score_bits_identical": true,
+      "alone_vs_batch_max_abs_error": 7.450580596923828e-09
+    },
+    "descstyle": {
+      "other_queries_changed_score_bits_identical": true,
+      "alone_vs_batch_max_abs_error": 2.384185791015625e-07
+    },
+    "bridge": {
+      "other_queries_changed_score_bits_identical": true,
+      "alone_vs_batch_max_abs_error": 2.9802322387695312e-08
+    },
+    "csvd": {
+      "other_queries_changed_score_bits_identical": true,
+      "alone_vs_batch_max_abs_error": 0.0
+    }
+  },
+  "scope": "Inference and normalization invariance, not an audit of feature pretraining or historical model selection.",
+  "runtime": {
+    "package_source_sha256": "2901f070a14c417611413fc200c06823ec441d7eeae277b4d8e786e9a1becdcd",
+    "python": "3.13.4 (main, Jun  6 2025, 22:30:22) [Clang 17.0.0 (clang-1700.0.13.3)]",
+    "platform": "macOS-27.2-arm64-arm-64bit-Mach-O",
+    "entrypoint_sha256": {
+      "evaluator.py": "1dbdd2eb9658d21233a7960d1eb1092676d30318be95131ea25dd72f39d46bc2",
+      "inference.py": "319a0f7a0d7849ce2b23adcd8af5e158d4161728cbdf74f0fdfcfaaa8ce3a85e",
+      "validate.py": "2f98ce2797f692ae3afaacae474d8391dabc9160974709cb5dfbe95c2e5a6bf2"
+    },
+    "versions": {
+      "numpy": "2.3.5",
+      "scipy": "1.16.3",
+      "sklearn": "1.7.2",
+      "torch": "2.9.1"
+    },
+    "torch_threads": 1
+  }
+}

@@ -1,0 +1,409 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,mathtools,booktabs,tabularx,microtype,xcolor}
+\usepackage[bookmarks=false]{hyperref}
+\usepackage[margin=24mm,headheight=14pt]{geometry}
+\usepackage{fancyhdr}
+\definecolor{ink}{HTML}{244B68}
+\hypersetup{colorlinks=true,linkcolor=ink,pdftitle={Dunnhumby: Expanding the Candidate Score}}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small Dunnhumby: expanding the score}\fancyfoot[C]{\thepage}
+\setlength{\parindent}{0pt}\setlength{\parskip}{5pt}\setlength{\emergencystretch}{2em}
+\newcommand{\I}{\mathcal I}\newcommand{\pos}[1]{\left[#1\right]_+}
+\newcommand{\off}{\operatorname{off}}\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\N}{\mathcal N}\newcommand{\sd}{\operatorname{sd}}
+\newcommand{\why}{\par\textbf{Purpose and intuition.} }
+\numberwithin{equation}{section}
+\begin{document}
+\begin{center}
+{\LARGE\textcolor{ink}{Dunnhumby: Expanding the Candidate Score}}\\[6pt]
+{\large From $\theta(c\mid S)$ to training baskets, households, and product text}
+\end{center}\medskip
+Take a candidate product $c$ and a nonempty partially filled basket $S$, with $c\notin S$.
+Let $\I$ be the known product catalogue, $n=|\I|$, and let
+$B\in\{0,1\}^{m\times n}$ describe the training baskets: $B_{ei}=1$ when training
+basket $e$ contains product $i$. Define $f_i=\sum_e B_{ei}$, its number of training-basket
+appearances. Each basket also has a household label $u(e)$. Product text and a product
+category label $\ell(i)$ are additional inputs, not quantities determined by $B$.
+
+This note describes the Dunnhumby basket-completion formulation with the full revealed set
+$S$. It starts from the score, expands its terms, and ends with the rules selecting its
+fixed settings. All constants specify this particular formulation; their roles are explained,
+but their exact values are design choices unless an explicit derivation is given.
+We use $[x]_+=\max(x,0)$, $\mathbf1[A]=1$ if statement $A$ holds and zero otherwise,
+and stabilizers $\varepsilon_8=10^{-8}$, $\varepsilon_9=10^{-9}$,
+$\varepsilon_{12}=10^{-12}$. Vector length is $\lVert\cdot\rVert_2$; a dot product
+$v\cdot w$ is the sum of products of corresponding coordinates. Matrix rows representing
+items are treated as row vectors. Sums over a set of items include each item once.
+
+\section{Start with the final score}
+Define $Y(c\mid S)$ as the combined evidence, $P(c\mid S)$ as a second estimate based
+mainly on product categories and text, $s_0\ge0$ as its scale, and $\kappa\ge0$ as the
+strength of the second estimate. The selected settings are fixed before a new request:
+\begin{equation}\label{theta}
+\boxed{\theta(c\mid S)=\begin{cases}
+Y(c\mid S),&\kappa=0,\\[2pt]
+\displaystyle\frac{f_c}{f_c+\kappa}Y(c\mid S)
++\frac{\kappa}{f_c+\kappa}s_0P(c\mid S),&\kappa>0.
+\end{cases}}
+\end{equation}
+\why The assumption is that more appearances make history-based evidence more dependable.
+When $f_c=0$ and $\kappa>0$, the score is exactly $s_0P$; when $f_c=\kappa$, the two
+estimates have equal weight. Frequency does not prove reliability for an individual product.
+Section~\ref{settings} states an explicit variance assumption motivating these rational
+weights. We first expand $Y$ and $P$.
+
+\subsection{Expand $Y$: exactly what changes between its two versions}
+Let $\mathcal H$ be the following ordered list of evidence sources:
+\[
+(\mathrm{basket,propagated,pop,cooc,household,pmi,svd,category,text,bridge}).
+\]
+Let $w_h\ge0$ be the selected weight of source $h$; a removed source has weight zero.
+Nonnegative weights are a restriction preventing a source's contribution from being reversed.
+For each source let $r_h$ be its raw score and $z_h=\mathcal Z_S[r_h]$ its standardized
+score, with $\mathcal Z_S$ defined in Section~\ref{standard}. A second raw version $r_h^0$
+is identical except for these two sources:
+\begin{center}\small
+\begin{tabular}{@{}lll@{}}\toprule
+Source & $r_h^0(c\mid S)$ & $r_h(c\mid S)$ \\\midrule
+basket & $p_c$ & $p_c+\delta_c$ \\
+propagated & $(Lp)_c$ & $(Lp)_c+(L\delta)_c$ \\
+All other sources & $r_h(c\mid S)$ & $r_h(c\mid S)$ \\\bottomrule
+\end{tabular}\end{center}
+Here $p_c=p(c\mid S)$ is weighted training-basket support, $\delta_c=\delta(c\mid S)$
+is a sum restricted to baskets containing at least two known products, and $L$ is an
+item-to-item weighting matrix. Their complete definitions follow in Section~\ref{baskets}.
+Define $z_h^0=\mathcal Z_S[r_h^0]$. Let $\alpha\in[0,1]$ mix the two versions and
+$\lambda_R\ge0$ weight the separately standardized pair-of-known-products score $z_R$
+from Section~\ref{agreement}. Then
+\begin{align}
+Y_0(c\mid S)&=\sum_{h\in\mathcal H}w_hz_h^0(c\mid S),\\
+Y_1(c\mid S)&=\sum_{h\in\mathcal H}w_hz_h(c\mid S),\\
+Y(c\mid S)&=(1-\alpha)Y_0(c\mid S)+\alpha Y_1(c\mid S)
+             +\lambda_R z_R(c\mid S).\label{Y}
+\end{align}
+\why Only the two explicitly identified formulas change during this mixture; the other
+sources are held fixed by definition. This does not assert that other sources cannot
+represent relationships involving several products. The pair term $z_R$, for example,
+is controlled separately. Restricting $\alpha$ to $[0,1]$ produces an average with
+nonnegative weights adding to one. These are modeling choices, not requirements of every
+possible scoring function. Because the two raw columns are standardized separately,
+this is not equivalent to standardizing $p+\alpha\delta$.
+
+\subsection{Expand $P$: which sources enter and why}
+Let $\mathcal A=\{h:w_h>0\}$ be the retained sources. Define the prior-source set
+\begin{equation}
+\mathcal P=\begin{cases}
+\{\mathrm{category,text,bridge}\}\cap\mathcal A,&\text{if this intersection is nonempty},\\
+\{\mathrm{category,bridge}\},&\text{otherwise}.
+\end{cases}
+\end{equation}
+For $h\in\mathcal P$, define $\widetilde w_h=w_h$ if retained, and $\widetilde w_h=0.5$
+otherwise. Thus the fallback rule may use a source whose weight in $Y$ is zero. Define
+\begin{equation}\label{prior}
+\boxed{P(c\mid S)=\sum_{h\in\mathcal P}\widetilde w_hz_h(c\mid S)
++\lambda_R z_R(c\mid S)+w_{\rm pop}z_{\rm pop}(c\mid S).}
+\end{equation}
+\why A product with no training appearances has a zero row in the training-only item
+count matrices. Its category and supplied text can still distinguish it from other products.
+This motivates the restricted source list. The exact list and fallback weight $0.5$ are
+prescribed choices; the score equations do not establish that they are uniquely best.
+Category, bridge and agreement still partly depend on training baskets, so $P$ is not
+independent of $B$. Selected popularity and agreement explicitly enter both estimates.
+
+\section{Expand standardization: what $z_h$ means}\label{standard}
+For a raw source $r_h$, calculate its mean and population standard deviation across all
+catalogue products for the same revealed basket $S$:
+\begin{align}
+\mu_h(S)&=\frac1n\sum_{i\in\I}r_h(i\mid S),\\
+\sigma_h(S)&=\sqrt{\frac1n\sum_{i\in\I}(r_h(i\mid S)-\mu_h(S))^2},\\
+\mathcal Z_S[r_h](c)&=\frac{r_h(c\mid S)-\mu_h(S)}{\sigma_h(S)+\varepsilon_9}.\label{z}
+\end{align}
+Apply this rule separately to $r_h^0$ and $r_R$ as well.
+\why Counts and text similarities have different units. Equation~\eqref{z} expresses each
+relative to its own catalogue average and variation. A constant column becomes zero.
+The divisor here is $n$, not the sample divisor $n-1$. Known products are included in
+these sums and excluded only at final ranking. These are specified conventions.
+The hidden target set does not enter the calculation; neither do other test requests.
+This protects standardization from label dependence, provided the raw inputs themselves
+contain only information allowed at prediction time.
+
+\section{Expand the basket and propagated scores}\label{baskets}
+\subsection{The exact training-basket contribution}
+Define basket size $d_e=\sum_iB_{ei}$, known-product weight $a_s=(f_s+5)^{-1/2}$,
+and basket weight $v_e=(d_e+1)^{-1/2}$. Define weighted overlap $o_e$ and overlap count $k_e$:
+\begin{align}
+o_e(S)&=v_e\sum_{s\in S}B_{es}a_s,& k_e(S)&=\sum_{s\in S}B_{es},\\
+p(c\mid S)&=\sum_e B_{ec}o_e(S),&
+\delta(c\mid S)&=\sum_e B_{ec}o_e(S)\,1.5[k_e(S)-1]_+.\label{delta}
+\end{align}
+These give $r_{\rm basket}^0=p$ and $r_{\rm basket}=p+\delta$ in the table above.
+\why $B_{ec}$ requires the candidate to occur in the contributing training basket.
+The weighted overlap adds contributions from its known products, downweighting frequent
+known products and large baskets. Offsets 5 and 1 keep weights finite and soften this
+adjustment; their precise values and the square-root powers are choices.
+For $k_e=0$ or $1$, the added contribution to $\delta$ is zero; for $k_e=2$ it is
+$1.5B_{ec}o_e$; for $k_e=3$ it is $3B_{ec}o_e$. It therefore records a specific
+observed overlap, not an undefined notion of group compatibility. The linear increase
+and multiplier $1.5$ specify the chosen strength. With one known product, $\delta=0$.
+
+\subsection{The exact item-to-item matrix $L$}
+Let $D=\diag((f_i+5)^{-1/2})$ and $E=\diag((d_e+1)^{-1})$, where $\diag$ constructs
+a diagonal matrix. Let $\off$ replace a matrix's diagonal by zero. Define
+\begin{equation}\label{L}
+L=\off(DB^\top EBD),\qquad
+L_{ci}=\frac{\sum_e B_{ec}B_{ei}/(d_e+1)}{\sqrt{f_c+5}\sqrt{f_i+5}}\quad(c\ne i),
+\qquad L_{cc}=0.
+\end{equation}
+Writing $p,\delta$ as column vectors over all products, the other two raw scores are
+\begin{equation}
+r_{\rm propagated}^0(c\mid S)=\sum_i L_{ci}p_i,\qquad
+r_{\rm propagated}(c\mid S)=\sum_iL_{ci}p_i+\sum_iL_{ci}\delta_i.
+\end{equation}
+\why A product receives some score from other products with which it shared training
+baskets. The displayed entry formula defines exactly how much. Zero diagonal excludes
+immediate self-transfer. A product absent from all training baskets has a zero row in $L$.
+
+\section{Expand household evidence}\label{household}
+Let $u$ index households, and define the household-by-product count table
+\begin{equation}
+X_{ui}=\sum_{e:u(e)=u}B_{ei},\qquad t_u=1+\sum_iX_{ui},\qquad
+\widetilde X_{ui}=X_{ui}/\sqrt{t_u}.
+\end{equation}
+$X_{ui}$ counts training baskets containing product $i$ for household $u$; it is not a
+count of purchased units. Define $C_H=\off(\widetilde X^\top\widetilde X)$. The raw score is
+\begin{equation}\label{householdscore}
+\boxed{r_{\rm household}(c\mid S)=\sum_{s\in S}(C_H)_{cs}(f_s+5)^{-1/2}.}
+\end{equation}
+For distinct products $c,s$, $(C_H)_{cs}=\sum_u X_{uc}X_{us}/t_u$.
+\why Two products can have a household connection even if they were purchased in different
+baskets. The division by $t_u$ reduces the influence of households with large total counts;
+the extra factor on the known product reduces frequent-product influence. These weights
+are specified modeling choices. Every household contributes to the shared table $C_H$.
+The current shopper's household ID does not enter equation~\eqref{householdscore}; this
+score is not a personalized lookup of that shopper's history. Only training baskets
+contribute to $X$.
+
+\section{Expand popularity, pair counts, and the history summary}
+Define $C=\off(B^\top B)$, $g_i=\sum_jC_{ij}+\varepsilon_9$, and
+$Z_C=\sum_{i,j}C_{ij}$. For a pair observed together at least once define
+\begin{equation}
+M_{ij}=[\log(C_{ij}Z_C/(g_i g_j)+\varepsilon_{12})]_+;
+\qquad M_{ij}=0\text{ if }C_{ij}=0.
+\end{equation}
+The raw sources are
+\begin{equation}
+r_{\rm pop}(c\mid S)=\log(1+f_c),\quad
+r_{\rm cooc}(c\mid S)=\sum_{s\in S}C_{cs},\quad
+r_{\rm pmi}(c\mid S)=\sum_{s\in S}M_{cs}.
+\end{equation}
+\why Popularity supplies a general frequency preference; $C$ measures direct shared-basket
+counts. $M$ compares a pair count with its two overall shared-count masses $g_i,g_j$,
+which differ from the basket frequencies $f_i,f_j$. The logarithm compresses large ratios;
+the positive part discards below-expected associations rather than assigning a negative
+raw penalty. This is a chosen treatment of negative association.
+
+For the summary source, set $r=\min(128,n-2)$ and let $V_r$ contain the leading $r$ right
+singular directions of $M$. For an exact decomposition these give the best rank-$r$
+approximation in squared error; fitted directions may approximate them numerically.
+Define row normalization $\N(F)_i=F_i/(\lVert F_i\rVert_2+\varepsilon_8)$ and set
+$U=\N(MV_r)$, or $U=0$ when $M$ is zero. Then
+\begin{equation}
+r_{\rm svd}(c\mid S)=U_c\cdot\left(\frac1{|S|}\sum_{s\in S}U_s\right).
+\end{equation}
+\why The vectors summarize many pair relationships in a shorter description per product.
+The dot product compares the candidate with the mean known-product summary. Width 128 is
+a chosen dimension limit, not a data-derived requirement.
+
+\section{Expand product-text evidence and its bridge}\label{text}
+For each catalogue product, concatenate its department, commodity, subcommodity and brand
+text. Use lowercased words and two-word phrases after removing English stop words, retaining
+at most 8,000 terms. Let $n_{it}$ count term $t$ in product $i$'s text and
+$\mathrm{df}_t=|\{i:n_{it}>0\}|$. Define the unnormalized text weight
+\begin{equation}
+A_{it}=\begin{cases}
+(1+\log n_{it})\bigl[1+\log((n+1)/(\mathrm{df}_t+1))\bigr],&n_{it}>0,\\
+0,&n_{it}=0.
+\end{cases}
+\end{equation}
+Normalize each nonzero row of $A$ to length one, leaving zero rows zero, and call the
+resulting sparse table $T$. Let $d_T$ be its column count, $r_T=\min(128,d_T-1)$, and
+$V_T$ its leading $r_T$ right singular directions. Define the dense product-text table
+$F=\N(TV_T)$. This assumes at least two retained text terms, as in this dataset.
+\why The first factor in $A_{it}$ compresses repeated words; the second reduces the
+relative influence of words appearing in many product descriptions. The short vectors
+summarize this table. The vocabulary and dimension limits are choices. There is no
+category-average subtraction in this definition of $F$.
+
+Define the bridged feature table $F_b$ and the two selectable text-related scores by
+\begin{align}
+F_b&=\N\bigl(F+0.5\N(LF)\bigr),\\
+r_{\rm text}(c\mid S)&=F_c\cdot\left(\frac1{|S|}\sum_{s\in S}F_s\right),\\
+r_{\rm bridge}(c\mid S)&=F_{b,c}\cdot\left(\frac1{|S|}\sum_{s\in S}F_{b,s}\right).
+\end{align}
+\why $(LF)_c=\sum_iL_{ci}F_i$ combines descriptions of products connected to $c$ through
+training baskets. The bridge mixes that normalized combination with $c$'s own description;
+$0.5$ is its chosen multiplier. If $f_c=0$, then $(LF)_c=0$ but $F_c$ may still distinguish
+$c$, so the bridge need not vanish. The sparse text similarity $T(T^\top x_S)$, with
+$(x_S)_i=\mathbf1[i\in S]$, is not a separately weighted source in this formulation.
+That exclusion is a source-menu restriction, not a statement of mathematical redundancy.
+
+\section{Expand product-category evidence}
+Let $\ell(i)$ be product $i$'s subcommodity category. Let $a,b$ index categories and define
+\begin{equation}
+A^{\ell}_{ea}=\sum_iB_{ei}\mathbf1[\ell(i)=a],\quad
+H=\off((A^{\ell})^\top A^{\ell}),\quad
+h_a=\sum_e A^{\ell}_{ea}+\varepsilon_9,\quad H_+=\sum_a h_a.
+\end{equation}
+For observed category pairs set
+\begin{equation}
+Q_{ab}=[\log(H_{ab}H_+/(h_a h_b)+\varepsilon_{12})]_+;
+\qquad Q_{ab}=0\text{ if }H_{ab}=0.
+\end{equation}
+Then
+\begin{equation}
+\boxed{r_{\rm category}(c\mid S)=\sum_{s\in S}Q_{\ell(s),\ell(c)}.}
+\end{equation}
+\why This transfers evidence between product categories even when particular product
+pairs have little history. Its marginal $h_a$ counts category appearances in training
+baskets, rather than row sums of $H$. Repeated products of a category within one basket
+therefore contribute repeatedly to the count table. The diagonal of $Q$ is zero: this
+source uses cross-category counts, with no additional penalty for repeating a category
+and no extra feature-cluster category source. These are choices specifying the model.
+
+\section{Expand the pair-of-known-products term}\label{agreement}
+Define $V=\diag((d_e+1)^{-1/2})$ and $W=\off(B^\top VBD)$, using $D$ from
+Section~\ref{baskets}. Let a known product $s$ provide candidate support $q_{cs}$, and let
+$A_c$ be its total support:
+\begin{equation}
+q_{cs}=W_{cs}+0.15[F_{b,c}\cdot F_{b,s}]_+,\qquad A_c=\sum_{s\in S}q_{cs}.
+\end{equation}
+For distinct known products $s,t$, define their similarity and pair weight
+\begin{equation}
+G_{st}=0.5\mathbf1[\ell(s)=\ell(t)]+0.5[F_{b,s}\cdot F_{b,t}]_+,
+\qquad K_{st}=[1-G_{st}]_+,\qquad K_{ss}=0.
+\end{equation}
+The remaining raw source, standardized by equation~\eqref{z}, is
+\begin{equation}\label{R}
+\boxed{r_R(c\mid S)=\frac{\sum_{s\in S}\sum_{t\in S}q_{cs}K_{st}q_{ct}}{A_c+0.05}.}
+\end{equation}
+\why For $S=\{s,t\}$ with $s\ne t$, the numerator is exactly $2q_{cs}q_{ct}K_{st}$.
+Both known products must provide nonzero support for this contribution to be positive;
+$K_{st}$ reduces the contribution when they are similar. For a larger $S$, any supported
+pair can contribute; matching all known products is not required. With one known product,
+$K_{ss}=0$ makes the result zero. The denominator controls the scale of the product.
+The constants $0.15,0.5,0.05$ set chosen feature support, similarity mixing and smoothing.
+Here the descriptor is the bridged product-text vector $F_b$.
+
+The matrix $W$ has zero diagonal, whereas $p=B^\top VBDx_S$ retains diagonal
+contributions for known products. Both are evaluated over all products before the final
+known-product exclusion. This distinction affects standardization and propagation even
+though a known product cannot be returned as a suggestion.
+
+\section{Expand the settings selected before prediction}\label{settings}
+The weights, prior-source set, $\alpha,\lambda_R,s_0,\kappa$ are selected on held-out
+basket-completion examples and then frozen. Their search grids below are finite prescribed
+choices, not the only valid values or proven optimal spacings. In particular,
+$\alpha\in[0,1]$ is a mathematical averaging domain, while a three-point grid is a
+restricted search within that domain. Exact cutoffs, tolerances and smoothing constants
+are part of this specified procedure.
+
+\subsection{Define the comparison measure}
+For held-out request $j$, let $G_j$ be its nonempty hidden-product set and $\pi_j(r)$
+the product at rank $r$ after excluding $S_j$. Set $K_j=\min(20,n-|S_j|)$. Define
+\begin{equation}
+\mathrm{NDCG}_{20,j}=\frac{\sum_{r=1}^{K_j}\mathbf1[\pi_j(r)\in G_j]/\log_2(r+1)}
+{\sum_{r=1}^{\min(20,|G_j|)}1/\log_2(r+1)},\qquad
+\mathcal J=\frac1v\sum_{j=1}^v\mathrm{NDCG}_{20,j},
+\end{equation}
+where $v$ is the number of selection requests. This rewards hidden products near the top
+of the list, with greater credit at earlier ranks. Final test labels do not enter selection.
+
+\subsection{Weights, prior sources and the two mixture coefficients}
+Starting with zero weights, visit the ordered list $\mathcal H$. At each source try
+$w_h\in\{0,0.25,0.5,1,1.5\}$ with other weights fixed, skip the all-zero vector, and
+accept only improvements in $\mathcal J(Y_0)$ exceeding $2\times10^{-4}$. Repeat for at
+most four passes, stopping if a pass changes nothing. Record that search's incumbent score
+as $J_{\rm coord}$. Try removing bridge and then category if the loss is at most
+$3\times10^{-4}$, retaining at least one source. Absent weights become zero.
+
+Next, visit $\alpha=0,0.5,1$ as the outer loop and $\lambda_R=0,0.15,0.25$ as the inner
+loop. Start its score incumbent at $-\infty$ and accept a candidate when its score is at
+least the incumbent minus $10^{-5}$; after acceptance replace the incumbent with that
+candidate's score. A later near-tie can win, and successive accepted near-ties can move
+downward slightly. This ordered rule is not simply the first global maximum.
+Call the final accepted score $J_{\rm mix}$ and retain its coefficients. Construct
+$\mathcal P$ as defined above, then carry $J_*=\max(J_{\rm coord},J_{\rm mix})$ into
+the final comparison. This carried threshold can exceed the score of the final pruned mixture.
+\why These searches determine which evidence improves the held-out ranking. The exact
+visit order and acceptance tolerances define the result; they are not theoretical
+statements that one combination is globally optimal.
+
+\subsection{Prior scale and the frequency-dependent adjustment}
+Using the retained settings, flatten the $Y$ and $P$ scores across all catalogue products
+and selection requests. Let $\sd_0$ be population standard deviation of this flattened table.
+The prior scale is fixed as
+\begin{equation}
+s_0=\frac{\sd_0(Y)}{\sd_0(P)+\varepsilon_9}.
+\end{equation}
+It can be zero. It is not recomputed from a test batch, and there is no additional
+unit-scale candidate in this formulation.
+\why This aligns the sizes of variations in the two estimates before combining them.
+
+For each product with $f_i>0$, define
+\begin{equation}
+x_i=1/f_i,\qquad e_i=\frac1v\sum_{j=1}^v
+\bigl[Y(i\mid S_j)-s_0P(i\mid S_j)\bigr]^2.
+\end{equation}
+Let $\bar x,\bar e$ be their means over products with positive $f_i$. Define the line's
+slope $\widehat b$ and intercept $\widehat a$ by
+\begin{align}
+\widehat b&=\frac{\sum_i(x_i-\bar x)(e_i-\bar e)}{\sum_i(x_i-\bar x)^2},&
+\widehat a&=\bar e-\widehat b\bar x,\\
+\kappa_*&=\operatorname{clip}\left(\frac{\max(\widehat b,10^{-4})}{\max(\widehat a,10^{-4})},0.05,50\right).
+\end{align}
+Here $\operatorname{clip}(t,l,u)=\min(u,\max(l,t))$. With fewer than two products having
+history, or a denominator at most $10^{-12}$, the components cannot be distinguished;
+use $\kappa=0$ only. Otherwise try $\kappa\in\{0,0.05,0.25,\kappa_*,1\}$ in this
+order, starting with zero and accepting only improvements exceeding $10^{-4}$ over the
+carried score incumbent $J_*$. Update that incumbent after an accepted improvement.
+
+\why The assumed relation is $\mathbb E[e_i\mid f_i]=\sigma_0^2+\sigma_e^2/f_i$.
+To state the assumption precisely, let an unobserved suitability be
+$\theta_i^*=s_0P_i+\xi_i$ and let $Y_i=\theta_i^*+\eta_i$, with independent zero-mean
+normal errors of positive variances $\sigma_0^2$ and $\sigma_e^2/f_i$. Then, for $f_i>0$,
+\begin{equation}
+\mathbb E[(Y_i-s_0P_i)^2\mid f_i]=\sigma_0^2+\sigma_e^2/f_i,\qquad
+\mathbb E[\theta_i^*\mid Y_i,P_i,f_i]
+=\frac{f_iY_i+\kappa s_0P_i}{f_i+\kappa},\quad
+\kappa=\sigma_e^2/\sigma_0^2.
+\end{equation}
+This motivates both the fitted line and equation~\eqref{theta}; the assumptions do not
+follow from counts alone. The positivity bounds and ratio clipping produce one candidate
+setting; held-out ranking comparisons choose the final value. Residuals compare the two
+score estimates, not scores with binary hidden-product labels.
+
+\section{What the training table and product inputs represent}
+The preceding equations assume $B$ is fixed. In this Dunnhumby completion task it comes
+from baskets of 3--20 distinct products, capped at 30,000 after a fixed shuffle. Products
+appearing fewer than twice in that capped pool are removed, and baskets shorter than three
+are dropped. Identical remaining product sets are deduplicated globally, retaining the
+first household association. A random 70/10/20 split supplies training, selection and test
+baskets; the training portion alone defines $B$ and the household table $X$.
+
+Product categories are subcommodity labels; missing product metadata receive separate
+missing-category labels. Product text and its vocabulary/short vectors use the known
+catalogue. The product-frequency filter is based on the pre-split capped pool. Thus the
+preparation assumes a known catalogue and does not estimate every preparation choice from
+$B$ alone. The split is random, not chronological; date fields do not impose a time cutoff.
+These distinctions state the information available to the formulas rather than implicitly
+claiming a prediction task with unseen future products.
+
+\section{Substitute back to obtain the recommendation}
+For each candidate $c$, compute the raw terms from training baskets, training household
+counts, category labels and catalogue text. Standardize them with equation~\eqref{z};
+insert them into $Y$ and $P$, and then into equation~\eqref{theta}. Exclude products already
+in $S$, rank the others by decreasing $\theta$, and break exact ties by increasing product
+ID. For a requested positive integer $K$, return the highest $K$ candidates, or all candidates if fewer than $K$ remain. Sources
+with zero weight and no role in $P$ contribute nothing. This completes the expansion
+of the score without introducing an additional shopper-specific scoring term.
+\end{document}
