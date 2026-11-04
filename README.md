@@ -283,6 +283,14 @@ its time in sparse format conversion, identifying an optimization target for sub
 
 ## Code-derived pipeline theory
 
+The [publication mechanism studies](experiments/mechanisms/README.md) test the roles of
+historical and shared evidence, constant versus frequency-dependent backoff, and
+validation-selection stability on all four supplied POG/Spotify splits. The new
+`publication-mechanism-studies` branch retains checkpoints, validation signal caches,
+frozen recipes and per-query outputs. Run `zsh scripts/run_mechanism_studies.sh`;
+timestamped logs are written to `results/publication_mechanisms/<dataset>/run.log`.
+These are follow-up experiments; results are pending until the full queue finishes.
+
 The [POG standardization audit](results/standardization_audit/README.md) checks that changing
 hidden targets leaves fitted-model scores and predictions unchanged, and that normalizing one
 query does not pool information from other query columns. Reproduce it with
