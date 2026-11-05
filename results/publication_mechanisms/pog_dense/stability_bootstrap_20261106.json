@@ -1,0 +1,45 @@
+{
+  "weights": {
+    "cat": 0.5,
+    "bridge": 0.25,
+    "simp": 1.5,
+    "pop": 0.25
+  },
+  "prior": [
+    "cat",
+    "bridge"
+  ],
+  "backoff": [
+    0.05,
+    1.0
+  ],
+  "higher_order": [
+    1.0,
+    0.0
+  ],
+  "variance": {
+    "identifiable": true,
+    "raw_sigma0_sq": 20.13334832765401,
+    "raw_sigma_eps_sq": -20.656633932953028,
+    "sigma0_sq": 20.13334832765401,
+    "sigma_eps_sq": 0.0001,
+    "kappa_f": 0.05,
+    "raw_slope_negative": true,
+    "truncated": true
+  },
+  "validation_candidates": 124,
+  "order": [
+    "cat",
+    "softcat",
+    "style",
+    "imgstyle",
+    "bridge",
+    "simp",
+    "diff2",
+    "pop",
+    "cooc",
+    "ppmi",
+    "csvd"
+  ],
+  "validation_indices_sha256": "35db421f861fde98711be8a66ed73be8745390071d7002960ed19d1c8e6388d0"
+}

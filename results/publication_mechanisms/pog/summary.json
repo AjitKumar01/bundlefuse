@@ -1,0 +1,845 @@
+{
+  "status": "complete",
+  "methods": {
+    "history": {
+      "recall20": 0.030874999999999993,
+      "ndcg20": 0.02093823468393898
+    },
+    "shared": {
+      "recall20": 0.04454166666666667,
+      "ndcg20": 0.029290063511209597
+    },
+    "combined": {
+      "recall20": 0.05145833333333335,
+      "ndcg20": 0.033939734867245774
+    },
+    "full": {
+      "recall20": 0.05445833333333335,
+      "ndcg20": 0.03609231307391131
+    },
+    "constant_unit": {
+      "recall20": 0.05183333333333335,
+      "ndcg20": 0.034057388512647745
+    },
+    "frequency_unit": {
+      "recall20": 0.05279166666666669,
+      "ndcg20": 0.03477530683910579
+    },
+    "constant_matched": {
+      "recall20": 0.05183333333333335,
+      "ndcg20": 0.03405585084250924
+    },
+    "frequency_matched": {
+      "recall20": 0.05445833333333335,
+      "ndcg20": 0.03609231307391131
+    },
+    "stability_reverse": {
+      "recall20": 0.05095833333333334,
+      "ndcg20": 0.03454972119001294
+    },
+    "stability_permutation": {
+      "recall20": 0.053041666666666674,
+      "ndcg20": 0.035603515211206735
+    },
+    "stability_bootstrap_20261106": {
+      "recall20": 0.053041666666666674,
+      "ndcg20": 0.035602378447206116
+    },
+    "stability_bootstrap_20261107": {
+      "recall20": 0.054375000000000014,
+      "ndcg20": 0.0363919869256181
+    }
+  },
+  "stability_top20_overlap": {
+    "stability_reverse": 0.6942125,
+    "stability_permutation": 0.7774625,
+    "stability_bootstrap_20261106": 0.7775125,
+    "stability_bootstrap_20261107": 0.7915
+  },
+  "frequency_buckets": {
+    "history": {
+      "cold": {
+        "queries": 3226,
+        "global_recall": 0.0,
+        "within_recall": 0.0022731969415168423
+      },
+      "rare": {
+        "queries": 2077,
+        "global_recall": 0.046461242176215695,
+        "within_recall": 0.051035146846413096
+      },
+      "warm": {
+        "queries": 745,
+        "global_recall": 0.15906040268456376,
+        "within_recall": 0.18859060402684563
+      }
+    },
+    "shared": {
+      "cold": {
+        "queries": 3226,
+        "global_recall": 0.03967761934283943,
+        "within_recall": 0.07325893779706551
+      },
+      "rare": {
+        "queries": 2077,
+        "global_recall": 0.05970149253731343,
+        "within_recall": 0.06427539720751084
+      },
+      "warm": {
+        "queries": 745,
+        "global_recall": 0.018120805369127517,
+        "within_recall": 0.2436241610738255
+      }
+    },
+    "combined": {
+      "cold": {
+        "queries": 3226,
+        "global_recall": 0.03988427361025005,
+        "within_recall": 0.0752221533374664
+      },
+      "rare": {
+        "queries": 2077,
+        "global_recall": 0.068608570052961,
+        "within_recall": 0.07246027924891671
+      },
+      "warm": {
+        "queries": 745,
+        "global_recall": 0.052348993288590606,
+        "within_recall": 0.22483221476510068
+      }
+    },
+    "full": {
+      "cold": {
+        "queries": 3226,
+        "global_recall": 0.044069022525315145,
+        "within_recall": 0.0752221533374664
+      },
+      "rare": {
+        "queries": 2077,
+        "global_recall": 0.068608570052961,
+        "within_recall": 0.07246027924891671
+      },
+      "warm": {
+        "queries": 745,
+        "global_recall": 0.059731543624161075,
+        "within_recall": 0.22348993288590605
+      }
+    },
+    "constant_unit": {
+      "cold": {
+        "queries": 3226,
+        "global_recall": 0.04019425501136598,
+        "within_recall": 0.0752221533374664
+      },
+      "rare": {
+        "queries": 2077,
+        "global_recall": 0.06909003370245546,
+        "within_recall": 0.07294174289841117
+      },
+      "warm": {
+        "queries": 745,
+        "global_recall": 0.053020134228187916,
+        "within_recall": 0.22348993288590605
+      }
+    },
+    "frequency_unit": {
+      "cold": {
+        "queries": 3226,
+        "global_recall": 0.04019425501136598,
+        "within_recall": 0.0752221533374664
+      },
+      "rare": {
+        "queries": 2077,
+        "global_recall": 0.06909003370245546,
+        "within_recall": 0.07294174289841117
+      },
+      "warm": {
+        "queries": 745,
+        "global_recall": 0.06241610738255034,
+        "within_recall": 0.22483221476510068
+      }
+    },
+    "constant_matched": {
+      "cold": {
+        "queries": 3226,
+        "global_recall": 0.04019425501136598,
+        "within_recall": 0.0752221533374664
+      },
+      "rare": {
+        "queries": 2077,
+        "global_recall": 0.06909003370245546,
+        "within_recall": 0.07294174289841117
+      },
+      "warm": {
+        "queries": 745,
+        "global_recall": 0.053020134228187916,
+        "within_recall": 0.22348993288590605
+      }
+    },
+    "frequency_matched": {
+      "cold": {
+        "queries": 3226,
+        "global_recall": 0.044069022525315145,
+        "within_recall": 0.0752221533374664
+      },
+      "rare": {
+        "queries": 2077,
+        "global_recall": 0.068608570052961,
+        "within_recall": 0.07246027924891671
+      },
+      "warm": {
+        "queries": 745,
+        "global_recall": 0.059731543624161075,
+        "within_recall": 0.22348993288590605
+      }
+    },
+    "stability_reverse": {
+      "cold": {
+        "queries": 3226,
+        "global_recall": 0.036939450299648686,
+        "within_recall": 0.07108906798925398
+      },
+      "rare": {
+        "queries": 2077,
+        "global_recall": 0.06668271545498315,
+        "within_recall": 0.0709356443588509
+      },
+      "warm": {
+        "queries": 745,
+        "global_recall": 0.06845637583892618,
+        "within_recall": 0.2389261744966443
+      }
+    },
+    "stability_permutation": {
+      "cold": {
+        "queries": 3226,
+        "global_recall": 0.04319074188882,
+        "within_recall": 0.07506716263690845
+      },
+      "rare": {
+        "queries": 2077,
+        "global_recall": 0.06692344727973037,
+        "within_recall": 0.07197881559942225
+      },
+      "warm": {
+        "queries": 745,
+        "global_recall": 0.05771812080536913,
+        "within_recall": 0.25100671140939596
+      }
+    },
+    "stability_bootstrap_20261106": {
+      "cold": {
+        "queries": 3226,
+        "global_recall": 0.04319074188882,
+        "within_recall": 0.07506716263690845
+      },
+      "rare": {
+        "queries": 2077,
+        "global_recall": 0.06692344727973037,
+        "within_recall": 0.07197881559942225
+      },
+      "warm": {
+        "queries": 745,
+        "global_recall": 0.05771812080536913,
+        "within_recall": 0.25100671140939596
+      }
+    },
+    "stability_bootstrap_20261107": {
+      "cold": {
+        "queries": 3226,
+        "global_recall": 0.04515395742922091,
+        "within_recall": 0.07780533168009919
+      },
+      "rare": {
+        "queries": 2077,
+        "global_recall": 0.06764564275397207,
+        "within_recall": 0.07366393837265287
+      },
+      "warm": {
+        "queries": 745,
+        "global_recall": 0.053691275167785234,
+        "within_recall": 0.20134228187919462
+      }
+    }
+  },
+  "by_seed_count": {
+    "history": {
+      "1": [
+        0.027386934673366833,
+        0.01776393151453224
+      ],
+      "2": [
+        0.03432835820895525,
+        0.02408095274718242
+      ]
+    },
+    "shared": {
+      "1": [
+        0.04296482412060301,
+        0.028590234425990867
+      ],
+      "2": [
+        0.046102819237147596,
+        0.029982929122943584
+      ]
+    },
+    "combined": {
+      "1": [
+        0.048994974874371856,
+        0.03187783912847323
+      ],
+      "2": [
+        0.05389718076285238,
+        0.03598111423050805
+      ]
+    },
+    "full": {
+      "1": [
+        0.04974874371859297,
+        0.03344192320286917
+      ],
+      "2": [
+        0.05912106135986731,
+        0.038716330906435475
+      ]
+    },
+    "constant_unit": {
+      "1": [
+        0.04874371859296482,
+        0.031831422385942144
+      ],
+      "2": [
+        0.05489220563847427,
+        0.03626120572266963
+      ]
+    },
+    "frequency_unit": {
+      "1": [
+        0.048994974874371856,
+        0.03208404151682109
+      ],
+      "2": [
+        0.05655058043117744,
+        0.03743979340196464
+      ]
+    },
+    "constant_matched": {
+      "1": [
+        0.04874371859296482,
+        0.031831422385942144
+      ],
+      "2": [
+        0.05489220563847427,
+        0.03625814568259301
+      ]
+    },
+    "frequency_matched": {
+      "1": [
+        0.04974874371859297,
+        0.03344192320286917
+      ],
+      "2": [
+        0.05912106135986731,
+        0.038716330906435475
+      ]
+    },
+    "stability_reverse": {
+      "1": [
+        0.05,
+        0.03393604925002935
+      ],
+      "2": [
+        0.05190713101160861,
+        0.035157286941538954
+      ]
+    },
+    "stability_permutation": {
+      "1": [
+        0.04874371859296482,
+        0.033666863194345815
+      ],
+      "2": [
+        0.05729684908789385,
+        0.03752089705874563
+      ]
+    },
+    "stability_bootstrap_20261106": {
+      "1": [
+        0.04874371859296482,
+        0.03366572071796328
+      ],
+      "2": [
+        0.05729684908789385,
+        0.037519765950287304
+      ]
+    },
+    "stability_bootstrap_20261107": {
+      "1": [
+        0.05075376884422111,
+        0.03444891755847604
+      ],
+      "2": [
+        0.05796019900497511,
+        0.03831572226920649
+      ]
+    }
+  },
+  "contrasts": [
+    {
+      "delta": 0.013666666666666666,
+      "ci95": [
+        0.00887716382220555,
+        0.018588789443049335
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.061,
+      "seed": 20261105,
+      "first": "shared",
+      "second": "history",
+      "metric": "recall20",
+      "p_holm": 0.009599040095990401,
+      "reject_05": true
+    },
+    {
+      "delta": 0.008351828827270633,
+      "ci95": [
+        0.005088479921073993,
+        0.01185256604192037
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0695,
+      "seed": 20261105,
+      "first": "shared",
+      "second": "history",
+      "metric": "ndcg20",
+      "p_holm": 0.009599040095990401,
+      "reject_05": true
+    },
+    {
+      "delta": 0.020583333333333335,
+      "ci95": [
+        0.01596232391431191,
+        0.025382228369592395
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.061,
+      "seed": 20261105,
+      "first": "combined",
+      "second": "history",
+      "metric": "recall20",
+      "p_holm": 0.009599040095990401,
+      "reject_05": true
+    },
+    {
+      "delta": 0.01300150018330678,
+      "ci95": [
+        0.010276615831853013,
+        0.01599715157226326
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.074,
+      "seed": 20261105,
+      "first": "combined",
+      "second": "history",
+      "metric": "ndcg20",
+      "p_holm": 0.009599040095990401,
+      "reject_05": true
+    },
+    {
+      "delta": 0.0069166666666666664,
+      "ci95": [
+        0.004124948463268366,
+        0.00971076102358923
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.02275,
+      "seed": 20261105,
+      "first": "combined",
+      "second": "shared",
+      "metric": "recall20",
+      "p_holm": 0.009599040095990401,
+      "reject_05": true
+    },
+    {
+      "delta": 0.004649671356036148,
+      "ci95": [
+        0.002793001912162978,
+        0.006587249159915729
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0445,
+      "seed": 20261105,
+      "first": "combined",
+      "second": "shared",
+      "metric": "ndcg20",
+      "p_holm": 0.009599040095990401,
+      "reject_05": true
+    },
+    {
+      "delta": 0.003,
+      "ci95": [
+        0.0017504376094023503,
+        0.004377080742317541
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.00675,
+      "seed": 20261105,
+      "first": "frequency_matched",
+      "second": "combined",
+      "metric": "recall20",
+      "p_holm": 0.009599040095990401,
+      "reject_05": true
+    },
+    {
+      "delta": 0.002152578206665497,
+      "ci95": [
+        0.0012018512066295885,
+        0.003178459673709376
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0485,
+      "seed": 20261105,
+      "first": "frequency_matched",
+      "second": "combined",
+      "metric": "ndcg20",
+      "p_holm": 0.009599040095990401,
+      "reject_05": true
+    },
+    {
+      "delta": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "p_value": 1.0,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0,
+      "seed": 20261105,
+      "first": "full",
+      "second": "frequency_matched",
+      "metric": "recall20",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "p_value": 1.0,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0,
+      "seed": 20261105,
+      "first": "full",
+      "second": "frequency_matched",
+      "metric": "ndcg20",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.0009583333333333333,
+      "ci95": [
+        0.00025006251562890714,
+        0.0017087605234641992
+      ],
+      "p_value": 0.013998600139986002,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0025,
+      "seed": 20261105,
+      "first": "frequency_unit",
+      "second": "constant_unit",
+      "metric": "recall20",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.000717918326458026,
+      "ci95": [
+        -0.00013539874222760304,
+        0.0016298957962045258
+      ],
+      "p_value": 0.11988801119888011,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0155,
+      "seed": 20261105,
+      "first": "frequency_unit",
+      "second": "constant_unit",
+      "metric": "ndcg20",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.002625,
+      "ci95": [
+        0.001375,
+        0.003959323164124364
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.00625,
+      "seed": 20261105,
+      "first": "frequency_matched",
+      "second": "constant_matched",
+      "metric": "recall20",
+      "p_holm": 0.009599040095990401,
+      "reject_05": true
+    },
+    {
+      "delta": 0.0020364622314020275,
+      "ci95": [
+        0.0010734392879504662,
+        0.0030628270558858885
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0485,
+      "seed": 20261105,
+      "first": "frequency_matched",
+      "second": "constant_matched",
+      "metric": "ndcg20",
+      "p_holm": 0.009599040095990401,
+      "reject_05": true
+    },
+    {
+      "delta": 0.0013333333333333333,
+      "ci95": [
+        0.000666495878112764,
+        0.002166138673664917
+      ],
+      "p_value": 0.0005999400059994001,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.003,
+      "seed": 20261105,
+      "first": "frequency_unit",
+      "second": "combined",
+      "metric": "recall20",
+      "p_holm": 0.049795020497950204,
+      "reject_05": true
+    },
+    {
+      "delta": 0.0008355719718599987,
+      "ci95": [
+        -1.1145561080854397e-06,
+        0.0017491302003711925
+      ],
+      "p_value": 0.06529347065293471,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.016,
+      "seed": 20261105,
+      "first": "frequency_unit",
+      "second": "combined",
+      "metric": "ndcg20",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.000375,
+      "ci95": [
+        -0.00025,
+        0.001000250062515629
+      ],
+      "p_value": 0.44735526447355267,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.00125,
+      "seed": 20261105,
+      "first": "constant_matched",
+      "second": "combined",
+      "metric": "recall20",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.00011611597526346945,
+      "ci95": [
+        -6.276646164758828e-05,
+        0.00031147273597727096
+      ],
+      "p_value": 0.2415758424157584,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.00275,
+      "seed": 20261105,
+      "first": "constant_matched",
+      "second": "combined",
+      "metric": "ndcg20",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "p_value": 1.0,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0,
+      "seed": 20261105,
+      "first": "constant_matched",
+      "second": "constant_unit",
+      "metric": "recall20",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": -1.5376701385034357e-06,
+      "ci95": [
+        -6.63969005078968e-06,
+        2.0245135843705824e-06
+      ],
+      "p_value": 1.0,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.00025,
+      "seed": 20261105,
+      "first": "constant_matched",
+      "second": "constant_unit",
+      "metric": "ndcg20",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.0016666666666666666,
+      "ci95": [
+        0.0005834792031341168,
+        0.002791684118946403
+      ],
+      "p_value": 0.0040995900409959,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.004,
+      "seed": 20261105,
+      "first": "frequency_matched",
+      "second": "frequency_unit",
+      "metric": "recall20",
+      "p_holm": 0.3361663833616638,
+      "reject_05": false
+    },
+    {
+      "delta": 0.001317006234805498,
+      "ci95": [
+        0.0008360320467364616,
+        0.0018130621474740504
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.03425,
+      "seed": 20261105,
+      "first": "frequency_matched",
+      "second": "frequency_unit",
+      "metric": "ndcg20",
+      "p_holm": 0.009599040095990401,
+      "reject_05": true
+    },
+    {
+      "delta": 0.003,
+      "ci95": [
+        0.0017504376094023503,
+        0.004377080742317541
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.00675,
+      "seed": 20261105,
+      "first": "full",
+      "second": "combined",
+      "metric": "recall20",
+      "p_holm": 0.009599040095990401,
+      "reject_05": true
+    },
+    {
+      "delta": 0.002152578206665497,
+      "ci95": [
+        0.0012018512066295885,
+        0.003178459673709376
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0485,
+      "seed": 20261105,
+      "first": "full",
+      "second": "combined",
+      "metric": "ndcg20",
+      "p_holm": 0.009599040095990401,
+      "reject_05": true
+    }
+  ]
+}

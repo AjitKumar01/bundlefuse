@@ -1,0 +1,22 @@
+{
+  "weights": {
+    "homo": 0.25,
+    "bridge": 1.5
+  },
+  "prior": [
+    "homo",
+    "bridge"
+  ],
+  "backoff": [
+    0.0,
+    1.0
+  ],
+  "higher_order": [
+    0.0,
+    0.0
+  ],
+  "variance": {
+    "disabled": true
+  },
+  "validation_ndcg20": 0.18495622681942817
+}

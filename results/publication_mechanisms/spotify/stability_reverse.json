@@ -1,0 +1,43 @@
+{
+  "weights": {
+    "homo": 0.25,
+    "ppmi": 0.5,
+    "cooc": 0.25,
+    "pop": 0.25
+  },
+  "prior": [
+    "homo"
+  ],
+  "backoff": [
+    0.05,
+    2.1809552959761467
+  ],
+  "higher_order": [
+    0.0,
+    0.2
+  ],
+  "variance": {
+    "identifiable": true,
+    "raw_sigma0_sq": 1.3855190516752591,
+    "raw_sigma_eps_sq": -1.252804064397571,
+    "sigma0_sq": 1.3855190516752591,
+    "sigma_eps_sq": 0.0001,
+    "kappa_f": 0.05,
+    "raw_slope_negative": true,
+    "truncated": true
+  },
+  "validation_candidates": 129,
+  "order": [
+    "bridge",
+    "audiostyle",
+    "homo",
+    "cat",
+    "csvd",
+    "ppmi",
+    "cooc",
+    "pop",
+    "diff2",
+    "simp"
+  ],
+  "validation_indices_sha256": "494b15107deb77d9741606b7bddfecb8b350a486bb5a751655b294d4ebc6f1a4"
+}

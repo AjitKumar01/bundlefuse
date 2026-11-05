@@ -1,5 +1,10 @@
 # Historical manuscript
 
+The current literature-led motivation is [publication_argument.tex](../docs/publication_argument.tex).
+Read it before the [technical specification](../docs/publication_argument_technical.tex).
+The historical introduction and related-work text below require reconciliation;
+they are not the current novelty statement.
+
 On `reorganized`, the current pipeline verification is in
 [../results/pipeline_fixes/README.md](../results/pipeline_fixes/README.md). Historical experiment
 artifacts referenced below remain on `evaluation-reliability-experiments` (commit `4516eab`);

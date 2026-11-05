@@ -1,0 +1,397 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm,booktabs,microtype,xcolor}
+\usepackage[margin=24mm]{geometry}
+\usepackage[bookmarks=false]{hyperref}
+\definecolor{ink}{HTML}{244B68}
+\hypersetup{colorlinks=true,linkcolor=ink,urlcolor=ink,pdftitle={BundleFuse: A Technical Publication Argument}}
+\newtheorem{proposition}{Proposition}
+\newcommand{\I}{\mathcal I}
+\newcommand{\off}{\operatorname{off}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\pos}[1]{\left[#1\right]_+}
+\newcommand{\Z}{\mathcal Z_S}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\emergencystretch}{2em}
+\title{\textcolor{ink}{BundleFuse: A Technical Publication Argument}\\[5pt]\large Definitions, exact identities, and the evidence supporting them}
+\author{}\date{5 November 2026}
+\begin{document}
+\maketitle
+\vspace{-20pt}
+\textbf{Central claim.} Historical item relations and evidence shared through item
+attributes provide complementary estimates of bundle compatibility. BundleFuse
+constructs and combines these estimates explicitly. Candidate-frequency backoff
+and multi-item terms are additional modeling choices whose benefits must be
+established empirically.
+
+\textbf{Scope.} The equations below describe the binary-incidence, full-feature
+research formulation used for the four supplied POG/Spotify splits. They explain
+the common construction and its refinements; they are not an exhaustive specification
+of every modality or of the retail/commerce variants. Numerical findings in
+Section~\ref{evidence} use only the two completed POG mechanism studies available
+when this note was revised. The music mechanism studies are pending.
+
+\section{The prediction problem and the starting estimator}
+Let $\I=\{1,\ldots,n\}$ be a fixed catalogue with $n>1$ items. Let
+$S\subset\I$ be a nonempty observed set and let $c\in\I\setminus S$ be a candidate.
+The objective is to assign a real ranking score $\theta(c\mid S)$ to each candidate.
+A larger score indicates a preferred completion; the score is not defined as a
+probability. Hidden completion targets are available for validation and evaluation,
+but are not arguments of the scoring function.
+
+Let $m$ be the number of training bundles and $B\in\{0,1\}^{m\times n}$ their incidence
+matrix: $B_{ei}=1$ precisely when training bundle $e$ contains item $i$. Define
+\[
+ x_S(i)=\mathbf1[i\in S],\qquad f_i=\sum_{e=1}^mB_{ei},\qquad
+ d_e=\sum_{i=1}^nB_{ei}.
+\]
+Here $\mathbf1[\cdot]$ is the indicator of a statement, $f_i$ counts training
+appearances, and $d_e$ is bundle size. An elementary score is
+\begin{equation}\label{raw}
+ r_{\rm count}(c\mid S)=(B^\top Bx_S)_c
+ =\sum_{s\in S}\sum_{e=1}^m B_{ec}B_{es}.
+\end{equation}
+For $c\notin S$, this counts recorded co-memberships with the observed items.
+It motivates two modifications. First, observed counts can be dominated by frequent
+items and large bundles. Second, a zero count does not distinguish incompatibility
+from a lack of observations. These are reasons to consider modifications, not proofs
+that any particular modification improves ranking.
+
+\section{Construct historical estimates and extend their coverage}
+\subsection{Weighted historical overlap}
+Define diagonal matrices $D\in\mathbb R^{n\times n}$ and
+$V\in\mathbb R^{m\times m}$ by
+\[
+ D_{ii}=(f_i+5)^{-1/2},\qquad V_{ee}=(d_e+1)^{-1/2}.
+\]
+The basic weighted overlap vector is
+\begin{equation}\label{pair}
+ p(S)=B^\top VBDx_S.
+\end{equation}
+For equal co-membership counts, common observed items and large training bundles
+contribute less. $D$ acts on the observed-item side of this expression. Thus the
+operator in~\eqref{pair} is not generally symmetric. The constants $5$, $1$ and the
+exponents specify this version of the method; they are not derived optimal values.
+
+For propagation, define $E_{ee}=(d_e+1)^{-1}$ and
+\begin{equation}\label{propagation}
+ L=\off(DB^\top EBD),
+\end{equation}
+where $\off(M)$ replaces a square matrix's diagonal by zero. The propagated score
+is $Lp(S)$. This uses indirect historical relationships. $L$ is symmetric, but is
+not in general row-stochastic. Equation~\eqref{pair} itself retains its diagonal.
+Although that diagonal does not contribute directly to an eligible candidate's
+score, it affects observed-item entries used in propagation and standardization.
+It must not be silently removed from the definition of $p$.
+
+Raw co-occurrence, positive pointwise mutual information, and collaborative singular
+value decomposition provide other summaries of historical relations. They reuse
+history and need not be statistically independent. Their inclusion is a choice of
+candidate estimators; their necessity is an empirical question.
+
+\subsection{Relations shared through categories and descriptions}
+Let $g_i\in\{1,\ldots,q\}$ be item $i$'s category, and let
+$A\in\{0,1\}^{n\times q}$ satisfy $A_{ia}=\mathbf1[g_i=a]$. Define
+$T\in\mathbb R^{q\times q}$ so that $T_{ab}$ scores candidate category $a$ against
+observed category $b$. A category-based score has the form
+\begin{equation}\label{category}
+ r_{\rm category}(S)=ATA^\top x_S.
+\end{equation}
+Pooling training observations across items can supply support when an exact pair in
+\eqref{raw} has never occurred. Signed diagonal entries of $T$ can encode additive
+penalties for repeated categories. The implemented category table and penalties are
+specified by the domain;~\eqref{category} is their operator form, not a universal
+formula for estimating $T$. Such a relation need not be a similarity or a
+positive-semidefinite kernel.
+
+Let $F\in\mathbb R^{n\times d}$ contain fixed item feature rows $F_i$. A descriptive
+score used in the full-ranking path is
+\begin{equation}\label{feature}
+ r_F(S)=F\left(\frac{1}{|S|}\sum_{s\in S}F_s\right)^\top
+       =\frac{1}{|S|}FF^\top x_S.
+\end{equation}
+The feature dimension $d$ and the row construction depend on the modality. Features
+can distinguish candidates absent from the training bundles. Resemblance is only
+one compatibility cue: distinct product categories may complement one another,
+whereas artist or album repetition may be useful in music.
+
+For a supplied feature row $X_i$, let $\ell_i$ be its centering-group label.
+Fashion uses $\ell_i=g_i$; music uses labels obtained by clustering feature vectors,
+not artist labels. For each nonempty group $a$, define
+$\bar X_a=|\{i:\ell_i=a\}|^{-1}\sum_{i:\ell_i=a}X_i$.
+A residual feature starts from $X_i-\bar X_{\ell_i}$ and then normalizes each row.
+The residuals have zero group mean \emph{before} row normalization. The normalized
+rows need not retain zero group mean, and this operation does not establish
+independence from category or group identity.
+
+To state the feature bridge, define row normalization
+$\mathcal N(v)=v/(\lVert v\rVert_2+10^{-8})$, applied separately to each row of a
+matrix. For this construction, let $F$ be the row-normalized concatenation of the
+modality residuals in fashion, or the normalized audio residuals in music.
+Its graph-adjusted form is
+\begin{equation}
+ \widetilde F=\mathcal N\bigl(F+\tfrac12\mathcal N(LF)\bigr).
+\end{equation}
+It mixes descriptions with descriptions propagated through historical relations.
+Category relations and this bridge therefore use both attributes and history. The
+two evidence families are functional groupings, not disjoint information sources.
+
+\section{Define the combined score before interpreting it}
+\subsection{Standardization and the additive core}
+Let $\mathcal H$ be the available signal index set and let
+$r_h(S)\in\mathbb R^n$ denote raw signal $h\in\mathcal H$. Define
+\begin{align}
+ a_h(S)&=\frac1n\sum_{i=1}^n r_h(i\mid S),\\
+ b_h(S)&=\left[\frac{1}{n-1}\sum_{i=1}^n
+          (r_h(i\mid S)-a_h(S))^2\right]^{1/2},\\
+ z_h(c\mid S)&=\Z[r_h]_c
+ =\frac{r_h(c\mid S)-a_h(S)}{b_h(S)+\varepsilon},\qquad \varepsilon=10^{-9}.
+\end{align}
+The divisor $n-1$ specifies the Torch full-ranking path considered here. Some
+NumPy basket variants use divisor $n$ and are outside this numerical specification.
+All catalogue items, including $S$, enter these statistics; items in $S$ are excluded
+when recommendations are ranked. These operations depend on $S$ and fixed model
+artifacts, not on the query's hidden targets. This establishes a dependency property
+of inference, not an audit of upstream feature training or dataset provenance.
+
+Let $w_h\geq0$ be a validation-selected weight. Without multi-item refinements,
+let $z_h^0$ denote each standardized signal and define
+\begin{equation}\label{core}
+ Y_0(c\mid S)=\sum_{h\in\mathcal H}w_hz_h^0(c\mid S).
+\end{equation}
+Standardization makes the raw scales comparable; it does not make the signals
+independent or equally reliable. Because its mean and denominator depend on $S$,
+\eqref{core} need not equal a single fixed matrix times $x_S$.
+
+\subsection{Precisely defined multi-item refinements}
+We next define the optional corrections so that the eventual full score is explicit.
+For each training bundle, let $k_e(S)=\sum_{s\in S}B_{es}$ and
+$o_e(S)=V_{ee}\sum_{s\in S}B_{es}D_{ss}$. Define the incidence surplus
+\begin{equation}
+ \delta_c(S)=\sum_{e=1}^mB_{ec}o_e(S)\,\beta\pos{k_e(S)-1},
+ \qquad \beta=1.5,\qquad \pos{x}=\max(x,0).
+\end{equation}
+Only training bundles containing at least two observed items contribute. Replace
+$p$ by $p+\delta$ and $Lp$ by $Lp+L\delta$ in their respective raw channels, leaving
+other channels unchanged. Write $z_h^1$ for the separately standardized modified
+channels and $Y_1=\sum_h w_hz_h^1$.
+
+For the second refinement, let $W=\off(B^\top VBD)$ and let $v_i$ be the selected
+normalized descriptor row for item $i$: the title residual in POG and the audio
+residual in Spotify. The category label $g_i$ used below is distinct from the music
+centering-group label $\ell_i$. Define
+candidate-to-seed support and seed similarity, respectively, by
+\[
+ q_{cs}=W_{cs}+0.15\pos{v_c\cdot v_s},\qquad
+ G_{st}=\tfrac12\mathbf1[g_s=g_t]+\tfrac12\pos{v_s\cdot v_t}.
+\]
+Set $K_{ss}=0$. For distinct seeds $s,t$, use $K_{st}=\pos{1-G_{st}}$ for fashion
+and $K_{st}=1+G_{st}$ for music. The raw Rao-based score and its standardized version are
+\begin{equation}
+ R(c\mid S)=\frac{\sum_{s,t\in S}q_{cs}K_{st}q_{ct}}
+                    {\sum_{s\in S}q_{cs}+0.05},\qquad z_R=\Z[R].
+\end{equation}
+This evaluates support involving pairs of observed items under the chosen category/
+descriptor relationship. Both $\delta$ and $R$ vanish when $|S|=1$.
+
+For selected $\alpha\in[0,1]$ and $\gamma\geq0$, define the full combined estimate
+\begin{equation}\label{Y}
+ Y=(1-\alpha)Y_0+\alpha Y_1+\gamma z_R.
+\end{equation}
+The mixture is formed \emph{after} each raw channel is standardized. In general,
+$\Z[p+\alpha\delta]\ne(1-\alpha)\Z[p]+\alpha\Z[p+\delta]$.
+These corrections expand the construction; they are not assumed to improve every dataset.
+
+\subsection{The restricted fallback and its relation to the full estimate}
+Let $\mathcal Q\subset\mathcal H$ be the available fallback-eligible channels:
+category, soft-category, text-style, image-style and bridge for fashion; category,
+group homophily, audio-style and bridge for music. Let
+$\mathcal A=\{h:w_h>0\}$. Define
+\[
+ \mathcal P=\begin{cases}
+ \mathcal Q\cap\mathcal A,&\mathcal Q\cap\mathcal A\ne\varnothing,\\
+ \mathcal Q,&\text{otherwise}.
+ \end{cases}
+\]
+Assume $\mathcal Q$ is nonempty, as in these supplied datasets. For $h\in\mathcal P$,
+let $\widetilde w_h=w_h$ if its positive weight was retained, and let
+$\widetilde w_h=0.5$ otherwise. Let $z_{\rm pop}$ denote the standardized
+$\log(1+f_i)$ score, with weight $w_{\rm pop}=0$ if it was not selected. Then
+\begin{equation}\label{P}
+ P=\sum_{h\in\mathcal P}\widetilde w_hz_h^0+\gamma z_R+w_{\rm pop}z_{\rm pop}.
+\end{equation}
+The channels in $\mathcal Q$ are unaffected by the incidence modification, so
+$z_h^0=z_h^1$ there. The fallback retains selected popularity and Rao terms as well
+as category/descriptive channels. It is neither independent of history nor disjoint
+from $Y$. Its restricted channel set is a modeling choice motivated by coverage,
+not a theorem requiring this exact set.
+
+\section{Frequency-dependent backoff: an exact interpretation}
+Let $s_0\geq0$ be a validation-selected fallback scale and set $\mu_0=s_0P$.
+Let $\kappa\geq0$ be the selected backoff strength. Define the final score by
+\begin{equation}\label{theta}
+ \theta(c\mid S)=\begin{cases}
+ Y(c\mid S),&\kappa=0,\\[2pt]
+ \displaystyle\frac{f_cY(c\mid S)+\kappa\mu_0(c\mid S)}{f_c+\kappa},&\kappa>0.
+ \end{cases}
+\end{equation}
+When enabled, backoff increases the fallback's relative weight for candidates with
+less training history. Treating frequency as a measure of the useful amount of
+history is an assumption; frequency is not a calibrated estimate of uncertainty.
+
+\begin{proposition}[Pointwise regularization identity]
+Fix $S,c,Y,\mu_0$ and $\kappa>0$. Over $t\in\mathbb R$, define
+\[
+ J_c(t)=f_c(t-Y)^2+\kappa(t-\mu_0)^2.
+\]
+The score in~\eqref{theta} is the unique minimizer of $J_c$.
+\end{proposition}
+\begin{proof}
+$J'_c(t)=2f_c(t-Y)+2\kappa(t-\mu_0)$ and
+$J''_c(t)=2(f_c+\kappa)>0$. Setting the derivative to zero gives
+$t=(f_cY+\kappa\mu_0)/(f_c+\kappa)$.
+\end{proof}
+This identity explains how a fixed pair of scores is combined. It is not the
+objective optimized by the entire fitting pipeline, and does not prove optimality
+of the frequency weight, fallback construction, or ranking risk. If $f_c=\kappa=0$,
+the quadratic is constant; returning $Y$ is the explicit disabled-backoff convention.
+
+A Gaussian posterior interpretation requires additional distributional assumptions.
+The archived four supplied-split fits have raw slopes approximately
+$-0.273,-2.528,-5.336,-5.869$ when mean squared disagreement between $Y$ and the scaled
+fallback is regressed on $1/f_c$ over warm items. Those signs do not support the
+posited positive inverse-frequency variance relation in those fits. They are not
+formal rejection tests, and disagreement between two scores is not ground-truth
+prediction error. The procedure clips variance estimates and selects backoff settings
+using validation. Thus the exact identity above is a firmer explanation than a claim
+of empirically validated posterior uncertainty.
+
+\section{Consequences of shared terms}
+For $\kappa>0$, define $\rho_c=f_c/(f_c+\kappa)$ and $H=Y-P$. Substitution gives
+\begin{equation}\label{sharedidentity}
+ \theta=\rho_cH+\bigl[\rho_c+(1-\rho_c)s_0\bigr]P.
+\end{equation}
+At $s_0=1$, this reduces to $P+\rho_cH$. At a different scale, the coefficient of
+$P$ also varies by candidate. $H$ is defined algebraically; it can be interpreted
+as the remaining selected channels when shared coefficients agree, as in the four
+archived selections. Default fallback weights require separate interpretation.
+
+For comparison, let $a\in[0,1]$ be a candidate-independent fallback fraction. Its score is
+\[
+ \theta_a=(1-a)Y+as_0P=(1-a)H+(1-a+as_0)P.
+\]
+When $Y$ and $P$ use a common fixed signal dictionary, this constant mixture is a
+reweighting of that dictionary. Improvements over a coarse, sequentially selected
+weight vector do not by themselves establish a new representational capability.
+Frequency-dependent backoff permits different coefficients for different candidates;
+its practical advantage over constant reweighting must be measured.
+
+\begin{proposition}[Ordering within the cold subset]
+Let $\mathcal C_0=\{c\in\I\setminus S:f_c=0\}$. Hold all component scores and
+weights fixed. Suppose $Y(c\mid S)-P(c\mid S)=b(S)$ for all $c\in\mathcal C_0$,
+where $b(S)$ does not depend on $c$. If $s_0>0$ and $\kappa>0$, enabling backoff
+preserves the ordering of candidates within $\mathcal C_0$, including ties.
+\end{proposition}
+\begin{proof}
+For $c,d\in\mathcal C_0$, the disabled score difference is
+$Y(c\mid S)-Y(d\mid S)=P(c\mid S)-P(d\mid S)$. The enabled difference is
+$s_0[P(c\mid S)-P(d\mid S)]$, which has the same sign.
+\end{proof}
+This is a statement in exact real arithmetic. With exact scores, an identical
+item-ID tie rule preserves the within-subset ranking. Floating-point evaluation can
+create or break near-ties; bit-identical numerical rankings do not follow from the proof.
+The proposition does not preserve rankings between cold and warm candidates, nor
+apply to a comparison that also retunes components. One sufficient condition is
+that $Y-P$ contains only standardized history channels whose raw scores are zero
+for every cold candidate. Catalogue standardization then contributes the same
+constant for each cold candidate within each such channel. Auxiliary histories,
+different fallback coefficients, or $s_0=0$ can invalidate the premises.
+
+\section{Fitting and the empirical argument}\label{evidence}
+Weights are selected by a finite greedy coordinate search on validation ranking
+quality, followed by optional-term and backoff selection. This is a fitted procedure
+with order dependence and finite search resolution; it is not guaranteed to find
+a global optimum. In the mechanism study, every reported recipe is frozen before
+test scoring. Catalogue features are available transductively. No conclusion here
+asserts that external feature encoders were trained without evaluation-item exposure.
+
+The completed studies yield the following Recall@20 values:
+\begin{center}
+\begin{tabular}{@{}lrr@{}}\toprule
+Construction & POG & POG\_dense \\\midrule
+Historical family & 0.030875 & 0.375379\\
+Shared category/descriptive family & 0.044542 & 0.112917\\
+Combined, without refinements & 0.051458 & 0.390928\\
+Full BundleFuse & 0.054458 & 0.395223\\\bottomrule
+\end{tabular}
+\end{center}
+The historical family includes popularity. The family-only models are separately
+validation-selected; they are not frozen-weight removals. The combined model exceeds
+both families individually in Recall@20 and NDCG@20 under the current correction
+reserving all 96 planned comparisons. This supports complementary predictive
+information in the tested constructions. It does not prove every channel necessary
+or attribute the contrast between datasets solely to density.
+
+With matched fallback scale, frequency backoff exceeds the selected constant mixture
+on POG: Recall@20 is $0.054458$ versus $0.051833$, with corrected evidence in both
+metrics. Under unit scale, that superiority is not established. On POG\_dense,
+the corresponding matched-scale recalls are $0.392893$ and $0.394353$; their difference
+is not established. Absence of a significant difference is not an equivalence result.
+
+On POG, cold-target recall in full-catalogue retrieval increases from $0.039884$
+without backoff to $0.044069$ with matched-scale frequency backoff, while within-cold
+Recall@20 remains $0.075222$. These are descriptive bucket diagnostics, conditional
+on queries containing cold targets. They agree with the ordering proposition's
+predicted distinction. The evaluated core variants on POG\_dense retrieve no cold
+targets in the global top 20, despite nonzero within-cold recall; universal cold-start
+success is therefore unsupported.
+
+The five tested selection conditions give Recall@20 ranges
+$[0.050958,0.054458]$ on POG and $[0.385736,0.395896]$ on POG\_dense.
+These descriptive ranges show that selection sensitivity is material. The best
+variant must not be chosen using test results. The studies are follow-up analyses
+on previously inspected benchmarks, with uncertainty conditional on fitted models
+and fixed splits. The final joint correction across datasets awaits the music runs.
+
+\section{The resulting publication claim}
+The supported central argument is that explicit historical estimates and evidence
+shared through item attributes improve one another in the completed experiments.
+Backoff and multi-item corrections extend that construction, with benefits that
+depend on the evaluated conditions. The contribution must concern the particular
+score construction and its demonstrated behavior relative to appropriate controls.
+It cannot rest solely on combining information sources, avoiding a neural encoder,
+or rewriting a convex mixture as a quadratic minimizer.
+
+This positioning is consistent with prior work: EASE establishes strong explicit
+item-relation modeling~\cite{ease}; CLHE and RaMen already combine several information
+sources for bundle construction~\cite{clhe,ramen}; empirical-Bayes product search
+already combines behavioral estimates with descriptive priors~\cite{eb}.
+The complete related-work and benchmark-provenance comparison remains necessary.
+
+\paragraph{Audit trail.}
+The equations were checked against the scoring and fusion implementation at commit
+\texttt{80ff927}. The new POG results come from
+the dataset-level \texttt{summary.json} files under
+\texttt{results/publication\_mechanisms};
+the four historical variance fits come from the supplied-split selections at
+\texttt{4516eab}. Historical and current experiment records are distinguished.
+An independent synthetic-catalogue audit checked 52 equation cases against the
+implementation, including fallback-default weights, propagation, incidence, Rao
+scores, and enabled/disabled backoff. The largest absolute discrepancy was
+$4.77\times10^{-7}$, consistent with the tested float32 computations. Numerical
+agreement checks implementation correspondence, not statistical optimality.
+The audit is retained in \texttt{results/argument\_audit/equations.json}.
+The method source and running experiments were not changed by this document revision.
+
+\begin{thebibliography}{9}\small
+\bibitem{ease} H. Steck. Embarrassingly Shallow Autoencoders for Sparse Data. WWW, 2019.
+\url{https://arxiv.org/abs/1905.03375}.
+\bibitem{clhe} Y. Ma et al. Leveraging Multimodal Features and Item-level User Feedback
+for Bundle Construction. WSDM, 2024. \url{https://arxiv.org/abs/2310.18770}.
+\bibitem{ramen} H.-S. Nguyen et al. RaMen: Multi-Strategy Multi-Modal Learning for Bundle
+Construction. 2025 preprint. \url{https://arxiv.org/abs/2507.14361}.
+\bibitem{eb} C. Han et al. Addressing Cold Start in Product Search via Empirical Bayes.
+CIKM, 2022. \url{https://doi.org/10.1145/3511808.3557066}.
+\end{thebibliography}
+\end{document}

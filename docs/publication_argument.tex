@@ -1,0 +1,238 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,booktabs,tabularx,microtype}
+\usepackage[margin=24mm]{geometry}
+\usepackage[bookmarks=false,colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\setlength{\parindent}{0pt}\setlength{\parskip}{5pt}
+\setlength{\emergencystretch}{2em}
+\title{BundleFuse: From Prior Work to the Research Question}
+\author{}\date{5 November 2026}
+\begin{document}
+\maketitle\vspace{-18pt}
+This document develops the motivation and positioning before the experimental case.
+Its purpose is to explain what is inherited, what question is being asked, and how
+the implemented construction addresses that question. It is a focused positioning
+argument, not an exhaustive literature review or a claim of established priority.
+The accompanying technical note defines the exact scores and their assumptions.
+
+\section{Begin with the kind of relationship the task requires}
+A partial bundle specifies a context for choosing another item. A camera bag can
+complete a camera kit even though its appearance and function differ from the camera.
+A second camera may be more similar but less useful as a completion. Thus a useful
+ranking must represent the relationship required by the context, rather than assume
+that resemblance always implies suitability.
+
+This distinction has an established basis. McAuley, Pandey and Leskovec model
+substitutable and complementary product links using product-associated information,
+including review text and category structure~\cite{mcauley}. Their work motivates
+relation-sensitive recommendation. It does not establish that every pair from
+different categories is complementary, or that a category rule solves compatibility.
+
+For bundle completion, the relationship can also vary by domain. Repetition of a
+product role can be undesirable in an outfit, while a shared artist can be useful
+in a playlist. This motivates retaining several precisely defined relationship
+scores. It does not justify assuming that all of them are useful everywhere.
+
+\section{What explicit recommendation models already establish}
+Item-relation methods provide a natural starting point: score a candidate by its
+relationships to the observed items. Let $\mathcal I$ be a catalogue, $S$ its observed
+subset, $c\notin S$ a candidate, and $M_{cs}$ an estimated relation between $c$ and
+$s$. The additive score is
+\[
+ r(c\mid S)=\sum_{s\in S}M_{cs}.
+\]
+This notation describes a class of estimators; it is not presented as a new formula.
+
+EASE demonstrates that a shallow linear recommendation model with a closed-form
+solution can achieve strong ranking performance~\cite{ease}. Side-information
+extensions of SLIM already combine purchase histories and item attributes in a
+regularized linear model~\cite{sslim}. More recently, the FEASE preprint extends EASE
+with user and item side features for cold-start handling~\cite{fease}.
+
+These works constrain our claim. Explicit scoring, side-information fusion and the
+absence of a deep downstream encoder are established possibilities. Furthermore,
+a model originally formulated for user histories can often be applied to an observed
+item set. Merely renaming a history as a partial bundle does not create a new method.
+
+The remaining design issue for this work is more specific: \emph{which relations
+should an explicit estimator preserve when completing bundles, and how should their
+scores be combined?} Historical overlap, category relations and descriptive resemblance
+are related measurements, but they are not interchangeable definitions of compatibility.
+
+\section{What modern bundle construction already addresses}
+CLHE directly addresses sparse bundle histories by combining multimodal features,
+item-level user feedback and bundle composition. It uses hierarchical self-attention
+and item- and bundle-level contrastive objectives~\cite{clhe}. Its motivation already
+includes the observation that features can be available for items with little bundle
+history. BundleFuse must acknowledge that motivation as prior work.
+
+RaMen develops characteristic and collaborative strategies together with hypergraph
+structure to learn bundle representations~\cite{ramen}. It explicitly models multiple
+kinds of relationships. A claim that earlier bundle models consider only similarity,
+ignore direct item associations, or neglect multi-item structure would misrepresent
+this comparator.
+
+These papers motivate a question about the \emph{construction of the predictor}.
+They do not imply that another learned encoder is the only way to use the available
+information, nor that their representation learning is unnecessary. That issue is
+comparative and must be investigated.
+
+\section{State the question without inventing an unaddressed problem}
+The research question is:
+\begin{quote}
+Given historical bundles and available item attributes, how far can explicit,
+relation-specific compatibility estimates support bundle completion without training
+a new neural bundle encoder?
+\end{quote}
+This asks about the usefulness and limits of a particular alternative construction.
+It does not assert that no earlier model combines these inputs. Its value depends
+on defining a nontrivial construction, explaining its choices, and eventually
+showing what those choices achieve relative to appropriate alternatives.
+
+The distinction from neural bundle encoders is that the relevant relationships enter
+as directly computed candidate scores. The distinction from a generic linear
+recommender must be established through the specific relation constructions and
+combination rule, not merely through the claim that the method is simple.
+
+\section{Develop the construction from that question}
+\subsection{Preserve directly observed relations}
+Let $B$ be the binary training-bundle by item matrix and let $x_S$ be the indicator
+vector of $S$. Then $(B^\top Bx_S)_c$ counts recorded co-memberships with the query
+items. BundleFuse uses weighted overlap and alternative summaries of history to
+reduce particular effects of frequency, bundle size and sparse direct observations.
+This step inherits the explicit item-relation perspective. Its particular weights
+and summary operators are modeling choices, not consequences of the cited papers.
+
+\subsection{Share evidence while retaining the type of relationship}
+Exact co-occurrence has no direct evidence for an unobserved pair. BundleFuse also
+constructs category relations and scores from descriptive features. Category
+relations aggregate observations across items, while feature relationships extend
+coverage beyond recorded pairs. The category component can distinguish support
+between categories from penalties for repeating a rarely repeated category.
+
+These choices connect the relation-sensitive view to an explicit score construction.
+They do not identify economic substitutes or complements from category labels alone.
+The distinction is operational: each formula specifies which observed relationship
+it measures and what response it assigns to the candidate.
+
+Category or cluster centering of descriptors and graph-adjusted features provide
+further candidate estimators. Their purpose is to separate a group's mean descriptor
+from within-group variation and to combine descriptions with historical relationships.
+These operations are not proofs of disentanglement. Their individual utility remains
+an empirical question. The complete method should disclose each operation, even when
+several share one conceptual role.
+
+\subsection{Combine scores with different scales and coverage}
+Let $r_h(c\mid S)$ denote raw channel $h$, let $z_h(c\mid S)$ be its catalogue-standardized
+value for the query, and let $w_h\geq0$ be its validation-selected weight. The additive
+core is
+\[
+ Y_0(c\mid S)=\sum_h w_h z_h(c\mid S).
+\]
+This exposes the construction to inspection: the meaning of a channel, its scale
+transformation and its contribution to a candidate score are explicit. It does not
+make channels independent or their weights causally interpretable. The use of
+validation to choose weights is fitting, even without neural gradient training.
+
+The signal menu therefore belongs inside the explanation of these relation estimates.
+It is not a list of independent novelty claims. A convincing presentation must
+explain why each family is considered, state its overlap with other families, and
+identify which components survive selection in the reported model.
+
+\subsection{Introduce optional corrections after the core}
+Let $Y$ be the combined score including any selected multi-item corrections, and
+$\mu_0$ a scaled fallback assembled from a restricted set of channels. Let $f_c$ be
+the number of candidate appearances in training and $\kappa>0$ the fallback strength.
+The backoff score is
+\[
+ \theta(c\mid S)=\frac{f_c}{f_c+\kappa}Y(c\mid S)
+              +\frac{\kappa}{f_c+\kappa}\mu_0(c\mid S).
+\]
+It provides an explicit rule for changing the balance with candidate history.
+Frequency is a proxy for available historical evidence, not a calibrated uncertainty.
+The two estimates overlap; the fallback is not a history-independent expert.
+
+Related empirical-Bayes product-search work already combines behavioral information
+with non-behavioral priors~\cite{han}. Consequently, neither interpolation nor
+shrinkage toward descriptive evidence is new by itself. BundleFuse's specific
+fallback, its overlap with the combined score, and the candidate-frequency rule
+must be defined and defended in the bundle setting. The technical note gives a
+pointwise regularization interpretation without assuming a validated noise model.
+
+The incidence surplus and Rao-based term address an additional question: can support
+involving several observed items change the assessment beyond separate matches?
+They are explicit optional corrections. Their presence does not establish that
+higher-order interactions are the principal explanation of the method's accuracy.
+
+\section{State the contribution at the level the construction supports}
+The proposed methodological contribution is the \emph{particular explicit scoring
+construction for bundle completion}: historical relation estimates, category and
+descriptive estimates, query-wise scale alignment, and specified optional corrections.
+The paper must distinguish those design choices from the established ingredients.
+A coherent combination can be useful, but naming its ingredients differently does
+not establish novelty.
+
+The central hypothesis is that carefully constructed relation scores provide a
+competitive and inspectable alternative for this task. This is an affirmative,
+testable hypothesis. It does not require asserting that neural models are excessive,
+that all low-rank representations lose necessary information, or that the scorer
+has a universal computational advantage.
+
+A reviewer may reasonably ask whether BundleFuse is a feature-engineered ensemble.
+The descriptive answer is that it combines engineered scores. The scientific answer
+must specify the relationships those scores encode, why those relationships matter
+for completion, and the distinctive behavior of the resulting estimator. A new
+technical principle cannot be inferred solely from benchmark wins. The contribution
+may ultimately be a well-supported construction and analysis rather than a general
+new theory of recommendation.
+
+\section{An introduction built from this path}
+Completing a bundle requires selecting items that are appropriate companions to
+those already present. Prior work on product relationships distinguishes
+substitutability from complementarity, establishing that relevance to an item need
+not mean resemblance~\cite{mcauley}. For completion, historical co-membership supplies
+direct relational evidence, while item attributes allow that evidence to extend
+beyond exact observed pairs.
+
+Both explicit and neural models have established ways to exploit such information.
+Shallow and side-information recommendation models demonstrate the viability of
+explicit scoring~\cite{ease,sslim,fease}; modern bundle models learn representations
+from several sources and relationships~\cite{clhe,ramen}. These developments motivate
+examining the extent to which bundle compatibility can be estimated directly from
+specified relations, with the contributions of those relations remaining visible.
+
+We investigate this question through BundleFuse. The method constructs historical,
+category and descriptive compatibility scores, places them on comparable scales,
+and selects their combination using validation examples. It also provides explicit
+candidate-frequency and multi-item corrections. This formulation makes the design
+question concrete: which relational estimates are useful for completing a bundle,
+and when do the corrections add information beyond their combination?
+
+\paragraph{How this relates to the existing documents.}
+This is the motivation and positioning that should precede
+\texttt{publication\_argument\_technical.tex}. The historical manuscript's introduction
+and related-work text contain stronger claims about cost, zero parameters, prior
+methods and broad superiority that require reconciliation. They should not be used
+as the current statement of the contribution. Experimental evidence belongs after
+this argument and must remain within its verified scope.
+
+\begin{thebibliography}{9}\small
+\bibitem{mcauley} J. McAuley, R. Pandey, J. Leskovec. Inferring Networks of Substitutable
+and Complementary Products. KDD, 2015.
+\url{https://cseweb.ucsd.edu/~jmcauley/pdfs/kdd15.pdf}.
+\bibitem{ease} H. Steck. Embarrassingly Shallow Autoencoders for Sparse Data. WWW, 2019.
+\url{https://arxiv.org/abs/1905.03375}.
+\bibitem{sslim} X. Ning, G. Karypis. Sparse Linear Methods with Side Information for
+Top-N Recommendations. WWW 2012 companion/poster version.
+\url{https://archives.iw3c2.org/www2012/proceedings/companion/p581.pdf}.
+\bibitem{fease} E. D. Cui, L. Zhang, W. P. Lee. Shallow AutoEncoding Recommender with
+Cold Start Handling via Side Features. Preprint, 2025.
+\url{https://arxiv.org/abs/2504.02288v4}.
+\bibitem{clhe} Y. Ma et al. Leveraging Multimodal Features and Item-level User Feedback
+for Bundle Construction. WSDM, 2024. \url{https://arxiv.org/abs/2310.18770}.
+\bibitem{ramen} H.-S. Nguyen et al. RaMen: Multi-Strategy Multi-Modal Learning for Bundle
+Construction. Preprint, 2025. \url{https://arxiv.org/abs/2507.14361}.
+\bibitem{han} C. Han et al. Addressing Cold Start in Product Search via Empirical Bayes.
+CIKM, 2022. \url{https://doi.org/10.1145/3511808.3557066}.
+\end{thebibliography}
+\end{document}

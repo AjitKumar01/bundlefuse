@@ -1,0 +1,27 @@
+{
+  "path": "checkpoints/publication_mechanisms/pog_dense/artifacts.pt",
+  "sha256": "5c7bfc38feb43bf9f045630bd7b45e71b57e8dda168209245b7aa105b7e6fd47",
+  "config": {
+    "n_items": 31217,
+    "families": [
+      "collaborative",
+      "content",
+      "taxonomy",
+      "popularity"
+    ],
+    "svd_dim": 128,
+    "alpha_deg": 0.5,
+    "gamma_vol": 0.5,
+    "beta_clique": 1.5,
+    "alpha_bridge": 0.5,
+    "n_soft_clusters": 400,
+    "soft_tau": 0.05,
+    "sel_obj": "ndcg20",
+    "compressed": true,
+    "content_rank": null,
+    "signal_profile": "research",
+    "fit_rounds": 4,
+    "seed_cap": 0,
+    "validation_chunk": 32
+  }
+}

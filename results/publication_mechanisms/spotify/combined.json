@@ -1,0 +1,28 @@
+{
+  "weights": {
+    "simp": 0.25,
+    "pop": 1.0,
+    "ppmi": 1.0,
+    "csvd": 0.5,
+    "homo": 0.25,
+    "audiostyle": 0.25,
+    "bridge": 0.25
+  },
+  "prior": [
+    "homo",
+    "audiostyle",
+    "bridge"
+  ],
+  "backoff": [
+    0.0,
+    1.0
+  ],
+  "higher_order": [
+    0.0,
+    0.0
+  ],
+  "variance": {
+    "disabled": true
+  },
+  "validation_ndcg20": 0.2482726970568881
+}

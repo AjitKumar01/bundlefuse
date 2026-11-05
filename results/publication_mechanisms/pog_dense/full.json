@@ -1,0 +1,32 @@
+{
+  "weights": {
+    "cat": 0.5,
+    "bridge": 0.25,
+    "simp": 0.5,
+    "pop": 0.25,
+    "csvd": 0.25
+  },
+  "prior": [
+    "cat",
+    "bridge"
+  ],
+  "backoff": [
+    0.5,
+    1.4605515925404695
+  ],
+  "higher_order": [
+    1.0,
+    0.0
+  ],
+  "variance": {
+    "identifiable": true,
+    "raw_sigma0_sq": 2.474907838035391,
+    "raw_sigma_eps_sq": -2.5281071910569533,
+    "sigma0_sq": 2.474907838035391,
+    "sigma_eps_sq": 0.0001,
+    "kappa_f": 0.05,
+    "raw_slope_negative": true,
+    "truncated": true
+  },
+  "validation_ndcg20": 0.2848662286725829
+}
