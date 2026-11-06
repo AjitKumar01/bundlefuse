@@ -143,6 +143,24 @@ $\epsilon>0$ & Small constant for numerical stability
 \key{No hidden completion labels enter these normalization statistics.}
 \end{frame}
 
+\begin{frame}{Ranking metrics at 20}
+Let $G$ be the withheld items and $L_{20}$ the top 20 recommendations.
+\[
+ \boxed{\mathrm{Recall@20}=\frac{|L_{20}\cap G|}{|G|}}
+\]
+\textbf{Recall:} fraction of withheld items recovered in the top 20.\par
+\vspace{3mm}
+Let $\mathrm{rel}_r=1$ if rank $r$ is withheld, and $0$ otherwise.
+\[
+ \mathrm{DCG@20}=\sum_{r=1}^{20}\frac{\mathrm{rel}_r}{\log_2(r+1)},
+ \qquad
+ \boxed{\mathrm{NDCG@20}=\frac{\mathrm{DCG@20}}{\mathrm{IDCG@20}}}
+\]
+\textbf{NDCG:} rewards withheld items appearing earlier in the ranking.\par
+\vspace{2mm}
+$\mathrm{IDCG@20}$ is the DCG of the ideal ordering. Both metrics are averaged over queries.
+\end{frame}
+
 \begin{frame}{Results: POG}
 \textbf{Full-catalogue ranking on the supplied split}\par
 \vspace{5mm}

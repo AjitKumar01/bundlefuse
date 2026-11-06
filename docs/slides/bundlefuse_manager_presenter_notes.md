@@ -1,6 +1,6 @@
-# BundleFuse — explanations for presenting the 11-slide deck
+# BundleFuse — explanations for presenting the 12-slide deck
 
-Read this as an explanation of the argument, rather than a script to memorize. Each slide section answers what the displayed terms mean, why the operation is used, and what it can and cannot establish. The worked examples are hypothetical; the benchmark results in slides 9–11 are measured results.
+Read this as an explanation of the argument, rather than a script to memorize. Each slide section answers what the displayed terms mean, why the operation is used, and what it can and cannot establish. The worked examples are hypothetical; the benchmark results in slides 10–12 are measured results.
 
 ## The argument in ordinary language
 
@@ -354,7 +354,7 @@ The known catalogue and its supplied attributes are part of this benchmark setup
 
 **A sentence to present:** “We express a candidate's score as its position relative to the other catalogue scores for this query. This removes arbitrary score units and does not require the hidden completion labels.”
 
-## How to explain Recall@20 and NDCG@20
+## Slide 9 — Recall@20 and NDCG@20 definitions
 
 Both metrics compare the **ordered list returned for one query** with that query's withheld items. An item is relevant here if it belongs to the withheld ground truth. The already observed items are excluded from the recommendation list before the top 20 is selected.
 
@@ -409,7 +409,7 @@ The project evaluator uses binary relevance, one-based ranks, and discount \(1/\
 
 **A sentence to present:** “Recall@20 tells us what fraction of the withheld items we found in the first 20. NDCG@20 also rewards finding them earlier in that list.”
 
-## Slide 9 — What does the POG result establish?
+## Slide 10 — What does the POG result establish?
 
 The test asks the algorithm to recover withheld items from each supplied query. The ranking includes the full eligible catalogue, rather than a small multiple-choice candidate list.
 
@@ -435,7 +435,7 @@ Our value uses all 4,000 supplied test queries after scalar settings were select
 
 This is evidence of benchmark performance. It does not identify which operation caused the cross-model difference or establish performance on every domain.
 
-## Slide 10 — What does the Spotify result add?
+## Slide 11 — What does the Spotify result add?
 
 Spotify applies the same completion task to playlists, with 254,155 catalogue items and 4,000 supplied test queries. The comparison is
 
@@ -457,7 +457,7 @@ Raw metric levels should not be used to conclude that one domain is intrinsicall
 
 **A sentence to present:** “The improvement is also observed for playlist completion, with 0.15565 Recall@20 versus the published 0.10910.”
 
-## Slide 11 — What does the internal comparison explain?
+## Slide 12 — What does the internal comparison explain?
 
 The cross-model results do not tell us which of our calculations matter. This experiment asks a narrower question: how do systems selected from different allowed source collections perform on the same supplied queries?
 
