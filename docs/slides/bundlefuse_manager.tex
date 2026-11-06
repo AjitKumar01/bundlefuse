@@ -1,0 +1,193 @@
+\documentclass[11pt,aspectratio=169]{beamer}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,booktabs,array}
+\definecolor{Ink}{HTML}{172B3A}
+\definecolor{Accent}{HTML}{007F79}
+\definecolor{Muted}{HTML}{556570}
+\setbeamercolor{normal text}{fg=Ink,bg=white}
+\setbeamercolor{structure}{fg=Accent}
+\setbeamercolor{frametitle}{fg=Ink,bg=white}
+\setbeamercolor{itemize item}{fg=Accent}
+\setbeamerfont{frametitle}{size=\Large,series=\bfseries}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize item}{\small\textbullet}
+\setbeamersize{text margin left=9mm,text margin right=9mm}
+\setbeamertemplate{footline}{\hfill\textcolor{Muted}{\scriptsize\insertframenumber/\inserttotalframenumber}\hspace{9mm}\vspace{3mm}}
+\setbeamertemplate{frametitle}{\vspace{3mm}\insertframetitle\par\vspace{1.5mm}\textcolor{Accent}{\rule{\textwidth}{0.5pt}}}
+\setlength{\parskip}{1pt}
+
+\newcommand{\key}[1]{\textcolor{Accent}{\textbf{#1}}}
+\hypersetup{pdftitle={BundleFuse: Bundle Completion Without Neural Training},pdfauthor={BundleFuse},colorlinks=true,urlcolor=Accent}
+\begin{document}
+
+\begin{frame}{Problem statement}
+\key{Complete a partially observed bundle.}
+\vspace{5mm}
+\[
+ \underbrace{S=\{\text{shirt, trousers}\}}_{\text{observed items}}
+ \quad\longrightarrow\quad
+ \underbrace{c\in\mathcal I\setminus S}_{\text{candidate completion}}
+\]
+\vspace{5mm}
+\[
+ \boxed{\widehat C_K(S)=\operatorname{TopK}_{c\notin S}\;\theta(c\mid S)}
+\]
+\vspace{4mm}
+$\mathcal I$: item catalogue.\quad $K$: number of recommendations.\par
+\vspace{3mm}
+\textbf{Goal:} rank items that belong with the observed combination.
+\end{frame}
+
+\begin{frame}{Problem statement}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.47\textwidth}
+\key{Specific historical evidence}\par\vspace{4mm}
+These items were selected together.\par\vspace{4mm}
+\textbf{Limitation:} some candidates have no recorded matches.\par\vspace{3mm}
+\textbf{Example:} a new shoe has no recorded co-occurrence with this shirt or these trousers.
+\end{column}
+\begin{column}{0.47\textwidth}
+\key{Transferable descriptive evidence}\par\vspace{4mm}
+These items have related attributes.\par\vspace{4mm}
+\textbf{Limitation:} resemblance need not imply compatibility.\par\vspace{3mm}
+\textbf{Example:} trousers resembling the observed trousers may rank highly, even when the missing item is a shoe.
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Research question}
+\key{Can recorded bundle occurrences and item attributes support accurate
+completion without gradient-training a scoring model?}
+\vspace{6mm}
+\begin{enumerate}\setlength\itemsep{8pt}
+\item \textbf{Use observed combinations}\par
+Distinguish several query items occurring together from separate pairwise matches.
+\item \textbf{Handle missing item-pair observations}\par
+Score a candidate even when it has never occurred with the query items.
+\item \textbf{Test the value of combining both}\par
+Compare with each source collection alone and with published neural results.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Neural baselines}
+\renewcommand{\arraystretch}{1.65}
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.19\textwidth}>{\raggedright\arraybackslash}p{0.23\textwidth}>{\raggedright\arraybackslash}p{0.53\textwidth}@{}}
+\toprule
+\textbf{Architecture} & \textbf{Parameters} & \textbf{Architecture summary}\\
+\midrule
+CLHE & 9.48M trained (POG) & Hierarchical attention with item- and bundle-level contrastive learning.\\
+RaMen & 16.06M trained (POG) & Characteristic and graph encoders combined with a learned hypergraph.\\
+Bundle-MLLM & 7B backbone & Multimodal item tokens projected into an LLM, adapted with LoRA.\\
+\bottomrule
+\end{tabular}
+\end{frame}
+
+\begin{frame}{BundleFuse}
+\begin{enumerate}\setlength\itemsep{13pt}
+\item \key{Parameter-free scoring core}\par
+Zero gradient-trained scoring parameters.
+\item \key{No neural-network training}\par
+Compute statistics and representations; select scalar settings on validation.
+\item \key{Historical bundles as completion examples}\par
+Preserve joint evidence, transfer it through shared relations, and
+adjust reliance using candidate history.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{General scoring equations}
+\textbf{Final score:} mix all selected scores with a specified subset.
+\vspace{4mm}
+\[
+ \boxed{\theta(c\mid S)=\frac{f_c}{f_c+\kappa}Y_c+
+                      \frac{\kappa}{f_c+\kappa}s_0P_c}
+\]
+\vspace{3mm}
+\begin{tabular}{@{}p{0.10\textwidth}p{0.85\textwidth}@{}}
+$Y_c$ & Combination of all selected score sources\\[5pt]
+$P_c$ & Category, descriptor or metadata scores, plus selected popularity; the chosen sources depend on the dataset\\[5pt]
+$f_c$ & Candidate's number of appearances in training bundles\\[5pt]
+$s_0,\kappa$ & Fallback scale and frequency threshold, respectively
+\end{tabular}\par
+\vspace{4mm}
+\key{At $f_c=0$, only the scaled subset score $s_0P_c$ remains.}
+\end{frame}
+
+\begin{frame}{General scoring equations}
+\textbf{Combine standardized sources $z_h$ with scalar weights.}
+\[
+ Y_c=\sum_{h\in\mathcal H}w_hz_h(c\mid S),\qquad
+ P_c=\sum_{h\in\mathcal P}\widetilde w_hz_h(c\mid S),\quad\mathcal P\subseteq\mathcal H.
+\]
+$\mathcal H$: available sources.\quad $\mathcal P$: chosen fallback sources.\par
+\vspace{6mm}
+$z_h(c\mid S)$: standardized score from source $h$.\par\vspace{4mm}
+$w_h,\widetilde w_h$: scalar weights selected for the two combinations.\par\vspace{6mm}
+\key{The fallback combines selected sources already available to the full score.}
+\end{frame}
+
+\begin{frame}{General scoring equations}
+\textbf{Put different score sources on a comparable scale.}
+\vspace{5mm}
+\[
+ \boxed{z_h(c\mid S)=\frac{r_h(c\mid S)-\mu_h(S)}{\sigma_h(S)+\epsilon}}
+\]
+\vspace{5mm}
+\begin{tabular}{@{}ll@{}}
+$r_h$ & Raw score computed from history and available attributes\\[4pt]
+$\mu_h(S)$ & Mean of this score over catalogue items, for query $S$\\[4pt]
+$\sigma_h(S)$ & Standard deviation over the same items\\[4pt]
+$\epsilon>0$ & Small constant for numerical stability
+\end{tabular}\par
+\vspace{5mm}
+\key{No hidden completion labels enter these normalization statistics.}
+\end{frame}
+
+\begin{frame}{Results: POG}
+\textbf{Full-catalogue ranking on the supplied split}\par
+\vspace{5mm}
+\centering
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{lrr}\toprule
+Method & Recall@20 & NDCG@20\\\midrule
+CLHE (published) & 0.02840 & 0.01930\\
+RaMen (published) & 0.03750 & 0.02260\\
+\key{BundleFuse} & \textbf{0.05446} & \textbf{0.03609}\\\bottomrule
+\end{tabular}\par
+\par\vspace{7mm}
+\key{+45.2\% relative Recall@20 versus published RaMen}
+\end{frame}
+
+\begin{frame}{Results: Spotify}
+\textbf{Full-catalogue ranking on the supplied split}\par
+\vspace{5mm}
+\centering
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{lrr}\toprule
+Method & Recall@20 & NDCG@20\\\midrule
+CLHE (published) & 0.10810 & 0.18060\\
+RaMen (published) & 0.10910 & 0.18820\\
+\key{BundleFuse} & \textbf{0.15565} & \textbf{0.25793}\\\bottomrule
+\end{tabular}\par
+\par\vspace{7mm}
+\key{+42.7\% relative Recall@20 versus published RaMen}
+\end{frame}
+
+\begin{frame}{Results: why combine the evidence?}
+\textbf{NDCG@20 on the same queries within each dataset}\par
+\vspace{3mm}
+\centering
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{lrrr}\toprule
+Evidence & POG & POG\_DENSE & Spotify\\\midrule
+Historical only & 0.02094 & 0.25945 & 0.21170\\
+Shared only & 0.02929 & 0.07697 & 0.17191\\
+Combined, no fallback & 0.03394 & 0.27689 & 0.24320\\
+\key{Full BundleFuse} & \textbf{0.03609} & \textbf{0.28788} & \textbf{0.25793}\\\bottomrule
+\end{tabular}\par
+\par\vspace{6mm}
+\key{Neither source family alone matches the combined estimator.}\par
+\vspace{3mm}
+POG\_DENSE full-model Recall@20: \textbf{0.39522}.
+\end{frame}
+\end{document}

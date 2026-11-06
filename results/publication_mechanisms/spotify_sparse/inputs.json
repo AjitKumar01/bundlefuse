@@ -1,0 +1,47 @@
+{
+  "dataset": "spotify_sparse",
+  "n_items": 213325,
+  "protocol": "provided",
+  "data_profile": "research",
+  "split_seed": null,
+  "mask_frac": null,
+  "val_limit": null,
+  "test_limit": null,
+  "train_bundles": 8740,
+  "val_queries": 1248,
+  "test_queries": 2498,
+  "val_total": 1248,
+  "test_total": 2498,
+  "full_validation": true,
+  "full_test": true,
+  "train_sha256": "8e789c7e22a20c8aa2a686c5afb0c42801fdc7dfae046122104292487b00ef72",
+  "val_pairs_sha256": "9d91f50afaeb0b7e615dd2cad5117afc27cb06d1095da15dc8b4711f4a9715c1",
+  "test_pairs_sha256": "a06cfa84666ebf346cfecf9d8894f7a475d741fe5d8d84a94d2bc21e0c12868c",
+  "input_sha256": {
+    "bi_train.txt": "6ba88dcdaef70be5cbe1a055b85f1810cb1ef0a6348e88119c5b9cfc30ce79cb",
+    "bi_valid_input.txt": "7ae4154fe4344117016e4458ff5c33843ee417e90cb1223bba09e22b3bfd0be2",
+    "bi_valid_gt.txt": "4e63e4b1464c0bd33bff69c1bcaadaba086321a3ad1c57540ba633479e418d9a",
+    "bi_test_input.txt": "5a7f232e665c29cc1fbe6f190796332e2e65aca778bf63cf0c2110f95086aa31",
+    "bi_test_gt.txt": "62f6056711f15b8c468001b711c3998c31d5f6b6d98e88d7bb4b089a95213696",
+    "count.json": "7cb2c6fe5fa065bf2a141996b6de9c2a93dcab8d09f6cbf9477052f7817698b6",
+    "item_info.json": "0eed2b495c20cf41c6b52c84642d23a9a88d38a843443b481971ed6d29709f4c",
+    "content_feature.pt": "a47f2d8f71e58d3016aa189710e8c63c60534e76b7dfd5b48e8bbdd7a857e8c8"
+  },
+  "runtime": {
+    "package_source_sha256": "2901f070a14c417611413fc200c06823ec441d7eeae277b4d8e786e9a1becdcd",
+    "python": "3.13.4 (main, Jun  6 2025, 22:30:22) [Clang 17.0.0 (clang-1700.0.13.3)]",
+    "platform": "macOS-27.2-arm64-arm-64bit-Mach-O",
+    "entrypoint_sha256": {
+      "evaluator.py": "1dbdd2eb9658d21233a7960d1eb1092676d30318be95131ea25dd72f39d46bc2",
+      "inference.py": "319a0f7a0d7849ce2b23adcd8af5e158d4161728cbdf74f0fdfcfaaa8ce3a85e",
+      "validate.py": "2f98ce2797f692ae3afaacae474d8391dabc9160974709cb5dfbe95c2e5a6bf2"
+    },
+    "versions": {
+      "numpy": "2.3.5",
+      "scipy": "1.16.3",
+      "sklearn": "1.7.2",
+      "torch": "2.9.1"
+    },
+    "torch_threads": 1
+  }
+}

@@ -7,7 +7,7 @@
 \definecolor{ink}{HTML}{244B68}
 \hypersetup{colorlinks=true,linkcolor=ink,pdftitle={POG DENSE: Expanding the Candidate Score}}
 \pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small POG\_DENSE: expanding the score}\fancyfoot[C]{\thepage}
-\setlength{\parindent}{0pt}\setlength{\parskip}{5pt}\setlength{\emergencystretch}{2em}
+\setlength{\parindent}{0pt}\setlength{\parskip}{4pt}\setlength{\emergencystretch}{2em}
 \newcommand{\I}{\mathcal I}\newcommand{\pos}[1]{\left[#1\right]_+}
 \newcommand{\off}{\operatorname{off}}\newcommand{\diag}{\operatorname{diag}}
 \newcommand{\N}{\mathcal N}\newcommand{\sd}{\operatorname{sd}}
@@ -23,12 +23,20 @@
 \end{center}\medskip
 Take a candidate item $c$ and a nonempty partially filled set $S$, with $c\notin S$.
 Let $\I$ be the catalogue, $n=|\I|$, and $B\in\{0,1\}^{m\times n}$ the training table:
-row $e$ is a past bundle, and $B_{ei}=1$ if it contains item $i$. Define the observed
+row $e$ is a past bundle, and $B_{ei}=1$ if it contains item $i$.
+The catalogue size is supplied in \path{count.json}; these training rows are
+the memberships supplied in \path{bi_train.txt}. Define the observed
 frequency $f_i=\sum_e B_{ei}$. Our task is to compute $\theta(c\mid S)$ and rank candidates
 by this score. This note follows the POG\_DENSE formulation with full item features.
 We use the default uncapped known set $S$. The item categories and title, image, and
 other description vectors are additional observed inputs; they cannot be recovered from
 $B$ alone. Their construction is not assumed to follow from bundle membership.
+The supplied clothing label of item $i$ is denoted by $\ell(i)$. A title vector,
+an image vector, and a description vector each contain numerical coordinates
+supplied with the dataset; they are not counts computed from $B$. Their upstream
+encoders are not specified by the scoring procedure, so no particular encoder
+is assumed in the equations below. We specify exactly how the supplied vectors
+are transformed after they are available.
 Define $[x]_+=\max(x,0)$, $\varepsilon_8=10^{-8}$,
 $\varepsilon_9=10^{-9}$, and $\varepsilon_{12}=10^{-12}$.
 $\mathbf1[A]$ is one when statement $A$ is true and zero otherwise; $\lVert v\rVert_2$
@@ -83,6 +91,27 @@ Y_0(c\mid S)&=\sum_{h\in\mathcal H}w_h z_h^0(c\mid S),\\
 Y_1(c\mid S)&=\sum_{h\in\mathcal H}w_h z_h(c\mid S),\\
 Y(c\mid S)&=(1-\alpha)Y_0(c\mid S)+\alpha Y_1(c\mid S)+\lambda_R z_R(c\mid S).\label{Y}
 \end{align}
+\paragraph{Where each source comes from.}
+Here a source means one explicit raw scoring rule. The following table identifies
+its inputs and the intermediate object used to compare a candidate with $S$;
+the subsequent sections define every intermediate object.
+\begin{center}\small
+\begin{tabularx}{\linewidth}{@{}lXX@{}}\toprule
+Source & Input observations & Construction used for scoring \\\midrule
+bundle & Training bundles $B$ & Weighted overlap $p$, optionally plus joint-overlap correction $\delta$ \\
+propagated & $B$ and bundle scores & Item connection matrix $L$ applied to $p$ or $p+\delta$ \\
+pop & Training appearances & Logarithm of frequency $f_c$ \\
+cooc & Training bundles $B$ & Item-pair occurrence counts $C$ \\
+pmi & Pair counts $C$ & Positive log-ratio table $M$ relative to pair-endpoint marginals \\
+svd & Table $M$ & Similarity of projected association profiles $U$ \\
+text, image & Supplied vectors and clothing labels & Similarity after subtracting category means \\
+bridge & All supplied vector modalities, clothing labels, and $B$ & Residual descriptors combined with descriptors of connected items \\
+cat & Clothing labels and $B$ & Category-pair counts and category repetition rates \\
+soft & Supplied vectors and $B$ & MiniBatch K-means clusters, soft cluster memberships, and within-bundle cluster-pair counts \\\bottomrule
+\end{tabularx}\end{center}
+The separately weighted score $r_R$ combines candidate-to-seed connections from
+$B$ with residual title-vector similarities and seed category labels. Neither
+its name nor any source label denotes an additional observed dataset.
 \why The only difference between $Y_0$ and $Y_1$ is the explicit $\delta$ contribution
 in the two rows of the table. This is a definition of this model: descriptions, category
 scores and the other counts are held fixed during this comparison. It is not a claim
@@ -126,6 +155,9 @@ $\varepsilon_9=10^{-9}$, the catalogue mean $\mu_h$, and sample standard deviati
 \end{align}
 Denote this column operation by $\mathcal Z_S[r_h]$. Apply it separately to $r_h^0$ and to the agreement score $r_R$.
 The sums include the known items; they are excluded only when producing suggestions.
+For a fixed request these statistics depend on $S$ and the already constructed
+score sources, across all catalogue items. They do not use which candidates are
+hidden correct completions, or the scores of other test requests.
 \why A shared-history count and an image similarity have different units. This conversion
 expresses each as above or below its own catalogue average. A constant raw score becomes
 zero and carries no distinction between candidates. In particular, normalizing $p+\delta$
@@ -202,23 +234,106 @@ The raw scores are
 \why Popularity gives a general frequency preference. Shared counts measure direct
 pair evidence. $M$ instead asks whether the pair is strong relative to the overall shared
 counts of its two items. Taking a logarithm compresses large ratios; taking the positive part discards below-expected associations from this source rather than assigning them a negative raw penalty. These are distinct views of the same training table.
+Ignoring the numerical stabilizers, sample an ordered pair of distinct items
+from all ordered within-bundle pairs. Its empirical probability is
+$C_{ij}/Z_C$, and the probability that its first endpoint is $i$ is
+$g_i/Z_C$. The ratio inside the logarithm compares the observed pair probability
+with the product of the endpoint probabilities. This logarithm is pointwise
+mutual information (PMI); clipping negative values gives positive PMI (PPMI).
+The label $\mathrm{pmi}$ in $\mathcal H$ refers to this clipped table. In particular,
+$g_i-\varepsilon_9=\sum_eB_{ei}(d_e-1)$ counts pair endpoints, whereas $f_i$
+counts bundles containing $i$. These are different marginals when bundle sizes vary.
 
 \subsection{A short summary of the pair table}
-Set $r=\min(128,n-2)$. The limit 128 is a chosen summary width, not an intrinsic rank of the data. Let $V_r$ contain the leading $r$ right singular vectors of
+This source uses singular value decomposition (SVD) of the PPMI table $M$;
+it does not decompose $B$, the raw pair-count table $C$, or item descriptions.
+An exact SVD writes $M=A\Sigma V^\top$, where columns of $A$ and $V$ are
+orthonormal and the diagonal entries of $\Sigma$ are nonnegative singular values
+ordered from largest to smallest. The right singular vectors are the columns of
+$V$; each has one coordinate per item and specifies a direction in the space of
+association profiles $M_i$. These directions are estimated numerically with a
+randomized truncated SVD and pseudo-random seed zero.
+
+\paragraph{Symmetry and eigenvectors.}
+The count table $C$ is symmetric, and the denominator $g_ig_j$ is unchanged by
+swapping $i,j$. Hence $M=M^\top$. Symmetry permits an eigendecomposition
+\begin{equation}
+ M=Q\Lambda Q^\top,\qquad Q^\top Q=I,\qquad
+ \Lambda=\diag(\lambda_1,\ldots,\lambda_n).
+\end{equation}
+Here $Q$ contains eigenvectors and $\lambda_j$ are signed eigenvalues. Even
+though every entry of $M$ is nonnegative, its eigenvalues can be negative.
+An SVD can be chosen with right vectors $V=Q$, singular values
+$\sigma_j=|\lambda_j|$, and left vectors equal to
+$\operatorname{sign}(\lambda_j)Q_j$ for nonzero eigenvalues, after ordering
+columns by decreasing $|\lambda_j|$. Thus the retained directions can be
+understood as eigenvectors selected by eigenvalue magnitude, rather than by
+the largest signed eigenvalues.
+
+More precisely, any exact right singular vector $v$ satisfies
+$M^2v=\sigma^2v$. If opposite eigenvalues $+\lambda,-\lambda$ share the same
+magnitude, a numerical SVD may return mixtures within that singular subspace;
+an individual returned vector then need not be an eigenvector of $M$ itself.
+The eigenbasis description is a valid choice, whereas the projected-score
+definition below also covers such mixtures and numerical approximations.
+
+Set $r=\min(128,n-2)$. The limit 128 is a chosen summary width, not an intrinsic rank of the data. Let $V_r\in\mathbb R^{n\times r}$ contain the leading $r$ right singular vectors of
 $M$: orthogonal directions that, for an exact decomposition, give its best rank-$r$ approximation in squared error. A numerical approximation to these directions is sufficient to define the fitted feature table.
 Introduce $\varepsilon_8=10^{-8}$ and the row-normalization rule
-$\N(F)_i=F_i/(\lVert F_i\rVert_2+\varepsilon_8)$. Define $U=\N(MV_r)$; if $M$ is
+$\N(F)_i=F_i/(\lVert F_i\rVert_2+\varepsilon_8)$. Define the projected item table
+$Z=MV_r$ and the normalized item table $U=\N(Z)$; if $M$ is
 zero, use $U=0$. The score is
 \begin{equation}
  \boxed{r_{\rm svd}(c\mid S)=U_c\cdot\left(\frac1{|S|}\sum_{s\in S}U_s\right).}
 \end{equation}
+\paragraph{Why normalize after an orthonormal decomposition?}
+The columns of $V_r$ are directions in $\mathbb R^n$ and satisfy
+$V_r^\top V_r=I_r$. The scored vectors are instead the \emph{rows} $Z_i$,
+each in $\mathbb R^r$. In an exact decomposition $Z=A_r\Sigma_r$, so
+\begin{equation}
+ Z_{ij}=\sigma_j(A_r)_{ij},\qquad
+ \lVert Z_i\rVert_2^2=\sum_{j=1}^r\sigma_j^2(A_r)_{ij}^2.
+\end{equation}
+Nothing in column orthonormality makes this row length equal to one or equal
+across items. Define $b_i=\lVert Z_i\rVert_2$. Then an unnormalized comparison
+has the form $Z_c\cdot Z_s=b_cb_s\cos\phi_{cs}$ for nonzero rows, where
+$\phi_{cs}$ is their angle. Row normalization changes it to
+\begin{equation}
+ U_c\cdot U_s=
+ \frac{Z_c\cdot Z_s}{(b_c+\varepsilon_8)(b_s+\varepsilon_8)}.
+\end{equation}
+This compares the direction of the two projected association profiles, removing
+their row magnitudes apart from the stabilizer. It is a chosen cosine-based
+scoring rule, not an additional orthogonalization. It does not set all singular
+values to one: their relative weighting within each row is retained. The later
+catalogue standardization is different again; it rescales an entire score column
+and cannot in general remove these item-specific row lengths. In this notation
+$A_r$ denotes the left singular vectors; $U$ denotes the normalized item table
+used for scoring.
 \why This summarizes many shared-history relationships in a shorter vector per item.
 The dot product compares the candidate's summary with the mean summary of the known items.
 It supplements the full pair table rather than replacing all history scores with a short vector.
+More explicitly, before row normalization its item-comparison matrix is
+$MV_rV_r^\top M^\top$, which compares projected rows of $M$.
+At full rank this is $MM^\top$, with entries $\sum_jM_{cj}M_{sj}$: the candidate
+and seed receive support for associating with the same other items. Thus the
+source can connect items with similar association partners even when their own
+direct pair count is zero. It is different from looking up a rank-$r$
+reconstruction of the direct association $M_{cs}$.
 
 \section{Expand the text, image, and bridged-description sources}
-Let $F^{t},F^{i},F^{d}$ denote the available title, image, and description feature tables,
-with rows normalized by $\N$. Let $\ell(i)$ be item $i$'s clothing category. For modality
+Let $R^t,R^i,R^d$ be the supplied title, image and description vector tables,
+respectively. They are read from \path{title_emb.npy},
+\path{content_feature.pt} and \path{description_feature.pt}. For each available
+modality $\nu$, define its normalized table by
+\begin{equation}
+ F_i^\nu=\frac{R_i^\nu}{\lVert R_i^\nu\rVert_2+\varepsilon_8}.
+\end{equation}
+A zero input row stays zero. These supplied arrays are the starting observations;
+this scoring procedure does not generate their upstream embeddings. The superscripts $t,i,d$ name modalities; the
+subscript in $F_i^\nu$ identifies the catalogue item. Each modality may have a
+different number of coordinates, but all rows within that modality use the same
+coordinate system. Let $\ell(i)$ be item $i$'s clothing category. For modality
 $\nu\in\{t,i,d\}$, define the category average $\bar F^\nu_a$ and the remaining feature $D^\nu$:
 \begin{equation}
  \bar F^\nu_a=\frac{\sum_{i:\ell(i)=a}F^\nu_i}{|\{i:\ell(i)=a\}|},\qquad
@@ -227,12 +342,22 @@ $\nu\in\{t,i,d\}$, define the category average $\bar F^\nu_a$ and the remaining 
 \end{equation}
 \why Removing the category average focuses on what distinguishes items within a clothing
 category. This subtracts the mean feature vector of the category. It does not guarantee statistical independence from category, nor does it prove that the remaining features measure compatibility.
+The set $\{i:\ell(i)=a\}$ contains all catalogue items with the supplied label
+$a$, including items absent from the training bundles. The average is computed
+coordinate by coordinate within one modality and this one category. A category
+represented by one item therefore gives that item a zero residual vector. This
+category mean is distinct from the fitted cluster representative in Section~6.2.
 
 Let $D_* =\N([D^t|D^i|D^d])$, where brackets mean concatenating feature columns.
 The table $LD_*$ is a weighted sum of other items' feature rows, using exactly the entries of $L$ above. Define
 \begin{equation}
  F_b=\N\bigl(D_*+0.5\N(LD_*)\bigr).
 \end{equation}
+For a candidate $c$, the intermediate row is
+$(LD_*)_c=\sum_{i\ne c}L_{ci}D_{*,i}$: a descriptor obtained from other items
+that share training bundles with $c$. It is normalized before being added to
+$c$'s own residual descriptor. The resulting sum is normalized again. These two
+normalizations have different inputs and are both part of the definition.
 The three selectable feature scores are
 \begin{align}
  r_{\rm text}(c\mid S)&=D^t_c\cdot\frac1{|S|}\sum_{s\in S}D^t_s,\\
@@ -245,6 +370,11 @@ Description features contribute to this bridge. Their absence as a separately we
 
 \section{Expand the category sources}
 \subsection{Named clothing categories}
+The label $\ell(i)$ is the supplied \path{cate} field (or \path{cate_id}
+when that field is used) for item $i$ in \path{item_info.json}. Distinct label
+values are assigned distinct integer indices. These are supplied metadata,
+rather than labels obtained by clustering the description vectors. The integer used to identify a category has no numerical
+ordering meaning; only equality of labels and the counts below are used.
 Let $A_{ea}=\sum_i B_{ei}\mathbf1[\ell(i)=a]$ count category $a$ in bundle $e$.
 Define $H=\off(A^\top A)$, $h_a=\sum_e A_{ea}+\varepsilon_9$, and $H_+=\sum_a h_a$.
 Define the category-pair table
@@ -261,18 +391,122 @@ $\rho_a=(n_a^{(2)}+0.5)/(n_a^{(1)}+1)$. Then
 \why The first part rewards category combinations seen together more often than their
 category counts suggest. The second discourages repeating a category that rarely appears
 twice in a training bundle. The counts come from training bundles; the smoothing constants $0.5,1$, the penalty multiplier $0.5$, and threshold $0.15$ are prescribed choices. The ratio $\rho_a$ estimates how frequently the category is repeated among bundles containing it; smoothing keeps it defined even for a category absent from training.
+For distinct categories $a,b$, the count $H_{ab}$ sums $A_{ea}A_{eb}$ across
+training bundles: a bundle containing two items of category $a$ and three of
+category $b$ contributes six. The marginal $h_a$ counts category occurrences,
+not merely bundles containing the category. Thus the category log-ratio uses
+the stated category counts; it must not be silently substituted by the
+pair-endpoint marginals used in the item PPMI table.
 
-\subsection{Groups suggested by item features}
-Named categories are coarse. Let $X=\N([F^t|F^i|F^d])$ and choose
-$k=\max(2,\min(400,n-1))$ feature groups using alternating assignment to a nearest center and center updates. This aims to reduce within-group squared distances, without requiring a global minimum. The limit 400 is a chosen number of groups, not the number of clothing categories.
-Let $v_a$ be the center of feature group $a$, normalized with $\N$. The constant $\tau_s=0.05$ controls how sharply membership favors the most similar center: smaller values make membership more concentrated. It is a chosen setting. Define
-item $i$'s degree of membership in feature group $a$ by
+\subsection{Clusters of items fitted from supplied features}
+\paragraph{Role in the selected dense model.}
+This is an available source, rather than a required contribution. The saved
+full POG\_DENSE mechanism-study recipe selects $w_{\rm soft}=0$ and excludes
+it from the fallback set $\mathcal P$. Its direct contribution to the final
+score is therefore exactly zero. The selected nonzero sources in that recipe
+are category, bridge, bundle, popularity and SVD. The separately fitted
+shared-source model selects soft with weight $0.25$, together with category
+and bridge at $0.25$ each; that restricted result does not isolate soft's
+incremental benefit. The formulas below define the available source so that
+its construction remains explicit even when its selected weight is zero.
+
+Named clothing categories give each item one label. We additionally fit clusters of items by MiniBatch K-means, using
+the supplied item vectors so that items with similar descriptions
+can share a cluster even when their clothing labels differ. These clusters are
+fitted from item vectors; their indices are unrelated to clothing-category labels.
+
+\paragraph{The vectors being grouped.}
+Let the title, image, and description vectors have respectively $p_t,p_i,p_d$
+coordinates, and set $d_X=p_t+p_i+p_d$. The row $F_i^\nu$ contains the normalized
+supplied vector of item $i$ for modality $\nu$, as defined in the preceding section.
+For every catalogue item define
+\begin{equation}\label{groupinput}
+ u_i=[F_i^t\mid F_i^i\mid F_i^d]\in\mathbb R^{d_X},\qquad
+ X_i=\frac{u_i}{\lVert u_i\rVert_2+\varepsilon_8}.
+\end{equation}
+Concatenation places the title coordinates first, the image coordinates next,
+and the description coordinates last; it does not average different modalities
+or different coordinates. If a modality is unavailable its block is omitted,
+and $d_X$ is the sum of the remaining block lengths. These are the supplied vectors
+$F^\nu$, not the category-subtracted vectors $D^\nu$. All catalogue rows $X_i$,
+including items with $f_i=0$, participate. Bundle completion targets are not inputs
+to this clustering step.
+
+\paragraph{What a cluster representative is.}
+Set $k=\max(2,\min(400,n-1))$ and let $a\in\{1,\ldots,k\}$ index a feature
+cluster. Its unnormalized representative is a vector
+$\mu_a=(\mu_{a1},\ldots,\mu_{a,d_X})\in\mathbb R^{d_X}$ in exactly the same
+coordinate system as $X_i$. There are $k$ such vectors, rather than one average
+of the whole catalogue. The MiniBatch K-means fitting criterion is
+\begin{equation}\label{groupobjective}
+ \min_{\mu_1,\ldots,\mu_k}\sum_{i\in\I}
+       \min_{1\le a\le k}\lVert X_i-\mu_a\rVert_2^2.
+\end{equation}
+For fixed representatives an item is assigned to a nearest one. If the assigned
+items of a nonempty cluster were fixed as a set $\mathcal A_a$, the exact
+least-squares representative would have coordinates
+\begin{equation}\label{exactgroupmean}
+ \mu_{aj}=\frac1{|\mathcal A_a|}\sum_{i\in\mathcal A_a}X_{ij},
+ \qquad j=1,\ldots,d_X.
+\end{equation}
+Thus an average is taken over items assigned to this particular cluster,
+separately for each coordinate. It is not an average over feature coordinates,
+over every item in the catalogue, or over training bundles.
+
+The representatives are fitted by MiniBatch K-means: repeatedly sample up to
+4096 item rows, assign each sampled row to its nearest current representative,
+and update the representative by averaging. If $N_a$ is the accumulated count
+before an update and $\mathcal M_a$ is the multiset of sampled rows assigned to
+cluster $a$, the ordinary update is
+\begin{equation}\label{batchgroupmean}
+ \mu_a^{\rm new}=
+ \frac{N_a\mu_a^{\rm old}+\sum_{i\in\mathcal M_a}X_i}
+      {N_a+|\mathcal M_a|},\qquad
+ N_a^{\rm new}=N_a+|\mathcal M_a|.
+\end{equation}
+If no sampled row is assigned to $a$, that update leaves it unchanged. Fitting
+uses pseudo-random seed zero and three candidate initializations. Initial
+representatives are sampled item rows, favoring rows far from representatives
+already selected (the k-means++ rule). Very low-count representatives may be
+reset to sampled rows. Thus $\mu_a$ is the vector returned by this incremental
+procedure; it need not equal the exact mean of the final assigned set in
+\eqref{exactgroupmean}. The target remains the squared-distance criterion in
+\eqref{groupobjective}, without assuming a global optimum. The limit of 400
+clusters is a prescribed setting, independent of the number of clothing categories.
+
+\paragraph{The precise definition of $v_a$.}
+After fitting $\mu_a$, normalize that vector:
+\begin{equation}\label{groupdirection}
+ \boxed{v_a=\frac{\mu_a}{\lVert\mu_a\rVert_2+\varepsilon_8}
+ \in\mathbb R^{d_X}.}
+\end{equation}
+The coordinate $v_{aj}$ is the normalized version of the representative's
+$j$th coordinate. An item-to-cluster comparison is therefore the fully specified
+dot product $X_i\cdot v_a=\sum_{j=1}^{d_X} X_{ij}v_{aj}$. For nonzero vectors it
+approximates their cosine similarity, with the stated numerical stabilizers.
+If $\mu_a=0$, then $v_a=0$ and this dot product is zero for every item.
+For example, two assigned rows $(1,0)$ and $(0,1)$ have exact mean
+$(1/2,1/2)$ and normalized direction approximately $(1/\sqrt2,1/\sqrt2)$.
+Their two coordinates remain separate throughout the calculation.
+
+\paragraph{From a representative to an item's cluster weights.}
+The cluster memberships used in the following score are soft: a row is compared with every
+representative, even though nearest-representative assignments were used to fit
+them. Set $\tau_s=0.05$ and define
 \begin{equation}
  t_{ia}=X_i\cdot v_a/\tau_s,\qquad
  J_{ia}=\frac{\exp(t_{ia}-\max_b t_{ib})}
  {\sum_b\exp(t_{ib}-\max_b t_{ib})+\varepsilon_9}.
 \end{equation}
-Let $T=BJ$ be the training-bundle group totals. Define group-pair counts, catalogue group
+Both the maximum and sum range over the $k$ feature clusters. The exponential
+assigns larger weight to a more aligned representative; $\tau_s$ controls how
+concentrated these weights are. Subtracting the maximum avoids large exponentials
+without changing the ratio when the denominator stabilizer is omitted. Because
+of that stabilizer the row sum of $J$ is slightly less than one. No clothing
+label or bundle overlap enters this item-to-cluster comparison. Bundle membership
+enters next, when these fitted weights are aggregated within training bundles.
+Let $T=BJ$, so $T_{ea}=\sum_iB_{ei}J_{ia}$ is the total membership of
+items in training bundle $e$ in cluster $a$. Define cluster-pair counts, catalogue cluster
 masses, and their total by
 \begin{equation}
  H^s=\pos{\off\left(T^\top T-\sum_e\sum_{i:B_{ei}=1}J_i^\top J_i\right)},\qquad
@@ -281,51 +515,238 @@ masses, and their total by
 Finally, define $Q^s_{uv}=[\log(H^s_{uv}A_s/(a_u a_v+\varepsilon_9)+\varepsilon_{12})]_+$.
 The raw score is
 \begin{equation}
- \boxed{r_{\rm soft}(c\mid S)=(JQ^s)_c\cdot\left(\sum_{s\in S}J_s\right).}
+ \boxed{r_{\rm soft}(c\mid S)
+ =\sum_{s\in S}\sum_{u=1}^k\sum_{v=1}^k J_{cu}Q^s_{uv}J_{sv}.}
 \end{equation}
-\why An item can partly belong to several feature groups. Their training-bundle
+Each summand combines the candidate's weight in cluster $u$, the learned
+association between clusters $u,v$, and an observed item's weight in cluster $v$.
+Thus cluster relations are transferred back to item scores.
+\why An item can partly belong to several feature clusters. Their training-bundle
 relationships may capture combinations missed by a single clothing label. In fact, before the diagonal is removed, the table being counted is
 \[
 T^\top T-\sum_e\sum_i B_{ei}J_i^\top J_i
 =\sum_e\sum_{i\ne j}B_{ei}B_{ej}J_i^\top J_j.
 \]
 This is a sum over distinct items in the same training bundle. The subtraction therefore
-removes an item's contribution paired with itself; otherwise a feature group
+removes an item's contribution paired with itself; otherwise a feature cluster
 could appear to complement itself merely because it describes the same item twice.
 
+\paragraph{Relation to earlier methods.}
+Let $x_S$ denote the catalogue indicator vector of the observed set. The entire
+soft score vector can be written as
+\[
+ r_{\rm soft}(\cdot\mid S)=JQ^sJ^\top x_S.
+\]
+It maps observed items to cluster memberships, applies cluster relations, and
+maps back to candidate items. The resulting item matrix has rank at most $k$;
+it is not necessarily positive semidefinite. Before removal of the cluster
+diagonal, the distinct-item count table is exactly $J^\top C J$, because
+$C=B^\top B-\diag(f_i)$. Thus this source shares pair evidence through
+feature clusters; it does not retain additional triple-occurrence information.
+
+Soft item clusters are established in recommendation. For example, Puthiya
+Parambath and Chawla (2020),
+\href{https://doi.org/10.1007/s10618-020-00708-6}{\emph{Simple and effective
+neural-free soft-cluster embeddings for item cold-start recommendations}},
+derive item memberships from enriched side information using nonnegative matrix
+factorization, then fit user vectors for prediction. Their memberships and
+prediction rule differ from the count-derived $Q^s$ used here. This connection
+supports treating soft clustering as an established ingredient. It does not
+establish that this paper used the exact self-item subtraction and log-ratio
+construction above, or that those details are new.
+
 \section{Expand the pair-of-known-items term $r_R$}\label{agreementdef}
-The terms in $\mathcal H$ are now defined. The remaining term in $Y$ and $P$ is agreement
-among known items. Define $V=\diag((d_e+1)^{-1/2})$ and
-$W=\off(B^\top VBD)$. For known item $s$, define its support for the candidate by
+This optional score asks: does a candidate receive support from two different
+observed items, and how different are those two supporting items? It does not
+require the candidate and both supporting items to occur in the same training
+bundle. The saved full POG\_DENSE mechanism-study recipe selects
+$\lambda_R=0$, so this source has zero contribution to that final score.
+We nevertheless define it completely as an available source.
+
+\subsection{Define the inputs and distinguish the two uses of $D$}
+The catalogue $\I$ contains $n$ items. The candidate is $c\notin S$; $s,t\in S$
+are observed items, and $e\in\{1,\ldots,m\}$ indexes training bundles.
+$B_{ei}$ is one when bundle $e$ contains item $i$.
+Recall $f_i=\sum_eB_{ei}$ and $d_e=\sum_iB_{ei}$.
+
+Earlier sections use two different objects with the letter $D$:
+\[
+ D=\diag((f_i+5)^{-1/2})\in\mathbb R^{n\times n},\qquad
+ D^t\in\mathbb R^{n\times p_t}.
+\]
+The first is a diagonal table of frequency weights. The second is a table of
+residual title vectors, with $p_t$ title coordinates per item; its superscript
+$t$ means \emph{title}, not transpose and not the observed item indexed by $t$.
+To avoid confusing them in this section, write $\widehat t_i=D_i^t$ for item
+$i$'s residual title vector. Its full definition is
+\begin{align}
+ F_i^t&=\frac{R_i^t}{\lVert R_i^t\rVert_2+\varepsilon_8},&
+ \mathcal I_a&=\{i\in\I:\ell(i)=a\},\\
+ \bar F_a^t&=\frac1{|\mathcal I_a|}\sum_{i\in\mathcal I_a}F_i^t,&
+ \widehat t_i&=\frac{F_i^t-\bar F_{\ell(i)}^t}
+ {\lVert F_i^t-\bar F_{\ell(i)}^t\rVert_2+\varepsilon_8}.
+\end{align}
+Here $R_i^t$ is the supplied title vector, $\ell(i)$ is the supplied clothing
+category, and $\mathcal I_a$ contains catalogue items in category $a$. The mean
+is taken within that category, coordinate by coordinate. A zero residual stays
+zero. Thus $\widehat t_i\cdot\widehat t_j$ compares two items' deviations from
+their respective category-average title vectors.
+
+\subsection{Compute support from each observed item}
+Define $W_{ci}$ as the weighted co-membership of candidate $c$ and item $i$:
 \begin{equation}
- q_{cs}=W_{cs}+0.15[D^t_c\cdot D^t_s]_+,\qquad A_c=\sum_{s\in S}q_{cs}.
+ W_{ci}=\begin{cases}
+ \displaystyle\frac1{\sqrt{f_i+5}}\sum_{e=1}^m
+             \frac{B_{ec}B_{ei}}{\sqrt{d_e+1}},&c\ne i,\\
+ 0,&c=i.
+ \end{cases}
 \end{equation}
-For two distinct known items define their similarity $G_{st}$ and their pair weight $K_{st}$:
+Equivalently $W=\off(B^\top VBD)$ with
+$V=\diag((d_e+1)^{-1/2})$. The scalar formula shows exactly where the diagonal
+frequency table $D$ enters: it discounts the observed item's frequency $f_i$.
+$W$ is different from the symmetric propagation table $L$ defined earlier.
+
+Set $\eta=0.15$ and define
 \begin{equation}
- G_{st}=0.5\mathbf1[\ell(s)=\ell(t)]+0.5[D^t_s\cdot D^t_t]_+,\qquad
+ q_{cs}=W_{cs}+\eta[\widehat t_c\cdot\widehat t_s]_+,
+ \qquad A_c=\sum_{s\in S}q_{cs}.
+\end{equation}
+The scalar $q_{cs}\ge0$ is the support given to candidate $c$ by observed item
+$s$. It adds recorded co-membership to positive residual-title similarity.
+$A_c$ is total support across $S$. These scores are not probabilities; in
+particular, $A_c$ need not equal one. The positive part discards a negative
+residual-title dot product rather than turning it into negative support.
+
+\subsection{Discount two supporting items when they resemble each other}
+For distinct observed items $s,t$, define
+\begin{equation}
+ b_{st}=\mathbf1[\ell(s)=\ell(t)],\qquad
+ h_{st}=[\widehat t_s\cdot\widehat t_t]_+.
+\end{equation}
+Here $b_{st}$ is one for the same category and zero otherwise; $h_{st}$ is
+positive residual-title similarity. Set $\omega=0.5$ and form
+\begin{equation}
+ G_{st}=\omega b_{st}+(1-\omega)h_{st},\qquad
  K_{st}=[1-G_{st}]_+,\qquad K_{ss}=0.
 \end{equation}
-The raw agreement score, standardized using equation~\eqref{z}, is
+In exact arithmetic, both $b_{st}$ and $h_{st}$ lie in $[0,1]$, so their convex
+combination does too. For distinct items the weight can therefore be written
 \begin{equation}
- \boxed{r_R(c\mid S)=\frac{\sum_{s\in S}\sum_{t\in S}q_{cs}K_{st}q_{ct}}{A_c+0.05}.}
+ \boxed{K_{st}=\tfrac12(1-b_{st})+\tfrac12(1-h_{st}).}
 \end{equation}
-\why This rewards a candidate supported by several known items, while reducing the extra
-credit for support from very similar known items. Both orders of a pair enter the sum.
-For $S=\{s,t\}$ with $s\ne t$, the numerator is exactly
-$2q_{cs}q_{ct}K_{st}$. It is zero if either known item supplies zero support, or if $K_{st}=0$.
-The denominator controls the scale of this product. For a single known item it is zero
-because $K_{ss}=0$. It is not a logical requirement to match all of $S$: for a larger
-set, any supported pair can contribute. The values $0.15$, $0.5$, and $0.05$ are fixed
-choices specifying the feature contribution, similarity mixture, and denominator smoothing.
-No derivation requires those particular values. The table $W$ has zero diagonal; the bundle score $p$ defined
-earlier retains self-contributions before final candidate exclusion. These differ when
-computing the catalogue-wide scaling and propagated scores.
+This is the average of category dissimilarity and positive residual-title
+dissimilarity, as defined here. It is a prescribed discount multiplier on the
+product of two support scores; its exact contribution is expanded below.
+Setting $K_{ss}=0$ prevents a seed from being counted as agreeing with itself.
+
+Written numerically the category summand is
+\[
+ \underbrace{0.5}_{\text{weight}}\;\times\;
+ \underbrace{\mathbf1[\ell(s)=\ell(t)]}_{\text{either 0 or 1}}.
+\]
+This is $0.5$ \emph{times an indicator}, not the decimal number $0.51$.
+Its value is either $0.5$ or zero.
+For example, the same category with $h_{st}=0$ gives $G_{st}=0.5$ and
+$K_{st}=0.5$; different categories with $h_{st}=0$ give $G_{st}=0$ and
+$K_{st}=1$. The same category with $h_{st}$ near one gives $K_{st}$ near zero.
+These are consequences of the stated rule, not assertions that category and
+residual-title similarity exhaust all possible forms of redundancy.
+The modeling assumption is that equally strong candidate support should receive
+more agreement weight when its two supporting items differ by these measures.
+The formula implements that assumption. It does not establish statistical
+independence of the two clues, or estimate their information gain from data.
+
+\subsection{Combine distinct pairs of support}
+Set $\tau_R=0.05$. The raw agreement score is
+\begin{equation}\label{agreementraw}
+ \boxed{r_R(c\mid S)=
+ \frac{\displaystyle\sum_{s\in S}\sum_{t\in S}q_{cs}K_{st}q_{ct}}
+      {A_c+\tau_R}.}
+\end{equation}
+Each summand has three factors: support from $s$, the weight for counting $s,t$
+as different clues, and support from $t$. It is positive only when both seeds
+support the candidate and $K_{st}>0$. Both orders of a pair are included.
+Since $K_{st}=K_{ts}$ and $K_{ss}=0$, write the same score as a sum over
+unordered distinct pairs:
+\begin{equation}
+ r_R(c\mid S)=\sum_{\{s,t\}\subseteq S}
+ \underbrace{\frac{2q_{cs}q_{ct}}{A_c+\tau_R}K_{st}}
+ _{\text{contribution of this pair to the raw score}}.
+\end{equation}
+Each pair appears once in this sum; the factor two accounts for the two orders
+in~\eqref{agreementraw}. With the support scores and query fixed, $K_{st}=1$
+retains the full pair contribution, $K_{st}=0.5$ halves it, and $K_{st}=0$
+removes it. This specifies precisely what the discount does.
+
+This additive pair contribution is not the change in score caused by adding
+item $t$ to $S$. Adding an item also changes $A_c$ and introduces pairs with
+other observed items. It is also not an additive contribution to the final
+standardized score: catalogue standardization follows this raw calculation.
+For exactly two observed items,
+\[
+ r_R(c\mid\{s,t\})=\frac{2q_{cs}q_{ct}K_{st}}{q_{cs}+q_{ct}+\tau_R}.
+\]
+For illustration, hold $q_{cs}=0.2$ and $q_{ct}=0.3$ fixed. Then
+$r_R=2(0.2)(0.3)K_{st}/(0.2+0.3+0.05)\simeq0.21818K_{st}$:
+\begin{center}\small
+\begin{tabular}{@{}lrrr@{}}\toprule
+Same category? & $h_{st}$ & $K_{st}$ & Raw pair contribution \\\midrule
+No & $0$ & $1$ & $0.21818$ \\
+Yes & $0$ & $0.5$ & $0.10909$ \\
+No & $0.8$ & $0.6$ & $0.13091$ \\
+Yes & $0.8$ & $0.1$ & $0.02182$ \\\bottomrule
+\end{tabular}\end{center}
+These are conditional calculations at the stated illustrative support values,
+not measured dataset scores. With one seed the score is zero, and for a larger
+set any supported distinct pair can contribute.
+
+Why divide by total support? If every distinct-pair weight were one, the
+numerator would be $A_c^2-\sum_s q_{cs}^2$. More generally, for $A_c>0$ define
+$p_{cs}=q_{cs}/A_c$. Then~\eqref{agreementraw} becomes
+\[
+ r_R(c\mid S)=\frac{A_c^2}{A_c+\tau_R}
+                  \sum_{s\ne t}p_{cs}K_{st}p_{ct}.
+\]
+The sum measures how support is spread across different clues. The leading
+factor measures its strength: approximately $A_c$ when $A_c\gg\tau_R$, and
+approximately $A_c^2/\tau_R$ when $A_c\ll\tau_R$. The denominator therefore
+limits quadratic growth at high support and suppresses very weak support.
+If $A_c=0$, all $q_{cs}$ are zero and the score is zero.
+
+\subsection{Which constants are chosen, and which are fitted?}
+\begin{center}\small
+\begin{tabularx}{\linewidth}{@{}llX@{}}\toprule
+Constant & Value & Role and origin \\\midrule
+$\eta$ & $0.15$ & Fixed multiplier on positive title similarity in $q_{cs}$; not estimated by the fitting procedure. \\
+$\omega$ & $0.5$ & Fixed equal weighting of category equality and residual-title similarity in $G_{st}$. Its complement is also $0.5$. \\
+$\tau_R$ & $0.05$ & Fixed positive support scale in the denominator; not a fitted variance or numerical epsilon. \\
+$\lambda_R$ & $\{0,0.2,0.35\}$ & Outer coefficient selected on validation rankings after standardizing $r_R$; selected value is zero in the saved full dense recipe. \\\bottomrule
+\end{tabularx}\end{center}
+The first three values are prescribed modeling choices. Their roles have
+mathematical explanations, but the equations do not determine their exact
+numerical values and the recorded procedure does not tune them separately.
+The value $0.5$ expresses an equal-weight convention; $0.15$ sets the relative
+size of descriptor support; $0.05$ sets the transition between weak and strong
+support. No evidence in the recorded procedure establishes these particular
+numbers as optimal. Validation tests the usefulness of the resulting fixed
+source through $\lambda_R$, rather than estimating all its internal constants.
+The offsets $5$ and $1$ in $W$ are the same fixed frequency and bundle-size
+smoothing choices already defined for the direct bundle score.
+
+Finally standardize~\eqref{agreementraw} using~\eqref{z} to obtain $z_R$.
+The selected contribution enters $Y$ and $P$ as $\lambda_Rz_R$, followed by
+the final fallback mixture. The unstandardized $r_R$ is nonnegative, but
+$z_R$ can be negative for a candidate below the catalogue-average agreement.
+If title vectors are unavailable this source is omitted and $\lambda_R=0$.
 
 \section{Where the fixed settings come from}
 The expansion of $\theta$ is now complete except for how $w_h,\alpha,\lambda_R,s_0,\kappa$ and
 $\mathcal P$ are chosen. They are selected on separate examples with known hidden items,
-then held fixed when scoring new requests. The hidden items in the final test examples
-are not used for these choices. In particular, $\alpha$ could mathematically be any value in
+then held fixed when scoring new requests. The supplied validation inputs and targets are \path{bi_valid_input.txt} and
+\path{bi_valid_gt.txt}; the corresponding test files are
+\path{bi_test_input.txt} and \path{bi_test_gt.txt}. Their observed/hidden
+partitions are retained as supplied. Test targets are used only for evaluation
+and do not enter these choices or the scoring formulas. In particular, $\alpha$ could mathematically be any value in
 $[0,1]$, and $\lambda_R$ any nonnegative value. The finite sets below are the search candidates
 chosen for this method, so that fitting uses finitely many evaluations. They are not the
 only admissible values, and no claim of optimal spacing or exhaustive optimization follows.
@@ -343,8 +764,8 @@ $r$th ranked non-known item, and let $K_j=\min(20,n-|S_j|)$. Define
 {\sum_{r=1}^{\min(20,|G_j|)}1/\log_2(r+1)}.
 \]
 Mean NDCG@20 is its average across held-out requests.
-Try removing bridge and soft-category sources if doing so loses at most $3\times10^{-4}$, retaining at least one positive-weight source.
-Choose $\mathcal P$ from positive-weight category/soft-category/text/image/bridge sources,
+Try removing bridge and soft-cluster sources if doing so loses at most $3\times10^{-4}$, retaining at least one positive-weight source.
+Choose $\mathcal P$ from positive-weight category/soft-cluster/text/image/bridge sources,
 falling back to all available ones if necessary. Then compare $\alpha\in\{0,0.5,1\}$ and
 $\lambda_R\in\{0,0.2,0.35\}$, retaining improvements exceeding $5\times10^{-5}$.
 \why The method learns which evidence is useful for the completion task without assuming
@@ -386,12 +807,9 @@ The slope and intercept estimate the two variances; positivity bounds and clippi
 their ratio into one search candidate. Held-out ranking quality chooses the final setting.
 The squared residuals compare $Y$ and $s_*P$, not either score with a binary item label.
 
-\section{Read the expansion back upward}
-For a candidate $c$ and known set $S$, compute the required raw components from $B$,
-category labels, and item features. Apply equation~\eqref{z} to each component, substitute
-the results into $Y$ and $P$ in equations~\eqref{Y}--\eqref{P}, then substitute those into
-$\theta$ in equation~\eqref{theta}. Exclude all items already in $S$ and rank the others by
-descending $\theta$, resolving exact ties by increasing item ID. The highest $K$ scores
-are the requested completion. Sources with zero weight and no role in the fallback
-contribute nothing to this calculation.
+\paragraph{Producing the completion.}
+Standardize the selected raw scores with~\eqref{z}, form $Y$ and $P$, and
+evaluate~\eqref{theta}. Exclude $S$ and return the $K$ highest scores, breaking
+exact ties by increasing item ID. A source with zero weight and no fallback role
+does not enter the calculation.
 \end{document}

@@ -1,0 +1,116 @@
+{
+  "status": "passed",
+  "scope": "Structural identities on synthetic inputs, not a new accuracy experiment.",
+  "maximum_absolute_errors": {
+    "identical_raw_gram": 0.0,
+    "identical_ppmi": 0.0,
+    "identical_csvd_kernel": 0.0,
+    "identical_pair_scores": 0.0,
+    "svd_fit_transform_is_projection": 0.0,
+    "csvd_projected_profile_kernel": 1.1920928955078125e-07,
+    "query_conditioned_kernel_0": 2.8424692599671175e-08,
+    "weighted_history_inclusion_0": 5.096976440910339e-08,
+    "query_conditioned_kernel_1": 9.568363612544317e-08,
+    "weighted_history_inclusion_1": 5.912464084989466e-08,
+    "query_conditioned_kernel_2": 3.110585600207827e-08,
+    "weighted_history_inclusion_2": 3.3245467601084044e-08,
+    "category_residual_orthogonality": 4.440892098500626e-16,
+    "category_projection_matches_operator": 4.669351227892804e-08,
+    "bridge_four_kernel_terms": 1.7881393432617188e-07,
+    "convex_objective_stationarity": 2.682209014892578e-07,
+    "overlapping_prior_decomposition": 7.36609875318095e-08
+  },
+  "pair_indistinguishable_corpora": {
+    "item_names": [
+      "a",
+      "b",
+      "c",
+      "d",
+      "e",
+      "f"
+    ],
+    "left": [
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        0,
+        3,
+        4
+      ],
+      [
+        1,
+        3,
+        5
+      ],
+      [
+        2,
+        4,
+        5
+      ]
+    ],
+    "right": [
+      [
+        0,
+        1,
+        3
+      ],
+      [
+        0,
+        2,
+        4
+      ],
+      [
+        1,
+        2,
+        5
+      ],
+      [
+        3,
+        4,
+        5
+      ]
+    ],
+    "query": [
+      0,
+      1
+    ],
+    "candidates": [
+      2,
+      3
+    ],
+    "left_pair": [
+      0.37796449661254883,
+      0.37796449661254883
+    ],
+    "right_pair": [
+      0.37796449661254883,
+      0.37796449661254883
+    ],
+    "left_group": [
+      0.9449112415313721,
+      0.37796449661254883
+    ],
+    "right_group": [
+      0.37796449661254883,
+      0.9449112415313721
+    ]
+  },
+  "projected_gram_vs_reconstruction_frobenius_gap": 4.457971096038818,
+  "query_kernel_minimum_eigenvalues": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "convex_objective_random_perturbations_checked": 100,
+  "source_sha256": {
+    "bundlefuse/operators.py": "c4166aa1538daf2ffb6dbbfebd885ce948a105dc125b5b78d123a6eab61abcd0",
+    "bundlefuse/selected_signals.py": "16977e62f24426ce03043f7ae07ce1c9786ddc41701026695c2d8f7fb0de2486",
+    "bundlefuse/fusion.py": "593c02d854adbb522c816060cc27f25f614cce1f37bf44b39c979d5f7135f233",
+    "bundlefuse/model.py": "53215c09bb56ed8ddfb0d2d6d949d65cd7c854cb06d87f4f967ceff70d33c011",
+    "scripts/check_scoring_principle.py": "13258d2005c3082f4f142fdef3bfbb510de2e1c864e615322baf9fcd92791d6f",
+    "results/publication_mechanisms/pog_dense/frozen_recipes.json": "dcc3b97252056505720eec79ef5e4a41a3ebe68377623dc970c43b8029ebfb41"
+  }
+}

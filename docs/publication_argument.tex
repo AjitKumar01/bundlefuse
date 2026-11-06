@@ -33,6 +33,12 @@ product role can be undesirable in an outfit, while a shared artist can be usefu
 in a playlist. This motivates retaining several precisely defined relationship
 scores. It does not justify assuming that all of them are useful everywhere.
 
+This distinction is already central to fashion compatibility research. Vasileva
+et al. learn type-aware embeddings that jointly represent similarity and
+compatibility~\cite{vasileva}. Their method learns a representation from images;
+BundleFuse instead computes category and descriptive scores. The difference is in
+the construction, not the recognition that item type matters.
+
 \section{What explicit recommendation models already establish}
 Item-relation methods provide a natural starting point: score a candidate by its
 relationships to the observed items. Let $\mathcal I$ be a catalogue, $S$ its observed
@@ -42,6 +48,12 @@ $s$. The additive score is
  r(c\mid S)=\sum_{s\in S}M_{cs}.
 \]
 This notation describes a class of estimators; it is not presented as a new formula.
+
+Sarwar et al. establish the item-neighborhood approach: estimate item-item
+relations from user ratings and use them to form predictions~\cite{sarwar}.
+BundleFuse applies a related principle to bundle co-memberships, which record
+presence rather than explicit ratings. The analogy does not make the two inputs
+or their meanings identical.
 
 EASE demonstrates that a shallow linear recommendation model with a closed-form
 solution can achieve strong ranking performance~\cite{ease}. Side-information
@@ -94,6 +106,21 @@ as directly computed candidate scores. The distinction from a generic linear
 recommender must be established through the specific relation constructions and
 combination rule, not merely through the claim that the method is simple.
 
+The combination of history and descriptions also has a long history. Melville
+et al. use content predictions to enrich sparse user ratings before collaborative
+filtering~\cite{melville}. BundleFuse forms several candidate scores from bundle
+history and item attributes and then combines them; it does not first fill a user
+rating matrix. Both inherit the idea that content can help where collaborative
+observations are sparse, so this idea is not itself our contribution.
+
+An even closer task-level precedent is Volkovs et al.'s playlist-continuation
+system~\cite{volkovs}. Its retrieval stage blends item- and playlist-neighbor
+scores with other collaborative models, adjusts scores for popularity, and is
+followed by a learned reranker. BundleFuse's particular relations, scaling and
+fallback differ, but combining multiple retrieval signals and correcting
+popularity in a partial-set task are already established. A fair comparison must
+account for task protocol, inputs, and the learned reranking stage.
+
 \section{Develop the construction from that question}
 \subsection{Preserve directly observed relations}
 Let $B$ be the binary training-bundle by item matrix and let $x_S$ be the indicator
@@ -134,6 +161,28 @@ transformation and its contribution to a candidate score are explicit. It does n
 make channels independent or their weights causally interpretable. The use of
 validation to choose weights is fitting, even without neural gradient training.
 
+A closer interpretation of the history component comes from set-neighbor
+recommendation. For binary training bundles $b$, define $m_b=|b\cap S|$,
+$a_b=\sum_{s\in b\cap S}(f_s+5)^{-\alpha}$ and
+$v_b=(|b|+1)^{-\gamma}$. Before scale alignment, the pair score plus its
+incidence correction can be written, for nonnegative $\beta$, as
+\[
+ \sum_{b:c\in b} v_b a_b\bigl[1+\beta\max(0,m_b-1)\bigr].
+\]
+It is therefore a sum over candidate-containing historical bundles with a
+nonlinear query-overlap weight. Playlist- and session-neighbor methods already
+score candidates through similar historical sets~\cite{bonnin,ludewig}. Our
+particular weighting does not impose a nearest-neighbor cutoff, and its formula
+is not claimed to be identical to theirs. Weighted-incidence dataset profiles
+need their additional bundle weights retained explicitly.
+
+Further prior art limits a general novelty claim: normalized hypergraph
+incidence operators predate this method~\cite{zhou}; playlist hybrids have fused
+co-occurrence with audio and text~\cite{ferraro}. Earlier basket-completion models based on determinantal point processes also
+model set quality and diversity~\cite{gartrell,warlop}. A detailed map of these and
+other overlaps, including unresolved exact-formula questions, is provided in
+\texttt{method\_prior\_art\_review.md}.
+
 The signal menu therefore belongs inside the explanation of these relation estimates.
 It is not a list of independent novelty claims. A convincing presentation must
 explain why each family is considered, state its overlap with other families, and
@@ -158,11 +207,38 @@ shrinkage toward descriptive evidence is new by itself. BundleFuse's specific
 fallback, its overlap with the combined score, and the candidate-frequency rule
 must be defined and defended in the bundle setting. The technical note gives a
 pointwise regularization interpretation without assuming a validated noise model.
+Hu et al. already use an item-statistics-dependent weight to balance behavioral
+and content representations~\cite{hu}. CoHeat combines two user--bundle scores
+with a bundle-popularity-dependent weight and proves the corresponding
+monotonic influence properties~\cite{coheat}. The task, scores and weighting
+function differ from BundleFuse, but the general adaptive-mixture principle and
+monotonic sensitivity argument are established prior work.
+
+The incidence correction also admits a precise relation to earlier itemset
+methods. In the binary, unit-bundle-weight case, put
+$d_s=(f_s+5)^{-\alpha}$ and $v_b=(|b|+1)^{-\gamma}$. Expanding its overlap
+factors gives
+\[
+ \Delta(c\mid S)=\beta\!\sum_{\substack{s,t\in S\\s\ne t}}\!d_s
+       \sum_b v_b B_{bc}B_{bs}B_{bt}.
+\]
+Thus the correction aggregates weighted historical co-occurrences of each
+seed pair with the candidate. Higher-order neighborhood models and
+HOSLIM already score candidates using itemset-to-item associations~\cite{hoslim}.
+HOSLIM learns sparse coefficients; this construction uses weighted counts and
+specific shared weights. The formula does not imply the two predictors are equal.
+The broader idea of amplifying strongly matching neighbors also predates this
+construction~\cite{breese,kelen}.
 
 The incidence surplus and Rao-based term address an additional question: can support
 involving several observed items change the assessment beyond separate matches?
 They are explicit optional corrections. Their presence does not establish that
 higher-order interactions are the principal explanation of the method's accuracy.
+
+Higher-order item interactions in recommendation also have prior work: DeepICF
+models interactions among previously consumed items with neural
+networks~\cite{deepicf}. This is a different mechanism from BundleFuse's explicit
+corrections, not evidence that considering several items jointly is new.
 
 \section{State the contribution at the level the construction supports}
 The proposed methodological contribution is the \emph{particular explicit scoring
@@ -185,6 +261,12 @@ for completion, and the distinctive behavior of the resulting estimator. A new
 technical principle cannot be inferred solely from benchmark wins. The contribution
 may ultimately be a well-supported construction and analysis rather than a general
 new theory of recommendation.
+
+The literature reviewed here does not establish that the complete combination is
+unprecedented. A priority claim requires a closer component-by-component comparison
+with the nearest published constructions and their underlying data. An explicit
+score allows inspection of its arithmetic; it does not by itself establish causal
+explanations or that the scores match human reasons.
 
 \section{An introduction built from this path}
 Completing a bundle requires selecting items that are appropriate companions to
@@ -216,7 +298,50 @@ methods and broad superiority that require reconciliation. They should not be us
 as the current statement of the contribution. Experimental evidence belongs after
 this argument and must remain within its verified scope.
 
-\begin{thebibliography}{9}\small
+\begin{thebibliography}{99}\small
+\bibitem{hu} P. Hu et al. Hybrid Item-Item Recommendation via Semi-Parametric
+Embedding. IJCAI, 2019. \url{https://doi.org/10.24963/ijcai.2019/350}.
+\bibitem{coheat} H. Jeon et al. Cold-start Bundle Recommendation via
+Popularity-based Coalescence and Curriculum Heating. WWW, 2024.
+\url{https://doi.org/10.1145/3589334.3645377}.
+\bibitem{gartrell} M. Gartrell, U. Paquet, N. Koenigstein. Low-Rank Factorization
+of Determinantal Point Processes. AAAI, 2017.
+\url{https://arxiv.org/abs/1602.05436}.
+\bibitem{warlop} R. Warlop, J. Mary, M. Gartrell. Multi-Task Determinantal Point
+Processes for Recommendation. Preprint, 2018.
+\url{https://arxiv.org/abs/1805.09916}.
+\bibitem{hoslim} E. Christakopoulou, G. Karypis. HOSLIM: Higher-Order Sparse
+Linear Method for Top-N Recommender Systems. PAKDD, 2014.
+\url{https://doi.org/10.1007/978-3-319-06605-9_4}.
+\bibitem{breese} J. Breese, D. Heckerman, C. Kadie. Empirical Analysis of
+Predictive Algorithms for Collaborative Filtering. UAI, 1998.
+\url{https://arxiv.org/abs/1301.7363}.
+\bibitem{kelen} D. Kelen et al. Efficient K-NN for Playlist Continuation.
+RecSys Challenge, 2018. \url{https://doi.org/10.1145/3267471.3267477}.
+\bibitem{bonnin} G. Bonnin, D. Jannach. A Comparison of Playlist Generation
+Strategies for Music Recommendation and a New Baseline Scheme. 2013.
+\url{https://web-ainf.aau.at/pub/jannach/files/Workshop_ITWP13.pdf}.
+\bibitem{ludewig} M. Ludewig, D. Jannach. Evaluation of Session-based
+Recommendation Algorithms. 2018. \url{https://arxiv.org/abs/1803.09587}.
+\bibitem{zhou} D. Zhou, J. Huang, B. Sch\"olkopf. Learning with Hypergraphs:
+Clustering, Classification, and Embedding. NeurIPS, 2006.
+\url{https://papers.nips.cc/paper/2006/hash/dff8e9c2ac33381546d96deea9922999-Abstract.html}.
+\bibitem{ferraro} A. Ferraro et al. Automatic Playlist Continuation Using a
+Hybrid Recommender System Combining Features from Text and Audio. RecSys
+Challenge, 2018. \url{https://doi.org/10.1145/3267471.3267473}.
+\bibitem{sarwar} B. Sarwar et al. Item-Based Collaborative Filtering Recommendation
+Algorithms. WWW, 2001. \url{https://www.ra.ethz.ch/CDstore/www10/papers/519/}.
+\bibitem{melville} P. Melville, R. J. Mooney, R. Nagarajan. Content-Boosted
+Collaborative Filtering for Improved Recommendations. AAAI, 2002.
+\url{https://cdn.aaai.org/AAAI/2002/AAAI02-029.pdf}.
+\bibitem{vasileva} M. Vasileva et al. Learning Type-Aware Embeddings for Fashion
+Compatibility. ECCV, 2018. \url{https://arxiv.org/abs/1803.09196}.
+\bibitem{volkovs} M. Volkovs et al. Two-stage Model for Automatic Playlist
+Continuation at Scale. RecSys Challenge, 2018.
+\url{https://doi.org/10.1145/3267471.3267480}.
+\bibitem{deepicf} F. Xue et al. Deep Item-based Collaborative Filtering for Top-N
+Recommendation. Preprint, 2018. \url{https://arxiv.org/abs/1811.04392}.
+
 \bibitem{mcauley} J. McAuley, R. Pandey, J. Leskovec. Inferring Networks of Substitutable
 and Complementary Products. KDD, 2015.
 \url{https://cseweb.ucsd.edu/~jmcauley/pdfs/kdd15.pdf}.

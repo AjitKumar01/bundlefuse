@@ -1,0 +1,532 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,booktabs,tabularx,microtype}
+\usepackage[margin=25mm]{geometry}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,
+pdftitle={Retrieval, Association, and Shrinkage in BundleFuse}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\emergencystretch}{3em}
+\newcommand{\pos}[1]{\left[#1\right]_+}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\off}{\operatorname{off}}
+\title{Retrieval, Association, and Shrinkage in BundleFuse\\
+\large What the connections to established methods actually explain}
+\author{}\date{}
+\begin{document}
+\maketitle
+
+The connection to text retrieval begins with a simple observation: a historical
+bundle is a collection of items, just as a document is a collection of terms.
+An observed partial bundle can therefore be matched against historical bundles
+using occurrence, frequency and size information. Completion then requires an
+additional step: the matched bundles transfer their support to candidate items.
+The equations below make this interpretation exact for the binary, unit-weight
+training bundles used in the full-ranking POG formulation.
+
+\section{Define the observations and the retrieval analogy}
+Let $\mathcal I=\{1,\ldots,n\}$ be the item catalogue, and let $m$ training
+bundles be indexed by $e\in\{1,\ldots,m\}$. Define the binary incidence matrix
+$B\in\{0,1\}^{m\times n}$ by
+\[
+ B_{ei}=\begin{cases}1,&\text{item $i$ occurs in training bundle $e$},\\
+ 0,&\text{otherwise}.
+ \end{cases}
+\]
+An item contributes at most once to a training row. Define its training frequency
+$f_i=\sum_{e=1}^mB_{ei}$ and bundle size $d_e=\sum_{i=1}^nB_{ei}$.
+Let $S\subseteq\mathcal I$ be a nonempty observed set, let $c\in\mathcal I\setminus S$
+be a candidate, and let $x_S\in\{0,1\}^n$ be the indicator of $S$.
+
+\begin{center}
+\begin{tabularx}{\linewidth}{@{}XX@{}}\toprule
+Text retrieval & Bundle completion \\\midrule
+Document & Historical training bundle $e$ \\
+Term & Catalogue item $i$ \\
+Occurrence of a term in a document & Binary entry $B_{ei}$ \\
+Number of documents containing a term & Number of bundles containing an item, $f_i$ \\
+Document length & Bundle size $d_e$ \\
+Query terms & Observed items $S$ \\\bottomrule
+\end{tabularx}
+\end{center}
+
+In a basic TF--IDF formulation, term $i$ in document $e$ receives weight
+\begin{equation}
+ \operatorname{tfidf}(i,e)=\operatorname{tf}(i,e)
+                         \operatorname{idf}(i),\qquad
+ \operatorname{idf}(i)=\log\frac{m}{f_i}\quad(f_i>0).
+\end{equation}
+Here $\operatorname{tf}$ counts occurrences within the document, while
+$\operatorname{idf}$ discounts terms appearing in many documents. Common variants
+smooth the logarithm and normalize document vectors by their Euclidean length
+\cite{tfidf}. With binary bundle rows, the corresponding occurrence quantity is
+simply $B_{ei}$; repeated occurrences within a row are not modeled.
+
+This analogy motivates the roles of the weights. It does not determine their
+exact functional form. BundleFuse uses inverse square roots and explicit offsets,
+as defined next, rather than the logarithmic IDF above.
+
+\section{Match the observed items to historical bundles}
+Define an observed-item weight $a_i$ and a historical-bundle weight $v_e$ by
+\begin{equation}
+ a_i=\frac1{\sqrt{f_i+5}},\qquad
+ v_e=\frac1{\sqrt{d_e+1}}.
+\end{equation}
+The historical bundle's match score is
+\begin{equation}\label{overlap}
+ \boxed{o_e(S)=v_e\sum_{s\in S}B_{es}a_s
+ =\frac1{\sqrt{d_e+1}}
+   \sum_{s\in S}\frac{B_{es}}{\sqrt{f_s+5}}.}
+\end{equation}
+Each summand corresponds to one observed item actually present in the historical
+bundle. Its frequency discount is larger for a rarer observed item. The outer
+factor reduces the contribution of the same match when it occurs inside a larger
+bundle. Multiple matches add together.
+
+For example, an observed item appearing in four training bundles has weight
+$1/\sqrt9=1/3$, whereas one appearing in 95 bundles has weight
+$1/\sqrt{100}=1/10$. Within the same historical bundle, the former match
+contributes $10/3$ times as much. Likewise, the bundle-size factors for sizes
+three and fifteen are $1/2$ and $1/4$, respectively: the same weighted overlap
+receives twice as much weight in the smaller bundle. These are illustrative
+calculations, not observations about a particular evaluation query.
+
+\paragraph{What is shared with TF--IDF?}
+Both constructions discount a clue according to how widely it occurs in the
+training collection. Document-vector normalization can additionally reduce length effects;
+IDF alone does not normalize document length. This is a parallel in weighting principles, with
+explicit differences in the formulas:
+\begin{itemize}
+\item The item-frequency factor $(f_i+5)^{-1/2}$ is a smoothed decreasing
+frequency weight, rather than logarithmic IDF.
+\item The factor $(d_e+1)^{-1/2}$ depends on binary bundle size. It is not the
+Euclidean normalization of a TF--IDF-weighted document vector, whose norm would
+also depend on its individual term weights.
+\item Frequency weights act on the observed query items in~\eqref{overlap}.
+Candidate items do not receive that same divisor when votes are transferred.
+\end{itemize}
+The offsets $5$ and $1$ and the square-root exponents are fixed modeling
+choices. The analogy explains their roles, not the optimality of those numbers.
+There is a further distinction: if $f_i=m$, basic unsmoothed IDF is zero,
+whereas $a_i=(m+5)^{-1/2}$ remains positive. Nor is $a_i$ a logarithmic
+information content. Thus the direct score is best described as
+\emph{frequency-discounted historical retrieval}, not as TF--IDF itself.
+These are discounts per recorded match; repeated matches can still accumulate
+large total support. They do not establish complete removal of popularity effects.
+
+\section{Transfer historical-bundle matches to completion candidates}
+A historical bundle proposes its member items as possible completions.
+Accordingly, sum its match score into candidate $c$ only if it contains $c$:
+\begin{equation}\label{pair}
+ \boxed{p_c(S)=\sum_{e=1}^mB_{ec}o_e(S)
+ =\sum_{s\in S}a_s\sum_{e=1}^m v_eB_{ec}B_{es}.}
+\end{equation}
+The inner sum is the size-discounted number of bundles containing both the
+candidate and observed item $s$. The outer sum combines this support across the
+observed items, with their individual frequency discounts.
+
+Set $D=\diag(a_i)\in\mathbb R^{n\times n}$ and
+$V=\diag(v_e)\in\mathbb R^{m\times m}$. The complete calculation is
+\begin{equation}
+ o(S)=VBDx_S,\qquad \boxed{p(S)=B^\top VBDx_S.}
+\end{equation}
+Reading from right to left: weight the observed items, match them to historical
+bundles, discount bundle size, and transfer the bundle scores to their members.
+This provides a retrieval interpretation of the two incidence multiplications.
+The first multiplication produces historical-bundle evidence; the second
+converts that evidence into a completion ranking.
+
+The formula retains self-contributions at observed-item entries of $p$.
+Candidates are restricted to $c\notin S$ when recommendations are returned.
+The displayed equation is the raw direct score, before catalogue standardization
+or combination with other sources.
+
+\section{Distinguish simultaneous matches from separate matches}
+Additive overlap gives one contribution for each observed item. To reward several
+observed items appearing in the same historical bundle, define
+\[
+ k_e(S)=\sum_{s\in S}B_{es}=|e\cap S|,\qquad [z]_+=\max(z,0),
+ \qquad\beta=1.5.
+\]
+The incidence-enhanced score is
+\begin{equation}\label{group}
+ \boxed{g_c(S)=\sum_eB_{ec}o_e(S)
+                   \bigl[1+\beta[k_e(S)-1]_+\bigr].}
+\end{equation}
+For one matching observed item the multiplier is one. For two it is $2.5$;
+for three it is four. If there are no matches, $o_e(S)=0$.
+This amplification applies separately to each historical bundle before its
+vote is transferred. The setting $\beta=1.5$ specifies the chosen strength.
+
+Why retain this operation? A candidate may occur with $s$ in one historical
+bundle and with $t$ in another, without ever occurring with both together.
+Equation~\eqref{group} distinguishes that situation from a historical bundle
+containing $s,t,c$. To see the distinction algebraically, define
+\[
+ T_{cst}=\sum_e v_eB_{ec}B_{es}B_{et}.
+\]
+This is the weighted count of bundles containing all three distinct items.
+For $c\notin S$, the binary-query expansion of~\eqref{group} is
+\begin{equation}
+ g_c(S)=p_c(S)+\beta\sum_{\{s,t\}\subseteq S}(a_s+a_t)T_{cst},
+\end{equation}
+where each unordered pair of distinct observed items appears once.
+Thus direct matching uses candidate--seed pairs, while the correction uses
+candidate--seed--seed triples. It rewards supported pairs within $S$; it does
+not require the entire observed set to have appeared together.
+
+The TF--IDF analogy explains the frequency and size discounts. The simultaneous
+term extends the scoring rule beyond additive item matching. Its triple counts
+cannot in general be reconstructed from the item-pair count matrix alone.
+This is a statement about information retained by these particular operators,
+not a claim that multi-item retrieval or higher-order recommendation is new.
+
+\section{Interpret PPMI as conditional occurrence plus inverse-frequency information}
+The PPMI source uses another normalization of the same training observations.
+Define
+\begin{equation}
+ C=\off(B^\top B),\qquad
+ q_i=\sum_jC_{ij},\qquad T=\sum_{i,j}C_{ij},
+\end{equation}
+where $\off$ replaces a square matrix's diagonal by zero. $C_{ij}$ counts
+training bundles containing both distinct items $i,j$. Assume $T>0$.
+Sampling an ordered within-bundle pair from all recorded pair occurrences gives
+\[
+ P(i,j)=\frac{C_{ij}}{T},\qquad
+ P(i)=\frac{q_i}{T}.
+\]
+The endpoint marginal $q_i$ is not the bundle frequency $f_i$:
+\begin{equation}
+ q_i=\sum_eB_{ei}(d_e-1).
+\end{equation}
+An item in a larger bundle participates in more pairs. This distinction must be
+retained when connecting the log-ratio to inverse frequency.
+
+For a recorded pair $(c,s)$, its pointwise mutual information is
+\begin{align}
+ \operatorname{PMI}(c,s)
+ &=\log\frac{P(c,s)}{P(c)P(s)}
+   =\log\frac{C_{cs}T}{q_cq_s}\\
+ &=\underbrace{\log\frac{C_{cs}}{q_c}}_{\log P(s\mid c)}
+  +\underbrace{\log\frac{T}{q_s}}_{-\log P(s)}.\label{pmi}
+\end{align}
+The first term measures how often $s$ appears as a partner of $c$; the second
+is the inverse-frequency information of $s$ in the ordered-pair distribution.
+The sum is positive exactly when $s$ is more likely beside $c$ than under its
+overall endpoint frequency. This is the precise information-theoretic parallel
+to discounting common terms.
+
+Define positive PMI by $M_{cs}=[\operatorname{PMI}(c,s)]_+$ for recorded pairs,
+and zero for absent pairs. The raw source score is
+\begin{equation}
+ r_{\rm pmi}(c\mid S)=\sum_{s\in S}M_{cs}.
+\end{equation}
+The implementation adds small numerical stabilizers to the denominators and
+logarithm. Equation~\eqref{pmi} describes the underlying ratio before those
+stabilizers. Clipping removes negative associations from this source; it does
+not convert them into penalties. Unlike TF--IDF, PPMI includes the conditional
+association of two items, rather than only a term's frequency weight.
+
+
+\section{From association to similarity of association profiles}
+The direct PPMI entry $M_{cs}$ asks whether $c$ and $s$ occur together above
+the independent-endpoint baseline. A different question is whether they have
+similar partners. This distinction explains the SVD source.
+
+Write $M=U\Sigma V^\top$ for a singular value decomposition, with singular
+values in decreasing order. Let $r$ be the retained dimension, and $V_r$ the
+first $r$ right singular vectors. Define
+\[
+ Z=MV_r=U_r\Sigma_r,\qquad
+ u_i=\frac{Z_i}{\|Z_i\|_2+10^{-8}},\qquad
+ r_{\rm svd}(c\mid S)=u_c^\top\frac1{|S|}\sum_{s\in S}u_s.
+\]
+Here $Z_i$ is the row for item $i$, not a singular vector. Orthogonality of the
+columns of $V_r$ does not make these rows unit length.
+Before row normalization,
+\begin{equation}\label{profile}
+ ZZ^\top=MV_rV_r^\top M^\top=U_r\Sigma_r^2U_r^\top.
+\end{equation}
+If all singular directions are retained, its $(c,s)$ entry is
+$\sum_j M_{cj}M_{sj}$. Thus it rewards sharing positively associated partners,
+even when $M_{cs}=0$. Truncation retains the dominant directions in these
+association profiles. It is not the rank-$r$ reconstruction
+$U_r\Sigma_rV_r^\top$ used directly as an item--item score.
+
+The connection is to the use of SVD in latent semantic indexing
+\cite{lsi}: compare objects through compressed occurrence profiles.
+Here the input is item--item PPMI, not a term--document table.
+The exact rank-$r$ SVD minimizes $\|M-A\|_F^2$ over matrices $A$ of rank at
+most $r$, where $\|\cdot\|_F^2$ sums squared entries. The numerical procedure
+approximates that decomposition. Neither this approximation criterion nor
+Equation~\eqref{profile} guarantees better recommendation rankings.
+
+This also limits the interpretation: similar partners may indicate that two
+items are substitutes. Their similarity is not proof that they belong together.
+The source supplements observed co-membership rather than replacing its meaning.
+
+\section{From descriptions to deviations from a category mean}
+Association profiles require interaction observations. Supplied item descriptions
+provide another way to compare items. For one description modality, let
+$X\in\mathbb R^{n\times p}$ contain its row-normalized supplied vectors,
+with $p$ feature coordinates. Let $\ell(i)$ be the supplied category label,
+and let $H\in\{0,1\}^{n\times k}$ contain one indicator column for each of the
+$k$ nonempty categories: $H_{ia}=\mathbf1[\ell(i)=a]$.
+
+Define
+\begin{equation}
+ \Pi=H(H^\top H)^{-1}H^\top,\qquad R=(I_n-\Pi)X.
+\end{equation}
+$I_n$ is the $n\times n$ identity matrix. Since $H^\top H$ contains the
+category sizes on its diagonal, $(\Pi X)_i$ is precisely the mean vector
+of all catalogue items in category $\ell(i)$.
+Moreover,
+\[
+ \widehat A=\arg\min_{A\in\mathbb R^{k\times p}}\|X-HA\|_F^2
+           =(H^\top H)^{-1}H^\top X,\qquad H^\top R=0.
+\]
+Thus category subtraction is exactly the residual of a least-squares fit using
+category indicators. It removes the part represented by a category-specific
+constant vector. This is a more precise connection than calling it
+``disentanglement.''
+
+Normalize each residual row, $E_i=R_i/(\|R_i\|_2+10^{-8})$. The descriptor
+score is
+\[
+ r_E(c\mid S)=E_c^\top\bar E_S,\qquad
+ \bar E_S=\frac1{|S|}\sum_{s\in S}E_s.
+\]
+It compares the candidate to the mean description of the observed items.
+This is the same centroid-matching operation that underlies the positive
+feedback part of Rocchio retrieval \cite{rocchio}; it is not the full Rocchio
+algorithm with an original query and negative feedback.
+
+Row normalization generally destroys $H^\top E=0$, even though $H^\top R=0$.
+Consequently, only the unnormalized residual has the exact orthogonality
+property. Removing a category mean does not remove all category information
+or establish that remaining coordinates represent compatibility.
+For several modalities the operation is performed separately, followed by
+concatenation and normalization where required.
+
+\section{From descriptions of an item to descriptions of its partners}
+Two items can have related roles even if their own descriptions differ.
+The bridge incorporates the descriptions of historically connected items.
+Let $E$ now denote the normalized concatenation of the available residual
+modalities. With $D$ already defined as the seed-frequency diagonal, set
+\[
+ L=\off\!\left(D B^\top
+       \diag\bigl((d_e+1)^{-1}\bigr) B D\right),\qquad
+ N=\mathcal N(LE),\qquad F=\mathcal N(E+\eta N),\quad\eta=0.5,
+\]
+where $\mathcal N$ divides each row by its Euclidean norm plus $10^{-8}$.
+In particular, $(LE)_i=\sum_jL_{ij}E_j$ aggregates the residual descriptions
+of items sharing training bundles with $i$. $L$ is symmetric but is not a
+row-stochastic transition matrix: its rows need not sum to one.
+
+The bridge score is $r_F(c\mid S)=F_c^\top |S|^{-1}\sum_{s\in S}F_s$.
+Let $A$ be the diagonal of the final row-normalization factors, so that
+$F=A(E+\eta N)$. Its similarity matrix expands exactly as
+\begin{equation}
+ FF^\top=A\bigl(EE^\top+\eta EN^\top+\eta NE^\top+
+                   \eta^2 NN^\top\bigr)A.
+\end{equation}
+The four terms compare own descriptions, own descriptions with partner
+profiles in either direction, and partner profiles with one another.
+This is a one-step graph aggregation followed by similarity matching.
+It provides a concrete route from descriptive resemblance to historical
+context; it is neither an iterated random walk nor a fitted graph neural network.
+The cross terms can be negative because category residual coordinates are signed.
+
+\section{From exact identities to pooled category or cluster relations}
+Rare items may have too few observations to estimate useful item-specific
+associations. Grouping items shares observations across their labels or
+feature memberships. This is pooling of counts, followed by lifting the
+resulting relation back to individual items.
+
+For the category indicator $H$ defined above, $BH$ counts category occurrences
+per bundle. Write
+\[
+ A^{\rm cat}=BH,\quad C^{\rm cat}=\off((A^{\rm cat})^\top A^{\rm cat}),\quad
+ h_a=\sum_e A^{\rm cat}_{ea},\quad h_+=\sum_a h_a.
+\]
+For positive recorded counts define
+$Q^{\rm cat}_{ab}=[\log(C^{\rm cat}_{ab}h_+/(h_a h_b))]_+$, and use zero
+otherwise. Small numerical stabilizers are omitted here.
+The category association score is $(H Q^{\rm cat} H^\top x_S)_c$.
+The matrix products explicitly mean: collect seed labels, score relations
+between labels, then give each candidate the score of its label.
+These $h_a$ are category-occurrence totals, not the endpoint totals of
+$C^{\rm cat}$. This is a count-normalized log score; the exact independence
+interpretation established for item PPMI must not be transferred to it.
+
+The POG category score also discourages categories that rarely repeat in one
+bundle. Let $n_a^{(1)}$ and $n_a^{(2)}$ count training bundles containing at
+least one and at least two items of category $a$, respectively. Set
+\[
+ \rho_a=\frac{n_a^{(2)}+0.5}{n_a^{(1)}+1}.
+\]
+Subtract $0.5(1-\rho_a)$ for each seed of the candidate's category if
+$\rho_a<0.15$. Under a Bernoulli model of repetition conditional on category
+presence, $\rho_a$ is exactly the posterior mean with a
+$\operatorname{Beta}(1/2,1/2)$ prior. The threshold and penalty magnitude
+are additional design choices, not consequences of that posterior mean.
+
+Soft groups replace $H$ by a matrix $J\in\mathbb R^{n\times k}$ of
+nonnegative feature-cluster memberships. Clusters are fitted by minibatch
+$k$-means to normalized concatenated supplied descriptors; membership is
+proportional to the exponential of similarity to a normalized cluster centre,
+with temperature $0.05$. Each row sums approximately to one (the normalization
+includes a small stabilizer). For binary training bundles,
+\[
+ C^{\rm soft}=\off(J^\top C J),\qquad b_a=\sum_iJ_{ia},\quad b_+=\sum_a b_a,
+\]
+\[
+ Q^{\rm soft}_{ab}=
+ \left[\log\frac{C^{\rm soft}_{ab}b_+}{b_a b_b}\right]_+,
+ \qquad r_{\rm soft}=JQ^{\rm soft}J^\top x_S,
+\]
+using zero for absent counts and the same numerical qualifications.
+The identity $J^\top C J=(BJ)^\top BJ-J^\top\diag(f)J$ explains the
+self-item subtraction: the same item must not supply both ends of a pair.
+Here $b_a$ is catalogue membership mass, not a pair marginal.
+
+This is relation sharing through groups. It is not a dot-product kernel in
+general: $Q^{\rm soft}$ need not be positive semidefinite. Given $J$, the
+soft count matrix contains no information beyond the item-pair matrix $C$.
+This contrasts with the incidence correction, which uses candidate--seed--seed
+counts from the original bundles. The selected full POG\_DENSE recipe does
+not use the soft source; its role is to explain an available component, not
+an observed cause of the dense result.
+
+\section{From overlapping clues to diversity of support}
+The optional agreement score asks whether a candidate is supported by different
+observed items rather than nearly duplicate clues. For POG, define
+\[
+ W=\off(B^\top VBD),\qquad
+ q_{cs}=W_{cs}+0.15[E_c^t\!\cdot E_s^t]_+,\qquad A_c=\sum_{s\in S}q_{cs},
+\]
+where $E_i^t$ is the normalized category-residual title vector defined above.
+For distinct $s,t\in S$, set
+\[
+ K_{st}=\left[1-0.5\mathbf1[\ell(s)=\ell(t)]
+                  -0.5[E_s^t\!\cdot E_t^t]_+\right]_+,\qquad K_{ss}=0.
+\]
+For $A_c>0$, let $\pi_{cs}=q_{cs}/A_c$. These are nonnegative weights summing
+to one over seeds. Then
+\begin{equation}
+ r_R(c\mid S)=\frac{\sum_{s,t}q_{cs}K_{st}q_{ct}}{A_c+0.05}
+ =\frac{A_c^2}{A_c+0.05}\sum_{s,t}\pi_{cs}\pi_{ct}K_{st}.
+\end{equation}
+When $A_c=0$ the score is zero. The last sum is the expected dissimilarity
+of two independent seed draws from the candidate's support distribution.
+It has the quadratic-diversity form introduced by Rao \cite{rao}.
+It is multiplied here by a support-strength factor. A candidate supported by
+one seed has zero diversity; strong support spread across dissimilar seeds
+can receive more credit. ``Independent draws'' describes this mathematical
+sampling operation, not statistical independence of the original observations.
+No triangle inequality or entropy-concavity property of $K$ is asserted.
+
+This is not the incidence correction: it combines candidate--seed affinities
+and seed dissimilarities, without requiring a historical bundle containing
+all three items. It is also not a penalty for diversity of the recommended
+list. The selected full POG\_DENSE recipe gives this source zero weight.
+
+\section{From heterogeneous scores to a regularized final estimate}
+The sources answer different questions and have different scales.
+For each raw source $r_h(i\mid S)$, define, over all $n$ catalogue items,
+\[
+ \mu_h=\frac1n\sum_i r_h(i\mid S),\qquad
+ \sigma_h^2=\frac1{n-1}\sum_i(r_h(i\mid S)-\mu_h)^2,\qquad
+ z_h(i\mid S)=\frac{r_h(i\mid S)-\mu_h}{\sigma_h+10^{-9}}.
+\]
+This is the full-ranking POG standardization, applied separately per query.
+It expresses scores relative to their catalogue mean and spread; it is not
+probability calibration. No held-out completion label enters these statistics.
+The full catalogue, including seeds before the final exclusion mask, is used.
+
+Nonnegative scalar weights combine these standardized sources. They are chosen
+on validation data and need not sum to one. Therefore source fusion is not
+itself necessarily a convex average. For the selected full POG\_DENSE recipe,
+write
+\begin{align}
+ Y_c&=0.5z_{\rm cat}+0.25z_{\rm bridge}+0.5z_g
+          +0.25z_{\rm pop}+0.25z_{\rm svd},\\
+ P_c&=0.5z_{\rm cat}+0.25z_{\rm bridge}+0.25z_{\rm pop},
+ \qquad r_{\rm pop}(c)=\log(1+f_c),
+\end{align}
+where every $z$ on the right is evaluated at $(c\mid S)$.
+The popularity source provides a query-independent frequency baseline before
+fusion, with logarithmic compression of large counts. Its increasing frequency
+weight has a different role from the decreasing weight on observed seed clues.
+$P_c$ is a restricted fallback score, not an external probability distribution.
+
+Let $s_0\geq0$ be its validation-selected scale and $\kappa>0$ the frequency
+threshold parameter. The final score is
+\begin{equation}\label{shrink}
+ \boxed{\theta(c\mid S)=\frac{f_cY_c+\kappa s_0P_c}{f_c+\kappa}.}
+\end{equation}
+This is exactly the unique solution of
+\begin{equation}
+ \min_{t\in\mathbb R}\quad
+ \frac{f_c}{2}(t-Y_c)^2+\frac{\kappa}{2}(t-s_0P_c)^2.
+\end{equation}
+Differentiating gives $(f_c+\kappa)t=f_cY_c+\kappa s_0P_c$;
+the second derivative is strictly positive. This connects the gate to
+quadratic regularization \cite{ridge}, here toward a nonzero fallback.
+At zero frequency the fallback is used completely; at $f_c=\kappa$ the
+two scores receive equal weight; at large frequency $Y_c$ dominates.
+The selected dense values are $\kappa=0.5$ and $s_0\simeq1.46055$.
+With shrinkage disabled ($\kappa=0$), the procedure returns $Y_c$ directly,
+including for items of zero frequency.
+
+The frequency-based coefficient imposes a reliance policy. It does not prove
+that the error variance of $Y_c$ is proportional to $1/f_c$ or that the result
+is a calibrated Bayesian posterior. Also $P_c$ and $Y_c$ share sources.
+Writing $Y_c=P_c+H_c$ and $\rho_c=f_c/(f_c+\kappa)$ gives
+\[
+ \theta(c\mid S)=\bigl[s_0+(1-s_0)\rho_c\bigr]P_c+\rho_c H_c.
+\]
+This is the precise separation between retained shared evidence and the
+frequency-controlled additional evidence. For the selected dense recipe,
+$H_c=0.5z_g+0.25z_{\rm svd}$. Rare items are not automatically boosted:
+the direction of the change depends on the scores being mixed.
+
+\section{A coherent interpretation, with distinct mathematical roles}
+The resulting progression is:
+\begin{enumerate}
+\item Retrieve historical bundles using discounted overlap and transfer their
+support to candidates. TF--IDF supplies a related frequency-weighting principle.
+\item Preserve simultaneous candidate--seed--seed occurrences where selected;
+these distinguish joint observations from a collection of separate pairs.
+\item Share evidence when exact identity is too restrictive: compare association
+profiles, pool group relations, and compare descriptions and partner descriptions.
+\item Standardize the resulting scores, select their contributions on validation,
+and regularize the combined estimate toward a restricted fallback using candidate
+frequency.
+\end{enumerate}
+These connections explain what information each multiplication retains and how
+it affects the score. They do not derive every fixed constant from a common
+principle, establish a single joint optimization objective, or prove superiority
+of the whole estimator. In particular, rarity weighting, profile compression,
+mean removal, and quadratic regularization solve different mathematical problems.
+Their combination is the construction to assess, rather than a claim that all
+sources are versions of TF--IDF.
+
+\begin{thebibliography}{9}
+\bibitem{tfidf} Manning, Raghavan and Sch\"utze (2008).
+\emph{Introduction to Information Retrieval}, inverse document frequency.
+\url{https://nlp.stanford.edu/IR-book/html/htmledition/inverse-document-frequency-1.html}.
+\bibitem{lsi} Manning, Raghavan and Sch\"utze (2008).
+\emph{Introduction to Information Retrieval}, Chapter 18.
+\url{https://nlp.stanford.edu/IR-book/pdf/18lsi.pdf}.
+\bibitem{rocchio} Manning, Raghavan and Sch\"utze (2008).
+\emph{Introduction to Information Retrieval}, Rocchio relevance feedback.
+\url{https://nlp.stanford.edu/IR-book/html/htmledition/the-rocchio71-algorithm-1.html}.
+\bibitem{rao} C. R. Rao (1982). Diversity and dissimilarity coefficients:
+a unified approach. \emph{Theoretical Population Biology} 21, 24--43.
+\url{https://doi.org/10.1016/0040-5809(82)90004-1}.
+\bibitem{ridge} Stanford STATS 305B. Penalized regression, ridge regression.
+\url{https://web.stanford.edu/class/stats305b/notes/Ridge.html}.
+\end{thebibliography}
+\end{document}

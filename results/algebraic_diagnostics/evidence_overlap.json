@@ -1,0 +1,86 @@
+{
+  "pog": {
+    "queries": 4000,
+    "recall_and_ndcg": {
+      "history": [
+        0.030874999999999993,
+        0.02093823468393898
+      ],
+      "shared": [
+        0.04454166666666667,
+        0.029290063511209597
+      ],
+      "combined": [
+        0.05145833333333335,
+        0.033939734867245774
+      ],
+      "full": [
+        0.05445833333333335,
+        0.03609231307391131
+      ]
+    },
+    "any_hit": {
+      "history": 240,
+      "shared": 345,
+      "combined": 395,
+      "full": 417
+    },
+    "history_only_hit": 137,
+    "shared_only_hit": 242,
+    "both_hit": 103,
+    "neither_hit": 3518,
+    "combined_hit_when_neither_hit": 36,
+    "combined_vs_history": {
+      "better": 244,
+      "worse": 93,
+      "equal": 3663
+    },
+    "combined_vs_shared": {
+      "better": 91,
+      "worse": 38,
+      "equal": 3871
+    }
+  },
+  "pog_dense": {
+    "queries": 5938,
+    "recall_and_ndcg": {
+      "history": [
+        0.37537891545974966,
+        0.2594458746854969
+      ],
+      "shared": [
+        0.11291680700572607,
+        0.07696625320387888
+      ],
+      "combined": [
+        0.3909284832154479,
+        0.27689396781803904
+      ],
+      "full": [
+        0.3952228584259565,
+        0.287875807714288
+      ]
+    },
+    "any_hit": {
+      "history": 2984,
+      "shared": 1010,
+      "combined": 3076,
+      "full": 3108
+    },
+    "history_only_hit": 2022,
+    "shared_only_hit": 48,
+    "both_hit": 962,
+    "neither_hit": 2906,
+    "combined_hit_when_neither_hit": 158,
+    "combined_vs_history": {
+      "better": 231,
+      "worse": 102,
+      "equal": 5605
+    },
+    "combined_vs_shared": {
+      "better": 2263,
+      "worse": 38,
+      "equal": 3637
+    }
+  }
+}

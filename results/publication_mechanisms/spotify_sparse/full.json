@@ -1,0 +1,30 @@
+{
+  "weights": {
+    "simp": 1.0,
+    "homo": 1.5,
+    "audiostyle": 1.5
+  },
+  "prior": [
+    "homo",
+    "audiostyle"
+  ],
+  "backoff": [
+    0.05,
+    1.1623643722388652
+  ],
+  "higher_order": [
+    0.0,
+    0.35
+  ],
+  "variance": {
+    "identifiable": true,
+    "raw_sigma0_sq": 5.809335015654446,
+    "raw_sigma_eps_sq": -5.869038370892267,
+    "sigma0_sq": 5.809335015654446,
+    "sigma_eps_sq": 0.0001,
+    "kappa_f": 0.05,
+    "raw_slope_negative": true,
+    "truncated": true
+  },
+  "validation_ndcg20": 0.22475435960344342
+}

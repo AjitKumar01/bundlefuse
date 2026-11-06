@@ -1,0 +1,20 @@
+{
+  "weights": {
+    "simp": 0.5,
+    "ppmi": 0.25,
+    "csvd": 1.5
+  },
+  "prior": [],
+  "backoff": [
+    0.0,
+    1.0
+  ],
+  "higher_order": [
+    0.0,
+    0.0
+  ],
+  "variance": {
+    "disabled": true
+  },
+  "validation_ndcg20": 0.1420925822939982
+}

@@ -1,0 +1,27 @@
+{
+  "path": "checkpoints/publication_mechanisms/spotify_sparse/artifacts.pt",
+  "sha256": "614ac16859d72a9916ff757f6bf6b14abd6ec940963331311fed905fac91a0a0",
+  "config": {
+    "n_items": 213325,
+    "families": [
+      "collaborative",
+      "content",
+      "taxonomy",
+      "popularity"
+    ],
+    "svd_dim": 128,
+    "alpha_deg": 0.5,
+    "gamma_vol": 0.5,
+    "beta_clique": 1.5,
+    "alpha_bridge": 0.5,
+    "n_soft_clusters": 400,
+    "soft_tau": 0.05,
+    "sel_obj": "ndcg20",
+    "compressed": true,
+    "content_rank": null,
+    "signal_profile": "research",
+    "fit_rounds": 4,
+    "seed_cap": 0,
+    "validation_chunk": 32
+  }
+}

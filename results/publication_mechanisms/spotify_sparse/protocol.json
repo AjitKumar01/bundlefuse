@@ -1,0 +1,123 @@
+{
+  "datasets": [
+    "pog_dense",
+    "pog",
+    "spotify",
+    "spotify_sparse"
+  ],
+  "objective": "ndcg20",
+  "cutoffs": [
+    20
+  ],
+  "validation": "all supplied queries",
+  "test": "all supplied queries, once recipes frozen",
+  "signal_profile": "research",
+  "content_rank": null,
+  "rounds": 4,
+  "chunk": 16,
+  "seed": 20261105,
+  "history": [
+    "simp",
+    "diff2",
+    "pop",
+    "cooc",
+    "ppmi",
+    "csvd"
+  ],
+  "shared": [
+    "cat",
+    "softcat",
+    "style",
+    "imgstyle",
+    "bridge",
+    "homo",
+    "audiostyle"
+  ],
+  "mixture_fractions": [
+    0.0,
+    0.05,
+    0.25,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "kappa": [
+    0.0,
+    0.05,
+    0.25,
+    0.5,
+    1.0,
+    5.0
+  ],
+  "scales": [
+    "unit",
+    "validation matched"
+  ],
+  "stability": [
+    "canonical",
+    "reverse",
+    "permutation_20261105",
+    "cluster_bootstrap_20261106",
+    "cluster_bootstrap_20261107"
+  ],
+  "contrasts": [
+    [
+      "shared",
+      "history"
+    ],
+    [
+      "combined",
+      "history"
+    ],
+    [
+      "combined",
+      "shared"
+    ],
+    [
+      "frequency_matched",
+      "combined"
+    ],
+    [
+      "full",
+      "frequency_matched"
+    ],
+    [
+      "frequency_unit",
+      "constant_unit"
+    ],
+    [
+      "frequency_matched",
+      "constant_matched"
+    ],
+    [
+      "frequency_unit",
+      "combined"
+    ],
+    [
+      "constant_matched",
+      "combined"
+    ],
+    [
+      "constant_matched",
+      "constant_unit"
+    ],
+    [
+      "frequency_matched",
+      "frequency_unit"
+    ],
+    [
+      "full",
+      "combined"
+    ]
+  ],
+  "planned_tests": 96,
+  "bootstrap": 2000,
+  "sign_flips": 10000,
+  "interpretation": "Follow-up on inspected benchmarks; inference conditional on fitted models/splits.",
+  "retention": "Keep model artifacts, every frozen recipe, validation caches, query metrics and predictions.",
+  "scope": "Four released POG/Spotify splits. No chronological-retail or all-eight claim.",
+  "budget": "Same coordinate grid/round ceiling for weight fits; routing grids each have six candidates. Full model adds the original optional-term and shrinkage searches. Counts are recorded.",
+  "dataset": "spotify_sparse",
+  "source_sha256": "4ffe9a214ad5b65a5d5047b3c77f9b12bd3962f50bae9e6e50aa5ce097b9c937",
+  "smoke": false
+}

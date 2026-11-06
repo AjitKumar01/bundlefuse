@@ -1,0 +1,49 @@
+{
+  "weights": {
+    "simp": 1.0,
+    "homo": 1.5,
+    "audiostyle": 1.5
+  },
+  "prior": [
+    "homo",
+    "audiostyle"
+  ],
+  "backoff": [
+    1.0,
+    1.0
+  ],
+  "higher_order": [
+    0.0,
+    0.0
+  ],
+  "variance": {
+    "disabled": true
+  },
+  "validation_ndcg20": 0.21731783418715248,
+  "grid_scores": [
+    {
+      "value": 0.0,
+      "ndcg20": 0.21447117030810411
+    },
+    {
+      "value": 0.05,
+      "ndcg20": 0.21500658624486085
+    },
+    {
+      "value": 0.25,
+      "ndcg20": 0.21610879610169
+    },
+    {
+      "value": 0.5,
+      "ndcg20": 0.21659098735849405
+    },
+    {
+      "value": 1.0,
+      "ndcg20": 0.21731783418715248
+    },
+    {
+      "value": 5.0,
+      "ndcg20": 0.21690071314815326
+    }
+  ]
+}

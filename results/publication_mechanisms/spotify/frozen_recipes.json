@@ -1,0 +1,498 @@
+{
+  "history": {
+    "weights": {
+      "simp": 0.25,
+      "ppmi": 1.0,
+      "csvd": 0.25
+    },
+    "prior": [],
+    "backoff": [
+      0.0,
+      1.0
+    ],
+    "higher_order": [
+      0.0,
+      0.0
+    ],
+    "variance": {
+      "disabled": true
+    },
+    "validation_ndcg20": 0.21360398938111466
+  },
+  "shared": {
+    "weights": {
+      "homo": 0.25,
+      "bridge": 1.5
+    },
+    "prior": [
+      "homo",
+      "bridge"
+    ],
+    "backoff": [
+      0.0,
+      1.0
+    ],
+    "higher_order": [
+      0.0,
+      0.0
+    ],
+    "variance": {
+      "disabled": true
+    },
+    "validation_ndcg20": 0.18495622681942817
+  },
+  "combined": {
+    "weights": {
+      "simp": 0.25,
+      "pop": 1.0,
+      "ppmi": 1.0,
+      "csvd": 0.5,
+      "homo": 0.25,
+      "audiostyle": 0.25,
+      "bridge": 0.25
+    },
+    "prior": [
+      "homo",
+      "audiostyle",
+      "bridge"
+    ],
+    "backoff": [
+      0.0,
+      1.0
+    ],
+    "higher_order": [
+      0.0,
+      0.0
+    ],
+    "variance": {
+      "disabled": true
+    },
+    "validation_ndcg20": 0.2482726970568881
+  },
+  "full": {
+    "weights": {
+      "simp": 0.25,
+      "pop": 1.0,
+      "ppmi": 1.0,
+      "csvd": 0.5,
+      "homo": 0.25,
+      "audiostyle": 0.25,
+      "bridge": 0.25
+    },
+    "prior": [
+      "homo",
+      "audiostyle",
+      "bridge"
+    ],
+    "backoff": [
+      5.0,
+      1.826106674513935
+    ],
+    "higher_order": [
+      1.0,
+      0.2
+    ],
+    "variance": {
+      "identifiable": true,
+      "raw_sigma0_sq": 6.233984661694096,
+      "raw_sigma_eps_sq": -5.335896632285261,
+      "sigma0_sq": 6.233984661694096,
+      "sigma_eps_sq": 0.0001,
+      "kappa_f": 0.05,
+      "raw_slope_negative": true,
+      "truncated": true
+    },
+    "validation_ndcg20": 0.2649526280251016
+  },
+  "constant_unit": {
+    "weights": {
+      "simp": 0.25,
+      "pop": 1.0,
+      "ppmi": 1.0,
+      "csvd": 0.5,
+      "homo": 0.25,
+      "audiostyle": 0.25,
+      "bridge": 0.25
+    },
+    "prior": [
+      "homo",
+      "audiostyle",
+      "bridge"
+    ],
+    "backoff": [
+      -0.0,
+      1.0
+    ],
+    "higher_order": [
+      0.0,
+      0.0
+    ],
+    "variance": {
+      "disabled": true
+    },
+    "validation_ndcg20": 0.2482726970568881,
+    "grid_scores": [
+      {
+        "value": -0.0,
+        "ndcg20": 0.2482726970568881
+      },
+      {
+        "value": -0.05,
+        "ndcg20": 0.247588648414457
+      },
+      {
+        "value": -0.25,
+        "ndcg20": 0.2454233053616157
+      },
+      {
+        "value": -0.5,
+        "ndcg20": 0.23941621485160453
+      },
+      {
+        "value": -0.75,
+        "ndcg20": 0.22568522222827977
+      },
+      {
+        "value": -1.0,
+        "ndcg20": 0.2079285763965395
+      }
+    ]
+  },
+  "frequency_unit": {
+    "weights": {
+      "simp": 0.25,
+      "pop": 1.0,
+      "ppmi": 1.0,
+      "csvd": 0.5,
+      "homo": 0.25,
+      "audiostyle": 0.25,
+      "bridge": 0.25
+    },
+    "prior": [
+      "homo",
+      "audiostyle",
+      "bridge"
+    ],
+    "backoff": [
+      0.25,
+      1.0
+    ],
+    "higher_order": [
+      0.0,
+      0.0
+    ],
+    "variance": {
+      "disabled": true
+    },
+    "validation_ndcg20": 0.2489582732503804,
+    "grid_scores": [
+      {
+        "value": 0.0,
+        "ndcg20": 0.2482726970568881
+      },
+      {
+        "value": 0.05,
+        "ndcg20": 0.24851962190827448
+      },
+      {
+        "value": 0.25,
+        "ndcg20": 0.2489582732503804
+      },
+      {
+        "value": 0.5,
+        "ndcg20": 0.24862649474335616
+      },
+      {
+        "value": 1.0,
+        "ndcg20": 0.24793965342044536
+      },
+      {
+        "value": 5.0,
+        "ndcg20": 0.24240361009759298
+      }
+    ]
+  },
+  "constant_matched": {
+    "weights": {
+      "simp": 0.25,
+      "pop": 1.0,
+      "ppmi": 1.0,
+      "csvd": 0.5,
+      "homo": 0.25,
+      "audiostyle": 0.25,
+      "bridge": 0.25
+    },
+    "prior": [
+      "homo",
+      "audiostyle",
+      "bridge"
+    ],
+    "backoff": [
+      -0.0,
+      1.9127265492561423
+    ],
+    "higher_order": [
+      0.0,
+      0.0
+    ],
+    "variance": {
+      "disabled": true
+    },
+    "validation_ndcg20": 0.2482726970568881,
+    "grid_scores": [
+      {
+        "value": -0.0,
+        "ndcg20": 0.2482726970568881
+      },
+      {
+        "value": -0.05,
+        "ndcg20": 0.24739434142673689
+      },
+      {
+        "value": -0.25,
+        "ndcg20": 0.2425330177861006
+      },
+      {
+        "value": -0.5,
+        "ndcg20": 0.2314969653742731
+      },
+      {
+        "value": -0.75,
+        "ndcg20": 0.2201234161448031
+      },
+      {
+        "value": -1.0,
+        "ndcg20": 0.2079285763965395
+      }
+    ]
+  },
+  "frequency_matched": {
+    "weights": {
+      "simp": 0.25,
+      "pop": 1.0,
+      "ppmi": 1.0,
+      "csvd": 0.5,
+      "homo": 0.25,
+      "audiostyle": 0.25,
+      "bridge": 0.25
+    },
+    "prior": [
+      "homo",
+      "audiostyle",
+      "bridge"
+    ],
+    "backoff": [
+      0.5,
+      1.9127265492561423
+    ],
+    "higher_order": [
+      0.0,
+      0.0
+    ],
+    "variance": {
+      "disabled": true
+    },
+    "validation_ndcg20": 0.26010920692830664,
+    "grid_scores": [
+      {
+        "value": 0.0,
+        "ndcg20": 0.2482726970568881
+      },
+      {
+        "value": 0.05,
+        "ndcg20": 0.25900774201496435
+      },
+      {
+        "value": 0.25,
+        "ndcg20": 0.25946414050424743
+      },
+      {
+        "value": 0.5,
+        "ndcg20": 0.26010920692830664
+      },
+      {
+        "value": 1.0,
+        "ndcg20": 0.2595670854065234
+      },
+      {
+        "value": 5.0,
+        "ndcg20": 0.259590455711641
+      }
+    ]
+  },
+  "stability_reverse": {
+    "weights": {
+      "homo": 0.25,
+      "ppmi": 0.5,
+      "cooc": 0.25,
+      "pop": 0.25
+    },
+    "prior": [
+      "homo"
+    ],
+    "backoff": [
+      0.05,
+      2.1809552959761467
+    ],
+    "higher_order": [
+      0.0,
+      0.2
+    ],
+    "variance": {
+      "identifiable": true,
+      "raw_sigma0_sq": 1.3855190516752591,
+      "raw_sigma_eps_sq": -1.252804064397571,
+      "sigma0_sq": 1.3855190516752591,
+      "sigma_eps_sq": 0.0001,
+      "kappa_f": 0.05,
+      "raw_slope_negative": true,
+      "truncated": true
+    },
+    "validation_candidates": 129,
+    "order": [
+      "bridge",
+      "audiostyle",
+      "homo",
+      "cat",
+      "csvd",
+      "ppmi",
+      "cooc",
+      "pop",
+      "diff2",
+      "simp"
+    ],
+    "validation_indices_sha256": "494b15107deb77d9741606b7bddfecb8b350a486bb5a751655b294d4ebc6f1a4"
+  },
+  "stability_permutation": {
+    "weights": {
+      "ppmi": 1.0,
+      "diff2": 0.25,
+      "simp": 0.25,
+      "homo": 0.25,
+      "audiostyle": 0.25
+    },
+    "prior": [
+      "homo",
+      "audiostyle"
+    ],
+    "backoff": [
+      0.5,
+      3.119622200581009
+    ],
+    "higher_order": [
+      1.0,
+      0.2
+    ],
+    "variance": {
+      "identifiable": true,
+      "raw_sigma0_sq": 6.649333346593062,
+      "raw_sigma_eps_sq": -5.611390790795531,
+      "sigma0_sq": 6.649333346593062,
+      "sigma_eps_sq": 0.0001,
+      "kappa_f": 0.05,
+      "raw_slope_negative": true,
+      "truncated": true
+    },
+    "validation_candidates": 124,
+    "order": [
+      "ppmi",
+      "diff2",
+      "simp",
+      "homo",
+      "audiostyle",
+      "pop",
+      "bridge",
+      "cooc",
+      "cat",
+      "csvd"
+    ],
+    "validation_indices_sha256": "494b15107deb77d9741606b7bddfecb8b350a486bb5a751655b294d4ebc6f1a4"
+  },
+  "stability_bootstrap_20261106": {
+    "weights": {
+      "simp": 0.5,
+      "ppmi": 1.5,
+      "homo": 0.25
+    },
+    "prior": [
+      "homo"
+    ],
+    "backoff": [
+      0.05,
+      1.0
+    ],
+    "higher_order": [
+      0.5,
+      0.0
+    ],
+    "variance": {
+      "identifiable": true,
+      "raw_sigma0_sq": 18.407198430606307,
+      "raw_sigma_eps_sq": -17.366192495726217,
+      "sigma0_sq": 18.407198430606307,
+      "sigma_eps_sq": 0.0001,
+      "kappa_f": 0.05,
+      "raw_slope_negative": true,
+      "truncated": true
+    },
+    "validation_candidates": 121,
+    "order": [
+      "simp",
+      "diff2",
+      "pop",
+      "cooc",
+      "ppmi",
+      "csvd",
+      "cat",
+      "homo",
+      "audiostyle",
+      "bridge"
+    ],
+    "validation_indices_sha256": "e12085a3f009444f3ac14d09327335339b42ea5cc3b1e3747fe807c40fae026c"
+  },
+  "stability_bootstrap_20261107": {
+    "weights": {
+      "simp": 0.25,
+      "pop": 0.25,
+      "ppmi": 0.5,
+      "homo": 0.25,
+      "audiostyle": 0.25
+    },
+    "prior": [
+      "homo",
+      "audiostyle"
+    ],
+    "backoff": [
+      0.05,
+      1.7975122705191175
+    ],
+    "higher_order": [
+      1.0,
+      0.2
+    ],
+    "variance": {
+      "identifiable": true,
+      "raw_sigma0_sq": 1.4105118697910939,
+      "raw_sigma_eps_sq": -1.2229853176204817,
+      "sigma0_sq": 1.4105118697910939,
+      "sigma_eps_sq": 0.0001,
+      "kappa_f": 0.05,
+      "raw_slope_negative": true,
+      "truncated": true
+    },
+    "validation_candidates": 148,
+    "order": [
+      "simp",
+      "diff2",
+      "pop",
+      "cooc",
+      "ppmi",
+      "csvd",
+      "cat",
+      "homo",
+      "audiostyle",
+      "bridge"
+    ],
+    "validation_indices_sha256": "a78836d9a53c45808d023b0a8b7021a96f7eb802ffbf8d6aa7bc058b920d8eb4"
+  }
+}

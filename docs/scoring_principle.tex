@@ -1,0 +1,493 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm,booktabs,microtype}
+\usepackage[margin=25mm]{geometry}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\off}{\operatorname{off}}
+\newcommand{\normrows}{\operatorname{normrows}}
+\newcommand{\pos}[1]{\left[#1\right]_+}
+\newtheorem{proposition}{Proposition}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\emergencystretch}{3em}
+\title{Why these scores belong together in BundleFuse\\
+\large Exact relations, information retained, and the final optimization}
+\author{}\date{}
+\begin{document}
+\maketitle
+
+\textbf{The claim developed here.}
+The score distinguishes three different questions: whether a candidate occurred
+with the observed items, whether it occurred with several of them in the same
+historical bundle, and whether it has a similar pattern of relations or attributes
+when direct observations are missing. These questions are different mathematical
+operations. Their outputs become comparable through catalogue-relative scaling.
+The final score is a regularized compromise whose reliance on the combined
+evidence increases with the candidate's historical support.
+
+This is an explanation of the estimator actually used, not an assertion that all
+its choices follow from one optimal probabilistic model. We derive exact identities,
+identify the information that each operation retains or discards, and state the
+conditions under which it changes a ranking in the desired direction. Previous
+analyses and empirical results are preserved separately; this document adds to them.
+
+\section{Begin with the final score and the two quantities it reconciles}
+There are $n$ items and $m$ training bundles. Let $B\in\{0,1\}^{m\times n}$
+be their incidence matrix, with $B_{bi}=1$ if item $i$ is in bundle $b$.
+Let $S$ be a nonempty observed set, $x\in\{0,1\}^n$ its indicator, and
+$c\notin S$ a candidate. Define item frequency $f_i=\sum_b B_{bi}$ and
+bundle size $\ell_b=\sum_i B_{bi}$.
+
+We first describe the frozen POG\_dense full recipe. Every $z_h(c,S)$ below is
+a standardized channel, defined in Section~\ref{standardize}. Write
+\begin{align}
+ P_c&=\tfrac12z_{\rm cat}(c,S)+\tfrac14z_{\rm bridge}(c,S)
+                         +\tfrac14z_{\rm pop}(c,S),\label{prior}\\
+ H_c&=\tfrac12z_{\rm group}(c,S)+\tfrac14z_{\rm csvd}(c,S),\qquad Y_c=P_c+H_c.
+ \label{hist}
+\end{align}
+Here ``group'' is the pair score plus its same-bundle overlap correction, not
+the correction alone. The selected constants are $\kappa=0.5$ and
+$s=1.4605515925404695$. Define $\rho_c=f_c/(f_c+\kappa)$. Then
+\begin{equation}\label{final}
+ \boxed{\theta_c=\rho_cY_c+(1-\rho_c)sP_c
+       =[s+(1-s)\rho_c]P_c+\rho_c H_c.}
+\end{equation}
+The subscript $c$ in $P_c,H_c,Y_c,\theta_c$ suppresses their common dependence on $S$.
+
+Why this outer operation? A candidate with no training appearances has no direct
+historical support. Its score becomes $sP_c$. As $f_c$ increases, its score
+approaches $Y_c$. The fallback is deliberately allowed to share channels with
+$Y_c$: the formula adjusts how strongly the extra historical evidence may change
+the ranking. $P_c$ is not exclusively textual or independent of history;
+category relations and the bridge also use bundles, and popularity is included.
+
+\begin{proposition}[An exact optimization interpretation]\label{objective}
+For fixed $Y,P,f$ and $\kappa>0$, the vector in~\eqref{final} is the unique solution of
+\begin{equation}\label{energy}
+ \min_{t\in\mathbb R^n}\ \frac12\sum_{c=1}^n
+       \left[f_c(t_c-Y_c)^2+\kappa(t_c-sP_c)^2\right].
+\end{equation}
+\end{proposition}
+\begin{proof}
+The derivative in coordinate $c$ is
+$f_c(t_c-Y_c)+\kappa(t_c-sP_c)$, so its zero is
+$(f_cY_c+\kappa sP_c)/(f_c+\kappa)$. The Hessian is diagonal with entries
+$f_c+\kappa>0$, proving uniqueness, including for cold candidates.
+\end{proof}
+This says exactly what the convex combination optimizes: agreement with the two
+specified scores, not NDCG itself. It does not derive the channels or their
+constants. The implementation selects weights, interpolation and shrinkage on
+validation rankings using a finite coordinate/grid search. It does not solve a
+single jointly convex training objective. When shrinkage is disabled ($\kappa=0$),
+the implementation returns $Y$ even for $f_c=0$; the objective with zero coefficient
+on that coordinate would not specify a unique answer.
+
+To understand what this compromise achieves, we must now explain the different
+evidence in $H$ and $P$, starting with the observations that need no sharing.
+
+\section{Direct support: give a historical bundle a vote, then return its items}
+Define $d_i=(f_i+5)^{-1/2}$, $v_b=(\ell_b+1)^{-1/2}$,
+$D=\diag(d_i)$ and $V=\diag(v_b)$. The raw pair score is
+\begin{equation}\label{pair}
+ p=B^\top VBDx,\qquad
+ p_c=\sum_{b:c\in b}v_b\sum_{i\in b\cap S}d_i.
+\end{equation}
+Read the multiplications from right to left. $Dx$ assigns weight to each observed
+item. $BDx$ sums those weights within each historical bundle. $V$ discounts the
+size of that bundle. $B^\top$ gives its resulting vote to every item it contains.
+Thus one matrix multiplication matches the observed set to historical bundles;
+the other transfers their support to candidates. No candidate embedding must
+compress these individual co-memberships.
+
+For a single recorded co-membership, a rare observed item provides a larger vote
+than a common observed item, and a small bundle provides a larger vote than a large
+one. These are \emph{per-observation} discounts. They are not a claim that rarity
+itself makes a candidate correct or that every bundle has equal total influence.
+One matched seed in a size-$\ell$ bundle contributes total candidate mass
+$(\ell-1)d_i/\sqrt{\ell+1}$, which still increases with size for $\ell\ge1$.
+
+The asymmetry matters. The frequency factor in~\eqref{pair} is applied to the
+\emph{observed item}, not to the candidate. It limits how diagnostic a common clue
+is without automatically dividing the candidate's score by its popularity.
+Candidate support is treated separately by~\eqref{final}.
+
+An exact alternative view prevents an overstatement about ``debiasing.'' Set
+$a_i=\sum_b v_bB_{bi}$. For $a_i>0$, define the size-weighted empirical inclusion
+rate $\widehat p_v(c\mid i)=\sum_b v_bB_{bc}B_{bi}/a_i$. Then
+\begin{equation}
+ p_c=\sum_{i\in S:a_i>0}d_i a_i\,\widehat p_v(c\mid i).
+\end{equation}
+This combines conditional inclusion rates, but their masses $d_i a_i$ need not be
+equal. For equal-sized bundles $a_i=vf_i$, so the mass is
+$vf_i/\sqrt{f_i+5}$, approximately proportional to $\sqrt{f_i}$ for frequent
+items. If all these empirical conditional rates equal $f_c/m$, the ranking
+remains a popularity ranking. The weighting attenuates frequency effects; it
+does not remove the independence expectation. The next section's PPMI does a
+different normalization for that reason.
+
+\subsection{Why individual matches are not the entire set match}
+Let $k_b=(Bx)_b=|b\cap S|$ be the number of observed items in bundle $b$ and
+$a_b(S)=(BDx)_b$ its weighted overlap. With $\beta=1.5$, the group score is
+\begin{equation}\label{group}
+ g_c=\sum_b B_{bc}v_ba_b(S)\{1+\beta[k_b-1]_+\}.
+\end{equation}
+If only one observed item matches a bundle, the vote is unchanged. If two or more
+match, that \emph{same bundle's} vote grows. Support for $c$ from two different
+bundles, one matching $a$ and another matching $b$, is distinguished from a bundle
+that contains $a,b,c$ together. The correction does not demand that all query
+items occur together; it rewards each supported pair of observed items.
+
+Define the triple count $T_{cij}=\sum_bv_bB_{bc}B_{bi}B_{bj}$. For binary queries,
+\begin{equation}\label{triple}
+ g_c=p_c+\beta\sum_{i<j}x_ix_j(d_i+d_j)T_{cij}.
+\end{equation}
+To see this, expand $a_b(S)(k_b-1)$; the diagonal terms cancel because $x_i^2=x_i$.
+When $k_b=0$, $a_b(S)=0$, so replacing $[k_b-1]_+$ by $k_b-1$ inside this product
+does not change it. The coefficients are tied to observed triple counts; they
+are not independently fitted tensor entries. This is a quadratic query function,
+not an unrestricted model of all subset orders and not a residual against a
+pairwise probabilistic null model.
+
+For a fixed query, define
+$V_S=\diag(v_b\{1+\beta[k_b-1]_+\})$. Then
+\begin{equation}
+ g=B^\top V_SB Dx.
+\end{equation}
+The symmetric middle matrix $B^\top V_SB$ is positive semidefinite: its quadratic
+form is a sum of nonnegative weighted squares. The actual asymmetric matrix
+$B^\top V_SBD$ is similar to the positive semidefinite matrix
+$D^{1/2}B^\top V_SBD^{1/2}$. The query changes the weights of historical bundles
+before they are projected back to the item space. These statements include the
+diagonal; masking observed candidates occurs later.
+
+There is also an exact normalized-vote interpretation. Let
+$w_b(S)=v_ba_b(S)\{1+\beta[k_b-1]_+\}$. If $W(S)=\sum_bw_b(S)>0$,
+\begin{equation}
+ \frac{g_c}{W(S)}=\sum_b\frac{w_b(S)}{W(S)}B_{bc}.
+\end{equation}
+This is the probability that $c$ belongs to a historical bundle sampled with those
+query-dependent weights. It gives the same raw ranking as $g$. It is not a proof
+that these sampling weights are the true posterior probabilities of a future
+completion. If no bundle overlaps $S$, all votes are zero.
+
+\begin{proposition}[Item-pair counts cannot recover the group term]\label{loss}
+There exist binary training collections with identical $B^\top B$, item
+frequencies and bundle sizes, but opposite group rankings for a fixed query.
+\end{proposition}
+\begin{proof}
+Consider the two collections on items $a,b,c,d,e,f$:
+\begin{align*}
+ \mathcal B_1&=\{\{a,b,c\},\{a,d,e\},\{b,d,f\},\{c,e,f\}\},\\
+ \mathcal B_2&=\{\{a,b,d\},\{a,c,e\},\{b,c,f\},\{d,e,f\}\}.
+\end{align*}
+Every item appears twice. Both contain the same unordered item pairs with the
+same multiplicities, hence have identical $B^\top B$. Every bundle has size three.
+For $S=\{a,b\}$ the pair scores of $c,d$ are both $1/\sqrt7$. In $\mathcal B_1$,
+$c$ receives the factor $1+\beta$ and $d$ does not. In $\mathcal B_2$ the roles
+reverse. With the implemented $\beta=1.5$, the scores are
+$(0.944911,0.377964)$ and $(0.377964,0.944911)$ respectively.
+\end{proof}
+Consequently no deterministic function of only $B^\top B$ and identical side
+information can recover this distinction in general. The construction was checked
+against the actual operators: raw counts, PPMI, the SVD kernel and weighted pair
+scores were identical. This is stronger than saying that a low-rank model might
+lose information: even the full pair matrix has already lost this information.
+It is not a separation from models that also consume bundle membership itself.
+Higher-order itemset recommendation has predecessors; the proposition establishes
+what this particular term retains, not historical priority.
+
+\section{PPMI and SVD answer different questions about the same pair matrix}
+Define $C=\off(B^\top B)$, where $\off$ sets the diagonal to zero. Let
+$q_i=\sum_jC_{ij}$ and $T=\sum_{ij}C_{ij}$. For a recorded pair with positive
+marginals, define
+\begin{equation}\label{ppmi}
+ M_{ij}=\pos{\log\frac{C_{ij}T}{q_iq_j}};
+ \qquad M_{ij}=0\ \text{for unrecorded pairs}.
+\end{equation}
+Small numerical stabilizers in the implementation are suppressed here. The raw
+co-occurrence and PPMI score vectors are $Cx$ and $Mx$ respectively. The ratio
+inside~\eqref{ppmi} compares the empirical probability of an ordered pair with
+the product of its pair-endpoint marginals. Thus a frequent observed pair can have
+zero PPMI if its count does not exceed that independence baseline. Negative
+associations are clipped, not retained as negative evidence.
+
+Here $q_i=\sum_bB_{bi}(\ell_b-1)$ counts \emph{pair endpoints}, whereas $f_i$
+counts bundles containing $i$. They differ when bundle sizes vary. PPMI is
+therefore not the pair score with a stronger version of the same degree factor:
+it uses another sample space, a logarithm and clipping. Both are established
+representations of association, with different responses to common and rare pairs.
+
+Now let $V_k\in\mathbb R^{n\times k}$ contain the approximately leading right
+singular vectors obtained for $M$. The implementation's transformed rows are
+$A=MV_k$, followed by row normalization
+$F=RA$, where $R_{ii}=1/(\|A_i\|_2+10^{-8})$. It scores
+\begin{equation}\label{svd}
+ r_{\rm csvd}=\frac1{|S|}FF^\top x
+ =\frac1{|S|}R M V_kV_k^\top M^\top R x.
+\end{equation}
+This uses the dot product of two projected \emph{association profiles}. It asks
+whether candidate and seed relate similarly to other items. It does not directly
+look up their reconstructed association $\widehat M_{ci}$.
+
+In an ideal exact SVD $M=U\Sigma V^\top$, the unnormalized kernel is
+$U_k\Sigma_k^2U_k^\top$. A rank-$k$ reconstruction instead is
+$U_k\Sigma_kV_k^\top$. These are different matrices. At full rank the former
+is $MM^\top$, whose entries are $\sum_jM_{cj}M_{ij}$: shared association partners.
+For example, two items can have no direct edge yet have identical rows of positive
+associations to other items. Their direct PPMI score is zero while their
+profile similarity is maximal in the ideal full-rank, normalized case.
+
+There is a further spectral distinction. Since $M$ is symmetric, an exact singular
+truncation can be expressed through selected eigenvectors with eigenvalues
+$\lambda_j$. Reconstruction retains $\lambda_j$, while the unnormalized profile
+kernel uses $\lambda_j^2$. It therefore does not preserve the sign of an
+association mode. Selecting the largest singular values also selects by
+$|\lambda_j|$, not by a graph notion of smoothness. Calling this channel merely a
+smoothed direct-association matrix would hide both changes.
+
+The projection $V_kV_k^\top$ suppresses directions outside its selected subspace.
+Exact leading singular vectors minimize
+$\|M-MQQ^\top\|_F^2$ over matrices $Q$ with $k$ orthonormal columns. This is a
+reconstruction criterion, not a guarantee of relevant-item recovery; the
+implementation uses an approximate randomized decomposition. Normalizing rows
+also changes the objective's geometry. In particular, shared partners can indicate
+substitutes rather than good companions. This explains why keeping direct evidence
+alongside the SVD signal is meaningful, and why replacing direct evidence by the
+SVD signal is not an equivalent compression.
+
+The full dense recipe uses SVD but selects zero weights for standalone co-occurrence
+and PPMI. Their role must not be described as three additional active votes in that
+recipe. PPMI remains the input to the selected SVD channel. The transformed-row
+interpretation follows the documented SVD convention~\cite{sklearn}; explicit
+PPMI-based relational representations have substantial prior history~\cite{levy}.
+
+\section{Attributes share evidence across candidates with little direct support}
+The historical operators have an unavoidable boundary: if column $c$ of $B$ is
+zero, direct and group support for $c$ vanish, and its PPMI row and SVD vector also
+vanish. Descriptors and categories supply another route for ranking that candidate.
+
+Let $G\in\{0,1\}^{n\times a}$ assign each item to one of $a$ nonempty categories,
+and let $X\in\mathbb R^{n\times p}$ contain a particular descriptor modality.
+Fitting category means solves
+\begin{equation}
+ \widehat A=\arg\min_A\|X-GA\|_F^2=(G^\top G)^{-1}G^\top X.
+\end{equation}
+With $Q_G=G(G^\top G)^{-1}G^\top$, the residual is
+$X_\perp=(I-Q_G)X$, satisfying $G^\top X_\perp=0$.
+The style representation is $E=\normrows(X_\perp)$; its score is
+$EE^\top x/|S|$. The subtraction removes the descriptor component explainable
+by category means, so this similarity measures deviations from category averages.
+The orthogonality statement applies before row normalization; it is not generally
+preserved afterwards. It does not imply statistical independence or complete
+removal of category information. For multiple modalities the full dense bridge
+uses the normalized concatenation of their individually normalized residuals.
+
+Category evidence separately operates at the coarse level. Let $T_G=BG$ count
+items of each category within each bundle. The off-diagonal category counts are
+$J=\off(T_G^\top T_G)$. Define category occurrence counts
+$h_a=\sum_b(T_G)_{ba}$ and $H=\sum_ah_a$. The category relation has entries
+$K_{ab}=\pos{\log(J_{ab}H/(h_ah_b))}$ for $a\ne b$, with zero for absent pairs.
+For fashion its diagonal is
+$K_{aa}=-\tfrac12(1-\delta_a)\mathbf1[\delta_a<0.15]$, where
+$\delta_a=(n_{a,\ge2}+0.5)/(n_{a,\ge1}+1)$ and $n_{a,\ge r}$ counts bundles
+containing at least $r$ items of category $a$. Its score is
+\begin{equation}
+ r_{\rm cat}=GKG^\top x.
+\end{equation}
+Every item in a category shares this category score. This pools observations and
+can score an unobserved item pair, but cannot distinguish candidates within the
+same category. The diagonal penalizes repeating categories that seldom repeat in
+training bundles. These category marginals count occurrences rather than pair
+endpoints, so the category log-ratio is not literally the item-PPMI distribution
+in~\eqref{ppmi}. It should be called the implemented category association score.
+
+The bridge then connects descriptor residuals to observed partners. Define
+\begin{equation}
+ L=\off\left(DB^\top\diag((\ell_b+1)^{-1})BD\right),\quad
+ N=\normrows(LE),\quad F_{\rm br}=A_{\rm br}(E+\lambda N),
+\end{equation}
+where $A_{\rm br}$ is the diagonal row-normalization matrix and $\lambda=0.5$.
+The graph here discounts both item endpoints and uses inverse bundle size;
+it is different from~\eqref{pair}, which uses seed-side frequency and inverse
+square-root size. $L$ is symmetric but need not be a Markov matrix or positive
+semidefinite after diagonal removal.
+
+The bridge score is $F_{\rm br}F_{\rm br}^\top x/|S|$. Expanding its kernel gives
+\begin{equation}\label{bridge}
+ F_{\rm br}F_{\rm br}^\top=A_{\rm br}
+ (EE^\top+\lambda EN^\top+\lambda NE^\top+\lambda^2NN^\top)A_{\rm br}.
+\end{equation}
+The middle terms compare an item's descriptor with the aggregated descriptors of
+another item's historical partners. Thus two candidates with similar raw
+descriptors can differ because their observed relationships differ. For a cold
+candidate, its own propagated row is zero, but its descriptor can still match a
+warm seed's propagated descriptor. The last term compares their partner summaries.
+This is a specified coupling of descriptive similarity and historical relations;
+it is not merely a sum of an independent content score and a graph score.
+
+\section{Convert different measurements into comparable ranking margins}\label{standardize}
+For channel $h$, let $r_h\in\mathbb R^n$ be its raw scores for $S$. Define
+\begin{equation}
+ \mu_h=\frac1n\sum_cr_h(c),\quad
+ \sigma_h^2=\frac1{n-1}\sum_c(r_h(c)-\mu_h)^2,\quad
+ z_h(c)=\frac{r_h(c)-\mu_h}{\sigma_h+10^{-9}}.
+\end{equation}
+These statistics use the full catalogue, including observed items, before seed
+masking; they do not use hidden completion labels. Other queries are not used to
+normalize this query. For popularity the raw score is $\log(1+f_c)$.
+
+For $Y_c=\sum_hw_hz_h(c)$ and two candidates $c,d$,
+\begin{equation}\label{margin}
+ Y_c-Y_d=\sum_h\frac{w_h}{\sigma_h+10^{-9}}[r_h(c)-r_h(d)].
+\end{equation}
+Hence a channel contributes according to its candidate separation relative to the
+spread of its own catalogue scores. This prevents numerical units alone from
+determining the result. It does not remove correlation between channels and does
+not estimate their uncertainty. In particular, correlated channels can reinforce
+the same mistake; a small spread is not proof of high reliability.
+
+Weights are nonnegative, selected on validation rankings. Their sum need not be
+one; the dense $Y$ weights sum to $1.75$. The final interpolation in~\eqref{final}
+is convex in $Y,sP$, whereas the channel sum is an unnormalized nonnegative sum.
+There is another convex interpolation when selecting pair versus group evidence:
+$z_{\rm history}=(1-\alpha)z_{\rm pair}+\alpha z_{\rm group}$.
+These two channels are standardized separately. It is not generally the same as
+standardizing $p+\alpha(g-p)$. Dense selects $\alpha=1$; POG selects $\alpha=0$.
+
+For an equally frequent candidate pair, $\rho_c=\rho_d=\rho$,~\eqref{final} gives
+\begin{equation}\label{rankcondition}
+ \theta_c-\theta_d=[s+(1-s)\rho](P_c-P_d)+\rho(H_c-H_d).
+\end{equation}
+If $P$ prefers a correct candidate by $a>0$ and $H$ prefers an incorrect one by
+$b>0$, fusion corrects this pair exactly when $[s+(1-s)\rho]a>\rho b$.
+When both prefer the correct candidate, both margins reinforce its ranking.
+This is a precise mechanism by which complementary evidence improves rankings;
+whether correct or incorrect agreements predominate is a question answered by
+held-out data. It does not require every channel to be a calibrated probability.
+
+For different frequencies the centering constants also matter. Write
+$P_c=\widetilde P_c-A$ and $H_c=\widetilde H_c-J$, where $A,J$ collect the
+respective weighted channel means divided by standard deviations and are constant
+across candidates within the query. Then
+\begin{equation}
+ \theta_c=[s+(1-s)\rho_c]\widetilde P_c+\rho_c\widetilde H_c
+          -sA-\rho_c[(1-s)A+J].
+\end{equation}
+The last frequency-dependent term does not cancel in candidate comparisons.
+In particular, zero raw history can give a negative standardized history score.
+Suppressing that negative contribution for an unseen candidate distinguishes
+absence of historical observations from established below-average support, in
+the precise sense of this formula. The total adjustment can have either sign.
+
+\section{What the optimization does and does not justify}
+Equation~\eqref{energy} provides a complete variational description of the last
+step. Frequency determines the cost of departing from $Y$, and $\kappa$ determines
+the cost of departing from $sP$. This is a regularization interpretation that
+requires no distributional claim. Weighted quadratic penalties are standard;
+the value here is identifying their exact role in the implemented score~\cite{boyd}.
+
+A stronger statement, that this is a statistically optimal posterior, would need
+additional assumptions about noise and dependence. For illustration, if $Y$ and
+$sP$ were unbiased estimators of the same scalar with error variances $v_Y,v_P$
+and error covariance $u$, their minimum-MSE mixture weight on $Y$ would be
+\begin{equation}
+ \rho^*=\frac{v_P-u}{v_Y+v_P-2u},
+\end{equation}
+provided the denominator is positive (and clipped to $[0,1]$ for a convex mixture).
+The rational weight $f/(f+\kappa)$ follows in the special case $u=0$,
+$v_Y=a/f$, $v_P=b$ and $\kappa=a/b$. The actual scores share channels, so this
+special case is not established. The dense frozen recipe's fitted raw variance
+slope is negative, about $-2.5281$; its selected $\kappa=0.5$ is a validation
+choice, not evidence that a positive $1/f$ variance law was recovered. We therefore
+base the argument on the exact optimization and measured rankings, not on a
+claimed empirically verified Bayesian data-generating model.
+
+\section{The resulting scientific argument and its evidential boundary}
+The method can be described precisely as follows:
+\begin{quote}
+Estimate completion support without forcing different relations into one
+similarity matrix. Preserve direct weighted co-membership and same-bundle joint
+support; share association patterns through a projected PPMI profile, category
+relations and graph-conditioned descriptors. Combine their catalogue-relative
+ranking margins, then regularize the combined score toward shared evidence more
+strongly when a candidate has fewer observations.
+\end{quote}
+Three mathematical results support this account. First, identical pair counts can
+conceal different same-bundle evidence (Proposition~\ref{loss}). Second, the SVD
+and bridge kernels explicitly introduce shared-partner and descriptor--partner
+comparisons (Equations~\eqref{svd} and~\eqref{bridge}); these are distinct relations,
+not repetitions of direct counts. Third, final fusion solves a strictly convex
+support-weighted reconciliation (Proposition~\ref{objective}).
+
+The recipe does not rely on every possible signal. On POG, the selected history
+term is only $H_c=0.25z_{\rm pair}$, and
+$P_c=0.5z_{\rm cat}+0.25z_{\rm style}+0.25z_{\rm bridge}$, with
+$\kappa=0.5$ and $s\simeq1.0424024$. Both incidence and SVD are unselected.
+The common argument is retaining direct evidence while sharing information and
+adjusting its influence to support. Joint support specifically strengthens the
+dense recipe; it cannot explain the POG result where its coefficient is zero.
+
+The saved mechanism studies report Recall@20 for history, shared, combined and
+full as $0.375379,0.112917,0.390928,0.395223$ on POG\_dense and
+$0.030875,0.044542,0.051458,0.054458$ on POG. The standalone families are fitted
+separately and the shared family includes graph information; these are empirical
+complementarity observations, not independent measurements of each operator's
+causal effect. The dense full versus matched-frequency comparison improves
+NDCG@20 from $0.279345$ to $0.287876$ with the group term enabled; its fallback
+scales differ slightly, so this is not a perfectly isolated intervention.
+The recall contrast does not pass the study's multiple-testing correction.
+
+The reported superiority to published neural and evaluated fixed-score baselines
+is an empirical claim to state with its actual inputs, splits and metrics. The
+algebra above explains structural capabilities and conditional ranking effects;
+it is not a universal performance theorem or a claim that previous neural models
+cannot represent these relations. Related neighborhood, itemset, representation
+and confidence-adaptive methods remain relevant; the preserved prior-art review
+records those connections.
+
+\appendix
+\section{Evidence and reproduction}
+The primary scope is binary, unit-weight bundles and the full-ranking research
+recipes. Weighted retail profiles need their own derivation. The checks use the
+actual graph and fusion operators on explicit synthetic inputs and record their
+source hashes. They do not fit or tune against test targets.
+
+\begin{itemize}
+\item New derivation checks: \path{scripts/check_scoring_principle.py}; output
+\path{results/algebraic_diagnostics/scoring_principle.json}.
+They check identical-pair corpora, SVD projection and Gram identities,
+query-dependent kernels, normalized historical voting, category least squares,
+bridge expansion and stationarity of the exact final objective.
+\item Earlier identities and counterexample:
+\path{docs/algebraic_mechanism_analysis.md} and
+\path{scripts/check_higher_order_structure.py}.
+\item Empirical complementarity:
+\path{results/algebraic_diagnostics/evidence_overlap.json}, generated by
+\path{scripts/analyze_evidence_overlap.py} from saved query outcomes.
+\item Recipe and metric evidence: each dataset's \path{frozen_recipes.json},
+\path{summary.json} and \path{queries.json} under
+\path{results/publication_mechanisms/}.
+\item Full source correspondence: pair, group, PPMI, SVD, descriptor centering and
+bridge in \path{bundlefuse/operators.py}; query feature aggregation and
+normalization in \path{bundlefuse/selected_signals.py}; weighted sums,
+selection and backoff in \path{bundlefuse/fusion.py}; modality assembly in
+\path{bundlefuse/model.py}.
+\item Earlier publication arguments and literature review are retained;
+\path{docs/analysis_evidence_index.md} explains their relationship to this note.
+\end{itemize}
+
+\begin{thebibliography}{9}
+\bibitem{sklearn} Scikit-learn. Truncated singular value decomposition and latent
+semantic analysis, User Guide, Section 2.5.3.
+\url{https://scikit-learn.org/stable/modules/decomposition.html#truncated-singular-value-decomposition-and-latent-semantic-analysis}.
+\bibitem{levy} O. Levy and Y. Goldberg. Linguistic Regularities in Sparse and
+Explicit Word Representations. CoNLL, 2014.
+\url{https://aclanthology.org/W14-1618/}.
+\bibitem{boyd} S. Boyd and L. Vandenberghe. Convex Optimization. Cambridge
+University Press, 2004. Chapter 6.
+\url{https://web.stanford.edu/~boyd/cvxbook/}.
+\end{thebibliography}
+\end{document}

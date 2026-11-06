@@ -1,5 +1,8 @@
 # Publication argument: begin with the literature
 
+For the expanded component-by-component comparison, see the
+[method-level prior-art review](method_prior_art_review.md).
+
 Read [the literature-led LaTeX argument](publication_argument.tex)
 ([compiled PDF](../output/pdf/publication_argument.pdf)) first, then
 [the mathematical specification](publication_argument_technical.tex).
@@ -21,7 +24,7 @@ The new argument develops the motivation before experimental evidence:
    what is inherited and what is added. Shrinkage also has prior work and is not
    a sufficient novelty claim.
 
-The LaTeX document includes seven primary references, a proposed introduction and
+The LaTeX document includes method-level primary references, a proposed introduction and
 explicit novelty boundaries. This is a focused positioning argument, not a claim
 that the entire literature has been exhausted.
 

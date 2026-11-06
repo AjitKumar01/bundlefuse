@@ -1,0 +1,41 @@
+{
+  "scope": "Optimizer-registered trainable downstream parameters, excludes frozen input representations and their upstream pretraining. Counts depend on catalogue size and configuration.",
+  "CLHE": {
+    "checkpoint": "/Users/ajit/Projects/Career_change/projects/bundle-dpo/clhe_out/pog_dense/CLHE/checkpoints/pog_dense/CLHE/model/Epoch50_256_0.001_1e-05_64",
+    "checkpoint_items": 31217,
+    "checkpoint_parameters": 7248448,
+    "fixed_parameters": 3252672,
+    "pog_items": 48676,
+    "pog_parameters": 9483200,
+    "derivation": "Two n x 64 item tables; other registered tensors unchanged for 768-dimensional modalities.",
+    "source": "/Users/ajit/Projects/Career_change/projects/bundle-dpo/clhe_out/pog_dense/CLHE/models/CLHE.py",
+    "qualification": "The local TransformerEncoder stores attention layers in an ordinary list, outside model.parameters()/state_dict(). The slide counts optimizer-registered parameters, not every requires_grad tensor."
+  },
+  "RaMen": {
+    "checkpoint": "/Users/ajit/Projects/Career_change/projects/bundle-dpo/kaggle_out/pog/RaMen/checkpoints/pog/RAMEN/model/Epoch200_1024_0.0001_1e-05_64",
+    "pog_items": 48676,
+    "trainable_parameters": 16058624,
+    "frozen_entries": {
+      "encoder.image_embedding.weight": 37383168,
+      "encoder.text_embedding.weight": 37383168,
+      "decoder.image_embedding.weight": 37383168,
+      "decoder.text_embedding.weight": 37383168
+    },
+    "frozen_evidence": "nn.Embedding.from_pretrained(..., freeze=True), RaMen.py lines 332 and 336; remaining checkpoint entries are registered parameters."
+  },
+  "results": {
+    "ours": "results/publication_mechanisms/{pog,spotify,pog_dense}/REPORT.md",
+    "neural": "https://arxiv.org/html/2507.14361v1 Table 2",
+    "scope": "Published-score comparison on POG and Spotify; no local neural rerun or paired significance claim."
+  },
+  "Bundle-MLLM": {
+    "backbone": "Llama2-7B",
+    "nominal_backbone_parameters": 7000000000,
+    "trainable_parameters": "Not verified; LoRA and multimodal fusion/projection are trained in stages, not the complete backbone.",
+    "source": "https://arxiv.org/html/2407.11712",
+    "sections": [
+      "3.3",
+      "A.3"
+    ]
+  }
+}
