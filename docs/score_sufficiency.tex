@@ -1,0 +1,912 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=24mm,headheight=14pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs,tabularx,array,enumitem}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{xurl}
+\usepackage[colorlinks=true,linkcolor=MidnightBlue,citecolor=MidnightBlue,urlcolor=MidnightBlue]{hyperref}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small BundleFuse: score sufficiency}
+\fancyhead[R]{\small Theory and evidence}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 1pt}
+\setlength{\emergencystretch}{2em}
+\clubpenalty=10000
+\widowpenalty=10000
+\setlist[itemize]{leftmargin=1.5em,itemsep=2pt,topsep=3pt}
+\setlist[enumerate]{leftmargin=1.7em,itemsep=2pt,topsep=3pt}
+\newtheorem{proposition}{Proposition}
+\newtheorem{definition}{Definition}
+\newcommand{\E}{\mathbb E}
+\newcommand{\R}{\mathbb R}
+\newcommand{\ind}{\mathbf 1}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\off}{\operatorname{off}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\Normal}{\mathcal N}
+\newcommand{\rownorm}{\operatorname{rownorm}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\hypersetup{pdftitle={When Are BundleFuse's Scores Sufficient?},pdfauthor={BundleFuse research analysis},pdfsubject={Estimator structure, sufficiency, representational limits, and a stopping rule}}
+
+\begin{document}
+\thispagestyle{plain}
+{\Large\bfseries When Are BundleFuse's Scores Sufficient?\par}
+{\large A theory of what to retain, what can be proved, and where to stop\par}
+{\small Standalone analysis \hfill 7 November 2026\par}
+\vspace{3pt}\hrule\vspace{7pt}
+
+\textbf{The question.} BundleFuse can construct several scores from historical
+bundles and item attributes. Why retain these scores, and why not add another
+one? A satisfactory answer must explain the estimation problem, identify what
+an extra score could contribute, and specify a defensible stopping condition.
+Good benchmark results alone do not determine a necessary number of scores.
+
+\textbf{The conclusion.} BundleFuse is a complete estimator whose final rule
+has an exact optimization interpretation. Its organizing idea is to start from
+relationships shared across items and permit departures supported by a
+candidate's history. The present score list is not universally sufficient:
+an explicit four-item construction defeats it. A rigorous, achievable target is
+a compact estimator that is within a stated ranking tolerance of a declared
+family of alternatives under a resource budget.
+
+This document derives the relevant statements and distinguishes their status:
+an identity of the implemented estimator, a theorem under stated assumptions,
+a verified counterexample, or a proposed statistical certificate. The
+foundational sufficiency and shrinkage arguments are established mathematics;
+their application here does not establish that these principles are new.
+
+\section{The prediction problem and the source of the difficulty}
+\label{sec:problem}
+
+Let $\mathcal I$ be a catalogue of $n$ items. A query supplies a nonempty
+observed set $S\subset\mathcal I$. The eligible candidates are
+$\mathcal I_S=\mathcal I\setminus S$. We must rank them to recover a nonempty
+hidden set $G\subseteq\mathcal I_S$. The training collection contains $m$
+bundles, represented by the binary matrix
+\begin{equation}
+ B\in\{0,1\}^{m\times n},\qquad
+ B_{bi}=1\ \Longleftrightarrow\ \text{training bundle $b$ contains item $i$}.
+\end{equation}
+Define the item frequency $f_i=\sum_b B_{bi}$ and the bundle size
+$d_b=\sum_i B_{bi}$. These definitions concern binary, unit-weight bundles,
+as in the fashion analysis below. Other data profiles may use weighted inputs.
+
+Two shoes can share a category and have similar descriptions. Such shared
+attributes support a starting prediction for both. If only one repeatedly
+appears with the particular trousers and shirt in $S$, recorded item identities
+can distinguish them. For a newly introduced shoe, however, no historical
+match could mean either an unsuitable combination or simply an unobserved
+combination. The zero count alone cannot decide which.
+
+This motivates one estimation problem: \emph{use relationships that can be
+shared across items, then allow a candidate's specific observations to adjust
+the prediction}. A candidate with little recorded history should have a
+restricted ability to override that starting point. Candidate frequency is an
+available measure of exposure; it is not a calibrated measure of correctness,
+and frequent appearance does not imply frequent appearance with this query.
+
+The different score constructions are possible ways of estimating these
+relationships. Their names do not imply independent information, and a count
+of score columns is not a count of independent observations.
+
+\newpage
+\section{One estimator: a shared prediction and a controlled departure}
+\label{sec:estimator}
+
+For a fixed candidate $c$ and query $S$, let $Y_c$ denote the selected full
+score and $P_c$ the selected restricted fallback. Let $s>0$ be the
+validation-frozen fallback scale, and define $F_c=sP_c$. The selected
+fallback strength is $\kappa\geq0$. For $\kappa>0$, BundleFuse computes
+\begin{equation}
+ \boxed{\quad
+ \theta_c=F_c+\rho_c(Y_c-F_c),\qquad
+ \rho_c=\frac{f_c}{f_c+\kappa}.
+ \quad}
+ \label{eq:core}
+\end{equation}
+All these scores depend on $S$; the query argument is suppressed for
+readability. The difference $Y_c-F_c$ is the proposed departure from the
+fallback. The coefficient $\rho_c$ determines how much survives.
+For $f_c=0$, the result is $F_c$. Holding $Y_c$ and $F_c$ fixed, the result
+approaches $Y_c$ as $f_c$ increases.
+
+The fallback's information must be described accurately. Category relations
+pool different item IDs carrying the same label. Description scores compare
+attributes. The bridge also uses historical neighbors, and the fallback can
+include popularity. Thus $F_c$ is neither an independent estimate nor an
+exclusively descriptive one. Since $s$ need not equal one, the departure
+$Y_c-F_c$ need not contain only historical terms.
+
+\subsection{An exact optimization interpretation}
+
+\begin{proposition}[The implemented interpolation]
+For fixed $Y_c,F_c,f_c$ and $\kappa>0$, equation~\eqref{eq:core} is the
+unique minimizer over real $t$ of
+\begin{equation}
+ J_c(t)=\frac{f_c}{2}(t-Y_c)^2+\frac{\kappa}{2}(t-F_c)^2.
+ \label{eq:objective}
+\end{equation}
+\end{proposition}
+\begin{proof}
+The derivative is
+$J'_c(t)=(f_c+\kappa)t-f_cY_c-\kappa F_c$.
+Its zero gives equation~\eqref{eq:core}. The second derivative is
+$f_c+\kappa>0$, so the minimizer is unique.
+\end{proof}
+
+The two terms charge for departing from the full score and from the fallback,
+respectively. The first charge grows with historical exposure. This
+interpretation needs no probability model for the scores. It does not derive
+the raw score menu or establish that its weights are optimal.
+
+When $\kappa=0$, the implementation returns $Y_c$. If also $f_c=0$, the
+objective in~\eqref{eq:objective} is constant and does not uniquely specify
+that answer. The explicit convention is therefore part of the estimator.
+
+There is also an exact stability property. If $Y_c$ changes by $e_c$ while
+$F_c$ stays fixed, $\theta_c$ changes by $\rho_c e_c$. For candidates
+$c$ and $d$, the change in their score difference is at most
+\begin{equation}
+ \rho_c|e_c|+\rho_d|e_d|.
+\end{equation}
+This limits sensitivity to changes confined to the full score, especially
+at low frequency. It does not guarantee better rankings: a suppressed
+departure could have been correct. If a new source changes the fallback too,
+that change must also be included.
+
+\subsection{What the dense model actually selects}
+
+Let $r_h(c\mid S)$ be a raw score with source index $h$. In the examined
+full-ranking implementation it is standardized over all $n$ catalogue items
+before observed items are masked:
+\begin{align}
+ \mu_h(S)&=\frac1n\sum_i r_h(i\mid S), &
+ \sigma_h(S)^2&=\frac1{n-1}\sum_i[r_h(i\mid S)-\mu_h(S)]^2,\notag\\
+ z_h(c\mid S)&=\frac{r_h(c\mid S)-\mu_h(S)}{\sigma_h(S)+10^{-9}}.
+ \label{eq:standardize}
+\end{align}
+The candidate comparisons use different functions of the same available
+data. Standardization balances their numerical scales; it does not establish
+independence or calibrate them as probabilities.
+
+For the frozen POG\_DENSE research recipe, define $Q_c=P_c$. The selected
+construction is
+\begin{align}
+ Q_c&=0.5z_{\rm cat}(c)+0.25z_{\rm bridge}(c)+0.25z_{\rm pop}(c),\notag\\
+ Y_c&=Q_c+0.5z_{\rm simp}(c)+0.25z_{\rm csvd}(c),\notag\\
+ F_c&=sQ_c,\qquad s\simeq1.46055159,\qquad \kappa=0.5,\notag\\
+ \theta_c&=[s+(1-s)\rho_c]Q_c
+       +\rho_c[0.5z_{\rm simp}(c)+0.25z_{\rm csvd}(c)].
+ \label{eq:dense}
+\end{align}
+
+\begin{center}
+\begin{tabularx}{\linewidth}{@{}lY@{}}
+\toprule
+Selected score & Relationship being measured\\
+\midrule
+cat & Training relations between item categories, with a penalty for repeating categories that rarely repeat within a bundle.\\
+bridge & Similarity between category-centered descriptors after incorporating descriptions of historical neighbors.\\
+pop & The candidate's log training frequency, $\log(1+f_c)$.\\
+simp & Candidate support from individual query items and from query-item pairs appearing together with it.\\
+csvd & Similarity between compressed profiles of item co-occurrence associations.\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+Appendix~\ref{app:scores} defines these five raw scores mathematically.
+The dense recipe does not select standalone cooc, ppmi, soft-group,
+propagated-score or Rao columns. PPMI and propagation still appear inside
+selected representations; their absence as separate columns does not remove
+those internal operations. The frozen POG recipe uses four columns; the
+Spotify recipe uses seven weighted columns plus its explicit Rao term.
+None of these counts has been proved necessary or minimal.
+
+\section{What information is sufficient for a ranking?}
+\label{sec:ranking}
+
+A sufficiency claim must identify the decision and the population. Let $X$
+contain all permitted prediction-time information: $S$, the training data,
+item attributes, candidate eligibility and any allowed user context. The
+hidden set $G$ is random under the specified population of queries. Let
+$K\leq|\mathcal I_S|$ be the cutoff and let $\pi(j)$ be the candidate at
+position $j$.
+
+For Recall@$K$, define the candidate contribution $V_c$ and position weight
+$\omega_j$ by
+\begin{equation}
+ V_c=\frac{\ind\{c\in G\}}{|G|},\qquad \omega_j=1\quad(1\leq j\leq K).
+ \label{eq:recalltarget}
+\end{equation}
+For binary-relevance NDCG@$K$, instead define
+\begin{equation}
+ \omega_j=\frac1{\log_2(j+1)},\qquad
+ D_K(G)=\sum_{j=1}^{\min(K,|G|)}\omega_j,\qquad
+ V_c=\frac{\ind\{c\in G\}}{D_K(G)}.
+ \label{eq:ndcgtarget}
+\end{equation}
+Here $D_K(G)$ is the largest attainable discounted gain for that hidden set.
+In either case, realized utility equals $\sum_{j=1}^K\omega_jV_{\pi(j)}$.
+Define the expected contribution
+\begin{equation}
+ \eta_c(X)=\E[V_c\mid X].
+\end{equation}
+The conditional expected utility of a ranking is therefore
+\begin{equation}
+ U(\pi\mid X)=\sum_{j=1}^K\omega_j\eta_{\pi(j)}(X).
+ \label{eq:expectedutility}
+\end{equation}
+
+Sorting $\eta$ maximizes this expression. To see this, place candidates $c$
+and $d$ at positions $j<k$, where $\omega_j\geq\omega_k$. If
+$\eta_c<\eta_d$, exchanging them improves utility by
+$(\omega_j-\omega_k)(\eta_d-\eta_c)\geq0$. Treat positions below $K$ as
+having weight zero. Repeated exchanges produce a sorted ranking.
+For Recall only the selected set matters; for NDCG its order matters too.
+
+Thus a representation need only preserve an optimal ordering, rather than
+the entire distribution of $G$. When $|G|$ varies, plain membership
+probabilities need not have the same ordering as these expected normalized
+contributions. The NDCG distinction is established in the consistency
+analysis of Ravikumar, Tewari and Yang~\cite{ravikumar2011}.
+
+BundleFuse's numerical scores are not calibrated estimates of $\eta$.
+Consequently, errors between its raw numerical $\theta$ and $\eta$ cannot
+be interpreted as calibrated prediction errors without further justification.
+Only their rankings are directly compared in the existing evaluation.
+
+\section{The value of one more score}
+\label{sec:additional}
+
+Let $Z$ retain the full vectors of selected candidate scores, frequencies and
+eligibility information. Let $R$ be a proposed additional score vector. These
+are functions of allowed inputs, not hidden labels. For the contribution
+vector $V$ defined for the chosen metric, write
+\begin{align}
+ m_0(Z)&=\E[V\mid Z], & m_1(Z,R)&=\E[V\mid Z,R],\notag\\
+ \Delta(R\mid Z)&=\E\big[\norm{m_1-m_0}_2^2\big].
+ \label{eq:delta}
+\end{align}
+The norm sums over eligible candidates. Expectations refer to the declared
+query population. $\Delta$ measures how much the best prediction of the
+relevant items changes after observing $R$. It is not a correlation between
+raw scores and not the standalone performance of $R$.
+
+\begin{proposition}[Exact decrease in optimal prediction error]
+\begin{equation}
+ \E\big[\norm{V-m_0}_2^2\big]
+ -\E\big[\norm{V-m_1}_2^2\big]=\Delta(R\mid Z).
+ \label{eq:projection}
+\end{equation}
+\end{proposition}
+\begin{proof}
+Expand $V-m_0=(V-m_1)+(m_1-m_0)$. Conditional on $(Z,R)$,
+$V-m_1$ has mean zero, while $m_1-m_0$ is fixed. The expected cross term
+is therefore zero. Expanding the squared norm gives the identity.
+\end{proof}
+
+If $\Delta=0$, revealing $R$ cannot improve optimal expected ranking utility
+for this metric: the two conditional mean vectors are equal almost surely.
+A positive $\Delta$ need not improve utility, because changed values can
+retain the same top-$K$ ordering. This result uses the classical projection
+property of conditional expectation~\cite{banerjee2005}. Its relation to
+statistical sufficiency is that relevant prediction information is preserved;
+full conditional independence is a stronger condition~\cite{fukumizu2004}.
+
+\begin{proposition}[Bound on additional ranking utility]
+Let $\boldsymbol\omega=(\omega_1,\ldots,\omega_K)$. The improvement in
+optimal expected utility from revealing $R$ is at most
+\begin{equation}
+ \min\left\{1,\ 2\norm{\boldsymbol\omega}_2
+                    \sqrt{\Delta(R\mid Z)}\right\}.
+ \label{eq:gainbound}
+\end{equation}
+\end{proposition}
+\begin{proof}
+Represent a ranking by a vector $a$ assigning weight $\omega_j$ to its
+$j$th candidate and zero below $K$. Every ranking vector has norm
+$\norm{\boldsymbol\omega}_2$. Let $a_0$ maximize $a^\top m_0$ and
+$a_1$ maximize $a^\top m_1$. Then
+\begin{align}
+ (a_1-a_0)^\top m_1
+ &= (a_1-a_0)^\top m_0+(a_1-a_0)^\top(m_1-m_0)\notag\\
+ &\leq 2\norm{\boldsymbol\omega}_2\norm{m_1-m_0}_2.
+\end{align}
+The first term is nonpositive by optimality of $a_0$; the second is bounded
+by the Cauchy--Schwarz and triangle inequalities. Take expectations and
+use $\E[\norm{W}_2]\leq\sqrt{\E[\norm{W}_2^2]}$. Both evaluation
+metrics lie in $[0,1]$, which supplies the cap of one.
+\end{proof}
+
+For a specified class of admissible extensions, a population-level stopping
+condition is therefore
+\begin{equation}
+ \sup_R\Delta(R\mid Z)\leq
+ \frac{\varepsilon^2}{4\norm{\boldsymbol\omega}_2^2}.
+ \label{eq:populationstop}
+\end{equation}
+Under this condition, no admissible extension improves the best $Z$-based
+ranking by more than $\varepsilon$. The class and population must be
+specified; the inequality is not known to hold for the present BundleFuse
+scores. It cannot simply be assumed as a proof of their sufficiency.
+
+\subsection{Existing information can also be used better}
+
+The current combiner might not extract all the information in $Z$. Let
+$h(Z)$ be any numerical prediction on the same scale as $V$, and define
+$E_0=\E[\norm{h-m_0}_2^2]$. A second orthogonality identity gives
+\begin{equation}
+ \E[\norm{h-m_1}_2^2]=E_0+\Delta(R\mid Z).
+ \label{eq:extraction}
+\end{equation}
+Indeed, $\E[m_1-m_0\mid Z]=0$, making its expected inner product with
+$h-m_0$ zero. The same ranking argument bounds the gain over the ranking
+of $h$ by $2\norm{\boldsymbol\omega}_2\sqrt{E_0+\Delta}$, capped at one.
+A calibrated $h$ with BundleFuse's ranking has not been established, so this
+is a conditional interpretation, not a measured certificate for $\theta$.
+
+A new model can thus help by extracting existing information better, even
+when it adds no information. PPMI and SVD being derived from the same
+matrix does not make their score columns interchangeable for a restricted
+weighted combiner.
+
+These results also apply when $R$ jointly contains several new scores.
+Testing additions individually cannot rule out joint benefit. Two independent
+fair bits each reveal nothing about their exclusive-or, while together they
+determine it. Likewise, a nonsignificant addition does not prove
+$\Delta=0$; the experiment may simply be too imprecise.
+
+\section{Why the present score menu is not universally complete}
+\label{sec:counterexample}
+
+An explicit construction shows what the scores can miss. Create four item
+groups $A,B,C,D$, each containing $q$ values indexed $0,\ldots,q-1$. For
+a fixed shift $h\in\{0,\ldots,q-1\}$, include every training bundle
+\begin{equation}
+ \{A_a,B_b,C_c,D_{(a+b+c+h)\bmod q}\},
+ \qquad a,b,c=0,\ldots,q-1.
+ \label{eq:corpus}
+\end{equation}
+There are $q^3$ bundles, each of size four. Use the group as the category
+label and give all items within each group the same descriptor.
+
+Fixing $r$ values from distinct groups, for $r=1,2,3$, leaves exactly
+$q^{3-r}$ possible bundles, independently of $h$. A subset containing two
+different values from one group occurs zero times. Hence complete
+single-item, pair and triple counts are identical for all shifts. All bundle
+size discounts are identical as well.
+
+For $S=\{A_0,B_0,C_0\}$, however, the recorded completion is $D_h$.
+The four-item count identifies it immediately. With $q=2$, the two possible
+shifts give the particularly small example
+\begin{center}
+\begin{tabular}{@{}ccc@{}}
+\toprule
+Observed triple & Completion when $h=0$ & Completion when $h=1$\\
+\midrule
+$\{A_0,B_0,C_0\}$ & $D_0$ & $D_1$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The failure of the examined fashion scores is specific:
+\begin{itemize}
+\item Direct pair, co-occurrence and PPMI scores use identical frequency
+and pair statistics. PPMI-SVD receives the same matrix, with identical
+association-profile rows for all $D$ candidates.
+\item The incidence correction uses candidate--seed--seed triple counts,
+which are also identical. Its derivation appears in
+Appendix~\ref{app:history}.
+\item Propagation uses the same pair operator. Group-identical descriptors
+cannot distinguish $D$ candidates; their category-centered residuals are zero.
+\item Category, soft-group and popularity scores cannot distinguish these
+candidates either. Rao uses the same candidate--seed affinities and the
+same relations among the query items.
+\end{itemize}
+
+Consequently, standardization and frequency interpolation receive equal
+inputs for every $D$ value and produce equal scores in ideal arithmetic.
+An ID-based tie-break does not reconstruct the four-item relation. With
+$q=21$, more $D$ candidates are tied than there are top-20 positions.
+Varying $h$ makes any one of them the correct answer while preserving the
+score inputs, so no fixed top-20 rule from these scores succeeds for every
+corpus. The ordering limitation for NDCG already appears with two values.
+
+The construction was evaluated with the production fashion score operators
+and the frozen dense fusion for $q=2$ and $q=21$. It verified equal counts
+through order three and score equality to floating-point tolerance. The
+largest score differences between the two checked shifts were
+$2.39\times10^{-7}$ and $1.20\times10^{-7}$, respectively.
+These are synthetic mathematical checks, not benchmark performance results.
+
+The conclusion is limited but decisive: a theorem that this menu captures
+every possible completion relationship is false. It does not follow that
+such four-item relationships are frequent or useful in the intended data.
+That becomes an empirical question with a precise missing relationship to
+test, rather than an invitation to add arbitrary scores indefinitely.
+
+\section{A stopping rule with a finite statistical guarantee}
+\label{sec:stopping}
+
+Condition~\eqref{eq:populationstop} is conceptually useful but generally
+difficult to establish. A more practical standard compares a finite,
+predeclared family of fitted systems under the ranking metric itself.
+
+Let $\mathcal H$ contain $M$ systems whose fitted parameters and procedures
+are frozen before a fresh audit sample is examined. Include the compact
+candidate, relevant source removals, close replacements and justified
+additions. Let $C(h)$ be a defined cost, such as inference time under a fixed
+measurement protocol. Memory and fitting cost can be separate hard
+constraints. Let $\varepsilon\geq0$ be the acceptable absolute utility loss.
+
+Suppose the audit contains $N$ independent units from the target population.
+Each system's utility on each unit lies in $[0,1]$. A unit can be a complete
+original bundle with a predefined average across its query masks. Repeated
+masks of the same bundle must not be counted as independent observations.
+User or temporal dependence can require a different unit or probability
+bound. Let $U(h)$ be population utility and $\widehat U(h)$ its audit mean.
+Condition on the independently fitted systems when applying the following
+argument.
+
+For a failure probability $\delta\in(0,1)$, define
+\begin{equation}
+ b=\sqrt{\frac{\log(2M/\delta)}{2N}}.
+ \label{eq:hoeffding}
+\end{equation}
+Hoeffding's inequality~\cite{hoeffding1963} and a union bound imply
+\begin{equation}
+ \Pr\left\{\text{for every }h\in\mathcal H,
+       \ |\widehat U(h)-U(h)|\leq b\right\}\geq1-\delta.
+\end{equation}
+
+\begin{proposition}[A compact-system guarantee]
+Choose a least-cost member $h_{\rm small}$ satisfying
+\begin{equation}
+ \widehat U(h_{\rm small})\geq
+       \max_{h\in\mathcal H}\widehat U(h)-\varepsilon.
+\end{equation}
+With probability at least $1-\delta$,
+\begin{equation}
+ U(h_{\rm small})\geq
+       \max_{h\in\mathcal H}U(h)-\varepsilon-2b.
+ \label{eq:certificate}
+\end{equation}
+\end{proposition}
+\begin{proof}
+On the simultaneous event, the selected system's population utility is at
+least its audit utility minus $b$. Its audit utility is at least the best
+audit utility minus $\varepsilon$. The best audit utility is at least the
+population-best member's utility minus $b$. Combine the inequalities.
+\end{proof}
+
+Simultaneity permits selecting among these frozen systems after seeing the
+audit means. It does not permit fitting new systems on the audit labels and
+pretending the original guarantee still applies. A particular baseline is
+certified within tolerance $\varepsilon$ of the family if
+\begin{equation}
+ \max_{h\in\mathcal H}
+    [\widehat U(h)-\widehat U(\text{baseline})]+2b\leq\varepsilon.
+\end{equation}
+
+The elementary bound is often loose. With $M=100$, $N=4{,}000$ and
+$\delta=0.05$, $2b\simeq0.0644$ absolute utility. That exceeds several
+observed differences in this project. A narrow certificate would need a
+justified tighter paired bound or more independent data. A nonsignificant
+comparison is not a substitute for such a bound.
+
+This defines adequacy relative to a population, metric, tolerance, resource
+constraint and comparison family. It does not cover an algorithm invented
+after the audit. It does provide a reason to stop: retain a compact system
+once justified alternatives cannot offer enough gain to warrant their cost.
+
+\section{What can be claimed about BundleFuse now?}
+\label{sec:claims}
+
+The completed experiments support particular choices rather than an
+indispensable universal menu. The controlled incidence bank improves dense
+POG NDCG over its pairwise counterpart. On POG, history and shared relations
+work together and the fallback helps. On Spotify, a different historical
+overlap estimator improved the controlled result. Clothing and sparse
+Spotify discarded the explicit historical column in the follow-up.
+These findings favor a compact, dataset-selected implementation.
+
+They do not establish the certificate in Section~\ref{sec:stopping}.
+The studies are exploratory supplied-split comparisons, conditional on
+earlier source inventories, and their test outcomes have informed the
+research. They did not search every subset or audit all relevant joint
+additions on fresh data.
+
+A further caution concerns the normal observation model derived in
+Appendix~\ref{app:normal}. It provides a real sufficient-aggregate theorem
+under its assumptions, but those assumptions are not established for the
+current standardized scores. The saved full recipes fit the mean squared
+$(Y-F)$ against inverse frequency and obtain these raw slopes:
+\begin{center}
+\begin{tabular}{@{}lrr@{}}
+\toprule
+Recipe & Raw inverse-frequency slope & Selected $\kappa$\\
+\midrule
+POG & $-0.273238$ & $0.5$\\
+POG\_DENSE & $-2.528107$ & $0.5$\\
+Spotify & $-5.335897$ & $5.0$\\
+\bottomrule
+\end{tabular}
+\end{center}
+These estimates do not substantiate a positive inverse-frequency noise
+relationship. They are not themselves formal rejection tests. The procedure
+truncates inadmissible variance estimates and considers validation-selected
+alternatives. Thus equation~\eqref{eq:objective} is an unconditional account
+of the current interpolation; a calibrated posterior is not established.
+
+\subsection{A publication statement with a definite object of study}
+
+\begin{quote}
+BundleFuse estimates how an item completes an observed set from recorded
+item combinations and relationships shared across items. Its historical
+coefficients are determined by bundle counts. Its final rule limits
+departures from a shared prediction according to candidate history. The
+scorer requires no gradient-trained scoring network; its scalar choices are
+selected on validation data.
+\end{quote}
+
+The exact historical estimator, the chosen sharing operations, their
+computation, and their controlled empirical effects are the objects to
+defend. The supplied item features can have upstream training costs; SVD,
+clustering and scalar selection are also fitted operations. ``No
+gradient-trained scoring network'' is more precise than ``nothing is
+trained.''
+
+The reported comparisons with published CLHE/RaMen values support empirical
+effectiveness under the project's documented comparison scope. They do not
+prove score sufficiency, identify the cause of the advantage, or establish
+priority for the full construction. RaMen's task is bundle
+construction~\cite{ramen2025}. Related bundle recommendation already uses
+frequency-dependent mixtures, for example CoHeat~\cite{coheat2024},
+although its task and learned representations differ. A mathematical
+property and a claim of originality require separate evidence.
+
+The response to ``why not add another model?'' should be precise:
+\begin{quote}
+BundleFuse specifies a complete estimator with a limited fitting and
+computational budget. Retained components must justify their incremental
+ranking value. An extension is relevant when it addresses a missing
+relationship or improves the accuracy--cost tradeoff. The contribution does
+not depend on claiming that no future extension can ever help.
+\end{quote}
+
+The present analysis establishes exact behavior and representational limits.
+It supplies a route to a compact-system guarantee. It does not certify that
+the current number of scores is minimal, or turn established sufficiency
+theorems into new algorithmic contributions.
+
+\appendix
+\section{Definitions of the five dense score columns}
+\label{app:scores}
+
+This appendix makes the dense example self-contained. It defines the
+mathematical operations used in equation~\eqref{eq:dense}. Apart from the
+standardization stabilizer in~\eqref{eq:standardize}, tiny numerical
+stabilizers in logs and row norms are omitted for readability. A zero vector
+is mapped to zero by row normalization. No proof here depends on those
+floating-point conventions.
+
+\subsection{Individual-seed and joint-seed historical support}
+\label{app:history}
+
+Define the seed weight and bundle weight
+\begin{equation}
+ a_i=(f_i+5)^{-1/2},\qquad v_b=(d_b+1)^{-1/2}.
+\end{equation}
+For a query, let $o_b(S)=\sum_{s\in S}B_{bs}a_s$ be its weighted overlap
+with training bundle $b$, and $k_b(S)=\sum_{s\in S}B_{bs}$ its number of
+overlapping items. The direct and additional scores are
+\begin{align}
+ p_c(S)&=\sum_b B_{bc}v_b o_b(S),\notag\\
+ \delta_c(S)&=\beta\sum_b B_{bc}v_b o_b(S)[k_b(S)-1]_+,
+       \qquad \beta=1.5,\notag\\
+ g_c(S)&=p_c(S)+\delta_c(S),\qquad r_{\rm simp}(c\mid S)=g_c(S),
+ \label{eq:history}
+\end{align}
+where $[x]_+=\max(x,0)$. Thus $g_c$ and $\delta_c$ are different: the
+former includes the direct score.
+
+Define the weighted triple count for distinct items
+\begin{equation}
+ T_{cst}=\sum_b v_b B_{bc}B_{bs}B_{bt}.
+\end{equation}
+Then
+\begin{equation}
+ \delta_c(S)=\beta\sum_{\{s,t\}\subseteq S}(a_s+a_t)T_{cst}.
+ \label{eq:triple}
+\end{equation}
+To verify this, a bundle with $k$ query items contributes each seed weight
+once for each of the other $k-1$ query items. Grouping the ordered
+contributions into unordered pairs gives $a_s+a_t$. For zero overlap,
+$o_b=0$, so the same expansion remains valid.
+
+The raw $g_c$ is therefore quadratic in the binary query indicators, with
+coefficients tied to observed counts rather than fitted separately. It does
+not span every quadratic function. Nor does the whole final pipeline remain
+quadratic: query standardization and, in other selected configurations, the
+Rao denominator introduce other nonlinear dependence.
+
+\subsection{Category relations and repeated-category penalty}
+
+Let $\ell_i\in\{1,\ldots,L\}$ be the supplied category label of item $i$.
+The membership matrix $A\in\{0,1\}^{n\times L}$ has
+$A_{i\ell}=\ind\{\ell_i=\ell\}$. Define
+\begin{equation}
+ H=BA,\qquad h_\ell=\sum_b H_{b\ell},\qquad H_+=\sum_\ell h_\ell,
+ \qquad C^{\rm cat}=\off(H^\top H).
+\end{equation}
+$H_{b\ell}$ counts items of category $\ell$ in bundle $b$;
+$\off$ sets the diagonal of a square matrix to zero. For a positive
+off-diagonal count, define
+\begin{equation}
+ P^{\rm cat}_{\ell r}
+   =\max\left(0,\log\frac{C^{\rm cat}_{\ell r}H_+}{h_\ell h_r}\right),
+\end{equation}
+and set it to zero when the count is zero or $\ell=r$. Let
+\begin{equation}
+ \eta_\ell=
+ \frac{\sum_b\ind\{H_{b\ell}\geq2\}+0.5}
+      {\sum_b\ind\{H_{b\ell}\geq1\}+1}.
+\end{equation}
+This is a smoothed empirical repetition rate, not a supplied semantic rule.
+The fashion category score is
+\begin{equation}
+ r_{\rm cat}(c\mid S)=\sum_{s\in S}
+ \left[P^{\rm cat}_{\ell_s\ell_c}
+ -\frac12\ind\{\ell_s=\ell_c\}\ind\{\eta_{\ell_s}<0.15\}
+                      (1-\eta_{\ell_s})\right].
+\end{equation}
+It pools category-pair observations and penalizes repetition of categories
+that rarely repeat in training. All candidates in one category receive the
+same value for a fixed query.
+
+\subsection{Descriptions combined with historical-neighbor descriptions}
+
+For each available description or image feature source $u$, let
+$x_i^{(u)}$ be its fixed, normalized input vector. These are supplied
+representations; this scorer does not train their upstream encoders.
+For each category $\ell$, define its arithmetic mean
+\begin{equation}
+ \bar x_\ell^{(u)}=
+ \frac{1}{|\{i:\ell_i=\ell\}|}
+       \sum_{i:\ell_i=\ell}x_i^{(u)}.
+\end{equation}
+Subtract this mean from each item's vector and normalize the result to unit
+length when nonzero. Concatenate these residual vectors across available
+sources and normalize again, producing row vectors $e_i$. Let $E$ be the
+matrix with rows $e_i^\top$.
+
+Define $D=\diag(a_i)$ and the symmetric historical propagation matrix
+\begin{equation}
+ L_B=\off\left[D B^\top
+       \diag\big((d_b+1)^{-1}\big) B D\right].
+\end{equation}
+This is an adjacency operator, not a Laplacian or a row-stochastic transition
+matrix. Let $\rownorm$ normalize each nonzero row to unit Euclidean length.
+The bridge representation and score are
+\begin{equation}
+ W=\rownorm\left(E+\tfrac12\rownorm(L_BE)\right),\qquad
+ r_{\rm bridge}(c\mid S)=w_c^\top\frac1{|S|}\sum_{s\in S}w_s,
+\end{equation}
+where $w_i^\top$ is row $i$ of $W$. It compares an item's own residual
+description together with an aggregate of its neighbors' residual
+descriptions. This explains why the bridge includes historical information.
+
+\subsection{Co-occurrence profiles compressed by SVD}
+
+Define the item-pair counts and their endpoint totals
+\begin{equation}
+ C=\off(B^\top B),\qquad e_i^{\rm cnt}=\sum_j C_{ij},\qquad
+ C_+=\sum_{ij}C_{ij}.
+\end{equation}
+The endpoint totals differ from item frequency $f_i$: appearances in larger
+bundles contribute more partners. For $C_{ij}>0$, define the positive
+pointwise mutual information matrix
+\begin{equation}
+ P_{ij}=\max\left(0,\log\frac{C_{ij}C_+}
+                                  {e_i^{\rm cnt}e_j^{\rm cnt}}\right),
+\end{equation}
+and set $P_{ij}=0$ otherwise. Let $V_r$ contain retained right singular
+vectors in a rank-$r$ SVD of $P$, and form the item representation
+$X_{\rm svd}=PV_r=U_r\Sigma_r$ for an exact decomposition. The
+implementation uses a truncated numerical approximation. Normalize the
+rows of $X_{\rm svd}$ to obtain $u_i$. Then
+\begin{equation}
+ r_{\rm csvd}(c\mid S)=u_c^\top\frac1{|S|}\sum_{s\in S}u_s.
+\end{equation}
+This compares compressed association profiles. It does not directly
+reconstruct the PPMI entry between each candidate and seed. Orthonormal
+singular-vector columns do not imply unit-length rows of $U_r\Sigma_r$,
+which is why row normalization is a separate operation. The representation
+principle has explicit precedents~\cite{levy2015,afchar2023}.
+
+\subsection{Popularity and selection}
+
+The remaining raw score is $r_{\rm pop}(c\mid S)=\log(1+f_c)$, independent
+of the query before standardization. Apply~\eqref{eq:standardize} to each
+of the five raw columns, then use~\eqref{eq:dense}.
+The displayed constants describe the frozen recipe; these formulas do not
+prove that those constants or exactly these five columns are optimal.
+
+\section{A sufficient aggregate under correlated normal measurements}
+\label{app:normal}
+
+This appendix gives a conditional theorem connecting several correlated
+measurements to a single aggregate and to equation~\eqref{eq:core}. It is
+an explanatory model, not a distributional claim about the current raw
+scores or about binary hidden-item indicators.
+
+For one candidate and query, let $t$ be an unknown real compatibility
+quantity. Condition on the information used to construct a fixed fallback
+$F$ and on frequency $f>0$. Suppose a $p$-dimensional vector of
+bias-corrected measurements $\mathbf u$ obeys
+\begin{equation}
+ \mathbf u=\boldsymbol\ell\,t+\boldsymbol\epsilon,\qquad
+ \boldsymbol\epsilon\mid t,F,f\sim\Normal(0,\Sigma/f),\qquad
+ t\mid F,f\sim\Normal(F,\tau^2).
+ \label{eq:normalmodel}
+\end{equation}
+The response vector $\boldsymbol\ell$, positive-definite covariance
+$\Sigma$, and prior variance $\tau^2>0$ are known within this conditional
+model. Error correlations are allowed. Define
+\begin{equation}
+ I=\boldsymbol\ell^\top\Sigma^{-1}\boldsymbol\ell>0,\qquad
+ y=\frac{\boldsymbol\ell^\top\Sigma^{-1}\mathbf u}{I},\qquad
+ \kappa=\frac1{\tau^2 I}.
+\end{equation}
+
+\begin{proposition}[Conditional sufficient aggregate]
+For known $\boldsymbol\ell,\Sigma,f$, $y$ is sufficient for $t$ in this
+likelihood, and
+\begin{equation}
+ \E[t\mid\mathbf u,F,f]
+    =F+\frac{f}{f+\kappa}(y-F).
+\end{equation}
+\end{proposition}
+\begin{proof}
+The part of the negative log-likelihood depending on $t$ is
+\begin{equation}
+ \frac f2(\mathbf u-\boldsymbol\ell t)^\top
+       \Sigma^{-1}(\mathbf u-\boldsymbol\ell t)
+   =\frac{fI}{2}(t-y)^2+\text{constant in }t.
+\end{equation}
+The data enter through $y$. Adding the prior penalty
+$(t-F)^2/(2\tau^2)$ and completing the square gives the posterior mean.
+This is standard normal conjugacy~\cite{murphy2007}.
+\end{proof}
+
+The theorem permits summarizing a specified measurement vector. It does
+not say that a new measurement can never help. Suppose a new measurement
+has response coefficient $\ell_{\rm new}$, error variance $v/f$, and
+cross-covariance $k/f$ with the old errors. Assume the expanded errors are
+jointly normal with a positive-definite covariance and remain independent
+of $t$ conditional on $F,f$. Define
+\begin{equation}
+ \ell_\perp=\ell_{\rm new}-k^\top\Sigma^{-1}\boldsymbol\ell,
+ \qquad v_\perp=v-k^\top\Sigma^{-1}k>0.
+\end{equation}
+Subtracting $k^\top\Sigma^{-1}\mathbf u$ from the new measurement
+removes the part predictable from old errors. The remainder has response
+$\ell_\perp$ to $t$ and independent normal error variance $v_\perp/f$.
+Therefore the aggregate precision factor becomes
+\begin{equation}
+ \boxed{\ I_{\rm new}=I+\frac{\ell_\perp^2}{v_\perp}.\ }
+\end{equation}
+The additional measurement contributes no information exactly when
+$\ell_\perp=0$ under this model. A nearly duplicated measurement can
+still help if its remaining part measures $t$ accurately. Exact duplicates
+give a singular expanded covariance and should be removed before using
+these inverse formulas.
+
+For current BundleFuse, the required assumptions are unverified. Its grid
+weights are not these covariance-adjusted coefficients. Its full score and
+fallback share inputs. A historical sum is not automatically a sample mean
+whose error variance is proportional to $1/f$. The distributional
+parameters are not known. A single global $\kappa$ would additionally
+require $\tau^2 I$ to be constant across candidate/query conditions.
+The negative diagnostic slopes in Section~\ref{sec:claims} reinforce the
+need to keep this conditional theorem separate from an unconditional claim
+about the implemented scores.
+
+\section{Evidence and reproducibility}
+\label{app:evidence}
+
+The mathematical checks are deliberately small and synthetic. They neither
+fit new benchmark models nor alter existing checkpoints. Run from the
+repository root:
+\begin{quote}\ttfamily\small
+PYTHONPATH=. python scripts/check\_score\_sufficiency.py
+\end{quote}
+The retained result is
+\path{results/algebraic_diagnostics/score_sufficiency.json}.
+It records source hashes and the following checks:
+\begin{itemize}
+\item The $q=2$ construction: 8 items and 8 bundles per corpus.
+\item The $q=21$ construction: 84 items and 9,261 bundles per corpus.
+\item Equal frequency, pair and triple counts; equal fashion score vectors
+and frozen dense fusion to floating-point tolerance; different four-item
+completion counts.
+\item The precision-increment identity in 100 positive-definite covariance
+cases, with maximum numerical discrepancy $2.78\times10^{-15}$.
+\item The expected normalized-relevance ranking rule and additional-utility
+bound in 100 Recall and 100 NDCG cases, enumerating all 24 rankings of
+four candidates. Maximum discrepancy from the optimal sorted utility is
+$2.23\times10^{-16}$.
+\end{itemize}
+The checks illustrate and audit the derivations; the proofs, rather than
+the finite numerical cases, establish the propositions.
+
+The frozen recipes and variance diagnostics are stored in
+\path{results/publication_mechanisms/pog/full.json},
+\path{results/publication_mechanisms/pog_dense/full.json}, and
+\path{results/publication_mechanisms/spotify/full.json}.
+The completed controlled studies are recorded under
+\path{results/novelty_attribution/} and
+\path{results/amplified_fallback/}.
+Those experiments support the empirical statements in
+Section~\ref{sec:claims}; they are not the independent audit required by
+Section~\ref{sec:stopping}.
+
+\clearpage
+\begin{thebibliography}{9}
+\small
+\bibitem{ravikumar2011}
+P. Ravikumar, A. Tewari and E. Yang.
+\emph{On NDCG Consistency of Listwise Ranking Methods}. AISTATS, 2011.
+\url{https://proceedings.mlr.press/v15/ravikumar11a.html}.
+
+\bibitem{banerjee2005}
+A. Banerjee, X. Guo and H. Wang.
+\emph{On the Optimality of Conditional Expectation as a Bregman Predictor}.
+IEEE Transactions on Information Theory 51(7), 2664--2669, 2005.
+Author preprint: \url{https://www.dam.brown.edu/people/huiwang/research/bgw.pdf}.
+
+\bibitem{fukumizu2004}
+K. Fukumizu, F. R. Bach and M. I. Jordan.
+\emph{Dimensionality Reduction for Supervised Learning with Reproducing
+Kernel Hilbert Spaces}. JMLR 5, 73--99, 2004.
+\url{https://jmlr.org/papers/v5/fukumizu04a.html}.
+
+\bibitem{hoeffding1963}
+W. Hoeffding.
+\emph{Probability Inequalities for Sums of Bounded Random Variables}.
+JASA 58(301), 13--30, 1963.
+\url{https://doi.org/10.1080/01621459.1963.10500830}.
+
+\bibitem{murphy2007}
+K. P. Murphy.
+\emph{Conjugate Bayesian Analysis of the Gaussian Distribution}. 2007.
+\url{https://www.cs.ubc.ca/~murphyk/Papers/bayesGauss.pdf}.
+
+\bibitem{levy2015}
+O. Levy, Y. Goldberg and I. Dagan.
+\emph{Improving Distributional Similarity with Lessons Learned from Word
+Embeddings}. TACL 3, 211--225, 2015.
+\url{https://aclanthology.org/Q15-1016/}.
+
+\bibitem{afchar2023}
+D. Afchar, R. Hennequin and V. Guigue.
+\emph{Of Spiky SVDs and Music Recommendation}. RecSys, 2023.
+\url{https://arxiv.org/abs/2307.01212}.
+
+\bibitem{coheat2024}
+H. Jeon, J. Lee, J. Yun and U. Kang.
+\emph{Cold-start Bundle Recommendation via Popularity-based Coalescence
+and Curriculum Heating}. The Web Conference, 2024.
+\url{https://arxiv.org/abs/2310.03813}.
+
+\bibitem{ramen2025}
+\emph{RaMen: Multi-Strategy Multi-Modal Learning for Bundle Construction}.
+2025. \url{https://arxiv.org/abs/2507.14361}.
+\end{thebibliography}
+\end{document}

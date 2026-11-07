@@ -32,6 +32,21 @@ a scoring rule.
 
 ## Earlier evidence retained
 
+- [Proposed sufficiency experiments (PDF)](../output/pdf/score_sufficiency_experiments.pdf)
+  and [TeX source](score_sufficiency_experiments.tex): prioritized tests with equations,
+  matched controls, practical thresholds and explicit confirmation limits. The
+  [feasibility audit](../results/algebraic_diagnostics/sufficiency_experiment_feasibility.json)
+  records query sizes and storage estimates from retained artifacts. No new model
+  fitting or ranking evaluation was performed for this proposal.
+- [Score sufficiency and stopping principle](novelty_assessment.md#12-when-are-the-retained-scores-sufficient):
+  exact shrinkage objective, metric-specific information criterion and ranking bound,
+  conditional correlated-measurement theorem, and a finite-family accuracy/cost guarantee.
+  Available as a self-contained [PDF](../output/pdf/score_sufficiency.pdf) and
+  [TeX source](score_sufficiency.tex), including dense-score definitions.
+  The [verification script](../scripts/check_score_sufficiency.py) and
+  [saved checks](../results/algebraic_diagnostics/score_sufficiency.json) also show that
+  the current fashion scores can miss four-item relations despite identical pair/triple
+  counts. These are mathematical checks, not a minimality certificate or new benchmarks.
 - [Algebraic mechanism analysis](algebraic_mechanism_analysis.md): original operator
   analysis, quadratic query expansion, the first ranking counterexample, and the
   centering/backoff interaction.

@@ -304,3 +304,73 @@ validation search, checkpoint storage, prediction and evaluation. Dataset-specif
 paths are stated explicitly. The document was derived from the current code independently of
 earlier notes; its [source manifest](docs/pipeline_theory_sources.json) identifies the exact
 working-tree files and records compilation/equation checks.
+
+The [raw-score reference (TeX)](docs/raw_scores.tex) and
+[compiled PDF](output/pdf/raw_scores.pdf) define every raw scoring function before
+standardization and fusion, including all symbols, intermediate matrices, dataset-specific
+variants and the distinction between selectable sources and auxiliary scores.
+
+## Novelty attribution experiments
+
+The self-contained [score-sufficiency document (PDF)](output/pdf/score_sufficiency.pdf)
+and its [TeX source](docs/score_sufficiency.tex) include the estimator, all five
+selected dense-score definitions, proofs, the counterexample, a stopping rule,
+and references. They distinguish established properties from unverified assumptions.
+
+The [proposed experiments (PDF)](output/pdf/score_sufficiency_experiments.pdf)
+and [TeX source](docs/score_sufficiency_experiments.tex) specify score pruning,
+separate individual/joint history weights, query-support fallback and a Spotify
+higher-order test, with controls, stopping decisions and confirmation requirements.
+The [read-only feasibility audit](results/algebraic_diagnostics/sufficiency_experiment_feasibility.json)
+shows that every supplied POG query and 99.36% of POG_DENSE queries have at most
+two seeds; an additional three-seed term is primarily relevant to Spotify.
+The primary E1–E4 studies are implemented in
+[`experiments/sufficiency`](experiments/sufficiency/README.md), on branch
+`sufficiency-studies`. **All three primary runs are complete (106 configurations).**
+The [results review](results/sufficiency/README.md) records the dense POG gain from
+separate history weights, the negative effective-support/higher-order findings,
+and corrected latency measurements that exclude zero-weight columns.
+Run `zsh scripts/run_sufficiency_studies.sh` to execute or
+resume the sequential POG_DENSE / POG / Spotify queue. Logs and frozen recipes
+are retained in `results/sufficiency/`; new caches are retained in
+`checkpoints/sufficiency/`. The execution protocol documents cross-split duplicate
+exclusions, exact controls, timing scope and conditional follow-ups.
+
+The [score-sufficiency analysis](docs/novelty_assessment.md#12-when-are-the-retained-scores-sufficient)
+derives the final scoring objective, a criterion for the value of an additional score,
+and a finite-family stopping rule. It separates those results from unproved claims
+that the current score list is minimal or universally sufficient. Reproduce the small
+mathematical checks with `PYTHONPATH=. python scripts/check_score_sufficiency.py`;
+the [saved checks](results/algebraic_diagnostics/score_sufficiency.json) include a
+four-item counterexample evaluated with the production operators. These checks use
+synthetic data and do not modify fitted models or benchmark results.
+
+The [amplified-neighbour/frequency-fallback follow-up](experiments/amplified_fallback/README.md)
+extends that comparison to electronic, food, clothing, dunnhumby and Spotify_sparse,
+using their retained checkpoints and recorded splits. It compares matched weighted sums,
+frequency fallbacks and constant-mixture controls. Run
+`zsh scripts/run_amplified_fallback.sh`; retained logs and results are written under
+`results/amplified_fallback/`, with new score caches in `checkpoints/amplified_fallback/`.
+The first three completed attribution datasets are retained without rerunning them.
+The [live results table](results/amplified_fallback/README.md) refreshes after each
+dataset finishes, alongside its detailed report and paired statistics.
+
+The raw-score versus fusion study is implemented separately in
+[`experiments/novelty`](experiments/novelty/README.md), on branch
+`novelty-score-fusion-experiments`. It compares pairwise, incidence-enhanced and
+amplified-neighbor scores under six matched fusion methods, including RRF,
+a frequency-interaction linear ranker and LambdaMART. Production scoring is unchanged.
+Previous artifacts are read-only; new models, caches and query-level results are retained.
+
+Run the sequential POG_DENSE / Spotify / POG queue with:
+
+```sh
+zsh scripts/run_novelty_studies.sh
+```
+
+Logs are `results/novelty_attribution/queue.log` and
+`results/novelty_attribution/<dataset>/run.log`. Reports appear only when each
+worker completes. These are exploratory supplied-split comparisons conditional
+on an earlier selected source inventory, not a complete HOSLIM reproduction or
+an untouched-split novelty confirmation. See the experiment README for protocol,
+resume commands, retained checkpoints and the remaining comparison stages.

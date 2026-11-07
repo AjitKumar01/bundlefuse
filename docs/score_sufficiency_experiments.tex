@@ -1,0 +1,701 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=24mm,headheight=14pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype,amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs,tabularx,array,enumitem}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{xurl}
+\usepackage[colorlinks=true,linkcolor=MidnightBlue,urlcolor=MidnightBlue]{hyperref}
+\usepackage{fancyhdr}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small BundleFuse: proposed experiments}
+\fancyhead[R]{\small Theory, accuracy and cost}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 1pt}
+\setlength{\emergencystretch}{2em}
+\clubpenalty=10000\widowpenalty=10000
+\setlist[itemize]{leftmargin=1.5em,itemsep=2pt,topsep=3pt}
+\setlist[enumerate]{leftmargin=1.7em,itemsep=2pt,topsep=3pt}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcommand{\E}{\mathbb E}
+\newcommand{\ind}{\mathbf1}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\rownorm}{\operatorname{rownorm}}
+\newtheorem{observation}{Observation}
+\hypersetup{pdftitle={Experiments to Test and Improve BundleFuse},pdfauthor={BundleFuse research analysis}}
+
+\begin{document}
+\thispagestyle{plain}
+{\Large\bfseries Experiments to Test and Improve BundleFuse\par}
+{\large A prioritized plan following the score-sufficiency analysis\par}
+{\small Proposed protocol \hfill 7 November 2026\par}
+\vspace{3pt}\hrule\vspace{7pt}
+
+\textbf{Recommendation.} Run four focused studies: remove unnecessary score
+columns; separate individual-item support from joint support; test whether
+query-specific support improves the frequency fallback; and test an additional
+order of historical interaction on Spotify. Reserve bridge-specific and
+learned diagnostic studies for questions left unresolved by these results.
+
+\textbf{Status.} This document proposes experiments. No new model fitting or
+benchmark evaluation has been launched for it. The query counts and storage
+estimates below were calculated from retained artifacts. All existing
+checkpoints, score caches and completed results are to be preserved.
+
+\section{What the next experiments need to establish}
+
+The sufficiency analysis separates three questions:
+\begin{enumerate}
+\item \textbf{Necessity:} can a smaller selected score set retain the ranking
+quality of the current estimator?
+\item \textbf{Estimation:} do the current weighting and fallback rules use
+the available relationships effectively?
+\item \textbf{Missing information:} is there a useful relationship that the
+current score set cannot represent?
+\end{enumerate}
+These require different controls. A component-removal experiment addresses
+necessity. A new combiner can improve estimation without adding information.
+A higher-order count can add a missing relationship, but only on queries
+large enough for that relationship to exist.
+
+The earlier studies already compared equal and tuned weighted sums,
+rank fusion, two learned fusion procedures, frequency fallback and amplified
+historical neighbors. The five-dataset follow-up also included constant-mixture
+controls. Repeating the same grids is not the next priority. Their limitations
+remain relevant: the learned procedures used limited fitting grids, the source
+inventories had been selected earlier, and inspected test sets cannot become
+untouched confirmation through another random partition.
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}p{0.21\linewidth}Yp{0.20\linewidth}@{}}
+\toprule
+Priority / study & Main question & Initial datasets\\
+\midrule
+1. E1: compact score set & Which columns can be removed with acceptable loss and a measured cost saving? & POG\_DENSE, POG\\
+2. E2: separate history terms & Does coupling individual and joint support hide a better estimator? & POG\_DENSE, POG\\
+3. E3: support-aware fallback & Does support for this query improve on total candidate frequency? & Fashion first; amplified Spotify next\\
+4. E4: interaction order & Does support from three observed items improve rankings? & Spotify\\
+Conditional: E5 & Is the bridge coupling necessary, or is existing information combined poorly? & Where E1--E4 leave a question\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\newpage
+\section{A feasibility finding that changes the priorities}
+\label{sec:feasibility}
+
+The saved full-query records give the following counts. These are query
+counts, not independent statistical sample sizes; repeated complete bundles
+must still be grouped for analysis.
+
+\begin{center}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Dataset & Test queries & Queries with at least 3 seeds & Fraction\\
+\midrule
+POG\_DENSE & 5,938 & 38 & 0.640\%\\
+POG & 4,000 & 0 & 0\%\\
+Spotify & 4,000 & 3,975 & 99.375\%\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Here a seed is an observed item. Dense POG has 11 one-seed queries, 5,889
+two-seed queries, 36 three-seed queries and two four-seed queries. POG has
+1,990 one-seed and 2,010 two-seed queries.
+
+\begin{observation}[An exact ceiling on query interaction order]
+Fix the training data, attributes and candidate $c$. Any real-valued set
+score $\psi_c(S)$ restricted to sets with $|S|\leq2$ can be written as
+\begin{equation}
+ \psi_c(S)=u_c+\sum_{s\in S}v_{cs}
+                 +\sum_{\{s,t\}\subseteq S}w_{cst}.
+ \label{eq:orderceiling}
+\end{equation}
+\end{observation}
+\begin{proof}
+Choose $u_c=\psi_c(\varnothing)$, or choose any empty-set extension if the
+score is defined only for nonempty queries. Set
+$v_{cs}=\psi_c(\{s\})-u_c$ and
+$w_{cst}=\psi_c(\{s,t\})-\psi_c(\{s\})-\psi_c(\{t\})+u_c$.
+Substitution verifies the three possible query sizes.
+\end{proof}
+
+This is a statement about possible query interactions, not a proof that
+BundleFuse estimates all their coefficients correctly. Its coefficients are
+strongly constrained by counts, features and a small number of scalar choices.
+A new method can improve those coefficients even on one- or two-seed queries.
+It could also use richer training structure to estimate them. What cannot act
+on those queries is a new term requiring three distinct observed items.
+
+Thus the four-item counterexample in the sufficiency analysis is a genuine
+universal limitation, but it is not a compelling explanation of errors on
+almost all supplied fashion queries. With all other scores and coefficients
+fixed, adding a term that is zero for $|S|<3$ can change no POG rankings and
+at most 38 dense POG rankings. Its aggregate improvement in either bounded
+metric is at most $38/5938\simeq0.0064$. Retuning other coefficients can
+change more queries; such changes must not be attributed to the new term.
+
+This observation motivates E2 for fashion and E4 for Spotify. It supplies
+a defensible ceiling on one kind of complexity, while leaving the number
+and quality of score representations to be tested.
+
+\section{Common notation and experimental controls}
+\label{sec:protocol}
+
+Let $B\in\{0,1\}^{m\times n}$ be the training bundle--item matrix, $S$
+the observed set, $G$ the hidden set, $c\notin S$ an eligible candidate,
+$f_c=\sum_bB_{bc}$ its training frequency, and $d_b=\sum_iB_{bi}$ the
+size of training bundle $b$. Define
+\begin{equation}
+ a_i=(f_i+5)^{-1/2},\quad v_b=(d_b+1)^{-1/2},\quad
+ o_b(S)=\sum_{s\in S}B_{bs}a_s,\quad k_b(S)=\sum_{s\in S}B_{bs}.
+\end{equation}
+The direct score and incidence correction are
+\begin{align}
+ p_c(S)&=\sum_bB_{bc}v_b o_b(S),\notag\\
+ \delta_c(S)&=1.5\sum_bB_{bc}v_b o_b(S)[k_b(S)-1]_+,\notag\\
+ g_c(S)&=p_c(S)+\delta_c(S),\qquad [x]_+=\max(x,0).
+ \label{eq:history}
+\end{align}
+For a raw vector $r$, $z(r)$ means the existing per-query catalogue
+standardization. The complete selected score is $Y_c$, the scaled restricted
+fallback is $F_c=sP_c$, and the existing interpolation is
+\begin{equation}
+ \theta_c=F_c+\rho_f(c)(Y_c-F_c),\qquad
+ \rho_f(c)=\frac{f_c}{f_c+\kappa_f}.
+ \label{eq:gate}
+\end{equation}
+When a gate strength is zero, define its coefficient as one, including at
+zero support, matching the existing no-fallback convention.
+
+All primary studies retain full-catalogue ranking, observed-item exclusion,
+the same deterministic tie rule and the same metric definitions. The
+fitting target is NDCG@20; Recall@20 is a prespecified guard against losing
+retrieval quality. Every candidate within a comparison receives the same
+training data, feature inputs and grouped fitting/tuning partition.
+
+Use three distinct roles for data:
+\begin{itemize}
+\item \textbf{Operator construction:} training bundles and permitted
+catalogue attributes. No completion target from the fitting or tuning queries
+may remain as a training bundle used to construct their historical score.
+Audit exact duplicate complete bundles across those roles.
+\item \textbf{Development:} fit scalar choices on fitting groups and select
+configurations on tuning groups. Keep every query from one complete bundle
+$S\cup G$ in one group. Reuse the existing grouped 70/30 validation split
+for the first exploratory stage. The previously selected source inventory
+still makes this a conditional study, not independent source discovery.
+\item \textbf{Confirmation:} use genuinely unexamined complete bundles
+after systems, contrasts and thresholds are frozen. Newly obtained data or
+a demonstrably unused corpus portion may provide this. A new mask or a
+random split of already studied bundles does not by itself do so.
+\end{itemize}
+
+The original all-validation checkpoint remains a descriptive reference.
+Matched controls are fitted under the new study's common procedure; do not
+present a comparison between differently selected references as an isolated
+mechanism effect. Development cross-validation or repeated partitions can
+measure selection stability, but folds and seeds are not extra independent
+test datasets.
+
+\section{E1: identify a compact score set and measure its actual cost}
+\label{sec:e1}
+
+\textbf{Hypothesis.} The full selected bank contains replaceable columns,
+and some can be removed without a practically important ranking loss.
+This directly addresses why that many scores are retained.
+
+\textbf{Initial search.} The frozen dense bank has five selected columns:
+category, bridge, popularity, incidence-enhanced history and PPMI-SVD.
+Enumerate its $2^5-1=31$ nonempty subsets. The POG bank has four selected
+columns: category, style, bridge and direct history. Enumerate its 15
+nonempty subsets. For this experiment the effective historical column is
+fixed; E2 changes its construction separately.
+
+Run two different removal controls:
+\begin{enumerate}
+\item \textbf{Fixed-coefficient removal:} remove a source from both $Y$
+and $P$ wherever used, without changing the other coefficients or fallback
+scale. This measures reliance on that source in the fitted recipe.
+\item \textbf{Refitted subset:} fit each legal subset using the same
+deterministic coordinate search and gate/scale grids as its full-bank control.
+This measures whether other retained sources can replace it.
+\end{enumerate}
+
+Removed columns must not reappear through a default fallback list. Define
+the fallback from retained designated sources only. If none remain, disable
+the fallback with $\kappa_f=0$. Record that structural change explicitly
+in the fixed-coefficient removal analysis. Internal dependencies remain:
+removing a standalone PPMI score does not remove PPMI needed for SVD, and
+keeping the bridge still requires its historical propagation operator.
+
+Use fixed initializations and the same search budget. Retain legal solutions
+from nested subsets as additional initializations when fitting supersets,
+so a poor local search does not manufacture a benefit from deletion.
+Enumeration of subsets is exhaustive, but the coordinate weight search is
+not a proof of global optimality. Any minimality claim is conditional on
+this bank and fitting procedure. Candidate configurations and training
+budgets must be saved, including failed or discarded alternatives.
+
+\textbf{Selection rule.} Proposed practical margins are a loss of at most
+1\% of the matched full model's development NDCG and 1\% of its development
+Recall. Freeze the resulting absolute margins before confirmation. These
+are chosen utility tolerances, not constants derived from the theory.
+For example, reference NDCG $0.28$ gives a margin $0.0028$.
+Prefer the least-cost qualifying subset. Require a measured improvement of
+at least 20\% in warm inference latency or required persistent storage for
+an operational efficiency claim; this is a proposed engineering threshold.
+Do not loosen either threshold after seeing confirmation outcomes.
+
+\textbf{Cost measurements.} Time exact scoring, standardization, masking
+and top-20 retrieval on the same hardware and thread settings. Report batch
+one and one fixed batched setting, median and 95th-percentile query latency,
+and separate loading/building times. Use a fixed representative query sample,
+warm-up passes and repeated measurements. Record peak resident memory,
+required uncompressed arrays and serialized checkpoint size separately.
+Export a new dependency-pruned artifact if needed; preserve the original
+checkpoint. Verify prediction parity with the selected subset before timing.
+
+\textbf{Decision.} A qualifying smaller model supports a bounded adequacy
+claim and can become the proposed compact version. If deletion consistently
+hurts, the experiment supplies evidence for retention. If uncertainty crosses
+the tolerance, report insufficient precision. If fewer columns do not reduce
+actual cost because their dependencies remain, claim simplification only.
+
+After a successful pilot, Spotify's eight-column bank has 255 nonempty
+subsets. Measure replay time before committing to enumeration. A smaller
+backward-deletion search is an acceptable exploratory alternative, but its
+output must not be called the minimum over all 255 subsets.
+
+\section{E2: separate individual support from joint support}
+\label{sec:e2}
+
+\textbf{Hypothesis.} For the one- and two-seed fashion regime, the useful
+relationships may already be present, while their current coupling is too
+restrictive. A better weighting can improve results without adding a new
+interaction order.
+
+Hold the selected nonhistorical columns fixed and compare these historical
+contributions, where all outer weights are nonnegative:
+\begin{align}
+ H^{\rm pair}_c &=w_p z(p)_c,\notag\\
+ H^{\rm coupled}_c
+ &=w_h\{(1-\alpha)z(p)_c+\alpha z(p+\delta)_c\},\notag\\
+ H^{\rm separate}_c &=w_p z(p)_c+w_\delta z(\delta)_c,\notag\\
+ H^{\rm joint}_c &=w_\delta z(\delta)_c.
+ \label{eq:histcontrols}
+\end{align}
+The coupled control includes the existing $\alpha$ grid
+$\{0,0.5,1\}$. The separate version can set either weight to zero. Use
+the established scalar weight grid $\{0,0.25,0.5,1,1.5\}$ initially.
+First freeze the other source weights, fallback scale and gate, tuning only
+the historical contribution. Then run a clearly labeled refitted comparison
+with the same permitted outer fitting procedure for all four controls.
+
+For $S=\{s,t\}$, the joint term is exactly
+\begin{equation}
+ \delta_c(S)=1.5(a_s+a_t)\sum_bv_bB_{bc}B_{bs}B_{bt}.
+\end{equation}
+The prefactor is constant across candidates for this query. Thus its
+standardized ranking is that of a weighted count of bundles containing the
+candidate and \emph{both} observed items, apart from numerical stabilizers.
+For one-seed queries, $\delta$ is zero. This produces a direct, testable
+interpretation for almost the entire fashion evaluation regime.
+
+Do not derive $z(\delta)$ by subtracting $z(p)$ from $z(g)$: each vector
+has a different mean and standard deviation. Compute the raw correction
+from training incidence or retained raw arrays, then standardize it once.
+Keep the existing historical-bundle amplified comparator as a matched
+control, reusing valid arrays where possible. This is a test of coefficient
+constraints, not a claim of inventing joint-occurrence scoring.
+
+\textbf{Measurements.} Report full-set metrics, one- versus two-seed
+results, frequency strata and the fraction of two-seed queries with any
+nonzero joint historical support. Strata are defined from observed inputs
+before examining outcomes. A zero joint weight or improvement caused only
+by retuning other sources cannot support a joint-support contribution.
+
+\textbf{Decision.} If the separate construction improves the matched
+coupled version, replace the restrictive coupling with an explicitly
+estimated balance, subject to confirmation. If the coupled version is
+adequate, its smaller fitting problem gains empirical support. If a joint-only
+score suffices for two-seed queries, investigate a simpler conditional rule;
+do not silently apply it to one-seed queries where it is identically zero.
+
+\section{E3: does support for this query improve the fallback?}
+\label{sec:e3}
+
+\textbf{Hypothesis.} Total frequency can overstate support: an item may
+appear often but rarely in historical bundles resembling $S$. A quantity
+computed from contributing bundles may improve the gate on the explicit
+historical score. It is a proposed support measure, not a proven noise variance.
+
+Let $h_b(S)\geq0$ be bundle $b$'s contribution before multiplying by
+candidate membership. For the incidence score,
+\begin{equation}
+ h_b(S)=v_bo_b(S)\{1+1.5[k_b(S)-1]_+\}.
+\end{equation}
+For a pair or amplified bank, use that bank's own nonnegative contribution,
+including its retained-neighbor mask. Define
+\begin{align}
+ A_c(S)&=\sum_b B_{bc}h_b(S),\qquad
+ Q_c(S)=\sum_b B_{bc}h_b(S)^2,\notag\\
+ n_{\rm eff}(c,S)&=
+ \begin{cases}A_c(S)^2/Q_c(S),&Q_c(S)>0,\\0,&Q_c(S)=0.\end{cases}
+ \label{eq:ess}
+\end{align}
+This number is high when support is spread across many bundles and low
+when one or a few dominate. By Cauchy--Schwarz it is at most the number
+of contributing bundles, which is at most $f_c$. It is unchanged by a
+common positive rescaling of all $h_b$ for a query.
+
+Let $H_c$ be the weighted, standardized \emph{explicit historical column}
+in $Y_c$. Define $A^{\rm rest}_c=Y_c-F_c-H_c$. Compare the original
+gate to the term-specific proposal
+\begin{align}
+ \theta^{\rm freq}_c
+   &=F_c+\rho_f(c)\{A^{\rm rest}_c+H_c\},\notag\\
+ \theta^{\rm support}_c
+   &=F_c+\rho_f(c)A^{\rm rest}_c
+          +\rho_q(c,S)H_c,\notag\\
+ \rho_q(c,S)&=\frac{n_{\rm eff}(c,S)}{n_{\rm eff}(c,S)+\kappa_q}.
+ \label{eq:supportgate}
+\end{align}
+Only the explicit historical column gets the new gate. A measure derived
+from that column need not describe the reliability of SVD, category or
+bridge scores, so replacing the gate on every source would have a different,
+less specific interpretation.
+
+\textbf{Required controls.} In the primary comparison, fix $Y,F,H$ and
+the original $\rho_f$ wherever it multiplies $A^{\rm rest}$. Compare the
+support coefficient on $H$ with (i) the original frequency coefficient,
+(ii) a separately tuned coefficient $f_c/(f_c+\kappa_H)$, (iii) a tuned
+constant coefficient, and (iv) a coefficient based on the unweighted number
+of contributing bundles. Each of the last three controls has one tunable
+scalar, as does the support proposal. This separates query-specific support
+from merely adding a tuning parameter or attenuating the historical score.
+The unweighted-count control tests whether contribution concentration matters.
+Use $\{0,0.05,0.25,0.5,0.75,1\}$ for the constant historical coefficient
+and for the complete constant-mixture fraction below.
+
+Also retain the complete no-fallback model and the tuned constant mixture
+of $Y$ and $F$ as reference controls. Use an identical fallback scale in
+the primary comparison. A secondary comparison may give every eligible
+method the same two scale options: unit scale and the fitting-set matched
+scale. Attribute gains there to the selected gate/scale procedure, not the
+gate alone. Start with the existing $\kappa$ grid
+$\{0,0.05,0.5,1,5,20\}$; any extension is selected on development only.
+If the fitted historical coefficient is zero, this term-specific experiment
+cannot change that model and should be recorded as inactive.
+
+\textbf{Measurements.} Report rankings for cold candidates, warm candidates
+with zero query overlap, and candidates whose support is concentrated or
+distributed. Define the bins on fitting data, freeze their edges, and report
+denominators. Keep catalogue standardization fixed: at zero raw support,
+a standardized historical score can be negative, so changing its gate also
+changes a frequency-dependent offset. Describe that effect rather than
+interpreting all gains as reduced statistical variance.
+
+\textbf{Optional mechanism check after a promising result.} Retain nested
+25\%, 50\% and 100\% subsets of training bundles using three predeclared
+hash seeds, keeping evaluation queries fixed. Rebuild \emph{all} historical
+operators, frequencies, category associations, SVD and bridge from each
+retained training set. Hold supplied descriptors fixed. Compare gates with
+matched fitting at each level, and separately report a frozen-coefficient
+stress test. This intervention changes available historical evidence; it
+does not prove that frequency is the causal source of every ranking gain.
+Repeated training seeds are not additional independent query samples.
+
+\textbf{Decision.} A gain over the separately tuned frequency and constant
+historical-term controls, as well as the original model,
+would support the proposed query-specific correction. A tie favors the
+simpler gate. A failure in the zero-overlap or rare-item strata argues against
+using this support measure. The existing negative variance-fit slopes alone
+justify neither a normal-noise model nor this new gate.
+
+\section{E4: test the missing interaction order where it can act}
+\label{sec:e4}
+
+\textbf{Primary dataset: Spotify.} The supplied POG test queries cannot
+activate this term. Dense POG is useful only for an explicitly small eligible
+subset analysis, not the primary search for a global improvement.
+
+For an integer $j\geq1$, define
+\begin{equation}
+ r^{[j]}_c(S)=\sum_b B_{bc}v_bo_b(S)
+                         \binom{k_b(S)-1}{j-1},
+ \label{eq:orders}
+\end{equation}
+where the combinatorial factor is defined as zero when $k_b(S)<j$.
+Then $r^{[1]}=p$, $1.5r^{[2]}=\delta$, and the proposed additional term is
+\begin{equation}
+ r^{[3]}_c(S)=\sum_bB_{bc}v_bo_b(S)
+                 \frac{[k_b(S)-1]_+[k_b(S)-2]_+}{2}.
+ \label{eq:third}
+\end{equation}
+The product is zero for $k_b<3$. Its expansion is
+\begin{equation}
+ r^{[3]}_c(S)=\sum_{\{s,t,u\}\subseteq S}(a_s+a_t+a_u)
+                   \sum_bv_bB_{bc}B_{bs}B_{bt}B_{bu}.
+\end{equation}
+Each seed weight occurs once for each choice of two other overlapping
+seeds. Thus this term measures four-item occurrences: a candidate together
+with three observed items. Compute it through overlaps and incidence
+multiplication; never materialize an item-by-item-by-item-by-item tensor.
+
+Add a single nonnegative coefficient $\lambda z(r^{[3]})$ to the
+historical side of the selected score, with $\lambda$ initially in
+$\{0,0.25,0.5,1,1.5\}$. Its fallback membership is fixed to absent.
+First hold every existing coefficient and the frequency gate fixed, then
+compare equally refitted versions. Record whether the added term is active,
+its independent fitting cost, and its incremental scoring cost.
+
+\textbf{Strong controls are essential.} Compare against the retained
+amplified Spotify bank with its matched fallback. Include full-neighbor
+power-two and power-three historical overlap, and the existing truncated
+neighbor alternative. For equal seed weights and fixed bundle size, cubing
+the overlap contains a third-order query term:
+\begin{equation}
+ k^3=k+3k(k-1)+k(k-1)(k-2).
+\end{equation}
+Top-neighbor truncation can also introduce dependence on the whole query.
+Consequently, four-item sensitivity is not a capability unique to the new
+count. The proposed advantage, if any, is estimating its contribution
+separately instead of coupling lower and higher orders through a fixed power
+or neighbor-selection rule.
+
+\textbf{Synthetic check before real ranking.} Reuse the parity-style
+four-group construction from the sufficiency analysis. Verify that pair and
+triple-based controls fail to distinguish its completions, while the added
+term and an appropriate power-three control distinguish them. Verify that
+the new term is exactly zero when $|S|<3$ and that setting $\lambda=0$
+reproduces the baseline. These are representation checks, not benchmark gains.
+
+\textbf{Decision.} Retain the term only if it improves the matched strong
+control beyond uncertainty with acceptable cost. If it helps only a narrow
+query-size stratum, report that scope. If amplified neighbors do equally
+well, favor the simpler implementation and describe the shared capability.
+Do not continue automatically to orders four, five and beyond: an additional
+order needs an unresolved error pattern, enough eligible queries, and a
+separate development justification.
+
+\section{Conditional studies: coupling and unresolved prediction errors}
+\label{sec:e5}
+
+\subsection{E5a: test the bridge only if E1 retains it}
+
+Let $E$ be the matrix of normalized category-residual description vectors.
+Let $L$ be the fixed historical propagation operator and
+$N=\rownorm(LE)$. For bridge strength $\eta$, let $D$ be the diagonal
+row-normalization matrix for $E+\eta N$. The bridge kernel is
+\begin{equation}
+ D(EE^\top+\eta EN^\top+\eta NE^\top+\eta^2NN^\top)D.
+\end{equation}
+The two cross terms compare an item's own description with another item's
+historical-neighbor description. Compare the bridge with own-description
+similarity, neighbor-description similarity, and a tuned weighted sum of the
+two separate scores.
+
+For an algebraically controlled ablation, remove only the two cross terms
+while holding $D$ fixed. This isolates their contribution to the numerator;
+$D$ still contains the original normalization information, so this is not
+complete removal of all cross-term effects. Also evaluate a practical
+concatenated representation $\rownorm([E,\eta N])$, which has its own
+normalization. Treat these as distinct comparisons. Compute scores through
+feature products and query means, not dense catalogue-squared matrices.
+
+A gain over a properly tuned separate-score combination would support the
+specific coupling mechanism. If a simpler description score suffices, remove
+the extra computation. This study was not established by the earlier
+historical-bank comparisons, which kept the bridge fixed.
+
+\subsection{E5b: a learned diagnostic, not a new production network}
+
+The theory defines additional information through the change in the best
+prediction of normalized relevance after revealing another score. That
+population quantity is not directly observed. A small prediction probe can
+find remaining errors, but failure of the probe cannot prove sufficiency.
+
+For NDCG@20, define
+\begin{equation}
+ V_c=\frac{\ind\{c\in G\}}{D_{20}(G)},\qquad
+ D_{20}(G)=\sum_{j=1}^{\min(20,|G|)}\frac1{\log_2(j+1)}.
+\end{equation}
+Fit regularized linear predictors of $V_c$ from the retained standardized
+scores, their frequency-gated versions, log frequency and seed count.
+Compare a predictor using these features with an equally tuned predictor
+also receiving one proposed score. Fit and select within grouped development
+folds, then evaluate on held-out groups. These probes estimate coefficients;
+they are deliberately learned diagnostic models, not parameter-free controls.
+
+If there are $d$ retained columns, the stated baseline has $2d+3$ fitted
+coefficients in total: $2d$ for scores and gated scores, one for log frequency,
+one for seed count, and an intercept. Thus a five-column bank uses 13
+coefficients; a single additional scalar score increases this to 14.
+The feature definition is
+fixed before fitting; the base probe must not silently omit a gate used by
+the production model. If a later tested model uses the query-support gate,
+add its corresponding transformed column to both probes and report the
+updated coefficient count.
+
+Use all candidates in streamed moment calculations where feasible. If
+negative candidates are sampled, use a predefined uniform sample with known
+inclusion probabilities and appropriate importance weights. Include all
+positives. A balanced positive/negative loss without correction estimates
+a different target from full-catalogue squared prediction error. Report
+ranking metrics as well as the properly weighted error.
+
+An improvement by the base probe suggests that current fusion leaves
+information unused. An improvement only after adding a source suggests
+unresolved predictive value \emph{within this probe class}. Neither gives
+an upper bound on all possible additions. In particular, a learned estimate
+must not be substituted into the theoretical information bound as a certified
+upper bound. The earlier weak learned-ranker results do not eliminate this
+diagnostic question because their objectives and fitting procedures differed.
+
+\section{Confirmation, decisions and permitted claims}
+\label{sec:confirmation}
+
+Primary development comparisons should be frozen before each study is
+run. Select a compact candidate from E1, one history construction from E2,
+one gate from E3 and, if successful, one Spotify extension from E4. Combine
+successful changes only in a separate stage with ablations of each change;
+separate gains need not add together.
+
+For confirmation, freeze the exact systems, fitting provenance, target
+population, resource limits, contrast list, tolerance values and statistical
+family before accessing new outcomes. Use full-catalogue query-macro
+NDCG@20 and Recall@20 for comparison with existing reports. Resample complete
+bundle groups together for paired uncertainty, preserving query multiplicity.
+Account for user/time dependence if the data require a larger grouping unit.
+Report group counts and query counts separately.
+
+For a compact model, the lower confidence bound on its utility difference
+from the reference must exceed the negative prespecified tolerance. For a
+superiority claim, the corresponding lower bound must exceed zero after
+the declared multiplicity correction. The exact number of contrasts is
+generated from the frozen system manifest; reserve that entire family,
+including conditional studies that are to be claimed. A nonsignificant
+difference is not equivalence. Bootstrap intervals are approximate; disclose
+that qualification rather than presenting them as distribution-free proofs.
+
+To make the finite-family sufficiency claim from the theory, evaluate all
+frozen members of the declared family, not just the chosen compact model
+and the original full one. The original full model need not be the best
+member of the family. If $M$ fixed systems are audited on $N$ independent
+bundle units using bounded bundle-average utility, a simultaneous
+Hoeffding bound has radius
+\begin{equation}
+ b=\sqrt{\frac{\log(2M/\delta)}{2N}}
+\end{equation}
+for one metric and failure probability $\delta$. Allocate confidence across
+both metrics as well. Choose the least-cost frozen system whose audit utility
+is within a prespecified tolerance $\varepsilon$ of the best observed family
+member. It is within
+$\varepsilon+2b$ in population utility on the simultaneous event. This
+certificate concerns the bundle-average target; do not apply the independent-
+unit formula to dependent query rows or silently equate bundle-average and
+query-macro metrics.
+
+The elementary bound may be too wide to certify the chosen 1\% relative
+margin. Estimate paired variability on development data to plan precision,
+and use a justified tighter bound if available. If the audit is too small,
+report an inconclusive certificate rather than changing the tolerance.
+If no genuinely new audit data exist, complete the exploratory studies and
+state that confirmation remains unavailable.
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}YY@{}}
+\toprule
+Result & Claim it can support\\
+\midrule
+Smaller bank retains quality with lower measured cost & Some score columns are unnecessary within the declared bank, fitting procedure and tolerance.\\
+Separate history terms improve & Their present coupling is restrictive; better results need not require more interaction orders.\\
+Query-support gate improves & Candidate history relevant to this query is useful beyond total frequency under the tested controls.\\
+Third-order term improves Spotify & Candidate--three-seed occurrences add useful information in the tested setting, subject to amplified-neighbor controls.\\
+No detectable gain & No demonstrated benefit at the experiment's resolution; not universal sufficiency.\\
+Fresh finite-family certificate succeeds & The selected system is adequate within its declared family, population, metric, tolerance and resource budget.\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\section{Execution budget and retained outputs}
+\label{sec:execution}
+
+The first studies reuse training operators and verified score caches where
+their definitions match. They fit scalar choices rather than neural scoring
+networks. E3 introduces at most one new support-gate strength in its fixed
+comparison, and E4 one added source coefficient. E5b fits the explicitly
+reported linear coefficients. All tuning effort must be counted; zero
+gradient-trained scoring parameters does not mean zero fitted choices.
+
+Storage is material. From the retained catalogue and query counts, one
+additional float32 score column over validation and test requires approximately
+the following, excluding metadata and temporary blocks:
+\begin{center}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Dataset & Catalogue items & Validation + test queries & GiB per column\\
+\midrule
+POG\_DENSE & 31,217 & 8,906 & 1.036\\
+POG & 48,676 & 6,000 & 1.088\\
+Spotify & 254,155 & 6,000 & 5.681\\
+\bottomrule
+\end{tabular}
+\end{center}
+The estimate is $4n(N_{\rm val}+N_{\rm test})/2^{30}$ GiB, where
+$N_{\rm val}$ and $N_{\rm test}$ are the validation and test query counts.
+Generate development columns first, then materialize test/audit columns only
+for frozen candidates. Share arrays across fusions. Check available disk and
+record a pilot's time per scoring block and per configuration before projecting
+wall time. Existing results do not justify a new fixed runtime estimate.
+
+The proposed implementation location is \path{experiments/sufficiency/};
+it does not yet exist as a runnable study. Use separate future result and
+checkpoint roots, \path{results/sufficiency/} and
+\path{checkpoints/sufficiency/}. Preserve existing files and interrupted
+partials. Each run should retain:
+\begin{itemize}
+\item input, source and protocol hashes; grouping manifests and split indices;
+\item legal source subsets, fitting grids, all selected/discarded recipes and
+explicit fallback membership;
+\item completed cache blocks, completion markers and resumable logs;
+\item per-query metrics, top-20 predictions, subgroup counts and paired results;
+\item dependency-aware latency/memory reports and parity checks for compact exports.
+\end{itemize}
+Required correctness checks include baseline equality at zero added weight,
+zero joint terms on ineligible query sizes, support bounds in
+equation~\eqref{eq:ess}, exclusion of removed fallback sources, and identical
+ranking masks/tie rules. Do not change sources during a resumable run.
+
+\textbf{First execution package.} E1 and E2 on POG\_DENSE and POG, followed
+by E3 on the surviving banks. Promote E4 to a full Spotify run only after
+its synthetic checks and a development pilot. E5 and training-thinning
+studies require a specific unresolved finding. This order prioritizes the
+question of how many scores are needed while preserving a concrete route
+to improved accuracy.
+
+\section*{Evidence behind this plan}
+
+The query-size and storage audit is saved in
+\path{results/algebraic_diagnostics/sufficiency_experiment_feasibility.json}.
+It records the source hashes of each retained query record, identity manifest
+and frozen recipe. It is a read-only feasibility audit, not a new evaluation.
+
+Completed comparison evidence is under
+\path{results/novelty_attribution/} and
+\path{results/amplified_fallback/}. Their protocols are in
+\path{experiments/novelty/README.md} and
+\path{experiments/amplified_fallback/README.md}. The mathematical analysis
+is available as \path{docs/score_sufficiency.tex} and
+\path{output/pdf/score_sufficiency.pdf}; its numerical checks are in
+\path{results/algebraic_diagnostics/score_sufficiency.json}.
+This proposal builds on those records and does not replace their scope
+qualifications or relabel exploratory results as confirmation.
+
+\end{document}

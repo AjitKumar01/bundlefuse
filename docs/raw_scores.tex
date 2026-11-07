@@ -1,0 +1,813 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=25mm]{geometry}
+\usepackage{amsmath,amssymb,booktabs,longtable,array,microtype}
+\usepackage[T1]{fontenc}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\allowdisplaybreaks
+\newcommand{\pos}[1]{\left[#1\right]_{+}}
+\newcommand{\off}{\operatorname{off}}
+\newcommand{\rn}{\mathcal N}
+\DeclareRobustCommand{\key}[1]{\texttt{\detokenize{#1}}}
+\pdfstringdefDisableCommands{\let\key\detokenize}
+\newcommand{\ind}{\mathbf 1}
+\title{BundleFuse: Mathematical Definitions of the Raw Scores}
+\author{}
+\date{Implementation audit: 6 November 2026}
+\begin{document}
+\maketitle
+
+Take a candidate item $c$ and a nonempty observed item set $S$, with $c\notin S$.
+Each raw score $r_h(c\mid S)$ supplies one number for that candidate.
+This document defines these numbers \emph{before} catalogue standardization,
+validation-selected weighting, and final interpolation. It covers the eight
+dataset configurations and distinguishes their formulas whenever the same score
+name has different meanings. All inputs and intermediate quantities used in the
+equations are defined here.
+
+\tableofcontents
+
+\section{Shared notation and inputs}
+
+\subsection{Items, bundles, and incidence}
+Let $\mathcal I=\{1,\ldots,n\}$ be the item catalogue and
+$\mathcal B=\{b_1,\ldots,b_m\}$ the training bundles. Repeated copies of an item
+inside one bundle are removed in the graph construction. Define
+\[
+ B\in\{0,1\}^{m\times n},\qquad B_{bi}=\ind\{i\in b\},\qquad
+ x_S\in\{0,1\}^{n},\quad (x_S)_i=\ind\{i\in S\}.
+\]
+Here $b$ indexes a training bundle, $i$ an arbitrary item, $s,t$ observed items,
+and $c$ the candidate. Every formula below uses the unit-weight bundles used by
+the dataset pipelines. A separately supplied bundle-weight option in the graph
+class is outside this document's scope.
+
+Define the training frequency and training-bundle size by
+\[
+ f_i=\sum_b B_{bi},\qquad d_b=\sum_iB_{bi}.
+\]
+Let $\alpha$ and $\gamma$ be the frequency and size exponents, respectively,
+and $\beta$ the additional-overlap coefficient. Their default values are
+$\alpha=\gamma=0.5$ and $\beta=1.5$. Define
+\[
+ a_i=(f_i+5)^{-\alpha},\quad v_b=(d_b+1)^{-\gamma},\quad
+ D=\operatorname{diag}(a_1,\ldots,a_n),\quad
+ V=\operatorname{diag}(v_1,\ldots,v_m).
+\]
+Thus $D$ is an $n\times n$ diagonal matrix of item-frequency weights; $V$ is an
+$m\times m$ diagonal matrix of bundle-size weights. The offsets 5 and 1 are
+fixed implementation constants, not counts estimated from the query.
+
+For a scalar $z$, $[z]_+=\max(z,0)$. The operation $\off(A)$ replaces the
+diagonal of a square matrix $A$ by zero. For any matrix $F$ of item row vectors,
+define row normalization by
+\[
+ [\rn(F)]_i=\frac{F_i}{\|F_i\|_2+\epsilon_N},\qquad\epsilon_N=10^{-8}.
+\]
+A zero row remains zero. Norm stabilizers make the normalized length slightly
+less than one. A sum over $S$ and a mean over $S$ are kept distinct throughout.
+
+\subsection{Category labels and description arrays}
+Let $\ell_i\in\{1,\ldots,q\}$ be the primary label of item $i$.
+For POG this is the released clothing category; for Spotify it is the artist;
+for dunnhumby it is the product's sub-commodity label. For electronic, food and
+clothing it identifies the full parsed category path. Those three datasets also
+use a second label $\ell_i^{(2)}$ for the first at most two entries of that path.
+Missing retail/commerce categories receive separate item-specific labels.
+If explicit primary labels are absent in the general model, they are instead
+obtained by clustering the available description arrays (or collaborative
+vectors if no description arrays exist).
+
+Let $X^{(j)}\in\mathbb R^{n\times p_j}$ denote the supplied item array for
+modality $j$, with $p_j$ coordinates per item. POG provides title, image and
+description arrays; Spotify provides an audio array. These are loaded from
+\key{title_emb.npy}, \key{content_feature.pt} and
+\key{description_feature.pt} as applicable. The scorer consumes these released
+numbers; it does not infer their originating encoder from the array values.
+Each modality is row-normalized before the constructions below. Retail and
+commerce text features are defined explicitly in Section~\ref{sec:text}.
+
+\section{Scores from exact training-item membership}
+
+These scores use item identities and the bundles in which they occur.
+First count candidate--seed occurrences; then distinguish normalized direct
+support, support from multiple seeds in one historical bundle, and propagated
+support.
+
+\subsection{Item co-occurrence: \key{cooc}}
+Define
+\[
+ C=\off(B^\top B),\qquad
+ C_{ci}=\begin{cases}\sum_b B_{bc}B_{bi},&c\ne i,\\0,&c=i.\end{cases}
+\]
+The raw score is
+\begin{equation}
+ r_{\rm cooc}(c\mid S)=(Cx_S)_c=\sum_{s\in S} C_{cs}.
+\end{equation}
+Each historical occurrence of a candidate together with a seed contributes
+one. A bundle containing several seeds contributes once for each such seed.
+
+\subsection{Frequency-weighted direct score: \key{pair}}
+For each training bundle define its weighted overlap and overlap count:
+\[
+ o_b(S)=\sum_{s\in S}B_{bs}a_s,\qquad
+ k_b(S)=\sum_{s\in S}B_{bs}=|b\cap S|.
+\]
+The direct score is
+\begin{equation}\label{eq:pair}
+ p_c(S)=r_{\rm pair}(c\mid S)
+ =\sum_b B_{bc}v_bo_b(S)
+ =\bigl[B^\top VBDx_S\bigr]_c.
+\end{equation}
+Relative to ordinary co-occurrence, rarer seeds have larger $a_s$, and larger
+historical bundles have smaller $v_b$. There is no candidate-frequency factor
+$a_c$ in this direct score.
+
+The stored zero-diagonal pair matrix is
+\[
+ W=\off(B^\top VBD),\qquad
+ W_{cs}=a_s\sum_b B_{bc}v_bB_{bs}\quad(c\ne s).
+\]
+For eligible candidates $c\notin S$, $(Wx_S)_c=p_c(S)$. Nevertheless, the
+implementation computes the full vector $p=B^\top VBDx_S$, \emph{including}
+its seed coordinates, before propagation. Substituting $Wx_S$ for $p$ inside
+the propagated score would therefore change that score. Generally $W$ is not
+symmetric because only its seed-side index receives $a_s$.
+
+\subsection{Additional joint-overlap score: \key{delta_inc}}
+The extra contribution is
+\begin{equation}\label{eq:delta}
+ \delta_c(S)=\beta\sum_b B_{bc}v_bo_b(S)[k_b(S)-1]_+.
+\end{equation}
+Its matrix form is
+\[
+ \delta(S)=\beta B^\top V
+ \left((BDx_S)\odot[Bx_S-\ind]_+\right),
+\]
+where $\odot$ denotes coordinatewise multiplication and $\ind$ is the
+$m$-dimensional all-ones vector. A training bundle with only one seed adds
+no extra contribution. A bundle with two seeds multiplies its direct
+contribution by an additional $\beta$; a bundle with three adds $2\beta$ times
+that contribution. This is additional credit for \emph{joint membership in
+the same historical bundle}, not merely for two independent pair counts.
+
+More explicitly, define the candidate--seed--seed count
+\[
+ H_{cst}=\sum_b v_bB_{bc}B_{bs}B_{bt}.
+\]
+Then
+\begin{equation}
+ \delta_c(S)=\beta\sum_{\{s,t\}\subseteq S}(a_s+a_t)H_{cst},
+\end{equation}
+where each unordered pair of distinct seeds is included once. This identity
+also shows that $\delta_c(S)=0$ for a single-seed query.
+
+\subsection{Direct plus additional joint overlap: \key{simp}}
+The complete incidence score is
+\begin{equation}
+ g_c(S)=r_{\rm simp}(c\mid S)=p_c(S)+\delta_c(S).
+\end{equation}
+The symbols $g_c$ and $\delta_c$ denote different quantities: the former
+includes direct support; the latter contains only the extra contribution.
+The commerce profile replaces $p$ by an augmented direct score defined in
+Section~\ref{sec:commerce}.
+
+\subsection{Propagated scores: \key{diff2_pair} and \key{diff2}}
+Define the $n\times n$ operator
+\begin{equation}\label{eq:L}
+ L=\off\!\left(DB^\top EBD\right),\qquad
+ E=\operatorname{diag}\bigl((d_b+1)^{-1}\bigr)_{b=1}^m.
+\end{equation}
+In particular,
+\[
+ L_{ci}=a_ca_i\sum_b\frac{B_{bc}B_{bi}}{d_b+1}\ (c\ne i),\qquad L_{cc}=0.
+\]
+Here both item endpoints receive a frequency weight. $L$ is symmetric and
+nonnegative, but its rows need not sum to one. It is a normalized adjacency
+operator, not a graph Laplacian.
+
+The raw propagated scores are
+\begin{align}
+ r_{\rm diff2\_pair}(c\mid S)&=(Lp(S))_c,
+ \\
+ r_{\rm diff2}(c\mid S)&=(Lg(S))_c
+ =(Lp(S))_c+(L\delta(S))_c.
+\end{align}
+An intermediate item $i$ passes its score $p_i$ or $g_i$ to candidate $c$
+with weight $L_{ci}$. All items, including seeds, participate as intermediates.
+Because the normalizations in $p$ and $L$ differ, the first expression is not
+generally $L^2x_S$. The commerce profile uses a different propagation matrix.
+
+\subsection{Popularity: \key{pop}}
+\begin{equation}
+ r_{\rm pop}(c\mid S)=\log(1+f_c).
+\end{equation}
+It depends on candidate training frequency only and is identical for all queries.
+
+\section{Association strengths and their compressed profiles}
+
+Co-occurrence counts favor frequent items. The next score compares a pair
+count with a product of marginal counts. SVD then compresses an item's entire
+association row, so candidates can be compared through similar patterns of
+association with other items.
+
+\subsection{Positive item association: \key{ppmi}}
+Using the zero-diagonal $C$, define
+\[
+ q_i=\sum_jC_{ij},\qquad Q=\sum_{i,j}C_{ij}.
+\]
+The endpoint count $q_i$ differs from bundle frequency $f_i$:
+$q_i=\sum_bB_{bi}(d_b-1)$. The symmetric matrix $M$ is
+\begin{equation}
+ M_{ij}=\begin{cases}
+ \displaystyle\pos{\log\!\left(
+ \frac{C_{ij}Q}{(q_i+10^{-9})(q_j+10^{-9})}+10^{-12}\right)},&C_{ij}>0,\\
+ 0,&C_{ij}=0.
+ \end{cases}
+\end{equation}
+The name PPMI denotes positive pointwise mutual information. The raw score is
+\begin{equation}
+ r_{\rm ppmi}(c\mid S)=(Mx_S)_c=\sum_{s\in S}M_{cs}.
+\end{equation}
+Only pair counts larger than their marginal-based reference receive positive
+credit. The logarithm is natural.
+
+\subsection{Compressed association-profile similarity: \key{csvd}}
+Let $r=\min(r_0,\max(1,n-2))$, where $r_0=128$ by default. A truncated
+singular value decomposition supplies right singular directions
+$V_r\in\mathbb R^{n\times r}$, left singular directions
+$U_r\in\mathbb R^{n\times r}$ and the diagonal matrix of retained singular
+values $\Sigma_r\in\mathbb R^{r\times r}$. Define
+\begin{equation}
+ Z=MV_r\simeq U_r\Sigma_r,\qquad U=\rn(Z).
+\end{equation}
+The implementation uses a randomized truncated decomposition with random
+state zero; $MV_r$ is the operational definition of the returned feature
+matrix. If no associations are stored, it uses zero features.
+The raw score is
+\begin{equation}
+ r_{\rm csvd}(c\mid S)=U_c\left(\frac1{|S|}\sum_{s\in S}U_s\right)^\top
+ =\frac1{|S|}\sum_{s\in S}U_cU_s^\top.
+\end{equation}
+This averages cosine similarities of compressed association profiles, up to
+the norm stabilizer. It is not the entry $(c,s)$ of the reconstructed matrix
+$U_r\Sigma_rV_r^\top$. Before row normalization the profile Gram matrix is
+$U_r\Sigma_r^2U_r^\top$.
+
+Even though $M$ is symmetric, it need not be positive semidefinite. SVD retains
+directions by singular-value magnitude, not by positive eigenvalues alone.
+Orthogonality concerns the \emph{columns} of singular-vector matrices;
+individual item \emph{rows} of $U_r\Sigma_r$ do not have equal norms.
+This is why row normalization is a separate operation.
+
+\section{Scores from primary labels and soft feature groups}
+
+These constructions share information between different item identities.
+The hard-label score uses the supplied category or artist; the soft-label
+score uses clusters of item features. These are different group definitions.
+
+\subsection{Counts of labels inside training bundles}
+Define the bundle--label count matrix
+\[
+ T\in\mathbb R^{m\times q},\qquad
+ T_{ba}=\sum_iB_{bi}\ind\{\ell_i=a\}.
+\]
+Unlike $B$, $T$ may contain values greater than one. Let
+\[
+ h_a=\sum_bT_{ba},\qquad H=\sum_a(h_a+10^{-9}),\qquad A=T^\top T.
+\]
+Here $A\in\mathbb R^{q\times q}$ counts label pairs through
+\[
+ A_{at}=\sum_{b=1}^m T_{ba}T_{bt}.
+\]
+For example, a training bundle containing two items of label $a$ and one item
+of a different label $t$ contributes $2\times1=2$ to $A_{at}$.
+Thus this is a count of item combinations across labels, rather than just a
+count of bundles in which both labels are present.
+
+The symbol $J\in\mathbb R_{\ge0}^{q\times q}$ denotes the label-pair count
+matrix supplied to the association transform below. It is constructed from
+$T$, with the diagonal choice determined by the score:
+\[
+ J=\begin{cases}
+ \off(T^\top T),&\text{different-label association used by \key{cat}},\\
+ T^\top T,&\text{diagonal-retaining commerce \key{homo} association}.
+ \end{cases}
+\]
+For distinct labels $a\ne t$, both choices have
+$J_{at}=\sum_bT_{ba}T_{bt}$. For $a=t$, the first choice sets $J_{aa}=0$;
+the second retains $J_{aa}=\sum_bT_{ba}^2$. The retained square includes
+self-item contributions; it is not a count restricted to distinct item pairs.
+Therefore $J$ is not a new dataset, a learned matrix, or a query-dependent
+quantity. It is the training label-count product, with or without its diagonal.
+
+For either choice of $J$, define the transform using the marginals above:
+\begin{equation}\label{eq:catpmi}
+ [\mathcal P_T(J)]_{at}=
+ \begin{cases}
+ \displaystyle\pos{\log\!\left(\frac{J_{at}H}
+ {(h_a+10^{-9})(h_t+10^{-9})}+10^{-12}\right)},&J_{at}>0,\\
+ 0,&J_{at}=0.
+ \end{cases}
+\end{equation}
+The label marginals are occurrence counts in $T$, not row sums of $J$.
+Consequently this transform and the item PPMI construction use different
+marginals. Their shared logarithmic form does not make their definitions
+interchangeable.
+
+\subsection{Different-label association and slot adjustment: \key{cat}}
+Set $P^{\rm cat}=\mathcal P_T(\off(A))$. Its diagonal is zero.
+Define the unadjusted category score
+\[
+ r_{\rm cat}^{\rm base}(c\mid S)=\sum_{s\in S}P^{\rm cat}_{\ell_s,\ell_c}.
+\]
+For the general non-music path, define for each label $a$
+\[
+ n_a^{(1)}=\sum_b\ind\{T_{ba}\ge1\},\qquad
+ n_a^{(2)}=\sum_b\ind\{T_{ba}\ge2\},\qquad
+ \eta_a=\frac{n_a^{(2)}+0.5}{n_a^{(1)}+1}.
+\]
+The slot adjustment is
+\[
+ r_{\rm slot}(c\mid S)=-\sum_{s\in S}
+ \ind\{\ell_c=\ell_s\}\ind\{\eta_{\ell_s}<0.15\}(1-\eta_{\ell_s}).
+\]
+Then
+\begin{equation}
+ r_{\rm cat}(c\mid S)=
+ \begin{cases}
+ r_{\rm cat}^{\rm base}(c\mid S)+0.5r_{\rm slot}(c\mid S),&\text{general non-music},\\
+ r_{\rm cat}^{\rm base}(c\mid S),&\text{music or research retail/commerce}.
+ \end{cases}
+\end{equation}
+Thus a category seldom repeated within training bundles receives a negative
+same-category adjustment in the first case. Multiple seeds with that category
+each contribute the adjustment. Retail/commerce research scores do not apply it.
+
+\subsection{Shared-label score: \key{homo}}
+\paragraph{Spotify and Spotify sparse.}
+Let $a(i)$ and $b(i)$ be item $i$'s artist and album identifiers, and let
+$N_a$ and $N_b$ denote the numbers of catalogue items with those identifiers.
+The raw score is
+\begin{equation}
+ r_{\rm homo}(c\mid S)=\sum_{s\in S}
+ \left(\frac{\ind\{a(c)=a(s)\}}{N_{a(c)}+5}
+ +2\frac{\ind\{b(c)=b(s)\}}{N_{b(c)}+2}\right).
+\end{equation}
+If album labels are unavailable, omit the album term. These denominators count
+catalogue items, not training occurrences.
+
+\paragraph{General model with supplied hard group labels.}
+For group type $j$, let $g_j(i)$ be the supplied label, $N_{ja}$ the number of
+items in group $a$, and $\omega_j$ its supplied weight. Then
+\[
+ r_{\rm homo}(c\mid S)=\sum_j\omega_j\sum_{s\in S}
+ \frac{\ind\{g_j(c)=g_j(s)\}}{N_{j,g_j(c)}+1}.
+\]
+These groups are supplied labels; they need not be clusters of features.
+
+\paragraph{General non-music model without supplied groups.}
+The fallback definition retains the diagonal of the label count product:
+\[
+ r_{\rm homo}(c\mid S)=\sum_{s\in S}(T^\top T)_{\ell_s,\ell_c}.
+\]
+This is a raw count score, with no logarithmic transform. It is available in
+the extended profile but outside the POG research selection menu.
+The commerce research version is defined in Section~\ref{sec:commerce}.
+
+\subsection{Soft feature-group association: \key{softcat}}
+Let $F\in\mathbb R^{n\times p}$ be the features used for clustering.
+For POG's research profile, $F$ is the row-normalized concatenation of the
+normalized title, image and description arrays that are present. Apply
+MiniBatchKMeans to the item rows, with
+$k=\max(2,\min(k_0,n-1))$, $k_0=400$ by default, random state zero,
+three initializations and batch size 4096. Let $\mu_a$ be cluster $a$'s
+arithmetic centre and $\widehat\mu_a=\mu_a/(\|\mu_a\|_2+10^{-8})$.
+A feature group here is precisely one of these clusters; it is not a
+training bundle and need not coincide with a clothing category.
+
+With temperature $\tau_s=0.05$, define soft membership
+\begin{equation}
+ A^{\rm soft}_{ia}=
+ \frac{\exp(F_i\widehat\mu_a^\top/\tau_s-m_i)}
+ {\sum_{t=1}^k\exp(F_i\widehat\mu_t^\top/\tau_s-m_i)+10^{-9}},\qquad
+ m_i=\max_t F_i\widehat\mu_t^\top/\tau_s.
+\end{equation}
+Each item is assigned a weight for every group rather than only one hard label.
+Define a separate matrix, $J^{\rm soft}\in\mathbb R^{m\times k}$, by
+\[
+ J^{\rm soft}=BA^{\rm soft},\qquad
+ J^{\rm soft}_{ba}=\sum_{i=1}^nB_{bi}A^{\rm soft}_{ia}
+                  =\sum_{i\in b}A^{\rm soft}_{ia}.
+\]
+Row $b$ describes one training bundle and column $a$ one feature cluster.
+Its entry is the sum of the membership weights in cluster $a$ of every item
+in bundle $b$. For example, membership weights $0.8$, $0.3$ and $0.1$ for
+three items in that bundle give $J^{\rm soft}_{ba}=1.2$.
+It is a soft group count, not a probability, and can exceed one.
+This $m\times k$ matrix is distinct from the $q\times q$ hard-label pair
+matrix $J$ defined in Section~4.1.
+
+The product $((J^{\rm soft})^\top J^{\rm soft})_{at}
+=\sum_bJ^{\rm soft}_{ba}J^{\rm soft}_{bt}$ measures how much groups $a$ and
+$t$ are jointly represented across training bundles. Expanding each product
+also counts a single item's membership in both groups. Remove those
+same-item contributions, then remove the group diagonal:
+\begin{equation}
+ C^{\rm soft}=\pos{\off\!\left(
+ (J^{\rm soft})^\top J^{\rm soft}
+ -\sum_i f_i(A^{\rm soft}_i)^\top A^{\rm soft}_i\right)}.
+\end{equation}
+For distinct groups $a,t$, this equals
+$\sum_b\sum_{i\ne j}B_{bi}B_{bj}A^{\rm soft}_{ia}A^{\rm soft}_{jt}$,
+apart from numerical clipping. The diagonal is then excluded by construction.
+Define \emph{catalogue} group masses $u_a=\sum_iA^{\rm soft}_{ia}$ and
+$U_0=\sum_au_a$, and set
+\begin{equation}
+ P^{\rm soft}_{at}=\pos{\log\!\left(
+ \frac{C^{\rm soft}_{at}U_0}{u_au_t+10^{-9}}+10^{-12}\right)}.
+\end{equation}
+The score is
+\begin{equation}
+ r_{\rm softcat}(c\mid S)=A^{\rm soft}_cP^{\rm soft}
+ \left(\sum_{s\in S}A^{\rm soft}_s\right)^\top.
+\end{equation}
+The group co-occurrences are training-bundle counts while their denominator
+uses catalogue group masses. This is the implemented association transform;
+it should not be silently replaced by a probability model with different
+marginals. This score is constructed for the non-music general path when
+description features are available.
+
+\section{Description, residual-description, and bridge scores}
+
+All dense-feature scores have one scoring rule. If $F$ is the relevant
+$n\times p$ feature matrix, define
+\begin{equation}\label{eq:feature}
+ r_F(c\mid S)=F_c\left(\frac1{|S|}\sum_{s\in S}F_s\right)^\top.
+\end{equation}
+The observed mean is not normalized again. Different score names specify
+different constructions of $F$.
+
+\subsection{Direct description similarity: \key{content}}
+For the general model,
+\[
+ F^{\rm content}=\rn\!\left([X^{(1)}\mid\cdots\mid X^{(J)}]\right),\qquad
+ r_{\rm content}=r_{F^{\rm content}}.
+\]
+The vertical separators mean concatenate coordinates, not sum modalities.
+For research retail/commerce, the content matrix is the normalized
+128-dimensional text representation in Section~\ref{sec:text}.
+
+\subsection{Within-group residual descriptions}
+Define $g(i)$ to be the label used for centring and
+$\mathcal G_a=\{i:g(i)=a\}$. For modality $j$, compute
+\begin{equation}
+ \overline X_a^{(j)}=\frac1{|\mathcal G_a|}\sum_{i\in\mathcal G_a}X_i^{(j)},
+ \qquad R_i^{(j)}=X_i^{(j)}-\overline X_{g(i)}^{(j)},
+ \qquad F^{(j)}=\rn(R^{(j)}).
+\end{equation}
+The centre is this coordinatewise arithmetic mean over exactly the specified
+item group, not a mean over all features or over the query.
+For non-music items, $g(i)=\ell_i$: the supplied clothing category in POG.
+For music, $g(i)$ comes from a separate MiniBatchKMeans fit on the provided
+clustering features (concatenated audio features in the released data).
+Music centring therefore uses feature clusters, not artists.
+
+\begin{center}
+\begin{tabular}{lll}\toprule
+Raw score key & Modality $j$ & Raw value\\\midrule
+\key{style} & title/general content & $r_{F^{(j)}}(c\mid S)$\\
+\key{imgstyle} & image & $r_{F^{(j)}}(c\mid S)$\\
+\key{descstyle} & description & $r_{F^{(j)}}(c\mid S)$\\
+\key{audiostyle} & audio & $r_{F^{(j)}}(c\mid S)$\\\bottomrule
+\end{tabular}
+\end{center}
+Subtracting the group mean removes the shared mean description before comparing
+the remaining coordinates. It does not prove statistical independence from
+the group, and row normalization need not preserve a zero group mean.
+The POG research menu selects \key{style} and \key{imgstyle}; description
+residuals can still enter its bridge even though \key{descstyle} is not a
+standalone menu entry.
+
+\subsection{History-propagated description similarity: \key{bridge}}
+In the general non-music path define
+\[
+ F^0=\rn([F^{(1)}\mid\cdots\mid F^{(J)}]).
+\]
+For the Spotify research profile, $F^0=F^{\rm audio}$.
+Using $L$ from Equation~\eqref{eq:L}, construct
+\begin{equation}
+ N=\rn(LF^0),\qquad
+ F^{\rm bridge}=\rn(F^0+\lambda_BN),\qquad
+ r_{\rm bridge}=r_{F^{\rm bridge}},\quad\lambda_B=0.5.
+\end{equation}
+The row $(LF^0)_c=\sum_iL_{ci}F^0_i$ is the sum of descriptions of other
+items, weighted by their normalized historical co-membership with candidate
+$c$. Mixing it with $F^0_c$ gives the bridge vector. Both the candidate and
+each seed use these mixed vectors.
+
+For research dunnhumby, start from normalized text content $F^{\rm content}$
+instead of category-centred residuals:
+\[
+ F^{\rm bridge}=\rn\!\left(F^{\rm content}
+ +0.5\rn(LF^{\rm content})\right).
+\]
+The commerce bridge has a separate sparse-text formula below.
+
+\subsection{Text features and the \key{tfidf} score}\label{sec:text}
+For dunnhumby concatenate department, commodity, sub-commodity and brand text.
+For commerce concatenate item title and its parsed category path. Tokenization
+uses the vectorizer's default word tokens, lowercasing, English stop-word
+removal, unigrams and bigrams. Retain at most 8000 terms for dunnhumby and
+12000 for the commerce research profile. Vocabulary truncation is based on
+corpus term frequency after the vectorizer's filtering.
+
+Let $t_{iw}$ be term $w$'s count in item $i$ and
+$\mathrm{df}_w=\sum_i\ind\{t_{iw}>0\}$. The pre-normalization entry is
+\[
+ \widetilde H_{iw}=
+ \begin{cases}
+ (1+\log t_{iw})\left(1+\log\frac{1+n}{1+\mathrm{df}_w}\right),&t_{iw}>0,\\
+ 0,&t_{iw}=0.
+ \end{cases}
+\]
+Let $H$ be its row-unit-normalized sparse matrix, with zero rows kept zero.
+The TF-IDF score is
+\begin{equation}
+ r_{\rm tfidf}(c\mid S)=(HH^\top x_S)_c=\sum_{s\in S}H_cH_s^\top.
+\end{equation}
+This uses a \emph{sum}, not the mean in Equation~\eqref{eq:feature}.
+For the dense content matrix used by the research basket profiles, compute
+\[
+ F^{\rm content}=\rn(HV_{r_T}),\qquad r_T=\min(128,\#\text{terms}-1),
+\]
+where $V_{r_T}$ are the retained right singular directions of $H$.
+Vocabulary and document-frequency counts use the catalogue item texts;
+they do not use hidden query labels. The retail research menu does not select
+\key{tfidf}, although its scorer makes this score available as an auxiliary.
+
+\section{Candidate support across multiple seeds: \key{rao}}
+
+This score starts from candidate--seed affinities and then multiplies support
+from distinct seeds. It is different from the historical triple count in
+$\delta$: it can be nonzero when candidate--seed pairs occurred in different
+training bundles.
+
+Let $F^R$ be the row-normalized features used in this score. They are title
+residuals for POG, audio residuals for Spotify, dense bridge features for
+research dunnhumby, and dense commerce bridge features for research commerce.
+Let $\zeta=0.15$, except $\zeta=0.25$ for research commerce. Define
+\begin{equation}
+ w_c(s)=W_{cs}+\zeta\pos{F^R_c(F^R_s)^\top},\qquad
+ A_c(S)=\sum_{s\in S}w_c(s).
+\end{equation}
+Here $W$ is the zero-diagonal direct-pair matrix already defined. The additional
+term is positive description similarity; it is not a validation-fitted
+candidate--seed weight.
+
+When both descriptions and primary labels are available, define
+\[
+ G_{st}=0.5\ind\{\ell_s=\ell_t\}
+       +0.5\pos{F^R_s(F^R_t)^\top}\quad(s\ne t),\qquad G_{ss}=1.
+\]
+With only descriptions, use their positive dot product; with only labels, use
+the equal-label indicator. With neither, set $G$ to the identity matrix.
+The seed-pair coefficient is
+\begin{equation}
+ K_{st}=\begin{cases}
+ 0,&s=t,\\
+ [1+\gamma_R G_{st}]_+,&s\ne t,\ \gamma_R<0,\\
+ 1+\gamma_R G_{st},&s\ne t,\ \gamma_R\ge0.
+ \end{cases}
+\end{equation}
+The dataset rule is $\gamma_R=1$ for Spotify variants and $\gamma_R=-1$ for
+POG, retail and commerce. The raw score is
+\begin{equation}
+ r_{\rm rao}(c\mid S)=
+ \frac{\displaystyle\sum_{s\in S}\sum_{t\in S,\ t\ne s}
+ w_c(s)K_{st}w_c(t)}{A_c(S)+0.05}.
+\end{equation}
+The numerator counts ordered pairs, so a symmetric pair contributes twice.
+For POG, two similar seeds have smaller $K_{st}$ and supply less extra
+credit; this does not subtract from their ordinary direct scores.
+For music the sign is reversed: similar seeds have larger $K_{st}$.
+Accordingly the music score should not be described as a diversity penalty.
+A single seed always gives zero.
+
+The graph class also exposes a simpler auxiliary operator using $w_c(s)=W_{cs}$
+and $K_{st}=1$ for $s\ne t$:
+\begin{equation}
+ r_{e_2}(c\mid S)=\frac{
+ \left[\left(\sum_sw_c(s)\right)^2-\sum_sw_c(s)^2\right]_+}
+ {\sum_sw_c(s)+0.05}.
+\end{equation}
+It is not a separate default selection-menu score. The legacy combined graph
+helper can add $0.35r_{e_2}$ to $p+\delta$; the main BundleFuse scoring path
+does not make that addition implicitly.
+
+\section{Household, user, session, and commerce variants}
+
+\subsection{Retail household co-occurrence: \key{hh_cooc}}
+Let $Y_{ui}$ be the number of training baskets of household $u$ that contain
+item $i$. Counts are retained across baskets. Define
+\[
+ d_u^Y=\sum_iY_{ui},\qquad
+ C^{\rm hh}=\off\!\left(Y^\top\operatorname{diag}((d_u^Y+1)^{-1})Y\right).
+\]
+The research dunnhumby score is
+\begin{equation}
+ r_{\rm hh\_cooc}(c\mid S)=(C^{\rm hh}Dx_S)_c.
+\end{equation}
+The household normalization reduces contributions from households with larger
+total histories. The seed side receives the same $a_s$ weight as direct
+bundle support. Same-household items can contribute even when they occurred
+in different baskets.
+
+\subsection{Commerce research profile}\label{sec:commerce}
+This subsection applies to electronic, food and clothing with their default
+research profile. It modifies several shared scores.
+
+\paragraph{User, session, and pretraining matrices.}
+Let $Y^u_{ui}$ count occurrences of item $i$ across the training bundles
+assigned to user $u$, and $Y^s_{vi}$ count occurrences across training bundles
+assigned to session $v$. Ignore bundles without a mapped user/session for
+that corresponding matrix. Define
+\[
+ C^u=\off((Y^u)^\top Y^u),\qquad C^s=\off((Y^s)^\top Y^s).
+\]
+Let $Y^{\rm pre}_{ui}$ count rows of the supplied user--item pretraining file
+for user $u$, item $i$. Its third column is ignored. Let
+$d_u^{\rm pre}=\sum_iY^{\rm pre}_{ui}$. Define
+\[
+ C^{\rm pre}=\off\!\left((Y^{\rm pre})^\top
+ \operatorname{diag}\left(\max(d_u^{\rm pre},1)^{-1}\right)Y^{\rm pre}\right).
+\]
+Then the raw \key{pretrain} score is
+\begin{equation}
+ r_{\rm pretrain}(c\mid S)=(C^{\rm pre}x_S)_c.
+\end{equation}
+
+\paragraph{Augmented incidence and propagation.}
+Using the bundle-only direct score $p$ in Equation~\eqref{eq:pair}, set
+\begin{align}
+ p^{\rm com}&=p+0.35C^ux_S+0.35C^sx_S,\\
+ g^{\rm com}&=p^{\rm com}+\delta,\\
+ D_1&=\operatorname{diag}((f_i+1)^{-1/2}),\\
+ P^{\rm com}&=D_1(C+0.5C^s+0.5C^u+0.2C^{\rm pre})D_1.
+\end{align}
+Thus $r_{\rm pair}=p^{\rm com}$, $r_{\rm simp}=g^{\rm com}$,
+$r_{\rm diff2\_pair}=P^{\rm com}p^{\rm com}$ and
+$r_{\rm diff2}=P^{\rm com}g^{\rm com}$, evaluated at candidate coordinate $c$.
+The extra $\delta$ still comes only from training bundles. $P^{\rm com}$ is
+not row-normalized. Item \key{cooc}, \key{ppmi} and \key{csvd} continue to use
+the bundle-only graph, not $C^u+C^s+C^{\rm pre}$.
+
+\paragraph{Two-level category score.}
+Construct $T^{(1)}$ from full-path labels and $T^{(2)}$ from the first at most
+two path entries. Apply Equation~\eqref{eq:catpmi} separately with each
+matrix's own marginals. Define
+\[
+ P^{(j)}=\mathcal P_{T^{(j)}}((T^{(j)})^\top T^{(j)}),\quad j\in\{1,2\}.
+\]
+Here the diagonal is \emph{retained}. The commerce \key{homo} score is
+\begin{equation}
+ r_{\rm homo}(c\mid S)=\sum_{s\in S}
+ \left(P^{(1)}_{\ell_s,\ell_c}
+ +0.5P^{(2)}_{\ell_s^{(2)},\ell_c^{(2)}}\right).
+\end{equation}
+The separate \key{cat} score uses the off-diagonal transform of $T^{(1)}$
+and no slot adjustment.
+
+\paragraph{Sparse text bridge and dense features for concordance.}
+With sparse TF-IDF $H$ and dense normalized text features $F^{\rm content}$,
+define
+\begin{align}
+ H^{\rm bridge}&=\rn_0\!\left(H+1.5P^{\rm com}H
+                          +0.5(P^{\rm com})^2H\right),\\
+ F^{R}&=\rn\!\left(F^{\rm content}+1.5P^{\rm com}F^{\rm content}
+                          +0.5(P^{\rm com})^2F^{\rm content}\right).
+\end{align}
+Here $\rn_0$ is exact nonzero-row unit normalization with zero rows preserved,
+as used by the sparse normalization routine. The commerce raw bridge score is
+\begin{equation}
+ r_{\rm bridge}(c\mid S)=
+ \bigl[H^{\rm bridge}(H^{\rm bridge})^\top x_S\bigr]_c.
+\end{equation}
+This is a sum of sparse-text similarities, not a mean of dense-vector
+similarities. $F^R$ is used for \key{rao}, not for this bridge score.
+
+\subsection{General auxiliary incidence scores}
+For an explicitly supplied context-by-item incidence matrix
+$I\in\mathbb R^{t\times n}$, the general model supports a named score
+\begin{equation}
+ r_{\rm aux}(c\mid S)=
+ \begin{cases}
+ [I^\top IDx_S]_c,&\text{seed-frequency weighting enabled},\\
+ [I^\top Ix_S]_c,&\text{otherwise}.
+ \end{cases}
+\end{equation}
+The matrix may already contain context-degree normalization. The general
+path does not remove the diagonal of $I^\top I$; eligible candidates exclude
+the seeds. The loader's extended retail \key{hh_cooc} and commerce
+\key{pretrain} incidences use $I_{ui}=Y_{ui}/\sqrt{\sum_jY_{uj}+1}$.
+They are not identical constructions to the research commerce pretraining
+normalization above.
+
+\subsection{Personalized auxiliaries: \key{user_freq}, \key{user_cooc}}
+These are available in the general extended path when a user history is
+supplied. For query user $u$, let $n_{ui}$ be the number of occurrences of
+item $i$ in that supplied history, and $h_{ui}=\ind\{n_{ui}>0\}$. Then
+\begin{align}
+ r_{\rm user\_freq}(c\mid S,u)&=n_{uc},\\
+ r_{\rm user\_cooc}(c\mid S,u)&=(Ch_u)_c.
+\end{align}
+The first retains repetitions; the second uses the distinct-history indicator.
+Neither uses the current query seeds directly. Unknown or absent users receive
+zero scores. These are not selected by the default research basket menus.
+
+\section{Inventory and the boundary of this document}
+
+\subsection{Default research selection menus}
+The following lists identify which raw sources are offered for ordinary
+validation weight selection. Offered does not mean selected with positive
+weight in a fitted model.
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.70\textwidth}}
+\toprule Dataset & Raw source menu\\\midrule\endhead
+POG, POG dense &
+\key{cat}, \key{softcat}, \key{style}, \key{imgstyle}, \key{bridge},
+\key{simp}, \key{diff2}, \key{pop}, \key{cooc}, \key{ppmi}, \key{csvd}.\\[4pt]
+Spotify, Spotify sparse &
+\key{simp}, \key{diff2}, \key{pop}, \key{cooc}, \key{ppmi}, \key{csvd},
+\key{cat}, \key{homo}, \key{audiostyle}, \key{bridge}.\\[4pt]
+Dunnhumby &
+\key{simp}, \key{diff2}, \key{pop}, \key{cooc}, \key{hh_cooc},
+\key{ppmi}, \key{csvd}, \key{cat}, \key{content}, \key{bridge}.\\[4pt]
+Electronic, food, clothing &
+\key{simp}, \key{diff2}, \key{cooc}, \key{ppmi}, \key{csvd},
+\key{cat}, \key{homo}, \key{tfidf}, \key{bridge}, \key{pretrain}.\\
+\bottomrule
+\end{longtable}
+The fitting/scoring logic additionally uses \key{pair}, \key{diff2_pair}
+and \key{rao} to form controlled combinations with these sources.
+\key{delta_inc} is directly addressable in the selected general scorer;
+the ordinary full scorer uses it internally through \key{simp} and
+\key{diff2}. Placeholder entries \key{contrast} and \key{img} in the basket
+reference scorer contain no numerical score and are not menu entries.
+
+\subsection{Optional content compression}
+The default configurations set \key{content_rank} to null. If optional
+content compression is enabled with rank $r_C$, the stored content, style
+and bridge matrices with more than $r_C$ columns are replaced by
+$FV_{r_C}$ from a truncated SVD. They are not row-normalized again.
+Equation~\eqref{eq:feature} then uses these projected matrices; calling the
+result an exact cosine similarity would be incorrect. The research basket
+profiles reject this override to preserve their sparse/dense constructions.
+
+\subsection{Experimental comparison operator, outside BundleFuse}
+The novelty experiments contain an amplified-neighbour comparator.
+It is not an additional BundleFuse raw source. To distinguish it precisely,
+define
+\[
+ t_b(S)=\frac{\sum_{s\in S}B_{bs}a_s}{\sqrt{d_b}\sqrt{|S|}}.
+\]
+Keep all bundles or only the $k_N$ largest $t_b$, using bundle index to break
+ties; let $\mathcal K(S)$ denote those retained indices. For chosen power
+$p_N$, the comparator is
+\[
+ r_{\rm amp}(c\mid S)=\sum_{b\in\mathcal K(S)}B_{bc}\,t_b(S)^{p_N}.
+\]
+This is a predecessor-inspired control; its implementation does not claim an
+exact reproduction of another published method.
+
+\subsection{What happens after a raw score}
+The scalar functions above are the raw inputs to subsequent standardization
+and fusion. Their fixed construction constants (such as 5, 0.5 and 0.05)
+are distinct from validation-selected fusion weights. Selecting a zero fusion
+weight does not change a raw source's definition, but serving can omit its
+computation when no remaining selected score depends on it.
+
+\section*{Implementation trace for verification}
+This document was derived from executable expressions in the following files,
+rather than earlier mathematical documents. The mapping is provided only for
+checking the equations; no external document is required to define a symbol.
+\begin{itemize}
+\item \key{bundlefuse/operators.py}: graph, incidence surplus, propagation,
+item PPMI/SVD, category transform, soft groups, residuals and concordance.
+\item \key{bundlefuse/model.py} and \key{bundlefuse/selected_signals.py}:
+construction of description matrices and assignment of raw score names.
+\item \key{bundlefuse/basket_signals.py}: research retail and commerce variants.
+\item \key{bundlefuse/datasets/base.py} and \key{bundlefuse/datasets/baskets.py}:
+label sources, text arrays and auxiliary incidence construction.
+\item \key{experiments/novelty/raw.py}: amplified-neighbour comparison only.
+\end{itemize}
+The experimental source files and running experiment configuration were not
+modified to prepare this document.
+
+For numerical verification, 87 comparisons on a small independent synthetic
+bundle collection checked the displayed core equations and the full versus
+selected scoring paths for fashion, music, retail and commerce, including
+single-seed and multiple-seed queries. The comparisons passed with relative
+tolerance $3\times10^{-5}$ and absolute tolerance $3\times10^{-6}$.
+\end{document}

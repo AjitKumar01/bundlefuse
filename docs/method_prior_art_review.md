@@ -347,3 +347,90 @@ also trains graph representations and uses curriculum learning. Our
 \(f/(f+\kappa)\) coefficient and overlapping fallback cannot be identified
 with CoHeat merely from this comparison, but the broad frequency-adaptive
 mixture and monotonicity proof must not be claimed as new.
+
+## Raw-score versus fusion novelty audit (presentation follow-up)
+
+This audit distinguishes (i) an operator differing from earlier operators, (ii) a better estimator of a specified quantity, and (iii) better benchmark rankings. None implies the others automatically. No new benchmark training or test evaluation was performed for this audit.
+
+### Current findings
+
+BundleFuse does not implement bootstrap aggregation or stagewise residual fitting. Its last stage is nevertheless score fusion, so identifying it as neither bagging nor boosting does not establish a new fusion method.
+
+| Candidate contribution | Exact object computed | Closest established construction | Current position |
+|---|---|---|---|
+| Direct historical score | Size-discounted, seed-frequency-weighted sum of matching training bundles containing a candidate | All-playlist neighbors; inverse-item-frequency playlist kNN | Weighting variant with close predecessors; no standalone priority established |
+| Incidence correction | Count-coupled seed-pair-to-candidate coefficients, computed through incidence products | HOKNN/HOSLIM itemset-to-item scores; overlap amplification | Strongest explicit higher-order estimator candidate; higher-order interactions and amplification themselves are prior art |
+| PPMI/SVD | Positive association and cosine similarity of projected association profiles | PMI and distributional/latent-semantic representations | Established building blocks; chosen normalizations do not establish a new principle |
+| Residual/bridge features | Category-mean removal and similarity between own/aggregated-partner descriptions | Least-squares residualization and graph-based feature aggregation | Exact bridge construction merits a matched operator comparison; no verified priority or uniform individual gain |
+| Candidate support quadratic | Candidate affinities on both sides of a seed-pair kernel, normalized by support | Rao quadratic functionals; heterogeneity-aware neighbor endorsement | Generic numerator is established; exact affinity/kernel/denominator combination not proved novel; unselected in full POG and POG_DENSE |
+| Frequency-based fusion | Candidate-frequency interpolation of overlapping combined and restricted scores | Shrinkage; popularity-adaptive hybrid recommendation such as CoHeat | Interpretable constrained fusion with some measured benefit; a new fusion family has not been established |
+
+For the incidence candidate, define binary training incidence B, seed weights a_s, historical bundle weights v_b and T_cst = sum_b v_b B_bc B_bs B_bt. The exact raw score is
+
+\[
+g_c(S)=p_c(S)+\beta\sum_{\{s,t\}\subseteq S}(a_s+a_t)T_{cst}.
+\]
+
+This is an itemset-to-item estimator whose coefficients are tied to observed triple counts and seed weights rather than independently fitted for each itemset/candidate. Incidence products evaluate the sum without constructing the cubic tensor T. That constrained estimator and its computation are the precise object to compare. Nonzero triple counts do not prove irreducible statistical interaction beyond a pairwise probabilistic null. The two-corpus diagnostic proves only that pair-count summaries cannot recover this operator on all possible inputs.
+
+Primary references checked or located in this audit:
+
+- [Kelen et al., Efficient K-NN for Playlist Continuation](https://eprints.sztaki.hu/9560/1/Kelen_1_30347064_ny.pdf): inverse item frequency, normalized similarity and power amplification.
+- [Vall et al., Section 5.3](https://link.springer.com/article/10.1007/s11257-018-9215-8): all-playlist cosine-neighbor scoring; a particularly close direct-score baseline.
+- [HOSLIM author/institution record](https://experts.umn.edu/en/publications/hoslim-higher-order-sparse-linear-method-for-top-n-recommender-sy/) and [author-uploaded paper](https://www.researchgate.net/publication/271908941_HOSLIM_Higher-Order_Sparse_LInear_Method_for_Top-N_Recommender_Systems): learned itemset-to-item contributions; the underlying idea is not new to BundleFuse.
+- [Franceschet, university material on similarity and heterogeneity](https://users.dimi.uniud.it/~massimo.franceschet/ns/plugandplay/similarity/similarity.html): sum of products of incoming affinities and pairwise endorser distances. This is a directly related formula, not a verified earliest publication or an exact bundle-completion algorithm.
+- [CoHeat, WWW 2024](https://jeon185.github.io/data/WWW24%28CoHeat%29.pdf): popularity-dependent interpolation between history and affiliation views for user-to-bundle recommendation. Its views, training and coefficient differ; the broad adaptation principle precedes our construction.
+
+### Why the fusion must face same-score baselines
+
+Put every selected standardized source, including separately standardized incidence and agreement when present, in a vector z(c,S). For a fixed recipe let Y_c = a^T z(c,S), P_c = b^T z(c,S), rho_c = f_c/(f_c+kappa), and s be the fallback scale. Then
+
+\[
+\theta_c=s b^\top z(c,S)+\rho_c(a-sb)^\top z(c,S).
+\]
+
+Thus, after the specified feature construction, the score is exactly linear in the expanded feature vector [z(c,S); rho_c z(c,S)], with tied coefficients. It does not require a new universal prediction-function family. The tying can still provide useful regularization, an interpretable prior on reliance, and reduced supervision/search needs. These benefits require comparisons; the algebra alone proves neither dominance nor equivalence to a specific earlier published model.
+
+The exact minimizer of f_c(t-Y_c)^2/2 + kappa(t-sP_c)^2/2 explains the final scalar score, not a novel joint objective for the complete pipeline. The resulting fixed-recipe estimator is more restricted than a generic ranker receiving the same scores and frequency interactions. The question is whether this restriction improves held-out ranking or efficiency at a given supervision budget.
+
+### What the completed mechanism studies actually show
+
+NDCG@20 from the completed canonical studies:
+
+| Dataset | Combined | Best matched-scale constant control | Matched-scale frequency control | Full |
+|---|---:|---:|---:|---:|
+| POG | 0.033940 | 0.034056 | 0.036092 | 0.036092 |
+| POG_DENSE | 0.276894 | 0.279729 | 0.279345 | 0.287876 |
+| Spotify | 0.243196 | 0.243196 | 0.253632 | 0.257926 |
+
+The constant/frequency controls freeze the combined recipe's source weights, pairwise historical form, no-agreement setting and fallback source list; their grids each have six candidates and use the same matched scale within each dataset. These are informative limited fusion controls, not RRF, an unrestricted reoptimized weighted sum, or a trained nonlinear score combiner.
+
+- Frequency_matched versus constant_matched improves both metrics on POG and Spotify with the recorded dataset-summary Holm-adjusted p approximately 0.0096 (conservatively reserving the planned 96-test family).
+- POG_DENSE frequency_matched is numerically below constant_matched in both metrics; the frequency-over-constant improvement claim is unsupported there.
+- Full POG equals frequency_matched in per-query metrics. This is evidence for the selected frequency mixture, not evidence for an additional full-model refinement.
+- Full POG_DENSE versus frequency_matched improves NDCG by about 0.008531 (adjusted p approximately 0.0096), but Recall does not pass the recorded adjustment (p approximately 0.27057). Incidence changes as well, and full/control prior scales are close but not identical; this is not an exact isolated-incidence experiment.
+- Full Spotify versus frequency_matched improves both recorded metrics (adjusted p approximately 0.0096), while incidence, agreement, and scale settings can differ. It does not isolate which change produced the gain.
+
+See results/publication_mechanisms/{pog,pog_dense,spotify}/summary.json and the associated frozen recipes. Earlier story documents reference archived information-matched hybrid and learned-ranker studies, but those are different controls. Their reported wins cannot be relabelled as a new same-score LambdaMART/RRF comparison.
+
+### The decisive attribution experiment
+
+Run a factorial comparison, rather than comparing only complete algorithms:
+
+| Raw score inputs | Standard score fusion | BundleFuse fusion |
+|---|---|---|
+| Reimplemented close predecessor scores using matched inputs | Cell A | Cell B |
+| BundleFuse scores | Cell C | Cell D |
+
+D versus C tests fusion with the scores held fixed. C versus A tests score construction with fusion held fixed. B versus A tests whether the fusion also helps conventional inputs. The two main effects and their interaction need not be positive on every dataset.
+
+Standard fusion comparators should include equal-weight standardized sum, a properly retuned nonnegative weighted sum, rank-based RRF, and at least one supervised combiner with access to the same score columns and candidate frequency. A linear model on [z; rho z] directly tests the coefficient tying; LambdaMART tests whether boosted trees can learn a better nonlinear combination. Full-catalogue evaluation and the available validation-label/tuning budgets must be matched. Trainable combiners are comparison methods; they do not change the claim that BundleFuse's scorer has no gradient-trained parameters.
+
+- [RRF original paper](https://cormack.uwaterloo.ca/cormacksigir09-rrf.pdf): an established training-free rank-fusion baseline.
+- [XGBoost official learning-to-rank guide](https://xgboost.readthedocs.io/en/stable/tutorials/learning_to_rank.html): LambdaMART and query-grouped relevance fitting.
+
+For the raw-score route, first compare pair-only, the proposed incidence estimator, and a properly tuned amplified playlist-neighbor score while fixing the other sources and fusion. Compare HOSLIM/HOKNN-style itemset estimators at a stated fitting/memory budget. Measure the proposed bridge against the own-description kernel and corresponding fixed graph-aggregation kernels under the same fusion. This tests equations rather than giving one method extra modalities.
+
+Keep held-out scoring supervision separate from the construction of the count operators: do not manufacture fusion-training examples whose hidden answers are still included in their own training bundle row. Existing independent validation queries can support query-level cross-validation for combiner fitting/tuning, or cross-fitted training queries can be constructed. Avoid a one-item-at-a-time split that leaks the same complete bundle across folds. Test labels must never select the method or its budget. Because existing test results have already guided this research, report these follow-ups as exploratory on supplied splits and seek untouched split/domain confirmation for a final claim.
+
+The present status is: strong benchmark results and meaningful differences in retained statistics are established; a new standalone raw-score operator or a new superior fusion method has not yet been established. The constrained count-based higher-order estimator is the clearest raw-score candidate to resolve first; same-score fusion comparisons are the direct test of the ensemble objection. No finite comparison can establish superiority over every existing or future fusion technique.
