@@ -49,7 +49,7 @@ def main():
         pair_z = .25 * z[:, 3]
         rho = frequency / (frequency + .5)
         scale = 1.0424
-        observed = EmpiricalBayesRouter.conjugate_posterior(
+        observed = EmpiricalBayesRouter.frequency_gate(
             shared + pair_z, scale * shared, frequency, .5)
         H = (raw[:, :3] / std[:3]) @ weights
         U = .25 * raw[:, 3] / std[3]

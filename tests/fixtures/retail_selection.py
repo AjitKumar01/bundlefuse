@@ -56,7 +56,7 @@ def apply_eb(Z_dict, ho_params, kf, p_scale):
     if bw.get('pop', 0) > 0:
         raw_prior = raw_prior + bw['pop'] * Z_dict['pop']
     mu_0 = raw_prior * float(p_scale)
-    return EmpiricalBayesRouter.conjugate_posterior(Y, mu_0, freq, kf)
+    return EmpiricalBayesRouter.frequency_gate(Y, mu_0, freq, kf)
 best_kf = 0.0
 for kf_cand in EmpiricalBayesRouter.shrinkage_candidates(vc, [0.0, 0.05, 0.25, vc['kappa_f'], 1.0]):
     nd = sel_score(apply_eb(Zv, best_ho, kf_cand, frozen_prior_scale), vset)

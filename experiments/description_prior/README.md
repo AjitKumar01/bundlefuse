@@ -20,3 +20,5 @@ Tuning results, R@20 / NDCG@20, new model against the best frozen recipe: POG_DE
 0.3887/0.2779 vs 0.3815/0.2654; POG 0.0667/0.0423 vs 0.0617/0.0428; Spotify 0.1561/0.2587 vs
 0.1764/0.2979. The Gamma-Poisson form did not close the Spotify gap, and the negative part of `W`
 matched a shuffled control.
+
+Source note: these studies read caches tied to a source hash, so re-running them requires commit `008558e`. Later fixes to `bundlefuse/` make the identity check refuse those caches, by design.

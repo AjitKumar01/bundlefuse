@@ -127,3 +127,5 @@ Resume one unfinished dataset:
 
 The first three datasets' earlier results remain under
 `results/novelty_attribution/{pog_dense,spotify,pog}`; they are not rerun or overwritten.
+
+Source note: these studies read caches tied to a source hash, so re-running them requires commit `008558e`. Later fixes to `bundlefuse/` make the identity check refuse those caches, by design.

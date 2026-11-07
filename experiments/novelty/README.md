@@ -97,3 +97,5 @@ Resume a specific dataset with its identical command:
 ```
 
 Runtime environment reuses installed scientific packages through the local `.venv`; the added dependency is pinned in `requirements.txt`. Versions and source hashes are saved per run. A smoke report is never a benchmark result.
+
+Source note: these studies read caches tied to a source hash, so re-running them requires commit `008558e`. Later fixes to `bundlefuse/` make the identity check refuse those caches, by design.

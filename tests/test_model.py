@@ -78,3 +78,14 @@ if __name__ == "__main__":
     test_fit_predict_and_checkpoint(False)
     test_family_switch()
     print("all tests passed")
+
+
+def test_fallback_holds_only_selected_sources():
+    import torch
+    from bundlefuse.fusion import fusion_parts, has_prior, required_fusion_signals
+    signals = {'hist': torch.ones(3, 1), 'cat': 2 * torch.ones(3, 1), 'pop': 3 * torch.ones(3, 1)}
+    assert not has_prior({'hist': 1.}, [], 0.)
+    assert has_prior({'hist': 1., 'pop': .5}, [], 0.)
+    _, prior = fusion_parts(signals, {'hist': 1., 'pop': .5}, [], (0., 0.))
+    assert torch.equal(prior, 1.5 * torch.ones(3, 1))
+    assert required_fusion_signals({'hist': 1.}, [], (0., 1.), (0., 0.)) == {'hist'}

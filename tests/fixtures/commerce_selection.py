@@ -52,7 +52,7 @@ def apply_eb(Z_dict, ho_params, kf, p_scale):
         return Y
     raw_prior = sum((bw.get(k, 0.5) * Z_dict[k] for k in prior_ks)) + ho_params[1] * Z_dict['rao']
     mu_0 = raw_prior * float(p_scale)
-    return EmpiricalBayesRouter.conjugate_posterior(Y, mu_0, freq, kf)
+    return EmpiricalBayesRouter.frequency_gate(Y, mu_0, freq, kf)
 best_kf = 0.0
 for kf_cand in EmpiricalBayesRouter.shrinkage_candidates(vc, [0.0, 0.1, 0.5, vc['kappa_f'], 2.0]):
     nd = sel_score(apply_eb(Zv, best_ho, kf_cand, frozen_prior_scale), vset)

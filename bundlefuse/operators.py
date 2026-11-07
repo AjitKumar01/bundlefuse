@@ -18,8 +18,9 @@ Implements three orthogonal, identifiable estimators on top of a unified pairwis
      of the mean squared residual E[(Y - mu_0)^2 | f_c] = sigma_0^2 + sigma_eps^2 * (1 / f_c) on 1 / f_c
      when Var(1 / f_c) > 0 (returning both raw unclipped OLS estimates and truncated plug-in estimates,
      and explicitly reporting `identifiable=False` when warm frequencies have zero variance).
-   - Computes the exact conjugate posterior mean using validation-frozen prior scaling:
+   - Applies a candidate-frequency gate using validation-frozen prior scaling:
          theta_hat_{S,c} = (1 - u_c) * Y(c|S) + u_c * mu_0(c|S),   where u_c = kappa_f / (f_c + kappa_f).
+     The normal model motivates this form; it is not validated on the scores, and kappa_f is selected on validation.
 """
 import math
 import numpy as np
@@ -378,9 +379,9 @@ class BilateralContentBridge:
 
 
 class EmpiricalBayesRouter:
-    """Exposure-Modulated Conjugate Normal-Normal Empirical-Bayes Router.
+    """Candidate-frequency gate between observed evidence and a fallback score.
 
-    Generative & Observation Model for Standardized Latent Compatibility theta_{S,c}:
+    Motivating model only; the scores are not shown to follow it, and kappa_f is selected on validation:
         theta_{S,c} | mu_0 ~ N(mu_0(c|S), sigma_0^2),
         Y(c|S) | theta_{S,c}, f_c ~ N(theta_{S,c}, sigma_eps^2 / f_c).
 
@@ -396,7 +397,7 @@ class EmpiricalBayesRouter:
          apply positivity truncation and ratio clipping for numerical admissibility in finite samples (which
          trades unbiasedness for non-negativity).
 
-    2. Exact Conjugate Posterior Update (`conjugate_posterior` / `apply_eb_shrinkage`):
+    2. Frequency gate (`frequency_gate` / `apply_eb_shrinkage`), the posterior mean under that model:
            hat{theta}_{S,c} = (1 - u_c) * Y(c|S) + u_c * mu_0(c|S),   where u_c = kappa_f / (f_c + kappa_f).
     """
     @staticmethod
@@ -532,8 +533,8 @@ class EmpiricalBayesRouter:
         }
 
     @staticmethod
-    def conjugate_posterior(Y, mu_0, freq, kappa_f: float):
-        """Computes the exact conjugate normal-normal posterior expectation:
+    def frequency_gate(Y, mu_0, freq, kappa_f: float):
+        """Mixes observed evidence and fallback by candidate frequency:
             theta_hat = (1 - u_c) * Y + u_c * mu_0,   where u_c = kappa_f / (f_c + kappa_f).
         Supports both torch.Tensor and np.ndarray.
         """
@@ -554,23 +555,23 @@ class EmpiricalBayesRouter:
     @staticmethod
     def apply_eb_shrinkage(Y, mu_0_or_Z, freq_t, kappa_f: float = 1.0,
                            w: dict = None, prior_keys: list = None, prior_scale: float = 1.0):
-        """Computes the exact conjugate normal-normal posterior:
+        """Applies `frequency_gate` after building and scaling the fallback:
             theta_hat = (1 - u_c) * Y + u_c * mu_0,   where u_c = kappa_f / (f_c + kappa_f).
         Uses a frozen scalar `prior_scale` fitted on validation so test inference is strictly
         independent of test batching.
         """
         if isinstance(mu_0_or_Z, dict):
-            raw_prior = sum(w.get(k, 0.5) * mu_0_or_Z[k] for k in prior_keys)
+            raw_prior = sum(w[k] * mu_0_or_Z[k] for k in prior_keys)
             mu_0 = raw_prior * float(prior_scale)
         else:
             mu_0 = mu_0_or_Z * float(prior_scale) if prior_scale != 1.0 else mu_0_or_Z
-        return EmpiricalBayesRouter.conjugate_posterior(Y, mu_0, freq_t, kappa_f)
+        return EmpiricalBayesRouter.frequency_gate(Y, mu_0, freq_t, kappa_f)
 
     @staticmethod
     def apply_tail_cold_calibration(F_mat, Z_prior, freq, R_cooc=None,
                                     z_thresh: float = 4.5, max_cold_per_query: int = 1,
                                     target_rank: int = 19, k_top: int = 20):
-        """Optional post-hoc top-K slot-reservation retrieval policy (distinct from the conjugate posterior)."""
+        """Optional post-hoc top-K slot-reservation retrieval policy (distinct from the frequency gate)."""
         is_torch = isinstance(F_mat, torch.Tensor)
         F_np = F_mat.detach().cpu().numpy().copy() if is_torch else np.asarray(F_mat, dtype=np.float32).copy()
         Zp_np = Z_prior.detach().cpu().numpy() if isinstance(Z_prior, torch.Tensor) else np.asarray(Z_prior, dtype=np.float32)

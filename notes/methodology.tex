@@ -994,7 +994,7 @@ $\mu_0$ per candidate, trusting $Y$ more when the candidate is \emph{frequent} a
   \hat\theta(c\mid S)=(1-u_c)\,Y(c\mid S)+u_c\,\mu_0(c\mid S),\qquad u_c=\frac{\kappa}{f_c+\kappa}.
 \]
 \end{keybox}
-The single dial $\kappa\ge 0$ is picked on validation (\code{conjugate\_posterior}, \code{operators.py}:526--543).
+The single dial $\kappa\ge 0$ is picked on validation (\code{frequency\_gate}, \code{operators.py}).
 Read the two extremes:
 \begin{itemize}
 \item \textbf{Cold candidate}, $f_c=0\Rightarrow u_c=1\Rightarrow\hat\theta=\mu_0$: ranked purely by taxonomy/content,

@@ -101,3 +101,5 @@ Individual resume command:
 Smoke outputs under `results/sufficiency_smoke*/` are separate and never
 benchmark evidence. No neural scorer is trained in E1–E4; scalar weights,
 gate strengths and source choices are fitted/selected on validation groups.
+
+Source note: these studies read caches tied to a source hash, so re-running them requires commit `008558e`. Later fixes to `bundlefuse/` make the identity check refuse those caches, by design.

@@ -74,7 +74,7 @@ def fusion_observed(signals, weights, higher_order):
 def fusion_parts(signals, weights, prior_keys, higher_order):
     observed = fusion_observed(signals, weights, higher_order)
     _, gamma = higher_order
-    prior = sum(weights.get(k, 0.5) * signals[k] for k in prior_keys)
+    prior = sum(weights[k] * signals[k] for k in prior_keys)
     if gamma:
         prior = prior + gamma * signals['rao']
     if weights.get('pop', 0) > 0:
@@ -82,12 +82,17 @@ def fusion_parts(signals, weights, prior_keys, higher_order):
     return observed, prior
 
 
+def has_prior(weights, prior_keys, gamma):
+    """The fallback holds only sources the fit selected; with none, the gate has nothing to fall back to."""
+    return bool(prior_keys) or bool(gamma) or weights.get('pop', 0) > 0
+
+
 def apply_fusion(signals, weights, prior_keys, backoff, freq, higher_order):
     kappa, scale = backoff
     if kappa <= 0:
         return fusion_observed(signals, weights, higher_order)
     observed, prior = fusion_parts(signals, weights, prior_keys, higher_order)
-    return EmpiricalBayesRouter.conjugate_posterior(observed, prior * scale, freq, kappa)
+    return EmpiricalBayesRouter.frequency_gate(observed, prior * scale, freq, kappa)
 
 
 def required_fusion_signals(weights, prior_keys, backoff, higher_order):
@@ -100,7 +105,7 @@ def required_fusion_signals(weights, prior_keys, backoff, higher_order):
     if gamma:
         required.add('rao')
     if backoff[0] > 0:
-        required.update(k for k in prior_keys if weights.get(k, .5))
+        required.update(prior_keys)
         if weights.get('pop', 0) > 0:
             required.add('pop')
     return required
@@ -226,8 +231,6 @@ def fit_fusion(validation, signals, prior_candidates, *, incidence=(0.0, 0.5, 1.
         if value >= score - 3e-4:
             weights, score = candidate, value
     prior_keys = [key for key in prior_candidates if key in signals and weights.get(key, 0) > 0]
-    if not prior_keys:
-        prior_keys = [key for key in prior_candidates if key in signals]
     higher_order = (0.0, 0.0)
     best = validation.evaluate(weights)
     grid = [(alpha, gamma) for alpha in incidence for gamma in rao]
@@ -235,7 +238,7 @@ def fit_fusion(validation, signals, prior_candidates, *, incidence=(0.0, 0.5, 1.
     for ho, value in zip(grid, values):
         if value > best + 5e-5:
             best, higher_order = value, ho
-    if not shrinkage:
+    if not shrinkage or not has_prior(weights, prior_keys, higher_order[1]):
         return weights, prior_keys, (0.0, 1.0), higher_order, {'disabled': True}
     scale = validation.prior_scale(weights, higher_order, prior_keys)
     variance = validation.variance_components(weights, higher_order, prior_keys, scale)
@@ -266,12 +269,12 @@ def apply_basket_fusion(signals, weights, priors, backoff, frequency, higher_ord
     kappa, scale = backoff
     if kappa <= 0:
         return result
-    prior = sum(weights.get(k,.5) * signals[k] for k in priors)
+    prior = sum(weights[k] * signals[k] for k in priors)
     if higher_order[1]:
         prior = prior + higher_order[1] * signals['rao']
     if weights.get('pop',0) > 0:
         prior = prior + weights['pop'] * signals['pop']
-    return EmpiricalBayesRouter.conjugate_posterior(result, prior * scale, frequency, kappa)
+    return EmpiricalBayesRouter.frequency_gate(result, prior * scale, frequency, kappa)
 
 
 def fit_basket_fusion(signals, keys, pairs, frequency, kind, objective='ndcg20', rounds=4):
@@ -303,10 +306,10 @@ def fit_basket_fusion(signals, keys, pairs, frequency, kind, objective='ndcg20',
     best = max(best, ho_value)
     candidates = ('cat','content','bridge','contrast') if kind == 'retail' else ('cat','homo','tfidf','bridge','pretrain','contrast','img')
     priors = [k for k in candidates if k in keys and weights.get(k,0) > 0]
-    if not priors:
-        priors = ['cat','bridge'] if kind == 'retail' else ['bridge','tfidf','cat']
+    if not has_prior(weights, priors, ho_best[1]):
+        return weights, priors, (0.,1.), ho_best, {'disabled': True}
     y = basket_observed(signals,weights,ho_best)
-    prior = sum(weights.get(k,.5) * signals[k] for k in priors) + ho_best[1]*signals['rao']
+    prior = sum(weights[k] * signals[k] for k in priors) + ho_best[1]*signals['rao']
     if weights.get('pop',0) > 0:
         prior = prior + weights['pop']*signals['pop']
     scale = float(np.std(y)/(np.std(prior)+1e-9))
