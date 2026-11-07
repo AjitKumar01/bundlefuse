@@ -1,0 +1,345 @@
+{
+  "pair:equal": {
+    "kind": "equal",
+    "weights": {
+      "pop": 1.0,
+      "ppmi": 1.0,
+      "csvd": 1.0,
+      "homo": 1.0,
+      "audiostyle": 1.0,
+      "bridge": 1.0,
+      "rao": 1.0,
+      "hist": 1.0
+    },
+    "tuning_metrics": {
+      "recall20": 0.16173823114411767,
+      "ndcg20": 0.2622776449810898
+    },
+    "bank": "pair"
+  },
+  "pair:weighted": {
+    "kind": "weighted",
+    "weights": {
+      "homo": 0.25,
+      "rao": 1.0
+    },
+    "parameters": 2,
+    "tuning_metrics": {
+      "recall20": 0.16915992890103373,
+      "ndcg20": 0.27888074121822126
+    },
+    "bank": "pair"
+  },
+  "pair:bundlefuse_gate": {
+    "kind": "bundlefuse_gate",
+    "weights": {
+      "homo": 0.25,
+      "rao": 1.0
+    },
+    "prior_weights": {
+      "homo": 0.25,
+      "rao": 1.0
+    },
+    "kappa": 0.0,
+    "scale": 1.0,
+    "parameters": 0,
+    "base_weight_count": 2,
+    "tuning_metrics": {
+      "recall20": 0.16915992890103373,
+      "ndcg20": 0.27888074121822126
+    },
+    "bank": "pair"
+  },
+  "pair:rrf": {
+    "kind": "rrf",
+    "offset": 100.0,
+    "parameters": 0,
+    "tuning_metrics": {
+      "recall20": 0.13324872534230733,
+      "ndcg20": 0.21535241257758742
+    },
+    "bank": "pair"
+  },
+  "pair:frequency_linear": {
+    "kind": "frequency_linear",
+    "coefficients": [
+      0.015423610159749657,
+      0.0076488230504068435,
+      0.0565529785261429,
+      0.014893709406419955,
+      -0.05208387149786131,
+      0.14727780096664408,
+      0.009919255664375721,
+      -0.00794592475931056,
+      0.044791177305629815,
+      0.02640018009213018,
+      0.14855152762554172,
+      0.000666251779720248,
+      -0.19108694857955286,
+      0.14325882547591498,
+      0.006680551573219168,
+      -0.007360757725691889,
+      0.019365955101675183
+    ],
+    "kappa": 5.0,
+    "regularization": 0.1,
+    "iterations": 12,
+    "parameters": 17,
+    "training_pairs": 718960,
+    "objective": 0.5042340302205991,
+    "tuning_metrics": {
+      "recall20": 0.12356221339880903,
+      "ndcg20": 0.20390051498342274
+    },
+    "bank": "pair"
+  },
+  "pair:lambdamart": {
+    "kind": "lambdamart",
+    "trees": 150,
+    "depth": 5,
+    "model_path": "checkpoints/novelty_attribution/spotify/models/pair/lambdamart_150_5.json",
+    "trained_trees": 150,
+    "tuning_metrics": {
+      "recall20": 0.029309777233386007,
+      "ndcg20": 0.043372139037584606
+    },
+    "bank": "pair"
+  },
+  "incidence:equal": {
+    "kind": "equal",
+    "weights": {
+      "pop": 1.0,
+      "ppmi": 1.0,
+      "csvd": 1.0,
+      "homo": 1.0,
+      "audiostyle": 1.0,
+      "bridge": 1.0,
+      "rao": 1.0,
+      "hist": 1.0
+    },
+    "tuning_metrics": {
+      "recall20": 0.16449054365434093,
+      "ndcg20": 0.26792288194707736
+    },
+    "bank": "incidence"
+  },
+  "incidence:weighted": {
+    "kind": "weighted",
+    "weights": {
+      "homo": 0.25,
+      "rao": 1.0
+    },
+    "parameters": 2,
+    "tuning_metrics": {
+      "recall20": 0.16915992890103373,
+      "ndcg20": 0.27888074121822126
+    },
+    "bank": "incidence"
+  },
+  "incidence:bundlefuse_gate": {
+    "kind": "bundlefuse_gate",
+    "weights": {
+      "homo": 0.25,
+      "rao": 1.0
+    },
+    "prior_weights": {
+      "homo": 0.25,
+      "rao": 1.0
+    },
+    "kappa": 0.0,
+    "scale": 1.0,
+    "parameters": 0,
+    "base_weight_count": 2,
+    "tuning_metrics": {
+      "recall20": 0.16915992890103373,
+      "ndcg20": 0.27888074121822126
+    },
+    "bank": "incidence"
+  },
+  "incidence:rrf": {
+    "kind": "rrf",
+    "offset": 60.0,
+    "parameters": 0,
+    "tuning_metrics": {
+      "recall20": 0.13497498829136745,
+      "ndcg20": 0.22023760399696768
+    },
+    "bank": "incidence"
+  },
+  "incidence:frequency_linear": {
+    "kind": "frequency_linear",
+    "coefficients": [
+      0.01379165629675595,
+      0.008200915859027243,
+      0.057076157729477606,
+      0.01501294839493661,
+      -0.051595634714673086,
+      0.1474006181941574,
+      0.008860289112211274,
+      -0.006870427734500144,
+      0.042089399954146525,
+      0.026320262840646296,
+      0.14796102565773891,
+      0.0010547151366153767,
+      -0.19033349929272111,
+      0.14270991228397403,
+      0.0054937482860894565,
+      -0.006115023840511199,
+      0.01731686497578955
+    ],
+    "kappa": 5.0,
+    "regularization": 0.1,
+    "iterations": 12,
+    "parameters": 17,
+    "training_pairs": 718960,
+    "objective": 0.5064611138324973,
+    "tuning_metrics": {
+      "recall20": 0.12055812115710685,
+      "ndcg20": 0.1957377651441532
+    },
+    "bank": "incidence"
+  },
+  "incidence:lambdamart": {
+    "kind": "lambdamart",
+    "trees": 150,
+    "depth": 3,
+    "model_path": "checkpoints/novelty_attribution/spotify/models/incidence/lambdamart_150_3.json",
+    "trained_trees": 150,
+    "tuning_metrics": {
+      "recall20": 0.024126182389536142,
+      "ndcg20": 0.0438353017310863
+    },
+    "bank": "incidence"
+  },
+  "amplified:equal": {
+    "kind": "equal",
+    "weights": {
+      "pop": 1.0,
+      "ppmi": 1.0,
+      "csvd": 1.0,
+      "homo": 1.0,
+      "audiostyle": 1.0,
+      "bridge": 1.0,
+      "rao": 1.0,
+      "hist": 1.0
+    },
+    "tuning_metrics": {
+      "recall20": 0.16842436420159831,
+      "ndcg20": 0.2758145770504952
+    },
+    "bank": "amplified"
+  },
+  "amplified:weighted": {
+    "kind": "weighted",
+    "weights": {
+      "homo": 0.25,
+      "rao": 0.25,
+      "hist": 0.25
+    },
+    "parameters": 3,
+    "tuning_metrics": {
+      "recall20": 0.1745370721396087,
+      "ndcg20": 0.2860383715096493
+    },
+    "bank": "amplified"
+  },
+  "amplified:bundlefuse_gate": {
+    "kind": "bundlefuse_gate",
+    "weights": {
+      "homo": 0.25,
+      "rao": 0.25,
+      "hist": 0.25
+    },
+    "prior_weights": {
+      "homo": 0.25,
+      "rao": 0.25
+    },
+    "kappa": 0.05,
+    "scale": 1.4255522633254225,
+    "parameters": 0,
+    "base_weight_count": 3,
+    "tuning_metrics": {
+      "recall20": 0.17399337821950192,
+      "ndcg20": 0.29247817991054204
+    },
+    "bank": "amplified"
+  },
+  "amplified:rrf": {
+    "kind": "rrf",
+    "offset": 60.0,
+    "parameters": 0,
+    "tuning_metrics": {
+      "recall20": 0.14034532254201906,
+      "ndcg20": 0.22737241066456235
+    },
+    "bank": "amplified"
+  },
+  "amplified:frequency_linear": {
+    "kind": "frequency_linear",
+    "coefficients": [
+      0.01200287123298331,
+      0.0067988283886857934,
+      0.05761175263169737,
+      0.015076472819200118,
+      -0.05032757354484472,
+      0.14814241819310264,
+      0.006578428701530931,
+      -0.0045586767378009724,
+      0.03843337920732472,
+      0.024252388221391856,
+      0.1473444589068585,
+      0.0011230938089062327,
+      -0.19024876993252157,
+      0.13924383857634154,
+      0.0031081854979644577,
+      -0.0035917110242182416,
+      0.015070856816963109
+    ],
+    "kappa": 5.0,
+    "regularization": 0.1,
+    "iterations": 12,
+    "parameters": 17,
+    "training_pairs": 718960,
+    "objective": 0.5105825161770203,
+    "tuning_metrics": {
+      "recall20": 0.12161858746955491,
+      "ndcg20": 0.19704873987057772
+    },
+    "bank": "amplified"
+  },
+  "amplified:lambdamart": {
+    "kind": "lambdamart",
+    "trees": 150,
+    "depth": 3,
+    "model_path": "checkpoints/novelty_attribution/spotify/models/amplified/lambdamart_150_3.json",
+    "trained_trees": 150,
+    "tuning_metrics": {
+      "recall20": 0.022352275085559314,
+      "ndcg20": 0.039022519651454694
+    },
+    "bank": "amplified"
+  },
+  "original_reference": {
+    "kind": "canonical",
+    "weights": {
+      "hist": 0.25,
+      "pop": 1.0,
+      "ppmi": 1.0,
+      "csvd": 0.5,
+      "homo": 0.25,
+      "audiostyle": 0.25,
+      "bridge": 0.25,
+      "rao": 0.2
+    },
+    "prior_weights": {
+      "pop": 1.0,
+      "homo": 0.25,
+      "audiostyle": 0.25,
+      "bridge": 0.25,
+      "rao": 0.2
+    },
+    "kappa": 5.0,
+    "scale": 1.826106674513935,
+    "bank": "incidence"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "fit_queries": 2076,
+  "tuning_queries": 892,
+  "sampled_rows": 416352,
+  "positives": 3186,
+  "keys": [
+    "cat",
+    "bridge",
+    "pop",
+    "csvd",
+    "hist"
+  ],
+  "coordinate_candidates": 45,
+  "seconds": 88.32879454200156,
+  "source_weight_grid": [
+    0,
+    0.25,
+    0.5,
+    1.0,
+    1.5
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "equal": {
+    "kind": "equal",
+    "weights": {
+      "cat": 1.0,
+      "bridge": 1.0,
+      "pop": 1.0,
+      "csvd": 1.0,
+      "hist": 1.0
+    },
+    "tuning_metrics": {
+      "recall20": 0.3759342301943199,
+      "ndcg20": 0.26974858682801983
+    }
+  },
+  "weighted": {
+    "kind": "weighted",
+    "weights": {
+      "cat": 0.5,
+      "pop": 0.25,
+      "csvd": 0.25,
+      "hist": 1.5
+    },
+    "parameters": 4,
+    "tuning_metrics": {
+      "recall20": 0.3835949177877428,
+      "ndcg20": 0.27266908541655754
+    }
+  },
+  "bundlefuse_gate": {
+    "kind": "bundlefuse_gate",
+    "weights": {
+      "cat": 0.5,
+      "pop": 0.25,
+      "csvd": 0.25,
+      "hist": 1.5
+    },
+    "prior_weights": {
+      "cat": 0.5,
+      "pop": 0.25
+    },
+    "kappa": 0.05,
+    "scale": 1.0,
+    "parameters": 0,
+    "base_weight_count": 4,
+    "tuning_metrics": {
+      "recall20": 0.38396860986547077,
+      "ndcg20": 0.2731104430999498
+    }
+  },
+  "rrf": {
+    "kind": "rrf",
+    "offset": 10.0,
+    "parameters": 0,
+    "tuning_metrics": {
+      "recall20": 0.3189461883408073,
+      "ndcg20": 0.19945895531285737
+    }
+  },
+  "frequency_linear": {
+    "kind": "frequency_linear",
+    "coefficients": [
+      0.4080558492296996,
+      0.09392296428735866,
+      0.020475749393122588,
+      -0.014593699267352206,
+      0.007988955780884781,
+      0.19275453927275188,
+      0.09691992265059693,
+      0.047880448391166446,
+      0.01878515688065448,
+      0.008111327112857145,
+      0.034189208303550364
+    ],
+    "kappa": 0.5,
+    "regularization": 0.1,
+    "iterations": 11,
+    "parameters": 11,
+    "training_pairs": 50976,
+    "objective": 0.4659256636763308,
+    "tuning_metrics": {
+      "recall20": 0.32754110612855003,
+      "ndcg20": 0.23620360194166326
+    }
+  },
+  "lambdamart": {
+    "kind": "lambdamart",
+    "trees": 150,
+    "depth": 3,
+    "model_path": "checkpoints/novelty_attribution/pog_dense/models/incidence/lambdamart_150_3.json",
+    "trained_trees": 150,
+    "tuning_metrics": {
+      "recall20": 0.27858744394618856,
+      "ndcg20": 0.2340676046203038
+    }
+  }
+}

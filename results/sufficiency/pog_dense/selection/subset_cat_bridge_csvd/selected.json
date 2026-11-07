@@ -1,0 +1,29 @@
+{
+  "config": {
+    "kind": "gate",
+    "weights": {
+      "cat": 0.5,
+      "bridge": 0.5,
+      "csvd": 0.25
+    },
+    "prior_weights": {
+      "cat": 0.5,
+      "bridge": 0.5
+    },
+    "scale": 1.0,
+    "kappa": 20.0
+  },
+  "tuning_metrics": [
+    0.09119872560732774,
+    0.05486894873722616
+  ],
+  "keys": [
+    "cat",
+    "bridge",
+    "csvd"
+  ],
+  "history": "canonical",
+  "alpha": 1.0,
+  "seconds": 13.111855291994289,
+  "fitting_candidates": 31
+}

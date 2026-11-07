@@ -1,0 +1,27 @@
+{
+  "config": {
+    "kind": "gate",
+    "weights": {
+      "style": 0.25,
+      "hist": 0.25
+    },
+    "prior_weights": {
+      "style": 0.25
+    },
+    "scale": 1.2357967650213957,
+    "kappa": 0.05
+  },
+  "tuning_metrics": [
+    0.04638888888888889,
+    0.03301289861838041
+  ],
+  "keys": [
+    "style",
+    "bridge",
+    "hist"
+  ],
+  "history": "canonical",
+  "alpha": 0.0,
+  "seconds": 7.8496828750066925,
+  "fitting_candidates": 15
+}

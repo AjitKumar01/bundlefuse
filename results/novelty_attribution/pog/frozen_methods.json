@@ -1,0 +1,316 @@
+{
+  "pair:equal": {
+    "kind": "equal",
+    "weights": {
+      "cat": 1.0,
+      "style": 1.0,
+      "bridge": 1.0,
+      "hist": 1.0
+    },
+    "tuning_metrics": {
+      "recall20": 0.05805555555555555,
+      "ndcg20": 0.03651036639030862
+    },
+    "bank": "pair"
+  },
+  "pair:weighted": {
+    "kind": "weighted",
+    "weights": {
+      "cat": 0.5,
+      "style": 0.25,
+      "bridge": 0.25,
+      "hist": 0.25
+    },
+    "parameters": 4,
+    "tuning_metrics": {
+      "recall20": 0.0638888888888889,
+      "ndcg20": 0.041979702448130714
+    },
+    "bank": "pair"
+  },
+  "pair:bundlefuse_gate": {
+    "kind": "bundlefuse_gate",
+    "weights": {
+      "cat": 0.5,
+      "style": 0.25,
+      "bridge": 0.25,
+      "hist": 0.25
+    },
+    "prior_weights": {
+      "cat": 0.5,
+      "style": 0.25,
+      "bridge": 0.25
+    },
+    "kappa": 0.5,
+    "scale": 1.0419529377664303,
+    "parameters": 0,
+    "base_weight_count": 4,
+    "tuning_metrics": {
+      "recall20": 0.06944444444444445,
+      "ndcg20": 0.046210150393028664
+    },
+    "bank": "pair"
+  },
+  "pair:rrf": {
+    "kind": "rrf",
+    "offset": 100.0,
+    "parameters": 0,
+    "tuning_metrics": {
+      "recall20": 0.03777777777777778,
+      "ndcg20": 0.021498257845951742
+    },
+    "bank": "pair"
+  },
+  "pair:frequency_linear": {
+    "kind": "frequency_linear",
+    "coefficients": [
+      1.7153774025881958,
+      -0.015961332698167737,
+      0.28868818560635834,
+      -0.054159493343136,
+      -1.3348444435024869,
+      -0.3639978543247046,
+      0.029087927160429905,
+      0.050445132546077395,
+      0.41073914487494567
+    ],
+    "kappa": 0.5,
+    "regularization": 0.001,
+    "iterations": 24,
+    "parameters": 9,
+    "training_pairs": 46928,
+    "objective": 0.42897448900420004,
+    "tuning_metrics": {
+      "recall20": 0.04777777777777777,
+      "ndcg20": 0.027021334077740645
+    },
+    "bank": "pair"
+  },
+  "pair:lambdamart": {
+    "kind": "lambdamart",
+    "trees": 50,
+    "depth": 3,
+    "model_path": "checkpoints/novelty_attribution/pog/models/pair/lambdamart_50_3.json",
+    "trained_trees": 50,
+    "tuning_metrics": {
+      "recall20": 0.022222222222222227,
+      "ndcg20": 0.012140509547800236
+    },
+    "bank": "pair"
+  },
+  "incidence:equal": {
+    "kind": "equal",
+    "weights": {
+      "cat": 1.0,
+      "style": 1.0,
+      "bridge": 1.0,
+      "hist": 1.0
+    },
+    "tuning_metrics": {
+      "recall20": 0.05805555555555555,
+      "ndcg20": 0.0364921064003566
+    },
+    "bank": "incidence"
+  },
+  "incidence:weighted": {
+    "kind": "weighted",
+    "weights": {
+      "cat": 0.5,
+      "style": 0.25,
+      "bridge": 0.25,
+      "hist": 0.25
+    },
+    "parameters": 4,
+    "tuning_metrics": {
+      "recall20": 0.0638888888888889,
+      "ndcg20": 0.04195632738274792
+    },
+    "bank": "incidence"
+  },
+  "incidence:bundlefuse_gate": {
+    "kind": "bundlefuse_gate",
+    "weights": {
+      "cat": 0.5,
+      "style": 0.25,
+      "bridge": 0.25,
+      "hist": 0.25
+    },
+    "prior_weights": {
+      "cat": 0.5,
+      "style": 0.25,
+      "bridge": 0.25
+    },
+    "kappa": 0.5,
+    "scale": 1.0419514782558157,
+    "parameters": 0,
+    "base_weight_count": 4,
+    "tuning_metrics": {
+      "recall20": 0.06944444444444445,
+      "ndcg20": 0.04603983172837159
+    },
+    "bank": "incidence"
+  },
+  "incidence:rrf": {
+    "kind": "rrf",
+    "offset": 100.0,
+    "parameters": 0,
+    "tuning_metrics": {
+      "recall20": 0.03777777777777778,
+      "ndcg20": 0.02149331375854853
+    },
+    "bank": "incidence"
+  },
+  "incidence:frequency_linear": {
+    "kind": "frequency_linear",
+    "coefficients": [
+      1.7157589627289034,
+      -0.015610924061173044,
+      0.28832042442337263,
+      -0.050051427279084904,
+      -1.3359510716156728,
+      -0.3624885939435739,
+      0.025796642969423748,
+      0.0463605032959717,
+      0.4121467159660413
+    ],
+    "kappa": 0.5,
+    "regularization": 0.001,
+    "iterations": 26,
+    "parameters": 9,
+    "training_pairs": 46928,
+    "objective": 0.42921921970221655,
+    "tuning_metrics": {
+      "recall20": 0.04777777777777777,
+      "ndcg20": 0.02739399134315269
+    },
+    "bank": "incidence"
+  },
+  "incidence:lambdamart": {
+    "kind": "lambdamart",
+    "trees": 50,
+    "depth": 3,
+    "model_path": "checkpoints/novelty_attribution/pog/models/incidence/lambdamart_50_3.json",
+    "trained_trees": 50,
+    "tuning_metrics": {
+      "recall20": 0.022222222222222227,
+      "ndcg20": 0.012163080568986654
+    },
+    "bank": "incidence"
+  },
+  "amplified:equal": {
+    "kind": "equal",
+    "weights": {
+      "cat": 1.0,
+      "style": 1.0,
+      "bridge": 1.0,
+      "hist": 1.0
+    },
+    "tuning_metrics": {
+      "recall20": 0.05805555555555555,
+      "ndcg20": 0.03651129531059972
+    },
+    "bank": "amplified"
+  },
+  "amplified:weighted": {
+    "kind": "weighted",
+    "weights": {
+      "cat": 0.5,
+      "style": 0.25,
+      "bridge": 0.25,
+      "hist": 0.25
+    },
+    "parameters": 4,
+    "tuning_metrics": {
+      "recall20": 0.0638888888888889,
+      "ndcg20": 0.041851113590354205
+    },
+    "bank": "amplified"
+  },
+  "amplified:bundlefuse_gate": {
+    "kind": "bundlefuse_gate",
+    "weights": {
+      "cat": 0.5,
+      "style": 0.25,
+      "bridge": 0.25,
+      "hist": 0.25
+    },
+    "prior_weights": {
+      "cat": 0.5,
+      "style": 0.25,
+      "bridge": 0.25
+    },
+    "kappa": 0.05,
+    "scale": 1.0419413860875586,
+    "parameters": 0,
+    "base_weight_count": 4,
+    "tuning_metrics": {
+      "recall20": 0.0688888888888889,
+      "ndcg20": 0.04604931057043933
+    },
+    "bank": "amplified"
+  },
+  "amplified:rrf": {
+    "kind": "rrf",
+    "offset": 100.0,
+    "parameters": 0,
+    "tuning_metrics": {
+      "recall20": 0.03777777777777778,
+      "ndcg20": 0.021517282654500442
+    },
+    "bank": "amplified"
+  },
+  "amplified:frequency_linear": {
+    "kind": "frequency_linear",
+    "coefficients": [
+      1.7160739890678736,
+      -0.015537682262802135,
+      0.2888899909690449,
+      -0.04816141929165572,
+      -1.3366414790687184,
+      -0.3623660194496709,
+      0.023510510654272475,
+      0.04476550231206099,
+      0.4149221131558606
+    ],
+    "kappa": 0.5,
+    "regularization": 0.001,
+    "iterations": 26,
+    "parameters": 9,
+    "training_pairs": 46928,
+    "objective": 0.429312116949117,
+    "tuning_metrics": {
+      "recall20": 0.04777777777777777,
+      "ndcg20": 0.027417019758186126
+    },
+    "bank": "amplified"
+  },
+  "amplified:lambdamart": {
+    "kind": "lambdamart",
+    "trees": 50,
+    "depth": 3,
+    "model_path": "checkpoints/novelty_attribution/pog/models/amplified/lambdamart_50_3.json",
+    "trained_trees": 50,
+    "tuning_metrics": {
+      "recall20": 0.019166666666666665,
+      "ndcg20": 0.011230396036869645
+    },
+    "bank": "amplified"
+  },
+  "original_reference": {
+    "kind": "canonical",
+    "weights": {
+      "cat": 0.5,
+      "style": 0.25,
+      "bridge": 0.25,
+      "hist": 0.25
+    },
+    "prior_weights": {
+      "cat": 0.5,
+      "style": 0.25,
+      "bridge": 0.25
+    },
+    "kappa": 0.5,
+    "scale": 1.0424024296056245,
+    "bank": "pair"
+  }
+}

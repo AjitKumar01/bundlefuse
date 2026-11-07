@@ -1,0 +1,264 @@
+{
+  "status": "complete",
+  "smoke": false,
+  "methods": {
+    "amplified:gate": {
+      "recall20": 0.4724951830443162,
+      "ndcg20": 0.33116985202017923
+    },
+    "reference:constant": {
+      "recall20": 0.43964354527938343,
+      "ndcg20": 0.3337671379338809
+    },
+    "amplified:weighted": {
+      "recall20": 0.454961464354528,
+      "ndcg20": 0.32835134382984826
+    },
+    "reference:weighted": {
+      "recall20": 0.45727360308285164,
+      "ndcg20": 0.3322290836260755
+    },
+    "amplified:constant": {
+      "recall20": 0.43819845857418116,
+      "ndcg20": 0.32915928108614584
+    },
+    "original_reference": {
+      "recall20": 0.48680154142581905,
+      "ndcg20": 0.3432175015639907
+    },
+    "reference:gate": {
+      "recall20": 0.4855009633911369,
+      "ndcg20": 0.3436755419053636
+    }
+  },
+  "contrasts": [
+    {
+      "delta": 0.017533718689788053,
+      "ci95": [
+        -0.013104527938342967,
+        0.048074421965317915
+      ],
+      "p_value": 0.272972702729727,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0953757225433526,
+      "seed": 20261119,
+      "first": "amplified:gate",
+      "second": "amplified:weighted",
+      "metric": "recall20",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.002818508190330924,
+      "ci95": [
+        -0.014721034319375909,
+        0.02001928307687099
+      ],
+      "p_value": 0.758024197580242,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.16473988439306358,
+      "seed": 20261119,
+      "first": "amplified:gate",
+      "second": "amplified:weighted",
+      "metric": "ndcg20",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.034296724470134876,
+      "ci95": [
+        0.0039944605009633915,
+        0.06474108863198458
+      ],
+      "p_value": 0.029797020297970205,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0953757225433526,
+      "seed": 20261119,
+      "first": "amplified:gate",
+      "second": "amplified:constant",
+      "metric": "recall20",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.002010570934033345,
+      "ci95": [
+        -0.01503539936641631,
+        0.018658869190856762
+      ],
+      "p_value": 0.8271172882711729,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.18786127167630057,
+      "seed": 20261119,
+      "first": "amplified:gate",
+      "second": "amplified:constant",
+      "metric": "ndcg20",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.02822736030828516,
+      "ci95": [
+        0.0006237957610789991,
+        0.05592485549132947
+      ],
+      "p_value": 0.05829417058294171,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.09248554913294797,
+      "seed": 20261119,
+      "first": "reference:gate",
+      "second": "reference:weighted",
+      "metric": "recall20",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.01144645827928812,
+      "ci95": [
+        -0.0033777553417903543,
+        0.026317801986409567
+      ],
+      "p_value": 0.14408559144085592,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.1676300578034682,
+      "seed": 20261119,
+      "first": "reference:gate",
+      "second": "reference:weighted",
+      "metric": "ndcg20",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.045857418111753374,
+      "ci95": [
+        0.01786849710982659,
+        0.07308044315992289
+      ],
+      "p_value": 0.001999800019998,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.10115606936416185,
+      "seed": 20261119,
+      "first": "reference:gate",
+      "second": "reference:constant",
+      "metric": "recall20",
+      "p_holm": 0.11998800119988001,
+      "reject_05": false
+    },
+    {
+      "delta": 0.009908403971482876,
+      "ci95": [
+        -0.005575106808551031,
+        0.025935350118164117
+      ],
+      "p_value": 0.23747625237476253,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.1994219653179191,
+      "seed": 20261119,
+      "first": "reference:gate",
+      "second": "reference:constant",
+      "metric": "ndcg20",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": -0.0023121387283236996,
+      "ci95": [
+        -0.008670520231213872,
+        0.0017341040462427741
+      ],
+      "p_value": 1.0,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.002890173410404624,
+      "seed": 20261119,
+      "first": "amplified:weighted",
+      "second": "reference:weighted",
+      "metric": "recall20",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": -0.003877739796227265,
+      "ci95": [
+        -0.009968046968570697,
+        0.0017674573377804098
+      ],
+      "p_value": 0.20927907209279073,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.03468208092485549,
+      "seed": 20261119,
+      "first": "amplified:weighted",
+      "second": "reference:weighted",
+      "metric": "ndcg20",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": -0.01300578034682081,
+      "ci95": [
+        -0.028901734104046242,
+        0.00048169556840077125
+      ],
+      "p_value": 0.10038996100389962,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.005780346820809248,
+      "seed": 20261119,
+      "first": "amplified:gate",
+      "second": "reference:gate",
+      "metric": "recall20",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": -0.01250568988518446,
+      "ci95": [
+        -0.021855826747004776,
+        -0.0037101405815681363
+      ],
+      "p_value": 0.0072992700729927005,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.05202312138728324,
+      "seed": 20261119,
+      "first": "amplified:gate",
+      "second": "reference:gate",
+      "metric": "ndcg20",
+      "p_holm": 0.4306569343065693,
+      "reject_05": false
+    }
+  ]
+}

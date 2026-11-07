@@ -1,0 +1,174 @@
+{
+  "status": "all_primary_runs_complete",
+  "methods_verified": 106,
+  "datasets": {
+    "pog_dense": {
+      "test_queries": 5547,
+      "methods": 56,
+      "reference": [
+        0.3583618772910264,
+        0.25718063631519344
+      ],
+      "original_full_population": [
+        0.3952228584259565,
+        0.287875807714288
+      ],
+      "original_filtered_population": [
+        0.3600144222102022,
+        0.25799964949625015
+      ],
+      "compact_selected_on_tuning": "E1_subset_cat_pop_csvd_hist",
+      "active_dependency_timing": {
+        "reference": {
+          "active_columns": [
+            "bridge",
+            "cat",
+            "hist",
+            "pop"
+          ],
+          "required_sources": [
+            "bridge",
+            "cat",
+            "pop",
+            "simp"
+          ],
+          "batch_query_latency": {
+            "1": {
+              "median_ms": 6.192916494910605,
+              "p95_ms": 36.95179389906116
+            },
+            "8": {
+              "median_ms": 2.6891328125202563,
+              "p95_ms": 6.6832525611971505
+            }
+          }
+        },
+        "E1_subset_cat_pop_csvd_hist": {
+          "active_columns": [
+            "cat",
+            "hist",
+            "pop"
+          ],
+          "required_sources": [
+            "cat",
+            "pop",
+            "simp"
+          ],
+          "batch_query_latency": {
+            "1": {
+              "median_ms": 4.866042014327832,
+              "p95_ms": 35.79182949906681
+            },
+            "8": {
+              "median_ms": 1.7577266262378544,
+              "p95_ms": 5.616452681351802
+            }
+          }
+        },
+        "E1_fixed_remove_csvd": {
+          "active_columns": [
+            "bridge",
+            "cat",
+            "hist",
+            "pop"
+          ],
+          "required_sources": [
+            "bridge",
+            "cat",
+            "pop",
+            "simp"
+          ],
+          "batch_query_latency": {
+            "1": {
+              "median_ms": 6.29077099438291,
+              "p95_ms": 37.47651683661388
+            },
+            "8": {
+              "median_ms": 2.686512998479884,
+              "p95_ms": 6.549902793994988
+            }
+          }
+        }
+      }
+    },
+    "pog": {
+      "test_queries": 3995,
+      "methods": 39,
+      "reference": [
+        0.056487275761368395,
+        0.03995816921834911
+      ],
+      "original_full_population": [
+        0.05445833333333335,
+        0.03609231307391131
+      ],
+      "original_filtered_population": [
+        0.05352523988318734,
+        0.03524351033582756
+      ],
+      "compact_selected_on_tuning": null,
+      "active_dependency_timing": {
+        "reference": {
+          "active_columns": [
+            "cat",
+            "hist",
+            "style"
+          ],
+          "required_sources": [
+            "cat",
+            "pair",
+            "style"
+          ],
+          "batch_query_latency": {
+            "1": {
+              "median_ms": 7.259583493578248,
+              "p95_ms": 39.495648101728875
+            },
+            "8": {
+              "median_ms": 2.742578062679968,
+              "p95_ms": 6.854769860001397
+            }
+          }
+        },
+        "E1_fixed_remove_bridge": {
+          "active_columns": [
+            "cat",
+            "hist",
+            "style"
+          ],
+          "required_sources": [
+            "cat",
+            "pair",
+            "style"
+          ],
+          "batch_query_latency": {
+            "1": {
+              "median_ms": 7.278729011886753,
+              "p95_ms": 40.071103810623754
+            },
+            "8": {
+              "median_ms": 2.7134296869917307,
+              "p95_ms": 6.856155687455612
+            }
+          }
+        }
+      }
+    },
+    "spotify": {
+      "test_queries": 3995,
+      "methods": 11,
+      "reference": [
+        0.15580867754304908,
+        0.2631503186877623
+      ],
+      "original_full_population": [
+        0.15564639701529576,
+        0.2579255301623899
+      ],
+      "original_filtered_population": [
+        0.15488209424873065,
+        0.25704825889904004
+      ]
+    }
+  }
+}

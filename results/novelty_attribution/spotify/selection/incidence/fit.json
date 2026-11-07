@@ -1,0 +1,25 @@
+{
+  "fit_queries": 1400,
+  "tuning_queries": 600,
+  "sampled_rows": 360526,
+  "positives": 44935,
+  "keys": [
+    "pop",
+    "ppmi",
+    "csvd",
+    "homo",
+    "audiostyle",
+    "bridge",
+    "rao",
+    "hist"
+  ],
+  "coordinate_candidates": 98,
+  "seconds": 1331.4868454999814,
+  "source_weight_grid": [
+    0,
+    0.25,
+    0.5,
+    1.0,
+    1.5
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "identity": {
+    "metadata": {
+      "dataset": "spotify",
+      "n_items": 254155,
+      "protocol": "provided",
+      "data_profile": "research",
+      "split_seed": null,
+      "mask_frac": null,
+      "val_limit": null,
+      "test_limit": null,
+      "train_bundles": 14000,
+      "val_queries": 2000,
+      "test_queries": 4000,
+      "val_total": 2000,
+      "test_total": 4000,
+      "full_validation": true,
+      "full_test": true,
+      "train_sha256": "9d07ad02b5694557d5e4d3dd8fcf677ab5ab4a898d39bd1cb0a6e240f8c7f93a",
+      "val_pairs_sha256": "07217e63ae85cd55c95756bcc7a99285db0a0c4f214ed3dcbe84db4cbdde2263",
+      "test_pairs_sha256": "ac1be46f123fa6348006ebf013f6c5697b18e35392e3088f57d2e413d935757f",
+      "input_sha256": {
+        "bi_train.txt": "c79fbd6a966b043eb65d100fb1626c2c6762d2db99b0f59079693df6184dcc60",
+        "bi_valid_input.txt": "85dfbd33c16ec491e2507bcee1c44a96bb0aacbf0d2ec54fd9b27d8fee089b8a",
+        "bi_valid_gt.txt": "a377bb6acfd1b2e50d38e8d41f779e943d006e5f681796922dc1f75faf1bbb93",
+        "bi_test_input.txt": "b65346b8aefd7425d7d42ddaf798c6ec9ef14623c771336d43f9a4b01f3891a6",
+        "bi_test_gt.txt": "c74a0814eed5b3e00482143141747156da55b58e076c846e353862f00b6f8ee2",
+        "count.json": "2c1a4d51f5b2b9fb743e5db93059a710f8ac32b4f709c631c513ae27ae9a3ff9",
+        "item_info.json": "10723939a80346b61968827634ea6bd5d9d40a3d37fa06e39d1952ea07d2151c",
+        "content_feature.pt": "8bd3eb5572aeca9b6bacd643c092a265d586a2f50137c7bf0d96f681fc6bed1f"
+      }
+    },
+    "source_sha256": "4ffe9a214ad5b65a5d5047b3c77f9b12bd3962f50bae9e6e50aa5ce097b9c937",
+    "smoke": false
+  },
+  "split_manifest": {
+    "protocol": "provided",
+    "directory": "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/spotify",
+    "sha256": {
+      "bi_train.txt": "c79fbd6a966b043eb65d100fb1626c2c6762d2db99b0f59079693df6184dcc60",
+      "bi_valid_input.txt": "85dfbd33c16ec491e2507bcee1c44a96bb0aacbf0d2ec54fd9b27d8fee089b8a",
+      "bi_valid_gt.txt": "a377bb6acfd1b2e50d38e8d41f779e943d006e5f681796922dc1f75faf1bbb93",
+      "bi_test_input.txt": "b65346b8aefd7425d7d42ddaf798c6ec9ef14623c771336d43f9a4b01f3891a6",
+      "bi_test_gt.txt": "c74a0814eed5b3e00482143141747156da55b58e076c846e353862f00b6f8ee2",
+      "count.json": "2c1a4d51f5b2b9fb743e5db93059a710f8ac32b4f709c631c513ae27ae9a3ff9"
+    },
+    "train_bundles": 14000,
+    "valid_queries": 2000,
+    "test_queries": 4000,
+    "deduplicate_bundles": false,
+    "regenerate_masks": false,
+    "query_cap": null
+  },
+  "artifact_path": "checkpoints/publication_mechanisms/spotify/artifacts.pt",
+  "artifact_sha256": "a31317fdcd35d072c3b5e0ae9b02b90ab2a91564b9214b3f99f5a785b3bcf6fd",
+  "runtime": {
+    "package_source_sha256": "2901f070a14c417611413fc200c06823ec441d7eeae277b4d8e786e9a1becdcd",
+    "python": "3.13.4 (main, Jun  6 2025, 22:30:22) [Clang 17.0.0 (clang-1700.0.13.3)]",
+    "platform": "macOS-27.2-arm64-arm-64bit-Mach-O",
+    "entrypoint_sha256": {
+      "evaluator.py": "1dbdd2eb9658d21233a7960d1eb1092676d30318be95131ea25dd72f39d46bc2",
+      "inference.py": "319a0f7a0d7849ce2b23adcd8af5e158d4161728cbdf74f0fdfcfaaa8ce3a85e",
+      "validate.py": "2f98ce2797f692ae3afaacae474d8391dabc9160974709cb5dfbe95c2e5a6bf2"
+    },
+    "versions": {
+      "numpy": "2.5.4",
+      "scipy": "1.18.1",
+      "sklearn": "1.7.2",
+      "torch": "2.9.1"
+    },
+    "torch_threads": 1
+  },
+  "xgboost": "3.4.1"
+}

@@ -1,0 +1,243 @@
+[
+  {
+    "method": {
+      "kind": "weighted",
+      "weights": {
+        "homo": 0.25,
+        "rao": 1.5
+      }
+    },
+    "metrics": {
+      "recall20": 0.15312636788308281,
+      "ndcg20": 0.2098001816153924
+    }
+  },
+  {
+    "method": {
+      "kind": "gate",
+      "weights": {
+        "homo": 0.25,
+        "rao": 1.5
+      },
+      "prior_weights": {
+        "homo": 0.25,
+        "rao": 1.5
+      },
+      "scale": 1.0,
+      "kappa": 0.0
+    },
+    "metrics": {
+      "recall20": 0.15312636788308281,
+      "ndcg20": 0.2098001816153924
+    }
+  },
+  {
+    "method": {
+      "kind": "gate",
+      "weights": {
+        "homo": 0.25,
+        "rao": 1.5
+      },
+      "prior_weights": {
+        "homo": 0.25,
+        "rao": 1.5
+      },
+      "scale": 1.0,
+      "kappa": 0.05
+    },
+    "metrics": {
+      "recall20": 0.15312636788308281,
+      "ndcg20": 0.2098001816153924
+    }
+  },
+  {
+    "method": {
+      "kind": "gate",
+      "weights": {
+        "homo": 0.25,
+        "rao": 1.5
+      },
+      "prior_weights": {
+        "homo": 0.25,
+        "rao": 1.5
+      },
+      "scale": 1.0,
+      "kappa": 0.5
+    },
+    "metrics": {
+      "recall20": 0.15312636788308281,
+      "ndcg20": 0.2098001816153924
+    }
+  },
+  {
+    "method": {
+      "kind": "gate",
+      "weights": {
+        "homo": 0.25,
+        "rao": 1.5
+      },
+      "prior_weights": {
+        "homo": 0.25,
+        "rao": 1.5
+      },
+      "scale": 1.0,
+      "kappa": 1.0
+    },
+    "metrics": {
+      "recall20": 0.15312636788308281,
+      "ndcg20": 0.2098001816153924
+    }
+  },
+  {
+    "method": {
+      "kind": "gate",
+      "weights": {
+        "homo": 0.25,
+        "rao": 1.5
+      },
+      "prior_weights": {
+        "homo": 0.25,
+        "rao": 1.5
+      },
+      "scale": 1.0,
+      "kappa": 5.0
+    },
+    "metrics": {
+      "recall20": 0.15312636788308281,
+      "ndcg20": 0.2098001816153924
+    }
+  },
+  {
+    "method": {
+      "kind": "gate",
+      "weights": {
+        "homo": 0.25,
+        "rao": 1.5
+      },
+      "prior_weights": {
+        "homo": 0.25,
+        "rao": 1.5
+      },
+      "scale": 1.0,
+      "kappa": 20.0
+    },
+    "metrics": {
+      "recall20": 0.15312636788308281,
+      "ndcg20": 0.2098001816153924
+    }
+  },
+  {
+    "method": {
+      "kind": "constant",
+      "weights": {
+        "homo": 0.25,
+        "rao": 1.5
+      },
+      "prior_weights": {
+        "homo": 0.25,
+        "rao": 1.5
+      },
+      "scale": 1.0,
+      "mixture": 0.0
+    },
+    "metrics": {
+      "recall20": 0.15312636788308281,
+      "ndcg20": 0.2098001816153924
+    }
+  },
+  {
+    "method": {
+      "kind": "constant",
+      "weights": {
+        "homo": 0.25,
+        "rao": 1.5
+      },
+      "prior_weights": {
+        "homo": 0.25,
+        "rao": 1.5
+      },
+      "scale": 1.0,
+      "mixture": 0.05
+    },
+    "metrics": {
+      "recall20": 0.15312636788308281,
+      "ndcg20": 0.2098001816153924
+    }
+  },
+  {
+    "method": {
+      "kind": "constant",
+      "weights": {
+        "homo": 0.25,
+        "rao": 1.5
+      },
+      "prior_weights": {
+        "homo": 0.25,
+        "rao": 1.5
+      },
+      "scale": 1.0,
+      "mixture": 0.25
+    },
+    "metrics": {
+      "recall20": 0.15312636788308281,
+      "ndcg20": 0.2098001816153924
+    }
+  },
+  {
+    "method": {
+      "kind": "constant",
+      "weights": {
+        "homo": 0.25,
+        "rao": 1.5
+      },
+      "prior_weights": {
+        "homo": 0.25,
+        "rao": 1.5
+      },
+      "scale": 1.0,
+      "mixture": 0.5
+    },
+    "metrics": {
+      "recall20": 0.15312636788308281,
+      "ndcg20": 0.2098001816153924
+    }
+  },
+  {
+    "method": {
+      "kind": "constant",
+      "weights": {
+        "homo": 0.25,
+        "rao": 1.5
+      },
+      "prior_weights": {
+        "homo": 0.25,
+        "rao": 1.5
+      },
+      "scale": 1.0,
+      "mixture": 0.75
+    },
+    "metrics": {
+      "recall20": 0.15312636788308281,
+      "ndcg20": 0.2098001816153924
+    }
+  },
+  {
+    "method": {
+      "kind": "constant",
+      "weights": {
+        "homo": 0.25,
+        "rao": 1.5
+      },
+      "prior_weights": {
+        "homo": 0.25,
+        "rao": 1.5
+      },
+      "scale": 1.0,
+      "mixture": 1.0
+    },
+    "metrics": {
+      "recall20": 0.15312636788308281,
+      "ndcg20": 0.2098001816153924
+    }
+  }
+]

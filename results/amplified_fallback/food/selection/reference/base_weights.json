@@ -1,0 +1,14 @@
+{
+  "weights": {
+    "pretrain": 1.5,
+    "homo": 0.25,
+    "content": 1.0,
+    "csvd": 0.25,
+    "hist": 1.0
+  },
+  "prior": [
+    "homo",
+    "content"
+  ],
+  "coordinate_candidates": 53
+}

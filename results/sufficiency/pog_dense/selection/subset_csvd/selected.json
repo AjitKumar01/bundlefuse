@@ -1,0 +1,19 @@
+{
+  "config": {
+    "kind": "weighted",
+    "weights": {
+      "csvd": 0.25
+    }
+  },
+  "tuning_metrics": [
+    0.026085225009956192,
+    0.014546323654670349
+  ],
+  "keys": [
+    "csvd"
+  ],
+  "history": "canonical",
+  "alpha": 1.0,
+  "seconds": 1.5495838329952676,
+  "fitting_candidates": 4
+}

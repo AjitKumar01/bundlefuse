@@ -1,0 +1,75 @@
+{
+  "scope": "Corrected measurement excludes zero-weight sources; original timing file retained.",
+  "methods": {
+    "reference": {
+      "active_columns": [
+        "bridge",
+        "cat",
+        "hist",
+        "pop"
+      ],
+      "required_sources": [
+        "bridge",
+        "cat",
+        "pop",
+        "simp"
+      ],
+      "batch_query_latency": {
+        "1": {
+          "median_ms": 6.192916494910605,
+          "p95_ms": 36.95179389906116
+        },
+        "8": {
+          "median_ms": 2.6891328125202563,
+          "p95_ms": 6.6832525611971505
+        }
+      }
+    },
+    "E1_subset_cat_pop_csvd_hist": {
+      "active_columns": [
+        "cat",
+        "hist",
+        "pop"
+      ],
+      "required_sources": [
+        "cat",
+        "pop",
+        "simp"
+      ],
+      "batch_query_latency": {
+        "1": {
+          "median_ms": 4.866042014327832,
+          "p95_ms": 35.79182949906681
+        },
+        "8": {
+          "median_ms": 1.7577266262378544,
+          "p95_ms": 5.616452681351802
+        }
+      }
+    },
+    "E1_fixed_remove_csvd": {
+      "active_columns": [
+        "bridge",
+        "cat",
+        "hist",
+        "pop"
+      ],
+      "required_sources": [
+        "bridge",
+        "cat",
+        "pop",
+        "simp"
+      ],
+      "batch_query_latency": {
+        "1": {
+          "median_ms": 6.29077099438291,
+          "p95_ms": 37.47651683661388
+        },
+        "8": {
+          "median_ms": 2.686512998479884,
+          "p95_ms": 6.549902793994988
+        }
+      }
+    }
+  }
+}

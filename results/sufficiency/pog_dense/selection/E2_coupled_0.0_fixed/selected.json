@@ -1,0 +1,26 @@
+{
+  "config": {
+    "kind": "weighted",
+    "weights": {
+      "cat": 0.5,
+      "bridge": 0.25,
+      "pop": 0.25,
+      "hist": 1.0
+    }
+  },
+  "tuning_metrics": [
+    0.37654320987654316,
+    0.2614990416301368
+  ],
+  "keys": [
+    "cat",
+    "bridge",
+    "pop",
+    "csvd",
+    "hist"
+  ],
+  "history": "canonical",
+  "alpha": 0.0,
+  "seconds": 4.267116665985668,
+  "fitting_candidates": 5
+}

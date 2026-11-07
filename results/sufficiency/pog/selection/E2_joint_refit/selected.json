@@ -1,0 +1,25 @@
+{
+  "config": {
+    "kind": "weighted",
+    "weights": {
+      "cat": 0.5,
+      "style": 0.25,
+      "bridge": 0.25,
+      "joint": 0.25
+    }
+  },
+  "tuning_metrics": [
+    0.04638888888888889,
+    0.03196209844817961
+  ],
+  "keys": [
+    "cat",
+    "style",
+    "bridge",
+    "joint"
+  ],
+  "history": "canonical",
+  "alpha": 0.0,
+  "seconds": 18.07475112497923,
+  "fitting_candidates": 40
+}

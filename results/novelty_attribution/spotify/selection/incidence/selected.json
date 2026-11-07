@@ -1,0 +1,102 @@
+{
+  "equal": {
+    "kind": "equal",
+    "weights": {
+      "pop": 1.0,
+      "ppmi": 1.0,
+      "csvd": 1.0,
+      "homo": 1.0,
+      "audiostyle": 1.0,
+      "bridge": 1.0,
+      "rao": 1.0,
+      "hist": 1.0
+    },
+    "tuning_metrics": {
+      "recall20": 0.16449054365434093,
+      "ndcg20": 0.26792288194707736
+    }
+  },
+  "weighted": {
+    "kind": "weighted",
+    "weights": {
+      "homo": 0.25,
+      "rao": 1.0
+    },
+    "parameters": 2,
+    "tuning_metrics": {
+      "recall20": 0.16915992890103373,
+      "ndcg20": 0.27888074121822126
+    }
+  },
+  "bundlefuse_gate": {
+    "kind": "bundlefuse_gate",
+    "weights": {
+      "homo": 0.25,
+      "rao": 1.0
+    },
+    "prior_weights": {
+      "homo": 0.25,
+      "rao": 1.0
+    },
+    "kappa": 0.0,
+    "scale": 1.0,
+    "parameters": 0,
+    "base_weight_count": 2,
+    "tuning_metrics": {
+      "recall20": 0.16915992890103373,
+      "ndcg20": 0.27888074121822126
+    }
+  },
+  "rrf": {
+    "kind": "rrf",
+    "offset": 60.0,
+    "parameters": 0,
+    "tuning_metrics": {
+      "recall20": 0.13497498829136745,
+      "ndcg20": 0.22023760399696768
+    }
+  },
+  "frequency_linear": {
+    "kind": "frequency_linear",
+    "coefficients": [
+      0.01379165629675595,
+      0.008200915859027243,
+      0.057076157729477606,
+      0.01501294839493661,
+      -0.051595634714673086,
+      0.1474006181941574,
+      0.008860289112211274,
+      -0.006870427734500144,
+      0.042089399954146525,
+      0.026320262840646296,
+      0.14796102565773891,
+      0.0010547151366153767,
+      -0.19033349929272111,
+      0.14270991228397403,
+      0.0054937482860894565,
+      -0.006115023840511199,
+      0.01731686497578955
+    ],
+    "kappa": 5.0,
+    "regularization": 0.1,
+    "iterations": 12,
+    "parameters": 17,
+    "training_pairs": 718960,
+    "objective": 0.5064611138324973,
+    "tuning_metrics": {
+      "recall20": 0.12055812115710685,
+      "ndcg20": 0.1957377651441532
+    }
+  },
+  "lambdamart": {
+    "kind": "lambdamart",
+    "trees": 150,
+    "depth": 3,
+    "model_path": "checkpoints/novelty_attribution/spotify/models/incidence/lambdamart_150_3.json",
+    "trained_trees": 150,
+    "tuning_metrics": {
+      "recall20": 0.024126182389536142,
+      "ndcg20": 0.0438353017310863
+    }
+  }
+}

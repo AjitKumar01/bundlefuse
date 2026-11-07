@@ -1,0 +1,126 @@
+{
+  "artifact_path": "checkpoints/reorganized_162dd8c/food/seed_0/model.pt",
+  "artifact_sha256": "6a0a92928ed0f43f80f8364db0fbf24c389b52e410e47531604ae89ed198c41b",
+  "metadata": {
+    "dataset": "food",
+    "n_items": 3767,
+    "protocol": "resplit",
+    "data_profile": "extended",
+    "split_seed": 0,
+    "mask_frac": 0.5,
+    "val_limit": 800,
+    "test_limit": 2000,
+    "train_bundles": 1232,
+    "val_queries": 176,
+    "test_queries": 353,
+    "val_total": 176,
+    "test_total": 353,
+    "full_validation": true,
+    "full_test": true,
+    "train_sha256": "2f6629c5d0462ae547db6d76dab5fe0c105b22e9df47df9c9fa921f7799aaf62",
+    "val_pairs_sha256": "94139b6b4a3e38e1926ac1fe35d2d5bdaf88cc077a0608f3f9f9cb1639787d18",
+    "test_pairs_sha256": "2606332f07de54a13b1fef2861fa4f62e946b11cc228a81e45b7e27f3f26b579",
+    "input_sha256": {
+      "bundle_item.csv": "78bbe8e0ecc323c669460467393e5062c8253e03b0fe485f1cdbf7f1f41b077b",
+      "user_bundle.csv": "eb22b8ee0e52e1d5e989ebbef22a254fc7f6b46f30b3f7d172da492cfdb2a0ec",
+      "item_titles.csv": "04d517844a92d491c2e0528364e66d3d996dd5162089bcf010e1607b76d1f19b",
+      "item_categories.csv": "bb395a3e0e9a79163322022c7e0132889002baa20258e2cda61dec1fbc0a974c",
+      "user_item_pretrain.csv": "7d72b0d607b54eb007f4a24880491bf86ec2898fe562272f02b48a09f05d3b29"
+    }
+  },
+  "original_metrics": {
+    "recall@10": 0.5398961284230405,
+    "ndcg@10": 0.4462857132240876,
+    "recall@20": 0.5948536355051935,
+    "ndcg@20": 0.46235458088796394,
+    "recall@50": 0.6531161473087819,
+    "ndcg@50": 0.47519784236501256
+  },
+  "val_users_sha256": "100916835051c7465071feefa623676285705131252ef8528a3cd89122f22e70",
+  "test_users_sha256": "27f89e056c2c75d2f061a509a92a58bb4dea473abc3b38dba2033f20c58e3190",
+  "config": {
+    "n_items": 3767,
+    "families": [
+      "collaborative",
+      "content",
+      "taxonomy",
+      "popularity",
+      "personalization"
+    ],
+    "svd_dim": 128,
+    "alpha_deg": 0.5,
+    "gamma_vol": 0.5,
+    "beta_clique": 1.5,
+    "alpha_bridge": 0.5,
+    "n_soft_clusters": 400,
+    "soft_tau": 0.05,
+    "sel_obj": "ndcg20",
+    "compressed": true,
+    "content_rank": 128,
+    "fit_rounds": 4,
+    "seed_cap": 0,
+    "validation_chunk": 64
+  },
+  "source_recipe": {
+    "weights": {
+      "simp": 1.0,
+      "pretrain": 0.25,
+      "homo": 0.25,
+      "content": 1.0,
+      "csvd": 0.25
+    },
+    "prior": [
+      "homo",
+      "content"
+    ],
+    "higher_order": [
+      0.0,
+      0.0
+    ],
+    "backoff": [
+      0.05,
+      1.494066118544061
+    ]
+  },
+  "runtime": {
+    "package_source_sha256": "2901f070a14c417611413fc200c06823ec441d7eeae277b4d8e786e9a1becdcd",
+    "python": "3.13.4 (main, Jun  6 2025, 22:30:22) [Clang 17.0.0 (clang-1700.0.13.3)]",
+    "platform": "macOS-27.2-arm64-arm-64bit-Mach-O",
+    "entrypoint_sha256": {
+      "evaluator.py": "1dbdd2eb9658d21233a7960d1eb1092676d30318be95131ea25dd72f39d46bc2",
+      "inference.py": "319a0f7a0d7849ce2b23adcd8af5e158d4161728cbdf74f0fdfcfaaa8ce3a85e",
+      "validate.py": "2f98ce2797f692ae3afaacae474d8391dabc9160974709cb5dfbe95c2e5a6bf2"
+    },
+    "versions": {
+      "numpy": "2.5.4",
+      "scipy": "1.18.1",
+      "sklearn": "1.7.2",
+      "torch": "2.9.1"
+    },
+    "torch_threads": 1
+  },
+  "effective_config": {
+    "n_items": 3767,
+    "families": [
+      "collaborative",
+      "content",
+      "taxonomy",
+      "popularity",
+      "personalization"
+    ],
+    "svd_dim": 128,
+    "alpha_deg": 0.5,
+    "gamma_vol": 0.5,
+    "beta_clique": 1.5,
+    "alpha_bridge": 0.5,
+    "n_soft_clusters": 400,
+    "soft_tau": 0.05,
+    "sel_obj": "ndcg20",
+    "compressed": true,
+    "content_rank": 128,
+    "signal_profile": "extended",
+    "fit_rounds": 4,
+    "seed_cap": 0,
+    "validation_chunk": 64
+  }
+}

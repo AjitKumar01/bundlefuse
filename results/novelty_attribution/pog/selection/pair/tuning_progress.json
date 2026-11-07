@@ -1,0 +1,486 @@
+{
+  "candidates": [
+    {
+      "method": {
+        "kind": "equal",
+        "weights": {
+          "cat": 1.0,
+          "style": 1.0,
+          "bridge": 1.0,
+          "hist": 1.0
+        }
+      },
+      "metrics": {
+        "recall20": 0.05805555555555555,
+        "ndcg20": 0.03651036639030862
+      }
+    },
+    {
+      "method": {
+        "kind": "weighted",
+        "weights": {
+          "cat": 0.5,
+          "style": 0.25,
+          "bridge": 0.25,
+          "hist": 0.25
+        },
+        "parameters": 4
+      },
+      "metrics": {
+        "recall20": 0.0638888888888889,
+        "ndcg20": 0.041979702448130714
+      }
+    },
+    {
+      "method": {
+        "kind": "bundlefuse_gate",
+        "weights": {
+          "cat": 0.5,
+          "style": 0.25,
+          "bridge": 0.25,
+          "hist": 0.25
+        },
+        "prior_weights": {
+          "cat": 0.5,
+          "style": 0.25,
+          "bridge": 0.25
+        },
+        "kappa": 0.0,
+        "scale": 1.0,
+        "parameters": 0,
+        "base_weight_count": 4
+      },
+      "metrics": {
+        "recall20": 0.0638888888888889,
+        "ndcg20": 0.041979702448130714
+      }
+    },
+    {
+      "method": {
+        "kind": "bundlefuse_gate",
+        "weights": {
+          "cat": 0.5,
+          "style": 0.25,
+          "bridge": 0.25,
+          "hist": 0.25
+        },
+        "prior_weights": {
+          "cat": 0.5,
+          "style": 0.25,
+          "bridge": 0.25
+        },
+        "kappa": 0.05,
+        "scale": 1.0,
+        "parameters": 0,
+        "base_weight_count": 4
+      },
+      "metrics": {
+        "recall20": 0.06472222222222224,
+        "ndcg20": 0.04285262772023225
+      }
+    },
+    {
+      "method": {
+        "kind": "bundlefuse_gate",
+        "weights": {
+          "cat": 0.5,
+          "style": 0.25,
+          "bridge": 0.25,
+          "hist": 0.25
+        },
+        "prior_weights": {
+          "cat": 0.5,
+          "style": 0.25,
+          "bridge": 0.25
+        },
+        "kappa": 0.5,
+        "scale": 1.0,
+        "parameters": 0,
+        "base_weight_count": 4
+      },
+      "metrics": {
+        "recall20": 0.06527777777777778,
+        "ndcg20": 0.04313242062073712
+      }
+    },
+    {
+      "method": {
+        "kind": "bundlefuse_gate",
+        "weights": {
+          "cat": 0.5,
+          "style": 0.25,
+          "bridge": 0.25,
+          "hist": 0.25
+        },
+        "prior_weights": {
+          "cat": 0.5,
+          "style": 0.25,
+          "bridge": 0.25
+        },
+        "kappa": 1.0,
+        "scale": 1.0,
+        "parameters": 0,
+        "base_weight_count": 4
+      },
+      "metrics": {
+        "recall20": 0.06527777777777778,
+        "ndcg20": 0.042921460691249906
+      }
+    },
+    {
+      "method": {
+        "kind": "bundlefuse_gate",
+        "weights": {
+          "cat": 0.5,
+          "style": 0.25,
+          "bridge": 0.25,
+          "hist": 0.25
+        },
+        "prior_weights": {
+          "cat": 0.5,
+          "style": 0.25,
+          "bridge": 0.25
+        },
+        "kappa": 5.0,
+        "scale": 1.0,
+        "parameters": 0,
+        "base_weight_count": 4
+      },
+      "metrics": {
+        "recall20": 0.06694444444444446,
+        "ndcg20": 0.04342755165358591
+      }
+    },
+    {
+      "method": {
+        "kind": "bundlefuse_gate",
+        "weights": {
+          "cat": 0.5,
+          "style": 0.25,
+          "bridge": 0.25,
+          "hist": 0.25
+        },
+        "prior_weights": {
+          "cat": 0.5,
+          "style": 0.25,
+          "bridge": 0.25
+        },
+        "kappa": 20.0,
+        "scale": 1.0,
+        "parameters": 0,
+        "base_weight_count": 4
+      },
+      "metrics": {
+        "recall20": 0.06416666666666666,
+        "ndcg20": 0.04292425719380551
+      }
+    },
+    {
+      "method": {
+        "kind": "bundlefuse_gate",
+        "weights": {
+          "cat": 0.5,
+          "style": 0.25,
+          "bridge": 0.25,
+          "hist": 0.25
+        },
+        "prior_weights": {
+          "cat": 0.5,
+          "style": 0.25,
+          "bridge": 0.25
+        },
+        "kappa": 0.0,
+        "scale": 1.0419529377664303,
+        "parameters": 0,
+        "base_weight_count": 4
+      },
+      "metrics": {
+        "recall20": 0.0638888888888889,
+        "ndcg20": 0.041979702448130714
+      }
+    },
+    {
+      "method": {
+        "kind": "bundlefuse_gate",
+        "weights": {
+          "cat": 0.5,
+          "style": 0.25,
+          "bridge": 0.25,
+          "hist": 0.25
+        },
+        "prior_weights": {
+          "cat": 0.5,
+          "style": 0.25,
+          "bridge": 0.25
+        },
+        "kappa": 0.05,
+        "scale": 1.0419529377664303,
+        "parameters": 0,
+        "base_weight_count": 4
+      },
+      "metrics": {
+        "recall20": 0.0688888888888889,
+        "ndcg20": 0.04580151523146868
+      }
+    },
+    {
+      "method": {
+        "kind": "bundlefuse_gate",
+        "weights": {
+          "cat": 0.5,
+          "style": 0.25,
+          "bridge": 0.25,
+          "hist": 0.25
+        },
+        "prior_weights": {
+          "cat": 0.5,
+          "style": 0.25,
+          "bridge": 0.25
+        },
+        "kappa": 0.5,
+        "scale": 1.0419529377664303,
+        "parameters": 0,
+        "base_weight_count": 4
+      },
+      "metrics": {
+        "recall20": 0.06944444444444445,
+        "ndcg20": 0.046210150393028664
+      }
+    },
+    {
+      "method": {
+        "kind": "bundlefuse_gate",
+        "weights": {
+          "cat": 0.5,
+          "style": 0.25,
+          "bridge": 0.25,
+          "hist": 0.25
+        },
+        "prior_weights": {
+          "cat": 0.5,
+          "style": 0.25,
+          "bridge": 0.25
+        },
+        "kappa": 1.0,
+        "scale": 1.0419529377664303,
+        "parameters": 0,
+        "base_weight_count": 4
+      },
+      "metrics": {
+        "recall20": 0.06611111111111112,
+        "ndcg20": 0.04451154991326223
+      }
+    },
+    {
+      "method": {
+        "kind": "bundlefuse_gate",
+        "weights": {
+          "cat": 0.5,
+          "style": 0.25,
+          "bridge": 0.25,
+          "hist": 0.25
+        },
+        "prior_weights": {
+          "cat": 0.5,
+          "style": 0.25,
+          "bridge": 0.25
+        },
+        "kappa": 5.0,
+        "scale": 1.0419529377664303,
+        "parameters": 0,
+        "base_weight_count": 4
+      },
+      "metrics": {
+        "recall20": 0.06833333333333333,
+        "ndcg20": 0.04446559627755963
+      }
+    },
+    {
+      "method": {
+        "kind": "bundlefuse_gate",
+        "weights": {
+          "cat": 0.5,
+          "style": 0.25,
+          "bridge": 0.25,
+          "hist": 0.25
+        },
+        "prior_weights": {
+          "cat": 0.5,
+          "style": 0.25,
+          "bridge": 0.25
+        },
+        "kappa": 20.0,
+        "scale": 1.0419529377664303,
+        "parameters": 0,
+        "base_weight_count": 4
+      },
+      "metrics": {
+        "recall20": 0.06416666666666666,
+        "ndcg20": 0.043246561749307626
+      }
+    },
+    {
+      "method": {
+        "kind": "rrf",
+        "offset": 10.0,
+        "parameters": 0
+      },
+      "metrics": {
+        "recall20": 0.03222222222222223,
+        "ndcg20": 0.020306840255140044
+      }
+    },
+    {
+      "method": {
+        "kind": "rrf",
+        "offset": 60.0,
+        "parameters": 0
+      },
+      "metrics": {
+        "recall20": 0.036111111111111115,
+        "ndcg20": 0.0202137076489874
+      }
+    },
+    {
+      "method": {
+        "kind": "rrf",
+        "offset": 100.0,
+        "parameters": 0
+      },
+      "metrics": {
+        "recall20": 0.03777777777777778,
+        "ndcg20": 0.021498257845951742
+      }
+    },
+    {
+      "method": {
+        "kind": "frequency_linear",
+        "coefficients": [
+          1.7153774025881958,
+          -0.015961332698167737,
+          0.28868818560635834,
+          -0.054159493343136,
+          -1.3348444435024869,
+          -0.3639978543247046,
+          0.029087927160429905,
+          0.050445132546077395,
+          0.41073914487494567
+        ],
+        "kappa": 0.5,
+        "regularization": 0.001,
+        "iterations": 24,
+        "parameters": 9,
+        "training_pairs": 46928,
+        "objective": 0.42897448900420004
+      },
+      "metrics": {
+        "recall20": 0.04777777777777777,
+        "ndcg20": 0.027021334077740645
+      }
+    },
+    {
+      "method": {
+        "kind": "frequency_linear",
+        "coefficients": [
+          1.2887447542971384,
+          -0.007003228559961846,
+          0.20421868114151084,
+          -0.017502878528111488,
+          -0.7573750949872012,
+          -0.3153222444907174,
+          0.07318440739153889,
+          0.00843987875642488,
+          0.20207113534963037
+        ],
+        "kappa": 0.5,
+        "regularization": 0.01,
+        "iterations": 19,
+        "parameters": 9,
+        "training_pairs": 46928,
+        "objective": 0.45651491483087503
+      },
+      "metrics": {
+        "recall20": 0.04527777777777777,
+        "ndcg20": 0.02632263213116544
+      }
+    },
+    {
+      "method": {
+        "kind": "frequency_linear",
+        "coefficients": [
+          0.6304039508117087,
+          -0.008571983740709334,
+          0.08540374491285496,
+          -0.0027995279236316863,
+          -0.016004379376947264,
+          -0.14583445637148867,
+          0.03689622708646688,
+          0.00023067189775501725,
+          -0.029489484666501576
+        ],
+        "kappa": 0.5,
+        "regularization": 0.1,
+        "iterations": 11,
+        "parameters": 9,
+        "training_pairs": 46928,
+        "objective": 0.5336006329233681
+      },
+      "metrics": {
+        "recall20": 0.020555555555555556,
+        "ndcg20": 0.01179387400052374
+      }
+    },
+    {
+      "method": {
+        "kind": "lambdamart",
+        "trees": 50,
+        "depth": 3,
+        "model_path": "checkpoints/novelty_attribution/pog/models/pair/lambdamart_50_3.json",
+        "trained_trees": 50
+      },
+      "metrics": {
+        "recall20": 0.022222222222222227,
+        "ndcg20": 0.012140509547800236
+      }
+    },
+    {
+      "method": {
+        "kind": "lambdamart",
+        "trees": 50,
+        "depth": 5,
+        "model_path": "checkpoints/novelty_attribution/pog/models/pair/lambdamart_50_5.json",
+        "trained_trees": 50
+      },
+      "metrics": {
+        "recall20": 0.02277777777777778,
+        "ndcg20": 0.011517782688036006
+      }
+    },
+    {
+      "method": {
+        "kind": "lambdamart",
+        "trees": 150,
+        "depth": 3,
+        "model_path": "checkpoints/novelty_attribution/pog/models/pair/lambdamart_150_3.json",
+        "trained_trees": 150
+      },
+      "metrics": {
+        "recall20": 0.02138888888888889,
+        "ndcg20": 0.01057549193483857
+      }
+    },
+    {
+      "method": {
+        "kind": "lambdamart",
+        "trees": 150,
+        "depth": 5,
+        "model_path": "checkpoints/novelty_attribution/pog/models/pair/lambdamart_150_5.json",
+        "trained_trees": 150
+      },
+      "metrics": {
+        "recall20": 0.023055555555555555,
+        "ndcg20": 0.010015963418963133
+      }
+    }
+  ]
+}

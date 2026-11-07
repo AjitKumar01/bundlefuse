@@ -1,0 +1,56 @@
+{
+  "weighted": {
+    "kind": "weighted",
+    "weights": {
+      "pretrain": 1.5,
+      "homo": 0.25,
+      "content": 1.0,
+      "csvd": 0.25,
+      "hist": 1.0
+    },
+    "tuning_metrics": {
+      "recall20": 0.5141509433962265,
+      "ndcg20": 0.34067758093962447
+    }
+  },
+  "gate": {
+    "kind": "gate",
+    "weights": {
+      "pretrain": 1.5,
+      "homo": 0.25,
+      "content": 1.0,
+      "csvd": 0.25,
+      "hist": 1.0
+    },
+    "prior_weights": {
+      "homo": 0.25,
+      "content": 1.0
+    },
+    "scale": 2.3219705754703455,
+    "kappa": 0.05,
+    "tuning_metrics": {
+      "recall20": 0.5455974842767296,
+      "ndcg20": 0.38999968462437123
+    }
+  },
+  "constant": {
+    "kind": "constant",
+    "weights": {
+      "pretrain": 1.5,
+      "homo": 0.25,
+      "content": 1.0,
+      "csvd": 0.25,
+      "hist": 1.0
+    },
+    "prior_weights": {
+      "homo": 0.25,
+      "content": 1.0
+    },
+    "scale": 2.3219705754703455,
+    "mixture": 0.05,
+    "tuning_metrics": {
+      "recall20": 0.5141509433962265,
+      "ndcg20": 0.34214592368229085
+    }
+  }
+}

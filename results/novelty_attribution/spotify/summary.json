@@ -1,0 +1,1015 @@
+{
+  "status": "complete",
+  "smoke": false,
+  "methods": {
+    "pair:rrf": {
+      "recall20": 0.12739643053676553,
+      "ndcg20": 0.21104255765808963,
+      "seconds": 400.6702076669899
+    },
+    "incidence:equal": {
+      "recall20": 0.15311082788205596,
+      "ndcg20": 0.2559070403705086,
+      "seconds": 78.34948858298594
+    },
+    "amplified:weighted": {
+      "recall20": 0.16001872226621772,
+      "ndcg20": 0.27172251895255856,
+      "seconds": 37.512012916995445
+    },
+    "amplified:bundlefuse_gate": {
+      "recall20": 0.16327848185098354,
+      "ndcg20": 0.28114606910123807,
+      "seconds": 30.33373008298804
+    },
+    "incidence:rrf": {
+      "recall20": 0.1295996789692569,
+      "ndcg20": 0.21606391279120038,
+      "seconds": 389.1616261669842
+    },
+    "pair:bundlefuse_gate": {
+      "recall20": 0.15656586969954384,
+      "ndcg20": 0.2640122395121324,
+      "seconds": 18.294091041985666
+    },
+    "original_reference": {
+      "recall20": 0.15564639701529576,
+      "ndcg20": 0.2579255301623899,
+      "seconds": 83.10392308299197
+    },
+    "pair:lambdamart": {
+      "recall20": 0.015974988019473117,
+      "ndcg20": 0.022704045889990785,
+      "seconds": 672.3286788749974
+    },
+    "incidence:bundlefuse_gate": {
+      "recall20": 0.15656586969954384,
+      "ndcg20": 0.2640122395121324,
+      "seconds": 16.605398749990854
+    },
+    "amplified:lambdamart": {
+      "recall20": 0.012781350036725413,
+      "ndcg20": 0.018878943993393106,
+      "seconds": 493.32275012499304
+    },
+    "incidence:lambdamart": {
+      "recall20": 0.016447233856783715,
+      "ndcg20": 0.028540276304598915,
+      "seconds": 492.42693554100697
+    },
+    "incidence:weighted": {
+      "recall20": 0.15656586969954384,
+      "ndcg20": 0.2640122395121324,
+      "seconds": 25.744437290995847
+    },
+    "amplified:rrf": {
+      "recall20": 0.13304784148505142,
+      "ndcg20": 0.22193284785194023,
+      "seconds": 384.31764820899116
+    },
+    "amplified:frequency_linear": {
+      "recall20": 0.10752283226505631,
+      "ndcg20": 0.18254801616423286,
+      "seconds": 98.78650320900488
+    },
+    "pair:equal": {
+      "recall20": 0.1500483984265313,
+      "ndcg20": 0.25009228171302234,
+      "seconds": 79.61384433301282
+    },
+    "incidence:frequency_linear": {
+      "recall20": 0.10689679001430172,
+      "ndcg20": 0.1839846255877278,
+      "seconds": 98.64185362501303
+    },
+    "pair:frequency_linear": {
+      "recall20": 0.11137567500237,
+      "ndcg20": 0.1909233337090259,
+      "seconds": 99.1205474580056
+    },
+    "pair:weighted": {
+      "recall20": 0.15656586969954384,
+      "ndcg20": 0.2640122395121324,
+      "seconds": 27.148267292010132
+    },
+    "amplified:equal": {
+      "recall20": 0.1563332530949404,
+      "ndcg20": 0.26293818946991965,
+      "seconds": 80.12381429199013
+    }
+  },
+  "contrasts": [
+    {
+      "delta": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "p_value": 1.0,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0,
+      "seed": 20261119,
+      "first": "pair:bundlefuse_gate",
+      "second": "pair:weighted",
+      "metric": "recall20",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "p_value": 1.0,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0,
+      "seed": 20261119,
+      "first": "pair:bundlefuse_gate",
+      "second": "pair:weighted",
+      "metric": "ndcg20",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.029169439162778293,
+      "ci95": [
+        0.025929829552705654,
+        0.03287794573967419
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.3815,
+      "seed": 20261119,
+      "first": "pair:bundlefuse_gate",
+      "second": "pair:rrf",
+      "metric": "recall20",
+      "p_holm": 0.014398560143985602,
+      "reject_05": true
+    },
+    {
+      "delta": 0.05296968185404123,
+      "ci95": [
+        0.04808186226281286,
+        0.05813317053100934
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.51525,
+      "seed": 20261119,
+      "first": "pair:bundlefuse_gate",
+      "second": "pair:rrf",
+      "metric": "ndcg20",
+      "p_holm": 0.014398560143985602,
+      "reject_05": true
+    },
+    {
+      "delta": 0.04519019469717386,
+      "ci95": [
+        0.04184319860682266,
+        0.048741210521924684
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.515,
+      "seed": 20261119,
+      "first": "pair:bundlefuse_gate",
+      "second": "pair:frequency_linear",
+      "metric": "recall20",
+      "p_holm": 0.014398560143985602,
+      "reject_05": true
+    },
+    {
+      "delta": 0.0730889058031051,
+      "ci95": [
+        0.0678374928350876,
+        0.07834051941288579
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.5855,
+      "seed": 20261119,
+      "first": "pair:bundlefuse_gate",
+      "second": "pair:frequency_linear",
+      "metric": "ndcg20",
+      "p_holm": 0.014398560143985602,
+      "reject_05": true
+    },
+    {
+      "delta": 0.14059088168007092,
+      "ci95": [
+        0.13590164344721684,
+        0.14538744558662992
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.8035,
+      "seed": 20261119,
+      "first": "pair:bundlefuse_gate",
+      "second": "pair:lambdamart",
+      "metric": "recall20",
+      "p_holm": 0.014398560143985602,
+      "reject_05": true
+    },
+    {
+      "delta": 0.24130819362214012,
+      "ci95": [
+        0.23433282799716235,
+        0.2489515877647046
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.81675,
+      "seed": 20261119,
+      "first": "pair:bundlefuse_gate",
+      "second": "pair:lambdamart",
+      "metric": "ndcg20",
+      "p_holm": 0.014398560143985602,
+      "reject_05": true
+    },
+    {
+      "delta": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "p_value": 1.0,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0,
+      "seed": 20261119,
+      "first": "incidence:bundlefuse_gate",
+      "second": "incidence:weighted",
+      "metric": "recall20",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "p_value": 1.0,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0,
+      "seed": 20261119,
+      "first": "incidence:bundlefuse_gate",
+      "second": "incidence:weighted",
+      "metric": "ndcg20",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.026966190730286974,
+      "ci95": [
+        0.023720510661099533,
+        0.03046421269189206
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.3695,
+      "seed": 20261119,
+      "first": "incidence:bundlefuse_gate",
+      "second": "incidence:rrf",
+      "metric": "recall20",
+      "p_holm": 0.014398560143985602,
+      "reject_05": true
+    },
+    {
+      "delta": 0.04794832672093103,
+      "ci95": [
+        0.04312404616907144,
+        0.05301260182780417
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.50675,
+      "seed": 20261119,
+      "first": "incidence:bundlefuse_gate",
+      "second": "incidence:rrf",
+      "metric": "ndcg20",
+      "p_holm": 0.014398560143985602,
+      "reject_05": true
+    },
+    {
+      "delta": 0.04966907968524233,
+      "ci95": [
+        0.04628409192578222,
+        0.05305094315459076
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.5305,
+      "seed": 20261119,
+      "first": "incidence:bundlefuse_gate",
+      "second": "incidence:frequency_linear",
+      "metric": "recall20",
+      "p_holm": 0.014398560143985602,
+      "reject_05": true
+    },
+    {
+      "delta": 0.08002761392440368,
+      "ci95": [
+        0.07459947365497571,
+        0.08527591891732167
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.5995,
+      "seed": 20261119,
+      "first": "incidence:bundlefuse_gate",
+      "second": "incidence:frequency_linear",
+      "metric": "ndcg20",
+      "p_holm": 0.014398560143985602,
+      "reject_05": true
+    },
+    {
+      "delta": 0.1401186358427603,
+      "ci95": [
+        0.1353859222745404,
+        0.14507357075623284
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.7955,
+      "seed": 20261119,
+      "first": "incidence:bundlefuse_gate",
+      "second": "incidence:lambdamart",
+      "metric": "recall20",
+      "p_holm": 0.014398560143985602,
+      "reject_05": true
+    },
+    {
+      "delta": 0.235471963207532,
+      "ci95": [
+        0.2282865994839566,
+        0.24318083920464248
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.809,
+      "seed": 20261119,
+      "first": "incidence:bundlefuse_gate",
+      "second": "incidence:lambdamart",
+      "metric": "ndcg20",
+      "p_holm": 0.014398560143985602,
+      "reject_05": true
+    },
+    {
+      "delta": 0.0032597595847655213,
+      "ci95": [
+        0.0023354600999879547,
+        0.004234704446864862
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.10075,
+      "seed": 20261119,
+      "first": "amplified:bundlefuse_gate",
+      "second": "amplified:weighted",
+      "metric": "recall20",
+      "p_holm": 0.014398560143985602,
+      "reject_05": true
+    },
+    {
+      "delta": 0.009423550148679332,
+      "ci95": [
+        0.007713374346017602,
+        0.011138522868947733
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.1825,
+      "seed": 20261119,
+      "first": "amplified:bundlefuse_gate",
+      "second": "amplified:weighted",
+      "metric": "ndcg20",
+      "p_holm": 0.014398560143985602,
+      "reject_05": true
+    },
+    {
+      "delta": 0.03023064036593171,
+      "ci95": [
+        0.02693453512055916,
+        0.03376604341759942
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.41625,
+      "seed": 20261119,
+      "first": "amplified:bundlefuse_gate",
+      "second": "amplified:rrf",
+      "metric": "recall20",
+      "p_holm": 0.014398560143985602,
+      "reject_05": true
+    },
+    {
+      "delta": 0.05921322124929857,
+      "ci95": [
+        0.05445992386893563,
+        0.06435791083067556
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.5455,
+      "seed": 20261119,
+      "first": "amplified:bundlefuse_gate",
+      "second": "amplified:rrf",
+      "metric": "ndcg20",
+      "p_holm": 0.014398560143985602,
+      "reject_05": true
+    },
+    {
+      "delta": 0.05575564958592716,
+      "ci95": [
+        0.0525075391917981,
+        0.05900280005646393
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.576,
+      "seed": 20261119,
+      "first": "amplified:bundlefuse_gate",
+      "second": "amplified:frequency_linear",
+      "metric": "recall20",
+      "p_holm": 0.014398560143985602,
+      "reject_05": true
+    },
+    {
+      "delta": 0.09859805293700605,
+      "ci95": [
+        0.09373159544347553,
+        0.10361082673965971
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.65125,
+      "seed": 20261119,
+      "first": "amplified:bundlefuse_gate",
+      "second": "amplified:frequency_linear",
+      "metric": "ndcg20",
+      "p_holm": 0.014398560143985602,
+      "reject_05": true
+    },
+    {
+      "delta": 0.1504971318142581,
+      "ci95": [
+        0.14556013154386763,
+        0.15543114681124928
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.817,
+      "seed": 20261119,
+      "first": "amplified:bundlefuse_gate",
+      "second": "amplified:lambdamart",
+      "metric": "recall20",
+      "p_holm": 0.014398560143985602,
+      "reject_05": true
+    },
+    {
+      "delta": 0.2622671251078452,
+      "ci95": [
+        0.2548396270086736,
+        0.27034148897838267
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.82625,
+      "seed": 20261119,
+      "first": "amplified:bundlefuse_gate",
+      "second": "amplified:lambdamart",
+      "metric": "ndcg20",
+      "p_holm": 0.014398560143985602,
+      "reject_05": true
+    },
+    {
+      "delta": 0.003062429455524559,
+      "ci95": [
+        0.0020795162506933684,
+        0.004098968157320309
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.1825,
+      "seed": 20261119,
+      "first": "incidence:equal",
+      "second": "pair:equal",
+      "metric": "recall20",
+      "p_holm": 0.014398560143985602,
+      "reject_05": true
+    },
+    {
+      "delta": 0.005814758657485094,
+      "ci95": [
+        0.00459334524886102,
+        0.006972975024131803
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.443,
+      "seed": 20261119,
+      "first": "incidence:equal",
+      "second": "pair:equal",
+      "metric": "ndcg20",
+      "p_holm": 0.014398560143985602,
+      "reject_05": true
+    },
+    {
+      "delta": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "p_value": 1.0,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0,
+      "seed": 20261119,
+      "first": "incidence:weighted",
+      "second": "pair:weighted",
+      "metric": "recall20",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "p_value": 1.0,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0,
+      "seed": 20261119,
+      "first": "incidence:weighted",
+      "second": "pair:weighted",
+      "metric": "ndcg20",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.002203248432491316,
+      "ci95": [
+        0.0013037846991638808,
+        0.003101470557978135
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.16125,
+      "seed": 20261119,
+      "first": "incidence:rrf",
+      "second": "pair:rrf",
+      "metric": "recall20",
+      "p_holm": 0.014398560143985602,
+      "reject_05": true
+    },
+    {
+      "delta": 0.005021355133110198,
+      "ci95": [
+        0.00402296959805878,
+        0.006058557832558961
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.433,
+      "seed": 20261119,
+      "first": "incidence:rrf",
+      "second": "pair:rrf",
+      "metric": "ndcg20",
+      "p_holm": 0.014398560143985602,
+      "reject_05": true
+    },
+    {
+      "delta": -0.004478884988068471,
+      "ci95": [
+        -0.005496252564037662,
+        -0.0033623086308415253
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.109,
+      "seed": 20261119,
+      "first": "incidence:frequency_linear",
+      "second": "pair:frequency_linear",
+      "metric": "recall20",
+      "p_holm": 0.014398560143985602,
+      "reject_05": true
+    },
+    {
+      "delta": -0.006938708121298575,
+      "ci95": [
+        -0.008134600617205022,
+        -0.00574581819617636
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.27175,
+      "seed": 20261119,
+      "first": "incidence:frequency_linear",
+      "second": "pair:frequency_linear",
+      "metric": "ndcg20",
+      "p_holm": 0.014398560143985602,
+      "reject_05": true
+    },
+    {
+      "delta": 0.00047224583731058734,
+      "ci95": [
+        -0.0009179909369460325,
+        0.001801522275723065
+      ],
+      "p_value": 0.5090490950904909,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.1765,
+      "seed": 20261119,
+      "first": "incidence:lambdamart",
+      "second": "pair:lambdamart",
+      "metric": "recall20",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.005836230414608159,
+      "ci95": [
+        0.0041459862487365304,
+        0.007555699406633963
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.20925,
+      "seed": 20261119,
+      "first": "incidence:lambdamart",
+      "second": "pair:lambdamart",
+      "metric": "ndcg20",
+      "p_holm": 0.014398560143985602,
+      "reject_05": true
+    },
+    {
+      "delta": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "p_value": 1.0,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0,
+      "seed": 20261119,
+      "first": "incidence:bundlefuse_gate",
+      "second": "pair:bundlefuse_gate",
+      "metric": "recall20",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "p_value": 1.0,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0,
+      "seed": 20261119,
+      "first": "incidence:bundlefuse_gate",
+      "second": "pair:bundlefuse_gate",
+      "metric": "ndcg20",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": -0.003222425212884554,
+      "ci95": [
+        -0.004495843583037461,
+        -0.001894535403605255
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.15325,
+      "seed": 20261119,
+      "first": "incidence:equal",
+      "second": "amplified:equal",
+      "metric": "recall20",
+      "p_holm": 0.014398560143985602,
+      "reject_05": true
+    },
+    {
+      "delta": -0.007031149099411007,
+      "ci95": [
+        -0.00860116896147225,
+        -0.0054832121253321825
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.334,
+      "seed": 20261119,
+      "first": "incidence:equal",
+      "second": "amplified:equal",
+      "metric": "ndcg20",
+      "p_holm": 0.014398560143985602,
+      "reject_05": true
+    },
+    {
+      "delta": -0.0034528525666740147,
+      "ci95": [
+        -0.00547363475281811,
+        -0.0013711091035144055
+      ],
+      "p_value": 0.0012998700129987,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.2165,
+      "seed": 20261119,
+      "first": "incidence:weighted",
+      "second": "amplified:weighted",
+      "metric": "recall20",
+      "p_holm": 0.14038596140385962,
+      "reject_05": false
+    },
+    {
+      "delta": -0.007710279440428027,
+      "ci95": [
+        -0.010492536878853013,
+        -0.004711101314655139
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.356,
+      "seed": 20261119,
+      "first": "incidence:weighted",
+      "second": "amplified:weighted",
+      "metric": "ndcg20",
+      "p_holm": 0.014398560143985602,
+      "reject_05": true
+    },
+    {
+      "delta": -0.003448162515794797,
+      "ci95": [
+        -0.004327705484733866,
+        -0.002563657791326123
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.09725,
+      "seed": 20261119,
+      "first": "incidence:rrf",
+      "second": "amplified:rrf",
+      "metric": "recall20",
+      "p_holm": 0.014398560143985602,
+      "reject_05": true
+    },
+    {
+      "delta": -0.005868935060739819,
+      "ci95": [
+        -0.006869641642081316,
+        -0.004873593239386602
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.29175,
+      "seed": 20261119,
+      "first": "incidence:rrf",
+      "second": "amplified:rrf",
+      "metric": "ndcg20",
+      "p_holm": 0.014398560143985602,
+      "reject_05": true
+    },
+    {
+      "delta": -0.0006260422507547039,
+      "ci95": [
+        -0.0017298715608098866,
+        0.0004433214648295086
+      ],
+      "p_value": 0.26547345265473454,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.16375,
+      "seed": 20261119,
+      "first": "incidence:frequency_linear",
+      "second": "amplified:frequency_linear",
+      "metric": "recall20",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.0014366094234950079,
+      "ci95": [
+        0.0001817483808307144,
+        0.0026292232329545888
+      ],
+      "p_value": 0.0226977302269773,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.35175,
+      "seed": 20261119,
+      "first": "incidence:frequency_linear",
+      "second": "amplified:frequency_linear",
+      "metric": "ndcg20",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.0036658838200582878,
+      "ci95": [
+        0.002941985393076638,
+        0.004382160661384563
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.14975,
+      "seed": 20261119,
+      "first": "incidence:lambdamart",
+      "second": "amplified:lambdamart",
+      "metric": "recall20",
+      "p_holm": 0.014398560143985602,
+      "reject_05": true
+    },
+    {
+      "delta": 0.00966133231120584,
+      "ci95": [
+        0.00848631957538109,
+        0.010881954815008296
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.20675,
+      "seed": 20261119,
+      "first": "incidence:lambdamart",
+      "second": "amplified:lambdamart",
+      "metric": "ndcg20",
+      "p_holm": 0.014398560143985602,
+      "reject_05": true
+    },
+    {
+      "delta": -0.006712612151439536,
+      "ci95": [
+        -0.008487280922337723,
+        -0.0047011540243742204
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.19925,
+      "seed": 20261119,
+      "first": "incidence:bundlefuse_gate",
+      "second": "amplified:bundlefuse_gate",
+      "metric": "recall20",
+      "p_holm": 0.014398560143985602,
+      "reject_05": true
+    },
+    {
+      "delta": -0.01713382958910736,
+      "ci95": [
+        -0.01958529967052682,
+        -0.014420435538721674
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 4000,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.331,
+      "seed": 20261119,
+      "first": "incidence:bundlefuse_gate",
+      "second": "amplified:bundlefuse_gate",
+      "metric": "ndcg20",
+      "p_holm": 0.014398560143985602,
+      "reject_05": true
+    }
+  ]
+}

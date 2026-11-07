@@ -1,0 +1,9 @@
+{
+  "reason": "236 maximum planned primary metric contrasts fit within 256 reserved tests. 512 was unnecessarily broad and prevented significance at the 10000-draw minimum p-value.",
+  "before_evaluation": true,
+  "old_source_sha256": "130dba59ba63c941268a29795825ad7759d2b8b2794caafbe6c7f4299e269299",
+  "new_source_sha256": "7189b870af4728e61c88838d52516c8357541345b73aee1f57c9614c71d9f581",
+  "old_reserved_tests": 512,
+  "new_reserved_tests": 256,
+  "retained": "Only raw validation columns and fitting evaluations existed; their algorithms are unchanged."
+}

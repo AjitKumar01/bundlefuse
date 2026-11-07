@@ -1,0 +1,546 @@
+[
+  {
+    "method": {
+      "kind": "weighted",
+      "weights": {
+        "pretrain": 1.5,
+        "homo": 0.25,
+        "content": 1.5,
+        "csvd": 1.0,
+        "hist": 0.5
+      }
+    },
+    "metrics": {
+      "recall20": 0.5078616352201258,
+      "ndcg20": 0.3324180408134975
+    }
+  },
+  {
+    "method": {
+      "kind": "gate",
+      "weights": {
+        "pretrain": 1.5,
+        "homo": 0.25,
+        "content": 1.5,
+        "csvd": 1.0,
+        "hist": 0.5
+      },
+      "prior_weights": {
+        "homo": 0.25,
+        "content": 1.5
+      },
+      "scale": 1.0,
+      "kappa": 0.0
+    },
+    "metrics": {
+      "recall20": 0.5078616352201258,
+      "ndcg20": 0.3324180408134975
+    }
+  },
+  {
+    "method": {
+      "kind": "gate",
+      "weights": {
+        "pretrain": 1.5,
+        "homo": 0.25,
+        "content": 1.5,
+        "csvd": 1.0,
+        "hist": 0.5
+      },
+      "prior_weights": {
+        "homo": 0.25,
+        "content": 1.5
+      },
+      "scale": 1.0,
+      "kappa": 0.05
+    },
+    "metrics": {
+      "recall20": 0.5078616352201258,
+      "ndcg20": 0.3218719981004186
+    }
+  },
+  {
+    "method": {
+      "kind": "gate",
+      "weights": {
+        "pretrain": 1.5,
+        "homo": 0.25,
+        "content": 1.5,
+        "csvd": 1.0,
+        "hist": 0.5
+      },
+      "prior_weights": {
+        "homo": 0.25,
+        "content": 1.5
+      },
+      "scale": 1.0,
+      "kappa": 0.5
+    },
+    "metrics": {
+      "recall20": 0.5031446540880503,
+      "ndcg20": 0.30190434036358577
+    }
+  },
+  {
+    "method": {
+      "kind": "gate",
+      "weights": {
+        "pretrain": 1.5,
+        "homo": 0.25,
+        "content": 1.5,
+        "csvd": 1.0,
+        "hist": 0.5
+      },
+      "prior_weights": {
+        "homo": 0.25,
+        "content": 1.5
+      },
+      "scale": 1.0,
+      "kappa": 1.0
+    },
+    "metrics": {
+      "recall20": 0.49056603773584906,
+      "ndcg20": 0.29047879989409153
+    }
+  },
+  {
+    "method": {
+      "kind": "gate",
+      "weights": {
+        "pretrain": 1.5,
+        "homo": 0.25,
+        "content": 1.5,
+        "csvd": 1.0,
+        "hist": 0.5
+      },
+      "prior_weights": {
+        "homo": 0.25,
+        "content": 1.5
+      },
+      "scale": 1.0,
+      "kappa": 5.0
+    },
+    "metrics": {
+      "recall20": 0.3553459119496855,
+      "ndcg20": 0.223348823646101
+    }
+  },
+  {
+    "method": {
+      "kind": "gate",
+      "weights": {
+        "pretrain": 1.5,
+        "homo": 0.25,
+        "content": 1.5,
+        "csvd": 1.0,
+        "hist": 0.5
+      },
+      "prior_weights": {
+        "homo": 0.25,
+        "content": 1.5
+      },
+      "scale": 1.0,
+      "kappa": 20.0
+    },
+    "metrics": {
+      "recall20": 0.29874213836477986,
+      "ndcg20": 0.19810927764026168
+    }
+  },
+  {
+    "method": {
+      "kind": "constant",
+      "weights": {
+        "pretrain": 1.5,
+        "homo": 0.25,
+        "content": 1.5,
+        "csvd": 1.0,
+        "hist": 0.5
+      },
+      "prior_weights": {
+        "homo": 0.25,
+        "content": 1.5
+      },
+      "scale": 1.0,
+      "mixture": 0.0
+    },
+    "metrics": {
+      "recall20": 0.5078616352201258,
+      "ndcg20": 0.3324180408134975
+    }
+  },
+  {
+    "method": {
+      "kind": "constant",
+      "weights": {
+        "pretrain": 1.5,
+        "homo": 0.25,
+        "content": 1.5,
+        "csvd": 1.0,
+        "hist": 0.5
+      },
+      "prior_weights": {
+        "homo": 0.25,
+        "content": 1.5
+      },
+      "scale": 1.0,
+      "mixture": 0.05
+    },
+    "metrics": {
+      "recall20": 0.5078616352201258,
+      "ndcg20": 0.33056347246049184
+    }
+  },
+  {
+    "method": {
+      "kind": "constant",
+      "weights": {
+        "pretrain": 1.5,
+        "homo": 0.25,
+        "content": 1.5,
+        "csvd": 1.0,
+        "hist": 0.5
+      },
+      "prior_weights": {
+        "homo": 0.25,
+        "content": 1.5
+      },
+      "scale": 1.0,
+      "mixture": 0.25
+    },
+    "metrics": {
+      "recall20": 0.5078616352201258,
+      "ndcg20": 0.3249932696023325
+    }
+  },
+  {
+    "method": {
+      "kind": "constant",
+      "weights": {
+        "pretrain": 1.5,
+        "homo": 0.25,
+        "content": 1.5,
+        "csvd": 1.0,
+        "hist": 0.5
+      },
+      "prior_weights": {
+        "homo": 0.25,
+        "content": 1.5
+      },
+      "scale": 1.0,
+      "mixture": 0.5
+    },
+    "metrics": {
+      "recall20": 0.4858490566037736,
+      "ndcg20": 0.30124665052814265
+    }
+  },
+  {
+    "method": {
+      "kind": "constant",
+      "weights": {
+        "pretrain": 1.5,
+        "homo": 0.25,
+        "content": 1.5,
+        "csvd": 1.0,
+        "hist": 0.5
+      },
+      "prior_weights": {
+        "homo": 0.25,
+        "content": 1.5
+      },
+      "scale": 1.0,
+      "mixture": 0.75
+    },
+    "metrics": {
+      "recall20": 0.3805031446540881,
+      "ndcg20": 0.2410622926952994
+    }
+  },
+  {
+    "method": {
+      "kind": "constant",
+      "weights": {
+        "pretrain": 1.5,
+        "homo": 0.25,
+        "content": 1.5,
+        "csvd": 1.0,
+        "hist": 0.5
+      },
+      "prior_weights": {
+        "homo": 0.25,
+        "content": 1.5
+      },
+      "scale": 1.0,
+      "mixture": 1.0
+    },
+    "metrics": {
+      "recall20": 0.29874213836477986,
+      "ndcg20": 0.1846579751014387
+    }
+  },
+  {
+    "method": {
+      "kind": "gate",
+      "weights": {
+        "pretrain": 1.5,
+        "homo": 0.25,
+        "content": 1.5,
+        "csvd": 1.0,
+        "hist": 0.5
+      },
+      "prior_weights": {
+        "homo": 0.25,
+        "content": 1.5
+      },
+      "scale": 1.7761428930820073,
+      "kappa": 0.0
+    },
+    "metrics": {
+      "recall20": 0.5078616352201258,
+      "ndcg20": 0.3324180408134975
+    }
+  },
+  {
+    "method": {
+      "kind": "gate",
+      "weights": {
+        "pretrain": 1.5,
+        "homo": 0.25,
+        "content": 1.5,
+        "csvd": 1.0,
+        "hist": 0.5
+      },
+      "prior_weights": {
+        "homo": 0.25,
+        "content": 1.5
+      },
+      "scale": 1.7761428930820073,
+      "kappa": 0.05
+    },
+    "metrics": {
+      "recall20": 0.5455974842767296,
+      "ndcg20": 0.3626737611086317
+    }
+  },
+  {
+    "method": {
+      "kind": "gate",
+      "weights": {
+        "pretrain": 1.5,
+        "homo": 0.25,
+        "content": 1.5,
+        "csvd": 1.0,
+        "hist": 0.5
+      },
+      "prior_weights": {
+        "homo": 0.25,
+        "content": 1.5
+      },
+      "scale": 1.7761428930820073,
+      "kappa": 0.5
+    },
+    "metrics": {
+      "recall20": 0.48427672955974843,
+      "ndcg20": 0.3200705041866614
+    }
+  },
+  {
+    "method": {
+      "kind": "gate",
+      "weights": {
+        "pretrain": 1.5,
+        "homo": 0.25,
+        "content": 1.5,
+        "csvd": 1.0,
+        "hist": 0.5
+      },
+      "prior_weights": {
+        "homo": 0.25,
+        "content": 1.5
+      },
+      "scale": 1.7761428930820073,
+      "kappa": 1.0
+    },
+    "metrics": {
+      "recall20": 0.42924528301886794,
+      "ndcg20": 0.29485123502331484
+    }
+  },
+  {
+    "method": {
+      "kind": "gate",
+      "weights": {
+        "pretrain": 1.5,
+        "homo": 0.25,
+        "content": 1.5,
+        "csvd": 1.0,
+        "hist": 0.5
+      },
+      "prior_weights": {
+        "homo": 0.25,
+        "content": 1.5
+      },
+      "scale": 1.7761428930820073,
+      "kappa": 5.0
+    },
+    "metrics": {
+      "recall20": 0.330188679245283,
+      "ndcg20": 0.21939347795660646
+    }
+  },
+  {
+    "method": {
+      "kind": "gate",
+      "weights": {
+        "pretrain": 1.5,
+        "homo": 0.25,
+        "content": 1.5,
+        "csvd": 1.0,
+        "hist": 0.5
+      },
+      "prior_weights": {
+        "homo": 0.25,
+        "content": 1.5
+      },
+      "scale": 1.7761428930820073,
+      "kappa": 20.0
+    },
+    "metrics": {
+      "recall20": 0.29874213836477986,
+      "ndcg20": 0.19558559985292046
+    }
+  },
+  {
+    "method": {
+      "kind": "constant",
+      "weights": {
+        "pretrain": 1.5,
+        "homo": 0.25,
+        "content": 1.5,
+        "csvd": 1.0,
+        "hist": 0.5
+      },
+      "prior_weights": {
+        "homo": 0.25,
+        "content": 1.5
+      },
+      "scale": 1.7761428930820073,
+      "mixture": 0.0
+    },
+    "metrics": {
+      "recall20": 0.5078616352201258,
+      "ndcg20": 0.3324180408134975
+    }
+  },
+  {
+    "method": {
+      "kind": "constant",
+      "weights": {
+        "pretrain": 1.5,
+        "homo": 0.25,
+        "content": 1.5,
+        "csvd": 1.0,
+        "hist": 0.5
+      },
+      "prior_weights": {
+        "homo": 0.25,
+        "content": 1.5
+      },
+      "scale": 1.7761428930820073,
+      "mixture": 0.05
+    },
+    "metrics": {
+      "recall20": 0.5078616352201258,
+      "ndcg20": 0.3302911162129117
+    }
+  },
+  {
+    "method": {
+      "kind": "constant",
+      "weights": {
+        "pretrain": 1.5,
+        "homo": 0.25,
+        "content": 1.5,
+        "csvd": 1.0,
+        "hist": 0.5
+      },
+      "prior_weights": {
+        "homo": 0.25,
+        "content": 1.5
+      },
+      "scale": 1.7761428930820073,
+      "mixture": 0.25
+    },
+    "metrics": {
+      "recall20": 0.4968553459119497,
+      "ndcg20": 0.3153848115186583
+    }
+  },
+  {
+    "method": {
+      "kind": "constant",
+      "weights": {
+        "pretrain": 1.5,
+        "homo": 0.25,
+        "content": 1.5,
+        "csvd": 1.0,
+        "hist": 0.5
+      },
+      "prior_weights": {
+        "homo": 0.25,
+        "content": 1.5
+      },
+      "scale": 1.7761428930820073,
+      "mixture": 0.5
+    },
+    "metrics": {
+      "recall20": 0.42924528301886794,
+      "ndcg20": 0.28620816820016154
+    }
+  },
+  {
+    "method": {
+      "kind": "constant",
+      "weights": {
+        "pretrain": 1.5,
+        "homo": 0.25,
+        "content": 1.5,
+        "csvd": 1.0,
+        "hist": 0.5
+      },
+      "prior_weights": {
+        "homo": 0.25,
+        "content": 1.5
+      },
+      "scale": 1.7761428930820073,
+      "mixture": 0.75
+    },
+    "metrics": {
+      "recall20": 0.3113207547169811,
+      "ndcg20": 0.21428780039297027
+    }
+  },
+  {
+    "method": {
+      "kind": "constant",
+      "weights": {
+        "pretrain": 1.5,
+        "homo": 0.25,
+        "content": 1.5,
+        "csvd": 1.0,
+        "hist": 0.5
+      },
+      "prior_weights": {
+        "homo": 0.25,
+        "content": 1.5
+      },
+      "scale": 1.7761428930820073,
+      "mixture": 1.0
+    },
+    "metrics": {
+      "recall20": 0.29874213836477986,
+      "ndcg20": 0.1846579751014387
+    }
+  }
+]

@@ -1,0 +1,37 @@
+{
+  "source_sha256": "130dba59ba63c941268a29795825ad7759d2b8b2794caafbe6c7f4299e269299",
+  "targeted_unit_checks": 4,
+  "smoke_checks": [
+    {
+      "dataset": "pog_dense",
+      "methods": 27,
+      "status": "passed",
+      "checkpoint_unchanged": true
+    },
+    {
+      "dataset": "pog",
+      "methods": 26,
+      "status": "passed",
+      "checkpoint_unchanged": true
+    },
+    {
+      "dataset": "spotify",
+      "methods": 11,
+      "status": "passed",
+      "checkpoint_unchanged": true
+    }
+  ],
+  "source_archive": "checkpoints/sufficiency/source_130dba59ba63.tar.gz",
+  "source_archive_sha256": "24d428ea37ddce99f6acaeaf5dc8923c4ffbd12e0e01fdf8e3c51e281bb3ad1d",
+  "scope": "Correctness and smoke verification only; full run results generated separately.",
+  "statistical_protocol_amendment": {
+    "reason": "236 maximum planned primary metric contrasts fit within 256 reserved tests. 512 was unnecessarily broad and prevented significance at the 10000-draw minimum p-value.",
+    "before_evaluation": true,
+    "old_source_sha256": "130dba59ba63c941268a29795825ad7759d2b8b2794caafbe6c7f4299e269299",
+    "new_source_sha256": "7189b870af4728e61c88838d52516c8357541345b73aee1f57c9614c71d9f581",
+    "old_reserved_tests": 512,
+    "new_reserved_tests": 256,
+    "retained": "Only raw validation columns and fitting evaluations existed; their algorithms are unchanged.",
+    "source_archive": "checkpoints/sufficiency/source_7189b870af47.tar.gz"
+  }
+}

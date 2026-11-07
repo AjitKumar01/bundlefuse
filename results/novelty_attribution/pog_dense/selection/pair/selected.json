@@ -1,0 +1,100 @@
+{
+  "equal": {
+    "kind": "equal",
+    "weights": {
+      "cat": 1.0,
+      "bridge": 1.0,
+      "pop": 1.0,
+      "csvd": 1.0,
+      "hist": 1.0
+    },
+    "tuning_metrics": {
+      "recall20": 0.3755605381165918,
+      "ndcg20": 0.26317836930569705
+    }
+  },
+  "weighted": {
+    "kind": "weighted",
+    "weights": {
+      "cat": 0.5,
+      "bridge": 0.25,
+      "pop": 0.25,
+      "csvd": 0.25,
+      "hist": 0.25
+    },
+    "parameters": 5,
+    "tuning_metrics": {
+      "recall20": 0.37668161434977576,
+      "ndcg20": 0.26219853055163167
+    }
+  },
+  "bundlefuse_gate": {
+    "kind": "bundlefuse_gate",
+    "weights": {
+      "cat": 0.5,
+      "bridge": 0.25,
+      "pop": 0.25,
+      "csvd": 0.25,
+      "hist": 0.25
+    },
+    "prior_weights": {
+      "cat": 0.5,
+      "bridge": 0.25,
+      "pop": 0.25
+    },
+    "kappa": 0.5,
+    "scale": 1.2591922365154542,
+    "parameters": 0,
+    "base_weight_count": 5,
+    "tuning_metrics": {
+      "recall20": 0.3781763826606875,
+      "ndcg20": 0.2639215734905008
+    }
+  },
+  "rrf": {
+    "kind": "rrf",
+    "offset": 10.0,
+    "parameters": 0,
+    "tuning_metrics": {
+      "recall20": 0.31315396113602406,
+      "ndcg20": 0.1940383598672691
+    }
+  },
+  "frequency_linear": {
+    "kind": "frequency_linear",
+    "coefficients": [
+      0.40846948328774374,
+      0.09317647698597151,
+      0.020430450492384497,
+      -0.014076158635031175,
+      0.007821989892859017,
+      0.19076109262705132,
+      0.09578528602010042,
+      0.048067590778699515,
+      0.01876497258367941,
+      0.007964851558528581,
+      0.03411357094242501
+    ],
+    "kappa": 0.5,
+    "regularization": 0.1,
+    "iterations": 11,
+    "parameters": 11,
+    "training_pairs": 50976,
+    "objective": 0.4679927720113326,
+    "tuning_metrics": {
+      "recall20": 0.3267937219730942,
+      "ndcg20": 0.23426621446296297
+    }
+  },
+  "lambdamart": {
+    "kind": "lambdamart",
+    "trees": 150,
+    "depth": 3,
+    "model_path": "checkpoints/novelty_attribution/pog_dense/models/pair/lambdamart_150_3.json",
+    "trained_trees": 150,
+    "tuning_metrics": {
+      "recall20": 0.2673766816143499,
+      "ndcg20": 0.2247962615439768
+    }
+  }
+}

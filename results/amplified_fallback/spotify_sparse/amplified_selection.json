@@ -1,0 +1,53 @@
+{
+  "power": 1.0,
+  "neighbors": 100,
+  "fit_ndcg20": 0.14209603100916263,
+  "grid": [
+    {
+      "power": 1.0,
+      "neighbors": 100,
+      "ndcg20": 0.14209603100916263
+    },
+    {
+      "power": 1.0,
+      "neighbors": 500,
+      "ndcg20": 0.14062046408936635
+    },
+    {
+      "power": 1.0,
+      "neighbors": null,
+      "ndcg20": 0.1406198082808702
+    },
+    {
+      "power": 2.0,
+      "neighbors": 100,
+      "ndcg20": 0.13573917777054323
+    },
+    {
+      "power": 2.0,
+      "neighbors": 500,
+      "ndcg20": 0.13673073120012053
+    },
+    {
+      "power": 2.0,
+      "neighbors": null,
+      "ndcg20": 0.13673073120012053
+    },
+    {
+      "power": 3.0,
+      "neighbors": 100,
+      "ndcg20": 0.122842684685829
+    },
+    {
+      "power": 3.0,
+      "neighbors": 500,
+      "ndcg20": 0.12354573607043255
+    },
+    {
+      "power": 3.0,
+      "neighbors": null,
+      "ndcg20": 0.12354573607043255
+    }
+  ],
+  "definition": "B.T @ truncated[(B @ D x)/(sqrt(bundle_size)*sqrt(seed_count))]^power"
+}

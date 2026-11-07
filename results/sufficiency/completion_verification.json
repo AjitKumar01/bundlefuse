@@ -1,0 +1,25 @@
+{
+  "status": "all_primary_runs_complete",
+  "methods_verified": 106,
+  "checks": [
+    {
+      "dataset": "pog_dense",
+      "input_checkpoint_unchanged": true,
+      "test_queries": 5547,
+      "methods": 56
+    },
+    {
+      "dataset": "pog",
+      "input_checkpoint_unchanged": true,
+      "test_queries": 3995,
+      "methods": 39
+    },
+    {
+      "dataset": "spotify",
+      "input_checkpoint_unchanged": true,
+      "test_queries": 3995,
+      "methods": 11
+    }
+  ],
+  "remaining": "Conditional E5 and compact export/memory confirmation were not run."
+}

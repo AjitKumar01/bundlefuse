@@ -1,0 +1,26 @@
+{
+  "config": {
+    "kind": "gate",
+    "weights": {
+      "pop": 0.25,
+      "csvd": 0.25
+    },
+    "prior_weights": {
+      "pop": 0.25
+    },
+    "scale": 1.521293023842071,
+    "kappa": 20.0
+  },
+  "tuning_metrics": [
+    0.34707287933094394,
+    0.21196187055266527
+  ],
+  "keys": [
+    "pop",
+    "csvd"
+  ],
+  "history": "canonical",
+  "alpha": 1.0,
+  "seconds": 5.1563438329903875,
+  "fitting_candidates": 12
+}

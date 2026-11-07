@@ -1,0 +1,60 @@
+{
+  "source_sha256": "87c6e5036c59fe49ea6caa38b8981b04c50b9307efebd93cdb59044bc11803c4",
+  "checks": [
+    {
+      "dataset": "electronic",
+      "checkpoint_retained_unchanged": true,
+      "effective_profile": "extended",
+      "status": "complete",
+      "methods": 7,
+      "queries": 346,
+      "reference_score_parity": true
+    },
+    {
+      "dataset": "food",
+      "checkpoint_retained_unchanged": true,
+      "effective_profile": "extended",
+      "status": "complete",
+      "methods": 7,
+      "queries": 353,
+      "reference_score_parity": true
+    },
+    {
+      "dataset": "clothing",
+      "checkpoint_retained_unchanged": true,
+      "effective_profile": "extended",
+      "status": "complete",
+      "methods": 7,
+      "queries": 371,
+      "reference_score_parity": true
+    },
+    {
+      "dataset": "dunnhumby",
+      "checkpoint_retained_unchanged": true,
+      "effective_profile": "extended",
+      "status": "complete",
+      "methods": 7,
+      "queries": 2000,
+      "reference_score_parity": true
+    },
+    {
+      "dataset": "spotify_sparse",
+      "checkpoint_retained_unchanged": true,
+      "effective_profile": "research",
+      "status": "complete",
+      "methods": 7,
+      "queries": 2498,
+      "reference_score_parity": true
+    }
+  ],
+  "targeted_unit_checks_passed": 8,
+  "full_pipeline_smoke_datasets": [
+    "electronic",
+    "clothing",
+    "dunnhumby",
+    "spotify_sparse"
+  ],
+  "source_archive": "checkpoints/amplified_fallback/source_87c6e5036c59.tar.gz",
+  "source_archive_sha256": "77e470c9571655a89ae2191640852b215c4e091212cd4b5dc219cebb3b71de50",
+  "status": "complete"
+}

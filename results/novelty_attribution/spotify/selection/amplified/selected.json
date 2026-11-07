@@ -1,0 +1,104 @@
+{
+  "equal": {
+    "kind": "equal",
+    "weights": {
+      "pop": 1.0,
+      "ppmi": 1.0,
+      "csvd": 1.0,
+      "homo": 1.0,
+      "audiostyle": 1.0,
+      "bridge": 1.0,
+      "rao": 1.0,
+      "hist": 1.0
+    },
+    "tuning_metrics": {
+      "recall20": 0.16842436420159831,
+      "ndcg20": 0.2758145770504952
+    }
+  },
+  "weighted": {
+    "kind": "weighted",
+    "weights": {
+      "homo": 0.25,
+      "rao": 0.25,
+      "hist": 0.25
+    },
+    "parameters": 3,
+    "tuning_metrics": {
+      "recall20": 0.1745370721396087,
+      "ndcg20": 0.2860383715096493
+    }
+  },
+  "bundlefuse_gate": {
+    "kind": "bundlefuse_gate",
+    "weights": {
+      "homo": 0.25,
+      "rao": 0.25,
+      "hist": 0.25
+    },
+    "prior_weights": {
+      "homo": 0.25,
+      "rao": 0.25
+    },
+    "kappa": 0.05,
+    "scale": 1.4255522633254225,
+    "parameters": 0,
+    "base_weight_count": 3,
+    "tuning_metrics": {
+      "recall20": 0.17399337821950192,
+      "ndcg20": 0.29247817991054204
+    }
+  },
+  "rrf": {
+    "kind": "rrf",
+    "offset": 60.0,
+    "parameters": 0,
+    "tuning_metrics": {
+      "recall20": 0.14034532254201906,
+      "ndcg20": 0.22737241066456235
+    }
+  },
+  "frequency_linear": {
+    "kind": "frequency_linear",
+    "coefficients": [
+      0.01200287123298331,
+      0.0067988283886857934,
+      0.05761175263169737,
+      0.015076472819200118,
+      -0.05032757354484472,
+      0.14814241819310264,
+      0.006578428701530931,
+      -0.0045586767378009724,
+      0.03843337920732472,
+      0.024252388221391856,
+      0.1473444589068585,
+      0.0011230938089062327,
+      -0.19024876993252157,
+      0.13924383857634154,
+      0.0031081854979644577,
+      -0.0035917110242182416,
+      0.015070856816963109
+    ],
+    "kappa": 5.0,
+    "regularization": 0.1,
+    "iterations": 12,
+    "parameters": 17,
+    "training_pairs": 718960,
+    "objective": 0.5105825161770203,
+    "tuning_metrics": {
+      "recall20": 0.12161858746955491,
+      "ndcg20": 0.19704873987057772
+    }
+  },
+  "lambdamart": {
+    "kind": "lambdamart",
+    "trees": 150,
+    "depth": 3,
+    "model_path": "checkpoints/novelty_attribution/spotify/models/amplified/lambdamart_150_3.json",
+    "trained_trees": 150,
+    "tuning_metrics": {
+      "recall20": 0.022352275085559314,
+      "ndcg20": 0.039022519651454694
+    }
+  }
+}

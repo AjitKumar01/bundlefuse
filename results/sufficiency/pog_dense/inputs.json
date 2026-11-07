@@ -1,0 +1,75 @@
+{
+  "identity": {
+    "metadata": {
+      "dataset": "pog_dense",
+      "n_items": 31217,
+      "protocol": "provided",
+      "data_profile": "research",
+      "split_seed": null,
+      "mask_frac": null,
+      "val_limit": null,
+      "test_limit": null,
+      "train_bundles": 20780,
+      "val_queries": 2968,
+      "test_queries": 5938,
+      "val_total": 2968,
+      "test_total": 5938,
+      "full_validation": true,
+      "full_test": true,
+      "train_sha256": "c857b6006f427f45f2c61043f7ca3b3000d217916355d1fe672400cb90b12197",
+      "val_pairs_sha256": "a4875988690b378de73dbee94c884592f2640abdf147802af5eeaecc95052c8d",
+      "test_pairs_sha256": "8a83c38861a91bab37fb7b9b72c938e69c7c016fac5edd759aeb154e26d89b0f",
+      "input_sha256": {
+        "bi_train.txt": "c6943aed7ec0be22cf2f7ee4383ec5b067d0c814f14d42446a34019700b93a4b",
+        "bi_valid_input.txt": "405468b777fe67b317e17ec4b21d9b0bb48850e9e115816c40633b1b10c2614d",
+        "bi_valid_gt.txt": "db871bc7be893dc07f065931fde05dc743dd3a6f357429d92a91124c0d23885c",
+        "bi_test_input.txt": "e7993ffd5ff4cb5fc0b7e4462eee3e48a9fba91462c03ac6446f38b5d1a73b59",
+        "bi_test_gt.txt": "e7ca4dbe4260f3cfc6ff3848c33617d73a17209b7d365e6eeb924d550dd9be2e",
+        "count.json": "9a15a12c1437fd0b38d067dd0c9fb1ee74e63fa9b577df321764d934ffb61e57",
+        "item_info.json": "69d872a551cf8f317662943a79b70ae3fd9a1fb8f58147f63a253171316bfb59",
+        "title_emb.npy": "d9c1047deafa745f4cb0bb4f44eaa9aa616de5e7b6c7b1f9ea29e345406290be",
+        "content_feature.pt": "3bf198b402ca48892e00941397687ef23ea4ca72cd4535789fa844fa4ed0cb80",
+        "description_feature.pt": "3938b0546d9c604fda99f24cd4cadb2ac9bb95ca2bd1a7dec0e798dad8d5bf53"
+      }
+    },
+    "source_sha256": "4ffe9a214ad5b65a5d5047b3c77f9b12bd3962f50bae9e6e50aa5ce097b9c937",
+    "smoke": false
+  },
+  "split_manifest": {
+    "protocol": "provided",
+    "directory": "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/pog_dense",
+    "sha256": {
+      "bi_train.txt": "c6943aed7ec0be22cf2f7ee4383ec5b067d0c814f14d42446a34019700b93a4b",
+      "bi_valid_input.txt": "405468b777fe67b317e17ec4b21d9b0bb48850e9e115816c40633b1b10c2614d",
+      "bi_valid_gt.txt": "db871bc7be893dc07f065931fde05dc743dd3a6f357429d92a91124c0d23885c",
+      "bi_test_input.txt": "e7993ffd5ff4cb5fc0b7e4462eee3e48a9fba91462c03ac6446f38b5d1a73b59",
+      "bi_test_gt.txt": "e7ca4dbe4260f3cfc6ff3848c33617d73a17209b7d365e6eeb924d550dd9be2e",
+      "count.json": "9a15a12c1437fd0b38d067dd0c9fb1ee74e63fa9b577df321764d934ffb61e57"
+    },
+    "train_bundles": 20780,
+    "valid_queries": 2968,
+    "test_queries": 5938,
+    "deduplicate_bundles": false,
+    "regenerate_masks": false,
+    "query_cap": null
+  },
+  "artifact_path": "checkpoints/publication_mechanisms/pog_dense/artifacts.pt",
+  "artifact_sha256": "5c7bfc38feb43bf9f045630bd7b45e71b57e8dda168209245b7aa105b7e6fd47",
+  "runtime": {
+    "package_source_sha256": "2901f070a14c417611413fc200c06823ec441d7eeae277b4d8e786e9a1becdcd",
+    "python": "3.13.4 (main, Jun  6 2025, 22:30:22) [Clang 17.0.0 (clang-1700.0.13.3)]",
+    "platform": "macOS-27.2-arm64-arm-64bit-Mach-O",
+    "entrypoint_sha256": {
+      "evaluator.py": "1dbdd2eb9658d21233a7960d1eb1092676d30318be95131ea25dd72f39d46bc2",
+      "inference.py": "319a0f7a0d7849ce2b23adcd8af5e158d4161728cbdf74f0fdfcfaaa8ce3a85e",
+      "validate.py": "2f98ce2797f692ae3afaacae474d8391dabc9160974709cb5dfbe95c2e5a6bf2"
+    },
+    "versions": {
+      "numpy": "2.5.4",
+      "scipy": "1.18.1",
+      "sklearn": "1.7.2",
+      "torch": "2.9.1"
+    },
+    "torch_threads": 1
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "datasets": [
+    "electronic",
+    "food",
+    "clothing",
+    "dunnhumby",
+    "spotify_sparse"
+  ],
+  "seed": 20261119,
+  "chunk": 8,
+  "fit_fraction": 0.7,
+  "powers": [
+    1.0,
+    2.0,
+    3.0
+  ],
+  "neighbors": [
+    100,
+    500,
+    null
+  ],
+  "rounds": 4,
+  "kappa": [
+    0.0,
+    0.05,
+    0.5,
+    1.0,
+    5.0,
+    20.0
+  ],
+  "mixture": [
+    0.0,
+    0.05,
+    0.25,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "bootstrap": 2000,
+  "permutations": 10000,
+  "planned_tests": 60,
+  "banks": [
+    "reference",
+    "amplified"
+  ],
+  "fusions": [
+    "weighted",
+    "gate",
+    "constant"
+  ],
+  "sources": "Retain each input checkpoint's selected source inventory. Replace only simp's effective standardized pair/incidence column. Other columns, including any diffusion or concordance column, remain unchanged. Historical coefficient may be selected as zero.",
+  "selection": "Group validation by complete bundle; fit on 70%, tune on 30%. Amplification and coordinate weights use fit groups only. Select gate and constant mixture on tuning NDCG@20; no refit. Freeze all recipes before test score generation.",
+  "scope": "Exploratory continuation after inspecting POG_DENSE, Spotify and POG. Spotify_sparse uses retained research mechanism artifacts and all supplied queries. Other datasets reuse the verified reorganized extended checkpoints and their original seed-0 random splits/query limits (800 validation, 2000 test ceilings). Dunnhumby is not the chronological robustness protocol. Original frozen references were selected on all original validation queries; comparisons with refits are descriptive.",
+  "retention": "Separate output/cache directories; retain all input checkpoints, intermediate caches, selected recipes, per-query metrics/predictions and progress on interruption.",
+  "dataset": "clothing",
+  "smoke": false,
+  "source_sha256": "87c6e5036c59fe49ea6caa38b8981b04c50b9307efebd93cdb59044bc11803c4"
+}

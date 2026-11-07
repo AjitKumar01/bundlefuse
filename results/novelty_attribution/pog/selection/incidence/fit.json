@@ -1,0 +1,21 @@
+{
+  "fit_queries": 1400,
+  "tuning_queries": 600,
+  "sampled_rows": 262474,
+  "positives": 2933,
+  "keys": [
+    "cat",
+    "style",
+    "bridge",
+    "hist"
+  ],
+  "coordinate_candidates": 33,
+  "seconds": 80.02814333399874,
+  "source_weight_grid": [
+    0,
+    0.25,
+    0.5,
+    1.0,
+    1.5
+  ]
+}

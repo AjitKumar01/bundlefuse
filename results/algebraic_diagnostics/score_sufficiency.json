@@ -1,0 +1,203 @@
+{
+  "scope": "Synthetic algebra checks; not a new benchmark or a sufficiency certificate.",
+  "four_item_counterexample": [
+    {
+      "values_per_group": 2,
+      "items": 8,
+      "bundles_per_corpus": 8,
+      "first_three_count_orders_equal": {
+        "1": true,
+        "2": true,
+        "3": true
+      },
+      "max_score_difference_between_corpora": {
+        "pair": 5.960464477539063e-08,
+        "diff2_pair": 4.470348358154297e-08,
+        "simp": 2.384185791015625e-07,
+        "diff2": 5.960464477539063e-08,
+        "rao": 0.0,
+        "pop": 0.0,
+        "cooc": 0.0,
+        "ppmi": 0.0,
+        "cat": 0.0,
+        "softcat": 0.0,
+        "style": 0.0,
+        "imgstyle": 0.0,
+        "bridge": 0.0,
+        "csvd": 0.0,
+        "final_dense_recipe": 1.1920928955078125e-07
+      },
+      "candidate_score_ranges_in_first_corpus": {
+        "pair": 5.960464477539063e-08,
+        "diff2_pair": 4.470348358154297e-08,
+        "simp": 2.384185791015625e-07,
+        "diff2": 5.960464477539063e-08,
+        "rao": 0.0,
+        "pop": 0.0,
+        "cooc": 0.0,
+        "ppmi": 0.0,
+        "cat": 0.0,
+        "softcat": 0.0,
+        "style": 0.0,
+        "imgstyle": 0.0,
+        "bridge": 0.0,
+        "csvd": 0.0,
+        "final_dense_recipe": 1.1920928955078125e-07
+      },
+      "query": [
+        0,
+        2,
+        4
+      ],
+      "candidates": [
+        6,
+        7
+      ],
+      "four_item_counts_first_corpus": [
+        1,
+        0
+      ],
+      "four_item_counts_second_corpus": [
+        0,
+        1
+      ],
+      "note": "Floating-point ties represent exact algebraic equality. The q=21 construction has more tied completion candidates than cutoff 20."
+    },
+    {
+      "values_per_group": 21,
+      "items": 84,
+      "bundles_per_corpus": 9261,
+      "first_three_count_orders_equal": {
+        "1": true,
+        "2": true,
+        "3": true
+      },
+      "max_score_difference_between_corpora": {
+        "pair": 1.1920928955078125e-07,
+        "diff2_pair": 1.1920928955078125e-07,
+        "simp": 1.1920928955078125e-07,
+        "diff2": 1.1920928955078125e-07,
+        "rao": 0.0,
+        "pop": 0.0,
+        "cooc": 0.0,
+        "ppmi": 0.0,
+        "cat": 0.0,
+        "softcat": 0.0,
+        "style": 0.0,
+        "imgstyle": 0.0,
+        "bridge": 0.0,
+        "csvd": 0.0,
+        "final_dense_recipe": 0.0
+      },
+      "candidate_score_ranges_in_first_corpus": {
+        "pair": 1.1920928955078125e-07,
+        "diff2_pair": 1.1920928955078125e-07,
+        "simp": 1.1920928955078125e-07,
+        "diff2": 1.1920928955078125e-07,
+        "rao": 0.0,
+        "pop": 0.0,
+        "cooc": 0.0,
+        "ppmi": 0.0,
+        "cat": 0.0,
+        "softcat": 0.0,
+        "style": 0.0,
+        "imgstyle": 0.0,
+        "bridge": 0.0,
+        "csvd": 0.0,
+        "final_dense_recipe": 0.0
+      },
+      "query": [
+        0,
+        21,
+        42
+      ],
+      "candidates": [
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83
+      ],
+      "four_item_counts_first_corpus": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "four_item_counts_second_corpus": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "note": "Floating-point ties represent exact algebraic equality. The q=21 construction has more tied completion candidates than cutoff 20."
+    }
+  ],
+  "correlated_measurement_identity": {
+    "cases": 100,
+    "max_precision_identity_error": 2.7755575615628914e-15
+  },
+  "ranking_target_and_information_gain": {
+    "cases_per_metric": 100,
+    "permutations_per_case": 24,
+    "max_optimal_sort_error": 2.220446049250313e-16,
+    "max_actual_gain_divided_by_bound": 0.290488423788679
+  },
+  "source_hashes": {
+    "scripts/check_score_sufficiency.py": "7babecafe1224ce6f3fe48fc1a808b8182b21ae19cc33b1493d31b3d9443195d",
+    "bundlefuse/operators.py": "c4166aa1538daf2ffb6dbbfebd885ce948a105dc125b5b78d123a6eab61abcd0",
+    "bundlefuse/fusion.py": "593c02d854adbb522c816060cc27f25f614cce1f37bf44b39c979d5f7135f233",
+    "bundlefuse/selected_signals.py": "16977e62f24426ce03043f7ae07ce1c9786ddc41701026695c2d8f7fb0de2486",
+    "results/publication_mechanisms/pog_dense/full.json": "0accecc748637aa55f6cdd5ec7e41899746e31c81bb00b434ea250a5af10c61f"
+  }
+}

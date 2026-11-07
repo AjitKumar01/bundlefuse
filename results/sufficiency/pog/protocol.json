@@ -1,0 +1,40 @@
+{
+  "seed": 20261119,
+  "rounds": 4,
+  "weight_grid": [
+    0.0,
+    0.25,
+    0.5,
+    1.0,
+    1.5
+  ],
+  "kappa_grid": [
+    0.0,
+    0.05,
+    0.5,
+    1.0,
+    5.0,
+    20.0
+  ],
+  "constant_grid": [
+    0.0,
+    0.05,
+    0.25,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "fit_fraction": 0.7,
+  "primary_studies": [
+    "E1",
+    "E2",
+    "E3",
+    "E4"
+  ],
+  "reserved_tests": 256,
+  "scope": "Exploratory supplied splits; no untouched confirmation or sufficiency certificate.",
+  "conditional_studies": "E5 probes/bridge and thinning require primary findings; not automatically launched.",
+  "dataset": "pog",
+  "smoke": false,
+  "source_sha256": "7189b870af4728e61c88838d52516c8357541345b73aee1f57c9614c71d9f581"
+}

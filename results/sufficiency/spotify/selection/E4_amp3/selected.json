@@ -1,0 +1,27 @@
+{
+  "config": {
+    "kind": "weighted",
+    "weights": {
+      "homo": 0.25,
+      "rao": 1.0
+    }
+  },
+  "tuning_metrics": [
+    0.16915992890103373,
+    0.27888074121822126
+  ],
+  "keys": [
+    "pop",
+    "ppmi",
+    "csvd",
+    "homo",
+    "audiostyle",
+    "bridge",
+    "rao",
+    "hist"
+  ],
+  "history": "amp3",
+  "alpha": 1.0,
+  "seconds": 313.0488818749727,
+  "fitting_candidates": 96
+}

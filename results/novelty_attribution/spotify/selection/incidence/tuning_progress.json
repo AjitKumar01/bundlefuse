@@ -1,0 +1,350 @@
+{
+  "candidates": [
+    {
+      "method": {
+        "kind": "equal",
+        "weights": {
+          "pop": 1.0,
+          "ppmi": 1.0,
+          "csvd": 1.0,
+          "homo": 1.0,
+          "audiostyle": 1.0,
+          "bridge": 1.0,
+          "rao": 1.0,
+          "hist": 1.0
+        }
+      },
+      "metrics": {
+        "recall20": 0.16449054365434093,
+        "ndcg20": 0.26792288194707736
+      }
+    },
+    {
+      "method": {
+        "kind": "weighted",
+        "weights": {
+          "homo": 0.25,
+          "rao": 1.0
+        },
+        "parameters": 2
+      },
+      "metrics": {
+        "recall20": 0.16915992890103373,
+        "ndcg20": 0.27888074121822126
+      }
+    },
+    {
+      "method": {
+        "kind": "bundlefuse_gate",
+        "weights": {
+          "homo": 0.25,
+          "rao": 1.0
+        },
+        "prior_weights": {
+          "homo": 0.25,
+          "rao": 1.0
+        },
+        "kappa": 0.0,
+        "scale": 1.0,
+        "parameters": 0,
+        "base_weight_count": 2
+      },
+      "metrics": {
+        "recall20": 0.16915992890103373,
+        "ndcg20": 0.27888074121822126
+      }
+    },
+    {
+      "method": {
+        "kind": "bundlefuse_gate",
+        "weights": {
+          "homo": 0.25,
+          "rao": 1.0
+        },
+        "prior_weights": {
+          "homo": 0.25,
+          "rao": 1.0
+        },
+        "kappa": 0.05,
+        "scale": 1.0,
+        "parameters": 0,
+        "base_weight_count": 2
+      },
+      "metrics": {
+        "recall20": 0.16915992890103373,
+        "ndcg20": 0.27888074121822126
+      }
+    },
+    {
+      "method": {
+        "kind": "bundlefuse_gate",
+        "weights": {
+          "homo": 0.25,
+          "rao": 1.0
+        },
+        "prior_weights": {
+          "homo": 0.25,
+          "rao": 1.0
+        },
+        "kappa": 0.5,
+        "scale": 1.0,
+        "parameters": 0,
+        "base_weight_count": 2
+      },
+      "metrics": {
+        "recall20": 0.16915992890103373,
+        "ndcg20": 0.27888074121822126
+      }
+    },
+    {
+      "method": {
+        "kind": "bundlefuse_gate",
+        "weights": {
+          "homo": 0.25,
+          "rao": 1.0
+        },
+        "prior_weights": {
+          "homo": 0.25,
+          "rao": 1.0
+        },
+        "kappa": 1.0,
+        "scale": 1.0,
+        "parameters": 0,
+        "base_weight_count": 2
+      },
+      "metrics": {
+        "recall20": 0.16915992890103373,
+        "ndcg20": 0.27888074121822126
+      }
+    },
+    {
+      "method": {
+        "kind": "bundlefuse_gate",
+        "weights": {
+          "homo": 0.25,
+          "rao": 1.0
+        },
+        "prior_weights": {
+          "homo": 0.25,
+          "rao": 1.0
+        },
+        "kappa": 5.0,
+        "scale": 1.0,
+        "parameters": 0,
+        "base_weight_count": 2
+      },
+      "metrics": {
+        "recall20": 0.16915992890103373,
+        "ndcg20": 0.27888074121822126
+      }
+    },
+    {
+      "method": {
+        "kind": "bundlefuse_gate",
+        "weights": {
+          "homo": 0.25,
+          "rao": 1.0
+        },
+        "prior_weights": {
+          "homo": 0.25,
+          "rao": 1.0
+        },
+        "kappa": 20.0,
+        "scale": 1.0,
+        "parameters": 0,
+        "base_weight_count": 2
+      },
+      "metrics": {
+        "recall20": 0.16915992890103373,
+        "ndcg20": 0.27888074121822126
+      }
+    },
+    {
+      "method": {
+        "kind": "rrf",
+        "offset": 10.0,
+        "parameters": 0
+      },
+      "metrics": {
+        "recall20": 0.1273639428975361,
+        "ndcg20": 0.21061858113811602
+      }
+    },
+    {
+      "method": {
+        "kind": "rrf",
+        "offset": 60.0,
+        "parameters": 0
+      },
+      "metrics": {
+        "recall20": 0.13497498829136745,
+        "ndcg20": 0.22023760399696768
+      }
+    },
+    {
+      "method": {
+        "kind": "rrf",
+        "offset": 100.0,
+        "parameters": 0
+      },
+      "metrics": {
+        "recall20": 0.13470791059510773,
+        "ndcg20": 0.2175821888207715
+      }
+    },
+    {
+      "method": {
+        "kind": "frequency_linear",
+        "coefficients": [
+          -0.18565083659595252,
+          0.00431650757206743,
+          -0.08015900048826619,
+          0.03254519275368638,
+          -0.45532154418654996,
+          0.5894575033917574,
+          0.10124035728098607,
+          -0.02419811914547176,
+          0.44464400839115814,
+          0.06027538694389591,
+          0.5278477999056298,
+          -0.01944287767282151,
+          -0.32603444659692155,
+          0.1156070382382966,
+          -0.027065061288925895,
+          -0.049593980847118704,
+          -0.2331048231514609
+        ],
+        "kappa": 5.0,
+        "regularization": 0.001,
+        "iterations": 63,
+        "parameters": 17,
+        "training_pairs": 718960,
+        "objective": 0.4279108072930645
+      },
+      "metrics": {
+        "recall20": 0.0616826456210408,
+        "ndcg20": 0.09663432271993179
+      }
+    },
+    {
+      "method": {
+        "kind": "frequency_linear",
+        "coefficients": [
+          -0.04967787618001464,
+          0.005150280163709342,
+          -0.004141920018909452,
+          0.028956595357220366,
+          -0.18976715372894765,
+          0.3439014903789043,
+          0.03453045218235604,
+          -0.024342409948517513,
+          0.1550691410725858,
+          0.049991453377208714,
+          0.3401067557320478,
+          -0.015600671721959263,
+          -0.4740043078250407,
+          0.28351618405040396,
+          0.016703459235259264,
+          -0.025573617001328448,
+          -0.06237588035710507
+        ],
+        "kappa": 5.0,
+        "regularization": 0.01,
+        "iterations": 26,
+        "parameters": 17,
+        "training_pairs": 718960,
+        "objective": 0.45079830408752314
+      },
+      "metrics": {
+        "recall20": 0.07251956812832923,
+        "ndcg20": 0.11342741251302108
+      }
+    },
+    {
+      "method": {
+        "kind": "frequency_linear",
+        "coefficients": [
+          0.01379165629675595,
+          0.008200915859027243,
+          0.057076157729477606,
+          0.01501294839493661,
+          -0.051595634714673086,
+          0.1474006181941574,
+          0.008860289112211274,
+          -0.006870427734500144,
+          0.042089399954146525,
+          0.026320262840646296,
+          0.14796102565773891,
+          0.0010547151366153767,
+          -0.19033349929272111,
+          0.14270991228397403,
+          0.0054937482860894565,
+          -0.006115023840511199,
+          0.01731686497578955
+        ],
+        "kappa": 5.0,
+        "regularization": 0.1,
+        "iterations": 12,
+        "parameters": 17,
+        "training_pairs": 718960,
+        "objective": 0.5064611138324973
+      },
+      "metrics": {
+        "recall20": 0.12055812115710685,
+        "ndcg20": 0.1957377651441532
+      }
+    },
+    {
+      "method": {
+        "kind": "lambdamart",
+        "trees": 50,
+        "depth": 3,
+        "model_path": "checkpoints/novelty_attribution/spotify/models/incidence/lambdamart_50_3.json",
+        "trained_trees": 50
+      },
+      "metrics": {
+        "recall20": 0.019871661425266782,
+        "ndcg20": 0.028500422653296546
+      }
+    },
+    {
+      "method": {
+        "kind": "lambdamart",
+        "trees": 50,
+        "depth": 5,
+        "model_path": "checkpoints/novelty_attribution/spotify/models/incidence/lambdamart_50_5.json",
+        "trained_trees": 50
+      },
+      "metrics": {
+        "recall20": 0.025060632761431136,
+        "ndcg20": 0.03831186823974949
+      }
+    },
+    {
+      "method": {
+        "kind": "lambdamart",
+        "trees": 150,
+        "depth": 3,
+        "model_path": "checkpoints/novelty_attribution/spotify/models/incidence/lambdamart_150_3.json",
+        "trained_trees": 150
+      },
+      "metrics": {
+        "recall20": 0.024126182389536142,
+        "ndcg20": 0.0438353017310863
+      }
+    },
+    {
+      "method": {
+        "kind": "lambdamart",
+        "trees": 150,
+        "depth": 5,
+        "model_path": "checkpoints/novelty_attribution/spotify/models/incidence/lambdamart_150_5.json",
+        "trained_trees": 150
+      },
+      "metrics": {
+        "recall20": 0.028026333045965128,
+        "ndcg20": 0.03992856684217733
+      }
+    }
+  ]
+}

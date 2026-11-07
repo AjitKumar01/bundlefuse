@@ -1,0 +1,75 @@
+{
+  "identity": {
+    "metadata": {
+      "dataset": "pog",
+      "n_items": 48676,
+      "protocol": "provided",
+      "data_profile": "research",
+      "split_seed": null,
+      "mask_frac": null,
+      "val_limit": null,
+      "test_limit": null,
+      "train_bundles": 14000,
+      "val_queries": 2000,
+      "test_queries": 4000,
+      "val_total": 2000,
+      "test_total": 4000,
+      "full_validation": true,
+      "full_test": true,
+      "train_sha256": "8d9beb98b2bdf20d03218a63bef95aeb967881d5e581a24d47e28a3ce920a5d5",
+      "val_pairs_sha256": "968360695479248648e12cfd2677bdbf7ca9b1d03b2da4c5ec1fed815daea133",
+      "test_pairs_sha256": "5a75148221f749cc8e2d743d7f470110e6ff60743d5f4b7706e300d34f5c4cd1",
+      "input_sha256": {
+        "bi_train.txt": "984a40495aa3afe519fad733e402eb7cfd76d9db14ddaa098d4db24b3890c22d",
+        "bi_valid_input.txt": "ebc64bf6ad97c0619ac848b1157a989b7224626b815808823db694272fbfb595",
+        "bi_valid_gt.txt": "a1d49115b963422bab75deb4df4c871f92e5cab0e7d4694f9dcc0462c6db0469",
+        "bi_test_input.txt": "a6425f2d41cf5ec0366354a4fd21ea431e2428294c375c5ff93a1adb75449ac7",
+        "bi_test_gt.txt": "7274703720f26196fd08153f602ea76a952aa5a606948269544bb657020122b8",
+        "count.json": "f5032baaadeacb88e14fb346bec0bfd670de14b6026616934949ddbb95fe118b",
+        "item_info.json": "17a6667f63d9b2f4d8b1b799e95e4465c0ed1dfa311549e034c85fe3e11c6747",
+        "title_emb.npy": "2e68d508553fac84c7a1267e7b004cdcb61e1a31f36eab957a8f61a26f6bfdc3",
+        "content_feature.pt": "9e37f8a0fa5add74f7aafd1e2088eb59981efce8be87a727550fb8aed57a597e",
+        "description_feature.pt": "c4f4477990a5a9753dc31563b180d3496121f598efac318591a8b1d83958d02c"
+      }
+    },
+    "source_sha256": "4ffe9a214ad5b65a5d5047b3c77f9b12bd3962f50bae9e6e50aa5ce097b9c937",
+    "smoke": false
+  },
+  "split_manifest": {
+    "protocol": "provided",
+    "directory": "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlemllm/datasets/pog",
+    "sha256": {
+      "bi_train.txt": "984a40495aa3afe519fad733e402eb7cfd76d9db14ddaa098d4db24b3890c22d",
+      "bi_valid_input.txt": "ebc64bf6ad97c0619ac848b1157a989b7224626b815808823db694272fbfb595",
+      "bi_valid_gt.txt": "a1d49115b963422bab75deb4df4c871f92e5cab0e7d4694f9dcc0462c6db0469",
+      "bi_test_input.txt": "a6425f2d41cf5ec0366354a4fd21ea431e2428294c375c5ff93a1adb75449ac7",
+      "bi_test_gt.txt": "7274703720f26196fd08153f602ea76a952aa5a606948269544bb657020122b8",
+      "count.json": "f5032baaadeacb88e14fb346bec0bfd670de14b6026616934949ddbb95fe118b"
+    },
+    "train_bundles": 14000,
+    "valid_queries": 2000,
+    "test_queries": 4000,
+    "deduplicate_bundles": false,
+    "regenerate_masks": false,
+    "query_cap": null
+  },
+  "artifact_path": "checkpoints/publication_mechanisms/pog/artifacts.pt",
+  "artifact_sha256": "6bd079fc9718e80a1d4e6ad09248e4abab180add5e25babdf03fb7dab7fa8e14",
+  "runtime": {
+    "package_source_sha256": "2901f070a14c417611413fc200c06823ec441d7eeae277b4d8e786e9a1becdcd",
+    "python": "3.13.4 (main, Jun  6 2025, 22:30:22) [Clang 17.0.0 (clang-1700.0.13.3)]",
+    "platform": "macOS-27.2-arm64-arm-64bit-Mach-O",
+    "entrypoint_sha256": {
+      "evaluator.py": "1dbdd2eb9658d21233a7960d1eb1092676d30318be95131ea25dd72f39d46bc2",
+      "inference.py": "319a0f7a0d7849ce2b23adcd8af5e158d4161728cbdf74f0fdfcfaaa8ce3a85e",
+      "validate.py": "2f98ce2797f692ae3afaacae474d8391dabc9160974709cb5dfbe95c2e5a6bf2"
+    },
+    "versions": {
+      "numpy": "2.5.4",
+      "scipy": "1.18.1",
+      "sklearn": "1.7.2",
+      "torch": "2.9.1"
+    },
+    "torch_threads": 1
+  }
+}

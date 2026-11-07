@@ -1,0 +1,163 @@
+[
+  {
+    "dataset": "pog_dense",
+    "status": "complete",
+    "methods": {
+      "original_reference": {
+        "recall20": 0.3952228584259565,
+        "ndcg20": 0.287875807714288,
+        "seconds": 2.5717693750048056
+      },
+      "amplified:weighted": {
+        "recall20": 0.3888514651397771,
+        "ndcg20": 0.2872043719323708,
+        "seconds": 2.012516541988589
+      },
+      "amplified:bundlefuse_gate": {
+        "recall20": 0.39098461883911484,
+        "ndcg20": 0.28815876094513904,
+        "seconds": 2.242898416996468
+      }
+    },
+    "historical_weight": 0.5
+  },
+  {
+    "dataset": "spotify",
+    "status": "complete",
+    "methods": {
+      "original_reference": {
+        "recall20": 0.15564639701529576,
+        "ndcg20": 0.2579255301623899,
+        "seconds": 83.10392308299197
+      },
+      "amplified:weighted": {
+        "recall20": 0.16001872226621772,
+        "ndcg20": 0.27172251895255856,
+        "seconds": 37.512012916995445
+      },
+      "amplified:bundlefuse_gate": {
+        "recall20": 0.16327848185098354,
+        "ndcg20": 0.28114606910123807,
+        "seconds": 30.33373008298804
+      }
+    },
+    "historical_weight": 0.25
+  },
+  {
+    "dataset": "pog",
+    "status": "complete",
+    "methods": {
+      "original_reference": {
+        "recall20": 0.05445833333333335,
+        "ndcg20": 0.03609231307391131,
+        "seconds": 2.414560250006616
+      },
+      "amplified:weighted": {
+        "recall20": 0.05104166666666668,
+        "ndcg20": 0.03342462693265812,
+        "seconds": 2.17272483301349
+      },
+      "amplified:bundlefuse_gate": {
+        "recall20": 0.05354166666666668,
+        "ndcg20": 0.03559738533583646,
+        "seconds": 2.3808212500007357
+      }
+    },
+    "historical_weight": 0.25
+  },
+  {
+    "dataset": "electronic",
+    "status": "complete",
+    "methods": {
+      "original_reference": {
+        "recall20": 0.48680154142581905,
+        "ndcg20": 0.3432175015639907
+      },
+      "amplified:weighted": {
+        "recall20": 0.454961464354528,
+        "ndcg20": 0.32835134382984826
+      },
+      "amplified:gate": {
+        "recall20": 0.4724951830443162,
+        "ndcg20": 0.33116985202017923
+      }
+    },
+    "historical_weight": 1.0
+  },
+  {
+    "dataset": "food",
+    "status": "complete",
+    "methods": {
+      "original_reference": {
+        "recall20": 0.5948536355051934,
+        "ndcg20": 0.4623545808879637
+      },
+      "amplified:weighted": {
+        "recall20": 0.5617091595845138,
+        "ndcg20": 0.4347054675052795
+      },
+      "amplified:gate": {
+        "recall20": 0.5949952785646836,
+        "ndcg20": 0.4615782000996226
+      }
+    },
+    "historical_weight": 0.5
+  },
+  {
+    "dataset": "clothing",
+    "status": "complete",
+    "methods": {
+      "original_reference": {
+        "recall20": 0.5169362084456426,
+        "ndcg20": 0.40486260690481474
+      },
+      "amplified:weighted": {
+        "recall20": 0.4704402515723271,
+        "ndcg20": 0.34986197288899684
+      },
+      "amplified:gate": {
+        "recall20": 0.5254267744833784,
+        "ndcg20": 0.40810011120470563
+      }
+    },
+    "historical_weight": 0.0
+  },
+  {
+    "dataset": "dunnhumby",
+    "status": "complete",
+    "methods": {
+      "original_reference": {
+        "recall20": 0.20751289682539636,
+        "ndcg20": 0.15360947219197318
+      },
+      "amplified:weighted": {
+        "recall20": 0.20875515873015824,
+        "ndcg20": 0.1546345946277384
+      },
+      "amplified:gate": {
+        "recall20": 0.2105083333333328,
+        "ndcg20": 0.15319278921390397
+      }
+    },
+    "historical_weight": 0.25
+  },
+  {
+    "dataset": "spotify_sparse",
+    "status": "complete",
+    "methods": {
+      "original_reference": {
+        "recall20": 0.15428809469261934,
+        "ndcg20": 0.2219116143663242
+      },
+      "amplified:weighted": {
+        "recall20": 0.16472504811705402,
+        "ndcg20": 0.2313323751665359
+      },
+      "amplified:gate": {
+        "recall20": 0.16472504811705402,
+        "ndcg20": 0.2313323751665359
+      }
+    },
+    "historical_weight": 0.0
+  }
+]

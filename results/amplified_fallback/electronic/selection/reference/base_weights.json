@@ -1,0 +1,13 @@
+{
+  "weights": {
+    "ppmi": 0.25,
+    "pretrain": 0.5,
+    "content": 0.25,
+    "csvd": 0.25,
+    "hist": 0.25
+  },
+  "prior": [
+    "content"
+  ],
+  "coordinate_candidates": 45
+}

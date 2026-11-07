@@ -1,0 +1,49 @@
+{
+  "scope": "Corrected measurement excludes zero-weight sources; original timing file retained.",
+  "methods": {
+    "reference": {
+      "active_columns": [
+        "cat",
+        "hist",
+        "style"
+      ],
+      "required_sources": [
+        "cat",
+        "pair",
+        "style"
+      ],
+      "batch_query_latency": {
+        "1": {
+          "median_ms": 7.259583493578248,
+          "p95_ms": 39.495648101728875
+        },
+        "8": {
+          "median_ms": 2.742578062679968,
+          "p95_ms": 6.854769860001397
+        }
+      }
+    },
+    "E1_fixed_remove_bridge": {
+      "active_columns": [
+        "cat",
+        "hist",
+        "style"
+      ],
+      "required_sources": [
+        "cat",
+        "pair",
+        "style"
+      ],
+      "batch_query_latency": {
+        "1": {
+          "median_ms": 7.278729011886753,
+          "p95_ms": 40.071103810623754
+        },
+        "8": {
+          "median_ms": 2.7134296869917307,
+          "p95_ms": 6.856155687455612
+        }
+      }
+    }
+  }
+}

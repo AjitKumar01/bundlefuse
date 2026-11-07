@@ -1,0 +1,127 @@
+{
+  "artifact_path": "checkpoints/reorganized_162dd8c/clothing/seed_0/model.pt",
+  "artifact_sha256": "8bac15b6c7838f6a93b8732bb906929ecbcbfe07e01f369bef243f6fda520cac",
+  "metadata": {
+    "dataset": "clothing",
+    "n_items": 4487,
+    "protocol": "resplit",
+    "data_profile": "extended",
+    "split_seed": 0,
+    "mask_frac": 0.5,
+    "val_limit": 800,
+    "test_limit": 2000,
+    "train_bundles": 1294,
+    "val_queries": 184,
+    "test_queries": 371,
+    "val_total": 184,
+    "test_total": 371,
+    "full_validation": true,
+    "full_test": true,
+    "train_sha256": "42da55c7dac6f4d5e1d1539810e46ab57c34114923cbb452f49e9c2128034b81",
+    "val_pairs_sha256": "c29f733195600017bdf13e75a508561b9268bd338b9b3251916957f87f0bfe8b",
+    "test_pairs_sha256": "bdef9f8f9f337e2d4fd9e6a105fb528949c92624ed9faa12d246d5c0e48c9644",
+    "input_sha256": {
+      "bundle_item.csv": "5eb5ad2104e6ac7340abe76c358b700dfc72c075fe1afcb5d7d7a916e7753e82",
+      "user_bundle.csv": "24fde36824c259bcb22dd86c06356781b5c7b2e72d1c8a3e520ceb273f038c06",
+      "item_titles.csv": "4719a0d21d7a9072c726299781f4d9ee6504f00932f7b748141a8c3c44388a07",
+      "item_categories.csv": "1a62964575d3d0a87ef2e4b8a0de1c6ce45b649ee27d139512b3de5ffedc24a3",
+      "user_item_pretrain.csv": "84bf274476e059e53be9c41e205df6832f4b08984324051e12748075b7879f90"
+    }
+  },
+  "original_metrics": {
+    "recall@10": 0.46796945193171613,
+    "ndcg@10": 0.3911450707638827,
+    "recall@20": 0.5169362084456424,
+    "ndcg@20": 0.40486260690481496,
+    "recall@50": 0.5844564240790655,
+    "ndcg@50": 0.42024796640187867
+  },
+  "val_users_sha256": "46a3265201c71f98828247e37efed88af12bc8d85c809b90f17aad92a1a2f991",
+  "test_users_sha256": "577c43a259f06023c1fc25b93ff69df24aa5087c053850581a8bd5f83ab01e49",
+  "config": {
+    "n_items": 4487,
+    "families": [
+      "collaborative",
+      "content",
+      "taxonomy",
+      "popularity",
+      "personalization"
+    ],
+    "svd_dim": 128,
+    "alpha_deg": 0.5,
+    "gamma_vol": 0.5,
+    "beta_clique": 1.5,
+    "alpha_bridge": 0.5,
+    "n_soft_clusters": 400,
+    "soft_tau": 0.05,
+    "sel_obj": "ndcg20",
+    "compressed": true,
+    "content_rank": 128,
+    "fit_rounds": 4,
+    "seed_cap": 0,
+    "validation_chunk": 64
+  },
+  "source_recipe": {
+    "weights": {
+      "simp": 0.25,
+      "ppmi": 1.0,
+      "pretrain": 1.0,
+      "homo": 0.25,
+      "content": 1.0,
+      "csvd": 0.25
+    },
+    "prior": [
+      "homo",
+      "content"
+    ],
+    "higher_order": [
+      0.0,
+      0.35
+    ],
+    "backoff": [
+      0.05,
+      1.761526541465887
+    ]
+  },
+  "runtime": {
+    "package_source_sha256": "2901f070a14c417611413fc200c06823ec441d7eeae277b4d8e786e9a1becdcd",
+    "python": "3.13.4 (main, Jun  6 2025, 22:30:22) [Clang 17.0.0 (clang-1700.0.13.3)]",
+    "platform": "macOS-27.2-arm64-arm-64bit-Mach-O",
+    "entrypoint_sha256": {
+      "evaluator.py": "1dbdd2eb9658d21233a7960d1eb1092676d30318be95131ea25dd72f39d46bc2",
+      "inference.py": "319a0f7a0d7849ce2b23adcd8af5e158d4161728cbdf74f0fdfcfaaa8ce3a85e",
+      "validate.py": "2f98ce2797f692ae3afaacae474d8391dabc9160974709cb5dfbe95c2e5a6bf2"
+    },
+    "versions": {
+      "numpy": "2.5.4",
+      "scipy": "1.18.1",
+      "sklearn": "1.7.2",
+      "torch": "2.9.1"
+    },
+    "torch_threads": 1
+  },
+  "effective_config": {
+    "n_items": 4487,
+    "families": [
+      "collaborative",
+      "content",
+      "taxonomy",
+      "popularity",
+      "personalization"
+    ],
+    "svd_dim": 128,
+    "alpha_deg": 0.5,
+    "gamma_vol": 0.5,
+    "beta_clique": 1.5,
+    "alpha_bridge": 0.5,
+    "n_soft_clusters": 400,
+    "soft_tau": 0.05,
+    "sel_obj": "ndcg20",
+    "compressed": true,
+    "content_rank": 128,
+    "signal_profile": "extended",
+    "fit_rounds": 4,
+    "seed_cap": 0,
+    "validation_chunk": 64
+  }
+}

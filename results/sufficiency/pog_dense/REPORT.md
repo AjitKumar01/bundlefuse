@@ -1,0 +1,62 @@
+# Sufficiency study results
+
+Exploratory supplied splits; no untouched confirmation or sufficiency certificate.
+
+| Method | Recall@20 | NDCG@20 |
+|---|---:|---:|
+| E1_fixed_remove_bridge | 0.355027 | 0.254663 |
+| E1_fixed_remove_cat | 0.352773 | 0.249356 |
+| E1_fixed_remove_csvd | 0.358362 | 0.257181 |
+| E1_fixed_remove_hist | 0.345772 | 0.237533 |
+| E1_fixed_remove_pop | 0.279821 | 0.212715 |
+| E1_subset_bridge | 0.030076 | 0.018993 |
+| E1_subset_bridge_csvd | 0.061445 | 0.037766 |
+| E1_subset_bridge_csvd_hist | 0.273391 | 0.204536 |
+| E1_subset_bridge_hist | 0.273391 | 0.204536 |
+| E1_subset_bridge_pop | 0.320774 | 0.198283 |
+| E1_subset_bridge_pop_csvd | 0.339673 | 0.216832 |
+| E1_subset_bridge_pop_csvd_hist | 0.354846 | 0.250595 |
+| E1_subset_bridge_pop_hist | 0.354846 | 0.250595 |
+| E1_subset_cat | 0.002764 | 0.000936 |
+| E1_subset_cat_bridge | 0.042546 | 0.026218 |
+| E1_subset_cat_bridge_csvd | 0.077700 | 0.048010 |
+| E1_subset_cat_bridge_csvd_hist | 0.280963 | 0.217536 |
+| E1_subset_cat_bridge_hist | 0.280963 | 0.217536 |
+| E1_subset_cat_bridge_pop | 0.345772 | 0.237533 |
+| E1_subset_cat_bridge_pop_csvd | 0.345772 | 0.237533 |
+| E1_subset_cat_bridge_pop_csvd_hist | 0.358212 | 0.256955 |
+| E1_subset_cat_bridge_pop_hist | 0.358212 | 0.256955 |
+| E1_subset_cat_csvd | 0.096719 | 0.053993 |
+| E1_subset_cat_csvd_hist | 0.280963 | 0.217536 |
+| E1_subset_cat_hist | 0.280963 | 0.217536 |
+| E1_subset_cat_pop | 0.314164 | 0.203712 |
+| E1_subset_cat_pop_csvd | 0.336909 | 0.232546 |
+| E1_subset_cat_pop_csvd_hist | 0.356138 | 0.254851 |
+| E1_subset_cat_pop_hist | 0.356138 | 0.254851 |
+| E1_subset_csvd | 0.026681 | 0.016538 |
+| E1_subset_csvd_hist | 0.273391 | 0.204536 |
+| E1_subset_hist | 0.273391 | 0.204536 |
+| E1_subset_pop | 0.294063 | 0.156169 |
+| E1_subset_pop_csvd | 0.318551 | 0.205295 |
+| E1_subset_pop_csvd_hist | 0.349498 | 0.246647 |
+| E1_subset_pop_hist | 0.348627 | 0.247000 |
+| E2_coupled_0.0_fixed | 0.357941 | 0.254975 |
+| E2_coupled_0.0_refit | 0.358061 | 0.255950 |
+| E2_coupled_0.5_fixed | 0.358422 | 0.256284 |
+| E2_coupled_0.5_refit | 0.358212 | 0.256019 |
+| E2_coupled_1.0_fixed | 0.358362 | 0.257181 |
+| E2_coupled_1.0_refit | 0.358362 | 0.257181 |
+| E2_coupled_selected_fixed | 0.358362 | 0.257181 |
+| E2_coupled_selected_refit | 0.358362 | 0.257181 |
+| E2_joint_fixed | 0.351962 | 0.246226 |
+| E2_joint_refit | 0.359894 | 0.254315 |
+| E2_pair_fixed | 0.357941 | 0.254975 |
+| E2_pair_refit | 0.358061 | 0.255950 |
+| E2_separate_fixed | 0.358272 | 0.259727 |
+| E2_separate_refit | 0.361036 | 0.261006 |
+| E3_constant_full | 0.358031 | 0.256875 |
+| E3_count | 0.359383 | 0.257866 |
+| E3_ess | 0.358031 | 0.256875 |
+| E3_history_constant | 0.358031 | 0.256875 |
+| E3_history_frequency | 0.358362 | 0.257181 |
+| reference | 0.358362 | 0.257181 |

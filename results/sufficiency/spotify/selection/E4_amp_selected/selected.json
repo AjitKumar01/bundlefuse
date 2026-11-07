@@ -1,0 +1,34 @@
+{
+  "config": {
+    "kind": "gate",
+    "weights": {
+      "homo": 0.25,
+      "rao": 0.25,
+      "hist": 0.25
+    },
+    "prior_weights": {
+      "homo": 0.25,
+      "rao": 0.25
+    },
+    "scale": 1.425552263325423,
+    "kappa": 0.05
+  },
+  "tuning_metrics": [
+    0.17399337821950192,
+    0.29247817991054204
+  ],
+  "keys": [
+    "pop",
+    "ppmi",
+    "csvd",
+    "homo",
+    "audiostyle",
+    "bridge",
+    "rao",
+    "hist"
+  ],
+  "history": "amp_selected",
+  "alpha": 1.0,
+  "seconds": 328.1127058749844,
+  "fitting_candidates": 88
+}

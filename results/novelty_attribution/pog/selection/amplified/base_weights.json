@@ -1,0 +1,14 @@
+{
+  "weights": {
+    "cat": 0.5,
+    "style": 0.25,
+    "bridge": 0.25,
+    "hist": 0.25
+  },
+  "prior": [
+    "cat",
+    "style",
+    "bridge"
+  ],
+  "coordinate_candidates": 33
+}
