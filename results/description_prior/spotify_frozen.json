@@ -1,0 +1,28 @@
+{
+ "dataset": "spotify",
+ "keys": [
+  "audio"
+ ],
+ "cfg": {
+  "kappa": 400,
+  "tau": 0.5,
+  "a": 25,
+  "lam": 1.0,
+  "kernel": [
+   0.5,
+   0.5,
+   2,
+   100
+  ],
+  "wsec": 2.4448161125183105
+ },
+ "tau1": {
+  "kappa": 25,
+  "tau": 1.0,
+  "a": 25
+ },
+ "la": 80.89867408018463,
+ "lb": 144.93884143752766,
+ "frozen_at": 1794055923.5988019,
+ "note": "Selected on fitting; tuning reported. Test not read when this file was written."
+}

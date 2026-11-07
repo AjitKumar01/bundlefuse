@@ -1,0 +1,35 @@
+A. current recipe columns (already standardized)
+amplified history alone                                    R 0.1332 N 0.2304
+homo alone                                                 R 0.0968 N 0.1814
+rao alone                                                  R 0.1131 N 0.1879
+pop alone                                                  R 0.0129 N 0.0211
+current recipe (history-frequency gate)                    R 0.1709 N 0.3023
+current recipe without rao                                 R 0.1560 N 0.2819
+B. new components
+same-artist lift 80.89867408018463 same-album lift 144.93884143752766
+new count term, tau=1                                      R 0.1184 N 0.2040
+new count term raw vs amp col rank check                   R 0.1277 N 0.2202
+audio prior alone, tau=.5                                  R 0.0369 N 0.0572
+same artist alone                                          R 0.0819 N 0.1496
+same album alone                                           R 0.1006 N 0.2012
+artist + 2 album, popularity tiebreak                      R 0.1008 N 0.1957
+C. swap inputs into the current combiner
+current prior + my count term (log z)                      R 0.1317 N 0.2445
+current prior + my raw count*f (z)                         R 0.1678 N 0.2995
+homo + rao prior replaced by my hat + share                R 0.1622 N 0.2905
+homo kept, rao replaced by my audio hat                    R 0.1559 N 0.2827
+D. new combiner, prior variants
+audio + constant-lift share                                best N 0.2528 at kappa,tau,a=(400, 0.5, 25)
+audio only                                                 best N 0.2224 at kappa,tau,a=(100, 0.5, 25)
+share only                                                 best N 0.2523 at kappa,tau,a=(100, 0.5, 25)
+E. why the log combiner may fail: linear combination in the same units
+P(c|S) = rho obs + (1-rho) hat, popularity inside, k=0.1   R 0.1276 N 0.2201
+P(c|S) = rho obs + (1-rho) hat, popularity inside, k=1     R 0.1275 N 0.2192
+P(c|S) = rho obs + (1-rho) hat, popularity inside, k=5     R 0.1265 N 0.2169
+P(c|S) = rho obs + (1-rho) hat, popularity inside, k=25    R 0.1224 N 0.2095
+P(c|S) = rho obs + (1-rho) hat, popularity inside, k=100   R 0.1179 N 0.1993
+P(c|S) = obs + w*hat, no gate, w=0.01                      R 0.1290 N 0.2223
+P(c|S) = obs + w*hat, no gate, w=0.03                      R 0.1298 N 0.2226
+P(c|S) = obs + w*hat, no gate, w=0.1                       R 0.1317 N 0.2240
+P(c|S) = obs + w*hat, no gate, w=0.3                       R 0.1333 N 0.2248
+P(c|S) = obs + w*hat, no gate, w=1                         R 0.1297 N 0.2192

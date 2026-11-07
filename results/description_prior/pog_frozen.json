@@ -1,0 +1,30 @@
+{
+ "dataset": "pog",
+ "keys": [
+  "content",
+  "image",
+  "desc"
+ ],
+ "cfg": {
+  "kappa": 0.1,
+  "tau": 1.5,
+  "a": 1.0,
+  "lam": 0.1,
+  "kernel": [
+   0.5,
+   0.5,
+   2,
+   100
+  ],
+  "wsec": 3.895982027053833
+ },
+ "tau1": {
+  "kappa": 0.1,
+  "tau": 1.0,
+  "a": 1.0
+ },
+ "la": null,
+ "lb": null,
+ "frozen_at": 1794035584.8385768,
+ "note": "Selected on fitting; tuning reported. Test not read when this file was written."
+}
