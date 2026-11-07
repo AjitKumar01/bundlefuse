@@ -45,3 +45,13 @@ results/mechanism_smoke*/
 results/**/.runner.lock
 checkpoints/
 reports/
+
+# Isolated novelty-attribution smoke outputs are not benchmark evidence.
+results/novelty_smoke*/
+results/amplified_fallback_smoke*/
+results/sufficiency_smoke*/
+
+# Per-query predictions are large (about 600 MB) and stay on disk; summaries and reports are tracked.
+results/sufficiency/*/queries/
+results/novelty_attribution/*/queries/
+results/amplified_fallback/*/queries/
