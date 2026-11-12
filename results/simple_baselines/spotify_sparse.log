@@ -1,0 +1,36 @@
+2026-11-08T18:03:49Z spotify_sparse: n=213325 train=8740 pairs=27319480
+2026-11-08T18:03:52Z spotify_sparse popularity {} VAL N20=0.005959
+2026-11-08T18:03:55Z spotify_sparse cooccurrence {} VAL N20=0.128691
+2026-11-08T18:03:58Z spotify_sparse itemknn {'k': 50, 'shrink': 0} VAL N20=0.051144
+2026-11-08T18:04:02Z spotify_sparse itemknn {'k': 50, 'shrink': 10} VAL N20=0.125751
+2026-11-08T18:04:06Z spotify_sparse itemknn {'k': 50, 'shrink': 100} VAL N20=0.126360
+2026-11-08T18:04:09Z spotify_sparse itemknn {'k': 200, 'shrink': 0} VAL N20=0.058100
+2026-11-08T18:04:13Z spotify_sparse itemknn {'k': 200, 'shrink': 10} VAL N20=0.131835
+2026-11-08T18:04:16Z spotify_sparse itemknn {'k': 200, 'shrink': 100} VAL N20=0.132886
+2026-11-08T18:04:20Z spotify_sparse itemknn {'k': 1000, 'shrink': 0} VAL N20=0.072842
+2026-11-08T18:04:23Z spotify_sparse itemknn {'k': 1000, 'shrink': 10} VAL N20=0.135000
+2026-11-08T18:04:27Z spotify_sparse itemknn {'k': 1000, 'shrink': 100} VAL N20=0.133586
+2026-11-08T18:04:30Z spotify_sparse rp3beta {'alpha': 0.5, 'beta': 0.0} VAL N20=0.137980
+2026-11-08T18:04:34Z spotify_sparse rp3beta {'alpha': 0.5, 'beta': 0.25} VAL N20=0.134927
+2026-11-08T18:04:38Z spotify_sparse rp3beta {'alpha': 0.5, 'beta': 0.5} VAL N20=0.091663
+2026-11-08T18:04:42Z spotify_sparse rp3beta {'alpha': 0.5, 'beta': 0.75} VAL N20=0.037419
+2026-11-08T18:04:45Z spotify_sparse rp3beta {'alpha': 1.0, 'beta': 0.0} VAL N20=0.116130
+2026-11-08T18:04:49Z spotify_sparse rp3beta {'alpha': 1.0, 'beta': 0.25} VAL N20=0.096085
+2026-11-08T18:04:53Z spotify_sparse rp3beta {'alpha': 1.0, 'beta': 0.5} VAL N20=0.057714
+2026-11-08T18:04:56Z spotify_sparse rp3beta {'alpha': 1.0, 'beta': 0.75} VAL N20=0.029862
+2026-11-08T18:05:00Z spotify_sparse gfcf {'rank': 64, 'ideal': 0.0} VAL N20=0.083804
+2026-11-08T18:05:04Z spotify_sparse gfcf {'rank': 64, 'ideal': 0.1} VAL N20=0.084303
+2026-11-08T18:05:08Z spotify_sparse gfcf {'rank': 64, 'ideal': 0.3} VAL N20=0.084777
+2026-11-08T18:05:12Z spotify_sparse gfcf {'rank': 64, 'ideal': 1.0} VAL N20=0.086239
+2026-11-08T18:05:16Z spotify_sparse gfcf {'rank': 64, 'ideal': 3.0} VAL N20=0.088330
+2026-11-08T18:05:19Z spotify_sparse gfcf {'rank': 256, 'ideal': 0.0} VAL N20=0.083804
+2026-11-08T18:05:25Z spotify_sparse gfcf {'rank': 256, 'ideal': 0.1} VAL N20=0.085010
+2026-11-08T18:05:31Z spotify_sparse gfcf {'rank': 256, 'ideal': 0.3} VAL N20=0.086452
+2026-11-08T18:05:37Z spotify_sparse gfcf {'rank': 256, 'ideal': 1.0} VAL N20=0.089431
+2026-11-08T18:05:43Z spotify_sparse gfcf {'rank': 256, 'ideal': 3.0} VAL N20=0.091428
+2026-11-08T18:05:48Z spotify_sparse popularity TEST filtered {'recall20': 0.005671440084818476, 'ndcg20': 0.006132954668850835}
+2026-11-08T18:05:54Z spotify_sparse cooccurrence TEST filtered {'recall20': 0.11004751919739726, 'ndcg20': 0.1386152863127906}
+2026-11-08T18:06:00Z spotify_sparse itemknn TEST filtered {'recall20': 0.11373166109784794, 'ndcg20': 0.14764671179631808}
+2026-11-08T18:06:07Z spotify_sparse rp3beta TEST filtered {'recall20': 0.11799062314506846, 'ndcg20': 0.14878802426548052}
+2026-11-08T18:06:13Z spotify_sparse gfcf TEST filtered {'recall20': 0.07897839493249212, 'ndcg20': 0.09917534762247658}
+2026-11-08T18:06:13Z spotify_sparse COMPLETE

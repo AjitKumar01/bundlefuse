@@ -1,0 +1,27 @@
+{
+  "neural_behavior_tests": 7,
+  "existing_pipeline_model_golden_tests": 28,
+  "all_passed": true,
+  "checks": [
+    "set permutation and padding invariance",
+    "candidate chunk ranking parity",
+    "checkpoint score replay",
+    "negative excludes entire source bundle",
+    "all hidden positives retained",
+    "padded targets excluded from loss",
+    "unseen IDs use shared unknown",
+    "synthetic completion learning",
+    "exact optimizer and RNG resume"
+  ],
+  "smoke_summary": "results/neural_smoke_release/electronic/summary.json",
+  "smoke_status": "smoke_complete",
+  "original_reference_verified": "results/neural_small/electronic/comparison_provenance.json",
+  "versions": {
+    "python": "3.13.4",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "torch": "2.9.1"
+  },
+  "device": "cpu",
+  "threads": 1
+}

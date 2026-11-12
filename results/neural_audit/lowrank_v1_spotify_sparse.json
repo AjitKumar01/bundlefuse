@@ -1,0 +1,106 @@
+{
+  "dataset": "spotify_sparse",
+  "queries": 1248,
+  "checkpoint": "checkpoints/neural_lowrank/spotify_sparse/loo_mask_seed0",
+  "structure": {
+    "targets": 27143,
+    "never_sold": 0.30777732748775005,
+    "same_artist": 0.45230814574660133,
+    "same_album": 0.2904984710606786,
+    "co_purchased": 0.539255056552334,
+    "seeds_per_query": 21.760416666666668
+  },
+  "single_signal_recall_ndcg": {
+    "popularity": [
+      0.006234171663816212,
+      0.005958592203150514
+    ],
+    "co_purchase_sum": [
+      0.10272993981343057,
+      0.1298978358268767
+    ],
+    "co_purchase_sum + popularity": [
+      0.10193718323721797,
+      0.12849319011091076
+    ],
+    "same_artist_count + popularity": [
+      0.09788570725351711,
+      0.1368343321757628
+    ],
+    "same_album_count + popularity": [
+      0.11970400368722126,
+      0.18181158461620603
+    ],
+    "content_mean_cosine": [
+      0.009182432525591939,
+      0.01181596893932718
+    ],
+    "model": [
+      0.08612342281838019,
+      0.11088810532645245
+    ],
+    "model without content": [
+      0.061804782227525626,
+      0.08178586498783086
+    ],
+    "model without history": [
+      0.08164275843934579,
+      0.10559119065524286
+    ],
+    "model without group": [
+      0.06812630842890861,
+      0.09328061159368047
+    ],
+    "model without pair": [
+      0.045898131646325745,
+      0.05371447334752011
+    ]
+  },
+  "model_recall_by_target_class": {
+    "never_sold": {
+      "targets": 8354,
+      "recall": 0.023581517835767295
+    },
+    "same_artist": {
+      "targets": 851,
+      "recall": 0.007050528789659225
+    },
+    "co_purchased": {
+      "targets": 14637,
+      "recall": 0.13110610097697617
+    },
+    "other": {
+      "targets": 3301,
+      "recall": 0.0009088155104513784
+    }
+  },
+  "overlap_with_model": {
+    "popularity": {
+      "hits": 115,
+      "hits_model_misses": 73
+    },
+    "co_purchase_sum": {
+      "hits": 2300,
+      "hits_model_misses": 1196
+    },
+    "co_purchase_sum + popularity": {
+      "hits": 2270,
+      "hits_model_misses": 1174
+    },
+    "same_artist_count + popularity": {
+      "hits": 2495,
+      "hits_model_misses": 1839
+    },
+    "same_album_count + popularity": {
+      "hits": 3397,
+      "hits_model_misses": 2721
+    },
+    "content_mean_cosine": {
+      "hits": 252,
+      "hits_model_misses": 183
+    }
+  },
+  "learned_content_form": {
+    "symmetric_share": 0.9541041254997253
+  }
+}

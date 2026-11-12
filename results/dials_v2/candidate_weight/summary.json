@@ -1,0 +1,111 @@
+{
+  "note": "Candidate-dependent content weight: a change to the frozen DIALS model (branch dials), tested by retraining.\n\nThe content term gets a factor that depends on the candidate's training frequency f_c:\n\n    C'(S, c) = softplus(u(log(1 + f_c)) + log(e - 1)) * C(S, c)\n\nwhere u is a small curve (1 -> 16 -> 1, 49 parameters) whose last layer starts at zero, so the factor starts at 1 and\nthe model starts exactly at the frozen one. Motivation (code review, 2026-11-10): candidates never seen in training get\nno graph or history evidence, and the query-only gate gives content the same weight for them as for well-observed\ncandidates; on POG 59% of held-out items are unseen and are found 4% of the time. In training, a bundle member's\nfrequency excludes the bundle itself (leave-one-out), as for the prior. Everything else, including the training\nconfiguration and seeds, is the frozen model's.\n\nSelection on validation NDCG@20 only, as frozen. Training at 4 threads is not bit-identical to the frozen 1-thread runs\n(POG seed 0 matches through epoch 13, then drifts by floating-point summation order), so the reference is the unchanged\nmodel retrained here at the same thread count (train --reference, results/dials_v2/reference_4threads). compare: clean\ntest queries, three-seed per-query means, new minus reference, paired cluster bootstrap and sign flips, Holm over the\ntests run.\n\nPYTHONPATH=.:../dials .venv/bin/python -m experiments.dials_v2.run train --dataset pog --seed 0 --threads 4\nPYTHONPATH=.:../dials .venv/bin/python -m experiments.dials_v2.run train --reference --dataset pog --seed 0 --threads 4\nPYTHONPATH=.:../dials .venv/bin/python -m experiments.dials_v2.run compare --datasets pog pog_dense\n",
+  "datasets": {
+    "pog": {
+      "reference": {
+        "validation_ndcg20": 0.041755134481548474,
+        "test": [
+          0.060631344736476155,
+          0.036022395376729396
+        ]
+      },
+      "candidate_weight": {
+        "validation_ndcg20": 0.04265877833760085,
+        "test": [
+          0.06199415936587401,
+          0.03639796506546896
+        ]
+      }
+    },
+    "pog_dense": {
+      "reference": {
+        "validation_ndcg20": 0.30805947108618,
+        "test": [
+          0.378573002423731,
+          0.280815837415962
+        ]
+      },
+      "candidate_weight": {
+        "validation_ndcg20": 0.3138777742283329,
+        "test": [
+          0.37882338801754556,
+          0.28232755315220465
+        ]
+      }
+    }
+  },
+  "primary": [
+    {
+      "delta": 0.000375569688739541,
+      "ci95": [
+        -0.00031862834208846454,
+        0.001035206237174957
+      ],
+      "p_value": 0.276972302769723,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.07584480600750938,
+      "seed": 20261110,
+      "dataset": "pog",
+      "metric": "ndcg20",
+      "p_holm": 0.553944605539446,
+      "reject_05": false
+    },
+    {
+      "delta": 0.0013628146293978582,
+      "ci95": [
+        -1.3899487332785044e-05,
+        0.0027677131397276676
+      ],
+      "p_value": 0.06509349065093491,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.03078848560700876,
+      "seed": 20261110,
+      "dataset": "pog",
+      "metric": "recall20",
+      "p_holm": 0.24197580241975802,
+      "reject_05": false
+    },
+    {
+      "delta": 0.00151171573624293,
+      "ci95": [
+        -9.940564386429393e-05,
+        0.003095278278051733
+      ],
+      "p_value": 0.060493950604939506,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.15792320173066524,
+      "seed": 20261110,
+      "dataset": "pog_dense",
+      "metric": "ndcg20",
+      "p_holm": 0.24197580241975802,
+      "reject_05": false
+    },
+    {
+      "delta": 0.0002503855938144744,
+      "ci95": [
+        -0.0018325169751150113,
+        0.0022290995565554758
+      ],
+      "p_value": 0.8225177482251775,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.03263025058590229,
+      "seed": 20261110,
+      "dataset": "pog_dense",
+      "metric": "recall20",
+      "p_holm": 0.8225177482251775,
+      "reject_05": false
+    }
+  ]
+}

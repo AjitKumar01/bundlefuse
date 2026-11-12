@@ -1,0 +1,595 @@
+{
+  "note": "DIALS against both trained neural baselines on Electronic, Food and Clothing: RaMen and CLHE, clean variants.\n\nClean means every graph and collaborative feature comes from training bundles only, the information DIALS has.\nRaMen: setting chosen on validation (results/ramen_retail). CLHE: one of its four shipped presets chosen on\nvalidation NDCG@20 (seed 2023), then seeds 0 and 1 (results/clhe_retail). Primary: NDCG@20 and Recall@20, Holm over\nall twelve tests. Published-graph variants (user_item.csv, which holds every test bundle) are reported, not tested.\n",
+  "datasets": {
+    "electronic": {
+      "dials": [
+        0.46910725754656407,
+        0.33560079612449645
+      ],
+      "ramen_clean": {
+        "lr": 0.001,
+        "n_layer_gat": 2,
+        "gamma": 0.9,
+        "epochs": [
+          107,
+          75,
+          49
+        ],
+        "seeds": [
+          [
+            0.3463391146563381,
+            0.2600050264097363
+          ],
+          [
+            0.3470134884119034,
+            0.25798609594389194
+          ],
+          [
+            0.3386801552307399,
+            0.24304661865351518
+          ]
+        ],
+        "test": [
+          0.34401091943299383,
+          0.25367924700238115
+        ]
+      },
+      "ramen_published": {
+        "lr": 0.001,
+        "n_layer_gat": 2,
+        "gamma": 0.3,
+        "epochs": [
+          179,
+          103,
+          192
+        ],
+        "seeds": [
+          [
+            0.5092003868322152,
+            0.35851616453314794
+          ],
+          [
+            0.4728805409862816,
+            0.335498310022616
+          ],
+          [
+            0.5133911379413798,
+            0.36467255404315935
+          ]
+        ],
+        "test": [
+          0.49849068858662543,
+          0.3528956761996411
+        ]
+      },
+      "clhe_clean": {
+        "preset": "pog_dense",
+        "epochs": [
+          74,
+          37,
+          147
+        ],
+        "seeds": [
+          [
+            0.35606936507486886,
+            0.2593430948438327
+          ],
+          [
+            0.36801541514823893,
+            0.2550909773290502
+          ],
+          [
+            0.3614161859530245,
+            0.2654616870847396
+          ]
+        ],
+        "parameters": 748864,
+        "test": [
+          0.3618336553920441,
+          0.25996525308587415
+        ]
+      },
+      "clhe_published": {
+        "preset": "pog_dense",
+        "epochs": [
+          64,
+          37,
+          111
+        ],
+        "seeds": [
+          [
+            0.5248554929057297,
+            0.3717116944577997
+          ],
+          [
+            0.5261079014381232,
+            0.37081076411498076
+          ],
+          [
+            0.5067919091337678,
+            0.3645312805482418
+          ]
+        ],
+        "parameters": 748864,
+        "test": [
+          0.5192517678258736,
+          0.3690179130403409
+        ]
+      }
+    },
+    "food": {
+      "dials": [
+        0.5846553352219075,
+        0.4375626738101226
+      ],
+      "ramen_clean": {
+        "lr": 0.001,
+        "n_layer_gat": 2,
+        "gamma": 0.7,
+        "epochs": [
+          56,
+          56,
+          96
+        ],
+        "seeds": [
+          [
+            0.3591595855633868,
+            0.27210628161096034
+          ],
+          [
+            0.3467894249698596,
+            0.26961296351452385
+          ],
+          [
+            0.35108593106269836,
+            0.2815614064084234
+          ]
+        ],
+        "test": [
+          0.3523449805319815,
+          0.2744268838446361
+        ]
+      },
+      "ramen_published": {
+        "lr": 0.001,
+        "n_layer_gat": 2,
+        "gamma": 0.1,
+        "epochs": [
+          169,
+          199,
+          170
+        ],
+        "seeds": [
+          [
+            0.48909348532262,
+            0.350800172001039
+          ],
+          [
+            0.48564683766270494,
+            0.3478865142246819
+          ],
+          [
+            0.4930122765282396,
+            0.35154748410408626
+          ]
+        ],
+        "test": [
+          0.4892508665045214,
+          0.35007805677660236
+        ]
+      },
+      "clhe_clean": {
+        "preset": "pog_dense",
+        "epochs": [
+          21,
+          10,
+          31
+        ],
+        "seeds": [
+          [
+            0.37322946293833575,
+            0.27037856890358264
+          ],
+          [
+            0.3703021727523452,
+            0.2640873923813317
+          ],
+          [
+            0.36676109643394483,
+            0.2817474599009533
+          ]
+        ],
+        "parameters": 783168,
+        "test": [
+          0.3700975773748752,
+          0.2720711403952891
+        ]
+      },
+      "clhe_published": {
+        "preset": "spotify",
+        "epochs": [
+          40,
+          41,
+          23
+        ],
+        "seeds": [
+          [
+            0.4872993404736938,
+            0.36503454097269616
+          ],
+          [
+            0.47620396759287154,
+            0.3553814535522596
+          ],
+          [
+            0.48682719688577625,
+            0.3585481440632607
+          ]
+        ],
+        "parameters": 783168,
+        "test": [
+          0.4834435016507806,
+          0.35965471286273876
+        ]
+      }
+    },
+    "clothing": {
+      "dials": [
+        0.5337526205450736,
+        0.3882519592656589
+      ],
+      "ramen_clean": {
+        "lr": 0.001,
+        "n_layer_gat": 2,
+        "gamma": 0.5,
+        "epochs": [
+          188,
+          48,
+          62
+        ],
+        "seeds": [
+          [
+            0.24137466370738098,
+            0.1950241663063954
+          ],
+          [
+            0.23638814097305513,
+            0.19000731958854553
+          ],
+          [
+            0.23548966834969276,
+            0.18649778063245862
+          ]
+        ],
+        "test": [
+          0.23775082434337633,
+          0.19050975550913316
+        ]
+      },
+      "ramen_published": {
+        "lr": 0.001,
+        "n_layer_gat": 2,
+        "gamma": 0.1,
+        "epochs": [
+          178,
+          191,
+          164
+        ],
+        "seeds": [
+          [
+            0.5009433969333166,
+            0.30605843813833844
+          ],
+          [
+            0.4905211144701811,
+            0.3022895410978248
+          ],
+          [
+            0.4563342324003698,
+            0.29368466032402857
+          ]
+        ],
+        "test": [
+          0.4825995812679561,
+          0.3006775465200637
+        ]
+      },
+      "clhe_clean": {
+        "preset": "pog_dense",
+        "epochs": [
+          27,
+          8,
+          6
+        ],
+        "seeds": [
+          [
+            0.2439353106960132,
+            0.19033882774995023
+          ],
+          [
+            0.23530997372059168,
+            0.18365314197186833
+          ],
+          [
+            0.24510332504212054,
+            0.18358836017769944
+          ]
+        ],
+        "parameters": 875328,
+        "test": [
+          0.2414495364862418,
+          0.18586010996650582
+        ]
+      },
+      "clhe_published": {
+        "preset": "pog_dense",
+        "epochs": [
+          25,
+          21,
+          63
+        ],
+        "seeds": [
+          [
+            0.3011680153823606,
+            0.24224477385815907
+          ],
+          [
+            0.29937107021596554,
+            0.24158170265007534
+          ],
+          [
+            0.303863433172118,
+            0.23962018520362935
+          ]
+        ],
+        "parameters": 875328,
+        "test": [
+          0.30146750625681473,
+          0.24114888723728783
+        ]
+      }
+    }
+  },
+  "primary": [
+    {
+      "delta": 0.0819215491221153,
+      "ci95": [
+        0.05775618030340573,
+        0.10787141721622572
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.3901734104046243,
+      "seed": 20261109,
+      "dataset": "electronic",
+      "metric": "ndcg20",
+      "first": "dials",
+      "second": "ramen_clean",
+      "p_holm": 0.0011998800119988001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.1250963381135701,
+      "ci95": [
+        0.08530667825339408,
+        0.16368336470779715
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.23121387283236994,
+      "seed": 20261109,
+      "dataset": "electronic",
+      "metric": "recall20",
+      "first": "dials",
+      "second": "ramen_clean",
+      "p_holm": 0.0011998800119988001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.07563554303862224,
+      "ci95": [
+        0.049524032908947496,
+        0.10393709960718488
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.38439306358381503,
+      "seed": 20261109,
+      "dataset": "electronic",
+      "metric": "ndcg20",
+      "first": "dials",
+      "second": "clhe_clean",
+      "p_holm": 0.0011998800119988001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.10727360215451981,
+      "ci95": [
+        0.06526734025817539,
+        0.14829881059803793
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.21098265895953758,
+      "seed": 20261109,
+      "dataset": "electronic",
+      "metric": "recall20",
+      "first": "dials",
+      "second": "clhe_clean",
+      "p_holm": 0.0011998800119988001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.16313578996548672,
+      "ci95": [
+        0.1324395086755617,
+        0.195485150125263
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.5354107648725213,
+      "seed": 20261109,
+      "dataset": "food",
+      "metric": "ndcg20",
+      "first": "dials",
+      "second": "ramen_clean",
+      "p_holm": 0.0011998800119988001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.23231035468992586,
+      "ci95": [
+        0.18851077979843892,
+        0.2743173580264235
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.34277620396600567,
+      "seed": 20261109,
+      "dataset": "food",
+      "metric": "recall20",
+      "first": "dials",
+      "second": "ramen_clean",
+      "p_holm": 0.0011998800119988001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.16549153341483336,
+      "ci95": [
+        0.1347801184048286,
+        0.19829558725454766
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.546742209631728,
+      "seed": 20261109,
+      "dataset": "food",
+      "metric": "ndcg20",
+      "first": "dials",
+      "second": "clhe_clean",
+      "p_holm": 0.0011998800119988001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.21455775784703218,
+      "ci95": [
+        0.17246301431113872,
+        0.25631295150127714
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.34844192634560905,
+      "seed": 20261109,
+      "dataset": "food",
+      "metric": "recall20",
+      "first": "dials",
+      "second": "clhe_clean",
+      "p_holm": 0.0011998800119988001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.1977422037565259,
+      "ci95": [
+        0.16832122843041655,
+        0.22903290196074838
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 371,
+      "clusters": 371,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.5498652291105122,
+      "seed": 20261109,
+      "dataset": "clothing",
+      "metric": "ndcg20",
+      "first": "dials",
+      "second": "ramen_clean",
+      "p_holm": 0.0011998800119988001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.2960017962016971,
+      "ci95": [
+        0.2536661419672286,
+        0.33976152936264975
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 371,
+      "clusters": 371,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.41509433962264153,
+      "seed": 20261109,
+      "dataset": "clothing",
+      "metric": "recall20",
+      "first": "dials",
+      "second": "ramen_clean",
+      "p_holm": 0.0011998800119988001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.20239184929915305,
+      "ci95": [
+        0.173444738687177,
+        0.2328735759028509
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 371,
+      "clusters": 371,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.5714285714285714,
+      "seed": 20261109,
+      "dataset": "clothing",
+      "metric": "ndcg20",
+      "first": "dials",
+      "second": "clhe_clean",
+      "p_holm": 0.0011998800119988001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.2923030840588316,
+      "ci95": [
+        0.2507768035733163,
+        0.33473120632877906
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 371,
+      "clusters": 371,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.4366576819407008,
+      "seed": 20261109,
+      "dataset": "clothing",
+      "metric": "recall20",
+      "first": "dials",
+      "second": "clhe_clean",
+      "p_holm": 0.0011998800119988001,
+      "reject_05": true
+    }
+  ]
+}

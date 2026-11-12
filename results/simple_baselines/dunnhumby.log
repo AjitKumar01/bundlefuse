@@ -1,0 +1,87 @@
+2026-11-09T14:23:53Z dunnhumby: n=21744 train=19973 pairs=1289540
+2026-11-09T14:23:56Z dunnhumby popularity {} VAL N20=0.054037
+2026-11-09T14:23:59Z dunnhumby cooccurrence {} VAL N20=0.093950
+2026-11-09T14:24:01Z dunnhumby itemknn {'k': 50, 'shrink': 0} VAL N20=0.041200
+2026-11-09T14:24:03Z dunnhumby itemknn {'k': 50, 'shrink': 10} VAL N20=0.074839
+2026-11-09T14:24:05Z dunnhumby itemknn {'k': 50, 'shrink': 100} VAL N20=0.096357
+2026-11-09T14:24:07Z dunnhumby itemknn {'k': 200, 'shrink': 0} VAL N20=0.043831
+2026-11-09T14:24:10Z dunnhumby itemknn {'k': 200, 'shrink': 10} VAL N20=0.081196
+2026-11-09T14:24:13Z dunnhumby itemknn {'k': 200, 'shrink': 100} VAL N20=0.099019
+2026-11-09T14:24:15Z dunnhumby itemknn {'k': 1000, 'shrink': 0} VAL N20=0.045801
+2026-11-09T14:24:17Z dunnhumby itemknn {'k': 1000, 'shrink': 10} VAL N20=0.084985
+2026-11-09T14:24:20Z dunnhumby itemknn {'k': 1000, 'shrink': 100} VAL N20=0.099910
+2026-11-09T14:24:23Z dunnhumby rp3beta {'alpha': 0.5, 'beta': 0.0} VAL N20=0.100766
+2026-11-09T14:24:25Z dunnhumby rp3beta {'alpha': 0.5, 'beta': 0.25} VAL N20=0.089867
+2026-11-09T14:24:28Z dunnhumby rp3beta {'alpha': 0.5, 'beta': 0.5} VAL N20=0.046320
+2026-11-09T14:24:31Z dunnhumby rp3beta {'alpha': 0.5, 'beta': 0.75} VAL N20=0.026003
+2026-11-09T14:24:34Z dunnhumby rp3beta {'alpha': 1.0, 'beta': 0.0} VAL N20=0.080708
+2026-11-09T14:24:36Z dunnhumby rp3beta {'alpha': 1.0, 'beta': 0.25} VAL N20=0.054525
+2026-11-09T14:24:39Z dunnhumby rp3beta {'alpha': 1.0, 'beta': 0.5} VAL N20=0.035174
+2026-11-09T14:24:41Z dunnhumby rp3beta {'alpha': 1.0, 'beta': 0.75} VAL N20=0.024363
+2026-11-09T14:24:44Z dunnhumby gfcf {'rank': 64, 'ideal': 0.0} VAL N20=0.042666
+2026-11-09T14:24:48Z dunnhumby gfcf {'rank': 64, 'ideal': 0.1} VAL N20=0.044224
+2026-11-09T14:24:51Z dunnhumby gfcf {'rank': 64, 'ideal': 0.3} VAL N20=0.049394
+2026-11-09T14:24:54Z dunnhumby gfcf {'rank': 64, 'ideal': 1.0} VAL N20=0.063746
+2026-11-09T14:24:57Z dunnhumby gfcf {'rank': 64, 'ideal': 3.0} VAL N20=0.072806
+2026-11-09T14:24:59Z dunnhumby gfcf {'rank': 256, 'ideal': 0.0} VAL N20=0.042666
+2026-11-09T14:25:05Z dunnhumby gfcf {'rank': 256, 'ideal': 0.1} VAL N20=0.045236
+2026-11-09T14:25:10Z dunnhumby gfcf {'rank': 256, 'ideal': 0.3} VAL N20=0.051746
+2026-11-09T14:25:16Z dunnhumby gfcf {'rank': 256, 'ideal': 1.0} VAL N20=0.068495
+2026-11-09T14:25:21Z dunnhumby gfcf {'rank': 256, 'ideal': 3.0} VAL N20=0.077555
+2026-11-09T14:32:13Z dunnhumby ease {'l2': 50.0} VAL N20=0.100659
+2026-11-09T14:38:53Z dunnhumby ease {'l2': 200.0} VAL N20=0.099850
+2026-11-09T14:44:35Z dunnhumby ease {'l2': 500.0} VAL N20=0.097879
+2026-11-09T14:58:23Z dunnhumby ease {'l2': 1000.0} VAL N20=0.097009
+2026-11-09T15:07:12Z dunnhumby ease {'l2': 3000.0} VAL N20=0.095352
+2026-11-09T15:07:16Z dunnhumby popularity TEST filtered {'recall20': 0.07716845922996264, 'ndcg20': 0.05646200905663866}
+2026-11-09T15:07:22Z dunnhumby cooccurrence TEST filtered {'recall20': 0.13088416898211885, 'ndcg20': 0.09414246460935631}
+2026-11-09T15:07:26Z dunnhumby itemknn TEST filtered {'recall20': 0.13823291363154688, 'ndcg20': 0.10194281198118726}
+2026-11-09T15:07:31Z dunnhumby rp3beta TEST filtered {'recall20': 0.142367143107462, 'ndcg20': 0.10300483328440894}
+2026-11-09T15:07:41Z dunnhumby gfcf TEST filtered {'recall20': 0.12084797005070352, 'ndcg20': 0.08023114336298676}
+2026-11-09T15:17:05Z dunnhumby ease TEST filtered {'recall20': 0.13857147029128805, 'ndcg20': 0.10372002281523722}
+2026-11-09T15:17:06Z dunnhumby COMPLETE
+2026-11-09T15:17:40Z dunnhumby: n=21744 train=19973 pairs=1289540
+2026-11-09T15:17:43Z dunnhumby hybrid {'k': 1000, 'shrink': 100, 'content': 0.0} VAL N20=0.099911
+2026-11-09T15:17:46Z dunnhumby hybrid {'k': 1000, 'shrink': 100, 'content': 0.1} VAL N20=0.103589
+2026-11-09T15:17:48Z dunnhumby hybrid {'k': 1000, 'shrink': 100, 'content': 0.2} VAL N20=0.104244
+2026-11-09T15:17:49Z dunnhumby hybrid {'k': 1000, 'shrink': 100, 'content': 0.3} VAL N20=0.100792
+2026-11-09T15:17:52Z dunnhumby hybrid {'k': 1000, 'shrink': 100, 'content': 0.5} VAL N20=0.085572
+2026-11-09T15:17:56Z dunnhumby hybrid {'k': 1000, 'shrink': 100, 'content': 0.7} VAL N20=0.068737
+2026-11-09T15:17:58Z dunnhumby hybrid {'k': 1000, 'shrink': 100, 'content': 0.9} VAL N20=0.053663
+2026-11-09T15:18:00Z dunnhumby hybrid {'k': 1000, 'shrink': 100, 'content': 1.0} VAL N20=0.026447
+2026-11-09T15:20:35Z dunnhumby ials {'rank': 64, 'alpha': 5.0, 'l2': 1.0} VAL N20=0.067992
+2026-11-09T15:23:06Z dunnhumby ials {'rank': 64, 'alpha': 5.0, 'l2': 10.0} VAL N20=0.067373
+2026-11-09T15:25:52Z dunnhumby ials {'rank': 64, 'alpha': 20.0, 'l2': 1.0} VAL N20=0.076584
+2026-11-09T15:28:42Z dunnhumby ials {'rank': 64, 'alpha': 20.0, 'l2': 10.0} VAL N20=0.077304
+2026-11-09T15:41:19Z dunnhumby ials {'rank': 128, 'alpha': 5.0, 'l2': 1.0} VAL N20=0.073231
+2026-11-09T16:01:46Z dunnhumby ials {'rank': 128, 'alpha': 5.0, 'l2': 10.0} VAL N20=0.072376
+2026-11-09T16:12:51Z dunnhumby ials {'rank': 128, 'alpha': 20.0, 'l2': 1.0} VAL N20=0.084595
+2026-11-09T16:24:05Z dunnhumby ials {'rank': 128, 'alpha': 20.0, 'l2': 10.0} VAL N20=0.084689
+2026-11-09T16:24:09Z dunnhumby sgfcf {'rank': 64, 'eps': 0.3, 'beta': 1.0, 'gamma': 0.0} VAL N20=0.079442
+2026-11-09T16:24:12Z dunnhumby sgfcf {'rank': 64, 'eps': 0.3, 'beta': 1.0, 'gamma': 0.5} VAL N20=0.092526
+2026-11-09T16:24:15Z dunnhumby sgfcf {'rank': 64, 'eps': 0.3, 'beta': 1.0, 'gamma': 1.0} VAL N20=0.096626
+2026-11-09T16:24:18Z dunnhumby sgfcf {'rank': 64, 'eps': 0.3, 'beta': 2.5, 'gamma': 0.0} VAL N20=0.082202
+2026-11-09T16:24:21Z dunnhumby sgfcf {'rank': 64, 'eps': 0.3, 'beta': 2.5, 'gamma': 0.5} VAL N20=0.092576
+2026-11-09T16:24:24Z dunnhumby sgfcf {'rank': 64, 'eps': 0.3, 'beta': 2.5, 'gamma': 1.0} VAL N20=0.098631
+2026-11-09T16:24:28Z dunnhumby sgfcf {'rank': 64, 'eps': 0.5, 'beta': 1.0, 'gamma': 0.0} VAL N20=0.038219
+2026-11-09T16:24:31Z dunnhumby sgfcf {'rank': 64, 'eps': 0.5, 'beta': 1.0, 'gamma': 0.5} VAL N20=0.049170
+2026-11-09T16:24:35Z dunnhumby sgfcf {'rank': 64, 'eps': 0.5, 'beta': 1.0, 'gamma': 1.0} VAL N20=0.044762
+2026-11-09T16:24:38Z dunnhumby sgfcf {'rank': 64, 'eps': 0.5, 'beta': 2.5, 'gamma': 0.0} VAL N20=0.045595
+2026-11-09T16:24:42Z dunnhumby sgfcf {'rank': 64, 'eps': 0.5, 'beta': 2.5, 'gamma': 0.5} VAL N20=0.054023
+2026-11-09T16:24:45Z dunnhumby sgfcf {'rank': 64, 'eps': 0.5, 'beta': 2.5, 'gamma': 1.0} VAL N20=0.046571
+2026-11-09T16:24:52Z dunnhumby sgfcf {'rank': 256, 'eps': 0.3, 'beta': 1.0, 'gamma': 0.0} VAL N20=0.089415
+2026-11-09T16:24:56Z dunnhumby sgfcf {'rank': 256, 'eps': 0.3, 'beta': 1.0, 'gamma': 0.5} VAL N20=0.097368
+2026-11-09T16:24:59Z dunnhumby sgfcf {'rank': 256, 'eps': 0.3, 'beta': 1.0, 'gamma': 1.0} VAL N20=0.098000
+2026-11-09T16:25:02Z dunnhumby sgfcf {'rank': 256, 'eps': 0.3, 'beta': 2.5, 'gamma': 0.0} VAL N20=0.091209
+2026-11-09T16:25:06Z dunnhumby sgfcf {'rank': 256, 'eps': 0.3, 'beta': 2.5, 'gamma': 0.5} VAL N20=0.099419
+2026-11-09T16:25:10Z dunnhumby sgfcf {'rank': 256, 'eps': 0.3, 'beta': 2.5, 'gamma': 1.0} VAL N20=0.103688
+2026-11-09T16:25:17Z dunnhumby sgfcf {'rank': 256, 'eps': 0.5, 'beta': 1.0, 'gamma': 0.0} VAL N20=0.033322
+2026-11-09T16:25:21Z dunnhumby sgfcf {'rank': 256, 'eps': 0.5, 'beta': 1.0, 'gamma': 0.5} VAL N20=0.043429
+2026-11-09T16:25:25Z dunnhumby sgfcf {'rank': 256, 'eps': 0.5, 'beta': 1.0, 'gamma': 1.0} VAL N20=0.041223
+2026-11-09T16:25:29Z dunnhumby sgfcf {'rank': 256, 'eps': 0.5, 'beta': 2.5, 'gamma': 0.0} VAL N20=0.048479
+2026-11-09T16:25:33Z dunnhumby sgfcf {'rank': 256, 'eps': 0.5, 'beta': 2.5, 'gamma': 0.5} VAL N20=0.052635
+2026-11-09T16:25:37Z dunnhumby sgfcf {'rank': 256, 'eps': 0.5, 'beta': 2.5, 'gamma': 1.0} VAL N20=0.046607
+2026-11-09T16:25:44Z dunnhumby hybrid TEST filtered {'recall20': 0.14407411115839364, 'ndcg20': 0.10435554424053851}
+2026-11-09T16:38:55Z dunnhumby ials TEST filtered {'recall20': 0.11551269535324206, 'ndcg20': 0.08048710778090933}
+2026-11-09T16:39:05Z dunnhumby sgfcf TEST filtered {'recall20': 0.14642113138696283, 'ndcg20': 0.10351896570507557}
+2026-11-09T16:39:05Z dunnhumby COMPLETE

@@ -1,0 +1,437 @@
+2026-11-07T18:08:40Z food: train=1232 val=176 test=353 items=3767
+2026-11-07T18:08:40Z Fitting BundleFuse input-matched control (no auxiliary/user data)
+2026-11-07T18:08:42Z Evaluating comparator bundlefuse_original_auxiliary
+2026-11-07T18:08:43Z bundlefuse_original_auxiliary: R20=0.594854 N20=0.462355
+2026-11-07T18:08:43Z Evaluating comparator bundlefuse_matched
+2026-11-07T18:08:43Z bundlefuse_matched: R20=0.575071 N20=0.449279
+2026-11-07T18:08:43Z Evaluating comparator popularity
+2026-11-07T18:08:43Z popularity: R20=0.035033 N20=0.016077
+2026-11-07T18:08:43Z Evaluating comparator cooccurrence
+2026-11-07T18:08:43Z cooccurrence: R20=0.344004 N20=0.259456
+2026-11-07T18:08:43Z Evaluating comparator itemknn
+2026-11-07T18:08:43Z itemknn: R20=0.341171 N20=0.262536
+2026-11-07T18:08:43Z Evaluating comparator p3alpha
+2026-11-07T18:08:43Z p3alpha: R20=0.342304 N20=0.238215
+2026-11-07T18:08:43Z Evaluating comparator rp3beta
+2026-11-07T18:08:43Z rp3beta: R20=0.337819 N20=0.237721
+2026-11-07T18:08:43Z Evaluating comparator contentknn
+2026-11-07T18:08:43Z contentknn: R20=0.340888 N20=0.236306
+2026-11-07T18:08:44Z dot seed=0: parameters={'total': 347536, 'item_identity': 241152, 'other': 106384, 'frozen_buffer_bytes': 1974432, 'config': {'variant': 'dot', 'dim': 64, 'layers': 2, 'heads': 4, 'dropout': 0.1, 'identity_dropout': 0.1}}
+2026-11-07T18:08:44Z dot seed=0 epoch=1 loss=5.27917
+2026-11-07T18:08:45Z dot seed=0 epoch=2 loss=5.03325 VAL R20=0.066667 N20=0.040119 best_epoch=2 patience=0/6
+2026-11-07T18:08:46Z dot seed=0 epoch=3 loss=5.24737
+2026-11-07T18:08:46Z dot seed=0 epoch=4 loss=4.94680 VAL R20=0.077178 N20=0.033972 best_epoch=2 patience=1/6
+2026-11-07T18:08:47Z dot seed=0 epoch=5 loss=4.50386
+2026-11-07T18:08:48Z dot seed=0 epoch=6 loss=3.81724 VAL R20=0.196023 N20=0.094863 best_epoch=6 patience=0/6
+2026-11-07T18:08:48Z dot seed=0 epoch=7 loss=3.07356
+2026-11-07T18:08:49Z dot seed=0 epoch=8 loss=2.40690 VAL R20=0.254356 N20=0.144419 best_epoch=8 patience=0/6
+2026-11-07T18:08:49Z dot seed=0 epoch=9 loss=1.97728
+2026-11-07T18:08:50Z dot seed=0 epoch=10 loss=1.67433 VAL R20=0.282102 N20=0.181544 best_epoch=10 patience=0/6
+2026-11-07T18:08:51Z dot seed=0 epoch=11 loss=1.52511
+2026-11-07T18:08:51Z dot seed=0 epoch=12 loss=1.43636 VAL R20=0.292045 N20=0.177876 best_epoch=10 patience=1/6
+2026-11-07T18:08:52Z dot seed=0 epoch=13 loss=1.27561
+2026-11-07T18:08:53Z dot seed=0 epoch=14 loss=1.11647 VAL R20=0.328693 N20=0.204711 best_epoch=14 patience=0/6
+2026-11-07T18:08:53Z dot seed=0 epoch=15 loss=1.14386
+2026-11-07T18:08:54Z dot seed=0 epoch=16 loss=1.01810 VAL R20=0.356250 N20=0.221913 best_epoch=16 patience=0/6
+2026-11-07T18:08:55Z dot seed=0 epoch=17 loss=0.99505
+2026-11-07T18:08:55Z dot seed=0 epoch=18 loss=0.98956 VAL R20=0.337027 N20=0.201608 best_epoch=16 patience=1/6
+2026-11-07T18:08:56Z dot seed=0 epoch=19 loss=0.95599
+2026-11-07T18:08:57Z dot seed=0 epoch=20 loss=0.93915 VAL R20=0.330871 N20=0.196849 best_epoch=16 patience=2/6
+2026-11-07T18:08:57Z dot seed=0 epoch=21 loss=0.94569
+2026-11-07T18:08:58Z dot seed=0 epoch=22 loss=0.83912 VAL R20=0.388163 N20=0.230611 best_epoch=22 patience=0/6
+2026-11-07T18:08:59Z dot seed=0 epoch=23 loss=0.84860
+2026-11-07T18:09:00Z dot seed=0 epoch=24 loss=0.87414 VAL R20=0.373201 N20=0.235705 best_epoch=24 patience=0/6
+2026-11-07T18:09:00Z dot seed=0 epoch=25 loss=0.85025
+2026-11-07T18:09:01Z dot seed=0 epoch=26 loss=0.72273 VAL R20=0.382955 N20=0.252422 best_epoch=26 patience=0/6
+2026-11-07T18:09:02Z dot seed=0 epoch=27 loss=0.77368
+2026-11-07T18:09:02Z dot seed=0 epoch=28 loss=0.78766 VAL R20=0.385606 N20=0.252158 best_epoch=26 patience=1/6
+2026-11-07T18:09:03Z dot seed=0 epoch=29 loss=0.69955
+2026-11-07T18:09:04Z dot seed=0 epoch=30 loss=0.76985 VAL R20=0.382481 N20=0.241633 best_epoch=26 patience=2/6
+2026-11-07T18:09:04Z dot seed=0 epoch=31 loss=0.71908
+2026-11-07T18:09:05Z dot seed=0 epoch=32 loss=0.77734 VAL R20=0.375379 N20=0.244855 best_epoch=26 patience=3/6
+2026-11-07T18:09:06Z dot seed=0 epoch=33 loss=0.72573
+2026-11-07T18:09:06Z dot seed=0 epoch=34 loss=0.71224 VAL R20=0.375095 N20=0.230297 best_epoch=26 patience=4/6
+2026-11-07T18:09:07Z dot seed=0 epoch=35 loss=0.65252
+2026-11-07T18:09:08Z dot seed=0 epoch=36 loss=0.60492 VAL R20=0.384091 N20=0.225143 best_epoch=26 patience=5/6
+2026-11-07T18:09:09Z dot seed=0 epoch=37 loss=0.68927
+2026-11-07T18:09:09Z dot seed=0 epoch=38 loss=0.54891 VAL R20=0.395455 N20=0.228166 best_epoch=26 patience=6/6
+2026-11-07T18:09:09Z relations seed=0: parameters={'total': 305425, 'item_identity': 241152, 'other': 64273, 'frozen_buffer_bytes': 1974432, 'config': {'variant': 'relations', 'dim': 64, 'layers': 2, 'heads': 4, 'dropout': 0.1, 'identity_dropout': 0.1}}
+2026-11-07T18:09:13Z relations seed=0 epoch=1 loss=5.13562
+2026-11-07T18:09:18Z relations seed=0 epoch=2 loss=4.74872 VAL R20=0.159186 N20=0.078487 best_epoch=2 patience=0/6
+2026-11-07T18:09:22Z relations seed=0 epoch=3 loss=4.95814
+2026-11-07T18:09:26Z relations seed=0 epoch=4 loss=4.60304 VAL R20=0.178125 N20=0.092804 best_epoch=4 patience=0/6
+2026-11-07T18:09:30Z relations seed=0 epoch=5 loss=3.92434
+2026-11-07T18:09:35Z relations seed=0 epoch=6 loss=3.09108 VAL R20=0.259280 N20=0.170462 best_epoch=6 patience=0/6
+2026-11-07T18:09:38Z relations seed=0 epoch=7 loss=2.32519
+2026-11-07T18:09:43Z relations seed=0 epoch=8 loss=1.79370 VAL R20=0.316288 N20=0.226609 best_epoch=8 patience=0/6
+2026-11-07T18:09:47Z relations seed=0 epoch=9 loss=1.48064
+2026-11-07T18:09:52Z relations seed=0 epoch=10 loss=1.25070 VAL R20=0.353788 N20=0.259675 best_epoch=10 patience=0/6
+2026-11-07T18:09:55Z relations seed=0 epoch=11 loss=1.08084
+2026-11-07T18:10:00Z relations seed=0 epoch=12 loss=1.07629 VAL R20=0.400852 N20=0.292351 best_epoch=12 patience=0/6
+2026-11-07T18:10:03Z relations seed=0 epoch=13 loss=0.88688
+2026-11-07T18:10:08Z relations seed=0 epoch=14 loss=0.73755 VAL R20=0.415530 N20=0.290244 best_epoch=12 patience=1/6
+2026-11-07T18:10:12Z relations seed=0 epoch=15 loss=0.74605
+2026-11-07T18:10:17Z relations seed=0 epoch=16 loss=0.73239 VAL R20=0.431439 N20=0.326549 best_epoch=16 patience=0/6
+2026-11-07T18:10:20Z relations seed=0 epoch=17 loss=0.67800
+2026-11-07T18:10:25Z relations seed=0 epoch=18 loss=0.64656 VAL R20=0.423390 N20=0.316648 best_epoch=16 patience=1/6
+2026-11-07T18:10:28Z relations seed=0 epoch=19 loss=0.63674
+2026-11-07T18:10:33Z relations seed=0 epoch=20 loss=0.64126 VAL R20=0.399527 N20=0.288987 best_epoch=16 patience=2/6
+2026-11-07T18:10:37Z relations seed=0 epoch=21 loss=0.61016
+2026-11-07T18:10:42Z relations seed=0 epoch=22 loss=0.55354 VAL R20=0.443466 N20=0.305187 best_epoch=16 patience=3/6
+2026-11-07T18:10:45Z relations seed=0 epoch=23 loss=0.53718
+2026-11-07T18:10:50Z relations seed=0 epoch=24 loss=0.49100 VAL R20=0.426894 N20=0.311278 best_epoch=16 patience=4/6
+2026-11-07T18:10:54Z relations seed=0 epoch=25 loss=0.56626
+2026-11-07T18:10:58Z relations seed=0 epoch=26 loss=0.48161 VAL R20=0.446496 N20=0.311549 best_epoch=16 patience=5/6
+2026-11-07T18:11:02Z relations seed=0 epoch=27 loss=0.47574
+2026-11-07T18:11:06Z relations seed=0 epoch=28 loss=0.49150 VAL R20=0.430208 N20=0.288511 best_epoch=16 patience=6/6
+2026-11-07T18:11:07Z contextual seed=0: parameters={'total': 372369, 'item_identity': 241152, 'other': 131217, 'frozen_buffer_bytes': 1974432, 'config': {'variant': 'contextual', 'dim': 64, 'layers': 2, 'heads': 4, 'dropout': 0.1, 'identity_dropout': 0.1}}
+2026-11-07T18:11:11Z contextual seed=0 epoch=1 loss=5.23716
+2026-11-07T18:11:16Z contextual seed=0 epoch=2 loss=4.82701 VAL R20=0.145928 N20=0.091377 best_epoch=2 patience=0/6
+2026-11-07T18:11:19Z contextual seed=0 epoch=3 loss=5.01357
+2026-11-07T18:11:24Z contextual seed=0 epoch=4 loss=4.76574 VAL R20=0.166761 N20=0.090228 best_epoch=2 patience=1/6
+2026-11-07T18:11:28Z contextual seed=0 epoch=5 loss=4.37702
+2026-11-07T18:11:32Z contextual seed=0 epoch=6 loss=3.75164 VAL R20=0.210795 N20=0.129573 best_epoch=6 patience=0/6
+2026-11-07T18:11:36Z contextual seed=0 epoch=7 loss=3.10610
+2026-11-07T18:11:41Z contextual seed=0 epoch=8 loss=2.52090 VAL R20=0.269697 N20=0.170071 best_epoch=8 patience=0/6
+2026-11-07T18:11:45Z contextual seed=0 epoch=9 loss=2.03484
+2026-11-07T18:11:50Z contextual seed=0 epoch=10 loss=1.66780 VAL R20=0.330492 N20=0.227638 best_epoch=10 patience=0/6
+2026-11-07T18:11:54Z contextual seed=0 epoch=11 loss=1.40006
+2026-11-07T18:11:58Z contextual seed=0 epoch=12 loss=1.32353 VAL R20=0.382386 N20=0.260749 best_epoch=12 patience=0/6
+2026-11-07T18:12:02Z contextual seed=0 epoch=13 loss=1.11489
+2026-11-07T18:12:08Z contextual seed=0 epoch=14 loss=1.04597 VAL R20=0.385890 N20=0.288676 best_epoch=14 patience=0/6
+2026-11-07T18:12:11Z contextual seed=0 epoch=15 loss=1.01842
+2026-11-07T18:12:16Z contextual seed=0 epoch=16 loss=0.93053 VAL R20=0.395928 N20=0.291513 best_epoch=16 patience=0/6
+2026-11-07T18:12:20Z contextual seed=0 epoch=17 loss=0.85660
+2026-11-07T18:12:24Z contextual seed=0 epoch=18 loss=0.82143 VAL R20=0.423958 N20=0.282734 best_epoch=16 patience=1/6
+2026-11-07T18:12:28Z contextual seed=0 epoch=19 loss=0.80186
+2026-11-07T18:12:33Z contextual seed=0 epoch=20 loss=0.75686 VAL R20=0.407765 N20=0.285480 best_epoch=16 patience=2/6
+2026-11-07T18:12:37Z contextual seed=0 epoch=21 loss=0.72212
+2026-11-07T18:12:41Z contextual seed=0 epoch=22 loss=0.63494 VAL R20=0.406818 N20=0.308054 best_epoch=22 patience=0/6
+2026-11-07T18:12:45Z contextual seed=0 epoch=23 loss=0.62872
+2026-11-07T18:12:50Z contextual seed=0 epoch=24 loss=0.65752 VAL R20=0.461269 N20=0.329729 best_epoch=24 patience=0/6
+2026-11-07T18:12:54Z contextual seed=0 epoch=25 loss=0.70392
+2026-11-07T18:12:59Z contextual seed=0 epoch=26 loss=0.62080 VAL R20=0.451326 N20=0.321361 best_epoch=24 patience=1/6
+2026-11-07T18:13:02Z contextual seed=0 epoch=27 loss=0.59771
+2026-11-07T18:13:07Z contextual seed=0 epoch=28 loss=0.63720 VAL R20=0.443939 N20=0.308830 best_epoch=24 patience=2/6
+2026-11-07T18:13:11Z contextual seed=0 epoch=29 loss=0.55865
+2026-11-07T18:13:15Z contextual seed=0 epoch=30 loss=0.57310 VAL R20=0.447254 N20=0.317774 best_epoch=24 patience=3/6
+2026-11-07T18:13:19Z contextual seed=0 epoch=31 loss=0.58562
+2026-11-07T18:13:24Z contextual seed=0 epoch=32 loss=0.52103 VAL R20=0.421212 N20=0.321768 best_epoch=24 patience=4/6
+2026-11-07T18:13:28Z contextual seed=0 epoch=33 loss=0.50611
+2026-11-07T18:13:33Z contextual seed=0 epoch=34 loss=0.53762 VAL R20=0.419792 N20=0.304054 best_epoch=24 patience=5/6
+2026-11-07T18:13:37Z contextual seed=0 epoch=35 loss=0.60408
+2026-11-07T18:13:42Z contextual seed=0 epoch=36 loss=0.47047 VAL R20=0.450568 N20=0.313489 best_epoch=24 patience=6/6
+2026-11-07T18:13:43Z dot seed=1: parameters={'total': 347536, 'item_identity': 241152, 'other': 106384, 'frozen_buffer_bytes': 1974432, 'config': {'variant': 'dot', 'dim': 64, 'layers': 2, 'heads': 4, 'dropout': 0.1, 'identity_dropout': 0.1}}
+2026-11-07T18:13:43Z dot seed=1 epoch=1 loss=5.27994
+2026-11-07T18:13:44Z dot seed=1 epoch=2 loss=5.02348 VAL R20=0.060322 N20=0.023503 best_epoch=2 patience=0/6
+2026-11-07T18:13:45Z dot seed=1 epoch=3 loss=5.23724
+2026-11-07T18:13:45Z dot seed=1 epoch=4 loss=4.92737 VAL R20=0.108428 N20=0.047542 best_epoch=4 patience=0/6
+2026-11-07T18:13:46Z dot seed=1 epoch=5 loss=4.37903
+2026-11-07T18:13:47Z dot seed=1 epoch=6 loss=3.71628 VAL R20=0.170455 N20=0.079435 best_epoch=6 patience=0/6
+2026-11-07T18:13:47Z dot seed=1 epoch=7 loss=2.94656
+2026-11-07T18:13:48Z dot seed=1 epoch=8 loss=2.33164 VAL R20=0.238068 N20=0.145270 best_epoch=8 patience=0/6
+2026-11-07T18:13:49Z dot seed=1 epoch=9 loss=1.88383
+2026-11-07T18:13:49Z dot seed=1 epoch=10 loss=1.71411 VAL R20=0.243087 N20=0.149359 best_epoch=10 patience=0/6
+2026-11-07T18:13:50Z dot seed=1 epoch=11 loss=1.51335
+2026-11-07T18:13:51Z dot seed=1 epoch=12 loss=1.41501 VAL R20=0.266004 N20=0.164977 best_epoch=12 patience=0/6
+2026-11-07T18:13:51Z dot seed=1 epoch=13 loss=1.31621
+2026-11-07T18:13:52Z dot seed=1 epoch=14 loss=1.17984 VAL R20=0.294981 N20=0.161634 best_epoch=12 patience=1/6
+2026-11-07T18:13:53Z dot seed=1 epoch=15 loss=1.15966
+2026-11-07T18:13:54Z dot seed=1 epoch=16 loss=0.96382 VAL R20=0.296970 N20=0.183238 best_epoch=16 patience=0/6
+2026-11-07T18:13:54Z dot seed=1 epoch=17 loss=1.07815
+2026-11-07T18:13:55Z dot seed=1 epoch=18 loss=0.95819 VAL R20=0.327841 N20=0.192660 best_epoch=18 patience=0/6
+2026-11-07T18:13:56Z dot seed=1 epoch=19 loss=1.03514
+2026-11-07T18:13:57Z dot seed=1 epoch=20 loss=0.90238 VAL R20=0.282765 N20=0.157734 best_epoch=18 patience=1/6
+2026-11-07T18:13:57Z dot seed=1 epoch=21 loss=0.82863
+2026-11-07T18:13:58Z dot seed=1 epoch=22 loss=0.94630 VAL R20=0.316856 N20=0.186373 best_epoch=18 patience=2/6
+2026-11-07T18:13:59Z dot seed=1 epoch=23 loss=0.83291
+2026-11-07T18:13:59Z dot seed=1 epoch=24 loss=0.84271 VAL R20=0.305966 N20=0.195073 best_epoch=24 patience=0/6
+2026-11-07T18:14:00Z dot seed=1 epoch=25 loss=0.86621
+2026-11-07T18:14:01Z dot seed=1 epoch=26 loss=0.95969 VAL R20=0.304545 N20=0.182743 best_epoch=24 patience=1/6
+2026-11-07T18:14:01Z dot seed=1 epoch=27 loss=0.78786
+2026-11-07T18:14:02Z dot seed=1 epoch=28 loss=0.89010 VAL R20=0.334848 N20=0.196565 best_epoch=28 patience=0/6
+2026-11-07T18:14:03Z dot seed=1 epoch=29 loss=0.72292
+2026-11-07T18:14:03Z dot seed=1 epoch=30 loss=0.71088 VAL R20=0.313068 N20=0.196495 best_epoch=28 patience=1/6
+2026-11-07T18:14:04Z dot seed=1 epoch=31 loss=0.65293
+2026-11-07T18:14:05Z dot seed=1 epoch=32 loss=0.74269 VAL R20=0.339110 N20=0.212311 best_epoch=32 patience=0/6
+2026-11-07T18:14:05Z dot seed=1 epoch=33 loss=0.79655
+2026-11-07T18:14:06Z dot seed=1 epoch=34 loss=0.69405 VAL R20=0.314489 N20=0.200192 best_epoch=32 patience=1/6
+2026-11-07T18:14:07Z dot seed=1 epoch=35 loss=0.66374
+2026-11-07T18:14:07Z dot seed=1 epoch=36 loss=0.71805 VAL R20=0.328693 N20=0.197774 best_epoch=32 patience=2/6
+2026-11-07T18:14:08Z dot seed=1 epoch=37 loss=0.69812
+2026-11-07T18:14:09Z dot seed=1 epoch=38 loss=0.65084 VAL R20=0.333428 N20=0.194942 best_epoch=32 patience=3/6
+2026-11-07T18:14:09Z dot seed=1 epoch=39 loss=0.67121
+2026-11-07T18:14:10Z dot seed=1 epoch=40 loss=0.66352 VAL R20=0.329167 N20=0.220201 best_epoch=40 patience=0/6
+2026-11-07T18:14:11Z dot seed=1 epoch=41 loss=0.68384
+2026-11-07T18:14:11Z dot seed=1 epoch=42 loss=0.63588 VAL R20=0.330587 N20=0.218432 best_epoch=40 patience=1/6
+2026-11-07T18:14:12Z dot seed=1 epoch=43 loss=0.63753
+2026-11-07T18:14:13Z dot seed=1 epoch=44 loss=0.66395 VAL R20=0.330587 N20=0.214735 best_epoch=40 patience=2/6
+2026-11-07T18:14:13Z dot seed=1 epoch=45 loss=0.64915
+2026-11-07T18:14:14Z dot seed=1 epoch=46 loss=0.59580 VAL R20=0.345265 N20=0.209826 best_epoch=40 patience=3/6
+2026-11-07T18:14:15Z dot seed=1 epoch=47 loss=0.54646
+2026-11-07T18:14:15Z dot seed=1 epoch=48 loss=0.57513 VAL R20=0.336742 N20=0.220828 best_epoch=48 patience=0/6
+2026-11-07T18:14:16Z dot seed=1 epoch=49 loss=0.64091
+2026-11-07T18:14:17Z dot seed=1 epoch=50 loss=0.58239 VAL R20=0.313068 N20=0.205897 best_epoch=48 patience=1/6
+2026-11-07T18:14:17Z dot seed=1 epoch=51 loss=0.56847
+2026-11-07T18:14:18Z dot seed=1 epoch=52 loss=0.56506 VAL R20=0.344792 N20=0.214719 best_epoch=48 patience=2/6
+2026-11-07T18:14:19Z dot seed=1 epoch=53 loss=0.59713
+2026-11-07T18:14:19Z dot seed=1 epoch=54 loss=0.60577 VAL R20=0.321591 N20=0.213196 best_epoch=48 patience=3/6
+2026-11-07T18:14:20Z dot seed=1 epoch=55 loss=0.57843
+2026-11-07T18:14:21Z dot seed=1 epoch=56 loss=0.57424 VAL R20=0.332481 N20=0.219599 best_epoch=48 patience=4/6
+2026-11-07T18:14:21Z dot seed=1 epoch=57 loss=0.65035
+2026-11-07T18:14:22Z dot seed=1 epoch=58 loss=0.63598 VAL R20=0.345265 N20=0.213864 best_epoch=48 patience=5/6
+2026-11-07T18:14:23Z dot seed=1 epoch=59 loss=0.54755
+2026-11-07T18:14:23Z dot seed=1 epoch=60 loss=0.58232 VAL R20=0.340057 N20=0.211307 best_epoch=48 patience=6/6
+2026-11-07T18:14:24Z relations seed=1: parameters={'total': 305425, 'item_identity': 241152, 'other': 64273, 'frozen_buffer_bytes': 1974432, 'config': {'variant': 'relations', 'dim': 64, 'layers': 2, 'heads': 4, 'dropout': 0.1, 'identity_dropout': 0.1}}
+2026-11-07T18:14:27Z relations seed=1 epoch=1 loss=5.12450
+2026-11-07T18:14:32Z relations seed=1 epoch=2 loss=4.75098 VAL R20=0.173864 N20=0.078387 best_epoch=2 patience=0/6
+2026-11-07T18:14:36Z relations seed=1 epoch=3 loss=4.90203
+2026-11-07T18:14:40Z relations seed=1 epoch=4 loss=4.46043 VAL R20=0.224527 N20=0.129024 best_epoch=4 patience=0/6
+2026-11-07T18:14:44Z relations seed=1 epoch=5 loss=3.66266
+2026-11-07T18:14:49Z relations seed=1 epoch=6 loss=2.92122 VAL R20=0.295549 N20=0.200837 best_epoch=6 patience=0/6
+2026-11-07T18:14:53Z relations seed=1 epoch=7 loss=2.26593
+2026-11-07T18:14:57Z relations seed=1 epoch=8 loss=1.78642 VAL R20=0.361837 N20=0.261607 best_epoch=8 patience=0/6
+2026-11-07T18:15:01Z relations seed=1 epoch=9 loss=1.47547
+2026-11-07T18:15:06Z relations seed=1 epoch=10 loss=1.29968 VAL R20=0.367235 N20=0.272822 best_epoch=10 patience=0/6
+2026-11-07T18:15:09Z relations seed=1 epoch=11 loss=1.20439
+2026-11-07T18:15:14Z relations seed=1 epoch=12 loss=1.07295 VAL R20=0.389299 N20=0.283902 best_epoch=12 patience=0/6
+2026-11-07T18:15:18Z relations seed=1 epoch=13 loss=0.96205
+2026-11-07T18:15:23Z relations seed=1 epoch=14 loss=0.91240 VAL R20=0.380303 N20=0.291988 best_epoch=14 patience=0/6
+2026-11-07T18:15:27Z relations seed=1 epoch=15 loss=0.86176
+2026-11-07T18:15:31Z relations seed=1 epoch=16 loss=0.77843 VAL R20=0.461458 N20=0.325598 best_epoch=16 patience=0/6
+2026-11-07T18:15:35Z relations seed=1 epoch=17 loss=0.71901
+2026-11-07T18:15:39Z relations seed=1 epoch=18 loss=0.70445 VAL R20=0.413447 N20=0.302052 best_epoch=16 patience=1/6
+2026-11-07T18:15:43Z relations seed=1 epoch=19 loss=0.68744
+2026-11-07T18:15:48Z relations seed=1 epoch=20 loss=0.66111 VAL R20=0.437311 N20=0.324731 best_epoch=16 patience=2/6
+2026-11-07T18:15:52Z relations seed=1 epoch=21 loss=0.56824
+2026-11-07T18:15:56Z relations seed=1 epoch=22 loss=0.65178 VAL R20=0.429261 N20=0.316457 best_epoch=16 patience=3/6
+2026-11-07T18:16:00Z relations seed=1 epoch=23 loss=0.54975
+2026-11-07T18:16:05Z relations seed=1 epoch=24 loss=0.59050 VAL R20=0.441572 N20=0.322693 best_epoch=16 patience=4/6
+2026-11-07T18:16:08Z relations seed=1 epoch=25 loss=0.55345
+2026-11-07T18:16:13Z relations seed=1 epoch=26 loss=0.50954 VAL R20=0.429356 N20=0.310732 best_epoch=16 patience=5/6
+2026-11-07T18:16:17Z relations seed=1 epoch=27 loss=0.53394
+2026-11-07T18:16:21Z relations seed=1 epoch=28 loss=0.53308 VAL R20=0.452746 N20=0.326645 best_epoch=28 patience=0/6
+2026-11-07T18:16:25Z relations seed=1 epoch=29 loss=0.47528
+2026-11-07T18:16:30Z relations seed=1 epoch=30 loss=0.47212 VAL R20=0.449432 N20=0.323424 best_epoch=28 patience=1/6
+2026-11-07T18:16:33Z relations seed=1 epoch=31 loss=0.37380
+2026-11-07T18:16:38Z relations seed=1 epoch=32 loss=0.46433 VAL R20=0.412500 N20=0.284723 best_epoch=28 patience=2/6
+2026-11-07T18:16:42Z relations seed=1 epoch=33 loss=0.46089
+2026-11-07T18:16:46Z relations seed=1 epoch=34 loss=0.45814 VAL R20=0.422159 N20=0.303872 best_epoch=28 patience=3/6
+2026-11-07T18:16:50Z relations seed=1 epoch=35 loss=0.38881
+2026-11-07T18:16:54Z relations seed=1 epoch=36 loss=0.42439 VAL R20=0.424811 N20=0.295226 best_epoch=28 patience=4/6
+2026-11-07T18:16:58Z relations seed=1 epoch=37 loss=0.42704
+2026-11-07T18:17:02Z relations seed=1 epoch=38 loss=0.35689 VAL R20=0.434280 N20=0.307334 best_epoch=28 patience=5/6
+2026-11-07T18:17:06Z relations seed=1 epoch=39 loss=0.37097
+2026-11-07T18:17:10Z relations seed=1 epoch=40 loss=0.43375 VAL R20=0.443750 N20=0.320519 best_epoch=28 patience=6/6
+2026-11-07T18:17:11Z contextual seed=1: parameters={'total': 372369, 'item_identity': 241152, 'other': 131217, 'frozen_buffer_bytes': 1974432, 'config': {'variant': 'contextual', 'dim': 64, 'layers': 2, 'heads': 4, 'dropout': 0.1, 'identity_dropout': 0.1}}
+2026-11-07T18:17:15Z contextual seed=1 epoch=1 loss=5.20054
+2026-11-07T18:17:20Z contextual seed=1 epoch=2 loss=4.80731 VAL R20=0.142140 N20=0.071042 best_epoch=2 patience=0/6
+2026-11-07T18:17:23Z contextual seed=1 epoch=3 loss=4.98532
+2026-11-07T18:17:28Z contextual seed=1 epoch=4 loss=4.66116 VAL R20=0.211742 N20=0.110929 best_epoch=4 patience=0/6
+2026-11-07T18:17:32Z contextual seed=1 epoch=5 loss=4.20006
+2026-11-07T18:17:36Z contextual seed=1 epoch=6 loss=3.57065 VAL R20=0.250568 N20=0.163093 best_epoch=6 patience=0/6
+2026-11-07T18:17:40Z contextual seed=1 epoch=7 loss=2.90734
+2026-11-07T18:17:45Z contextual seed=1 epoch=8 loss=2.42311 VAL R20=0.283239 N20=0.189691 best_epoch=8 patience=0/6
+2026-11-07T18:17:48Z contextual seed=1 epoch=9 loss=1.93437
+2026-11-07T18:17:53Z contextual seed=1 epoch=10 loss=1.58482 VAL R20=0.329830 N20=0.225166 best_epoch=10 patience=0/6
+2026-11-07T18:17:57Z contextual seed=1 epoch=11 loss=1.43830
+2026-11-07T18:18:01Z contextual seed=1 epoch=12 loss=1.27994 VAL R20=0.319223 N20=0.237958 best_epoch=12 patience=0/6
+2026-11-07T18:18:05Z contextual seed=1 epoch=13 loss=1.10918
+2026-11-07T18:18:09Z contextual seed=1 epoch=14 loss=1.09941 VAL R20=0.351420 N20=0.248733 best_epoch=14 patience=0/6
+2026-11-07T18:18:13Z contextual seed=1 epoch=15 loss=1.02629
+2026-11-07T18:18:18Z contextual seed=1 epoch=16 loss=0.99904 VAL R20=0.363731 N20=0.271448 best_epoch=16 patience=0/6
+2026-11-07T18:18:21Z contextual seed=1 epoch=17 loss=0.88456
+2026-11-07T18:18:26Z contextual seed=1 epoch=18 loss=0.86967 VAL R20=0.385038 N20=0.276856 best_epoch=18 patience=0/6
+2026-11-07T18:18:30Z contextual seed=1 epoch=19 loss=0.79073
+2026-11-07T18:18:34Z contextual seed=1 epoch=20 loss=0.79892 VAL R20=0.382386 N20=0.280648 best_epoch=20 patience=0/6
+2026-11-07T18:18:38Z contextual seed=1 epoch=21 loss=0.75416
+2026-11-07T18:18:43Z contextual seed=1 epoch=22 loss=0.65047 VAL R20=0.432860 N20=0.275069 best_epoch=20 patience=1/6
+2026-11-07T18:18:46Z contextual seed=1 epoch=23 loss=0.68627
+2026-11-07T18:18:51Z contextual seed=1 epoch=24 loss=0.64169 VAL R20=0.425000 N20=0.300094 best_epoch=24 patience=0/6
+2026-11-07T18:18:55Z contextual seed=1 epoch=25 loss=0.65366
+2026-11-07T18:18:59Z contextual seed=1 epoch=26 loss=0.74503 VAL R20=0.433523 N20=0.296759 best_epoch=24 patience=1/6
+2026-11-07T18:19:03Z contextual seed=1 epoch=27 loss=0.63189
+2026-11-07T18:19:07Z contextual seed=1 epoch=28 loss=0.57747 VAL R20=0.448674 N20=0.302777 best_epoch=28 patience=0/6
+2026-11-07T18:19:11Z contextual seed=1 epoch=29 loss=0.62040
+2026-11-07T18:19:16Z contextual seed=1 epoch=30 loss=0.52960 VAL R20=0.426894 N20=0.296918 best_epoch=28 patience=1/6
+2026-11-07T18:19:20Z contextual seed=1 epoch=31 loss=0.53682
+2026-11-07T18:19:24Z contextual seed=1 epoch=32 loss=0.49902 VAL R20=0.395455 N20=0.298498 best_epoch=28 patience=2/6
+2026-11-07T18:19:28Z contextual seed=1 epoch=33 loss=0.54801
+2026-11-07T18:19:32Z contextual seed=1 epoch=34 loss=0.54361 VAL R20=0.390909 N20=0.279307 best_epoch=28 patience=3/6
+2026-11-07T18:19:36Z contextual seed=1 epoch=35 loss=0.53004
+2026-11-07T18:19:40Z contextual seed=1 epoch=36 loss=0.50096 VAL R20=0.412689 N20=0.314037 best_epoch=36 patience=0/6
+2026-11-07T18:19:44Z contextual seed=1 epoch=37 loss=0.50808
+2026-11-07T18:19:48Z contextual seed=1 epoch=38 loss=0.41419 VAL R20=0.411742 N20=0.303283 best_epoch=36 patience=1/6
+2026-11-07T18:19:52Z contextual seed=1 epoch=39 loss=0.44753
+2026-11-07T18:19:57Z contextual seed=1 epoch=40 loss=0.49546 VAL R20=0.418087 N20=0.313239 best_epoch=36 patience=2/6
+2026-11-07T18:20:00Z contextual seed=1 epoch=41 loss=0.46478
+2026-11-07T18:20:05Z contextual seed=1 epoch=42 loss=0.49788 VAL R20=0.411269 N20=0.306632 best_epoch=36 patience=3/6
+2026-11-07T18:20:08Z contextual seed=1 epoch=43 loss=0.45940
+2026-11-07T18:20:13Z contextual seed=1 epoch=44 loss=0.42406 VAL R20=0.433807 N20=0.311424 best_epoch=36 patience=4/6
+2026-11-07T18:20:16Z contextual seed=1 epoch=45 loss=0.41034
+2026-11-07T18:20:21Z contextual seed=1 epoch=46 loss=0.44524 VAL R20=0.407670 N20=0.292680 best_epoch=36 patience=5/6
+2026-11-07T18:20:25Z contextual seed=1 epoch=47 loss=0.38037
+2026-11-07T18:20:29Z contextual seed=1 epoch=48 loss=0.37357 VAL R20=0.424053 N20=0.317770 best_epoch=48 patience=0/6
+2026-11-07T18:20:33Z contextual seed=1 epoch=49 loss=0.38817
+2026-11-07T18:20:38Z contextual seed=1 epoch=50 loss=0.41209 VAL R20=0.429924 N20=0.321284 best_epoch=50 patience=0/6
+2026-11-07T18:20:42Z contextual seed=1 epoch=51 loss=0.32727
+2026-11-07T18:20:46Z contextual seed=1 epoch=52 loss=0.36003 VAL R20=0.424716 N20=0.311573 best_epoch=50 patience=1/6
+2026-11-07T18:20:50Z contextual seed=1 epoch=53 loss=0.42957
+2026-11-07T18:20:54Z contextual seed=1 epoch=54 loss=0.39150 VAL R20=0.427841 N20=0.310175 best_epoch=50 patience=2/6
+2026-11-07T18:20:58Z contextual seed=1 epoch=55 loss=0.33660
+2026-11-07T18:21:02Z contextual seed=1 epoch=56 loss=0.34668 VAL R20=0.416477 N20=0.302724 best_epoch=50 patience=3/6
+2026-11-07T18:21:06Z contextual seed=1 epoch=57 loss=0.35275
+2026-11-07T18:21:10Z contextual seed=1 epoch=58 loss=0.39390 VAL R20=0.407292 N20=0.292893 best_epoch=50 patience=4/6
+2026-11-07T18:21:14Z contextual seed=1 epoch=59 loss=0.38930
+2026-11-07T18:21:18Z contextual seed=1 epoch=60 loss=0.38774 VAL R20=0.424337 N20=0.308049 best_epoch=50 patience=5/6
+2026-11-07T18:21:22Z contextual seed=1 epoch=61 loss=0.31665
+2026-11-07T18:21:26Z contextual seed=1 epoch=62 loss=0.31340 VAL R20=0.419792 N20=0.306319 best_epoch=50 patience=6/6
+2026-11-07T18:21:27Z dot seed=2: parameters={'total': 347536, 'item_identity': 241152, 'other': 106384, 'frozen_buffer_bytes': 1974432, 'config': {'variant': 'dot', 'dim': 64, 'layers': 2, 'heads': 4, 'dropout': 0.1, 'identity_dropout': 0.1}}
+2026-11-07T18:21:28Z dot seed=2 epoch=1 loss=5.32236
+2026-11-07T18:21:29Z dot seed=2 epoch=2 loss=5.02279 VAL R20=0.111837 N20=0.046986 best_epoch=2 patience=0/6
+2026-11-07T18:21:29Z dot seed=2 epoch=3 loss=5.18250
+2026-11-07T18:21:30Z dot seed=2 epoch=4 loss=4.85741 VAL R20=0.136932 N20=0.061342 best_epoch=4 patience=0/6
+2026-11-07T18:21:30Z dot seed=2 epoch=5 loss=4.24417
+2026-11-07T18:21:31Z dot seed=2 epoch=6 loss=3.63948 VAL R20=0.204451 N20=0.095934 best_epoch=6 patience=0/6
+2026-11-07T18:21:32Z dot seed=2 epoch=7 loss=2.90592
+2026-11-07T18:21:32Z dot seed=2 epoch=8 loss=2.39170 VAL R20=0.265530 N20=0.135959 best_epoch=8 patience=0/6
+2026-11-07T18:21:33Z dot seed=2 epoch=9 loss=1.99016
+2026-11-07T18:21:34Z dot seed=2 epoch=10 loss=1.65535 VAL R20=0.264583 N20=0.157898 best_epoch=10 patience=0/6
+2026-11-07T18:21:34Z dot seed=2 epoch=11 loss=1.41105
+2026-11-07T18:21:35Z dot seed=2 epoch=12 loss=1.35822 VAL R20=0.297254 N20=0.169335 best_epoch=12 patience=0/6
+2026-11-07T18:21:36Z dot seed=2 epoch=13 loss=1.34561
+2026-11-07T18:21:36Z dot seed=2 epoch=14 loss=1.28231 VAL R20=0.310701 N20=0.192213 best_epoch=14 patience=0/6
+2026-11-07T18:21:37Z dot seed=2 epoch=15 loss=1.16342
+2026-11-07T18:21:38Z dot seed=2 epoch=16 loss=1.06610 VAL R20=0.302178 N20=0.195993 best_epoch=16 patience=0/6
+2026-11-07T18:21:38Z dot seed=2 epoch=17 loss=1.09350
+2026-11-07T18:21:39Z dot seed=2 epoch=18 loss=1.01110 VAL R20=0.317330 N20=0.189781 best_epoch=16 patience=1/6
+2026-11-07T18:21:40Z dot seed=2 epoch=19 loss=1.11048
+2026-11-07T18:21:40Z dot seed=2 epoch=20 loss=0.91612 VAL R20=0.350568 N20=0.199862 best_epoch=20 patience=0/6
+2026-11-07T18:21:41Z dot seed=2 epoch=21 loss=0.80435
+2026-11-07T18:21:42Z dot seed=2 epoch=22 loss=0.85350 VAL R20=0.358049 N20=0.212756 best_epoch=22 patience=0/6
+2026-11-07T18:21:42Z dot seed=2 epoch=23 loss=0.78411
+2026-11-07T18:21:43Z dot seed=2 epoch=24 loss=0.79484 VAL R20=0.348580 N20=0.217292 best_epoch=24 patience=0/6
+2026-11-07T18:21:44Z dot seed=2 epoch=25 loss=0.83129
+2026-11-07T18:21:44Z dot seed=2 epoch=26 loss=0.71269 VAL R20=0.332292 N20=0.215706 best_epoch=24 patience=1/6
+2026-11-07T18:21:45Z dot seed=2 epoch=27 loss=0.71537
+2026-11-07T18:21:46Z dot seed=2 epoch=28 loss=0.75426 VAL R20=0.367045 N20=0.223765 best_epoch=28 patience=0/6
+2026-11-07T18:21:46Z dot seed=2 epoch=29 loss=0.78469
+2026-11-07T18:21:47Z dot seed=2 epoch=30 loss=0.68180 VAL R20=0.348580 N20=0.221657 best_epoch=28 patience=1/6
+2026-11-07T18:21:48Z dot seed=2 epoch=31 loss=0.74593
+2026-11-07T18:21:48Z dot seed=2 epoch=32 loss=0.67556 VAL R20=0.356155 N20=0.244981 best_epoch=32 patience=0/6
+2026-11-07T18:21:49Z dot seed=2 epoch=33 loss=0.71971
+2026-11-07T18:21:50Z dot seed=2 epoch=34 loss=0.70349 VAL R20=0.370360 N20=0.236704 best_epoch=32 patience=1/6
+2026-11-07T18:21:50Z dot seed=2 epoch=35 loss=0.68607
+2026-11-07T18:21:51Z dot seed=2 epoch=36 loss=0.70386 VAL R20=0.367519 N20=0.218077 best_epoch=32 patience=2/6
+2026-11-07T18:21:52Z dot seed=2 epoch=37 loss=0.67370
+2026-11-07T18:21:52Z dot seed=2 epoch=38 loss=0.67858 VAL R20=0.336269 N20=0.218995 best_epoch=32 patience=3/6
+2026-11-07T18:21:53Z dot seed=2 epoch=39 loss=0.63122
+2026-11-07T18:21:54Z dot seed=2 epoch=40 loss=0.66104 VAL R20=0.343845 N20=0.230673 best_epoch=32 patience=4/6
+2026-11-07T18:21:54Z dot seed=2 epoch=41 loss=0.62951
+2026-11-07T18:21:55Z dot seed=2 epoch=42 loss=0.63055 VAL R20=0.358996 N20=0.226621 best_epoch=32 patience=5/6
+2026-11-07T18:21:56Z dot seed=2 epoch=43 loss=0.57479
+2026-11-07T18:21:56Z dot seed=2 epoch=44 loss=0.56019 VAL R20=0.377462 N20=0.228600 best_epoch=32 patience=6/6
+2026-11-07T18:21:56Z relations seed=2: parameters={'total': 305425, 'item_identity': 241152, 'other': 64273, 'frozen_buffer_bytes': 1974432, 'config': {'variant': 'relations', 'dim': 64, 'layers': 2, 'heads': 4, 'dropout': 0.1, 'identity_dropout': 0.1}}
+2026-11-07T18:22:00Z relations seed=2 epoch=1 loss=5.14727
+2026-11-07T18:22:05Z relations seed=2 epoch=2 loss=4.73500 VAL R20=0.150852 N20=0.079345 best_epoch=2 patience=0/6
+2026-11-07T18:22:08Z relations seed=2 epoch=3 loss=4.90349
+2026-11-07T18:22:13Z relations seed=2 epoch=4 loss=4.53218 VAL R20=0.209848 N20=0.140995 best_epoch=4 patience=0/6
+2026-11-07T18:22:16Z relations seed=2 epoch=5 loss=3.79573
+2026-11-07T18:22:21Z relations seed=2 epoch=6 loss=3.02271 VAL R20=0.283902 N20=0.198993 best_epoch=6 patience=0/6
+2026-11-07T18:22:24Z relations seed=2 epoch=7 loss=2.30875
+2026-11-07T18:22:29Z relations seed=2 epoch=8 loss=1.78899 VAL R20=0.314678 N20=0.227023 best_epoch=8 patience=0/6
+2026-11-07T18:22:32Z relations seed=2 epoch=9 loss=1.50002
+2026-11-07T18:22:37Z relations seed=2 epoch=10 loss=1.23958 VAL R20=0.356155 N20=0.260792 best_epoch=10 patience=0/6
+2026-11-07T18:22:41Z relations seed=2 epoch=11 loss=1.15588
+2026-11-07T18:22:45Z relations seed=2 epoch=12 loss=0.99902 VAL R20=0.383807 N20=0.291787 best_epoch=12 patience=0/6
+2026-11-07T18:22:49Z relations seed=2 epoch=13 loss=0.94943
+2026-11-07T18:22:53Z relations seed=2 epoch=14 loss=0.88324 VAL R20=0.404640 N20=0.292335 best_epoch=14 patience=0/6
+2026-11-07T18:22:57Z relations seed=2 epoch=15 loss=0.74883
+2026-11-07T18:23:01Z relations seed=2 epoch=16 loss=0.71876 VAL R20=0.412689 N20=0.294024 best_epoch=16 patience=0/6
+2026-11-07T18:23:05Z relations seed=2 epoch=17 loss=0.64593
+2026-11-07T18:23:09Z relations seed=2 epoch=18 loss=0.64105 VAL R20=0.421402 N20=0.321122 best_epoch=18 patience=0/6
+2026-11-07T18:23:13Z relations seed=2 epoch=19 loss=0.64527
+2026-11-07T18:23:17Z relations seed=2 epoch=20 loss=0.58555 VAL R20=0.414394 N20=0.299021 best_epoch=18 patience=1/6
+2026-11-07T18:23:21Z relations seed=2 epoch=21 loss=0.53464
+2026-11-07T18:23:26Z relations seed=2 epoch=22 loss=0.56273 VAL R20=0.434280 N20=0.315244 best_epoch=18 patience=2/6
+2026-11-07T18:23:29Z relations seed=2 epoch=23 loss=0.45428
+2026-11-07T18:23:34Z relations seed=2 epoch=24 loss=0.49540 VAL R20=0.439962 N20=0.306370 best_epoch=18 patience=3/6
+2026-11-07T18:23:37Z relations seed=2 epoch=25 loss=0.52035
+2026-11-07T18:23:42Z relations seed=2 epoch=26 loss=0.50578 VAL R20=0.430682 N20=0.319154 best_epoch=18 patience=4/6
+2026-11-07T18:23:45Z relations seed=2 epoch=27 loss=0.43738
+2026-11-07T18:23:50Z relations seed=2 epoch=28 loss=0.46214 VAL R20=0.442235 N20=0.332809 best_epoch=28 patience=0/6
+2026-11-07T18:23:53Z relations seed=2 epoch=29 loss=0.41871
+2026-11-07T18:23:58Z relations seed=2 epoch=30 loss=0.45736 VAL R20=0.469697 N20=0.331552 best_epoch=28 patience=1/6
+2026-11-07T18:24:01Z relations seed=2 epoch=31 loss=0.47265
+2026-11-07T18:24:06Z relations seed=2 epoch=32 loss=0.44346 VAL R20=0.451042 N20=0.318914 best_epoch=28 patience=2/6
+2026-11-07T18:24:09Z relations seed=2 epoch=33 loss=0.46137
+2026-11-07T18:24:14Z relations seed=2 epoch=34 loss=0.39980 VAL R20=0.450284 N20=0.326880 best_epoch=28 patience=3/6
+2026-11-07T18:24:17Z relations seed=2 epoch=35 loss=0.38152
+2026-11-07T18:24:22Z relations seed=2 epoch=36 loss=0.44562 VAL R20=0.456061 N20=0.329517 best_epoch=28 patience=4/6
+2026-11-07T18:24:25Z relations seed=2 epoch=37 loss=0.40935
+2026-11-07T18:24:30Z relations seed=2 epoch=38 loss=0.38174 VAL R20=0.433807 N20=0.310553 best_epoch=28 patience=5/6
+2026-11-07T18:24:33Z relations seed=2 epoch=39 loss=0.38056
+2026-11-07T18:24:38Z relations seed=2 epoch=40 loss=0.40875 VAL R20=0.454167 N20=0.316317 best_epoch=28 patience=6/6
+2026-11-07T18:24:39Z contextual seed=2: parameters={'total': 372369, 'item_identity': 241152, 'other': 131217, 'frozen_buffer_bytes': 1974432, 'config': {'variant': 'contextual', 'dim': 64, 'layers': 2, 'heads': 4, 'dropout': 0.1, 'identity_dropout': 0.1}}
+2026-11-07T18:24:43Z contextual seed=2 epoch=1 loss=5.21455
+2026-11-07T18:24:48Z contextual seed=2 epoch=2 loss=4.76788 VAL R20=0.142614 N20=0.085920 best_epoch=2 patience=0/6
+2026-11-07T18:24:51Z contextual seed=2 epoch=3 loss=4.99242
+2026-11-07T18:24:56Z contextual seed=2 epoch=4 loss=4.79670 VAL R20=0.193750 N20=0.099112 best_epoch=4 patience=0/6
+2026-11-07T18:25:00Z contextual seed=2 epoch=5 loss=4.34722
+2026-11-07T18:25:04Z contextual seed=2 epoch=6 loss=3.76901 VAL R20=0.207955 N20=0.121342 best_epoch=6 patience=0/6
+2026-11-07T18:25:08Z contextual seed=2 epoch=7 loss=3.18157
+2026-11-07T18:25:12Z contextual seed=2 epoch=8 loss=2.49697 VAL R20=0.267992 N20=0.201888 best_epoch=8 patience=0/6
+2026-11-07T18:25:16Z contextual seed=2 epoch=9 loss=2.04473
+2026-11-07T18:25:21Z contextual seed=2 epoch=10 loss=1.68114 VAL R20=0.307860 N20=0.229879 best_epoch=10 patience=0/6
+2026-11-07T18:25:25Z contextual seed=2 epoch=11 loss=1.43711
+2026-11-07T18:25:29Z contextual seed=2 epoch=12 loss=1.25216 VAL R20=0.334280 N20=0.251565 best_epoch=12 patience=0/6
+2026-11-07T18:25:33Z contextual seed=2 epoch=13 loss=1.20861
+2026-11-07T18:25:38Z contextual seed=2 epoch=14 loss=1.08079 VAL R20=0.361553 N20=0.246441 best_epoch=12 patience=1/6
+2026-11-07T18:25:42Z contextual seed=2 epoch=15 loss=0.98084
+2026-11-07T18:25:46Z contextual seed=2 epoch=16 loss=0.90203 VAL R20=0.364394 N20=0.256112 best_epoch=16 patience=0/6
+2026-11-07T18:25:51Z contextual seed=2 epoch=17 loss=0.80247
+2026-11-07T18:25:55Z contextual seed=2 epoch=18 loss=0.88382 VAL R20=0.382386 N20=0.281470 best_epoch=18 patience=0/6
+2026-11-07T18:25:59Z contextual seed=2 epoch=19 loss=0.78097
+2026-11-07T18:26:03Z contextual seed=2 epoch=20 loss=0.72837 VAL R20=0.430966 N20=0.309494 best_epoch=20 patience=0/6
+2026-11-07T18:26:07Z contextual seed=2 epoch=21 loss=0.68964
+2026-11-07T18:26:12Z contextual seed=2 epoch=22 loss=0.68493 VAL R20=0.429735 N20=0.316779 best_epoch=22 patience=0/6
+2026-11-07T18:26:16Z contextual seed=2 epoch=23 loss=0.65691
+2026-11-07T18:26:20Z contextual seed=2 epoch=24 loss=0.63158 VAL R20=0.466004 N20=0.325638 best_epoch=24 patience=0/6
+2026-11-07T18:26:24Z contextual seed=2 epoch=25 loss=0.61122
+2026-11-07T18:26:29Z contextual seed=2 epoch=26 loss=0.61534 VAL R20=0.426894 N20=0.304542 best_epoch=24 patience=1/6
+2026-11-07T18:26:32Z contextual seed=2 epoch=27 loss=0.55785
+2026-11-07T18:26:37Z contextual seed=2 epoch=28 loss=0.56978 VAL R20=0.442519 N20=0.316578 best_epoch=24 patience=2/6
+2026-11-07T18:26:40Z contextual seed=2 epoch=29 loss=0.57896
+2026-11-07T18:26:45Z contextual seed=2 epoch=30 loss=0.60454 VAL R20=0.438068 N20=0.322020 best_epoch=24 patience=3/6
+2026-11-07T18:26:49Z contextual seed=2 epoch=31 loss=0.55094
+2026-11-07T18:26:53Z contextual seed=2 epoch=32 loss=0.56928 VAL R20=0.428314 N20=0.326820 best_epoch=32 patience=0/6
+2026-11-07T18:26:57Z contextual seed=2 epoch=33 loss=0.50872
+2026-11-07T18:27:01Z contextual seed=2 epoch=34 loss=0.51675 VAL R20=0.457670 N20=0.340699 best_epoch=34 patience=0/6
+2026-11-07T18:27:05Z contextual seed=2 epoch=35 loss=0.50417
+2026-11-07T18:27:10Z contextual seed=2 epoch=36 loss=0.48669 VAL R20=0.470455 N20=0.331358 best_epoch=34 patience=1/6
+2026-11-07T18:27:13Z contextual seed=2 epoch=37 loss=0.53069
+2026-11-07T18:27:18Z contextual seed=2 epoch=38 loss=0.46097 VAL R20=0.450095 N20=0.329880 best_epoch=34 patience=2/6
+2026-11-07T18:27:22Z contextual seed=2 epoch=39 loss=0.48703
+2026-11-07T18:27:26Z contextual seed=2 epoch=40 loss=0.46577 VAL R20=0.455966 N20=0.341321 best_epoch=40 patience=0/6
+2026-11-07T18:27:30Z contextual seed=2 epoch=41 loss=0.42528
+2026-11-07T18:27:35Z contextual seed=2 epoch=42 loss=0.48684 VAL R20=0.441383 N20=0.337815 best_epoch=40 patience=1/6
+2026-11-07T18:27:39Z contextual seed=2 epoch=43 loss=0.43325
+2026-11-07T18:27:43Z contextual seed=2 epoch=44 loss=0.44041 VAL R20=0.442992 N20=0.341001 best_epoch=40 patience=2/6
+2026-11-07T18:27:47Z contextual seed=2 epoch=45 loss=0.45173
+2026-11-07T18:27:51Z contextual seed=2 epoch=46 loss=0.38135 VAL R20=0.466193 N20=0.339181 best_epoch=40 patience=3/6
+2026-11-07T18:27:55Z contextual seed=2 epoch=47 loss=0.38661
+2026-11-07T18:28:00Z contextual seed=2 epoch=48 loss=0.37924 VAL R20=0.446023 N20=0.331085 best_epoch=40 patience=4/6
+2026-11-07T18:28:03Z contextual seed=2 epoch=49 loss=0.38340
+2026-11-07T18:28:08Z contextual seed=2 epoch=50 loss=0.44404 VAL R20=0.435417 N20=0.312041 best_epoch=40 patience=5/6
+2026-11-07T18:28:12Z contextual seed=2 epoch=51 loss=0.36725
+2026-11-07T18:28:16Z contextual seed=2 epoch=52 loss=0.39851 VAL R20=0.448958 N20=0.328110 best_epoch=40 patience=6/6
+2026-11-07T18:28:18Z dot_seed0: TEST R20=0.371483 N20=0.247411
+2026-11-07T18:28:20Z relations_seed0: TEST R20=0.399953 N20=0.301327
+2026-11-07T18:28:22Z contextual_seed0: TEST R20=0.448536 N20=0.330082
+2026-11-07T18:28:22Z dot_seed1: TEST R20=0.344948 N20=0.240198
+2026-11-07T18:28:24Z relations_seed1: TEST R20=0.442918 N20=0.331295
+2026-11-07T18:28:26Z contextual_seed1: TEST R20=0.444287 N20=0.334353
+2026-11-07T18:28:26Z dot_seed2: TEST R20=0.364873 N20=0.233100
+2026-11-07T18:28:27Z relations_seed2: TEST R20=0.455996 N20=0.341183
+2026-11-07T18:28:30Z contextual_seed2: TEST R20=0.451747 N20=0.333295
+2026-11-07T18:28:30Z food: COMPLETE

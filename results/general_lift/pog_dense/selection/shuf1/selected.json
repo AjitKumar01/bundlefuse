@@ -1,0 +1,40 @@
+{
+  "config": {
+    "kind": "gate",
+    "weights": {
+      "shuf1_lift0": 0.25,
+      "residual_content": 0.5,
+      "residual_image": 0.5,
+      "pop": 1.0,
+      "pair": 1.5,
+      "simp": 1.5,
+      "amp": 1.5
+    },
+    "prior_weights": {
+      "shuf1_lift0": 0.25,
+      "residual_content": 0.5,
+      "residual_image": 0.5,
+      "pop": 1.0
+    },
+    "scale": 1.0,
+    "kappa": 1.0
+  },
+  "tuning_metrics": [
+    0.3709677419354837,
+    0.2538037627135786
+  ],
+  "keys": [
+    "shuf1_lift0",
+    "residual_content",
+    "residual_image",
+    "residual_desc",
+    "pop",
+    "pair",
+    "simp",
+    "amp"
+  ],
+  "history": "simp",
+  "alpha": 1.0,
+  "seconds": 55.347002333001,
+  "fitting_candidates": 92
+}

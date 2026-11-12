@@ -1,0 +1,306 @@
+[
+  {
+    "epoch": 1,
+    "loss": 5.2791656766619
+  },
+  {
+    "epoch": 2,
+    "loss": 5.033251688077852,
+    "validation": {
+      "recall20": 0.06666666666666665,
+      "ndcg20": 0.04011914125983643,
+      "seconds": 0.04666600000928156,
+      "item_encoding_seconds": 0.0009211250289808959,
+      "full_catalogue": true,
+      "catalogue_size": 3767
+    }
+  },
+  {
+    "epoch": 3,
+    "loss": 5.247366174474939
+  },
+  {
+    "epoch": 4,
+    "loss": 4.94679780439897,
+    "validation": {
+      "recall20": 0.07717803030303029,
+      "ndcg20": 0.03397177198875698,
+      "seconds": 0.0476771249959711,
+      "item_encoding_seconds": 0.0009240419894922525,
+      "full_catalogue": true,
+      "catalogue_size": 3767
+    }
+  },
+  {
+    "epoch": 5,
+    "loss": 4.503858875918698
+  },
+  {
+    "epoch": 6,
+    "loss": 3.8172401298176157,
+    "validation": {
+      "recall20": 0.19602272727272727,
+      "ndcg20": 0.09486305589794065,
+      "seconds": 0.04767566599184647,
+      "item_encoding_seconds": 0.0008887909934855998,
+      "full_catalogue": true,
+      "catalogue_size": 3767
+    }
+  },
+  {
+    "epoch": 7,
+    "loss": 3.073555348755477
+  },
+  {
+    "epoch": 8,
+    "loss": 2.4069032282024234,
+    "validation": {
+      "recall20": 0.2543560606060606,
+      "ndcg20": 0.14441886916719449,
+      "seconds": 0.04781970800831914,
+      "item_encoding_seconds": 0.0009004160237964243,
+      "full_catalogue": true,
+      "catalogue_size": 3767
+    }
+  },
+  {
+    "epoch": 9,
+    "loss": 1.977282124680358
+  },
+  {
+    "epoch": 10,
+    "loss": 1.6743256356809046,
+    "validation": {
+      "recall20": 0.28210227272727273,
+      "ndcg20": 0.18154375581337823,
+      "seconds": 0.048290333012118936,
+      "item_encoding_seconds": 0.0008987080072984099,
+      "full_catalogue": true,
+      "catalogue_size": 3767
+    }
+  },
+  {
+    "epoch": 11,
+    "loss": 1.525109743143057
+  },
+  {
+    "epoch": 12,
+    "loss": 1.4363629082580665,
+    "validation": {
+      "recall20": 0.29204545454545455,
+      "ndcg20": 0.1778760028454597,
+      "seconds": 0.048240583011647686,
+      "item_encoding_seconds": 0.0008946250018198043,
+      "full_catalogue": true,
+      "catalogue_size": 3767
+    }
+  },
+  {
+    "epoch": 13,
+    "loss": 1.275608442820512
+  },
+  {
+    "epoch": 14,
+    "loss": 1.1164741129070133,
+    "validation": {
+      "recall20": 0.3286931818181818,
+      "ndcg20": 0.20471078736837825,
+      "seconds": 0.05010433300049044,
+      "item_encoding_seconds": 0.0009232079901266843,
+      "full_catalogue": true,
+      "catalogue_size": 3767
+    }
+  },
+  {
+    "epoch": 15,
+    "loss": 1.1438593489009063
+  },
+  {
+    "epoch": 16,
+    "loss": 1.0180976081204105,
+    "validation": {
+      "recall20": 0.35625,
+      "ndcg20": 0.22191329755223455,
+      "seconds": 0.051266249996842816,
+      "item_encoding_seconds": 0.0009149590041488409,
+      "full_catalogue": true,
+      "catalogue_size": 3767
+    }
+  },
+  {
+    "epoch": 17,
+    "loss": 0.9950503898518426
+  },
+  {
+    "epoch": 18,
+    "loss": 0.9895636570918096,
+    "validation": {
+      "recall20": 0.3370265151515151,
+      "ndcg20": 0.20160796886254725,
+      "seconds": 0.05088062499999069,
+      "item_encoding_seconds": 0.0010852919949684292,
+      "full_catalogue": true,
+      "catalogue_size": 3767
+    }
+  },
+  {
+    "epoch": 19,
+    "loss": 0.9559915514735432
+  },
+  {
+    "epoch": 20,
+    "loss": 0.9391514480888069,
+    "validation": {
+      "recall20": 0.3308712121212121,
+      "ndcg20": 0.1968488409111172,
+      "seconds": 0.050740125006996095,
+      "item_encoding_seconds": 0.0010616670188028365,
+      "full_catalogue": true,
+      "catalogue_size": 3767
+    }
+  },
+  {
+    "epoch": 21,
+    "loss": 0.9456947432322935
+  },
+  {
+    "epoch": 22,
+    "loss": 0.839116235058029,
+    "validation": {
+      "recall20": 0.38816287878787875,
+      "ndcg20": 0.23061139637070305,
+      "seconds": 0.05128925002645701,
+      "item_encoding_seconds": 0.0009118750167544931,
+      "full_catalogue": true,
+      "catalogue_size": 3767
+    }
+  },
+  {
+    "epoch": 23,
+    "loss": 0.8485987991481633
+  },
+  {
+    "epoch": 24,
+    "loss": 0.8741351346690933,
+    "validation": {
+      "recall20": 0.3732007575757576,
+      "ndcg20": 0.23570513120133765,
+      "seconds": 0.051178499998059124,
+      "item_encoding_seconds": 0.0009444589959457517,
+      "full_catalogue": true,
+      "catalogue_size": 3767
+    }
+  },
+  {
+    "epoch": 25,
+    "loss": 0.8502536654085308
+  },
+  {
+    "epoch": 26,
+    "loss": 0.7227265540655557,
+    "validation": {
+      "recall20": 0.3829545454545455,
+      "ndcg20": 0.2524219584308567,
+      "seconds": 0.05074204198899679,
+      "item_encoding_seconds": 0.0009222920052707195,
+      "full_catalogue": true,
+      "catalogue_size": 3767
+    }
+  },
+  {
+    "epoch": 27,
+    "loss": 0.7736796727041145
+  },
+  {
+    "epoch": 28,
+    "loss": 0.7876551878916753,
+    "validation": {
+      "recall20": 0.3856060606060607,
+      "ndcg20": 0.25215811617573247,
+      "seconds": 0.051173541985917836,
+      "item_encoding_seconds": 0.0009295420022681355,
+      "full_catalogue": true,
+      "catalogue_size": 3767
+    }
+  },
+  {
+    "epoch": 29,
+    "loss": 0.6995519268048274
+  },
+  {
+    "epoch": 30,
+    "loss": 0.7698539232278799,
+    "validation": {
+      "recall20": 0.3824810606060606,
+      "ndcg20": 0.24163308218089471,
+      "seconds": 0.050474457995733246,
+      "item_encoding_seconds": 0.0009443330054637045,
+      "full_catalogue": true,
+      "catalogue_size": 3767
+    }
+  },
+  {
+    "epoch": 31,
+    "loss": 0.7190813890525273
+  },
+  {
+    "epoch": 32,
+    "loss": 0.7773401436287087,
+    "validation": {
+      "recall20": 0.37537878787878787,
+      "ndcg20": 0.24485490978016264,
+      "seconds": 0.05119312499300577,
+      "item_encoding_seconds": 0.0010982920066453516,
+      "full_catalogue": true,
+      "catalogue_size": 3767
+    }
+  },
+  {
+    "epoch": 33,
+    "loss": 0.7257253351536664
+  },
+  {
+    "epoch": 34,
+    "loss": 0.7122403340680259,
+    "validation": {
+      "recall20": 0.37509469696969694,
+      "ndcg20": 0.23029702919751663,
+      "seconds": 0.05135774999507703,
+      "item_encoding_seconds": 0.0010774580005090684,
+      "full_catalogue": true,
+      "catalogue_size": 3767
+    }
+  },
+  {
+    "epoch": 35,
+    "loss": 0.6525212694685181
+  },
+  {
+    "epoch": 36,
+    "loss": 0.6049173258535274,
+    "validation": {
+      "recall20": 0.38409090909090904,
+      "ndcg20": 0.22514283440475752,
+      "seconds": 0.052299292001407593,
+      "item_encoding_seconds": 0.0009952499822247773,
+      "full_catalogue": true,
+      "catalogue_size": 3767
+    }
+  },
+  {
+    "epoch": 37,
+    "loss": 0.6892655978535677
+  },
+  {
+    "epoch": 38,
+    "loss": 0.5489141465007484,
+    "validation": {
+      "recall20": 0.39545454545454545,
+      "ndcg20": 0.22816608422699966,
+      "seconds": 0.051619542005937546,
+      "item_encoding_seconds": 0.0010483750083949417,
+      "full_catalogue": true,
+      "catalogue_size": 3767
+    }
+  }
+]

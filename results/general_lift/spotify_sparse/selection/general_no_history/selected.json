@@ -1,0 +1,25 @@
+{
+  "config": {
+    "kind": "weighted",
+    "weights": {
+      "lift0": 0.5,
+      "lift1": 0.25,
+      "residual_audio": 0.25,
+      "pop": 0.5
+    }
+  },
+  "tuning_metrics": [
+    0.07468614680020083,
+    0.10335671421316893
+  ],
+  "keys": [
+    "lift0",
+    "lift1",
+    "residual_audio",
+    "pop"
+  ],
+  "history": "simp",
+  "alpha": 1.0,
+  "seconds": 47.64605583299999,
+  "fitting_candidates": 32
+}

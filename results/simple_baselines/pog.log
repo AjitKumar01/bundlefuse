@@ -1,0 +1,42 @@
+2026-11-08T17:56:37Z pog: n=48676 train=14000 pairs=138274
+2026-11-08T17:56:38Z pog popularity {} VAL N20=0.007474
+2026-11-08T17:56:38Z pog cooccurrence {} VAL N20=0.020565
+2026-11-08T17:56:39Z pog itemknn {'k': 50, 'shrink': 0} VAL N20=0.016505
+2026-11-08T17:56:40Z pog itemknn {'k': 50, 'shrink': 10} VAL N20=0.017786
+2026-11-08T17:56:40Z pog itemknn {'k': 50, 'shrink': 100} VAL N20=0.018051
+2026-11-08T17:56:41Z pog itemknn {'k': 200, 'shrink': 0} VAL N20=0.016622
+2026-11-08T17:56:42Z pog itemknn {'k': 200, 'shrink': 10} VAL N20=0.017919
+2026-11-08T17:56:42Z pog itemknn {'k': 200, 'shrink': 100} VAL N20=0.018215
+2026-11-08T17:56:43Z pog itemknn {'k': 1000, 'shrink': 0} VAL N20=0.016622
+2026-11-08T17:56:43Z pog itemknn {'k': 1000, 'shrink': 10} VAL N20=0.017919
+2026-11-08T17:56:44Z pog itemknn {'k': 1000, 'shrink': 100} VAL N20=0.018215
+2026-11-08T17:56:45Z pog rp3beta {'alpha': 0.5, 'beta': 0.0} VAL N20=0.019850
+2026-11-08T17:56:45Z pog rp3beta {'alpha': 0.5, 'beta': 0.25} VAL N20=0.017952
+2026-11-08T17:56:46Z pog rp3beta {'alpha': 0.5, 'beta': 0.5} VAL N20=0.016578
+2026-11-08T17:56:47Z pog rp3beta {'alpha': 0.5, 'beta': 0.75} VAL N20=0.015626
+2026-11-08T17:56:47Z pog rp3beta {'alpha': 1.0, 'beta': 0.0} VAL N20=0.019623
+2026-11-08T17:56:48Z pog rp3beta {'alpha': 1.0, 'beta': 0.25} VAL N20=0.017787
+2026-11-08T17:56:48Z pog rp3beta {'alpha': 1.0, 'beta': 0.5} VAL N20=0.016259
+2026-11-08T17:56:49Z pog rp3beta {'alpha': 1.0, 'beta': 0.75} VAL N20=0.015436
+2026-11-08T17:56:50Z pog gfcf {'rank': 64, 'ideal': 0.0} VAL N20=0.016178
+2026-11-08T17:56:51Z pog gfcf {'rank': 64, 'ideal': 0.1} VAL N20=0.014616
+2026-11-08T17:56:52Z pog gfcf {'rank': 64, 'ideal': 0.3} VAL N20=0.014491
+2026-11-08T17:56:53Z pog gfcf {'rank': 64, 'ideal': 1.0} VAL N20=0.014491
+2026-11-08T17:56:54Z pog gfcf {'rank': 64, 'ideal': 3.0} VAL N20=0.014496
+2026-11-08T17:56:54Z pog gfcf {'rank': 256, 'ideal': 0.0} VAL N20=0.016178
+2026-11-08T17:56:56Z pog gfcf {'rank': 256, 'ideal': 0.1} VAL N20=0.014794
+2026-11-08T17:56:57Z pog gfcf {'rank': 256, 'ideal': 0.3} VAL N20=0.014717
+2026-11-08T17:56:59Z pog gfcf {'rank': 256, 'ideal': 1.0} VAL N20=0.014716
+2026-11-08T17:57:00Z pog gfcf {'rank': 256, 'ideal': 3.0} VAL N20=0.014774
+2026-11-08T17:58:06Z pog ease {'l2': 50.0} VAL N20=0.019184
+2026-11-08T17:59:12Z pog ease {'l2': 200.0} VAL N20=0.019483
+2026-11-08T18:00:19Z pog ease {'l2': 500.0} VAL N20=0.019536
+2026-11-08T18:01:25Z pog ease {'l2': 1000.0} VAL N20=0.020383
+2026-11-08T18:02:31Z pog ease {'l2': 3000.0} VAL N20=0.020724
+2026-11-08T18:02:32Z pog popularity TEST filtered {'recall20': 0.014434710054234457, 'ndcg20': 0.006816533116516506}
+2026-11-08T18:02:33Z pog cooccurrence TEST filtered {'recall20': 0.029954109303295784, 'ndcg20': 0.01954053139141483}
+2026-11-08T18:02:34Z pog itemknn TEST filtered {'recall20': 0.02649144764288694, 'ndcg20': 0.017440896586669512}
+2026-11-08T18:02:36Z pog rp3beta TEST filtered {'recall20': 0.02811848143512724, 'ndcg20': 0.01934191199948274}
+2026-11-08T18:02:37Z pog gfcf TEST filtered {'recall20': 0.026115978306216103, 'ndcg20': 0.016486069915811856}
+2026-11-08T18:03:46Z pog ease TEST filtered {'recall20': 0.029453483521068, 'ndcg20': 0.019795451057974044}
+2026-11-08T18:03:46Z pog COMPLETE

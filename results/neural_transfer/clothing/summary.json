@@ -1,0 +1,281 @@
+{
+  "status": "complete",
+  "selected": {
+    "graph_pair_no_category_seed0": {
+      "condition": {
+        "name": "graph_pair_no_category",
+        "variant": "graph_pair",
+        "cold_probability": 0.25,
+        "category_mode": "off",
+        "project_links": true
+      },
+      "seed": 0,
+      "checkpoint": "checkpoints/neural_transfer/clothing/graph_pair_no_category_seed0/epoch_0038.pt",
+      "best_epoch": 38,
+      "epochs_run": 50,
+      "validation": {
+        "recall20": 0.5790760869565217,
+        "ndcg20": 0.44371732827926713,
+        "seconds": 0.022207041998626664,
+        "full_catalogue": true
+      },
+      "parameters": {
+        "trainable_parameters": 37403,
+        "pair_parameters": 12666,
+        "joint_parameters": 0,
+        "category_parameters": 0,
+        "frozen_buffer_bytes": 2537929
+      },
+      "elapsed": 21.438427416986087
+    },
+    "graph_pair_no_category_seed1": {
+      "condition": {
+        "name": "graph_pair_no_category",
+        "variant": "graph_pair",
+        "cold_probability": 0.25,
+        "category_mode": "off",
+        "project_links": true
+      },
+      "seed": 1,
+      "checkpoint": "checkpoints/neural_transfer/clothing/graph_pair_no_category_seed1/epoch_0034.pt",
+      "best_epoch": 34,
+      "epochs_run": 46,
+      "validation": {
+        "recall20": 0.5874094202898551,
+        "ndcg20": 0.44298806768185595,
+        "seconds": 0.02250099999946542,
+        "full_catalogue": true
+      },
+      "parameters": {
+        "trainable_parameters": 37403,
+        "pair_parameters": 12666,
+        "joint_parameters": 0,
+        "category_parameters": 0,
+        "frozen_buffer_bytes": 2537929
+      },
+      "elapsed": 19.650901791988872
+    },
+    "graph_pair_no_category_seed2": {
+      "condition": {
+        "name": "graph_pair_no_category",
+        "variant": "graph_pair",
+        "cold_probability": 0.25,
+        "category_mode": "off",
+        "project_links": true
+      },
+      "seed": 2,
+      "checkpoint": "checkpoints/neural_transfer/clothing/graph_pair_no_category_seed2/epoch_0034.pt",
+      "best_epoch": 34,
+      "epochs_run": 46,
+      "validation": {
+        "recall20": 0.5936594202898551,
+        "ndcg20": 0.4486469984614004,
+        "seconds": 0.0228496250056196,
+        "full_catalogue": true
+      },
+      "parameters": {
+        "trainable_parameters": 37403,
+        "pair_parameters": 12666,
+        "joint_parameters": 0,
+        "category_parameters": 0,
+        "frozen_buffer_bytes": 2537929
+      },
+      "elapsed": 19.67284754200955
+    }
+  },
+  "baseline": {
+    "bundlefuse_matched": {
+      "validation": {
+        "recall20": 0.5746376811594203,
+        "ndcg20": 0.4490718500139817,
+        "seconds": 0.2842249170062132,
+        "full_catalogue": true
+      },
+      "test": {
+        "recall20": 0.4746630727762803,
+        "ndcg20": 0.388848426445049,
+        "seconds": 0.5121429169957992,
+        "full_catalogue": true,
+        "fitted_recipe": {
+          "weights": {
+            "simp": 0.25,
+            "ppmi": 1.5,
+            "softcat": 0.25,
+            "content": 1.5,
+            "csvd": 0.25
+          },
+          "prior": [
+            "softcat",
+            "content"
+          ],
+          "backoff": [
+            0.05,
+            1.3218368250295374
+          ],
+          "higher_order": [
+            0.0,
+            0.0
+          ],
+          "config": {
+            "n_items": 4487,
+            "families": [
+              "collaborative",
+              "content",
+              "taxonomy",
+              "popularity"
+            ],
+            "svd_dim": 128,
+            "alpha_deg": 0.5,
+            "gamma_vol": 0.5,
+            "beta_clique": 1.5,
+            "alpha_bridge": 0.5,
+            "n_soft_clusters": 400,
+            "soft_tau": 0.05,
+            "sel_obj": "ndcg20",
+            "compressed": true,
+            "content_rank": 128,
+            "signal_profile": "extended",
+            "fit_rounds": 4,
+            "seed_cap": 0,
+            "validation_chunk": 64
+          }
+        }
+      },
+      "checkpoint": "checkpoints/neural_small/clothing/comparisons/bundlefuse_matched.pt",
+      "sha256": "b41dca156c3b2b54d4e78d42d43e69f67f753a1e92c3d4df11316cbed1704327"
+    },
+    "bundlefuse_original_auxiliary": {
+      "validation": {
+        "recall20": 0.5692934782608695,
+        "ndcg20": 0.4438122559267866,
+        "seconds": 0.41112345800502226,
+        "full_catalogue": true
+      },
+      "test": {
+        "recall20": 0.5169362084456424,
+        "ndcg20": 0.4048626069048149,
+        "seconds": 0.8453148749831598,
+        "full_catalogue": true,
+        "fitted_recipe": {
+          "weights": {
+            "simp": 0.25,
+            "ppmi": 1.0,
+            "pretrain": 1.0,
+            "homo": 0.25,
+            "content": 1.0,
+            "csvd": 0.25
+          },
+          "prior": [
+            "homo",
+            "content"
+          ],
+          "backoff": [
+            0.05,
+            1.761526541465887
+          ],
+          "higher_order": [
+            0.0,
+            0.35
+          ],
+          "config": {
+            "n_items": 4487,
+            "families": [
+              "collaborative",
+              "content",
+              "taxonomy",
+              "popularity",
+              "personalization"
+            ],
+            "svd_dim": 128,
+            "alpha_deg": 0.5,
+            "gamma_vol": 0.5,
+            "beta_clique": 1.5,
+            "alpha_bridge": 0.5,
+            "n_soft_clusters": 400,
+            "soft_tau": 0.05,
+            "sel_obj": "ndcg20",
+            "compressed": true,
+            "content_rank": 128,
+            "signal_profile": "extended",
+            "fit_rounds": 4,
+            "seed_cap": 0,
+            "validation_chunk": 64
+          }
+        }
+      },
+      "checkpoint": "checkpoints/reorganized_162dd8c/clothing/seed_0/model.pt",
+      "sha256": "8bac15b6c7838f6a93b8732bb906929ecbcbfe07e01f369bef243f6fda520cac"
+    }
+  },
+  "test": {
+    "graph_pair_no_category_seed0": {
+      "recall20": 0.5026504941599281,
+      "ndcg20": 0.38110471328727213,
+      "seconds": 0.045083708013407886,
+      "full_catalogue": true,
+      "by_target_training_frequency": {
+        "unseen": {
+          "hits": 139,
+          "targets": 374,
+          "micro_recall20": 0.3716577540106952
+        },
+        "one_two": {
+          "hits": 141,
+          "targets": 179,
+          "micro_recall20": 0.7877094972067039
+        },
+        "three_plus": {
+          "hits": 4,
+          "targets": 8,
+          "micro_recall20": 0.5
+        }
+      }
+    },
+    "graph_pair_no_category_seed1": {
+      "recall20": 0.4946540880503145,
+      "ndcg20": 0.3752551230300373,
+      "seconds": 0.04451916599646211,
+      "full_catalogue": true,
+      "by_target_training_frequency": {
+        "unseen": {
+          "hits": 134,
+          "targets": 374,
+          "micro_recall20": 0.3582887700534759
+        },
+        "one_two": {
+          "hits": 141,
+          "targets": 179,
+          "micro_recall20": 0.7877094972067039
+        },
+        "three_plus": {
+          "hits": 4,
+          "targets": 8,
+          "micro_recall20": 0.5
+        }
+      }
+    },
+    "graph_pair_no_category_seed2": {
+      "recall20": 0.513162623539982,
+      "ndcg20": 0.3830351580480497,
+      "seconds": 0.04503095799009316,
+      "full_catalogue": true,
+      "by_target_training_frequency": {
+        "unseen": {
+          "hits": 145,
+          "targets": 374,
+          "micro_recall20": 0.3877005347593583
+        },
+        "one_two": {
+          "hits": 138,
+          "targets": 179,
+          "micro_recall20": 0.770949720670391
+        },
+        "three_plus": {
+          "hits": 4,
+          "targets": 8,
+          "micro_recall20": 0.5
+        }
+      }
+    }
+  }
+}

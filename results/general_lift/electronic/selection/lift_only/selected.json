@@ -1,0 +1,26 @@
+{
+  "config": {
+    "kind": "weighted",
+    "weights": {
+      "lift0": 1.0,
+      "pair": 0.5,
+      "simp": 1.0,
+      "amp": 0.25
+    }
+  },
+  "tuning_metrics": [
+    0.30993589743589745,
+    0.26291007294773877
+  ],
+  "keys": [
+    "lift0",
+    "pop",
+    "pair",
+    "simp",
+    "amp"
+  ],
+  "history": "simp",
+  "alpha": 1.0,
+  "seconds": 0.4218118330172729,
+  "fitting_candidates": 44
+}

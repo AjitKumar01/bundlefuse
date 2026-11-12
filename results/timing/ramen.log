@@ -1,0 +1,5 @@
+seed: 2306
+Train: 5
+Val/Test: 2
+Val/Test: 2
+{'model': 'ramen', 'threads': 4, 'setup_seconds': 0.3912066249999999, 'epochs_timed': [{'train': 20.000678208, 'with_validation': 21.45929375}, {'train': 19.753131459, 'with_validation': 21.206182375}], 'seconds_per_epoch_with_validation': 21.3327380625, 'epochs_assumed': 200, 'fit_seconds': 4266.938819125, 'inference_ms_per_query': 0.6905980312499995, 'test_queries': 4000, 'parameters': 16058624}

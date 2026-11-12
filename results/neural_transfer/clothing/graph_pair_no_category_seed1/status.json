@@ -1,0 +1,28 @@
+{
+  "status": "selected",
+  "condition": {
+    "name": "graph_pair_no_category",
+    "variant": "graph_pair",
+    "cold_probability": 0.25,
+    "category_mode": "off",
+    "project_links": true
+  },
+  "seed": 1,
+  "checkpoint": "checkpoints/neural_transfer/clothing/graph_pair_no_category_seed1/epoch_0034.pt",
+  "best_epoch": 34,
+  "epochs_run": 46,
+  "validation": {
+    "recall20": 0.5874094202898551,
+    "ndcg20": 0.44298806768185595,
+    "seconds": 0.02250099999946542,
+    "full_catalogue": true
+  },
+  "parameters": {
+    "trainable_parameters": 37403,
+    "pair_parameters": 12666,
+    "joint_parameters": 0,
+    "category_parameters": 0,
+    "frozen_buffer_bytes": 2537929
+  },
+  "elapsed": 19.650901791988872
+}

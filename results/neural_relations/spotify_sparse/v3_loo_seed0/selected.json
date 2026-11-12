@@ -1,0 +1,35 @@
+{
+  "arm": "loo",
+  "config": {
+    "epochs": 100,
+    "batch": 32,
+    "eval_every": 2,
+    "patience": 6,
+    "shared_lr": 0.001,
+    "group_lr": 0.01,
+    "weight_decay": 0.001,
+    "rank": 64,
+    "group_rank": 16,
+    "hidden": 32,
+    "use_album": true,
+    "graph_rank": 64,
+    "model": "relation_family_v3"
+  },
+  "seed": 0,
+  "checkpoint": "checkpoints/neural_relations/spotify_sparse/v3_loo_seed0/epoch_0002.pt",
+  "best_epoch": 2,
+  "epochs_run": 14,
+  "validation": {
+    "recall20": 0.17472002376350784,
+    "ndcg20": 0.24800177627254846,
+    "seconds": 7.364387625013478
+  },
+  "parameters": {
+    "trainable_parameters": 4576284,
+    "label_parameters": 4534816,
+    "observed_directed_pairs": 27319480,
+    "levels": 2,
+    "frozen_buffer_bytes": 1210001233
+  },
+  "elapsed": 3821.62813495897
+}

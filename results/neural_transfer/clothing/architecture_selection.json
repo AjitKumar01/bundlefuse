@@ -1,0 +1,18 @@
+{
+  "selected_condition": {
+    "name": "graph_pair_no_category",
+    "variant": "graph_pair",
+    "cold_probability": 0.25,
+    "category_mode": "off",
+    "project_links": true
+  },
+  "criterion": "seed-0 validation NDCG only",
+  "candidates": {
+    "graph_pair_no_category_seed0": {
+      "recall20": 0.5790760869565217,
+      "ndcg20": 0.44371732827926713,
+      "seconds": 0.022207041998626664,
+      "full_catalogue": true
+    }
+  }
+}

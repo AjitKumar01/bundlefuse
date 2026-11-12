@@ -1,0 +1,25 @@
+pog_dense seed 0 done
+pog_dense seed 1 done
+pog_dense seed 2 done
+pog_dense       all          n= 5547 full 0.2802  no content 0.2388  no labels 0.2607  no label diagonal 0.2784  no label low-rank 0.2739  no co-occurrence 0.2633  no prior 0.0507  content only 0.0037  labels only 0.0010  co-occurrence and prior only 0.2194
+pog_dense       0            n= 1978 full 0.1506  no content 0.1255  no labels 0.1365  no label diagonal 0.1496  no label low-rank 0.1432  no co-occurrence 0.1608  no prior 0.0068  content only 0.0020  labels only 0.0009  co-occurrence and prior only 0.1099
+pog_dense       1            n=  854 full 0.2652  no content 0.2240  no labels 0.2519  no label diagonal 0.2640  no label low-rank 0.2614  no co-occurrence 0.2578  no prior 0.0339  content only 0.0068  labels only 0.0007  co-occurrence and prior only 0.2059
+pog_dense       2-3          n=  787 full 0.3278  no content 0.2761  no labels 0.3132  no label diagonal 0.3261  no label low-rank 0.3240  no co-occurrence 0.3074  no prior 0.0550  content only 0.0048  labels only 0.0007  co-occurrence and prior only 0.2553
+pog_dense       4+           n= 1928 full 0.4004  no content 0.3465  no labels 0.3706  no label diagonal 0.3974  no label low-rank 0.3931  no co-occurrence 0.3528  no prior 0.1015  content only 0.0035  labels only 0.0014  co-occurrence and prior only 0.3231
+pog seed 0 done
+pog seed 1 done
+pog seed 2 done
+pog             all          n= 3995 full 0.0313  no content 0.0198  no labels 0.0203  no label diagonal 0.0300  no label low-rank 0.0269  no co-occurrence 0.0239  no prior 0.0161  content only 0.0021  labels only 0.0009  co-occurrence and prior only 0.0142
+pog             0            n= 3831 full 0.0188  no content 0.0088  no labels 0.0096  no label diagonal 0.0177  no label low-rank 0.0149  no co-occurrence 0.0215  no prior 0.0042  content only 0.0014  labels only 0.0009  co-occurrence and prior only 0.0057
+pog             1            n=  130 full 0.2611  no content 0.2093  no labels 0.2066  no label diagonal 0.2554  no label low-rank 0.2393  no co-occurrence 0.0692  no prior 0.2409  content only 0.0101  labels only 0.0013  co-occurrence and prior only 0.1381
+pog             2-3          n=   30 full 0.5559  no content 0.5185  no labels 0.4967  no label diagonal 0.5400  no label low-rank 0.5445  no co-occurrence 0.1208  no prior 0.4743  content only 0.0561  labels only 0.0000  co-occurrence and prior only 0.4837
+pog             4+           n=    4 full 0.6655  no content 0.6534  no labels 0.6707  no label diagonal 0.6527  no label low-rank 0.7150  no co-occurrence 0.1753  no prior 0.6493  content only 0.0125  labels only 0.0000  co-occurrence and prior only 0.6730
+spotify_sparse seed 0 done
+spotify_sparse seed 1 done
+spotify_sparse seed 2 done
+spotify_sparse  all          n= 2497 full 0.2562  no content 0.2322  no labels 0.1365  no label diagonal 0.1365  no label low-rank 0.2562  no co-occurrence 0.2420  no prior 0.2376  content only 0.0301  labels only 0.1833  co-occurrence and prior only 0.0997
+spotify_sparse  0%           n=  132 full 0.2631  no content 0.2263  no labels 0.1167  no label diagonal 0.1167  no label low-rank 0.2631  no co-occurrence 0.2719  no prior 0.2683  content only 0.1198  labels only 0.2453  co-occurrence and prior only 0.0000
+spotify_sparse  (0, 25%)     n=  274 full 0.2965  no content 0.2417  no labels 0.0873  no label diagonal 0.0873  no label low-rank 0.2965  no co-occurrence 0.3051  no prior 0.3010  content only 0.0849  labels only 0.2693  co-occurrence and prior only 0.0168
+spotify_sparse  [25, 50%)    n=  540 full 0.2179  no content 0.1792  no labels 0.0600  no label diagonal 0.0600  no label low-rank 0.2179  no co-occurrence 0.2252  no prior 0.2177  content only 0.0312  labels only 0.1923  co-occurrence and prior only 0.0390
+spotify_sparse  [50, 75%)    n=  743 full 0.2225  no content 0.2046  no labels 0.1198  no label diagonal 0.1199  no label low-rank 0.2225  no co-occurrence 0.2127  no prior 0.2059  content only 0.0192  labels only 0.1692  co-occurrence and prior only 0.0905
+spotify_sparse  [75, 100%]   n=  808 full 0.2981  no content 0.2906  no labels 0.2228  no label diagonal 0.2228  no label low-rank 0.2980  no co-occurrence 0.2539  no prior 0.2536  content only 0.0062  labels only 0.1508  co-occurrence and prior only 0.1931

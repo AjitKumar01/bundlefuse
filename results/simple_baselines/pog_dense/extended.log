@@ -1,0 +1,47 @@
+2026-11-08T22:27:36Z pog_dense: loading supplied splits and released item features
+2026-11-08T22:27:39Z pog_dense: reusing retained attribute projection (31217, 128)
+2026-11-08T22:27:39Z pog_dense: n=31217 train=20780 pairs=153074
+2026-11-08T22:27:40Z pog_dense hybrid {'k': 1000, 'shrink': 100, 'content': 0.0} VAL N20=0.223901
+2026-11-08T22:27:42Z pog_dense hybrid {'k': 1000, 'shrink': 100, 'content': 0.1} VAL N20=0.191834
+2026-11-08T22:27:44Z pog_dense hybrid {'k': 1000, 'shrink': 100, 'content': 0.2} VAL N20=0.190176
+2026-11-08T22:27:46Z pog_dense hybrid {'k': 1000, 'shrink': 100, 'content': 0.3} VAL N20=0.188418
+2026-11-08T22:27:48Z pog_dense hybrid {'k': 1000, 'shrink': 100, 'content': 0.5} VAL N20=0.179127
+2026-11-08T22:27:50Z pog_dense hybrid {'k': 1000, 'shrink': 100, 'content': 0.7} VAL N20=0.145340
+2026-11-08T22:27:52Z pog_dense hybrid {'k': 1000, 'shrink': 100, 'content': 0.9} VAL N20=0.003180
+2026-11-08T22:27:53Z pog_dense hybrid {'k': 1000, 'shrink': 100, 'content': 1.0} VAL N20=0.000098
+2026-11-08T22:28:54Z pog_dense ials {'rank': 64, 'alpha': 5.0, 'l2': 1.0} VAL N20=0.165874
+2026-11-08T22:29:59Z pog_dense ials {'rank': 64, 'alpha': 5.0, 'l2': 10.0} VAL N20=0.173948
+2026-11-08T22:31:05Z pog_dense ials {'rank': 64, 'alpha': 20.0, 'l2': 1.0} VAL N20=0.205106
+2026-11-08T22:32:09Z pog_dense ials {'rank': 64, 'alpha': 20.0, 'l2': 10.0} VAL N20=0.208508
+2026-11-08T22:36:15Z pog_dense ials {'rank': 128, 'alpha': 5.0, 'l2': 1.0} VAL N20=0.136330
+2026-11-08T22:40:25Z pog_dense ials {'rank': 128, 'alpha': 5.0, 'l2': 10.0} VAL N20=0.155074
+2026-11-08T22:44:32Z pog_dense ials {'rank': 128, 'alpha': 20.0, 'l2': 1.0} VAL N20=0.181977
+2026-11-08T22:48:24Z pog_dense ials {'rank': 128, 'alpha': 20.0, 'l2': 10.0} VAL N20=0.188449
+2026-11-08T22:48:26Z pog_dense sgfcf {'rank': 64, 'eps': 0.3, 'beta': 1.0, 'gamma': 0.0} VAL N20=0.205754
+2026-11-08T22:48:28Z pog_dense sgfcf {'rank': 64, 'eps': 0.3, 'beta': 1.0, 'gamma': 0.5} VAL N20=0.238798
+2026-11-08T22:48:30Z pog_dense sgfcf {'rank': 64, 'eps': 0.3, 'beta': 1.0, 'gamma': 1.0} VAL N20=0.239722
+2026-11-08T22:48:32Z pog_dense sgfcf {'rank': 64, 'eps': 0.3, 'beta': 2.5, 'gamma': 0.0} VAL N20=0.239606
+2026-11-08T22:48:33Z pog_dense sgfcf {'rank': 64, 'eps': 0.3, 'beta': 2.5, 'gamma': 0.5} VAL N20=0.267911
+2026-11-08T22:48:35Z pog_dense sgfcf {'rank': 64, 'eps': 0.3, 'beta': 2.5, 'gamma': 1.0} VAL N20=0.269244
+2026-11-08T22:48:37Z pog_dense sgfcf {'rank': 64, 'eps': 0.5, 'beta': 1.0, 'gamma': 0.0} VAL N20=0.195591
+2026-11-08T22:48:39Z pog_dense sgfcf {'rank': 64, 'eps': 0.5, 'beta': 1.0, 'gamma': 0.5} VAL N20=0.189232
+2026-11-08T22:48:41Z pog_dense sgfcf {'rank': 64, 'eps': 0.5, 'beta': 1.0, 'gamma': 1.0} VAL N20=0.171853
+2026-11-08T22:48:42Z pog_dense sgfcf {'rank': 64, 'eps': 0.5, 'beta': 2.5, 'gamma': 0.0} VAL N20=0.198883
+2026-11-08T22:48:44Z pog_dense sgfcf {'rank': 64, 'eps': 0.5, 'beta': 2.5, 'gamma': 0.5} VAL N20=0.198739
+2026-11-08T22:48:46Z pog_dense sgfcf {'rank': 64, 'eps': 0.5, 'beta': 2.5, 'gamma': 1.0} VAL N20=0.178794
+2026-11-08T22:48:49Z pog_dense sgfcf {'rank': 256, 'eps': 0.3, 'beta': 1.0, 'gamma': 0.0} VAL N20=0.180316
+2026-11-08T22:48:51Z pog_dense sgfcf {'rank': 256, 'eps': 0.3, 'beta': 1.0, 'gamma': 0.5} VAL N20=0.198857
+2026-11-08T22:48:53Z pog_dense sgfcf {'rank': 256, 'eps': 0.3, 'beta': 1.0, 'gamma': 1.0} VAL N20=0.196575
+2026-11-08T22:48:55Z pog_dense sgfcf {'rank': 256, 'eps': 0.3, 'beta': 2.5, 'gamma': 0.0} VAL N20=0.245181
+2026-11-08T22:48:56Z pog_dense sgfcf {'rank': 256, 'eps': 0.3, 'beta': 2.5, 'gamma': 0.5} VAL N20=0.268445
+2026-11-08T22:48:58Z pog_dense sgfcf {'rank': 256, 'eps': 0.3, 'beta': 2.5, 'gamma': 1.0} VAL N20=0.267481
+2026-11-08T22:49:01Z pog_dense sgfcf {'rank': 256, 'eps': 0.5, 'beta': 1.0, 'gamma': 0.0} VAL N20=0.217798
+2026-11-08T22:49:03Z pog_dense sgfcf {'rank': 256, 'eps': 0.5, 'beta': 1.0, 'gamma': 0.5} VAL N20=0.193786
+2026-11-08T22:49:05Z pog_dense sgfcf {'rank': 256, 'eps': 0.5, 'beta': 1.0, 'gamma': 1.0} VAL N20=0.175581
+2026-11-08T22:49:07Z pog_dense sgfcf {'rank': 256, 'eps': 0.5, 'beta': 2.5, 'gamma': 0.0} VAL N20=0.228568
+2026-11-08T22:49:09Z pog_dense sgfcf {'rank': 256, 'eps': 0.5, 'beta': 2.5, 'gamma': 0.5} VAL N20=0.210402
+2026-11-08T22:49:11Z pog_dense sgfcf {'rank': 256, 'eps': 0.5, 'beta': 2.5, 'gamma': 1.0} VAL N20=0.191716
+2026-11-08T22:49:15Z pog_dense hybrid TEST filtered {'recall20': 0.31593654227510365, 'ndcg20': 0.208070827047538}
+2026-11-08T22:50:17Z pog_dense ials TEST filtered {'recall20': 0.27020611742082806, 'ndcg20': 0.1913908110109379}
+2026-11-08T22:50:21Z pog_dense sgfcf TEST filtered {'recall20': 0.3211645934739499, 'ndcg20': 0.23657681664202523}
+2026-11-08T22:50:21Z pog_dense COMPLETE

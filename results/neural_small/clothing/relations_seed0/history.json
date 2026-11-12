@@ -1,0 +1,262 @@
+[
+  {
+    "epoch": 1,
+    "loss": 5.146559311396556
+  },
+  {
+    "epoch": 2,
+    "loss": 4.720833957471656,
+    "validation": {
+      "recall20": 0.18306159420289858,
+      "ndcg20": 0.1279688342900208,
+      "seconds": 1.1297658330004197,
+      "item_encoding_seconds": 0.0011360420030541718,
+      "full_catalogue": true,
+      "catalogue_size": 4487
+    }
+  },
+  {
+    "epoch": 3,
+    "loss": 4.832469239301254
+  },
+  {
+    "epoch": 4,
+    "loss": 4.485165080110294,
+    "validation": {
+      "recall20": 0.19719202898550722,
+      "ndcg20": 0.15978619698206656,
+      "seconds": 1.1272469999967143,
+      "item_encoding_seconds": 0.0011316250020172447,
+      "full_catalogue": true,
+      "catalogue_size": 4487
+    }
+  },
+  {
+    "epoch": 5,
+    "loss": 3.8318981859009638
+  },
+  {
+    "epoch": 6,
+    "loss": 2.892337266960321,
+    "validation": {
+      "recall20": 0.33967391304347827,
+      "ndcg20": 0.2686536737614234,
+      "seconds": 1.1329964169999585,
+      "item_encoding_seconds": 0.00114712500362657,
+      "full_catalogue": true,
+      "catalogue_size": 4487
+    }
+  },
+  {
+    "epoch": 7,
+    "loss": 1.996530521413458
+  },
+  {
+    "epoch": 8,
+    "loss": 1.4460007419357712,
+    "validation": {
+      "recall20": 0.38088768115942034,
+      "ndcg20": 0.32314771579099916,
+      "seconds": 1.151356707996456,
+      "item_encoding_seconds": 0.0010922919900622219,
+      "full_catalogue": true,
+      "catalogue_size": 4487
+    }
+  },
+  {
+    "epoch": 9,
+    "loss": 1.1200757374903518
+  },
+  {
+    "epoch": 10,
+    "loss": 0.9475367912184879,
+    "validation": {
+      "recall20": 0.4496376811594203,
+      "ndcg20": 0.3593926974631034,
+      "seconds": 1.1373175409971736,
+      "item_encoding_seconds": 0.001148457988165319,
+      "full_catalogue": true,
+      "catalogue_size": 4487
+    }
+  },
+  {
+    "epoch": 11,
+    "loss": 0.8374553452687802
+  },
+  {
+    "epoch": 12,
+    "loss": 0.6584382248348578,
+    "validation": {
+      "recall20": 0.46938405797101446,
+      "ndcg20": 0.3688672809955232,
+      "seconds": 1.1421508330095094,
+      "item_encoding_seconds": 0.001225540996529162,
+      "full_catalogue": true,
+      "catalogue_size": 4487
+    }
+  },
+  {
+    "epoch": 13,
+    "loss": 0.6097034366090294
+  },
+  {
+    "epoch": 14,
+    "loss": 0.5474420577702235,
+    "validation": {
+      "recall20": 0.471286231884058,
+      "ndcg20": 0.38103888360891525,
+      "seconds": 1.2636791249969974,
+      "item_encoding_seconds": 0.001273375004529953,
+      "full_catalogue": true,
+      "catalogue_size": 4487
+    }
+  },
+  {
+    "epoch": 15,
+    "loss": 0.4901105775836124
+  },
+  {
+    "epoch": 16,
+    "loss": 0.511708566127273,
+    "validation": {
+      "recall20": 0.4704710144927536,
+      "ndcg20": 0.36735862505600936,
+      "seconds": 1.136903207981959,
+      "item_encoding_seconds": 0.0011058749805670232,
+      "full_catalogue": true,
+      "catalogue_size": 4487
+    }
+  },
+  {
+    "epoch": 17,
+    "loss": 0.4394156139522468
+  },
+  {
+    "epoch": 18,
+    "loss": 0.38701867184945754,
+    "validation": {
+      "recall20": 0.49483695652173904,
+      "ndcg20": 0.3601548086153618,
+      "seconds": 1.1273834579915274,
+      "item_encoding_seconds": 0.0010935000027529895,
+      "full_catalogue": true,
+      "catalogue_size": 4487
+    }
+  },
+  {
+    "epoch": 19,
+    "loss": 0.4234068057106857
+  },
+  {
+    "epoch": 20,
+    "loss": 0.3862407713944245,
+    "validation": {
+      "recall20": 0.5092391304347825,
+      "ndcg20": 0.3846732361659782,
+      "seconds": 1.140097874973435,
+      "item_encoding_seconds": 0.0010772919922601432,
+      "full_catalogue": true,
+      "catalogue_size": 4487
+    }
+  },
+  {
+    "epoch": 21,
+    "loss": 0.3267046884278057
+  },
+  {
+    "epoch": 22,
+    "loss": 0.3585062202014363,
+    "validation": {
+      "recall20": 0.49420289855072463,
+      "ndcg20": 0.3681654953852137,
+      "seconds": 1.1464627500099596,
+      "item_encoding_seconds": 0.0010827500082086772,
+      "full_catalogue": true,
+      "catalogue_size": 4487
+    }
+  },
+  {
+    "epoch": 23,
+    "loss": 0.30921504872245065
+  },
+  {
+    "epoch": 24,
+    "loss": 0.2779451789236534,
+    "validation": {
+      "recall20": 0.5167572463768115,
+      "ndcg20": 0.38190330268089207,
+      "seconds": 1.1304775830067229,
+      "item_encoding_seconds": 0.0011538749968167394,
+      "full_catalogue": true,
+      "catalogue_size": 4487
+    }
+  },
+  {
+    "epoch": 25,
+    "loss": 0.3197682098625156
+  },
+  {
+    "epoch": 26,
+    "loss": 0.3477157975735583,
+    "validation": {
+      "recall20": 0.47989130434782606,
+      "ndcg20": 0.37337597402349587,
+      "seconds": 1.1310705000068992,
+      "item_encoding_seconds": 0.0010998750221915543,
+      "full_catalogue": true,
+      "catalogue_size": 4487
+    }
+  },
+  {
+    "epoch": 27,
+    "loss": 0.26848245031809237
+  },
+  {
+    "epoch": 28,
+    "loss": 0.26668673715161206,
+    "validation": {
+      "recall20": 0.5152173913043478,
+      "ndcg20": 0.38951780601691427,
+      "seconds": 1.1314768749871291,
+      "item_encoding_seconds": 0.0011302919883746654,
+      "full_catalogue": true,
+      "catalogue_size": 4487
+    }
+  },
+  {
+    "epoch": 29,
+    "loss": 0.2945173595567022
+  },
+  {
+    "epoch": 30,
+    "loss": 0.30939481957848697,
+    "validation": {
+      "recall20": 0.4986413043478261,
+      "ndcg20": 0.38551065608278867,
+      "seconds": 1.159300291998079,
+      "item_encoding_seconds": 0.0010928339906968176,
+      "full_catalogue": true,
+      "catalogue_size": 4487
+    }
+  },
+  {
+    "epoch": 31,
+    "loss": 0.25771464832368923
+  },
+  {
+    "epoch": 32,
+    "loss": 0.24347514338601364,
+    "validation": {
+      "recall20": 0.47373188405797095,
+      "ndcg20": 0.38309411406396426,
+      "seconds": 1.189616166986525,
+      "item_encoding_seconds": 0.0011167920019943267,
+      "full_catalogue": true,
+      "catalogue_size": 4487
+    }
+  },
+  {
+    "epoch": 33,
+    "loss": 0.26759450609754004
+  }
+]

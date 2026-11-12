@@ -1,0 +1,137 @@
+{
+  "graph_pair_no_category_seed0": {
+    "condition": {
+      "name": "graph_pair_no_category",
+      "variant": "graph_pair",
+      "cold_probability": 0.25,
+      "category_mode": "off",
+      "project_links": true
+    },
+    "seed": 0,
+    "checkpoint": "checkpoints/neural_constrained/electronic/graph_pair_no_category_seed0/epoch_0042.pt",
+    "best_epoch": 42,
+    "epochs_run": 54,
+    "validation": {
+      "recall20": 0.4322736030828516,
+      "ndcg20": 0.34079868279367465,
+      "seconds": 0.018765291024465114,
+      "full_catalogue": true
+    },
+    "parameters": {
+      "trainable_parameters": 38525,
+      "pair_parameters": 13788,
+      "joint_parameters": 0,
+      "category_parameters": 0,
+      "frozen_buffer_bytes": 2040567
+    },
+    "elapsed": 16.582439125020755
+  },
+  "graph_joint_no_category_seed0": {
+    "condition": {
+      "name": "graph_joint_no_category",
+      "variant": "graph_joint",
+      "cold_probability": 0.25,
+      "category_mode": "off",
+      "project_links": true
+    },
+    "seed": 0,
+    "checkpoint": "checkpoints/neural_constrained/electronic/graph_joint_no_category_seed0/epoch_0042.pt",
+    "best_epoch": 42,
+    "epochs_run": 54,
+    "validation": {
+      "recall20": 0.43371868978805395,
+      "ndcg20": 0.3401256213806828,
+      "seconds": 0.02255070800310932,
+      "full_catalogue": true
+    },
+    "parameters": {
+      "trainable_parameters": 69782,
+      "pair_parameters": 13788,
+      "joint_parameters": 31257,
+      "category_parameters": 0,
+      "frozen_buffer_bytes": 3040791
+    },
+    "elapsed": 32.36174958397169
+  },
+  "graph_joint_positive_category_seed0": {
+    "condition": {
+      "name": "graph_joint_positive_category",
+      "variant": "graph_joint",
+      "cold_probability": 0.25,
+      "category_mode": "nonnegative",
+      "project_links": true
+    },
+    "seed": 0,
+    "checkpoint": "checkpoints/neural_constrained/electronic/graph_joint_positive_category_seed0/epoch_0018.pt",
+    "best_epoch": 18,
+    "epochs_run": 30,
+    "validation": {
+      "recall20": 0.3954720616570327,
+      "ndcg20": 0.3111414467815701,
+      "seconds": 0.025108000001637265,
+      "full_catalogue": true
+    },
+    "parameters": {
+      "trainable_parameters": 299223,
+      "pair_parameters": 13788,
+      "joint_parameters": 31257,
+      "category_parameters": 229441,
+      "frozen_buffer_bytes": 3040791
+    },
+    "elapsed": 18.900798124988796
+  },
+  "graph_pair_no_category_seed1": {
+    "condition": {
+      "name": "graph_pair_no_category",
+      "variant": "graph_pair",
+      "cold_probability": 0.25,
+      "category_mode": "off",
+      "project_links": true
+    },
+    "seed": 1,
+    "checkpoint": "checkpoints/neural_constrained/electronic/graph_pair_no_category_seed1/epoch_0044.pt",
+    "best_epoch": 44,
+    "epochs_run": 56,
+    "validation": {
+      "recall20": 0.4407514450867052,
+      "ndcg20": 0.3283322097500947,
+      "seconds": 0.019331542018335313,
+      "full_catalogue": true
+    },
+    "parameters": {
+      "trainable_parameters": 38525,
+      "pair_parameters": 13788,
+      "joint_parameters": 0,
+      "category_parameters": 0,
+      "frozen_buffer_bytes": 2040567
+    },
+    "elapsed": 17.5633188339998
+  },
+  "graph_pair_no_category_seed2": {
+    "condition": {
+      "name": "graph_pair_no_category",
+      "variant": "graph_pair",
+      "cold_probability": 0.25,
+      "category_mode": "off",
+      "project_links": true
+    },
+    "seed": 2,
+    "checkpoint": "checkpoints/neural_constrained/electronic/graph_pair_no_category_seed2/epoch_0030.pt",
+    "best_epoch": 30,
+    "epochs_run": 42,
+    "validation": {
+      "recall20": 0.4343930635838151,
+      "ndcg20": 0.32567072849645307,
+      "seconds": 0.01969137499690987,
+      "full_catalogue": true
+    },
+    "parameters": {
+      "trainable_parameters": 38525,
+      "pair_parameters": 13788,
+      "joint_parameters": 0,
+      "category_parameters": 0,
+      "frozen_buffer_bytes": 2040567
+    },
+    "elapsed": 12.890485541982343
+  }
+}

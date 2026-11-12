@@ -1,0 +1,29 @@
+2026-11-09T10:53:22Z electronic full [0.4691 0.3356] no_hop2 [0.4691 0.3346]
+2026-11-09T10:53:22Z food full [0.5847 0.4376] no_hop2 [0.5862 0.4388]
+2026-11-09T10:53:23Z clothing full [0.5338 0.3883] no_hop2 [0.5338 0.3876]
+2026-11-09T10:53:23Z pog_dense: loading supplied splits and released item features
+2026-11-09T10:53:24Z pog_dense: reusing retained attribute projection (31217, 128)
+2026-11-09T10:53:25Z pog_dense full [0.3797 0.2805] no_hop2 [0.3779 0.2808]
+2026-11-09T10:53:25Z pog: loading supplied splits and released item features
+2026-11-09T10:53:25Z pog: reusing retained attribute projection (48676, 128)
+2026-11-09T10:53:26Z pog full [0.0591 0.0353] no_hop2 [0.0606 0.036 ]
+2026-11-09T10:53:26Z spotify_sparse: loading supplied splits and released item features
+2026-11-09T10:53:27Z spotify_sparse: reusing retained attribute projection (213325, 128)
+2026-11-09T10:54:08Z spotify_sparse full [0.1815 0.2548] no_hop2 [0.1816 0.2546]
+2026-11-09T10:54:08Z spotify: loading supplied splits and released item features
+2026-11-09T10:54:09Z spotify: reusing retained attribute projection (254155, 128)
+2026-11-09T10:55:38Z spotify full [0.1692 0.2865] no_hop2 [0.166  0.2816]
+electronic ndcg20 0.001 [0.0001, 0.0023] 0.648935106489351
+electronic recall20 0.0 [0.0, 0.0] 1.0
+food ndcg20 -0.0013 [-0.004, 0.0013] 1.0
+food recall20 -0.0015 [-0.005, 0.0018] 1.0
+clothing ndcg20 0.0006 [0.0001, 0.0015] 0.648935106489351
+clothing recall20 0.0 [0.0, 0.0] 1.0
+pog_dense ndcg20 -0.0002 [-0.002, 0.0015] 1.0
+pog_dense recall20 0.0019 [-0.0003, 0.0041] 0.8671132886711329
+pog ndcg20 -0.0007 [-0.0012, -0.0002] 0.0443955604439556
+pog recall20 -0.0015 [-0.0025, -0.0003] 0.08799120087991201
+spotify_sparse ndcg20 0.0002 [-0.0002, 0.0007] 1.0
+spotify_sparse recall20 -0.0001 [-0.0008, 0.0005] 1.0
+spotify ndcg20 0.0049 [0.0039, 0.006] 0.0013998600139986002
+spotify recall20 0.0032 [0.0022, 0.0041] 0.0013998600139986002

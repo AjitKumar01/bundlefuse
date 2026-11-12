@@ -1,0 +1,736 @@
+{
+  "note": "Retrained ablations of DIALS (frozen v3.1): one component switched off, everything else as frozen, retrained.\n\nThe frozen configuration (results/neural_relations/plan.json) with config['disabled']=[part]; same seeds (0, 1, 2),\nsame training, epoch chosen on validation NDCG@20. Unlike the inspect ablations, the rest of the model can adapt.\nParts: hop2 (second graph hop, the only user of the graph SVD), diagonal, lowrank, gate, prior, content, label0, graph.\n\nTest: three-seed per-query means, full DIALS minus the ablation, NDCG@20 and Recall@20, filtered queries on\nPOG/Spotify (as in the frozen test), all queries on Electronic/Food/Clothing. Paired cluster bootstrap and sign\nflips, Holm over the datasets and metrics of that part.\n\nPYTHONPATH=. .venv/bin/python -m experiments.ablations.run train --part hop2 --dataset pog_dense --seed 0\nPYTHONPATH=. .venv/bin/python -m experiments.ablations.run test --part hop2\n",
+  "part": "hop2",
+  "datasets": {
+    "electronic": {
+      "full": [
+        0.46910725754656407,
+        0.33560079612449645
+      ],
+      "ablated": [
+        0.46910725754656407,
+        0.3345691324745834
+      ],
+      "seeds": [
+        {
+          "best_epoch": 14,
+          "validation": {
+            "recall20": 0.4601156069364162,
+            "ndcg20": 0.35007562415503746,
+            "seconds": 0.022046833008062094
+          },
+          "hops": [
+            1.8922309875488281,
+            0.0
+          ],
+          "exponents": [
+            0.035860564559698105,
+            0.1747797578573227,
+            0.0
+          ]
+        },
+        {
+          "best_epoch": 10,
+          "validation": {
+            "recall20": 0.47678227360308284,
+            "ndcg20": 0.3491973736118095,
+            "seconds": 0.0590481249964796
+          },
+          "hops": [
+            2.0016157627105713,
+            0.0
+          ],
+          "exponents": [
+            0.06542553752660751,
+            0.13041794300079346,
+            0.0
+          ]
+        },
+        {
+          "best_epoch": 11,
+          "validation": {
+            "recall20": 0.4789017341040462,
+            "ndcg20": 0.34526029081993165,
+            "seconds": 0.05138145905220881
+          },
+          "hops": [
+            1.9217870235443115,
+            0.0
+          ],
+          "exponents": [
+            0.06270820647478104,
+            0.1455799639225006,
+            0.0
+          ]
+        }
+      ],
+      "queries": 346
+    },
+    "food": {
+      "full": [
+        0.5846553352219075,
+        0.4375626738101226
+      ],
+      "ablated": [
+        0.5861504564054141,
+        0.4388153766780888
+      ],
+      "seeds": [
+        {
+          "best_epoch": 4,
+          "validation": {
+            "recall20": 0.5473484848484849,
+            "ndcg20": 0.40281328385158505,
+            "seconds": 0.08952116599539295
+          },
+          "hops": [
+            1.6423410177230835,
+            0.0
+          ],
+          "exponents": [
+            0.016688987612724304,
+            -0.04406645894050598,
+            0.0
+          ]
+        },
+        {
+          "best_epoch": 9,
+          "validation": {
+            "recall20": 0.5620265151515151,
+            "ndcg20": 0.40355208051254327,
+            "seconds": 0.0625175409950316
+          },
+          "hops": [
+            1.896952509880066,
+            0.0
+          ],
+          "exponents": [
+            0.016137294471263885,
+            0.10347413271665573,
+            0.0
+          ]
+        },
+        {
+          "best_epoch": 7,
+          "validation": {
+            "recall20": 0.5587121212121212,
+            "ndcg20": 0.41095467070802966,
+            "seconds": 0.06397354096407071
+          },
+          "hops": [
+            1.7818375825881958,
+            0.0
+          ],
+          "exponents": [
+            -0.0008206972852349281,
+            0.07971694320440292,
+            0.0
+          ]
+        }
+      ],
+      "queries": 353
+    },
+    "clothing": {
+      "full": [
+        0.5337526205450736,
+        0.3882519592656589
+      ],
+      "ablated": [
+        0.5337526205450736,
+        0.3876317520011579
+      ],
+      "seeds": [
+        {
+          "best_epoch": 9,
+          "validation": {
+            "recall20": 0.5815217391304348,
+            "ndcg20": 0.4461993639124474,
+            "seconds": 0.10259545897133648
+          },
+          "hops": [
+            1.6611682176589966,
+            0.0
+          ],
+          "exponents": [
+            -0.005672933533787727,
+            -0.1564374566078186,
+            0.0
+          ]
+        },
+        {
+          "best_epoch": 17,
+          "validation": {
+            "recall20": 0.6013586956521738,
+            "ndcg20": 0.45920938627053925,
+            "seconds": 0.08697320899227634
+          },
+          "hops": [
+            1.9045511484146118,
+            0.0
+          ],
+          "exponents": [
+            0.042951516807079315,
+            -0.1272573173046112,
+            0.0
+          ]
+        },
+        {
+          "best_epoch": 12,
+          "validation": {
+            "recall20": 0.5992753623188405,
+            "ndcg20": 0.4615971295798297,
+            "seconds": 0.0828490830026567
+          },
+          "hops": [
+            1.7473348379135132,
+            0.0
+          ],
+          "exponents": [
+            0.06932738423347473,
+            -0.16343693435192108,
+            0.0
+          ]
+        }
+      ],
+      "queries": 371
+    },
+    "pog_dense": {
+      "full": [
+        0.3797047453077726,
+        0.28052909469344434
+      ],
+      "ablated": [
+        0.3778518919135453,
+        0.28077607261921883
+      ],
+      "seeds": [
+        {
+          "best_epoch": 10,
+          "validation": {
+            "recall20": 0.40599730458221023,
+            "ndcg20": 0.3060666026816925,
+            "seconds": 8.312772875011433
+          },
+          "hops": [
+            3.733896255493164,
+            0.0
+          ],
+          "exponents": [
+            0.42868730425834656,
+            0.36475425958633423,
+            0.0
+          ]
+        },
+        {
+          "best_epoch": 53,
+          "validation": {
+            "recall20": 0.41807053009883205,
+            "ndcg20": 0.31291705920936347,
+            "seconds": 5.172937624971382
+          },
+          "hops": [
+            4.822046279907227,
+            0.0
+          ],
+          "exponents": [
+            0.409808486700058,
+            0.3654090166091919,
+            0.0
+          ]
+        },
+        {
+          "best_epoch": 13,
+          "validation": {
+            "recall20": 0.4098719676549865,
+            "ndcg20": 0.3074478755954361,
+            "seconds": 7.245102207991295
+          },
+          "hops": [
+            4.394064903259277,
+            0.0
+          ],
+          "exponents": [
+            0.42867931723594666,
+            0.3420785367488861,
+            0.0
+          ]
+        }
+      ],
+      "queries": 5547
+    },
+    "pog": {
+      "full": [
+        0.05908774857460713,
+        0.035273757488640235
+      ],
+      "ablated": [
+        0.06056181337783341,
+        0.03597724673541569
+      ],
+      "seeds": [
+        {
+          "best_epoch": 20,
+          "validation": {
+            "recall20": 0.06733333333333333,
+            "ndcg20": 0.041816525841807464,
+            "seconds": 5.562537416990381
+          },
+          "hops": [
+            2.3051822185516357,
+            0.0
+          ],
+          "exponents": [
+            0.2656819224357605,
+            0.27024605870246887,
+            0.0
+          ]
+        },
+        {
+          "best_epoch": 25,
+          "validation": {
+            "recall20": 0.06733333333333333,
+            "ndcg20": 0.04194519586017053,
+            "seconds": 5.364360792038497
+          },
+          "hops": [
+            2.2437314987182617,
+            0.0
+          ],
+          "exponents": [
+            0.25337207317352295,
+            0.28959259390830994,
+            0.0
+          ]
+        },
+        {
+          "best_epoch": 24,
+          "validation": {
+            "recall20": 0.06625,
+            "ndcg20": 0.04173019445549079,
+            "seconds": 5.8835912920185365
+          },
+          "hops": [
+            2.2164974212646484,
+            0.0
+          ],
+          "exponents": [
+            0.2597355246543884,
+            0.31739839911460876,
+            0.0
+          ]
+        }
+      ],
+      "queries": 3995
+    },
+    "spotify_sparse": {
+      "full": [
+        0.1814531195810421,
+        0.2548103669217846
+      ],
+      "ablated": [
+        0.1815880329529559,
+        0.2545703559518909
+      ],
+      "seeds": [
+        {
+          "best_epoch": 13,
+          "validation": {
+            "recall20": 0.18064909154527425,
+            "ndcg20": 0.2555770781580243,
+            "seconds": 13.224409874994308
+          },
+          "hops": [
+            0.8190599083900452,
+            0.0
+          ],
+          "exponents": [
+            -0.09173649549484253,
+            -0.03219606727361679,
+            0.0
+          ]
+        },
+        {
+          "best_epoch": 10,
+          "validation": {
+            "recall20": 0.17874610372794011,
+            "ndcg20": 0.25328845684804224,
+            "seconds": 13.807699083990883
+          },
+          "hops": [
+            0.8045097589492798,
+            0.0
+          ],
+          "exponents": [
+            -0.10397417098283768,
+            -0.028340214863419533,
+            0.0
+          ]
+        },
+        {
+          "best_epoch": 5,
+          "validation": {
+            "recall20": 0.17858599294299785,
+            "ndcg20": 0.25308475076492887,
+            "seconds": 16.68833379104035
+          },
+          "hops": [
+            0.9314637780189514,
+            0.0
+          ],
+          "exponents": [
+            -0.11339416354894638,
+            0.015569157898426056,
+            0.0
+          ]
+        }
+      ],
+      "queries": 2497
+    },
+    "spotify": {
+      "full": [
+        0.16916973698404295,
+        0.28652669682011694
+      ],
+      "ablated": [
+        0.16596319970117385,
+        0.28158519493608997
+      ],
+      "seeds": [
+        {
+          "best_epoch": 24,
+          "validation": {
+            "recall20": 0.17606043724426815,
+            "ndcg20": 0.2977144333793615,
+            "seconds": 11.684441332996357
+          },
+          "hops": [
+            1.0761562585830688,
+            0.0
+          ],
+          "exponents": [
+            0.3901405930519104,
+            -0.3709818720817566,
+            0.0
+          ]
+        },
+        {
+          "best_epoch": 16,
+          "validation": {
+            "recall20": 0.17621844465476622,
+            "ndcg20": 0.29870225758335595,
+            "seconds": 15.235550499986857
+          },
+          "hops": [
+            1.07366943359375,
+            0.0
+          ],
+          "exponents": [
+            0.336922824382782,
+            -0.3551204204559326,
+            0.0
+          ]
+        },
+        {
+          "best_epoch": 16,
+          "validation": {
+            "recall20": 0.17466287733087857,
+            "ndcg20": 0.2956498774109102,
+            "seconds": 13.71050887502497
+          },
+          "hops": [
+            1.0885294675827026,
+            0.0
+          ],
+          "exponents": [
+            0.3766046464443207,
+            -0.37944114208221436,
+            0.0
+          ]
+        }
+      ],
+      "queries": 3995
+    }
+  },
+  "primary": [
+    {
+      "delta": 0.001031663649912966,
+      "ci95": [
+        6.40605672604684e-05,
+        0.0022515871283853663
+      ],
+      "p_value": 0.065993400659934,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.06647398843930635,
+      "seed": 20261109,
+      "dataset": "electronic",
+      "metric": "ndcg20",
+      "first": "dials",
+      "second": "no_hop2",
+      "p_holm": 0.648935106489351,
+      "reject_05": false
+    },
+    {
+      "delta": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "p_value": 1.0,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0,
+      "seed": 20261109,
+      "dataset": "electronic",
+      "metric": "recall20",
+      "first": "dials",
+      "second": "no_hop2",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": -0.0012527028679662274,
+      "ci95": [
+        -0.003978007620892108,
+        0.0012886581431592024
+      ],
+      "p_value": 0.3545645435456454,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.07365439093484419,
+      "seed": 20261109,
+      "dataset": "food",
+      "metric": "ndcg20",
+      "first": "dials",
+      "second": "no_hop2",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": -0.0014951211835064527,
+      "ci95": [
+        -0.005036197670758576,
+        0.0018098835379288635
+      ],
+      "p_value": 0.4400559944005599,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0056657223796034,
+      "seed": 20261109,
+      "dataset": "food",
+      "metric": "recall20",
+      "first": "dials",
+      "second": "no_hop2",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.0006202072645010158,
+      "ci95": [
+        5.337416749819662e-05,
+        0.0014705296822798864
+      ],
+      "p_value": 0.0648935106489351,
+      "queries": 371,
+      "clusters": 371,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.03504043126684636,
+      "seed": 20261109,
+      "dataset": "clothing",
+      "metric": "ndcg20",
+      "first": "dials",
+      "second": "no_hop2",
+      "p_holm": 0.648935106489351,
+      "reject_05": false
+    },
+    {
+      "delta": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "p_value": 1.0,
+      "queries": 371,
+      "clusters": 371,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0,
+      "seed": 20261109,
+      "dataset": "clothing",
+      "metric": "recall20",
+      "first": "dials",
+      "second": "no_hop2",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": -0.00024697792577503064,
+      "ci95": [
+        -0.0019643169361182647,
+        0.0014667196978825744
+      ],
+      "p_value": 0.7723227677232277,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.16405264106724354,
+      "seed": 20261109,
+      "dataset": "pog_dense",
+      "metric": "ndcg20",
+      "first": "dials",
+      "second": "no_hop2",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.00185285339422711,
+      "ci95": [
+        -0.00032026838896303123,
+        0.004067080527021328
+      ],
+      "p_value": 0.10838916108389161,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0360555255092843,
+      "seed": 20261109,
+      "dataset": "pog_dense",
+      "metric": "recall20",
+      "first": "dials",
+      "second": "no_hop2",
+      "p_holm": 0.8671132886711329,
+      "reject_05": false
+    },
+    {
+      "delta": -0.0007034892467754908,
+      "ci95": [
+        -0.0011869159455092468,
+        -0.00020316831508069308
+      ],
+      "p_value": 0.0036996300369963003,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.05006257822277847,
+      "seed": 20261109,
+      "dataset": "pog",
+      "metric": "ndcg20",
+      "first": "dials",
+      "second": "no_hop2",
+      "p_holm": 0.0443955604439556,
+      "reject_05": true
+    },
+    {
+      "delta": -0.0014740648032262552,
+      "ci95": [
+        -0.002517665386969343,
+        -0.0003476546181837518
+      ],
+      "p_value": 0.007999200079992,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.018022528160200252,
+      "seed": 20261109,
+      "dataset": "pog",
+      "metric": "recall20",
+      "first": "dials",
+      "second": "no_hop2",
+      "p_holm": 0.08799120087991201,
+      "reject_05": false
+    },
+    {
+      "delta": 0.000240010969894526,
+      "ci95": [
+        -0.00022486934255429539,
+        0.0007249566666333461
+      ],
+      "p_value": 0.32526747325267474,
+      "queries": 2497,
+      "clusters": 2496,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.3608329995995194,
+      "seed": 20261109,
+      "dataset": "spotify_sparse",
+      "metric": "ndcg20",
+      "first": "dials",
+      "second": "no_hop2",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": -0.00013491337191370398,
+      "ci95": [
+        -0.0007756004443633233,
+        0.0005187987227116293
+      ],
+      "p_value": 0.6667333266673333,
+      "queries": 2497,
+      "clusters": 2496,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.13055666800160193,
+      "seed": 20261109,
+      "dataset": "spotify_sparse",
+      "metric": "recall20",
+      "first": "dials",
+      "second": "no_hop2",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.004941501884026487,
+      "ci95": [
+        0.0038860475405196556,
+        0.006007288833534165
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3995,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.48010012515644557,
+      "seed": 20261109,
+      "dataset": "spotify",
+      "metric": "ndcg20",
+      "first": "dials",
+      "second": "no_hop2",
+      "p_holm": 0.0013998600139986002,
+      "reject_05": true
+    },
+    {
+      "delta": 0.003206537282868819,
+      "ci95": [
+        0.0022211666260892643,
+        0.0041397315822713195
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3995,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.32540675844806005,
+      "seed": 20261109,
+      "dataset": "spotify",
+      "metric": "recall20",
+      "first": "dials",
+      "second": "no_hop2",
+      "p_holm": 0.0013998600139986002,
+      "reject_05": true
+    }
+  ]
+}

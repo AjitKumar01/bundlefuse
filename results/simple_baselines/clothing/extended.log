@@ -1,0 +1,45 @@
+2026-11-08T22:27:35Z clothing: n=4487 train=1294 pairs=12666
+2026-11-08T22:27:35Z clothing hybrid {'k': 50, 'shrink': 0, 'content': 0.0} VAL N20=0.271831
+2026-11-08T22:27:35Z clothing hybrid {'k': 50, 'shrink': 0, 'content': 0.1} VAL N20=0.378440
+2026-11-08T22:27:35Z clothing hybrid {'k': 50, 'shrink': 0, 'content': 0.2} VAL N20=0.378678
+2026-11-08T22:27:35Z clothing hybrid {'k': 50, 'shrink': 0, 'content': 0.3} VAL N20=0.378490
+2026-11-08T22:27:35Z clothing hybrid {'k': 50, 'shrink': 0, 'content': 0.5} VAL N20=0.376596
+2026-11-08T22:27:35Z clothing hybrid {'k': 50, 'shrink': 0, 'content': 0.7} VAL N20=0.292468
+2026-11-08T22:27:35Z clothing hybrid {'k': 50, 'shrink': 0, 'content': 0.9} VAL N20=0.217701
+2026-11-08T22:27:35Z clothing hybrid {'k': 50, 'shrink': 0, 'content': 1.0} VAL N20=0.180892
+2026-11-08T22:27:39Z clothing ials {'rank': 64, 'alpha': 5.0, 'l2': 1.0} VAL N20=0.199864
+2026-11-08T22:27:43Z clothing ials {'rank': 64, 'alpha': 5.0, 'l2': 10.0} VAL N20=0.098626
+2026-11-08T22:27:47Z clothing ials {'rank': 64, 'alpha': 20.0, 'l2': 1.0} VAL N20=0.248843
+2026-11-08T22:27:51Z clothing ials {'rank': 64, 'alpha': 20.0, 'l2': 10.0} VAL N20=0.246831
+2026-11-08T22:28:08Z clothing ials {'rank': 128, 'alpha': 5.0, 'l2': 1.0} VAL N20=0.247362
+2026-11-08T22:28:26Z clothing ials {'rank': 128, 'alpha': 5.0, 'l2': 10.0} VAL N20=0.147779
+2026-11-08T22:28:45Z clothing ials {'rank': 128, 'alpha': 20.0, 'l2': 1.0} VAL N20=0.255407
+2026-11-08T22:29:04Z clothing ials {'rank': 128, 'alpha': 20.0, 'l2': 10.0} VAL N20=0.250121
+2026-11-08T22:29:04Z clothing sgfcf {'rank': 64, 'eps': 0.3, 'beta': 1.0, 'gamma': 0.0} VAL N20=0.109852
+2026-11-08T22:29:04Z clothing sgfcf {'rank': 64, 'eps': 0.3, 'beta': 1.0, 'gamma': 0.5} VAL N20=0.251359
+2026-11-08T22:29:04Z clothing sgfcf {'rank': 64, 'eps': 0.3, 'beta': 1.0, 'gamma': 1.0} VAL N20=0.263572
+2026-11-08T22:29:04Z clothing sgfcf {'rank': 64, 'eps': 0.3, 'beta': 2.5, 'gamma': 0.0} VAL N20=0.105952
+2026-11-08T22:29:04Z clothing sgfcf {'rank': 64, 'eps': 0.3, 'beta': 2.5, 'gamma': 0.5} VAL N20=0.253236
+2026-11-08T22:29:04Z clothing sgfcf {'rank': 64, 'eps': 0.3, 'beta': 2.5, 'gamma': 1.0} VAL N20=0.261490
+2026-11-08T22:29:04Z clothing sgfcf {'rank': 64, 'eps': 0.5, 'beta': 1.0, 'gamma': 0.0} VAL N20=0.245242
+2026-11-08T22:29:04Z clothing sgfcf {'rank': 64, 'eps': 0.5, 'beta': 1.0, 'gamma': 0.5} VAL N20=0.275501
+2026-11-08T22:29:04Z clothing sgfcf {'rank': 64, 'eps': 0.5, 'beta': 1.0, 'gamma': 1.0} VAL N20=0.275501
+2026-11-08T22:29:04Z clothing sgfcf {'rank': 64, 'eps': 0.5, 'beta': 2.5, 'gamma': 0.0} VAL N20=0.245180
+2026-11-08T22:29:04Z clothing sgfcf {'rank': 64, 'eps': 0.5, 'beta': 2.5, 'gamma': 0.5} VAL N20=0.275501
+2026-11-08T22:29:04Z clothing sgfcf {'rank': 64, 'eps': 0.5, 'beta': 2.5, 'gamma': 1.0} VAL N20=0.275501
+2026-11-08T22:29:04Z clothing sgfcf {'rank': 256, 'eps': 0.3, 'beta': 1.0, 'gamma': 0.0} VAL N20=0.233051
+2026-11-08T22:29:04Z clothing sgfcf {'rank': 256, 'eps': 0.3, 'beta': 1.0, 'gamma': 0.5} VAL N20=0.255423
+2026-11-08T22:29:04Z clothing sgfcf {'rank': 256, 'eps': 0.3, 'beta': 1.0, 'gamma': 1.0} VAL N20=0.255277
+2026-11-08T22:29:04Z clothing sgfcf {'rank': 256, 'eps': 0.3, 'beta': 2.5, 'gamma': 0.0} VAL N20=0.235726
+2026-11-08T22:29:04Z clothing sgfcf {'rank': 256, 'eps': 0.3, 'beta': 2.5, 'gamma': 0.5} VAL N20=0.251135
+2026-11-08T22:29:04Z clothing sgfcf {'rank': 256, 'eps': 0.3, 'beta': 2.5, 'gamma': 1.0} VAL N20=0.258757
+2026-11-08T22:29:05Z clothing sgfcf {'rank': 256, 'eps': 0.5, 'beta': 1.0, 'gamma': 0.0} VAL N20=0.256749
+2026-11-08T22:29:05Z clothing sgfcf {'rank': 256, 'eps': 0.5, 'beta': 1.0, 'gamma': 0.5} VAL N20=0.264553
+2026-11-08T22:29:05Z clothing sgfcf {'rank': 256, 'eps': 0.5, 'beta': 1.0, 'gamma': 1.0} VAL N20=0.276136
+2026-11-08T22:29:05Z clothing sgfcf {'rank': 256, 'eps': 0.5, 'beta': 2.5, 'gamma': 0.0} VAL N20=0.254743
+2026-11-08T22:29:05Z clothing sgfcf {'rank': 256, 'eps': 0.5, 'beta': 2.5, 'gamma': 0.5} VAL N20=0.264553
+2026-11-08T22:29:05Z clothing sgfcf {'rank': 256, 'eps': 0.5, 'beta': 2.5, 'gamma': 1.0} VAL N20=0.274130
+2026-11-08T22:29:05Z clothing hybrid TEST filtered {'recall20': 0.43292902066486977, 'ndcg20': 0.3302892883484929}
+2026-11-08T22:29:25Z clothing ials TEST filtered {'recall20': 0.23189577717879603, 'ndcg20': 0.1749824329071786}
+2026-11-08T22:29:25Z clothing sgfcf TEST filtered {'recall20': 0.23189577717879603, 'ndcg20': 0.19129465764174894}
+2026-11-08T22:29:25Z clothing COMPLETE

@@ -1,0 +1,17 @@
+2026-11-08T08:39:01Z spotify_sparse: loading supplied splits and released item features
+2026-11-08T08:39:09Z spotify_sparse: projecting released features (213325, 512) to 128 dimensions (no bundle labels)
+2026-11-08T08:39:13Z spotify_sparse: attribute projection complete
+2026-11-08T08:39:18Z spotify_sparse loo_mask seed=0 {'trainable_parameters': 1420497, 'group_parameters': 1377248, 'pair_function_parameters': 81, 'observed_directed_pairs': 27319480, 'frozen_buffer_bytes': 551441407} train_rows=8739 start_epoch=1
+2026-11-08T08:42:14Z spotify_sparse loo_mask seed=0 epoch=1 loss=10.17696
+2026-11-08T08:45:22Z spotify_sparse loo_mask seed=0 epoch=2 loss=9.79358 VAL R20=0.063738 N20=0.085035 best_epoch=2 patience=0/6
+2026-11-08T08:48:18Z spotify_sparse loo_mask seed=0 epoch=3 loss=9.52631
+2026-11-08T08:51:24Z spotify_sparse loo_mask seed=0 epoch=4 loss=9.31198 VAL R20=0.074199 N20=0.095085 best_epoch=4 patience=0/6
+2026-11-08T08:54:21Z spotify_sparse loo_mask seed=0 epoch=5 loss=9.13642
+2026-11-08T08:57:27Z spotify_sparse loo_mask seed=0 epoch=6 loss=8.94228 VAL R20=0.082198 N20=0.104894 best_epoch=6 patience=0/6
+2026-11-08T09:00:30Z spotify_sparse loo_mask seed=0 epoch=7 loss=8.77889
+2026-11-08T09:03:45Z spotify_sparse loo_mask seed=0 epoch=8 loss=8.63551 VAL R20=0.080040 N20=0.104202 best_epoch=6 patience=1/6
+2026-11-08T09:06:46Z spotify_sparse loo_mask seed=0 epoch=9 loss=8.51355
+2026-11-08T09:09:55Z spotify_sparse loo_mask seed=0 epoch=10 loss=8.41613 VAL R20=0.086123 N20=0.110888 best_epoch=10 patience=0/6
+2026-11-08T09:13:03Z spotify_sparse loo_mask seed=0 epoch=11 loss=8.33272
+2026-11-08T09:16:17Z spotify_sparse loo_mask seed=0 epoch=12 loss=8.24425 VAL R20=0.085096 N20=0.109814 best_epoch=10 patience=1/6
+stopped by request 2026-11-08: validation .10-.11 vs BundleFuse .22; see results/neural_lowrank/SPOTIFY_STOPPED.md

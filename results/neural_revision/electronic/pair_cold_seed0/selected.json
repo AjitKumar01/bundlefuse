@@ -1,0 +1,25 @@
+{
+  "condition": {
+    "name": "pair_cold",
+    "variant": "pair",
+    "cold_probability": 0.25
+  },
+  "seed": 0,
+  "checkpoint": "checkpoints/neural_revision/electronic/pair_cold_seed0/epoch_0080.pt",
+  "best_epoch": 80,
+  "epochs_run": 92,
+  "validation": {
+    "recall20": 0.3336223506743738,
+    "ndcg20": 0.22212498302372533,
+    "seconds": 0.025161541998386383,
+    "full_catalogue": true
+  },
+  "parameters": {
+    "trainable_parameters": 251582,
+    "pair_parameters": 13788,
+    "joint_parameters": 0,
+    "category_parameters": 229441,
+    "frozen_buffer_bytes": 2040567
+  },
+  "elapsed": 41.650437707983656
+}

@@ -1,0 +1,28 @@
+{
+  "weights": {
+    "diff2": 0.25,
+    "ppmi": 1.5,
+    "homo": 0.5,
+    "tfidf": 1.5,
+    "bridge": 1.5,
+    "pretrain": 0.25
+  },
+  "prior_keys": [
+    "homo",
+    "tfidf",
+    "bridge",
+    "pretrain"
+  ],
+  "backoff": [
+    0.05,
+    1.1818662881851196
+  ],
+  "higher_order": [
+    0.0,
+    0.0
+  ],
+  "filtered_test": [
+    0.6182247403210576,
+    0.479906456564444
+  ]
+}

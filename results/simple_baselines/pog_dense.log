@@ -1,0 +1,42 @@
+2026-11-08T17:53:47Z pog_dense: n=31217 train=20780 pairs=153074
+2026-11-08T17:53:48Z pog_dense popularity {} VAL N20=0.151555
+2026-11-08T17:53:48Z pog_dense cooccurrence {} VAL N20=0.247057
+2026-11-08T17:53:49Z pog_dense itemknn {'k': 50, 'shrink': 0} VAL N20=0.140949
+2026-11-08T17:53:50Z pog_dense itemknn {'k': 50, 'shrink': 10} VAL N20=0.161732
+2026-11-08T17:53:51Z pog_dense itemknn {'k': 50, 'shrink': 100} VAL N20=0.221225
+2026-11-08T17:53:52Z pog_dense itemknn {'k': 200, 'shrink': 0} VAL N20=0.142083
+2026-11-08T17:53:52Z pog_dense itemknn {'k': 200, 'shrink': 10} VAL N20=0.165492
+2026-11-08T17:53:53Z pog_dense itemknn {'k': 200, 'shrink': 100} VAL N20=0.223606
+2026-11-08T17:53:54Z pog_dense itemknn {'k': 1000, 'shrink': 0} VAL N20=0.142415
+2026-11-08T17:53:55Z pog_dense itemknn {'k': 1000, 'shrink': 10} VAL N20=0.167305
+2026-11-08T17:53:56Z pog_dense itemknn {'k': 1000, 'shrink': 100} VAL N20=0.223901
+2026-11-08T17:53:56Z pog_dense rp3beta {'alpha': 0.5, 'beta': 0.0} VAL N20=0.269464
+2026-11-08T17:53:57Z pog_dense rp3beta {'alpha': 0.5, 'beta': 0.25} VAL N20=0.206929
+2026-11-08T17:53:58Z pog_dense rp3beta {'alpha': 0.5, 'beta': 0.5} VAL N20=0.141205
+2026-11-08T17:53:59Z pog_dense rp3beta {'alpha': 0.5, 'beta': 0.75} VAL N20=0.123853
+2026-11-08T17:54:00Z pog_dense rp3beta {'alpha': 1.0, 'beta': 0.0} VAL N20=0.274614
+2026-11-08T17:54:01Z pog_dense rp3beta {'alpha': 1.0, 'beta': 0.25} VAL N20=0.198992
+2026-11-08T17:54:02Z pog_dense rp3beta {'alpha': 1.0, 'beta': 0.5} VAL N20=0.146211
+2026-11-08T17:54:02Z pog_dense rp3beta {'alpha': 1.0, 'beta': 0.75} VAL N20=0.126272
+2026-11-08T17:54:03Z pog_dense gfcf {'rank': 64, 'ideal': 0.0} VAL N20=0.141227
+2026-11-08T17:54:04Z pog_dense gfcf {'rank': 64, 'ideal': 0.1} VAL N20=0.144716
+2026-11-08T17:54:05Z pog_dense gfcf {'rank': 64, 'ideal': 0.3} VAL N20=0.156771
+2026-11-08T17:54:06Z pog_dense gfcf {'rank': 64, 'ideal': 1.0} VAL N20=0.195868
+2026-11-08T17:54:07Z pog_dense gfcf {'rank': 64, 'ideal': 3.0} VAL N20=0.233955
+2026-11-08T17:54:08Z pog_dense gfcf {'rank': 256, 'ideal': 0.0} VAL N20=0.141227
+2026-11-08T17:54:10Z pog_dense gfcf {'rank': 256, 'ideal': 0.1} VAL N20=0.151066
+2026-11-08T17:54:11Z pog_dense gfcf {'rank': 256, 'ideal': 0.3} VAL N20=0.173295
+2026-11-08T17:54:12Z pog_dense gfcf {'rank': 256, 'ideal': 1.0} VAL N20=0.229843
+2026-11-08T17:54:14Z pog_dense gfcf {'rank': 256, 'ideal': 3.0} VAL N20=0.250816
+2026-11-08T17:54:35Z pog_dense ease {'l2': 50.0} VAL N20=0.257355
+2026-11-08T17:54:57Z pog_dense ease {'l2': 200.0} VAL N20=0.242347
+2026-11-08T17:55:19Z pog_dense ease {'l2': 500.0} VAL N20=0.234887
+2026-11-08T17:55:41Z pog_dense ease {'l2': 1000.0} VAL N20=0.233722
+2026-11-08T17:56:02Z pog_dense ease {'l2': 3000.0} VAL N20=0.238684
+2026-11-08T17:56:03Z pog_dense popularity TEST filtered {'recall20': 0.29406285679947114, 'ndcg20': 0.15616860441957497}
+2026-11-08T17:56:05Z pog_dense cooccurrence TEST filtered {'recall20': 0.3413857340304068, 'ndcg20': 0.23949523499784195}
+2026-11-08T17:56:07Z pog_dense itemknn TEST filtered {'recall20': 0.31593654227510365, 'ndcg20': 0.208070827047538}
+2026-11-08T17:56:08Z pog_dense rp3beta TEST filtered {'recall20': 0.3447208701400156, 'ndcg20': 0.24071678151966952}
+2026-11-08T17:56:11Z pog_dense gfcf TEST filtered {'recall20': 0.3293071329847966, 'ndcg20': 0.2299646881225059}
+2026-11-08T17:56:35Z pog_dense ease TEST filtered {'recall20': 0.3242894056847545, 'ndcg20': 0.22771051917856888}
+2026-11-08T17:56:35Z pog_dense COMPLETE

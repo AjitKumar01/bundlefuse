@@ -1,0 +1,40 @@
+{
+  "status": "selected",
+  "variant": "dot",
+  "seed": 1,
+  "checkpoint": "checkpoints/neural_small/electronic/dot_seed1/epoch_0040.pt",
+  "best_epoch": 40,
+  "validation": {
+    "recall20": 0.29942196531791904,
+    "ndcg20": 0.2063929768122523,
+    "seconds": 0.04494754198822193,
+    "item_encoding_seconds": 0.0009592499991413206,
+    "full_catalogue": true,
+    "catalogue_size": 3499
+  },
+  "parameters": {
+    "total": 324672,
+    "item_identity": 224000,
+    "other": 100672,
+    "frozen_buffer_bytes": 1834000,
+    "config": {
+      "variant": "dot",
+      "dim": 64,
+      "layers": 2,
+      "heads": 4,
+      "dropout": 0.1,
+      "identity_dropout": 0.1
+    }
+  },
+  "model_config": {
+    "variant": "dot",
+    "dim": 64,
+    "layers": 2,
+    "heads": 4,
+    "dropout": 0.1,
+    "identity_dropout": 0.1
+  },
+  "elapsed_seconds": 37.61290666699642,
+  "epochs_run": 52,
+  "selection": "validation NDCG@20 only"
+}

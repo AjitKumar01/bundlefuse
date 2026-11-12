@@ -1,0 +1,21 @@
+{
+  "config": {
+    "kind": "weighted",
+    "weights": {
+      "raw_audio": 1.0,
+      "pop": 0.25
+    }
+  },
+  "tuning_metrics": [
+    0.034899339027947916,
+    0.05941728745896751
+  ],
+  "keys": [
+    "raw_audio",
+    "pop"
+  ],
+  "history": "simp",
+  "alpha": 1.0,
+  "seconds": 47.951967791013885,
+  "fitting_candidates": 15
+}

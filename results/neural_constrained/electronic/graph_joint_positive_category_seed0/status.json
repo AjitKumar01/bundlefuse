@@ -1,0 +1,28 @@
+{
+  "status": "selected",
+  "condition": {
+    "name": "graph_joint_positive_category",
+    "variant": "graph_joint",
+    "cold_probability": 0.25,
+    "category_mode": "nonnegative",
+    "project_links": true
+  },
+  "seed": 0,
+  "checkpoint": "checkpoints/neural_constrained/electronic/graph_joint_positive_category_seed0/epoch_0018.pt",
+  "best_epoch": 18,
+  "epochs_run": 30,
+  "validation": {
+    "recall20": 0.3954720616570327,
+    "ndcg20": 0.3111414467815701,
+    "seconds": 0.025108000001637265,
+    "full_catalogue": true
+  },
+  "parameters": {
+    "trainable_parameters": 299223,
+    "pair_parameters": 13788,
+    "joint_parameters": 31257,
+    "category_parameters": 229441,
+    "frozen_buffer_bytes": 3040791
+  },
+  "elapsed": 18.900798124988796
+}

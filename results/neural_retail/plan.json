@@ -1,0 +1,26 @@
+{
+  "question": "Does v3.1, frozen after development on POG, POG_DENSE and Spotify_sparse, transfer to small e-commerce bundle data?",
+  "model": "v3.1 exactly as frozen in results/neural_relations/plan.json, no change to any setting; one label level (category).",
+  "data": "Electronic, Food, Clothing: the seed 0 resplit used by the earlier neural baseline; catalogue title features (TF-IDF, SVD to 128). No complete bundle is shared across train, validation and test, so every test query counts.",
+  "training": "Seeds 0, 1, 2; epoch chosen on validation NDCG@20. These datasets were never used in v3.1 development.",
+  "primary": "Per dataset, three-seed per-query means on test: v3.1 vs the best simple baseline chosen on validation NDCG@20 (results/simple_baselines), NDCG@20 and Recall@20, Holm over all six tests.",
+  "secondary": "v3.1 vs the earlier neural baseline (graph_pair_no_category, three seeds) where its test predictions exist. Published RaMen numbers are on a different split and are only indicative.",
+  "decision": "Ahead or behind only with Holm p<.05 on NDCG@20. Otherwise not separated. Test sets are small (346-371 queries).",
+  "config": {
+    "epochs": 100,
+    "batch": 32,
+    "eval_every": 1,
+    "patience": 6,
+    "shared_lr": 0.001,
+    "group_lr": 0.01,
+    "weight_decay": 0.001,
+    "rank": 64,
+    "group_rank": 16,
+    "hidden": 32,
+    "use_album": true,
+    "graph_rank": 64,
+    "model": "relation_family_v3",
+    "label_mode": "spectral"
+  },
+  "source_sha256": "4d06b91193f848ecd787005fe7e2ce63a3231099540735dc1528795f74efc4fc"
+}

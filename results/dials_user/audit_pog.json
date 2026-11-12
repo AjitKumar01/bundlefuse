@@ -1,0 +1,34 @@
+{
+  "note": "Leakage audit for a user co-interaction term on POG: how much do users' histories already contain the bundles?\n\nFor each split: share of bundles wholly inside one user's history; share of queries where some user holds every seed\nand at least one held-out item; share of (seed, held-out) pairs with user co-interaction M > 0 against bundle\nco-occurrence N > 0. Items: share of the catalogue, and of held-out test items, that any user interacted with.\n\nPYTHONPATH=.:../dials .venv/bin/python -m experiments.dials_user.audit\n",
+  "users": 17449,
+  "interactions": 61987,
+  "catalogue_with_users": 0.25182841646807463,
+  "train_bundles_inside_one_user": 0.0009285714285714286,
+  "valid": {
+    "queries": 2000,
+    "bundle_inside_one_user": 0.0005,
+    "seeds_and_a_target_in_one_user": 0.0075,
+    "targets_with_users": 0.3326195574589579,
+    "pairs_with_user_coevidence": 0.009041161075422317,
+    "pairs_with_bundle_cooccurrence": 0.021889126814180346,
+    "user_but_no_bundle_evidence": 0.0076136093266714255
+  },
+  "test": {
+    "queries": 4000,
+    "bundle_inside_one_user": 0.00075,
+    "seeds_and_a_target_in_one_user": 0.0055,
+    "targets_with_users": 0.33729639757460467,
+    "pairs_with_user_coevidence": 0.00891689454286054,
+    "pairs_with_bundle_cooccurrence": 0.023065033884199265,
+    "user_but_no_bundle_evidence": 0.007490191416002853
+  },
+  "clean_test": {
+    "queries": 3995,
+    "bundle_inside_one_user": 0.000750938673341677,
+    "seeds_and_a_target_in_one_user": 0.005506883604505632,
+    "targets_with_users": 0.33726190476190476,
+    "pairs_with_user_coevidence": 0.008928571428571428,
+    "pairs_with_bundle_cooccurrence": 0.021904761904761906,
+    "user_but_no_bundle_evidence": 0.0075
+  }
+}

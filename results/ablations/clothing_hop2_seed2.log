@@ -1,0 +1,20 @@
+2026-11-09T06:34:36Z clothing loo seed=2 {'trainable_parameters': 41626, 'label_parameters': 256, 'label_mode': 'spectral', 'observed_directed_pairs': 12666, 'levels': 1, 'frozen_buffer_bytes': 20227897} train_rows=1294 start_epoch=1
+2026-11-09T06:34:39Z clothing loo seed=2 epoch=1 loss=5.77709 VAL R20=0.539583 N20=0.406183 best_epoch=1 patience=0/6
+2026-11-09T06:34:41Z clothing loo seed=2 epoch=2 loss=4.83188 VAL R20=0.563134 N20=0.418339 best_epoch=2 patience=0/6
+2026-11-09T06:34:43Z clothing loo seed=2 epoch=3 loss=4.60246 VAL R20=0.580163 N20=0.439035 best_epoch=3 patience=0/6
+2026-11-09T06:34:45Z clothing loo seed=2 epoch=4 loss=4.50293 VAL R20=0.568569 N20=0.444538 best_epoch=4 patience=0/6
+2026-11-09T06:34:46Z clothing loo seed=2 epoch=5 loss=4.30915 VAL R20=0.579257 N20=0.446071 best_epoch=5 patience=0/6
+2026-11-09T06:34:48Z clothing loo seed=2 epoch=6 loss=4.26359 VAL R20=0.574275 N20=0.441680 best_epoch=5 patience=1/6
+2026-11-09T06:34:50Z clothing loo seed=2 epoch=7 loss=4.17162 VAL R20=0.572464 N20=0.443113 best_epoch=5 patience=2/6
+2026-11-09T06:34:52Z clothing loo seed=2 epoch=8 loss=4.11741 VAL R20=0.573822 N20=0.449458 best_epoch=8 patience=0/6
+2026-11-09T06:34:54Z clothing loo seed=2 epoch=9 loss=3.99304 VAL R20=0.574275 N20=0.447592 best_epoch=8 patience=1/6
+2026-11-09T06:34:56Z clothing loo seed=2 epoch=10 loss=3.96723 VAL R20=0.583967 N20=0.454390 best_epoch=10 patience=0/6
+2026-11-09T06:34:58Z clothing loo seed=2 epoch=11 loss=3.81148 VAL R20=0.582337 N20=0.447289 best_epoch=10 patience=1/6
+2026-11-09T06:35:00Z clothing loo seed=2 epoch=12 loss=3.82682 VAL R20=0.599275 N20=0.461597 best_epoch=12 patience=0/6
+2026-11-09T06:35:01Z clothing loo seed=2 epoch=13 loss=3.77555 VAL R20=0.580072 N20=0.457320 best_epoch=12 patience=1/6
+2026-11-09T06:35:03Z clothing loo seed=2 epoch=14 loss=3.66487 VAL R20=0.567844 N20=0.448197 best_epoch=12 patience=2/6
+2026-11-09T06:35:05Z clothing loo seed=2 epoch=15 loss=3.69457 VAL R20=0.579891 N20=0.448540 best_epoch=12 patience=3/6
+2026-11-09T06:35:07Z clothing loo seed=2 epoch=16 loss=3.63435 VAL R20=0.586413 N20=0.457543 best_epoch=12 patience=4/6
+2026-11-09T06:35:09Z clothing loo seed=2 epoch=17 loss=3.57502 VAL R20=0.585145 N20=0.455978 best_epoch=12 patience=5/6
+2026-11-09T06:35:11Z clothing loo seed=2 epoch=18 loss=3.56902 VAL R20=0.580707 N20=0.451016 best_epoch=12 patience=6/6
+2026-11-09T06:35:11Z clothing no_hop2_seed2 COMPLETE

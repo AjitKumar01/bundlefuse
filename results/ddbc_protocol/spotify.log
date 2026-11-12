@@ -1,0 +1,5 @@
+2026-11-09T00:59:49Z spotify: loading supplied splits and released item features
+2026-11-09T00:59:50Z spotify: reusing retained attribute projection (254155, 128)
+spotify k=30 n=2744 (in train 4) DIALS F1 0.621 Jacc 0.478 | hybrid F1 0.540 Jacc 0.402 | published DDBC (0.282, 0.176) best baseline ('BundleNAT', 0.153, 0.09)
+spotify k=60 n=1582 (in train 1) DIALS F1 0.643 Jacc 0.495 | hybrid F1 0.560 Jacc 0.413 | published DDBC (0.285, 0.178) best baseline ('TIGER', 0.129, 0.076)
+spotify k=90 n=969 (in train 0) DIALS F1 0.651 Jacc 0.501 | hybrid F1 0.561 Jacc 0.412 | published DDBC (0.287, 0.177) best baseline ('TIGER', 0.123, 0.07)

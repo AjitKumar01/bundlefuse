@@ -1,0 +1,39 @@
+{
+  "config": {
+    "kind": "gate",
+    "weights": {
+      "shuf2_lift0": 1.5,
+      "shuf2_lift1": 1.0,
+      "residual_audio": 1.0,
+      "pop": 0.5,
+      "pair": 1.0,
+      "simp": 0.5,
+      "amp": 0.25
+    },
+    "prior_weights": {
+      "shuf2_lift0": 1.5,
+      "shuf2_lift1": 1.0,
+      "residual_audio": 1.0,
+      "pop": 0.5
+    },
+    "scale": 1.2871112198620858,
+    "kappa": 0.05
+  },
+  "tuning_metrics": [
+    0.10246961260723919,
+    0.13789544073231758
+  ],
+  "keys": [
+    "shuf2_lift0",
+    "shuf2_lift1",
+    "residual_audio",
+    "pop",
+    "pair",
+    "simp",
+    "amp"
+  ],
+  "history": "simp",
+  "alpha": 1.0,
+  "seconds": 182.11318554199534,
+  "fitting_candidates": 60
+}

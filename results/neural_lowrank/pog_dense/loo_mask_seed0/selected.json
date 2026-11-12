@@ -1,0 +1,32 @@
+{
+  "arm": "loo_mask",
+  "config": {
+    "epochs": 100,
+    "batch": 32,
+    "eval_every": 2,
+    "patience": 6,
+    "shared_lr": 0.001,
+    "group_lr": 0.01,
+    "weight_decay": 0.001,
+    "rank": 64,
+    "group_rank": 16,
+    "hidden": 32
+  },
+  "seed": 0,
+  "checkpoint": "checkpoints/neural_lowrank/pog_dense/loo_mask_seed0/epoch_0046.pt",
+  "best_epoch": 46,
+  "epochs_run": 58,
+  "validation": {
+    "recall20": 0.41121967654986524,
+    "ndcg20": 0.3139888318582701,
+    "seconds": 1.6925945410039276
+  },
+  "parameters": {
+    "trainable_parameters": 45393,
+    "group_parameters": 2144,
+    "pair_function_parameters": 81,
+    "observed_directed_pairs": 153074,
+    "frozen_buffer_bytes": 34552379
+  },
+  "elapsed": 3716.7272347079706
+}

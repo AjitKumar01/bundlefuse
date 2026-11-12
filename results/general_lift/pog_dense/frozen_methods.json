@@ -1,0 +1,410 @@
+{
+  "general": {
+    "config": {
+      "kind": "gate",
+      "weights": {
+        "lift0": 1.5,
+        "pop": 0.25,
+        "pair": 0.25,
+        "simp": 1.5,
+        "amp": 0.25
+      },
+      "prior_weights": {
+        "lift0": 1.5,
+        "pop": 0.25
+      },
+      "scale": 1.0,
+      "kappa": 1.0
+    },
+    "tuning_metrics": [
+      0.38152130625248903,
+      0.26726150382084285
+    ],
+    "keys": [
+      "lift0",
+      "residual_content",
+      "residual_image",
+      "residual_desc",
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 64.63166754099075,
+    "fitting_candidates": 92
+  },
+  "raw": {
+    "config": {
+      "kind": "gate",
+      "weights": {
+        "raw_image": 0.25,
+        "pop": 1.0,
+        "pair": 1.5,
+        "simp": 1.5,
+        "amp": 1.5
+      },
+      "prior_weights": {
+        "raw_image": 0.25,
+        "pop": 1.0
+      },
+      "scale": 4.219454292766027,
+      "kappa": 1.0
+    },
+    "tuning_metrics": [
+      0.3715651135005973,
+      0.2538376458431022
+    ],
+    "keys": [
+      "raw_content",
+      "raw_image",
+      "raw_desc",
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 43.227305915992474,
+    "fitting_candidates": 68
+  },
+  "base": {
+    "config": {
+      "kind": "gate",
+      "weights": {
+        "pop": 0.25,
+        "pair": 0.5,
+        "simp": 1.5,
+        "amp": 0.5
+      },
+      "prior_weights": {
+        "pop": 0.25
+      },
+      "scale": 1.0,
+      "kappa": 1.0
+    },
+    "tuning_metrics": [
+      0.37455197132616475,
+      0.25326345219385965
+    ],
+    "keys": [
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 17.057299542007968,
+    "fitting_candidates": 36
+  },
+  "shuf0": {
+    "config": {
+      "kind": "gate",
+      "weights": {
+        "residual_image": 0.25,
+        "pop": 1.0,
+        "pair": 1.5,
+        "simp": 1.5,
+        "amp": 1.5
+      },
+      "prior_weights": {
+        "residual_image": 0.25,
+        "pop": 1.0
+      },
+      "scale": 4.257771038682198,
+      "kappa": 5.0
+    },
+    "tuning_metrics": [
+      0.3733572281959378,
+      0.25447475240777095
+    ],
+    "keys": [
+      "shuf0_lift0",
+      "residual_content",
+      "residual_image",
+      "residual_desc",
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 47.59392716700677,
+    "fitting_candidates": 80
+  },
+  "shuf1": {
+    "config": {
+      "kind": "gate",
+      "weights": {
+        "shuf1_lift0": 0.25,
+        "residual_content": 0.5,
+        "residual_image": 0.5,
+        "pop": 1.0,
+        "pair": 1.5,
+        "simp": 1.5,
+        "amp": 1.5
+      },
+      "prior_weights": {
+        "shuf1_lift0": 0.25,
+        "residual_content": 0.5,
+        "residual_image": 0.5,
+        "pop": 1.0
+      },
+      "scale": 1.0,
+      "kappa": 1.0
+    },
+    "tuning_metrics": [
+      0.3709677419354837,
+      0.2538037627135786
+    ],
+    "keys": [
+      "shuf1_lift0",
+      "residual_content",
+      "residual_image",
+      "residual_desc",
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 55.347002333001,
+    "fitting_candidates": 92
+  },
+  "shuf2": {
+    "config": {
+      "kind": "gate",
+      "weights": {
+        "shuf2_lift0": 1.5,
+        "residual_image": 1.0,
+        "residual_desc": 0.25,
+        "pop": 1.5,
+        "pair": 1.5,
+        "simp": 1.5,
+        "amp": 1.5
+      },
+      "prior_weights": {
+        "shuf2_lift0": 1.5,
+        "residual_image": 1.0,
+        "residual_desc": 0.25,
+        "pop": 1.5
+      },
+      "scale": 1.0,
+      "kappa": 0.5
+    },
+    "tuning_metrics": [
+      0.3715651135005973,
+      0.2549081220743361
+    ],
+    "keys": [
+      "shuf2_lift0",
+      "residual_content",
+      "residual_image",
+      "residual_desc",
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 52.33355149999261,
+    "fitting_candidates": 76
+  },
+  "lift_only": {
+    "config": {
+      "kind": "gate",
+      "weights": {
+        "lift0": 1.5,
+        "pop": 0.25,
+        "pair": 0.25,
+        "simp": 1.5,
+        "amp": 0.25
+      },
+      "prior_weights": {
+        "lift0": 1.5,
+        "pop": 0.25
+      },
+      "scale": 1.0,
+      "kappa": 1.0
+    },
+    "tuning_metrics": [
+      0.38152130625248903,
+      0.26726150382084285
+    ],
+    "keys": [
+      "lift0",
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 28.199921458988683,
+    "fitting_candidates": 48
+  },
+  "residual_only": {
+    "config": {
+      "kind": "gate",
+      "weights": {
+        "residual_image": 0.25,
+        "pop": 1.0,
+        "pair": 1.5,
+        "simp": 1.5,
+        "amp": 1.5
+      },
+      "prior_weights": {
+        "residual_image": 0.25,
+        "pop": 1.0
+      },
+      "scale": 4.257771038682198,
+      "kappa": 5.0
+    },
+    "tuning_metrics": [
+      0.3733572281959378,
+      0.25447475240777095
+    ],
+    "keys": [
+      "residual_content",
+      "residual_image",
+      "residual_desc",
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 46.42561750000459,
+    "fitting_candidates": 68
+  },
+  "identity": {
+    "config": {
+      "kind": "gate",
+      "weights": {
+        "residual_image": 0.25,
+        "pop": 0.5,
+        "pair": 1.5,
+        "simp": 1.5,
+        "amp": 1.0
+      },
+      "prior_weights": {
+        "residual_image": 0.25,
+        "pop": 0.5
+      },
+      "scale": 1.0,
+      "kappa": 1.0
+    },
+    "tuning_metrics": [
+      0.3733572281959378,
+      0.25490030202737995
+    ],
+    "keys": [
+      "same0",
+      "residual_content",
+      "residual_image",
+      "residual_desc",
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 52.69413079100195,
+    "fitting_candidates": 80
+  },
+  "off_diagonal": {
+    "config": {
+      "kind": "gate",
+      "weights": {
+        "off0": 1.5,
+        "residual_content": 0.25,
+        "residual_image": 0.25,
+        "pop": 0.5,
+        "pair": 1.5,
+        "simp": 1.5,
+        "amp": 0.5
+      },
+      "prior_weights": {
+        "off0": 1.5,
+        "residual_content": 0.25,
+        "residual_image": 0.25,
+        "pop": 0.5
+      },
+      "scale": 1.0,
+      "kappa": 1.0
+    },
+    "tuning_metrics": [
+      0.3799283154121863,
+      0.2635869620751595
+    ],
+    "keys": [
+      "off0",
+      "residual_content",
+      "residual_image",
+      "residual_desc",
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 48.06717383398791,
+    "fitting_candidates": 72
+  },
+  "general_no_history": {
+    "config": {
+      "kind": "weighted",
+      "weights": {
+        "lift0": 1.5,
+        "pop": 0.25
+      }
+    },
+    "tuning_metrics": [
+      0.33970529669454397,
+      0.22044433670708719
+    ],
+    "keys": [
+      "lift0",
+      "residual_content",
+      "residual_image",
+      "residual_desc",
+      "pop"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 24.447439791983925,
+    "fitting_candidates": 43
+  },
+  "raw_no_history": {
+    "config": {
+      "kind": "weighted",
+      "weights": {
+        "raw_image": 0.25,
+        "pop": 1.5
+      }
+    },
+    "tuning_metrics": [
+      0.31959378733572297,
+      0.17503548094477228
+    ],
+    "keys": [
+      "raw_content",
+      "raw_image",
+      "raw_desc",
+      "pop"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 27.273638625018066,
+    "fitting_candidates": 46
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "data": {
+    "metadata": {
+      "dataset": "electronic",
+      "n_items": 3499,
+      "protocol": "resplit",
+      "data_profile": "extended",
+      "split_seed": 0,
+      "mask_frac": 0.5,
+      "val_limit": 800,
+      "test_limit": 2000,
+      "train_bundles": 1211,
+      "val_queries": 173,
+      "test_queries": 346,
+      "val_total": 173,
+      "test_total": 346,
+      "full_validation": true,
+      "full_test": true,
+      "train_sha256": "29b18a87d9777b03d3e855ccf9e7869475650bc2ac8ec28ad0d7f8a9e2870e31",
+      "val_pairs_sha256": "e38d25cc32269ad041571dc8b0f27e92d8fdd1513ae127eb1673d0807fe4f613",
+      "test_pairs_sha256": "b4286badd704b8a22a7c339cab9496222ca9a3e2b06889badeaa35f0c410fe5e",
+      "input_sha256": {
+        "bundle_item.csv": "86e10270825961063ff1ae4a9557bc8d590f0f79356c77fce26a08dce9d1f824",
+        "user_bundle.csv": "adfe1efff2e0e14a2cad85e139e028ed433baeb135f2222af1a212e063b96a05",
+        "item_titles.csv": "8d77a35db7527bd87f0a8fb4630e5412446d15140ad4210b5a28a738dc274ae1",
+        "item_categories.csv": "04a0cdb5b5567b0c0c18e22a29a38f77718ff9770281c3f0672a3c57ddcc4d25",
+        "user_item_pretrain.csv": "b0f0d52d3928b4b120f054f06c2bdf95c3581c131653dbdf29862db9650bf88a"
+      }
+    },
+    "actual_train_sha256": "29b18a87d9777b03d3e855ccf9e7869475650bc2ac8ec28ad0d7f8a9e2870e31",
+    "actual_val_sha256": "e38d25cc32269ad041571dc8b0f27e92d8fdd1513ae127eb1673d0807fe4f613",
+    "actual_test_sha256": "b4286badd704b8a22a7c339cab9496222ca9a3e2b06889badeaa35f0c410fe5e",
+    "inputs": "bundle item IDs, catalogue text features, categories, training frequency",
+    "auxiliary_histories_used": false,
+    "smoke": false,
+    "feature_shape": [
+      3499,
+      128
+    ],
+    "train_bundles": 1211,
+    "val_queries": 173,
+    "test_queries": 346,
+    "unseen_test_targets": 245
+  },
+  "training": {
+    "dim": 64,
+    "epochs": 80,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "batch_size": 16,
+    "eval_batch": 8,
+    "candidate_chunk": 256,
+    "negative_pool": 512,
+    "negatives": 256,
+    "eval_every": 2,
+    "patience": 6
+  },
+  "variants": [
+    "dot",
+    "relations",
+    "contextual"
+  ],
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "source_sha256": "b1cc5df8156ec36d25b0431aae2b40995607814315ade9c75229259bc5bc0657",
+  "torch_version": "2.9.1",
+  "evaluation": "full catalogue; observed items masked; item-ID tie breaking",
+  "selection": "validation NDCG@20, earliest epoch on exact ties",
+  "negative_sampling": "uniform pool; half current-model hard negatives after epoch 2",
+  "comparisons": "original BundleFuse, input-matched BundleFuse, six repository defaults"
+}

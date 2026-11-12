@@ -1,0 +1,44 @@
+2026-11-08T08:39:01Z pog: loading supplied splits and released item features
+2026-11-08T08:39:06Z pog: reusing retained attribute projection (48676, 128)
+2026-11-08T08:39:07Z pog loo_mask seed=2 {'trainable_parameters': 45553, 'group_parameters': 2304, 'pair_function_parameters': 81, 'observed_directed_pairs': 138274, 'frozen_buffer_bytes': 52671816} train_rows=14000 start_epoch=1
+2026-11-08T08:40:45Z pog loo_mask seed=2 epoch=1 loss=9.90622
+2026-11-08T08:42:38Z pog loo_mask seed=2 epoch=2 loss=9.51617 VAL R20=0.032083 N20=0.022802 best_epoch=2 patience=0/6
+2026-11-08T08:44:29Z pog loo_mask seed=2 epoch=3 loss=9.43714
+2026-11-08T08:46:16Z pog loo_mask seed=2 epoch=4 loss=9.37961 VAL R20=0.034500 N20=0.023540 best_epoch=4 patience=0/6
+2026-11-08T08:48:04Z pog loo_mask seed=2 epoch=5 loss=9.34768
+2026-11-08T08:49:55Z pog loo_mask seed=2 epoch=6 loss=9.32126 VAL R20=0.037833 N20=0.025146 best_epoch=6 patience=0/6
+2026-11-08T08:51:39Z pog loo_mask seed=2 epoch=7 loss=9.29860
+2026-11-08T08:53:30Z pog loo_mask seed=2 epoch=8 loss=9.29153 VAL R20=0.040833 N20=0.025525 best_epoch=8 patience=0/6
+2026-11-08T08:55:18Z pog loo_mask seed=2 epoch=9 loss=9.27049
+2026-11-08T08:57:11Z pog loo_mask seed=2 epoch=10 loss=9.25292 VAL R20=0.041333 N20=0.027412 best_epoch=10 patience=0/6
+2026-11-08T08:58:56Z pog loo_mask seed=2 epoch=11 loss=9.24088
+2026-11-08T09:00:50Z pog loo_mask seed=2 epoch=12 loss=9.23637 VAL R20=0.041667 N20=0.027561 best_epoch=12 patience=0/6
+2026-11-08T09:02:43Z pog loo_mask seed=2 epoch=13 loss=9.22231
+2026-11-08T09:04:37Z pog loo_mask seed=2 epoch=14 loss=9.21945 VAL R20=0.041333 N20=0.027530 best_epoch=12 patience=1/6
+2026-11-08T09:06:29Z pog loo_mask seed=2 epoch=15 loss=9.20980
+2026-11-08T09:08:25Z pog loo_mask seed=2 epoch=16 loss=9.20682 VAL R20=0.045167 N20=0.029558 best_epoch=16 patience=0/6
+2026-11-08T09:10:12Z pog loo_mask seed=2 epoch=17 loss=9.19698
+2026-11-08T09:12:08Z pog loo_mask seed=2 epoch=18 loss=9.18966 VAL R20=0.046250 N20=0.030124 best_epoch=18 patience=0/6
+2026-11-08T09:14:01Z pog loo_mask seed=2 epoch=19 loss=9.17854
+2026-11-08T09:15:57Z pog loo_mask seed=2 epoch=20 loss=9.16684 VAL R20=0.045167 N20=0.028731 best_epoch=18 patience=1/6
+2026-11-08T09:17:29Z pog loo_mask seed=2 epoch=21 loss=9.17350
+2026-11-08T09:18:42Z pog loo_mask seed=2 epoch=22 loss=9.17070 VAL R20=0.049083 N20=0.031453 best_epoch=22 patience=0/6
+2026-11-08T09:19:51Z pog loo_mask seed=2 epoch=23 loss=9.15117
+2026-11-08T09:21:06Z pog loo_mask seed=2 epoch=24 loss=9.15193 VAL R20=0.048500 N20=0.030342 best_epoch=22 patience=1/6
+2026-11-08T09:22:19Z pog loo_mask seed=2 epoch=25 loss=9.14239
+2026-11-08T09:23:35Z pog loo_mask seed=2 epoch=26 loss=9.14545 VAL R20=0.048167 N20=0.030634 best_epoch=22 patience=2/6
+2026-11-08T09:24:49Z pog loo_mask seed=2 epoch=27 loss=9.15163
+2026-11-08T09:26:06Z pog loo_mask seed=2 epoch=28 loss=9.12582 VAL R20=0.053583 N20=0.033114 best_epoch=28 patience=0/6
+2026-11-08T09:27:17Z pog loo_mask seed=2 epoch=29 loss=9.12174
+2026-11-08T09:28:27Z pog loo_mask seed=2 epoch=30 loss=9.12079 VAL R20=0.050083 N20=0.032390 best_epoch=28 patience=1/6
+2026-11-08T09:30:16Z pog loo_mask seed=2 epoch=31 loss=9.11682
+2026-11-08T09:32:05Z pog loo_mask seed=2 epoch=32 loss=9.10589 VAL R20=0.049083 N20=0.032384 best_epoch=28 patience=2/6
+2026-11-08T09:33:44Z pog loo_mask seed=2 epoch=33 loss=9.10468
+2026-11-08T09:35:26Z pog loo_mask seed=2 epoch=34 loss=9.09924 VAL R20=0.050333 N20=0.030995 best_epoch=28 patience=3/6
+2026-11-08T09:37:07Z pog loo_mask seed=2 epoch=35 loss=9.11117
+2026-11-08T09:38:47Z pog loo_mask seed=2 epoch=36 loss=9.09086 VAL R20=0.050000 N20=0.031894 best_epoch=28 patience=4/6
+2026-11-08T09:40:22Z pog loo_mask seed=2 epoch=37 loss=9.10385
+2026-11-08T09:42:02Z pog loo_mask seed=2 epoch=38 loss=9.08223 VAL R20=0.052250 N20=0.032564 best_epoch=28 patience=5/6
+2026-11-08T09:43:40Z pog loo_mask seed=2 epoch=39 loss=9.09290
+2026-11-08T09:45:22Z pog loo_mask seed=2 epoch=40 loss=9.09037 VAL R20=0.052417 N20=0.032587 best_epoch=28 patience=6/6
+2026-11-08T09:45:25Z pog loo_mask_seed2 COMPLETE

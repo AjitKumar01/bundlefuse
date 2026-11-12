@@ -1,0 +1,1561 @@
+{
+  "note": "Frozen DIALS (branch dials, no second hop; runs in ../dials/runs) against every baseline, as before for v3.1.\n\nFamilies, each Holm-corrected on its own, NDCG@20 and Recall@20, paired cluster bootstrap and sign flips (clusters:\nidentical complete bundles), clean test queries:\n  simple   the best simple baseline per dataset, chosen on validation NDCG@20 (results/simple_baselines); 16 tests.\n  neural   RaMen and CLHE rerun on identical splits: RaMen-clean and CLHE-clean on Electronic/Food/Clothing\n           (results/ramen_retail, results/clhe_retail), CLHE three seeds on POG_DENSE/POG/Spotify_sparse/Spotify\n           (Kaggle, clhe_seeds_out); 20 planned tests, Spotify CLHE counted even while missing.\nDDBC protocol (its own queries, pool F1/Jaccard, 5 pool draws as in results/ddbc_protocol) is rescored with the\nfrozen model; the simple-baseline scores there are reused.\n\nPYTHONPATH=.:../dials .venv/bin/python -m experiments.dials_frozen.compare [--skip-ddbc]\n",
+  "datasets": {
+    "electronic": {
+      "dials": [
+        0.46910725754656407,
+        0.3345691324745834
+      ],
+      "dials_all": [
+        0.46910725754656407,
+        0.3345691324745834
+      ],
+      "clean_queries": 346,
+      "queries": 346,
+      "simple": {
+        "method": "hybrid",
+        "params": {
+          "k": 200,
+          "shrink": 0,
+          "content": 0.1
+        },
+        "test": [
+          0.43203275529865137,
+          0.2985896793655201
+        ]
+      },
+      "ramen_clean": {
+        "test": [
+          0.34401091943299383,
+          0.25367924700238115
+        ],
+        "n_layer_gat": 2,
+        "gamma": 0.9
+      },
+      "ramen_published": {
+        "test": [
+          0.49849068858662543,
+          0.3528956761996411
+        ],
+        "n_layer_gat": 2,
+        "gamma": 0.3
+      },
+      "clhe_clean": {
+        "test": [
+          0.3618336553920441,
+          0.25996525308587415
+        ],
+        "preset": "pog_dense",
+        "parameters": 748864
+      },
+      "clhe_published": {
+        "test": [
+          0.5192517678258736,
+          0.3690179130403409
+        ],
+        "preset": "pog_dense",
+        "parameters": 748864
+      }
+    },
+    "food": {
+      "dials": [
+        0.5861504564054141,
+        0.4388153766780888
+      ],
+      "dials_all": [
+        0.5861504564054141,
+        0.4388153766780888
+      ],
+      "clean_queries": 353,
+      "queries": 353,
+      "simple": {
+        "method": "hybrid",
+        "params": {
+          "k": 50,
+          "shrink": 10,
+          "content": 0.3
+        },
+        "test": [
+          0.5442398489140698,
+          0.42523860057125484
+        ]
+      },
+      "ramen_clean": {
+        "test": [
+          0.3523449805319815,
+          0.2744268838446361
+        ],
+        "n_layer_gat": 2,
+        "gamma": 0.7
+      },
+      "ramen_published": {
+        "test": [
+          0.4892508665045214,
+          0.35007805677660236
+        ],
+        "n_layer_gat": 2,
+        "gamma": 0.1
+      },
+      "clhe_clean": {
+        "test": [
+          0.3700975773748752,
+          0.2720711403952891
+        ],
+        "preset": "pog_dense",
+        "parameters": 783168
+      },
+      "clhe_published": {
+        "test": [
+          0.4834435016507806,
+          0.35965471286273876
+        ],
+        "preset": "spotify",
+        "parameters": 783168
+      }
+    },
+    "clothing": {
+      "dials": [
+        0.5337526205450736,
+        0.3876317520011579
+      ],
+      "dials_all": [
+        0.5337526205450736,
+        0.3876317520011579
+      ],
+      "clean_queries": 371,
+      "queries": 371,
+      "simple": {
+        "method": "hybrid",
+        "params": {
+          "k": 50,
+          "shrink": 0,
+          "content": 0.2
+        },
+        "test": [
+          0.43292902066486977,
+          0.3302892883484926
+        ]
+      },
+      "ramen_clean": {
+        "test": [
+          0.23775082434337633,
+          0.19050975550913316
+        ],
+        "n_layer_gat": 2,
+        "gamma": 0.5
+      },
+      "ramen_published": {
+        "test": [
+          0.4825995812679561,
+          0.3006775465200637
+        ],
+        "n_layer_gat": 2,
+        "gamma": 0.1
+      },
+      "clhe_clean": {
+        "test": [
+          0.2414495364862418,
+          0.18586010996650582
+        ],
+        "preset": "pog_dense",
+        "parameters": 875328
+      },
+      "clhe_published": {
+        "test": [
+          0.30146750625681473,
+          0.24114888723728783
+        ],
+        "preset": "pog_dense",
+        "parameters": 875328
+      }
+    },
+    "pog_dense": {
+      "dials": [
+        0.37557839072171,
+        0.2802226827501821
+      ],
+      "dials_all": [
+        0.4072078140788145,
+        0.307982465031325
+      ],
+      "clean_queries": 5547,
+      "queries": 5938,
+      "simple": {
+        "method": "rp3beta",
+        "params": {
+          "alpha": 1.0,
+          "beta": 0.0
+        },
+        "test": [
+          0.3447208701400142,
+          0.24071678151966885
+        ]
+      },
+      "clhe": {
+        "test": [
+          0.34862688643328765,
+          0.2475735664136652
+        ],
+        "test_all": [
+          0.382536208452608,
+          0.27704894748804276
+        ],
+        "parameters": 7248448
+      }
+    },
+    "pog": {
+      "dials": [
+        0.05427617855652902,
+        0.03133739223379296
+      ],
+      "dials_all": [
+        0.05508333333333336,
+        0.03203893423403659
+      ],
+      "clean_queries": 3995,
+      "queries": 4000,
+      "simple": {
+        "method": "ease",
+        "params": {
+          "l2": 3000.0
+        },
+        "test": [
+          0.029453483521067997,
+          0.019795451057974065
+        ]
+      },
+      "clhe": {
+        "test": [
+          0.025921290588219785,
+          0.017216699090807648
+        ],
+        "test_all": [
+          0.026930555641651175,
+          0.01809694112961491
+        ],
+        "parameters": 9483200
+      }
+    },
+    "spotify_sparse": {
+      "dials": [
+        0.18365124107479236,
+        0.2562208437519258
+      ],
+      "dials_all": [
+        0.18395897914977483,
+        0.256518593614315
+      ],
+      "clean_queries": 2497,
+      "queries": 2498,
+      "simple": {
+        "method": "hybrid",
+        "params": {
+          "k": 1000,
+          "shrink": 10,
+          "content": 0.5
+        },
+        "test": [
+          0.1165948081077678,
+          0.15261855892235807
+        ]
+      },
+      "clhe": {
+        "test": [
+          0.09705037780990272,
+          0.11533247959502804
+        ],
+        "test_all": [
+          0.09739278396579118,
+          0.11568662992345274
+        ],
+        "parameters": 28984384
+      }
+    },
+    "spotify": {
+      "dials": [
+        0.16742106928940578,
+        0.2824496478970466
+      ],
+      "dials_all": [
+        0.16795739674986843,
+        0.28308692076942654
+      ],
+      "clean_queries": 3995,
+      "queries": 4000,
+      "simple": {
+        "method": "hybrid",
+        "params": {
+          "k": 1000,
+          "shrink": 10,
+          "content": 0.3
+        },
+        "test": [
+          0.1323687217882459,
+          0.22281601396816073
+        ]
+      }
+    },
+    "dunnhumby": {
+      "dials": [
+        0.14904273782405916,
+        0.10233123489951917
+      ],
+      "dials_all": [
+        0.14904273782405916,
+        0.10233123489951917
+      ],
+      "clean_queries": 5707,
+      "queries": 5707,
+      "simple": {
+        "method": "hybrid",
+        "params": {
+          "k": 1000,
+          "shrink": 100,
+          "content": 0.2
+        },
+        "test": [
+          0.1440741111583939,
+          0.10435554424053899
+        ]
+      }
+    }
+  },
+  "primary": [
+    {
+      "delta": 0.03597945310906308,
+      "ci95": [
+        0.015542571076150329,
+        0.05730780838877215
+      ],
+      "p_value": 0.00039996000399960006,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.2745664739884393,
+      "seed": 20261109,
+      "family": "simple",
+      "dataset": "electronic",
+      "metric": "ndcg20",
+      "first": "dials",
+      "second": "simple:hybrid",
+      "p_holm": 0.0023997600239976003,
+      "reject_05": true
+    },
+    {
+      "delta": 0.03707450224791266,
+      "ci95": [
+        0.00712869299935774,
+        0.06671724470134875
+      ],
+      "p_value": 0.013398660133986601,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.11849710982658959,
+      "seed": 20261109,
+      "family": "simple",
+      "dataset": "electronic",
+      "metric": "recall20",
+      "first": "dials",
+      "second": "simple:hybrid",
+      "p_holm": 0.053594640535946404,
+      "reject_05": false
+    },
+    {
+      "delta": 0.08088988547220234,
+      "ci95": [
+        0.05649142559695581,
+        0.10688689587312587
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.3872832369942196,
+      "seed": 20261109,
+      "family": "neural",
+      "dataset": "electronic",
+      "metric": "ndcg20",
+      "first": "dials",
+      "second": "ramen_clean",
+      "p_holm": 0.001999800019998,
+      "reject_05": true
+    },
+    {
+      "delta": 0.1250963381135701,
+      "ci95": [
+        0.08530667825339408,
+        0.16368336470779715
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.23121387283236994,
+      "seed": 20261109,
+      "family": "neural",
+      "dataset": "electronic",
+      "metric": "recall20",
+      "first": "dials",
+      "second": "ramen_clean",
+      "p_holm": 0.001999800019998,
+      "reject_05": true
+    },
+    {
+      "delta": 0.07460387938870927,
+      "ci95": [
+        0.04846811799575186,
+        0.10285774167848923
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.3815028901734104,
+      "seed": 20261109,
+      "family": "neural",
+      "dataset": "electronic",
+      "metric": "ndcg20",
+      "first": "dials",
+      "second": "clhe_clean",
+      "p_holm": 0.001999800019998,
+      "reject_05": true
+    },
+    {
+      "delta": 0.10727360215451981,
+      "ci95": [
+        0.06526734025817539,
+        0.14829881059803793
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.21098265895953758,
+      "seed": 20261109,
+      "family": "neural",
+      "dataset": "electronic",
+      "metric": "recall20",
+      "first": "dials",
+      "second": "clhe_clean",
+      "p_holm": 0.001999800019998,
+      "reject_05": true
+    },
+    {
+      "delta": 0.013576776106833712,
+      "ci95": [
+        -0.006379982405175459,
+        0.03427424313837585
+      ],
+      "p_value": 0.204979502049795,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.2719546742209632,
+      "seed": 20261109,
+      "family": "simple",
+      "dataset": "food",
+      "metric": "ndcg20",
+      "first": "dials",
+      "second": "simple:hybrid",
+      "p_holm": 0.28457154284571545,
+      "reject_05": false
+    },
+    {
+      "delta": 0.04191060749134404,
+      "ci95": [
+        0.014412181303116146,
+        0.07095097576329869
+      ],
+      "p_value": 0.0044995500449955,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.12181303116147309,
+      "seed": 20261109,
+      "family": "simple",
+      "dataset": "food",
+      "metric": "recall20",
+      "first": "dials",
+      "second": "simple:hybrid",
+      "p_holm": 0.0224977502249775,
+      "reject_05": true
+    },
+    {
+      "delta": 0.16438849283345294,
+      "ci95": [
+        0.13338730426023626,
+        0.19655653682982202
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.5382436260623229,
+      "seed": 20261109,
+      "family": "neural",
+      "dataset": "food",
+      "metric": "ndcg20",
+      "first": "dials",
+      "second": "ramen_clean",
+      "p_holm": 0.001999800019998,
+      "reject_05": true
+    },
+    {
+      "delta": 0.23380547587343234,
+      "ci95": [
+        0.19052486518376233,
+        0.27603556730111123
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.33994334277620397,
+      "seed": 20261109,
+      "family": "neural",
+      "dataset": "food",
+      "metric": "recall20",
+      "first": "dials",
+      "second": "ramen_clean",
+      "p_holm": 0.001999800019998,
+      "reject_05": true
+    },
+    {
+      "delta": 0.16674423628279958,
+      "ci95": [
+        0.13563842746816482,
+        0.19977557442909177
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.5439093484419264,
+      "seed": 20261109,
+      "family": "neural",
+      "dataset": "food",
+      "metric": "ndcg20",
+      "first": "dials",
+      "second": "clhe_clean",
+      "p_holm": 0.001999800019998,
+      "reject_05": true
+    },
+    {
+      "delta": 0.21605287903053866,
+      "ci95": [
+        0.1738688216836367,
+        0.2584348428422197
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.34844192634560905,
+      "seed": 20261109,
+      "family": "neural",
+      "dataset": "food",
+      "metric": "recall20",
+      "first": "dials",
+      "second": "clhe_clean",
+      "p_holm": 0.001999800019998,
+      "reject_05": true
+    },
+    {
+      "delta": 0.05734246365266511,
+      "ci95": [
+        0.03538107516022011,
+        0.07998844656730618
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 371,
+      "clusters": 371,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.3288409703504043,
+      "seed": 20261109,
+      "family": "simple",
+      "dataset": "clothing",
+      "metric": "ndcg20",
+      "first": "dials",
+      "second": "simple:hybrid",
+      "p_holm": 0.0015998400159984002,
+      "reject_05": true
+    },
+    {
+      "delta": 0.10082359988020365,
+      "ci95": [
+        0.06961141060197663,
+        0.13154125486672652
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 371,
+      "clusters": 371,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.19946091644204852,
+      "seed": 20261109,
+      "family": "simple",
+      "dataset": "clothing",
+      "metric": "recall20",
+      "first": "dials",
+      "second": "simple:hybrid",
+      "p_holm": 0.0015998400159984002,
+      "reject_05": true
+    },
+    {
+      "delta": 0.19712199649202483,
+      "ci95": [
+        0.16750154754952665,
+        0.22846990586321436
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 371,
+      "clusters": 371,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.5498652291105122,
+      "seed": 20261109,
+      "family": "neural",
+      "dataset": "clothing",
+      "metric": "ndcg20",
+      "first": "dials",
+      "second": "ramen_clean",
+      "p_holm": 0.001999800019998,
+      "reject_05": true
+    },
+    {
+      "delta": 0.2960017962016971,
+      "ci95": [
+        0.2536661419672286,
+        0.33976152936264975
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 371,
+      "clusters": 371,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.41509433962264153,
+      "seed": 20261109,
+      "family": "neural",
+      "dataset": "clothing",
+      "metric": "recall20",
+      "first": "dials",
+      "second": "ramen_clean",
+      "p_holm": 0.001999800019998,
+      "reject_05": true
+    },
+    {
+      "delta": 0.2017716420346521,
+      "ci95": [
+        0.17320915532182882,
+        0.232397981732874
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 371,
+      "clusters": 371,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.5714285714285714,
+      "seed": 20261109,
+      "family": "neural",
+      "dataset": "clothing",
+      "metric": "ndcg20",
+      "first": "dials",
+      "second": "clhe_clean",
+      "p_holm": 0.001999800019998,
+      "reject_05": true
+    },
+    {
+      "delta": 0.2923030840588316,
+      "ci95": [
+        0.2507768035733163,
+        0.33473120632877906
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 371,
+      "clusters": 371,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.4366576819407008,
+      "seed": 20261109,
+      "family": "neural",
+      "dataset": "clothing",
+      "metric": "recall20",
+      "first": "dials",
+      "second": "clhe_clean",
+      "p_holm": 0.001999800019998,
+      "reject_05": true
+    },
+    {
+      "delta": 0.039505901230511536,
+      "ci95": [
+        0.03590610843797117,
+        0.04317075642259719
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.2752839372633856,
+      "seed": 20261109,
+      "family": "simple",
+      "dataset": "pog_dense",
+      "metric": "ndcg20",
+      "first": "dials",
+      "second": "simple:rp3beta",
+      "p_holm": 0.0015998400159984002,
+      "reject_05": true
+    },
+    {
+      "delta": 0.03085752058169581,
+      "ci95": [
+        0.026004616278138267,
+        0.036080010739366335
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.07860104561023977,
+      "seed": 20261109,
+      "family": "simple",
+      "dataset": "pog_dense",
+      "metric": "recall20",
+      "first": "dials",
+      "second": "simple:rp3beta",
+      "p_holm": 0.0015998400159984002,
+      "reject_05": true
+    },
+    {
+      "delta": 0.03264911633651607,
+      "ci95": [
+        0.029574475973303392,
+        0.03584266995606275
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.3138633495583198,
+      "seed": 20261109,
+      "family": "neural",
+      "dataset": "pog_dense",
+      "metric": "ndcg20",
+      "first": "dials",
+      "second": "clhe",
+      "p_holm": 0.001999800019998,
+      "reject_05": true
+    },
+    {
+      "delta": 0.02695150428842405,
+      "ci95": [
+        0.023029508369206662,
+        0.031177473442158026
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.09194159004867496,
+      "seed": 20261109,
+      "family": "neural",
+      "dataset": "pog_dense",
+      "metric": "recall20",
+      "first": "dials",
+      "second": "clhe",
+      "p_holm": 0.001999800019998,
+      "reject_05": true
+    },
+    {
+      "delta": 0.011541941175818977,
+      "ci95": [
+        0.009215404537250232,
+        0.013890036310756224
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.10438047559449312,
+      "seed": 20261109,
+      "family": "simple",
+      "dataset": "pog",
+      "metric": "ndcg20",
+      "first": "dials",
+      "second": "simple:ease",
+      "p_holm": 0.0015998400159984002,
+      "reject_05": true
+    },
+    {
+      "delta": 0.02482269503546099,
+      "ci95": [
+        0.02078104171275687,
+        0.028835072950375715
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.08760951188986232,
+      "seed": 20261109,
+      "family": "simple",
+      "dataset": "pog",
+      "metric": "recall20",
+      "first": "dials",
+      "second": "simple:ease",
+      "p_holm": 0.0015998400159984002,
+      "reject_05": true
+    },
+    {
+      "delta": 0.014120693142985379,
+      "ci95": [
+        0.01179901067359174,
+        0.016497746055836687
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.11364205256570713,
+      "seed": 20261109,
+      "family": "neural",
+      "dataset": "pog",
+      "metric": "ndcg20",
+      "first": "dials",
+      "second": "clhe",
+      "p_holm": 0.001999800019998,
+      "reject_05": true
+    },
+    {
+      "delta": 0.028354887968309234,
+      "ci95": [
+        0.02443331934415304,
+        0.03211013008378535
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.10062578222778473,
+      "seed": 20261109,
+      "family": "neural",
+      "dataset": "pog",
+      "metric": "recall20",
+      "first": "dials",
+      "second": "clhe",
+      "p_holm": 0.001999800019998,
+      "reject_05": true
+    },
+    {
+      "delta": 0.10360228482956832,
+      "ci95": [
+        0.09540513093973722,
+        0.11234766915210839
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 2497,
+      "clusters": 2496,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.5810973167801362,
+      "seed": 20261109,
+      "family": "simple",
+      "dataset": "spotify_sparse",
+      "metric": "ndcg20",
+      "first": "dials",
+      "second": "simple:hybrid",
+      "p_holm": 0.0015998400159984002,
+      "reject_05": true
+    },
+    {
+      "delta": 0.06705643296702508,
+      "ci95": [
+        0.061259702603692984,
+        0.07272708771007914
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 2497,
+      "clusters": 2496,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.5318382058470165,
+      "seed": 20261109,
+      "family": "simple",
+      "dataset": "spotify_sparse",
+      "metric": "recall20",
+      "first": "dials",
+      "second": "simple:hybrid",
+      "p_holm": 0.0015998400159984002,
+      "reject_05": true
+    },
+    {
+      "delta": 0.14088836415689798,
+      "ci95": [
+        0.13103681740740378,
+        0.15118700240293909
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 2497,
+      "clusters": 2496,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.6279535442531037,
+      "seed": 20261109,
+      "family": "neural",
+      "dataset": "spotify_sparse",
+      "metric": "ndcg20",
+      "first": "dials",
+      "second": "clhe",
+      "p_holm": 0.001999800019998,
+      "reject_05": true
+    },
+    {
+      "delta": 0.08660086326489011,
+      "ci95": [
+        0.08007116704708546,
+        0.09342506055965386
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 2497,
+      "clusters": 2496,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.6067280736884261,
+      "seed": 20261109,
+      "family": "neural",
+      "dataset": "spotify_sparse",
+      "metric": "recall20",
+      "first": "dials",
+      "second": "clhe",
+      "p_holm": 0.001999800019998,
+      "reject_05": true
+    },
+    {
+      "delta": 0.059633633928885696,
+      "ci95": [
+        0.053844457880558506,
+        0.06588694039245119
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3995,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.5266583229036296,
+      "seed": 20261109,
+      "family": "simple",
+      "dataset": "spotify",
+      "metric": "ndcg20",
+      "first": "dials",
+      "second": "simple:hybrid",
+      "p_holm": 0.0015998400159984002,
+      "reject_05": true
+    },
+    {
+      "delta": 0.03505234750116001,
+      "ci95": [
+        0.031273122964117266,
+        0.039129521116284885
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3995,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.47309136420525655,
+      "seed": 20261109,
+      "family": "simple",
+      "dataset": "spotify",
+      "metric": "recall20",
+      "first": "dials",
+      "second": "simple:hybrid",
+      "p_holm": 0.0015998400159984002,
+      "reject_05": true
+    },
+    {
+      "delta": -0.002024309341019473,
+      "ci95": [
+        -0.004859286303665802,
+        0.0007045397471219866
+      ],
+      "p_value": 0.14228577142285773,
+      "queries": 5707,
+      "clusters": 5707,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.229893113719993,
+      "seed": 20261109,
+      "family": "simple",
+      "dataset": "dunnhumby",
+      "metric": "ndcg20",
+      "first": "dials",
+      "second": "simple:hybrid",
+      "p_holm": 0.28457154284571545,
+      "reject_05": false
+    },
+    {
+      "delta": 0.00496862666566539,
+      "ci95": [
+        0.00039450994462384087,
+        0.009411945253346156
+      ],
+      "p_value": 0.023397660233976603,
+      "queries": 5707,
+      "clusters": 5707,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.13124233397581916,
+      "seed": 20261109,
+      "family": "simple",
+      "dataset": "dunnhumby",
+      "metric": "recall20",
+      "first": "dials",
+      "second": "simple:hybrid",
+      "p_holm": 0.07019298070192981,
+      "reject_05": false
+    }
+  ],
+  "second_hop": {
+    "datasets": {
+      "electronic": {
+        "with_second_hop": [
+          0.46910725754656407,
+          0.33560079612449645
+        ],
+        "without": [
+          0.46910725754656407,
+          0.3345691324745834
+        ]
+      },
+      "food": {
+        "with_second_hop": [
+          0.5846553352219075,
+          0.4375626738101226
+        ],
+        "without": [
+          0.5861504564054141,
+          0.4388153766780888
+        ]
+      },
+      "clothing": {
+        "with_second_hop": [
+          0.5337526205450736,
+          0.3882519592656589
+        ],
+        "without": [
+          0.5337526205450736,
+          0.3876317520011579
+        ]
+      },
+      "pog_dense": {
+        "with_second_hop": [
+          0.3797047453077726,
+          0.28052909469344434
+        ],
+        "without": [
+          0.3778518919135453,
+          0.28077607261921883
+        ]
+      },
+      "pog": {
+        "with_second_hop": [
+          0.05908774857460713,
+          0.035273757488640235
+        ],
+        "without": [
+          0.06056181337783341,
+          0.03597724673541569
+        ]
+      },
+      "spotify_sparse": {
+        "with_second_hop": [
+          0.1814531195810421,
+          0.2548103669217846
+        ],
+        "without": [
+          0.1815880329529559,
+          0.2545703559518909
+        ]
+      },
+      "spotify": {
+        "with_second_hop": [
+          0.16916973698404295,
+          0.28652669682011694
+        ],
+        "without": [
+          0.16596319970117385,
+          0.28158519493608997
+        ]
+      }
+    },
+    "primary": [
+      {
+        "delta": 0.001031663649912966,
+        "ci95": [
+          6.40605672604684e-05,
+          0.0022515871283853663
+        ],
+        "p_value": 0.065993400659934,
+        "queries": 346,
+        "clusters": 346,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.06647398843930635,
+        "seed": 20261109,
+        "dataset": "electronic",
+        "metric": "ndcg20",
+        "first": "dials",
+        "second": "no_hop2",
+        "p_holm": 0.648935106489351,
+        "reject_05": false
+      },
+      {
+        "delta": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "p_value": 1.0,
+        "queries": 346,
+        "clusters": 346,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.0,
+        "seed": 20261109,
+        "dataset": "electronic",
+        "metric": "recall20",
+        "first": "dials",
+        "second": "no_hop2",
+        "p_holm": 1.0,
+        "reject_05": false
+      },
+      {
+        "delta": -0.0012527028679662274,
+        "ci95": [
+          -0.003978007620892108,
+          0.0012886581431592024
+        ],
+        "p_value": 0.3545645435456454,
+        "queries": 353,
+        "clusters": 353,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.07365439093484419,
+        "seed": 20261109,
+        "dataset": "food",
+        "metric": "ndcg20",
+        "first": "dials",
+        "second": "no_hop2",
+        "p_holm": 1.0,
+        "reject_05": false
+      },
+      {
+        "delta": -0.0014951211835064527,
+        "ci95": [
+          -0.005036197670758576,
+          0.0018098835379288635
+        ],
+        "p_value": 0.4400559944005599,
+        "queries": 353,
+        "clusters": 353,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.0056657223796034,
+        "seed": 20261109,
+        "dataset": "food",
+        "metric": "recall20",
+        "first": "dials",
+        "second": "no_hop2",
+        "p_holm": 1.0,
+        "reject_05": false
+      },
+      {
+        "delta": 0.0006202072645010158,
+        "ci95": [
+          5.337416749819662e-05,
+          0.0014705296822798864
+        ],
+        "p_value": 0.0648935106489351,
+        "queries": 371,
+        "clusters": 371,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.03504043126684636,
+        "seed": 20261109,
+        "dataset": "clothing",
+        "metric": "ndcg20",
+        "first": "dials",
+        "second": "no_hop2",
+        "p_holm": 0.648935106489351,
+        "reject_05": false
+      },
+      {
+        "delta": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "p_value": 1.0,
+        "queries": 371,
+        "clusters": 371,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.0,
+        "seed": 20261109,
+        "dataset": "clothing",
+        "metric": "recall20",
+        "first": "dials",
+        "second": "no_hop2",
+        "p_holm": 1.0,
+        "reject_05": false
+      },
+      {
+        "delta": -0.00024697792577503064,
+        "ci95": [
+          -0.0019643169361182647,
+          0.0014667196978825744
+        ],
+        "p_value": 0.7723227677232277,
+        "queries": 5547,
+        "clusters": 5519,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.16405264106724354,
+        "seed": 20261109,
+        "dataset": "pog_dense",
+        "metric": "ndcg20",
+        "first": "dials",
+        "second": "no_hop2",
+        "p_holm": 1.0,
+        "reject_05": false
+      },
+      {
+        "delta": 0.00185285339422711,
+        "ci95": [
+          -0.00032026838896303123,
+          0.004067080527021328
+        ],
+        "p_value": 0.10838916108389161,
+        "queries": 5547,
+        "clusters": 5519,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.0360555255092843,
+        "seed": 20261109,
+        "dataset": "pog_dense",
+        "metric": "recall20",
+        "first": "dials",
+        "second": "no_hop2",
+        "p_holm": 0.8671132886711329,
+        "reject_05": false
+      },
+      {
+        "delta": -0.0007034892467754908,
+        "ci95": [
+          -0.0011869159455092468,
+          -0.00020316831508069308
+        ],
+        "p_value": 0.0036996300369963003,
+        "queries": 3995,
+        "clusters": 3994,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.05006257822277847,
+        "seed": 20261109,
+        "dataset": "pog",
+        "metric": "ndcg20",
+        "first": "dials",
+        "second": "no_hop2",
+        "p_holm": 0.0443955604439556,
+        "reject_05": true
+      },
+      {
+        "delta": -0.0014740648032262552,
+        "ci95": [
+          -0.002517665386969343,
+          -0.0003476546181837518
+        ],
+        "p_value": 0.007999200079992,
+        "queries": 3995,
+        "clusters": 3994,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.018022528160200252,
+        "seed": 20261109,
+        "dataset": "pog",
+        "metric": "recall20",
+        "first": "dials",
+        "second": "no_hop2",
+        "p_holm": 0.08799120087991201,
+        "reject_05": false
+      },
+      {
+        "delta": 0.000240010969894526,
+        "ci95": [
+          -0.00022486934255429539,
+          0.0007249566666333461
+        ],
+        "p_value": 0.32526747325267474,
+        "queries": 2497,
+        "clusters": 2496,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.3608329995995194,
+        "seed": 20261109,
+        "dataset": "spotify_sparse",
+        "metric": "ndcg20",
+        "first": "dials",
+        "second": "no_hop2",
+        "p_holm": 1.0,
+        "reject_05": false
+      },
+      {
+        "delta": -0.00013491337191370398,
+        "ci95": [
+          -0.0007756004443633233,
+          0.0005187987227116293
+        ],
+        "p_value": 0.6667333266673333,
+        "queries": 2497,
+        "clusters": 2496,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.13055666800160193,
+        "seed": 20261109,
+        "dataset": "spotify_sparse",
+        "metric": "recall20",
+        "first": "dials",
+        "second": "no_hop2",
+        "p_holm": 1.0,
+        "reject_05": false
+      },
+      {
+        "delta": 0.004941501884026487,
+        "ci95": [
+          0.0038860475405196556,
+          0.006007288833534165
+        ],
+        "p_value": 9.999000099990002e-05,
+        "queries": 3995,
+        "clusters": 3995,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.48010012515644557,
+        "seed": 20261109,
+        "dataset": "spotify",
+        "metric": "ndcg20",
+        "first": "dials",
+        "second": "no_hop2",
+        "p_holm": 0.0013998600139986002,
+        "reject_05": true
+      },
+      {
+        "delta": 0.003206537282868819,
+        "ci95": [
+          0.0022211666260892643,
+          0.0041397315822713195
+        ],
+        "p_value": 9.999000099990002e-05,
+        "queries": 3995,
+        "clusters": 3995,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.32540675844806005,
+        "seed": 20261109,
+        "dataset": "spotify",
+        "metric": "recall20",
+        "first": "dials",
+        "second": "no_hop2",
+        "p_holm": 0.0013998600139986002,
+        "reject_05": true
+      }
+    ]
+  },
+  "ddbc": {
+    "pog_dense_k4": {
+      "queries": 2521,
+      "queries_whose_bundle_is_in_train": 89,
+      "dials": {
+        "pool_f1": 0.4877032923443078,
+        "pool_jaccard": 0.3963682841905769,
+        "full_f1": 0.19112785931508663,
+        "full_jaccard": 0.13486711622372075
+      },
+      "dials_clean": {
+        "pool_f1": 0.4721628289473685,
+        "pool_jaccard": 0.378389985380117,
+        "full_f1": 0.1777686403508772,
+        "full_jaccard": 0.121984649122807
+      },
+      "simple": {
+        "method": "rp3beta",
+        "pool_f1": 0.4521221737405792,
+        "pool_jaccard": 0.35969853232844107,
+        "full_f1": 0.1701705672352241,
+        "full_jaccard": 0.12283485389395742
+      },
+      "published": {
+        "DDBC": [
+          0.139,
+          0.098
+        ],
+        "best_baseline": [
+          "TIGER",
+          0.213,
+          0.157
+        ]
+      },
+      "pool_f1_minus_simple": {
+        "delta": 0.03558111860372867,
+        "ci95": [
+          0.029683657278857595,
+          0.04183591167526114
+        ]
+      }
+    },
+    "spotify_k30": {
+      "queries": 2744,
+      "queries_whose_bundle_is_in_train": 4,
+      "dials": {
+        "pool_f1": 0.6253255587949466,
+        "pool_jaccard": 0.48203006030710305,
+        "full_f1": 0.10071266601878846,
+        "full_jaccard": 0.05720456836209417
+      },
+      "dials_clean": {
+        "pool_f1": 0.624845093268451,
+        "pool_jaccard": 0.4813935863719567,
+        "full_f1": 0.10038929440389294,
+        "full_jaccard": 0.05699568968246088
+      },
+      "simple": {
+        "method": "hybrid",
+        "pool_f1": 0.5398979591836734,
+        "pool_jaccard": 0.40224160505394424,
+        "full_f1": 0.08231292517006802,
+        "full_jaccard": 0.045669833569369586
+      },
+      "published": {
+        "DDBC": [
+          0.282,
+          0.176
+        ],
+        "best_baseline": [
+          "BundleNAT",
+          0.153,
+          0.09
+        ]
+      },
+      "pool_f1_minus_simple": {
+        "delta": 0.0854275996112731,
+        "ci95": [
+          0.08054891480401684,
+          0.09019800777453839
+        ]
+      }
+    },
+    "spotify_k60": {
+      "queries": 1582,
+      "queries_whose_bundle_is_in_train": 1,
+      "dials": {
+        "pool_f1": 0.6429259727489816,
+        "pool_jaccard": 0.49489260642804705,
+        "full_f1": 0.15399634780165755,
+        "full_jaccard": 0.08970571410073837
+      },
+      "dials_clean": {
+        "pool_f1": 0.6427282310773772,
+        "pool_jaccard": 0.494626679815639,
+        "full_f1": 0.15360882704336218,
+        "full_jaccard": 0.08936927140148417
+      },
+      "simple": {
+        "method": "hybrid",
+        "pool_f1": 0.5599705014749262,
+        "pool_jaccard": 0.4133809254114226,
+        "full_f1": 0.12029077117572694,
+        "full_jaccard": 0.06786134809906963
+      },
+      "published": {
+        "DDBC": [
+          0.285,
+          0.178
+        ],
+        "best_baseline": [
+          "TIGER",
+          0.129,
+          0.076
+        ]
+      },
+      "pool_f1_minus_simple": {
+        "delta": 0.08295547127405534,
+        "ci95": [
+          0.0768968253968254,
+          0.08930752212389381
+        ]
+      }
+    },
+    "spotify_k90": {
+      "queries": 969,
+      "queries_whose_bundle_is_in_train": 0,
+      "dials": {
+        "pool_f1": 0.6509910942934678,
+        "pool_jaccard": 0.5014701596775162,
+        "full_f1": 0.19228681726101743,
+        "full_jaccard": 0.11373386735739392
+      },
+      "dials_clean": {
+        "pool_f1": 0.6509910942934678,
+        "pool_jaccard": 0.5014701596775162,
+        "full_f1": 0.19228681726101743,
+        "full_jaccard": 0.11373386735739392
+      },
+      "simple": {
+        "method": "hybrid",
+        "pool_f1": 0.5611420708634332,
+        "pool_jaccard": 0.41195882664163225,
+        "full_f1": 0.1419103313840156,
+        "full_jaccard": 0.08005891062766302
+      },
+      "published": {
+        "DDBC": [
+          0.287,
+          0.177
+        ],
+        "best_baseline": [
+          "TIGER",
+          0.123,
+          0.07
+        ]
+      },
+      "pool_f1_minus_simple": {
+        "delta": 0.08984902343003479,
+        "ci95": [
+          0.08118721094675688,
+          0.09874333983105914
+        ]
+      }
+    }
+  }
+}

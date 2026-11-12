@@ -1,0 +1,23 @@
+{
+  "config": {
+    "kind": "weighted",
+    "weights": {
+      "raw_content": 0.25,
+      "pop": 1.5
+    }
+  },
+  "tuning_metrics": [
+    0.016388888888888887,
+    0.009183115184996704
+  ],
+  "keys": [
+    "raw_content",
+    "raw_image",
+    "raw_desc",
+    "pop"
+  ],
+  "history": "simp",
+  "alpha": 1.0,
+  "seconds": 21.38880558402161,
+  "fitting_candidates": 28
+}

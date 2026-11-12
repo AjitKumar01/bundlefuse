@@ -1,0 +1,21 @@
+2026-11-08T17:36:35Z pog_dense: loading supplied splits and released item features
+2026-11-08T17:36:37Z pog_dense: reusing retained attribute projection (31217, 128)
+2026-11-08T17:36:37Z pog_dense v31_loo_seed0 filtered test {'queries': 5547, 'recall20': 0.3767201490295055, 'ndcg20': 0.27803246086690614}
+2026-11-08T17:36:37Z pog_dense v31_loo_seed1 filtered test {'queries': 5547, 'recall20': 0.3820082927708671, 'ndcg20': 0.28227046291896907}
+2026-11-08T17:36:37Z pog_dense v31_loo_seed2 filtered test {'queries': 5547, 'recall20': 0.3803857941229493, 'ndcg20': 0.2812843602944549}
+2026-11-08T17:36:38Z pog: loading supplied splits and released item features
+2026-11-08T17:36:38Z pog: reusing retained attribute projection (48676, 128)
+2026-11-08T17:36:38Z pog v31_loo_seed0 filtered test {'queries': 3995, 'recall20': 0.058906967042136, 'ndcg20': 0.03575405517420708}
+2026-11-08T17:36:38Z pog v31_loo_seed1 filtered test {'queries': 3995, 'recall20': 0.05619524405506884, 'ndcg20': 0.03363526774156571}
+2026-11-08T17:36:38Z pog v31_loo_seed2 filtered test {'queries': 3995, 'recall20': 0.0621610346266166, 'ndcg20': 0.03643194955014797}
+2026-11-08T17:36:39Z spotify_sparse: loading supplied splits and released item features
+2026-11-08T17:36:40Z spotify_sparse: reusing retained attribute projection (213325, 128)
+2026-11-08T17:36:40Z spotify_sparse v31_loo_seed0 filtered test {'queries': 2497, 'recall20': 0.18171762859528895, 'ndcg20': 0.25538208112307403}
+2026-11-08T17:36:40Z spotify_sparse v31_loo_seed1 filtered test {'queries': 2497, 'recall20': 0.18116611817779654, 'ndcg20': 0.25416553885929943}
+2026-11-08T17:36:40Z spotify_sparse v31_loo_seed2 filtered test {'queries': 2497, 'recall20': 0.18147561197004175, 'ndcg20': 0.25488348078298156}
+2026-11-08T17:36:40Z spotify: loading supplied splits and released item features
+2026-11-08T17:36:41Z spotify: reusing retained attribute projection (254155, 128)
+2026-11-08T17:36:42Z spotify v31_loo_seed0 filtered test {'queries': 3995, 'recall20': 0.16905940344275158, 'ndcg20': 0.2859739718366678}
+2026-11-08T17:36:42Z spotify v31_loo_seed1 filtered test {'queries': 3995, 'recall20': 0.1706674129840018, 'ndcg20': 0.2895783804216046}
+2026-11-08T17:36:42Z spotify v31_loo_seed2 filtered test {'queries': 3995, 'recall20': 0.16778239452537677, 'ndcg20': 0.28402773820207894}
+2026-11-08T17:36:42Z test COMPLETE

@@ -1,0 +1,101 @@
+{
+  "data": {
+    "metadata": {
+      "dataset": "pog_dense",
+      "n_items": 31217,
+      "protocol": "provided",
+      "data_profile": "extended",
+      "split_seed": null,
+      "mask_frac": null,
+      "val_limit": 0,
+      "test_limit": 0,
+      "train_bundles": 20780,
+      "val_queries": 2968,
+      "test_queries": 5938,
+      "val_total": 2968,
+      "test_total": 5938,
+      "full_validation": true,
+      "full_test": true,
+      "train_sha256": "c857b6006f427f45f2c61043f7ca3b3000d217916355d1fe672400cb90b12197",
+      "val_pairs_sha256": "a4875988690b378de73dbee94c884592f2640abdf147802af5eeaecc95052c8d",
+      "test_pairs_sha256": "8a83c38861a91bab37fb7b9b72c938e69c7c016fac5edd759aeb154e26d89b0f",
+      "input_sha256": {
+        "bi_train.txt": "c6943aed7ec0be22cf2f7ee4383ec5b067d0c814f14d42446a34019700b93a4b",
+        "bi_valid_input.txt": "405468b777fe67b317e17ec4b21d9b0bb48850e9e115816c40633b1b10c2614d",
+        "bi_valid_gt.txt": "db871bc7be893dc07f065931fde05dc743dd3a6f357429d92a91124c0d23885c",
+        "bi_test_input.txt": "e7993ffd5ff4cb5fc0b7e4462eee3e48a9fba91462c03ac6446f38b5d1a73b59",
+        "bi_test_gt.txt": "e7ca4dbe4260f3cfc6ff3848c33617d73a17209b7d365e6eeb924d550dd9be2e",
+        "count.json": "9a15a12c1437fd0b38d067dd0c9fb1ee74e63fa9b577df321764d934ffb61e57",
+        "item_info.json": "69d872a551cf8f317662943a79b70ae3fd9a1fb8f58147f63a253171316bfb59",
+        "title_emb.npy": "d9c1047deafa745f4cb0bb4f44eaa9aa616de5e7b6c7b1f9ea29e345406290be",
+        "content_feature.pt": "3bf198b402ca48892e00941397687ef23ea4ca72cd4535789fa844fa4ed0cb80",
+        "description_feature.pt": "3938b0546d9c604fda99f24cd4cadb2ac9bb95ca2bd1a7dec0e798dad8d5bf53"
+      }
+    },
+    "modalities": {
+      "content": [
+        31217,
+        512
+      ],
+      "image": [
+        31217,
+        768
+      ],
+      "desc": [
+        31217,
+        768
+      ]
+    },
+    "feature_projection": "Normalize each released modality; concatenate; rank-128 randomized SVD; row-normalize. Catalogue attributes only, no bundle labels.",
+    "projection_seed": 0,
+    "smoke": false,
+    "actual_train_sha256": "c857b6006f427f45f2c61043f7ca3b3000d217916355d1fe672400cb90b12197",
+    "actual_val_sha256": "a4875988690b378de73dbee94c884592f2640abdf147802af5eeaecc95052c8d",
+    "actual_test_sha256": "8a83c38861a91bab37fb7b9b72c938e69c7c016fac5edd759aeb154e26d89b0f",
+    "projection": {
+      "shape": [
+        31217,
+        128
+      ],
+      "explained_variance_ratio_sum": 0.7351948618888855,
+      "projected_sha256": "1063769f319bc91c64d58e7b882da61545d88d91bfc606bab65ab237e10c43d6",
+      "components_sha256": "e70923b7473335590561a10b0ebd6bbe82db55b55f5c5a6fc8b69de29aac0cd8"
+    },
+    "uses_frequency_as_input": false,
+    "condition": {
+      "name": "graph_pair_no_category",
+      "variant": "graph_pair",
+      "cold_probability": 0.25,
+      "category_mode": "off",
+      "project_links": true
+    }
+  },
+  "config": {
+    "epochs": 100,
+    "batch": 32,
+    "eval_every": 2,
+    "patience": 6,
+    "link_lr": 0.03,
+    "shared_lr": 0.001,
+    "weight_decay": 0.001,
+    "log_every_batches": 50
+  },
+  "condition": {
+    "name": "graph_pair_no_category",
+    "variant": "graph_pair",
+    "cold_probability": 0.25,
+    "category_mode": "off",
+    "project_links": true
+  },
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "source_sha256": "9936f8e760782e5242dabf5a37905170caf5da4a04430761c25650590e791cb9",
+  "torch_version": "2.9.1",
+  "projection_dimension": 128,
+  "selection": "Fixed Electronic-selected architecture; select epochs on full supplied validation NDCG; no test selection.",
+  "smoke": false,
+  "probe_validation_queries": 128
+}

@@ -1,0 +1,40 @@
+{
+  "question": "Does the relation-family model v3.1, frozen after development on validation, match or beat BundleFuse on held-out test queries?",
+  "model": "v3.1: content relation, label relations (learned diagonal plus cross-fitted spectral low-rank, 16x16 mixing), cross-fitted co-purchase graph filter, query gate; leave-one-out training without the random mask.",
+  "development": "Designed on seed 0 validation of POG, POG_DENSE and Spotify_sparse (v1 to v3.1). Full Spotify was not used in development. No test query has been scored by any v2, v3 or v3.1 model.",
+  "training": "Seeds 0, 1, 2 on POG, POG_DENSE, Spotify_sparse and Spotify with this configuration; epoch chosen on validation NDCG@20. Seed 0 development runs with this exact configuration are reused.",
+  "primary": "Filtered test queries (complete bundle in neither training nor validation), three-seed per-query means. v3.1 vs BundleFuse on all four datasets; v3.1 vs the earlier category model on POG and POG_DENSE. NDCG@20 and Recall@20. Holm over all of these tests together.",
+  "references": {
+    "bundlefuse": "Publication recipe predictions where they exist; Spotify_sparse uses the general_lift recipe refit on filtered queries.",
+    "category": "results/neural_bilinear category arm, three seeds."
+  },
+  "decision": "Ahead or behind only with Holm p<.05 on NDCG@20. Otherwise not separated, which is not equivalence.",
+  "scope": "Exploratory: POG splits were inspected in earlier work and the design was developed on the same validation queries. Full Spotify is the cleanest check.",
+  "config": {
+    "epochs": 100,
+    "batch": 32,
+    "eval_every": 1,
+    "patience": 6,
+    "shared_lr": 0.001,
+    "group_lr": 0.01,
+    "weight_decay": 0.001,
+    "rank": 64,
+    "group_rank": 16,
+    "hidden": 32,
+    "use_album": true,
+    "graph_rank": 64,
+    "model": "relation_family_v3",
+    "label_mode": "spectral"
+  },
+  "tag": "v31",
+  "arm": "loo",
+  "source_sha256": "88ce393445befe5533ad0af54a6aba8b9ad858ea0f2f86186345d1f9da30179e",
+  "amendments": [
+    {
+      "date": "2026-11-08",
+      "old_source_sha256": "6be8caea2750f86b1fb0886ad796d68f8c4eb1f65f18fba9e73462eebf24c264",
+      "change": "Test-step bug fix only. The Spotify_sparse BundleFuse reference was matched to test queries by bundle; one bundle occurs twice in test, so one copy got no score and the statistics refused NaN. Copies are now matched in test order, as the reference rows were written. Before the crash, v3.1 per-seed test metrics (test.json) had been written for POG, POG_DENSE and Spotify_sparse, and printed for Spotify_sparse; no comparison with any reference had been computed. Model and training code are unchanged; no model was retrained. Second fix in the same step: the full-set mean of a reference that covers only filtered queries is reported as null instead of NaN.",
+      "new_source_sha256": "88ce393445befe5533ad0af54a6aba8b9ad858ea0f2f86186345d1f9da30179e"
+    }
+  ]
+}

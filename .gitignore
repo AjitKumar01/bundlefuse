@@ -55,3 +55,8 @@ results/sufficiency_smoke*/
 results/sufficiency/*/queries/
 results/novelty_attribution/*/queries/
 results/amplified_fallback/*/queries/
+results/block_controls/*/queries/
+results/general_lift/*/queries/
+results/neural_smoke*/
+results/neural_revision_smoke*/
+results/**/*predictions*.json

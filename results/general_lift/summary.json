@@ -1,0 +1,3006 @@
+{
+  "protocol": {
+    "datasets": [
+      "pog",
+      "pog_dense",
+      "spotify",
+      "spotify_sparse",
+      "electronic",
+      "food",
+      "clothing",
+      "dunnhumby"
+    ],
+    "seed": 20261107,
+    "partition_seed": 20261119,
+    "shuffles": 3,
+    "pseudocount": 1.0,
+    "scope": "Exploratory. Filtered queries: complete bundles overlapping training are excluded, and test bundles overlapping validation. Splits were inspected earlier. Retail and Dunnhumby use one seed-0 resplit with few test queries.",
+    "estimator": "L_gh=log((O_gh+1)/(E_gh+1)), O ordered distinct-item pairs across bundles, E=P(F_g F_h-delta_gh sum_i_in_g f_i^2)/(F^2-sum_i f_i^2), P=sum_b d_b(d_b-1). Residual e_i=x_i-n_g/(n_g+1) mu_g on the coarsest level.",
+    "menu": "lift per group level, residual per modality, popularity, pair, incidence and amplified (power 2, top 100) history",
+    "primary": [
+      "general vs raw",
+      "general vs shuffled mean"
+    ],
+    "metrics": [
+      "ndcg20",
+      "recall20"
+    ],
+    "holm_family": 32,
+    "decision": {
+      "dataset": "Passes if general beats raw and beats the shuffled mean on NDCG with Holm p<.05, and beats every shuffled seed.",
+      "theory": "General only if every dataset passes. Any failure is reported as a counterexample.",
+      "cost": "The gap to the current dataset-specific recipe is reported and does not decide the pass."
+    },
+    "recipe_note": "Current recipes are refitted separately on this source with their own settings on all validation queries, not under this partition."
+  },
+  "verdict": {
+    "pog": {
+      "beats_raw": true,
+      "beats_shuffled": true,
+      "beats_every_seed": true,
+      "passes": true
+    },
+    "pog_dense": {
+      "beats_raw": true,
+      "beats_shuffled": true,
+      "beats_every_seed": true,
+      "passes": true
+    },
+    "spotify": {
+      "beats_raw": true,
+      "beats_shuffled": true,
+      "beats_every_seed": true,
+      "passes": true
+    },
+    "spotify_sparse": {
+      "beats_raw": true,
+      "beats_shuffled": true,
+      "beats_every_seed": true,
+      "passes": true
+    },
+    "electronic": {
+      "beats_raw": false,
+      "beats_shuffled": false,
+      "beats_every_seed": false,
+      "passes": false
+    },
+    "food": {
+      "beats_raw": false,
+      "beats_shuffled": false,
+      "beats_every_seed": true,
+      "passes": false
+    },
+    "clothing": {
+      "beats_raw": false,
+      "beats_shuffled": true,
+      "beats_every_seed": true,
+      "passes": false
+    },
+    "dunnhumby": {
+      "beats_raw": false,
+      "beats_shuffled": true,
+      "beats_every_seed": true,
+      "passes": false
+    }
+  },
+  "tables": {
+    "pog": {
+      "arms": {
+        "general": {
+          "recall20": 0.05302461410095955,
+          "ndcg20": 0.036947756181512,
+          "cold_recall20": 0.04419217514696939,
+          "warm_recall20": 0.06345543697721373,
+          "cold_targets": 4933,
+          "warm_targets": 3467
+        },
+        "raw_no_history": {
+          "recall20": 0.015352523988318737,
+          "ndcg20": 0.00697125118283432,
+          "cold_recall20": 0.0,
+          "warm_recall20": 0.037496394577444477,
+          "cold_targets": 4933,
+          "warm_targets": 3467
+        },
+        "lift_only": {
+          "recall20": 0.038172715894868585,
+          "ndcg20": 0.023479884606161492,
+          "cold_recall20": 0.0,
+          "warm_recall20": 0.09316411883472743,
+          "cold_targets": 4933,
+          "warm_targets": 3467
+        },
+        "raw": {
+          "recall20": 0.028535669586983725,
+          "ndcg20": 0.01983614172393803,
+          "cold_recall20": 0.0,
+          "warm_recall20": 0.0698009806749351,
+          "cold_targets": 4933,
+          "warm_targets": 3467
+        },
+        "shuf1": {
+          "recall20": 0.04401335002085942,
+          "ndcg20": 0.030479073342261704,
+          "cold_recall20": 0.03912426515305088,
+          "warm_recall20": 0.04989904816844534,
+          "cold_targets": 4933,
+          "warm_targets": 3467
+        },
+        "recipe": {
+          "recall20": 0.05352523988318734,
+          "ndcg20": 0.03524351033582756,
+          "cold_recall20": 0.04378674234745591,
+          "warm_recall20": 0.0654744736083069,
+          "cold_targets": 4933,
+          "warm_targets": 3467
+        },
+        "residual_only": {
+          "recall20": 0.04526491447642888,
+          "ndcg20": 0.03065237941044772,
+          "cold_recall20": 0.040543279951348064,
+          "warm_recall20": 0.0504759157773291,
+          "cold_targets": 4933,
+          "warm_targets": 3467
+        },
+        "shuf0": {
+          "recall20": 0.04472256987901545,
+          "ndcg20": 0.030580937658715387,
+          "cold_recall20": 0.03932698155280762,
+          "warm_recall20": 0.050764349581770986,
+          "cold_targets": 4933,
+          "warm_targets": 3467
+        },
+        "off_diagonal": {
+          "recall20": 0.0494785148101794,
+          "ndcg20": 0.03423891861419847,
+          "cold_recall20": 0.039935130752077844,
+          "warm_recall20": 0.06085953273723681,
+          "cold_targets": 4933,
+          "warm_targets": 3467
+        },
+        "identity": {
+          "recall20": 0.04526491447642888,
+          "ndcg20": 0.03065237941044772,
+          "cold_recall20": 0.040543279951348064,
+          "warm_recall20": 0.0504759157773291,
+          "cold_targets": 4933,
+          "warm_targets": 3467
+        },
+        "shuf2": {
+          "recall20": 0.04526491447642888,
+          "ndcg20": 0.03065237941044772,
+          "cold_recall20": 0.040543279951348064,
+          "warm_recall20": 0.0504759157773291,
+          "cold_targets": 4933,
+          "warm_targets": 3467
+        },
+        "base": {
+          "recall20": 0.02995410930329578,
+          "ndcg20": 0.019930670929557946,
+          "cold_recall20": 0.0,
+          "warm_recall20": 0.07326218632823767,
+          "cold_targets": 4933,
+          "warm_targets": 3467
+        },
+        "general_no_history": {
+          "recall20": 0.038297872340425525,
+          "ndcg20": 0.023053150476128936,
+          "cold_recall20": 0.04642205554429353,
+          "warm_recall20": 0.02451687337755985,
+          "cold_targets": 4933,
+          "warm_targets": 3467
+        }
+      },
+      "gain_over_each_shuffle_ndcg": [
+        0.006366818522796622,
+        0.0064686828392502595,
+        0.006295376771064273
+      ],
+      "audit": {
+        "levels": [
+          72
+        ],
+        "real": [
+          {
+            "weighted_mean": -4.653783737356413,
+            "negative_share": 1.0003113342570171,
+            "occurrence_share_negative": 0.9941332174462706,
+            "occurrence_share_positive": 0.005807522123893806
+          }
+        ],
+        "shuffled": [
+          [
+            {
+              "weighted_mean": -0.0320059891349545,
+              "negative_share": 2.1663567286655843,
+              "occurrence_share_negative": 0.7220488305941846,
+              "occurrence_share_positive": 0.27789190897597976
+            }
+          ],
+          [
+            {
+              "weighted_mean": -0.03554192862178257,
+              "negative_share": 2.462180954238116,
+              "occurrence_share_negative": 0.6034489570164349,
+              "occurrence_share_positive": 0.39649178255372947
+            }
+          ],
+          [
+            {
+              "weighted_mean": -0.06546867590663961,
+              "negative_share": 1.5954232155203443,
+              "occurrence_share_negative": 0.5970883375474083,
+              "occurrence_share_positive": 0.402852402022756
+            }
+          ]
+        ]
+      }
+    },
+    "pog_dense": {
+      "arms": {
+        "general": {
+          "recall20": 0.3597440057688824,
+          "ndcg20": 0.257947209546677,
+          "cold_recall20": 0.0,
+          "warm_recall20": 0.4652154056934084,
+          "cold_targets": 2118,
+          "warm_targets": 6569
+        },
+        "raw_no_history": {
+          "recall20": 0.2927408208641292,
+          "ndcg20": 0.16604318675943908,
+          "cold_recall20": 0.0,
+          "warm_recall20": 0.36185111889176436,
+          "cold_targets": 2118,
+          "warm_targets": 6569
+        },
+        "lift_only": {
+          "recall20": 0.3597440057688824,
+          "ndcg20": 0.257947209546677,
+          "cold_recall20": 0.0,
+          "warm_recall20": 0.4652154056934084,
+          "cold_targets": 2118,
+          "warm_targets": 6569
+        },
+        "raw": {
+          "recall20": 0.34808605252088065,
+          "ndcg20": 0.24772415367229453,
+          "cold_recall20": 0.0,
+          "warm_recall20": 0.4509057695235196,
+          "cold_targets": 2118,
+          "warm_targets": 6569
+        },
+        "shuf1": {
+          "recall20": 0.3488372093023241,
+          "ndcg20": 0.24724100890480197,
+          "cold_recall20": 0.0,
+          "warm_recall20": 0.45181915055564015,
+          "cold_targets": 2118,
+          "warm_targets": 6569
+        },
+        "recipe": {
+          "recall20": 0.3600144222102022,
+          "ndcg20": 0.25799964949625015,
+          "cold_recall20": 0.0,
+          "warm_recall20": 0.4650631755213883,
+          "cold_targets": 2118,
+          "warm_targets": 6569
+        },
+        "residual_only": {
+          "recall20": 0.3486268854035198,
+          "ndcg20": 0.2475683572148218,
+          "cold_recall20": 0.0,
+          "warm_recall20": 0.45121022986755976,
+          "cold_targets": 2118,
+          "warm_targets": 6569
+        },
+        "shuf0": {
+          "recall20": 0.3486268854035198,
+          "ndcg20": 0.2475683572148218,
+          "cold_recall20": 0.0,
+          "warm_recall20": 0.45121022986755976,
+          "cold_targets": 2118,
+          "warm_targets": 6569
+        },
+        "off_diagonal": {
+          "recall20": 0.3561684994892118,
+          "ndcg20": 0.2547638248096707,
+          "cold_recall20": 0.0,
+          "warm_recall20": 0.4606485005328056,
+          "cold_targets": 2118,
+          "warm_targets": 6569
+        },
+        "identity": {
+          "recall20": 0.35051980049275727,
+          "ndcg20": 0.24817767516804654,
+          "cold_recall20": 0.0,
+          "warm_recall20": 0.454863753996042,
+          "cold_targets": 2118,
+          "warm_targets": 6569
+        },
+        "shuf2": {
+          "recall20": 0.3445405925124677,
+          "ndcg20": 0.24570562601618776,
+          "cold_recall20": 0.0,
+          "warm_recall20": 0.44618663419089666,
+          "cold_targets": 2118,
+          "warm_targets": 6569
+        },
+        "base": {
+          "recall20": 0.3503996154077263,
+          "ndcg20": 0.2481950118902349,
+          "cold_recall20": 0.0,
+          "warm_recall20": 0.4544070634799817,
+          "cold_targets": 2118,
+          "warm_targets": 6569
+        },
+        "general_no_history": {
+          "recall20": 0.3171383931254115,
+          "ndcg20": 0.20457094138263793,
+          "cold_recall20": 0.0,
+          "warm_recall20": 0.39671182828436596,
+          "cold_targets": 2118,
+          "warm_targets": 6569
+        }
+      },
+      "gain_over_each_shuffle_ndcg": [
+        0.010378852331855315,
+        0.010706200641874997,
+        0.012241583530489125
+      ],
+      "audit": {
+        "levels": [
+          67
+        ],
+        "real": [
+          {
+            "weighted_mean": -5.508786719467007,
+            "negative_share": 1.0001629087718933,
+            "occurrence_share_negative": 0.9993928354584092,
+            "occurrence_share_positive": 0.0005801794508534034
+          }
+        ],
+        "shuffled": [
+          [
+            {
+              "weighted_mean": -0.014608640224964635,
+              "negative_share": 3.794934068616328,
+              "occurrence_share_negative": 0.8166632935303245,
+              "occurrence_share_positive": 0.18330972137893814
+            }
+          ],
+          [
+            {
+              "weighted_mean": -0.03458151854057649,
+              "negative_share": 1.6965042339769416,
+              "occurrence_share_negative": 0.5171557714362814,
+              "occurrence_share_positive": 0.48281724347298116
+            }
+          ],
+          [
+            {
+              "weighted_mean": -0.0054605752462570725,
+              "negative_share": 7.892034951052239,
+              "occurrence_share_negative": 0.6256088511097618,
+              "occurrence_share_positive": 0.37436416379950077
+            }
+          ]
+        ]
+      }
+    },
+    "spotify": {
+      "arms": {
+        "general": {
+          "recall20": 0.13180912563606229,
+          "ndcg20": 0.22409667775447548,
+          "cold_recall20": 0.00033480274538251215,
+          "warm_recall20": 0.12993368102504668,
+          "cold_targets": 17921,
+          "warm_targets": 108717
+        },
+        "raw_no_history": {
+          "recall20": 0.03478314638819509,
+          "ndcg20": 0.05886860404470965,
+          "cold_recall20": 0.00027900228781876013,
+          "warm_recall20": 0.03557861236053239,
+          "cold_targets": 17921,
+          "warm_targets": 108717
+        },
+        "lift_only": {
+          "recall20": 0.1327297419752161,
+          "ndcg20": 0.22563279793591887,
+          "cold_recall20": 0.0015624128117850567,
+          "warm_recall20": 0.130614347342182,
+          "cold_targets": 17921,
+          "warm_targets": 108717
+        },
+        "raw": {
+          "recall20": 0.12939316223906164,
+          "ndcg20": 0.22014645598222352,
+          "cold_recall20": 0.0013950114390938006,
+          "warm_recall20": 0.12799286220186357,
+          "cold_targets": 17921,
+          "warm_targets": 108717
+        },
+        "shuf1": {
+          "recall20": 0.12917281549081605,
+          "ndcg20": 0.22109430280023049,
+          "cold_recall20": 0.0,
+          "warm_recall20": 0.1288758887754445,
+          "cold_targets": 17921,
+          "warm_targets": 108717
+        },
+        "recipe": {
+          "recall20": 0.15488209424873065,
+          "ndcg20": 0.25704825889904004,
+          "cold_recall20": 0.06712795044919369,
+          "warm_recall20": 0.14004249565385357,
+          "cold_targets": 17921,
+          "warm_targets": 108717
+        },
+        "residual_only": {
+          "recall20": 0.12808981828951804,
+          "ndcg20": 0.21891061029738074,
+          "cold_recall20": 0.0003906032029462642,
+          "warm_recall20": 0.12750535794769907,
+          "cold_targets": 17921,
+          "warm_targets": 108717
+        },
+        "shuf0": {
+          "recall20": 0.12967030588301004,
+          "ndcg20": 0.22117807704405051,
+          "cold_recall20": 5.5800457563752025e-05,
+          "warm_recall20": 0.1288206996145957,
+          "cold_targets": 17921,
+          "warm_targets": 108717
+        },
+        "off_diagonal": {
+          "recall20": 0.12808981828951804,
+          "ndcg20": 0.21891061029738074,
+          "cold_recall20": 0.0003906032029462642,
+          "warm_recall20": 0.12750535794769907,
+          "cold_targets": 17921,
+          "warm_targets": 108717
+        },
+        "identity": {
+          "recall20": 0.15719344245564582,
+          "ndcg20": 0.27371327879109425,
+          "cold_recall20": 0.15032643267674795,
+          "warm_recall20": 0.1360136869118905,
+          "cold_targets": 17921,
+          "warm_targets": 108717
+        },
+        "shuf2": {
+          "recall20": 0.12861453385772145,
+          "ndcg20": 0.2206432778847811,
+          "cold_recall20": 0.0,
+          "warm_recall20": 0.12845277187560364,
+          "cold_targets": 17921,
+          "warm_targets": 108717
+        },
+        "base": {
+          "recall20": 0.12818533457821268,
+          "ndcg20": 0.21862480047741062,
+          "cold_recall20": 0.0,
+          "warm_recall20": 0.12745016878685025,
+          "cold_targets": 17921,
+          "warm_targets": 108717
+        },
+        "general_no_history": {
+          "recall20": 0.1063003077017047,
+          "ndcg20": 0.18025398000760165,
+          "cold_recall20": 0.0026784219630600972,
+          "warm_recall20": 0.10546648638207456,
+          "cold_targets": 17921,
+          "warm_targets": 108717
+        }
+      },
+      "gain_over_each_shuffle_ndcg": [
+        0.0029186007104250733,
+        0.0030023749542451295,
+        0.003453399869694229
+      ],
+      "audit": {
+        "levels": [
+          49164,
+          116217
+        ],
+        "real": [
+          {
+            "weighted_mean": 3.4216930717223697,
+            "negative_share": -8.576513046429627e-05,
+            "occurrence_share_negative": 0.032271679272265215,
+            "occurrence_share_positive": 0.9334327862301515
+          },
+          {
+            "weighted_mean": 2.5085242964366627,
+            "negative_share": -0.00023267261857697516,
+            "occurrence_share_negative": 0.0553467718218289,
+            "occurrence_share_positive": 0.7435383679397984
+          }
+        ],
+        "shuffled": [
+          [
+            {
+              "weighted_mean": 0.6989343922145276,
+              "negative_share": -0.0365199191971489,
+              "occurrence_share_negative": 0.19231002363970662,
+              "occurrence_share_positive": 0.7733944418627101
+            },
+            {
+              "weighted_mean": 0.4207494848879953,
+              "negative_share": -0.0935408437435082,
+              "occurrence_share_negative": 0.3179125218605549,
+              "occurrence_share_positive": 0.48097261790107243
+            }
+          ],
+          [
+            {
+              "weighted_mean": 0.6874503187141747,
+              "negative_share": -0.037519150864921524,
+              "occurrence_share_negative": 0.191346924480903,
+              "occurrence_share_positive": 0.7743575410215137
+            },
+            {
+              "weighted_mean": 0.4062472990457558,
+              "negative_share": -0.10696954135259541,
+              "occurrence_share_negative": 0.32396837263182,
+              "occurrence_share_positive": 0.47491676712980735
+            }
+          ],
+          [
+            {
+              "weighted_mean": 0.6985363641010103,
+              "negative_share": -0.038720819763400936,
+              "occurrence_share_negative": 0.19111793586971895,
+              "occurrence_share_positive": 0.7745865296326978
+            },
+            {
+              "weighted_mean": 0.41881516978979205,
+              "negative_share": -0.09215601488839119,
+              "occurrence_share_negative": 0.31912818198757625,
+              "occurrence_share_positive": 0.4797569577740511
+            }
+          ]
+        ]
+      }
+    },
+    "spotify_sparse": {
+      "arms": {
+        "general": {
+          "recall20": 0.1237474331336641,
+          "ndcg20": 0.1575020952707645,
+          "cold_recall20": 0.0005697284294486295,
+          "warm_recall20": 0.1414685711339143,
+          "cold_targets": 15797,
+          "warm_targets": 38786
+        },
+        "raw_no_history": {
+          "recall20": 0.0317495817146032,
+          "ndcg20": 0.03821205979337751,
+          "cold_recall20": 0.00126606317655251,
+          "warm_recall20": 0.03449698344763574,
+          "cold_targets": 15797,
+          "warm_targets": 38786
+        },
+        "lift_only": {
+          "recall20": 0.12350346891132385,
+          "ndcg20": 0.1579635120493273,
+          "cold_recall20": 0.000379818952965753,
+          "warm_recall20": 0.142113133604909,
+          "cold_targets": 15797,
+          "warm_targets": 38786
+        },
+        "raw": {
+          "recall20": 0.11992881057556402,
+          "ndcg20": 0.15321928186657885,
+          "cold_recall20": 0.002658732670760271,
+          "warm_recall20": 0.13584798638684062,
+          "cold_targets": 15797,
+          "warm_targets": 38786
+        },
+        "shuf1": {
+          "recall20": 0.11823928268602193,
+          "ndcg20": 0.15141098033669487,
+          "cold_recall20": 0.000633031588276255,
+          "warm_recall20": 0.13510029392048678,
+          "cold_targets": 15797,
+          "warm_targets": 38786
+        },
+        "recipe": {
+          "recall20": 0.15396847400471853,
+          "ndcg20": 0.22160000508092825,
+          "cold_recall20": 0.19630309552446668,
+          "warm_recall20": 0.13876140875573661,
+          "cold_targets": 15797,
+          "warm_targets": 38786
+        },
+        "residual_only": {
+          "recall20": 0.11900830784922409,
+          "ndcg20": 0.15067516936591416,
+          "cold_recall20": 0.000633031588276255,
+          "warm_recall20": 0.13427525395761358,
+          "cold_targets": 15797,
+          "warm_targets": 38786
+        },
+        "shuf0": {
+          "recall20": 0.12087609561591935,
+          "ndcg20": 0.15398364925706667,
+          "cold_recall20": 0.0,
+          "warm_recall20": 0.13855514876501832,
+          "cold_targets": 15797,
+          "warm_targets": 38786
+        },
+        "off_diagonal": {
+          "recall20": 0.11902950167750216,
+          "ndcg20": 0.15146543147304659,
+          "cold_recall20": 0.000126606317655251,
+          "warm_recall20": 0.1360284638787191,
+          "cold_targets": 15797,
+          "warm_targets": 38786
+        },
+        "identity": {
+          "recall20": 0.1478324054314679,
+          "ndcg20": 0.21139372021542327,
+          "cold_recall20": 0.13192378299677154,
+          "warm_recall20": 0.1518073531686691,
+          "cold_targets": 15797,
+          "warm_targets": 38786
+        },
+        "shuf2": {
+          "recall20": 0.11977042336391451,
+          "ndcg20": 0.15268507073502657,
+          "cold_recall20": 0.000126606317655251,
+          "warm_recall20": 0.1373175888207085,
+          "cold_targets": 15797,
+          "warm_targets": 38786
+        },
+        "base": {
+          "recall20": 0.11829154388249648,
+          "ndcg20": 0.1511205623890749,
+          "cold_recall20": 0.0,
+          "warm_recall20": 0.13569329139380187,
+          "cold_targets": 15797,
+          "warm_targets": 38786
+        },
+        "general_no_history": {
+          "recall20": 0.09706829092619575,
+          "ndcg20": 0.12272660108952259,
+          "cold_recall20": 0.002278913717794518,
+          "warm_recall20": 0.1097818800598154,
+          "cold_targets": 15797,
+          "warm_targets": 38786
+        }
+      },
+      "gain_over_each_shuffle_ndcg": [
+        0.0035184460136980233,
+        0.0060911149340695525,
+        0.004817024535737985
+      ],
+      "audit": {
+        "levels": [
+          43039,
+          98674
+        ],
+        "real": [
+          {
+            "weighted_mean": 3.620942537382008,
+            "negative_share": -0.00012909908889002648,
+            "occurrence_share_negative": 0.0515861412220753,
+            "occurrence_share_positive": 0.886417331494329
+          },
+          {
+            "weighted_mean": 2.323556189803332,
+            "negative_share": -0.0003176247745120312,
+            "occurrence_share_negative": 0.0830010273237053,
+            "occurrence_share_positive": 0.6788436009636659
+          }
+        ],
+        "shuffled": [
+          [
+            {
+              "weighted_mean": 0.9007294314838863,
+              "negative_share": -0.04002948226052761,
+              "occurrence_share_negative": 0.298231812876998,
+              "occurrence_share_positive": 0.6397716598394063
+            },
+            {
+              "weighted_mean": 0.44187889909399,
+              "negative_share": -0.07876727910533027,
+              "occurrence_share_negative": 0.42293390194104663,
+              "occurrence_share_positive": 0.3389107263463245
+            }
+          ],
+          [
+            {
+              "weighted_mean": 0.8990461878339802,
+              "negative_share": -0.04059533897894243,
+              "occurrence_share_negative": 0.3004650127703841,
+              "occurrence_share_positive": 0.6375384599460202
+            },
+            {
+              "weighted_mean": 0.43105892539944546,
+              "negative_share": -0.08510132618155127,
+              "occurrence_share_negative": 0.4261581974997477,
+              "occurrence_share_positive": 0.33568643078762345
+            }
+          ],
+          [
+            {
+              "weighted_mean": 0.9398012039669641,
+              "negative_share": -0.03391498224971417,
+              "occurrence_share_negative": 0.28831050535528063,
+              "occurrence_share_positive": 0.6496929673611237
+            },
+            {
+              "weighted_mean": 0.47010856176400984,
+              "negative_share": -0.07328903135884246,
+              "occurrence_share_negative": 0.4176523712546029,
+              "occurrence_share_positive": 0.3441922570327683
+            }
+          ]
+        ]
+      }
+    },
+    "electronic": {
+      "arms": {
+        "general": {
+          "recall20": 0.4726396917148363,
+          "ndcg20": 0.3198927703077412,
+          "cold_recall20": 0.2979591836734694,
+          "warm_recall20": 0.5633802816901409,
+          "cold_targets": 245,
+          "warm_targets": 355
+        },
+        "raw_no_history": {
+          "recall20": 0.1628131021194605,
+          "ndcg20": 0.07348378292713992,
+          "cold_recall20": 0.1306122448979592,
+          "warm_recall20": 0.12394366197183099,
+          "cold_targets": 245,
+          "warm_targets": 355
+        },
+        "lift_only": {
+          "recall20": 0.35573217726396916,
+          "ndcg20": 0.2692293430635795,
+          "cold_recall20": 0.036734693877551024,
+          "warm_recall20": 0.571830985915493,
+          "cold_targets": 245,
+          "warm_targets": 355
+        },
+        "raw": {
+          "recall20": 0.453709055876686,
+          "ndcg20": 0.31990338016125874,
+          "cold_recall20": 0.24897959183673468,
+          "warm_recall20": 0.5549295774647888,
+          "cold_targets": 245,
+          "warm_targets": 355
+        },
+        "shuf1": {
+          "recall20": 0.44918111753371875,
+          "ndcg20": 0.3243628812908924,
+          "cold_recall20": 0.2530612244897959,
+          "warm_recall20": 0.5690140845070423,
+          "cold_targets": 245,
+          "warm_targets": 355
+        },
+        "recipe": {
+          "recall20": 0.5179190751445087,
+          "ndcg20": 0.35945997492665555,
+          "cold_recall20": 0.2163265306122449,
+          "warm_recall20": 0.6591549295774648,
+          "cold_targets": 245,
+          "warm_targets": 355
+        },
+        "residual_only": {
+          "recall20": 0.4600674373795762,
+          "ndcg20": 0.31956022366032316,
+          "cold_recall20": 0.2653061224489796,
+          "warm_recall20": 0.5605633802816902,
+          "cold_targets": 245,
+          "warm_targets": 355
+        },
+        "shuf0": {
+          "recall20": 0.4495664739884394,
+          "ndcg20": 0.32344321527911246,
+          "cold_recall20": 0.24489795918367346,
+          "warm_recall20": 0.5661971830985916,
+          "cold_targets": 245,
+          "warm_targets": 355
+        },
+        "off_diagonal": {
+          "recall20": 0.4580443159922929,
+          "ndcg20": 0.312547494235103,
+          "cold_recall20": 0.2612244897959184,
+          "warm_recall20": 0.5577464788732395,
+          "cold_targets": 245,
+          "warm_targets": 355
+        },
+        "identity": {
+          "recall20": 0.4421965317919076,
+          "ndcg20": 0.3080798766692163,
+          "cold_recall20": 0.22448979591836735,
+          "warm_recall20": 0.5577464788732395,
+          "cold_targets": 245,
+          "warm_targets": 355
+        },
+        "shuf2": {
+          "recall20": 0.4600674373795762,
+          "ndcg20": 0.314704257487362,
+          "cold_recall20": 0.2653061224489796,
+          "warm_recall20": 0.5605633802816902,
+          "cold_targets": 245,
+          "warm_targets": 355
+        },
+        "base": {
+          "recall20": 0.3221098265895953,
+          "ndcg20": 0.23828281320003242,
+          "cold_recall20": 0.0,
+          "warm_recall20": 0.5521126760563381,
+          "cold_targets": 245,
+          "warm_targets": 355
+        },
+        "general_no_history": {
+          "recall20": 0.179335260115607,
+          "ndcg20": 0.09030516784123956,
+          "cold_recall20": 0.16326530612244897,
+          "warm_recall20": 0.1295774647887324,
+          "cold_targets": 245,
+          "warm_targets": 355
+        }
+      },
+      "gain_over_each_shuffle_ndcg": [
+        -0.003550444971371247,
+        -0.004470110983151199,
+        0.005188512820379354
+      ],
+      "audit": {
+        "levels": [
+          461
+        ],
+        "real": [
+          {
+            "weighted_mean": 1.0139587338823286,
+            "negative_share": -0.021148287525354626,
+            "occurrence_share_negative": 0.25973721257625526,
+            "occurrence_share_positive": 0.6980290943219146
+          }
+        ],
+        "shuffled": [
+          [
+            {
+              "weighted_mean": -0.09841330216435944,
+              "negative_share": 2.082063808209992,
+              "occurrence_share_negative": 0.7294697325199437,
+              "occurrence_share_positive": 0.22829657437822617
+            }
+          ],
+          [
+            {
+              "weighted_mean": -0.12701386041621904,
+              "negative_share": 1.73444204085415,
+              "occurrence_share_negative": 0.7226654152979821,
+              "occurrence_share_positive": 0.2351008916001877
+            }
+          ],
+          [
+            {
+              "weighted_mean": -0.13487224479405033,
+              "negative_share": 1.6158889484346304,
+              "occurrence_share_negative": 0.7355701548568747,
+              "occurrence_share_positive": 0.22219615204129517
+            }
+          ]
+        ]
+      }
+    },
+    "food": {
+      "arms": {
+        "general": {
+          "recall20": 0.5489612842304062,
+          "ndcg20": 0.41402147272244516,
+          "cold_recall20": 0.33797909407665505,
+          "warm_recall20": 0.6826347305389222,
+          "cold_targets": 287,
+          "warm_targets": 334
+        },
+        "raw_no_history": {
+          "recall20": 0.3165250236071765,
+          "ndcg20": 0.2011583112303024,
+          "cold_recall20": 0.29965156794425085,
+          "warm_recall20": 0.25748502994011974,
+          "cold_targets": 287,
+          "warm_targets": 334
+        },
+        "lift_only": {
+          "recall20": 0.4412653446647781,
+          "ndcg20": 0.31643663463818755,
+          "cold_recall20": 0.18815331010452963,
+          "warm_recall20": 0.6347305389221557,
+          "cold_targets": 287,
+          "warm_targets": 334
+        },
+        "raw": {
+          "recall20": 0.5630311614730878,
+          "ndcg20": 0.42708235146040074,
+          "cold_recall20": 0.3832752613240418,
+          "warm_recall20": 0.6646706586826348,
+          "cold_targets": 287,
+          "warm_targets": 334
+        },
+        "shuf1": {
+          "recall20": 0.5247403210576016,
+          "ndcg20": 0.40024051518858633,
+          "cold_recall20": 0.3519163763066202,
+          "warm_recall20": 0.6497005988023952,
+          "cold_targets": 287,
+          "warm_targets": 334
+        },
+        "recipe": {
+          "recall20": 0.6182247403210576,
+          "ndcg20": 0.479906456564444,
+          "cold_recall20": 0.42857142857142855,
+          "warm_recall20": 0.7425149700598802,
+          "cold_targets": 287,
+          "warm_targets": 334
+        },
+        "residual_only": {
+          "recall20": 0.5186024551463646,
+          "ndcg20": 0.3905652122193332,
+          "cold_recall20": 0.3588850174216028,
+          "warm_recall20": 0.625748502994012,
+          "cold_targets": 287,
+          "warm_targets": 334
+        },
+        "shuf0": {
+          "recall20": 0.5276203966005666,
+          "ndcg20": 0.40398782609234485,
+          "cold_recall20": 0.3170731707317073,
+          "warm_recall20": 0.6646706586826348,
+          "cold_targets": 287,
+          "warm_targets": 334
+        },
+        "off_diagonal": {
+          "recall20": 0.5247403210576016,
+          "ndcg20": 0.40024051518858633,
+          "cold_recall20": 0.3519163763066202,
+          "warm_recall20": 0.6497005988023952,
+          "cold_targets": 287,
+          "warm_targets": 334
+        },
+        "identity": {
+          "recall20": 0.5571765816808312,
+          "ndcg20": 0.427949756320964,
+          "cold_recall20": 0.40069686411149824,
+          "warm_recall20": 0.6616766467065869,
+          "cold_targets": 287,
+          "warm_targets": 334
+        },
+        "shuf2": {
+          "recall20": 0.5247403210576016,
+          "ndcg20": 0.40024051518858633,
+          "cold_recall20": 0.3519163763066202,
+          "warm_recall20": 0.6497005988023952,
+          "cold_targets": 287,
+          "warm_targets": 334
+        },
+        "base": {
+          "recall20": 0.3421152030217186,
+          "ndcg20": 0.27139600687010806,
+          "cold_recall20": 0.003484320557491289,
+          "warm_recall20": 0.625748502994012,
+          "cold_targets": 287,
+          "warm_targets": 334
+        },
+        "general_no_history": {
+          "recall20": 0.3464117091595844,
+          "ndcg20": 0.2114846144169497,
+          "cold_recall20": 0.2682926829268293,
+          "warm_recall20": 0.344311377245509,
+          "cold_targets": 287,
+          "warm_targets": 334
+        }
+      },
+      "gain_over_each_shuffle_ndcg": [
+        0.010033646630100257,
+        0.013780957533859106,
+        0.013780957533859106
+      ],
+      "audit": {
+        "levels": [
+          1011
+        ],
+        "real": [
+          {
+            "weighted_mean": 1.0752916847627516,
+            "negative_share": -0.012973228147456722,
+            "occurrence_share_negative": 0.29857928505957837,
+            "occurrence_share_positive": 0.5478918423464711
+          }
+        ],
+        "shuffled": [
+          [
+            {
+              "weighted_mean": -0.05774941063816301,
+              "negative_share": 2.096797815149403,
+              "occurrence_share_negative": 0.6954628780934922,
+              "occurrence_share_positive": 0.1510082493125573
+            }
+          ],
+          [
+            {
+              "weighted_mean": -0.09474449360454248,
+              "negative_share": 1.60333827353546,
+              "occurrence_share_negative": 0.7268560953253895,
+              "occurrence_share_positive": 0.11961503208065995
+            }
+          ],
+          [
+            {
+              "weighted_mean": -0.08193381409968592,
+              "negative_share": 1.98220809812439,
+              "occurrence_share_negative": 0.7025664527956004,
+              "occurrence_share_positive": 0.14390467461044912
+            }
+          ]
+        ]
+      }
+    },
+    "clothing": {
+      "arms": {
+        "general": {
+          "recall20": 0.46877807726864346,
+          "ndcg20": 0.3551090406605315,
+          "cold_recall20": 0.32620320855614976,
+          "warm_recall20": 0.7807486631016043,
+          "cold_targets": 374,
+          "warm_targets": 187
+        },
+        "raw_no_history": {
+          "recall20": 0.2988319856244384,
+          "ndcg20": 0.15586464458480978,
+          "cold_recall20": 0.2620320855614973,
+          "warm_recall20": 0.29411764705882354,
+          "cold_targets": 374,
+          "warm_targets": 187
+        },
+        "lift_only": {
+          "recall20": 0.34923629829290204,
+          "ndcg20": 0.2557846429988398,
+          "cold_recall20": 0.14705882352941177,
+          "warm_recall20": 0.7807486631016043,
+          "cold_targets": 374,
+          "warm_targets": 187
+        },
+        "raw": {
+          "recall20": 0.47551662174303694,
+          "ndcg20": 0.35956657675145126,
+          "cold_recall20": 0.3074866310160428,
+          "warm_recall20": 0.7967914438502673,
+          "cold_targets": 374,
+          "warm_targets": 187
+        },
+        "shuf1": {
+          "recall20": 0.417475292003594,
+          "ndcg20": 0.32501483823768645,
+          "cold_recall20": 0.24598930481283424,
+          "warm_recall20": 0.786096256684492,
+          "cold_targets": 374,
+          "warm_targets": 187
+        },
+        "recipe": {
+          "recall20": 0.5344564240790656,
+          "ndcg20": 0.42217220094160435,
+          "cold_recall20": 0.37967914438502676,
+          "warm_recall20": 0.8235294117647058,
+          "cold_targets": 374,
+          "warm_targets": 187
+        },
+        "residual_only": {
+          "recall20": 0.417475292003594,
+          "ndcg20": 0.32501483823768645,
+          "cold_recall20": 0.24598930481283424,
+          "warm_recall20": 0.786096256684492,
+          "cold_targets": 374,
+          "warm_targets": 187
+        },
+        "shuf0": {
+          "recall20": 0.417475292003594,
+          "ndcg20": 0.32501483823768645,
+          "cold_recall20": 0.24598930481283424,
+          "warm_recall20": 0.786096256684492,
+          "cold_targets": 374,
+          "warm_targets": 187
+        },
+        "off_diagonal": {
+          "recall20": 0.417475292003594,
+          "ndcg20": 0.32501483823768645,
+          "cold_recall20": 0.24598930481283424,
+          "warm_recall20": 0.786096256684492,
+          "cold_targets": 374,
+          "warm_targets": 187
+        },
+        "identity": {
+          "recall20": 0.46707097933513025,
+          "ndcg20": 0.36553203511107835,
+          "cold_recall20": 0.3048128342245989,
+          "warm_recall20": 0.7914438502673797,
+          "cold_targets": 374,
+          "warm_targets": 187
+        },
+        "shuf2": {
+          "recall20": 0.3895327942497753,
+          "ndcg20": 0.30573217316690354,
+          "cold_recall20": 0.21657754010695188,
+          "warm_recall20": 0.7807486631016043,
+          "cold_targets": 374,
+          "warm_targets": 187
+        },
+        "base": {
+          "recall20": 0.2380952380952381,
+          "ndcg20": 0.1891724439885939,
+          "cold_recall20": 0.0053475935828877,
+          "warm_recall20": 0.7700534759358288,
+          "cold_targets": 374,
+          "warm_targets": 187
+        },
+        "general_no_history": {
+          "recall20": 0.27313566936208444,
+          "ndcg20": 0.15184364529169547,
+          "cold_recall20": 0.24064171122994651,
+          "warm_recall20": 0.27807486631016043,
+          "cold_targets": 374,
+          "warm_targets": 187
+        }
+      },
+      "gain_over_each_shuffle_ndcg": [
+        0.03009420242284494,
+        0.03009420242284494,
+        0.04937686749362791
+      ],
+      "audit": {
+        "levels": [
+          713
+        ],
+        "real": [
+          {
+            "weighted_mean": 1.5114885835141538,
+            "negative_share": -0.0021649279612639396,
+            "occurrence_share_negative": 0.14509345794392522,
+            "occurrence_share_positive": 0.7789719626168224
+          }
+        ],
+        "shuffled": [
+          [
+            {
+              "weighted_mean": -0.07726315075704031,
+              "negative_share": 1.9711648202312846,
+              "occurrence_share_negative": 0.5829439252336449,
+              "occurrence_share_positive": 0.3411214953271028
+            }
+          ],
+          [
+            {
+              "weighted_mean": 0.012017249499259927,
+              "negative_share": -8.188997369297267,
+              "occurrence_share_negative": 0.7441588785046729,
+              "occurrence_share_positive": 0.17990654205607476
+            }
+          ],
+          [
+            {
+              "weighted_mean": 0.03729001646475147,
+              "negative_share": -2.3587170260413775,
+              "occurrence_share_negative": 0.5100467289719626,
+              "occurrence_share_positive": 0.41401869158878507
+            }
+          ]
+        ]
+      }
+    },
+    "dunnhumby": {
+      "arms": {
+        "general": {
+          "recall20": 0.15865595238095206,
+          "ndcg20": 0.11089956567212776,
+          "cold_recall20": 0.01744186046511628,
+          "warm_recall20": 0.15816460688929793,
+          "cold_targets": 172,
+          "warm_targets": 7606
+        },
+        "raw_no_history": {
+          "recall20": 0.09061388888888885,
+          "ndcg20": 0.059691706486948604,
+          "cold_recall20": 0.0,
+          "warm_recall20": 0.08716802524322903,
+          "cold_targets": 172,
+          "warm_targets": 7606
+        },
+        "lift_only": {
+          "recall20": 0.15822499999999962,
+          "ndcg20": 0.11099872412194513,
+          "cold_recall20": 0.01744186046511628,
+          "warm_recall20": 0.15711280567972652,
+          "cold_targets": 172,
+          "warm_targets": 7606
+        },
+        "raw": {
+          "recall20": 0.1544408730158727,
+          "ndcg20": 0.10800291231194094,
+          "cold_recall20": 0.011627906976744186,
+          "warm_recall20": 0.15106494872469103,
+          "cold_targets": 172,
+          "warm_targets": 7606
+        },
+        "shuf1": {
+          "recall20": 0.14771031746031718,
+          "ndcg20": 0.10482628227547867,
+          "cold_recall20": 0.011627906976744186,
+          "warm_recall20": 0.14580594267683408,
+          "cold_targets": 172,
+          "warm_targets": 7606
+        },
+        "recipe": {
+          "recall20": 0.15708968253968225,
+          "ndcg20": 0.11034395463717532,
+          "cold_recall20": 0.011627906976744186,
+          "warm_recall20": 0.1535629765974231,
+          "cold_targets": 172,
+          "warm_targets": 7606
+        },
+        "residual_only": {
+          "recall20": 0.14850555555555528,
+          "ndcg20": 0.10479593235878731,
+          "cold_recall20": 0.023255813953488372,
+          "warm_recall20": 0.14501709176965555,
+          "cold_targets": 172,
+          "warm_targets": 7606
+        },
+        "shuf0": {
+          "recall20": 0.14834424603174576,
+          "ndcg20": 0.10485673073659227,
+          "cold_recall20": 0.023255813953488372,
+          "warm_recall20": 0.14514856692085196,
+          "cold_targets": 172,
+          "warm_targets": 7606
+        },
+        "off_diagonal": {
+          "recall20": 0.1524420634920633,
+          "ndcg20": 0.10742107519147583,
+          "cold_recall20": 0.005813953488372093,
+          "warm_recall20": 0.14909282145674468,
+          "cold_targets": 172,
+          "warm_targets": 7606
+        },
+        "identity": {
+          "recall20": 0.15069920634920614,
+          "ndcg20": 0.10650611071501177,
+          "cold_recall20": 0.01744186046511628,
+          "warm_recall20": 0.14804102024717328,
+          "cold_targets": 172,
+          "warm_targets": 7606
+        },
+        "shuf2": {
+          "recall20": 0.1478817460317457,
+          "ndcg20": 0.10404943407396557,
+          "cold_recall20": 0.029069767441860465,
+          "warm_recall20": 0.1454115172232448,
+          "cold_targets": 172,
+          "warm_targets": 7606
+        },
+        "base": {
+          "recall20": 0.14395337301587272,
+          "ndcg20": 0.10369000408718734,
+          "cold_recall20": 0.005813953488372093,
+          "warm_recall20": 0.14343938995529845,
+          "cold_targets": 172,
+          "warm_targets": 7606
+        },
+        "general_no_history": {
+          "recall20": 0.12434821428571417,
+          "ndcg20": 0.08259885339603551,
+          "cold_recall20": 0.011627906976744186,
+          "warm_recall20": 0.11622403365763871,
+          "cold_targets": 172,
+          "warm_targets": 7606
+        }
+      },
+      "gain_over_each_shuffle_ndcg": [
+        0.006042834935535549,
+        0.006073283396649115,
+        0.006850131598162279
+      ],
+      "audit": {
+        "levels": [
+          1622
+        ],
+        "real": [
+          {
+            "weighted_mean": 1.5246182547706097,
+            "negative_share": -0.08243531905145224,
+            "occurrence_share_negative": 0.20457582791408493,
+            "occurrence_share_positive": 0.782788850735675
+          }
+        ],
+        "shuffled": [
+          [
+            {
+              "weighted_mean": 0.013097368664547965,
+              "negative_share": -12.501452390787126,
+              "occurrence_share_negative": 0.488397373183193,
+              "occurrence_share_positive": 0.4989673054665669
+            }
+          ],
+          [
+            {
+              "weighted_mean": -0.00540280440333125,
+              "negative_share": 32.77138180413213,
+              "occurrence_share_negative": 0.49121730067077185,
+              "occurrence_share_positive": 0.496147377978988
+            }
+          ],
+          [
+            {
+              "weighted_mean": -0.025666045618394067,
+              "negative_share": 7.417425843401786,
+              "occurrence_share_negative": 0.4920357830254433,
+              "occurrence_share_positive": 0.4953288956243166
+            }
+          ]
+        ]
+      }
+    }
+  },
+  "primary": [
+    {
+      "delta": 0.01711161445757397,
+      "ci95": [
+        0.013941999068947318,
+        0.02023144883329047
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.07909887359198998,
+      "seed": 20261107,
+      "dataset": "pog",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "raw",
+      "p_holm": 0.0031996800319968005,
+      "reject_05": true
+    },
+    {
+      "delta": 0.006376959377703715,
+      "ci95": [
+        0.004557701751964579,
+        0.008101087111890523
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.06282853566958699,
+      "seed": 20261107,
+      "dataset": "pog",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "shuffled_mean",
+      "p_holm": 0.0031996800319968005,
+      "reject_05": true
+    },
+    {
+      "delta": 0.024488944513975805,
+      "ci95": [
+        0.019904608226153045,
+        0.029001836087464525
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.06533166458072591,
+      "seed": 20261107,
+      "dataset": "pog",
+      "metric": "recall20",
+      "first": "general",
+      "second": "raw",
+      "p_holm": 0.0031996800319968005,
+      "reject_05": true
+    },
+    {
+      "delta": 0.008357669308858295,
+      "ci95": [
+        0.005549643910309909,
+        0.011150456359571919
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.029286608260325406,
+      "seed": 20261107,
+      "dataset": "pog",
+      "metric": "recall20",
+      "first": "general",
+      "second": "shuffled_mean",
+      "p_holm": 0.0031996800319968005,
+      "reject_05": true
+    },
+    {
+      "delta": 0.010223055874382663,
+      "ci95": [
+        0.008506594959320223,
+        0.011993562014424256
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.1359293311700018,
+      "seed": 20261107,
+      "dataset": "pog_dense",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "raw",
+      "p_holm": 0.0031996800319968005,
+      "reject_05": true
+    },
+    {
+      "delta": 0.011108878834739795,
+      "ci95": [
+        0.00943263574835819,
+        0.012937648247873737
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.16459347394988283,
+      "seed": 20261107,
+      "dataset": "pog_dense",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "shuffled_mean",
+      "p_holm": 0.0031996800319968005,
+      "reject_05": true
+    },
+    {
+      "delta": 0.011657953248001921,
+      "ci95": [
+        0.008843169103049992,
+        0.014752719187548825
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.02055164954029205,
+      "seed": 20261107,
+      "dataset": "pog_dense",
+      "metric": "recall20",
+      "first": "general",
+      "second": "raw",
+      "p_holm": 0.0031996800319968005,
+      "reject_05": true
+    },
+    {
+      "delta": 0.012409110029445348,
+      "ci95": [
+        0.009534425857527779,
+        0.01549241622863741
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.030827474310438075,
+      "seed": 20261107,
+      "dataset": "pog_dense",
+      "metric": "recall20",
+      "first": "general",
+      "second": "shuffled_mean",
+      "p_holm": 0.0031996800319968005,
+      "reject_05": true
+    },
+    {
+      "delta": 0.0039502217722522685,
+      "ci95": [
+        0.0026531293524435498,
+        0.00523938355296141
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3995,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.41401752190237795,
+      "seed": 20261107,
+      "dataset": "spotify",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "raw",
+      "p_holm": 0.0031996800319968005,
+      "reject_05": true
+    },
+    {
+      "delta": 0.0031247918447881527,
+      "ci95": [
+        0.002065674698982256,
+        0.004173259966404403
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3995,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.42453066332916145,
+      "seed": 20261107,
+      "dataset": "spotify",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "shuffled_mean",
+      "p_holm": 0.0031996800319968005,
+      "reject_05": true
+    },
+    {
+      "delta": 0.0024159633970006434,
+      "ci95": [
+        0.0012026880230867794,
+        0.0035400282194336776
+      ],
+      "p_value": 0.00019998000199980003,
+      "queries": 3995,
+      "clusters": 3995,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.17121401752190238,
+      "seed": 20261107,
+      "dataset": "spotify",
+      "metric": "recall20",
+      "first": "general",
+      "second": "raw",
+      "p_holm": 0.0031996800319968005,
+      "reject_05": true
+    },
+    {
+      "delta": 0.002656573892213157,
+      "ci95": [
+        0.0016255555597798465,
+        0.0036303802481515543
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3995,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.23429286608260325,
+      "seed": 20261107,
+      "dataset": "spotify",
+      "metric": "recall20",
+      "first": "general",
+      "second": "shuffled_mean",
+      "p_holm": 0.0031996800319968005,
+      "reject_05": true
+    },
+    {
+      "delta": 0.0042828134041857395,
+      "ci95": [
+        0.0019016057866547737,
+        0.006672899665046955
+      ],
+      "p_value": 0.00039996000399960006,
+      "queries": 2497,
+      "clusters": 2496,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.37685222266720064,
+      "seed": 20261107,
+      "dataset": "spotify_sparse",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "raw",
+      "p_holm": 0.005599440055994401,
+      "reject_05": true
+    },
+    {
+      "delta": 0.004808861827835186,
+      "ci95": [
+        0.0029761880251914165,
+        0.0067439813059082376
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 2497,
+      "clusters": 2496,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.3840608730476572,
+      "seed": 20261107,
+      "dataset": "spotify_sparse",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "shuffled_mean",
+      "p_holm": 0.0031996800319968005,
+      "reject_05": true
+    },
+    {
+      "delta": 0.0038186225581002954,
+      "ci95": [
+        0.0015237469277818497,
+        0.006332794777391587
+      ],
+      "p_value": 0.0016998300169983002,
+      "queries": 2497,
+      "clusters": 2496,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.19623548257909493,
+      "seed": 20261107,
+      "dataset": "spotify_sparse",
+      "metric": "recall20",
+      "first": "general",
+      "second": "raw",
+      "p_holm": 0.022097790220977902,
+      "reject_05": true
+    },
+    {
+      "delta": 0.004118832578379141,
+      "ci95": [
+        0.002166065167496545,
+        0.006120085343005434
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 2497,
+      "clusters": 2496,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.2342811373648378,
+      "seed": 20261107,
+      "dataset": "spotify_sparse",
+      "metric": "recall20",
+      "first": "general",
+      "second": "shuffled_mean",
+      "p_holm": 0.0031996800319968005,
+      "reject_05": true
+    },
+    {
+      "delta": -1.0609853517641014e-05,
+      "ci95": [
+        -0.014142472469763256,
+        0.014992634600893721
+      ],
+      "p_value": 0.9989001099890011,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.17341040462427745,
+      "seed": 20261107,
+      "dataset": "electronic",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "raw",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": -0.0009440143780476517,
+      "ci95": [
+        -0.009156431478957838,
+        0.0069952890768814995
+      ],
+      "p_value": 0.8273172682731726,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.17052023121387283,
+      "seed": 20261107,
+      "dataset": "electronic",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "shuffled_mean",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.01893063583815029,
+      "ci95": [
+        -0.00800578034682081,
+        0.04552263969171482
+      ],
+      "p_value": 0.1563843615638436,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.07514450867052024,
+      "seed": 20261107,
+      "dataset": "electronic",
+      "metric": "recall20",
+      "first": "general",
+      "second": "raw",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.01970134874759152,
+      "ci95": [
+        0.004848265895953758,
+        0.03736472382787412
+      ],
+      "p_value": 0.012698730126987301,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.057803468208092484,
+      "seed": 20261107,
+      "dataset": "electronic",
+      "metric": "recall20",
+      "first": "general",
+      "second": "shuffled_mean",
+      "p_holm": 0.1396860313968603,
+      "reject_05": false
+    },
+    {
+      "delta": -0.013060878737955264,
+      "ci95": [
+        -0.035332704421340275,
+        0.011351627974567081
+      ],
+      "p_value": 0.25437456254374563,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.17280453257790368,
+      "seed": 20261107,
+      "dataset": "food",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "raw",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.012531853899272857,
+      "ci95": [
+        -0.0006055056663151751,
+        0.02694773682409954
+      ],
+      "p_value": 0.07529247075292471,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.17847025495750707,
+      "seed": 20261107,
+      "dataset": "food",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "shuffled_mean",
+      "p_holm": 0.6023397660233977,
+      "reject_05": false
+    },
+    {
+      "delta": -0.014069877242681775,
+      "ci95": [
+        -0.049575070821529746,
+        0.019688385269121814
+      ],
+      "p_value": 0.4186581341865813,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0764872521246459,
+      "seed": 20261107,
+      "dataset": "food",
+      "metric": "recall20",
+      "first": "general",
+      "second": "raw",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.023260937991816177,
+      "ci95": [
+        0.004658089392508657,
+        0.04288715769593956
+      ],
+      "p_value": 0.014098590140985901,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.06232294617563739,
+      "seed": 20261107,
+      "dataset": "food",
+      "metric": "recall20",
+      "first": "general",
+      "second": "shuffled_mean",
+      "p_holm": 0.140985901409859,
+      "reject_05": false
+    },
+    {
+      "delta": -0.004457536090919777,
+      "ci95": [
+        -0.023400250449940797,
+        0.01581552202801324
+      ],
+      "p_value": 0.6696330366963303,
+      "queries": 371,
+      "clusters": 371,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.16172506738544473,
+      "seed": 20261107,
+      "dataset": "clothing",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "raw",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.03652175744643926,
+      "ci95": [
+        0.022174493349943026,
+        0.05240010792996853
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 371,
+      "clusters": 371,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.20485175202156333,
+      "seed": 20261107,
+      "dataset": "clothing",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "shuffled_mean",
+      "p_holm": 0.0031996800319968005,
+      "reject_05": true
+    },
+    {
+      "delta": -0.006738544474393531,
+      "ci95": [
+        -0.03774707996406109,
+        0.02425876010781671
+      ],
+      "p_value": 0.6944305569443056,
+      "queries": 371,
+      "clusters": 371,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0673854447439353,
+      "seed": 20261107,
+      "dataset": "clothing",
+      "metric": "recall20",
+      "first": "general",
+      "second": "raw",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.060616951182988925,
+      "ci95": [
+        0.03798817011081162,
+        0.08472671458520516
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 371,
+      "clusters": 371,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.1078167115902965,
+      "seed": 20261107,
+      "dataset": "clothing",
+      "metric": "recall20",
+      "first": "general",
+      "second": "shuffled_mean",
+      "p_holm": 0.0031996800319968005,
+      "reject_05": true
+    },
+    {
+      "delta": 0.002896653360186839,
+      "ci95": [
+        0.0008194275016246862,
+        0.004931124991762155
+      ],
+      "p_value": 0.0059994000599940004,
+      "queries": 2000,
+      "clusters": 2000,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.179,
+      "seed": 20261107,
+      "dataset": "dunnhumby",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "raw",
+      "p_holm": 0.071992800719928,
+      "reject_05": false
+    },
+    {
+      "delta": 0.006322083310115648,
+      "ci95": [
+        0.004243312477478727,
+        0.008328333762009671
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 2000,
+      "clusters": 2000,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.212,
+      "seed": 20261107,
+      "dataset": "dunnhumby",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "shuffled_mean",
+      "p_holm": 0.0031996800319968005,
+      "reject_05": true
+    },
+    {
+      "delta": 0.004215079365079365,
+      "ci95": [
+        -0.000283164682539683,
+        0.008547187499999992
+      ],
+      "p_value": 0.05979402059794021,
+      "queries": 2000,
+      "clusters": 2000,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.061,
+      "seed": 20261107,
+      "dataset": "dunnhumby",
+      "metric": "recall20",
+      "first": "general",
+      "second": "raw",
+      "p_holm": 0.5381461853814619,
+      "reject_05": false
+    },
+    {
+      "delta": 0.010677182539682539,
+      "ci95": [
+        0.006030868055555553,
+        0.015168053902116401
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 2000,
+      "clusters": 2000,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.09,
+      "seed": 20261107,
+      "dataset": "dunnhumby",
+      "metric": "recall20",
+      "first": "general",
+      "second": "shuffled_mean",
+      "p_holm": 0.0031996800319968005,
+      "reject_05": true
+    }
+  ],
+  "secondary_unadjusted": [
+    {
+      "delta": 0.017017085251954056,
+      "ci95": [
+        0.013863910947282015,
+        0.02018640415941513
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.07934918648310388,
+      "seed": 20261107,
+      "dataset": "pog",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "base"
+    },
+    {
+      "delta": 0.006295376771064274,
+      "ci95": [
+        0.004506476691763045,
+        0.008064667300408364
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.05807259073842303,
+      "seed": 20261107,
+      "dataset": "pog",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "identity"
+    },
+    {
+      "delta": 0.01346787157535049,
+      "ci95": [
+        0.010156364634107096,
+        0.016720099351092088
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0785982478097622,
+      "seed": 20261107,
+      "dataset": "pog",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "lift_only"
+    },
+    {
+      "delta": 0.006295376771064274,
+      "ci95": [
+        0.004506476691763045,
+        0.008064667300408364
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.05807259073842303,
+      "seed": 20261107,
+      "dataset": "pog",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "residual_only"
+    },
+    {
+      "delta": 0.0027088375673135104,
+      "ci95": [
+        0.0019956932480795645,
+        0.003484744972243032
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.030037546933667083,
+      "seed": 20261107,
+      "dataset": "pog",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "off_diagonal"
+    },
+    {
+      "delta": 0.016081899293294597,
+      "ci95": [
+        0.012808159934792045,
+        0.019383172608946952
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.07459324155193993,
+      "seed": 20261107,
+      "dataset": "pog",
+      "metric": "ndcg20",
+      "first": "general_no_history",
+      "second": "raw_no_history"
+    },
+    {
+      "delta": 0.0017042458456844889,
+      "ci95": [
+        0.00036929458310234564,
+        0.003072148122424966
+      ],
+      "p_value": 0.0168983101689831,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.041551939924906134,
+      "seed": 20261107,
+      "dataset": "pog",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "recipe"
+    },
+    {
+      "delta": 0.009752197656441962,
+      "ci95": [
+        0.008109644515242936,
+        0.011347215214908767
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.12943933657833062,
+      "seed": 20261107,
+      "dataset": "pog_dense",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "base"
+    },
+    {
+      "delta": 0.00976953437863019,
+      "ci95": [
+        0.0081547135927762,
+        0.011556780248768349
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.134306832522084,
+      "seed": 20261107,
+      "dataset": "pog_dense",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "identity"
+    },
+    {
+      "delta": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "p_value": 1.0,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0,
+      "seed": 20261107,
+      "dataset": "pog_dense",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "lift_only"
+    },
+    {
+      "delta": 0.01037885233185531,
+      "ci95": [
+        0.008730559889068026,
+        0.01222513718488015
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.1359293311700018,
+      "seed": 20261107,
+      "dataset": "pog_dense",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "residual_only"
+    },
+    {
+      "delta": 0.0031833847370062603,
+      "ci95": [
+        0.002082037668022662,
+        0.004322640806141378
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.09536686497205697,
+      "seed": 20261107,
+      "dataset": "pog_dense",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "off_diagonal"
+    },
+    {
+      "delta": 0.03852775462319886,
+      "ci95": [
+        0.035315853106305674,
+        0.04195594903403346
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.2729403281052821,
+      "seed": 20261107,
+      "dataset": "pog_dense",
+      "metric": "ndcg20",
+      "first": "general_no_history",
+      "second": "raw_no_history"
+    },
+    {
+      "delta": -5.2439949573551575e-05,
+      "ci95": [
+        -0.002085398220660765,
+        0.0019337667054525201
+      ],
+      "p_value": 0.9572042795720428,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.10041463854335676,
+      "seed": 20261107,
+      "dataset": "pog_dense",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "recipe"
+    },
+    {
+      "delta": 0.005471877277065461,
+      "ci95": [
+        0.0042702406720159,
+        0.006709923532277288
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3995,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.42127659574468085,
+      "seed": 20261107,
+      "dataset": "spotify",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "base"
+    },
+    {
+      "delta": -0.049616601036618274,
+      "ci95": [
+        -0.05507464258461254,
+        -0.04403822478590066
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3995,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.3864831038798498,
+      "seed": 20261107,
+      "dataset": "spotify",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "identity"
+    },
+    {
+      "delta": -0.00153612018144309,
+      "ci95": [
+        -0.0030493272158404806,
+        -0.00010389595064252499
+      ],
+      "p_value": 0.04409559044095591,
+      "queries": 3995,
+      "clusters": 3995,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.3649561952440551,
+      "seed": 20261107,
+      "dataset": "spotify",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "lift_only"
+    },
+    {
+      "delta": 0.0051860674570949295,
+      "ci95": [
+        0.004040989221713113,
+        0.006400862894541619
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3995,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.4227784730913642,
+      "seed": 20261107,
+      "dataset": "spotify",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "residual_only"
+    },
+    {
+      "delta": 0.0051860674570949295,
+      "ci95": [
+        0.004040989221713113,
+        0.006400862894541619
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3995,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.4227784730913642,
+      "seed": 20261107,
+      "dataset": "spotify",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "off_diagonal"
+    },
+    {
+      "delta": 0.12138537596289199,
+      "ci95": [
+        0.11602397177958347,
+        0.12655637341011144
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3995,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.6635794743429286,
+      "seed": 20261107,
+      "dataset": "spotify",
+      "metric": "ndcg20",
+      "first": "general_no_history",
+      "second": "raw_no_history"
+    },
+    {
+      "delta": -0.03295158114456429,
+      "ci95": [
+        -0.03727419064408757,
+        -0.02885028188014164
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3995,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.3699624530663329,
+      "seed": 20261107,
+      "dataset": "spotify",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "recipe"
+    },
+    {
+      "delta": 0.006381532881689572,
+      "ci95": [
+        0.004276954511494314,
+        0.008625036179728965
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 2497,
+      "clusters": 2496,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.38205847016419703,
+      "seed": 20261107,
+      "dataset": "spotify_sparse",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "base"
+    },
+    {
+      "delta": -0.05389162494465867,
+      "ci95": [
+        -0.06246769056075528,
+        -0.045311169304648825
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 2497,
+      "clusters": 2496,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.35522627152583097,
+      "seed": 20261107,
+      "dataset": "spotify_sparse",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "identity"
+    },
+    {
+      "delta": -0.00046141677856256454,
+      "ci95": [
+        -0.00168254752174677,
+        0.0007654291691611333
+      ],
+      "p_value": 0.461053894610539,
+      "queries": 2497,
+      "clusters": 2496,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.31637965558670406,
+      "seed": 20261107,
+      "dataset": "spotify_sparse",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "lift_only"
+    },
+    {
+      "delta": 0.006826925904850437,
+      "ci95": [
+        0.004683474477422767,
+        0.009060947297675127
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 2497,
+      "clusters": 2496,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.3784541449739688,
+      "seed": 20261107,
+      "dataset": "spotify_sparse",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "residual_only"
+    },
+    {
+      "delta": 0.006036663797718254,
+      "ci95": [
+        0.004038347089663431,
+        0.008146928618239605
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 2497,
+      "clusters": 2496,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.3752503003604325,
+      "seed": 20261107,
+      "dataset": "spotify_sparse",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "off_diagonal"
+    },
+    {
+      "delta": 0.0845145412961447,
+      "ci95": [
+        0.0786871744151879,
+        0.09062233450697639
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 2497,
+      "clusters": 2496,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.5566680016019223,
+      "seed": 20261107,
+      "dataset": "spotify_sparse",
+      "metric": "ndcg20",
+      "first": "general_no_history",
+      "second": "raw_no_history"
+    },
+    {
+      "delta": -0.06409790981016382,
+      "ci95": [
+        -0.07344504227191438,
+        -0.055073831052820904
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 2497,
+      "clusters": 2496,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.3748498197837405,
+      "seed": 20261107,
+      "dataset": "spotify_sparse",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "recipe"
+    },
+    {
+      "delta": 0.08160995710770884,
+      "ci95": [
+        0.058739421775256526,
+        0.10535853532962784
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.28034682080924855,
+      "seed": 20261107,
+      "dataset": "electronic",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "base"
+    },
+    {
+      "delta": 0.011812893638525035,
+      "ci95": [
+        -0.002899349477187344,
+        0.026877526416167263
+      ],
+      "p_value": 0.10948905109489052,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.18786127167630057,
+      "seed": 20261107,
+      "dataset": "electronic",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "identity"
+    },
+    {
+      "delta": 0.05066342724416184,
+      "ci95": [
+        0.027433012259679014,
+        0.07449043563277372
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.23699421965317918,
+      "seed": 20261107,
+      "dataset": "electronic",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "lift_only"
+    },
+    {
+      "delta": 0.000332546647418209,
+      "ci95": [
+        -0.007904305480297318,
+        0.007933098580415802
+      ],
+      "p_value": 0.929007099290071,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.13583815028901733,
+      "seed": 20261107,
+      "dataset": "electronic",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "residual_only"
+    },
+    {
+      "delta": 0.007345276072638455,
+      "ci95": [
+        -0.00138058356524449,
+        0.015763853970444316
+      ],
+      "p_value": 0.08039196080391961,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.13872832369942195,
+      "seed": 20261107,
+      "dataset": "electronic",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "off_diagonal"
+    },
+    {
+      "delta": 0.016821384914099586,
+      "ci95": [
+        0.0028016372645937124,
+        0.0315223483624833
+      ],
+      "p_value": 0.027697230276972302,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.14450867052023122,
+      "seed": 20261107,
+      "dataset": "electronic",
+      "metric": "ndcg20",
+      "first": "general_no_history",
+      "second": "raw_no_history"
+    },
+    {
+      "delta": -0.03956720461891458,
+      "ci95": [
+        -0.06533249879476354,
+        -0.014208674385559878
+      ],
+      "p_value": 0.0033996600339966003,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.1907514450867052,
+      "seed": 20261107,
+      "dataset": "electronic",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "recipe"
+    },
+    {
+      "delta": 0.14262546585233735,
+      "ci95": [
+        0.115387696349238,
+        0.17282260199132568
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.38526912181303113,
+      "seed": 20261107,
+      "dataset": "food",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "base"
+    },
+    {
+      "delta": -0.013928283598518741,
+      "ci95": [
+        -0.031307588223932446,
+        0.00279540263608641
+      ],
+      "p_value": 0.09779022097790221,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.11614730878186968,
+      "seed": 20261107,
+      "dataset": "food",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "identity"
+    },
+    {
+      "delta": 0.09758483808425765,
+      "ci95": [
+        0.07086224714385587,
+        0.12597708470428917
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.35410764872521244,
+      "seed": 20261107,
+      "dataset": "food",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "lift_only"
+    },
+    {
+      "delta": 0.023456260503112107,
+      "ci95": [
+        0.007771008124292276,
+        0.04164555782981505
+      ],
+      "p_value": 0.0066993300669933005,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.20113314447592068,
+      "seed": 20261107,
+      "dataset": "food",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "residual_only"
+    },
+    {
+      "delta": 0.01378095753385914,
+      "ci95": [
+        -0.0010599118665421603,
+        0.03025581451449411
+      ],
+      "p_value": 0.0837916208379162,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.1643059490084986,
+      "seed": 20261107,
+      "dataset": "food",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "off_diagonal"
+    },
+    {
+      "delta": 0.010326303186647127,
+      "ci95": [
+        -0.014279294945977237,
+        0.034043668059847425
+      ],
+      "p_value": 0.412958704129587,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.2237960339943343,
+      "seed": 20261107,
+      "dataset": "food",
+      "metric": "ndcg20",
+      "first": "general_no_history",
+      "second": "raw_no_history"
+    },
+    {
+      "delta": -0.06588498384199856,
+      "ci95": [
+        -0.09225370592028398,
+        -0.039380594198532744
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.1529745042492918,
+      "seed": 20261107,
+      "dataset": "food",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "recipe"
+    },
+    {
+      "delta": 0.16593659667193783,
+      "ci95": [
+        0.1364122776846983,
+        0.1962692735990347
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 371,
+      "clusters": 371,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.3746630727762803,
+      "seed": 20261107,
+      "dataset": "clothing",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "base"
+    },
+    {
+      "delta": -0.010422994450546846,
+      "ci95": [
+        -0.02969098380227334,
+        0.008736288616915826
+      ],
+      "p_value": 0.29657034296570345,
+      "queries": 371,
+      "clusters": 371,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.1347708894878706,
+      "seed": 20261107,
+      "dataset": "clothing",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "identity"
+    },
+    {
+      "delta": 0.09932439766169171,
+      "ci95": [
+        0.0705439525858674,
+        0.12693968349878998
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 371,
+      "clusters": 371,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.3045822102425876,
+      "seed": 20261107,
+      "dataset": "clothing",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "lift_only"
+    },
+    {
+      "delta": 0.030094202422844937,
+      "ci95": [
+        0.016123472307565934,
+        0.04586675859983599
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 371,
+      "clusters": 371,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.16711590296495957,
+      "seed": 20261107,
+      "dataset": "clothing",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "residual_only"
+    },
+    {
+      "delta": 0.030094202422844937,
+      "ci95": [
+        0.016123472307565934,
+        0.04586675859983599
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 371,
+      "clusters": 371,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.16711590296495957,
+      "seed": 20261107,
+      "dataset": "clothing",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "off_diagonal"
+    },
+    {
+      "delta": -0.004020999293114254,
+      "ci95": [
+        -0.02256449356939164,
+        0.014439100339408428
+      ],
+      "p_value": 0.6862313768623137,
+      "queries": 371,
+      "clusters": 371,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.1725067385444744,
+      "seed": 20261107,
+      "dataset": "clothing",
+      "metric": "ndcg20",
+      "first": "general_no_history",
+      "second": "raw_no_history"
+    },
+    {
+      "delta": -0.06706316028107276,
+      "ci95": [
+        -0.09391182355703985,
+        -0.040401862225579184
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 371,
+      "clusters": 371,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.14824797843665768,
+      "seed": 20261107,
+      "dataset": "clothing",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "recipe"
+    },
+    {
+      "delta": 0.007209561584940447,
+      "ci95": [
+        0.004795009863004603,
+        0.009578054098907409
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 2000,
+      "clusters": 2000,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.203,
+      "seed": 20261107,
+      "dataset": "dunnhumby",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "base"
+    },
+    {
+      "delta": 0.004393454957116157,
+      "ci95": [
+        0.0024965659769753765,
+        0.006317971647016732
+      ],
+      "p_value": 0.00019998000199980003,
+      "queries": 2000,
+      "clusters": 2000,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.183,
+      "seed": 20261107,
+      "dataset": "dunnhumby",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "identity"
+    },
+    {
+      "delta": -9.915844981739019e-05,
+      "ci95": [
+        -0.0010410545684393009,
+        0.0007643085400362027
+      ],
+      "p_value": 0.8373162683731626,
+      "queries": 2000,
+      "clusters": 2000,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0975,
+      "seed": 20261107,
+      "dataset": "dunnhumby",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "lift_only"
+    },
+    {
+      "delta": 0.0061036333133404844,
+      "ci95": [
+        0.003891752647212723,
+        0.00823499520256212
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 2000,
+      "clusters": 2000,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.2,
+      "seed": 20261107,
+      "dataset": "dunnhumby",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "residual_only"
+    },
+    {
+      "delta": 0.0034784904806519036,
+      "ci95": [
+        0.0014396750063965277,
+        0.005519759994942516
+      ],
+      "p_value": 0.0010998900109989002,
+      "queries": 2000,
+      "clusters": 2000,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.1755,
+      "seed": 20261107,
+      "dataset": "dunnhumby",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "off_diagonal"
+    },
+    {
+      "delta": 0.022907146909086813,
+      "ci95": [
+        0.018233263150200584,
+        0.02761919682663465
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 2000,
+      "clusters": 2000,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.243,
+      "seed": 20261107,
+      "dataset": "dunnhumby",
+      "metric": "ndcg20",
+      "first": "general_no_history",
+      "second": "raw_no_history"
+    },
+    {
+      "delta": 0.0005556110349524421,
+      "ci95": [
+        -0.0022532140234688023,
+        0.0033272354435037754
+      ],
+      "p_value": 0.6947305269473053,
+      "queries": 2000,
+      "clusters": 2000,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.1815,
+      "seed": 20261107,
+      "dataset": "dunnhumby",
+      "metric": "ndcg20",
+      "first": "general",
+      "second": "recipe"
+    }
+  ]
+}

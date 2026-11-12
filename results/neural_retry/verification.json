@@ -1,0 +1,51 @@
+{
+  "status": "complete",
+  "neural_revision_unit_tests_passed": 7,
+  "constrained_smoke_passed": true,
+  "old_queue_stopped": true,
+  "checkpoints_deleted": false,
+  "datasets": {
+    "electronic": {
+      "selected_checkpoints": [
+        "checkpoints/neural_constrained/electronic/graph_pair_no_category_seed0/epoch_0042.pt",
+        "checkpoints/neural_constrained/electronic/graph_pair_no_category_seed1/epoch_0044.pt",
+        "checkpoints/neural_constrained/electronic/graph_pair_no_category_seed2/epoch_0030.pt"
+      ],
+      "sha256": [
+        "8161a28a4b4e65f39f9de0658fa95efd5d9d024dc4cefce24b284eaae65da285",
+        "175a62379fd5a3d9f7e25684b3900e9d7ec47e87140e6e98ebcf5c92c0363939",
+        "bcaab5bc3b921c525129e0328d34a5e010ca8b1072ac9b13f60c0b13b32cc0cc"
+      ],
+      "original_baseline_checksums_unchanged": true,
+      "complete": true
+    },
+    "food": {
+      "selected_checkpoints": [
+        "checkpoints/neural_transfer/food/graph_pair_no_category_seed0/epoch_0026.pt",
+        "checkpoints/neural_transfer/food/graph_pair_no_category_seed1/epoch_0046.pt",
+        "checkpoints/neural_transfer/food/graph_pair_no_category_seed2/epoch_0024.pt"
+      ],
+      "sha256": [
+        "1705ae6152446a63cea87283ec0a36fd24b9016e57fb7ee97fff74101f6170d8",
+        "c27ef05ad839396f69686d423b6f1e5ca2b01c9ee7efea44499eeff0579c1011",
+        "138c2061bd9b2ffc241454a55a12a53b33a6dc2e3fe1c8b38bd026ff1da3cfc9"
+      ],
+      "original_baseline_checksums_unchanged": true,
+      "complete": true
+    },
+    "clothing": {
+      "selected_checkpoints": [
+        "checkpoints/neural_transfer/clothing/graph_pair_no_category_seed0/epoch_0038.pt",
+        "checkpoints/neural_transfer/clothing/graph_pair_no_category_seed1/epoch_0034.pt",
+        "checkpoints/neural_transfer/clothing/graph_pair_no_category_seed2/epoch_0034.pt"
+      ],
+      "sha256": [
+        "4a4818278b41c0b03fbbafa2b890265f0591c465feb3fb8ccfe3576646cec9e2",
+        "731180cb6764ce5f4c51e84ef08ce02fa0c030437c1917f9218055d4fc52d9f0",
+        "a96948d467a62034b130356d45d899dbc0b0bf0fe3e4ae20bd095558d9444ae6"
+      ],
+      "original_baseline_checksums_unchanged": true,
+      "complete": true
+    }
+  }
+}

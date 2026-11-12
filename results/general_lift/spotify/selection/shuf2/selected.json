@@ -1,0 +1,29 @@
+{
+  "config": {
+    "kind": "weighted",
+    "weights": {
+      "shuf2_lift0": 1.5,
+      "shuf2_lift1": 1.0,
+      "residual_audio": 1.5,
+      "simp": 0.25,
+      "amp": 1.5
+    }
+  },
+  "tuning_metrics": [
+    0.13474625052613273,
+    0.22760793354158437
+  ],
+  "keys": [
+    "shuf2_lift0",
+    "shuf2_lift1",
+    "residual_audio",
+    "pop",
+    "pair",
+    "simp",
+    "amp"
+  ],
+  "history": "simp",
+  "alpha": 1.0,
+  "seconds": 454.6704524589877,
+  "fitting_candidates": 76
+}

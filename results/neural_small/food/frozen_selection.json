@@ -1,0 +1,353 @@
+{
+  "dot_seed0": {
+    "variant": "dot",
+    "seed": 0,
+    "checkpoint": "checkpoints/neural_small/food/dot_seed0/epoch_0026.pt",
+    "best_epoch": 26,
+    "validation": {
+      "recall20": 0.3829545454545455,
+      "ndcg20": 0.2524219584308567,
+      "seconds": 0.05047408299287781,
+      "item_encoding_seconds": 0.0009396249952260405,
+      "full_catalogue": true,
+      "catalogue_size": 3767
+    },
+    "parameters": {
+      "total": 347536,
+      "item_identity": 241152,
+      "other": 106384,
+      "frozen_buffer_bytes": 1974432,
+      "config": {
+        "variant": "dot",
+        "dim": 64,
+        "layers": 2,
+        "heads": 4,
+        "dropout": 0.1,
+        "identity_dropout": 0.1
+      }
+    },
+    "model_config": {
+      "variant": "dot",
+      "dim": 64,
+      "layers": 2,
+      "heads": 4,
+      "dropout": 0.1,
+      "identity_dropout": 0.1
+    },
+    "elapsed_seconds": 25.692256207985338,
+    "epochs_run": 38,
+    "selection": "validation NDCG@20 only"
+  },
+  "relations_seed0": {
+    "variant": "relations",
+    "seed": 0,
+    "checkpoint": "checkpoints/neural_small/food/relations_seed0/epoch_0016.pt",
+    "best_epoch": 16,
+    "validation": {
+      "recall20": 0.43143939393939396,
+      "ndcg20": 0.3265489859230475,
+      "seconds": 0.9094376249995548,
+      "item_encoding_seconds": 0.000985999999102205,
+      "full_catalogue": true,
+      "catalogue_size": 3767
+    },
+    "parameters": {
+      "total": 305425,
+      "item_identity": 241152,
+      "other": 64273,
+      "frozen_buffer_bytes": 1974432,
+      "config": {
+        "variant": "relations",
+        "dim": 64,
+        "layers": 2,
+        "heads": 4,
+        "dropout": 0.1,
+        "identity_dropout": 0.1
+      }
+    },
+    "model_config": {
+      "variant": "relations",
+      "dim": 64,
+      "layers": 2,
+      "heads": 4,
+      "dropout": 0.1,
+      "identity_dropout": 0.1
+    },
+    "elapsed_seconds": 117.88081199998851,
+    "epochs_run": 28,
+    "selection": "validation NDCG@20 only"
+  },
+  "contextual_seed0": {
+    "variant": "contextual",
+    "seed": 0,
+    "checkpoint": "checkpoints/neural_small/food/contextual_seed0/epoch_0024.pt",
+    "best_epoch": 24,
+    "validation": {
+      "recall20": 0.4612689393939393,
+      "ndcg20": 0.32972903553440136,
+      "seconds": 0.9400067499955185,
+      "item_encoding_seconds": 0.0010285830067005008,
+      "full_catalogue": true,
+      "catalogue_size": 3767
+    },
+    "parameters": {
+      "total": 372369,
+      "item_identity": 241152,
+      "other": 131217,
+      "frozen_buffer_bytes": 1974432,
+      "config": {
+        "variant": "contextual",
+        "dim": 64,
+        "layers": 2,
+        "heads": 4,
+        "dropout": 0.1,
+        "identity_dropout": 0.1
+      }
+    },
+    "model_config": {
+      "variant": "contextual",
+      "dim": 64,
+      "layers": 2,
+      "heads": 4,
+      "dropout": 0.1,
+      "identity_dropout": 0.1
+    },
+    "elapsed_seconds": 155.49870166601613,
+    "epochs_run": 36,
+    "selection": "validation NDCG@20 only"
+  },
+  "dot_seed1": {
+    "variant": "dot",
+    "seed": 1,
+    "checkpoint": "checkpoints/neural_small/food/dot_seed1/epoch_0048.pt",
+    "best_epoch": 48,
+    "validation": {
+      "recall20": 0.33674242424242423,
+      "ndcg20": 0.2208275492378939,
+      "seconds": 0.050272791006136686,
+      "item_encoding_seconds": 0.0009577499877195805,
+      "full_catalogue": true,
+      "catalogue_size": 3767
+    },
+    "parameters": {
+      "total": 347536,
+      "item_identity": 241152,
+      "other": 106384,
+      "frozen_buffer_bytes": 1974432,
+      "config": {
+        "variant": "dot",
+        "dim": 64,
+        "layers": 2,
+        "heads": 4,
+        "dropout": 0.1,
+        "identity_dropout": 0.1
+      }
+    },
+    "model_config": {
+      "variant": "dot",
+      "dim": 64,
+      "layers": 2,
+      "heads": 4,
+      "dropout": 0.1,
+      "identity_dropout": 0.1
+    },
+    "elapsed_seconds": 40.801304792024894,
+    "epochs_run": 60,
+    "selection": "validation NDCG@20 only"
+  },
+  "relations_seed1": {
+    "variant": "relations",
+    "seed": 1,
+    "checkpoint": "checkpoints/neural_small/food/relations_seed1/epoch_0028.pt",
+    "best_epoch": 28,
+    "validation": {
+      "recall20": 0.45274621212121213,
+      "ndcg20": 0.3266451612613002,
+      "seconds": 0.8899193750112318,
+      "item_encoding_seconds": 0.0009305420098826289,
+      "full_catalogue": true,
+      "catalogue_size": 3767
+    },
+    "parameters": {
+      "total": 305425,
+      "item_identity": 241152,
+      "other": 64273,
+      "frozen_buffer_bytes": 1974432,
+      "config": {
+        "variant": "relations",
+        "dim": 64,
+        "layers": 2,
+        "heads": 4,
+        "dropout": 0.1,
+        "identity_dropout": 0.1
+      }
+    },
+    "model_config": {
+      "variant": "relations",
+      "dim": 64,
+      "layers": 2,
+      "heads": 4,
+      "dropout": 0.1,
+      "identity_dropout": 0.1
+    },
+    "elapsed_seconds": 167.77418333402602,
+    "epochs_run": 40,
+    "selection": "validation NDCG@20 only"
+  },
+  "contextual_seed1": {
+    "variant": "contextual",
+    "seed": 1,
+    "checkpoint": "checkpoints/neural_small/food/contextual_seed1/epoch_0050.pt",
+    "best_epoch": 50,
+    "validation": {
+      "recall20": 0.4299242424242424,
+      "ndcg20": 0.3212841508871998,
+      "seconds": 0.8923987089947332,
+      "item_encoding_seconds": 0.0009292500035371631,
+      "full_catalogue": true,
+      "catalogue_size": 3767
+    },
+    "parameters": {
+      "total": 372369,
+      "item_identity": 241152,
+      "other": 131217,
+      "frozen_buffer_bytes": 1974432,
+      "config": {
+        "variant": "contextual",
+        "dim": 64,
+        "layers": 2,
+        "heads": 4,
+        "dropout": 0.1,
+        "identity_dropout": 0.1
+      }
+    },
+    "model_config": {
+      "variant": "contextual",
+      "dim": 64,
+      "layers": 2,
+      "heads": 4,
+      "dropout": 0.1,
+      "identity_dropout": 0.1
+    },
+    "elapsed_seconds": 255.94717049997416,
+    "epochs_run": 62,
+    "selection": "validation NDCG@20 only"
+  },
+  "dot_seed2": {
+    "variant": "dot",
+    "seed": 2,
+    "checkpoint": "checkpoints/neural_small/food/dot_seed2/epoch_0032.pt",
+    "best_epoch": 32,
+    "validation": {
+      "recall20": 0.35615530303030307,
+      "ndcg20": 0.24498111069329748,
+      "seconds": 0.04888579199905507,
+      "item_encoding_seconds": 0.0010263329895678908,
+      "full_catalogue": true,
+      "catalogue_size": 3767
+    },
+    "parameters": {
+      "total": 347536,
+      "item_identity": 241152,
+      "other": 106384,
+      "frozen_buffer_bytes": 1974432,
+      "config": {
+        "variant": "dot",
+        "dim": 64,
+        "layers": 2,
+        "heads": 4,
+        "dropout": 0.1,
+        "identity_dropout": 0.1
+      }
+    },
+    "model_config": {
+      "variant": "dot",
+      "dim": 64,
+      "layers": 2,
+      "heads": 4,
+      "dropout": 0.1,
+      "identity_dropout": 0.1
+    },
+    "elapsed_seconds": 29.075648083991837,
+    "epochs_run": 44,
+    "selection": "validation NDCG@20 only"
+  },
+  "relations_seed2": {
+    "variant": "relations",
+    "seed": 2,
+    "checkpoint": "checkpoints/neural_small/food/relations_seed2/epoch_0028.pt",
+    "best_epoch": 28,
+    "validation": {
+      "recall20": 0.44223484848484856,
+      "ndcg20": 0.33280865276385824,
+      "seconds": 0.9186819170136005,
+      "item_encoding_seconds": 0.0011234169942326844,
+      "full_catalogue": true,
+      "catalogue_size": 3767
+    },
+    "parameters": {
+      "total": 305425,
+      "item_identity": 241152,
+      "other": 64273,
+      "frozen_buffer_bytes": 1974432,
+      "config": {
+        "variant": "relations",
+        "dim": 64,
+        "layers": 2,
+        "heads": 4,
+        "dropout": 0.1,
+        "identity_dropout": 0.1
+      }
+    },
+    "model_config": {
+      "variant": "relations",
+      "dim": 64,
+      "layers": 2,
+      "heads": 4,
+      "dropout": 0.1,
+      "identity_dropout": 0.1
+    },
+    "elapsed_seconds": 162.5012184579973,
+    "epochs_run": 40,
+    "selection": "validation NDCG@20 only"
+  },
+  "contextual_seed2": {
+    "variant": "contextual",
+    "seed": 2,
+    "checkpoint": "checkpoints/neural_small/food/contextual_seed2/epoch_0040.pt",
+    "best_epoch": 40,
+    "validation": {
+      "recall20": 0.4559659090909091,
+      "ndcg20": 0.3413206849349386,
+      "seconds": 1.206732374994317,
+      "item_encoding_seconds": 0.002491041988832876,
+      "full_catalogue": true,
+      "catalogue_size": 3767
+    },
+    "parameters": {
+      "total": 372369,
+      "item_identity": 241152,
+      "other": 131217,
+      "frozen_buffer_bytes": 1974432,
+      "config": {
+        "variant": "contextual",
+        "dim": 64,
+        "layers": 2,
+        "heads": 4,
+        "dropout": 0.1,
+        "identity_dropout": 0.1
+      }
+    },
+    "model_config": {
+      "variant": "contextual",
+      "dim": 64,
+      "layers": 2,
+      "heads": 4,
+      "dropout": 0.1,
+      "identity_dropout": 0.1
+    },
+    "elapsed_seconds": 218.81360766699072,
+    "epochs_run": 52,
+    "selection": "validation NDCG@20 only"
+  }
+}

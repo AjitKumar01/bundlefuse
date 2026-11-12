@@ -1,0 +1,33 @@
+{
+  "config": {
+    "kind": "gate",
+    "weights": {
+      "shuf1_lift0": 0.25,
+      "residual_content": 1.0,
+      "simp": 1.5,
+      "amp": 0.5
+    },
+    "prior_weights": {
+      "shuf1_lift0": 0.25,
+      "residual_content": 1.0
+    },
+    "scale": 1.9206594884771295,
+    "kappa": 0.05
+  },
+  "tuning_metrics": [
+    0.36762820512820515,
+    0.2772809339564914
+  ],
+  "keys": [
+    "shuf1_lift0",
+    "residual_content",
+    "pop",
+    "pair",
+    "simp",
+    "amp"
+  ],
+  "history": "simp",
+  "alpha": 1.0,
+  "seconds": 0.7474517500086222,
+  "fitting_candidates": 67
+}

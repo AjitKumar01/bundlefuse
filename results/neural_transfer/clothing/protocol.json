@@ -1,0 +1,71 @@
+{
+  "data": {
+    "metadata": {
+      "dataset": "clothing",
+      "n_items": 4487,
+      "protocol": "resplit",
+      "data_profile": "extended",
+      "split_seed": 0,
+      "mask_frac": 0.5,
+      "val_limit": 800,
+      "test_limit": 2000,
+      "train_bundles": 1294,
+      "val_queries": 184,
+      "test_queries": 371,
+      "val_total": 184,
+      "test_total": 371,
+      "full_validation": true,
+      "full_test": true,
+      "train_sha256": "42da55c7dac6f4d5e1d1539810e46ab57c34114923cbb452f49e9c2128034b81",
+      "val_pairs_sha256": "c29f733195600017bdf13e75a508561b9268bd338b9b3251916957f87f0bfe8b",
+      "test_pairs_sha256": "bdef9f8f9f337e2d4fd9e6a105fb528949c92624ed9faa12d246d5c0e48c9644",
+      "input_sha256": {
+        "bundle_item.csv": "5eb5ad2104e6ac7340abe76c358b700dfc72c075fe1afcb5d7d7a916e7753e82",
+        "user_bundle.csv": "24fde36824c259bcb22dd86c06356781b5c7b2e72d1c8a3e520ceb273f038c06",
+        "item_titles.csv": "4719a0d21d7a9072c726299781f4d9ee6504f00932f7b748141a8c3c44388a07",
+        "item_categories.csv": "1a62964575d3d0a87ef2e4b8a0de1c6ce45b649ee27d139512b3de5ffedc24a3",
+        "user_item_pretrain.csv": "84bf274476e059e53be9c41e205df6832f4b08984324051e12748075b7879f90"
+      }
+    },
+    "actual_train_sha256": "42da55c7dac6f4d5e1d1539810e46ab57c34114923cbb452f49e9c2128034b81",
+    "actual_val_sha256": "c29f733195600017bdf13e75a508561b9268bd338b9b3251916957f87f0bfe8b",
+    "actual_test_sha256": "bdef9f8f9f337e2d4fd9e6a105fb528949c92624ed9faa12d246d5c0e48c9644",
+    "inputs": "bundle item IDs, catalogue text features, categories, training frequency",
+    "auxiliary_histories_used": false,
+    "smoke": false,
+    "feature_shape": [
+      4487,
+      128
+    ],
+    "train_bundles": 1294,
+    "val_queries": 184,
+    "test_queries": 371,
+    "unseen_test_targets": 374
+  },
+  "conditions": [
+    {
+      "name": "graph_pair_no_category",
+      "variant": "graph_pair",
+      "cold_probability": 0.25,
+      "category_mode": "off",
+      "project_links": true
+    }
+  ],
+  "config": {
+    "epochs": 100,
+    "batch": 32,
+    "eval_every": 2,
+    "patience": 6,
+    "link_lr": 0.03,
+    "shared_lr": 0.001,
+    "weight_decay": 0.001
+  },
+  "source_sha256": "402879f368563ef7bf22573648dc841b2b84719746754cc361598e0c7aa346ef",
+  "phase": "constrained",
+  "fixed_condition": "graph_pair_no_category",
+  "selection": "All conditions seed 0; select highest validation NDCG architecture, then repeat it at seeds 1 and 2; freeze before test.",
+  "simulation": "Hide all direct, joint and graph paths incident on a random 25% of items each batch. No frequency feature or item-ID embeddings.",
+  "objective": "Full-catalogue per-positive completion softmax, excluding observed and other known positive items.",
+  "smoke": false,
+  "torch_version": "2.9.1"
+}

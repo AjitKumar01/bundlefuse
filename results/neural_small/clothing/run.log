@@ -1,0 +1,128 @@
+2026-11-07T18:28:32Z clothing: train=1294 val=184 test=371 items=4487
+2026-11-07T18:28:32Z Fitting BundleFuse input-matched control (no auxiliary/user data)
+2026-11-07T18:28:35Z Evaluating comparator bundlefuse_original_auxiliary
+2026-11-07T18:28:36Z bundlefuse_original_auxiliary: R20=0.516936 N20=0.404863
+2026-11-07T18:28:36Z Evaluating comparator bundlefuse_matched
+2026-11-07T18:28:36Z bundlefuse_matched: R20=0.474663 N20=0.388848
+2026-11-07T18:28:36Z Evaluating comparator popularity
+2026-11-07T18:28:36Z popularity: R20=0.008086 N20=0.002770
+2026-11-07T18:28:36Z Evaluating comparator cooccurrence
+2026-11-07T18:28:36Z cooccurrence: R20=0.238095 N20=0.188419
+2026-11-07T18:28:36Z Evaluating comparator itemknn
+2026-11-07T18:28:36Z itemknn: R20=0.238095 N20=0.194355
+2026-11-07T18:28:36Z Evaluating comparator p3alpha
+2026-11-07T18:28:36Z p3alpha: R20=0.238634 N20=0.174447
+2026-11-07T18:28:36Z Evaluating comparator rp3beta
+2026-11-07T18:28:36Z rp3beta: R20=0.238634 N20=0.189870
+2026-11-07T18:28:36Z Evaluating comparator contentknn
+2026-11-07T18:28:36Z contentknn: R20=0.282210 N20=0.164677
+2026-11-07T18:28:37Z dot seed=0: parameters={'total': 412768, 'item_identity': 287232, 'other': 125536, 'frozen_buffer_bytes': 2351712, 'config': {'variant': 'dot', 'dim': 64, 'layers': 2, 'heads': 4, 'dropout': 0.1, 'identity_dropout': 0.1}}
+2026-11-07T18:28:38Z dot seed=0 epoch=1 loss=5.39155
+2026-11-07T18:28:38Z dot seed=0 epoch=2 loss=5.13986 VAL R20=0.090127 N20=0.048519 best_epoch=2 patience=0/6
+2026-11-07T18:28:39Z dot seed=0 epoch=3 loss=5.18453
+2026-11-07T18:28:40Z dot seed=0 epoch=4 loss=4.69844 VAL R20=0.162591 N20=0.081431 best_epoch=4 patience=0/6
+2026-11-07T18:28:40Z dot seed=0 epoch=5 loss=3.90098
+2026-11-07T18:28:41Z dot seed=0 epoch=6 loss=2.89564 VAL R20=0.283062 N20=0.152529 best_epoch=6 patience=0/6
+2026-11-07T18:28:42Z dot seed=0 epoch=7 loss=2.04506
+2026-11-07T18:28:43Z dot seed=0 epoch=8 loss=1.47779 VAL R20=0.350725 N20=0.223435 best_epoch=8 patience=0/6
+2026-11-07T18:28:43Z dot seed=0 epoch=9 loss=1.15490
+2026-11-07T18:28:44Z dot seed=0 epoch=10 loss=0.92128 VAL R20=0.380072 N20=0.255269 best_epoch=10 patience=0/6
+2026-11-07T18:28:45Z dot seed=0 epoch=11 loss=0.91893
+2026-11-07T18:28:45Z dot seed=0 epoch=12 loss=0.79547 VAL R20=0.417482 N20=0.275457 best_epoch=12 patience=0/6
+2026-11-07T18:28:46Z dot seed=0 epoch=13 loss=0.78188
+2026-11-07T18:28:47Z dot seed=0 epoch=14 loss=0.75260 VAL R20=0.418478 N20=0.257822 best_epoch=12 patience=1/6
+2026-11-07T18:28:47Z dot seed=0 epoch=15 loss=0.73065
+2026-11-07T18:28:48Z dot seed=0 epoch=16 loss=0.64516 VAL R20=0.441123 N20=0.275264 best_epoch=12 patience=2/6
+2026-11-07T18:28:49Z dot seed=0 epoch=17 loss=0.61621
+2026-11-07T18:28:49Z dot seed=0 epoch=18 loss=0.70577 VAL R20=0.419475 N20=0.260159 best_epoch=12 patience=3/6
+2026-11-07T18:28:50Z dot seed=0 epoch=19 loss=0.66164
+2026-11-07T18:28:51Z dot seed=0 epoch=20 loss=0.52489 VAL R20=0.406612 N20=0.258741 best_epoch=12 patience=4/6
+2026-11-07T18:28:52Z dot seed=0 epoch=21 loss=0.61269
+2026-11-07T18:28:52Z dot seed=0 epoch=22 loss=0.62033 VAL R20=0.455797 N20=0.294130 best_epoch=22 patience=0/6
+2026-11-07T18:28:53Z dot seed=0 epoch=23 loss=0.55210
+2026-11-07T18:28:54Z dot seed=0 epoch=24 loss=0.52454 VAL R20=0.425634 N20=0.298341 best_epoch=24 patience=0/6
+2026-11-07T18:28:54Z dot seed=0 epoch=25 loss=0.50810
+2026-11-07T18:28:55Z dot seed=0 epoch=26 loss=0.59581 VAL R20=0.417391 N20=0.296308 best_epoch=24 patience=1/6
+2026-11-07T18:28:56Z dot seed=0 epoch=27 loss=0.54365
+2026-11-07T18:28:56Z dot seed=0 epoch=28 loss=0.45233 VAL R20=0.413949 N20=0.275554 best_epoch=24 patience=2/6
+2026-11-07T18:28:57Z dot seed=0 epoch=29 loss=0.47578
+2026-11-07T18:28:58Z dot seed=0 epoch=30 loss=0.42640 VAL R20=0.471920 N20=0.296800 best_epoch=24 patience=3/6
+2026-11-07T18:28:58Z dot seed=0 epoch=31 loss=0.46913
+2026-11-07T18:28:59Z dot seed=0 epoch=32 loss=0.49540 VAL R20=0.444928 N20=0.275743 best_epoch=24 patience=4/6
+2026-11-07T18:29:00Z dot seed=0 epoch=33 loss=0.41348
+2026-11-07T18:29:01Z dot seed=0 epoch=34 loss=0.49321 VAL R20=0.447645 N20=0.278225 best_epoch=24 patience=5/6
+2026-11-07T18:29:01Z dot seed=0 epoch=35 loss=0.48610
+2026-11-07T18:29:02Z dot seed=0 epoch=36 loss=0.39490 VAL R20=0.413043 N20=0.267072 best_epoch=24 patience=6/6
+2026-11-07T18:29:02Z relations seed=0: parameters={'total': 370657, 'item_identity': 287232, 'other': 83425, 'frozen_buffer_bytes': 2351712, 'config': {'variant': 'relations', 'dim': 64, 'layers': 2, 'heads': 4, 'dropout': 0.1, 'identity_dropout': 0.1}}
+2026-11-07T18:29:06Z relations seed=0 epoch=1 loss=5.14656
+2026-11-07T18:29:10Z relations seed=0 epoch=2 loss=4.72083 VAL R20=0.183062 N20=0.127969 best_epoch=2 patience=0/6
+2026-11-07T18:29:14Z relations seed=0 epoch=3 loss=4.83247
+2026-11-07T18:29:19Z relations seed=0 epoch=4 loss=4.48517 VAL R20=0.197192 N20=0.159786 best_epoch=4 patience=0/6
+2026-11-07T18:29:22Z relations seed=0 epoch=5 loss=3.83190
+2026-11-07T18:29:27Z relations seed=0 epoch=6 loss=2.89234 VAL R20=0.339674 N20=0.268654 best_epoch=6 patience=0/6
+2026-11-07T18:29:31Z relations seed=0 epoch=7 loss=1.99653
+2026-11-07T18:29:35Z relations seed=0 epoch=8 loss=1.44600 VAL R20=0.380888 N20=0.323148 best_epoch=8 patience=0/6
+2026-11-07T18:29:39Z relations seed=0 epoch=9 loss=1.12008
+2026-11-07T18:29:44Z relations seed=0 epoch=10 loss=0.94754 VAL R20=0.449638 N20=0.359393 best_epoch=10 patience=0/6
+2026-11-07T18:29:47Z relations seed=0 epoch=11 loss=0.83746
+2026-11-07T18:29:52Z relations seed=0 epoch=12 loss=0.65844 VAL R20=0.469384 N20=0.368867 best_epoch=12 patience=0/6
+2026-11-07T18:29:56Z relations seed=0 epoch=13 loss=0.60970
+2026-11-07T18:30:01Z relations seed=0 epoch=14 loss=0.54744 VAL R20=0.471286 N20=0.381039 best_epoch=14 patience=0/6
+2026-11-07T18:30:05Z relations seed=0 epoch=15 loss=0.49011
+2026-11-07T18:30:09Z relations seed=0 epoch=16 loss=0.51171 VAL R20=0.470471 N20=0.367359 best_epoch=14 patience=1/6
+2026-11-07T18:30:13Z relations seed=0 epoch=17 loss=0.43942
+2026-11-07T18:30:18Z relations seed=0 epoch=18 loss=0.38702 VAL R20=0.494837 N20=0.360155 best_epoch=14 patience=2/6
+2026-11-07T18:30:21Z relations seed=0 epoch=19 loss=0.42341
+2026-11-07T18:30:26Z relations seed=0 epoch=20 loss=0.38624 VAL R20=0.509239 N20=0.384673 best_epoch=20 patience=0/6
+2026-11-07T18:30:30Z relations seed=0 epoch=21 loss=0.32670
+2026-11-07T18:30:34Z relations seed=0 epoch=22 loss=0.35851 VAL R20=0.494203 N20=0.368165 best_epoch=20 patience=1/6
+2026-11-07T18:30:38Z relations seed=0 epoch=23 loss=0.30922
+2026-11-07T18:30:43Z relations seed=0 epoch=24 loss=0.27795 VAL R20=0.516757 N20=0.381903 best_epoch=20 patience=2/6
+2026-11-07T18:30:47Z relations seed=0 epoch=25 loss=0.31977
+2026-11-07T18:30:51Z relations seed=0 epoch=26 loss=0.34772 VAL R20=0.479891 N20=0.373376 best_epoch=20 patience=3/6
+2026-11-07T18:30:55Z relations seed=0 epoch=27 loss=0.26848
+2026-11-07T18:30:59Z relations seed=0 epoch=28 loss=0.26669 VAL R20=0.515217 N20=0.389518 best_epoch=28 patience=0/6
+2026-11-07T18:31:03Z relations seed=0 epoch=29 loss=0.29452
+2026-11-07T18:31:08Z relations seed=0 epoch=30 loss=0.30939 VAL R20=0.498641 N20=0.385511 best_epoch=28 patience=1/6
+2026-11-07T18:31:12Z relations seed=0 epoch=31 loss=0.25771
+2026-11-07T18:31:16Z relations seed=0 epoch=32 loss=0.24348 VAL R20=0.473732 N20=0.383094 best_epoch=28 patience=2/6
+2026-11-07T18:31:20Z relations seed=0 epoch=33 loss=0.26759
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/experiments/neural/run.py", line 147, in <module>
+    main()
+    ~~~~^^
+  File "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/experiments/neural/run.py", line 143, in main
+    run(args)
+    ~~~^^^^^^
+  File "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/experiments/neural/run.py", line 108, in run
+    selected[key] = fit(ds, features, cats, freq, variant, seed, config,
+                    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                        checkpoint_dir/key, output/key, log)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/experiments/neural/training.py", line 72, in fit
+    validation = evaluate(model, ds.val_pairs, config['eval_batch'], config['candidate_chunk'])
+  File "/Users/ajit/.pyenv/versions/3.13.4/lib/python3.13/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+  File "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/experiments/neural/evaluation.py", line 33, in evaluate
+    chunks.append(model.score_candidates(query, candidates, item_table))
+                  ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/experiments/neural/model.py", line 81, in score_candidates
+    messages = self.relation(torch.cat((c, r, h, c*h), dim=-1))
+  File "/Users/ajit/.pyenv/versions/3.13.4/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1775, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/ajit/.pyenv/versions/3.13.4/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1786, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/Users/ajit/.pyenv/versions/3.13.4/lib/python3.13/site-packages/torch/nn/modules/container.py", line 250, in forward
+    input = module(input)
+  File "/Users/ajit/.pyenv/versions/3.13.4/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1775, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/ajit/.pyenv/versions/3.13.4/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1786, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/Users/ajit/.pyenv/versions/3.13.4/lib/python3.13/site-packages/torch/nn/modules/activation.py", line 816, in forward
+    return F.gelu(input, approximate=self.approximate)
+           ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

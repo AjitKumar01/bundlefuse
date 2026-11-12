@@ -1,0 +1,40 @@
+{
+  "selected_condition": {
+    "name": "graph_joint_cold",
+    "variant": "graph_joint",
+    "cold_probability": 0.25
+  },
+  "criterion": "seed-0 validation NDCG only",
+  "candidates": {
+    "attributes_seed0": {
+      "recall20": 0.22832369942196531,
+      "ndcg20": 0.11727545208431069,
+      "seconds": 0.025569749996066093,
+      "full_catalogue": true
+    },
+    "pair_no_cold_seed0": {
+      "recall20": 0.33554913294797684,
+      "ndcg20": 0.2294674371043428,
+      "seconds": 0.02873841699329205,
+      "full_catalogue": true
+    },
+    "pair_cold_seed0": {
+      "recall20": 0.3336223506743738,
+      "ndcg20": 0.22212498302372533,
+      "seconds": 0.025161541998386383,
+      "full_catalogue": true
+    },
+    "joint_cold_seed0": {
+      "recall20": 0.30982658959537573,
+      "ndcg20": 0.2023099094246384,
+      "seconds": 0.02212275000056252,
+      "full_catalogue": true
+    },
+    "graph_joint_cold_seed0": {
+      "recall20": 0.3798651252408478,
+      "ndcg20": 0.2682349459231087,
+      "seconds": 0.024950458988314494,
+      "full_catalogue": true
+    }
+  }
+}

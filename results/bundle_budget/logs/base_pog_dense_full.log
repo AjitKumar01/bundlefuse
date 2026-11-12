@@ -1,0 +1,69 @@
+2026-11-12T17:47:38Z pog_dense full popularity {} VAL N20=0.15156
+2026-11-12T17:47:39Z pog_dense full popularity TEST clean {'recall20': 0.29406285679947114, 'ndcg20': 0.15616860441957497}
+2026-11-12T17:47:40Z pog_dense full cooccurrence {} VAL N20=0.24706
+2026-11-12T17:47:42Z pog_dense full cooccurrence TEST clean {'recall20': 0.3413857340304068, 'ndcg20': 0.23949523499784195}
+2026-11-12T17:47:43Z pog_dense full itemknn {'k': 50, 'shrink': 0} VAL N20=0.14095
+2026-11-12T17:47:43Z pog_dense full itemknn {'k': 50, 'shrink': 10} VAL N20=0.16173
+2026-11-12T17:47:44Z pog_dense full itemknn {'k': 50, 'shrink': 100} VAL N20=0.22122
+2026-11-12T17:47:45Z pog_dense full itemknn {'k': 200, 'shrink': 0} VAL N20=0.14208
+2026-11-12T17:47:46Z pog_dense full itemknn {'k': 200, 'shrink': 10} VAL N20=0.16549
+2026-11-12T17:47:46Z pog_dense full itemknn {'k': 200, 'shrink': 100} VAL N20=0.22361
+2026-11-12T17:47:47Z pog_dense full itemknn {'k': 1000, 'shrink': 0} VAL N20=0.14241
+2026-11-12T17:47:48Z pog_dense full itemknn {'k': 1000, 'shrink': 10} VAL N20=0.16730
+2026-11-12T17:47:49Z pog_dense full itemknn {'k': 1000, 'shrink': 100} VAL N20=0.22390
+2026-11-12T17:47:51Z pog_dense full itemknn TEST clean {'recall20': 0.31593654227510365, 'ndcg20': 0.208070827047538}
+2026-11-12T17:47:51Z pog_dense full rp3beta {'alpha': 0.5, 'beta': 0.0} VAL N20=0.26946
+2026-11-12T17:47:52Z pog_dense full rp3beta {'alpha': 0.5, 'beta': 0.25} VAL N20=0.20693
+2026-11-12T17:47:53Z pog_dense full rp3beta {'alpha': 0.5, 'beta': 0.5} VAL N20=0.14121
+2026-11-12T17:47:54Z pog_dense full rp3beta {'alpha': 0.5, 'beta': 0.75} VAL N20=0.12385
+2026-11-12T17:47:55Z pog_dense full rp3beta {'alpha': 1.0, 'beta': 0.0} VAL N20=0.27461
+2026-11-12T17:47:56Z pog_dense full rp3beta {'alpha': 1.0, 'beta': 0.25} VAL N20=0.19899
+2026-11-12T17:47:57Z pog_dense full rp3beta {'alpha': 1.0, 'beta': 0.5} VAL N20=0.14621
+2026-11-12T17:47:58Z pog_dense full rp3beta {'alpha': 1.0, 'beta': 0.75} VAL N20=0.12627
+2026-11-12T17:47:59Z pog_dense full rp3beta TEST clean {'recall20': 0.3447208701400156, 'ndcg20': 0.24071678151966952}
+2026-11-12T17:48:23Z pog_dense full ease {'l2': 50.0} VAL N20=0.25735
+2026-11-12T17:48:51Z pog_dense full ease {'l2': 200.0} VAL N20=0.24235
+2026-11-12T17:49:19Z pog_dense full ease {'l2': 500.0} VAL N20=0.23489
+2026-11-12T17:50:06Z pog_dense full ease {'l2': 1000.0} VAL N20=0.23372
+2026-11-12T17:51:50Z pog_dense full ease {'l2': 3000.0} VAL N20=0.23868
+2026-11-12T17:54:12Z pog_dense full ease TEST clean {'recall20': 0.3242894056847545, 'ndcg20': 0.22771051917856888}
+2026-11-12T17:54:15Z pog_dense full hybrid {'k': 1000, 'shrink': 100, 'content': 0.0} VAL N20=0.22390
+2026-11-12T17:54:17Z pog_dense full hybrid {'k': 1000, 'shrink': 100, 'content': 0.1} VAL N20=0.19198
+2026-11-12T17:54:20Z pog_dense full hybrid {'k': 1000, 'shrink': 100, 'content': 0.2} VAL N20=0.19046
+2026-11-12T17:54:23Z pog_dense full hybrid {'k': 1000, 'shrink': 100, 'content': 0.3} VAL N20=0.18856
+2026-11-12T17:54:25Z pog_dense full hybrid {'k': 1000, 'shrink': 100, 'content': 0.5} VAL N20=0.18068
+2026-11-12T17:54:28Z pog_dense full hybrid {'k': 1000, 'shrink': 100, 'content': 0.7} VAL N20=0.14552
+2026-11-12T17:54:30Z pog_dense full hybrid {'k': 1000, 'shrink': 100, 'content': 0.9} VAL N20=0.00377
+2026-11-12T17:54:33Z pog_dense full hybrid {'k': 1000, 'shrink': 100, 'content': 1.0} VAL N20=0.00005
+2026-11-12T17:54:37Z pog_dense full hybrid TEST clean {'recall20': 0.31593654227510365, 'ndcg20': 0.208070827047538}
+2026-11-12T17:54:40Z pog_dense full samelabel {'a': (1.0,), 'gamma': 0.0} VAL N20=0.00000
+2026-11-12T17:54:42Z pog_dense full samelabel {'a': (1.0,), 'gamma': 0.1} VAL N20=0.00000
+2026-11-12T17:54:45Z pog_dense full samelabel {'a': (1.0,), 'gamma': 0.3} VAL N20=0.10112
+2026-11-12T17:54:48Z pog_dense full samelabel {'a': (1.0,), 'gamma': 1.0} VAL N20=0.13612
+2026-11-12T17:54:53Z pog_dense full samelabel TEST clean {'recall20': 0.29021693407848087, 'ndcg20': 0.13962008711568044}
+2026-11-12T17:54:56Z pog_dense full transition {'a': (1.0,), 'gamma': 0.0, 'eps': 0.0001} VAL N20=0.11693
+2026-11-12T17:55:00Z pog_dense full transition {'a': (1.0,), 'gamma': 0.0, 'eps': 0.01} VAL N20=0.11693
+2026-11-12T17:55:03Z pog_dense full transition {'a': (1.0,), 'gamma': 0.5, 'eps': 0.0001} VAL N20=0.19540
+2026-11-12T17:55:06Z pog_dense full transition {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01} VAL N20=0.19508
+2026-11-12T17:55:09Z pog_dense full transition {'a': (1.0,), 'gamma': 1.0, 'eps': 0.0001} VAL N20=0.18652
+2026-11-12T17:55:12Z pog_dense full transition {'a': (1.0,), 'gamma': 1.0, 'eps': 0.01} VAL N20=0.18210
+2026-11-12T17:55:15Z pog_dense full transition {'a': (1.0,), 'gamma': 2.0, 'eps': 0.0001} VAL N20=0.17353
+2026-11-12T17:55:18Z pog_dense full transition {'a': (1.0,), 'gamma': 2.0, 'eps': 0.01} VAL N20=0.14456
+2026-11-12T17:55:25Z pog_dense full transition TEST clean {'recall20': 0.3010636380025239, 'ndcg20': 0.19694467398994986}
+2026-11-12T17:55:28Z pog_dense full label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.0001}, 'itemknn': {'k': 1000, 'shrink': 100}, 'w': 0.0} VAL N20=0.22390
+2026-11-12T17:55:31Z pog_dense full label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.0001}, 'itemknn': {'k': 1000, 'shrink': 100}, 'w': 0.1} VAL N20=0.23292
+2026-11-12T17:55:35Z pog_dense full label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.0001}, 'itemknn': {'k': 1000, 'shrink': 100}, 'w': 0.2} VAL N20=0.23539
+2026-11-12T17:55:39Z pog_dense full label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.0001}, 'itemknn': {'k': 1000, 'shrink': 100}, 'w': 0.3} VAL N20=0.23946
+2026-11-12T17:55:42Z pog_dense full label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.0001}, 'itemknn': {'k': 1000, 'shrink': 100}, 'w': 0.5} VAL N20=0.24992
+2026-11-12T17:55:46Z pog_dense full label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.0001}, 'itemknn': {'k': 1000, 'shrink': 100}, 'w': 0.7} VAL N20=0.25657
+2026-11-12T17:55:49Z pog_dense full label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.0001}, 'itemknn': {'k': 1000, 'shrink': 100}, 'w': 0.9} VAL N20=0.23390
+2026-11-12T17:55:53Z pog_dense full label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.0001}, 'itemknn': {'k': 1000, 'shrink': 100}, 'w': 1.0} VAL N20=0.19540
+2026-11-12T17:56:00Z pog_dense full label_knn TEST clean {'recall20': 0.34198665945556156, 'ndcg20': 0.2490202370993495}
+2026-11-12T17:56:04Z pog_dense full label_knn_content {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.0001}, 'itemknn': {'k': 1000, 'shrink': 100}, 'w': 0.7, 'v': 0.0} VAL N20=0.25657
+2026-11-12T17:56:08Z pog_dense full label_knn_content {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.0001}, 'itemknn': {'k': 1000, 'shrink': 100}, 'w': 0.7, 'v': 0.05} VAL N20=0.25588
+2026-11-12T17:56:12Z pog_dense full label_knn_content {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.0001}, 'itemknn': {'k': 1000, 'shrink': 100}, 'w': 0.7, 'v': 0.1} VAL N20=0.25504
+2026-11-12T17:56:16Z pog_dense full label_knn_content {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.0001}, 'itemknn': {'k': 1000, 'shrink': 100}, 'w': 0.7, 'v': 0.2} VAL N20=0.25266
+2026-11-12T17:56:20Z pog_dense full label_knn_content {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.0001}, 'itemknn': {'k': 1000, 'shrink': 100}, 'w': 0.7, 'v': 0.3} VAL N20=0.25057
+2026-11-12T17:56:24Z pog_dense full label_knn_content {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.0001}, 'itemknn': {'k': 1000, 'shrink': 100}, 'w': 0.7, 'v': 0.5} VAL N20=0.24266
+2026-11-12T17:56:31Z pog_dense full label_knn_content TEST clean {'recall20': 0.34198665945556156, 'ndcg20': 0.2490202370993495}
+2026-11-12T17:56:31Z pog_dense full baselines COMPLETE

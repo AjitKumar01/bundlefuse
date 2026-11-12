@@ -1,0 +1,28 @@
+{
+  "weights": {
+    "simp": 0.25,
+    "cooc": 0.5,
+    "ppmi": 1.5,
+    "csvd": 0.25,
+    "tfidf": 1.0,
+    "bridge": 1.5,
+    "pretrain": 0.25
+  },
+  "prior_keys": [
+    "tfidf",
+    "bridge",
+    "pretrain"
+  ],
+  "backoff": [
+    0.05,
+    1.4480500221252441
+  ],
+  "higher_order": [
+    0.0,
+    0.0
+  ],
+  "filtered_test": [
+    0.5179190751445087,
+    0.35945997492665555
+  ]
+}

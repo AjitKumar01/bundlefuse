@@ -1,0 +1,62 @@
+{
+ "electronic": {
+  "published": {
+   "#U": 888,
+   "#B": 1730,
+   "#I": 3499,
+   "#B-I": 4262,
+   "#U-I": 4461,
+   "iui_edges": 22960,
+   "test_targets_linked_to_a_seed": 1.0
+  },
+  "clean": {
+   "#U": 754,
+   "#B": 1730,
+   "#I": 3499,
+   "#B-I": 4262,
+   "#U-I": 3461,
+   "iui_edges": 16598,
+   "test_targets_linked_to_a_seed": 0.38
+  }
+ },
+ "food": {
+  "published": {
+   "#U": 879,
+   "#B": 1761,
+   "#I": 3767,
+   "#B-I": 4364,
+   "#U-I": 4619,
+   "iui_edges": 25754,
+   "test_targets_linked_to_a_seed": 1.0
+  },
+  "clean": {
+   "#U": 739,
+   "#B": 1761,
+   "#I": 3767,
+   "#B-I": 4364,
+   "#U-I": 3529,
+   "iui_edges": 18520,
+   "test_targets_linked_to_a_seed": 0.36231884057971014
+  }
+ },
+ "clothing": {
+  "published": {
+   "#U": 965,
+   "#B": 1849,
+   "#I": 4487,
+   "#B-I": 4280,
+   "#U-I": 4653,
+   "iui_edges": 22730,
+   "test_targets_linked_to_a_seed": 1.0
+  },
+  "clean": {
+   "#U": 830,
+   "#B": 1849,
+   "#I": 4487,
+   "#B-I": 4280,
+   "#U-I": 3560,
+   "iui_edges": 15718,
+   "test_targets_linked_to_a_seed": 0.2620320855614973
+  }
+ }
+}

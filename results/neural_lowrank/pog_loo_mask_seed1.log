@@ -1,0 +1,70 @@
+2026-11-08T08:39:01Z pog: loading supplied splits and released item features
+2026-11-08T08:39:06Z pog: reusing retained attribute projection (48676, 128)
+2026-11-08T08:39:07Z pog loo_mask seed=1 {'trainable_parameters': 45553, 'group_parameters': 2304, 'pair_function_parameters': 81, 'observed_directed_pairs': 138274, 'frozen_buffer_bytes': 52671816} train_rows=14000 start_epoch=1
+2026-11-08T08:40:46Z pog loo_mask seed=1 epoch=1 loss=9.90850
+2026-11-08T08:42:39Z pog loo_mask seed=1 epoch=2 loss=9.50746 VAL R20=0.031833 N20=0.021241 best_epoch=2 patience=0/6
+2026-11-08T08:44:30Z pog loo_mask seed=1 epoch=3 loss=9.43597
+2026-11-08T08:46:17Z pog loo_mask seed=1 epoch=4 loss=9.39103 VAL R20=0.037750 N20=0.024876 best_epoch=4 patience=0/6
+2026-11-08T08:48:05Z pog loo_mask seed=1 epoch=5 loss=9.35687
+2026-11-08T08:49:56Z pog loo_mask seed=1 epoch=6 loss=9.33052 VAL R20=0.037500 N20=0.025417 best_epoch=6 patience=0/6
+2026-11-08T08:51:41Z pog loo_mask seed=1 epoch=7 loss=9.30572
+2026-11-08T08:53:33Z pog loo_mask seed=1 epoch=8 loss=9.29080 VAL R20=0.040417 N20=0.025818 best_epoch=8 patience=0/6
+2026-11-08T08:55:21Z pog loo_mask seed=1 epoch=9 loss=9.27038
+2026-11-08T08:57:14Z pog loo_mask seed=1 epoch=10 loss=9.26053 VAL R20=0.044167 N20=0.028499 best_epoch=10 patience=0/6
+2026-11-08T08:59:00Z pog loo_mask seed=1 epoch=11 loss=9.24912
+2026-11-08T09:00:54Z pog loo_mask seed=1 epoch=12 loss=9.23500 VAL R20=0.044417 N20=0.029060 best_epoch=12 patience=0/6
+2026-11-08T09:02:47Z pog loo_mask seed=1 epoch=13 loss=9.22828
+2026-11-08T09:04:41Z pog loo_mask seed=1 epoch=14 loss=9.21132 VAL R20=0.044167 N20=0.028176 best_epoch=12 patience=1/6
+2026-11-08T09:06:34Z pog loo_mask seed=1 epoch=15 loss=9.21781
+2026-11-08T09:08:29Z pog loo_mask seed=1 epoch=16 loss=9.20691 VAL R20=0.051167 N20=0.031278 best_epoch=16 patience=0/6
+2026-11-08T09:10:17Z pog loo_mask seed=1 epoch=17 loss=9.19550
+2026-11-08T09:12:12Z pog loo_mask seed=1 epoch=18 loss=9.17810 VAL R20=0.048083 N20=0.030539 best_epoch=16 patience=1/6
+2026-11-08T09:14:05Z pog loo_mask seed=1 epoch=19 loss=9.17644
+2026-11-08T09:16:00Z pog loo_mask seed=1 epoch=20 loss=9.17893 VAL R20=0.045333 N20=0.029848 best_epoch=16 patience=2/6
+2026-11-08T09:17:32Z pog loo_mask seed=1 epoch=21 loss=9.16748
+2026-11-08T09:18:45Z pog loo_mask seed=1 epoch=22 loss=9.16097 VAL R20=0.049667 N20=0.030869 best_epoch=16 patience=3/6
+2026-11-08T09:19:54Z pog loo_mask seed=1 epoch=23 loss=9.16121
+2026-11-08T09:21:09Z pog loo_mask seed=1 epoch=24 loss=9.14586 VAL R20=0.048833 N20=0.031304 best_epoch=24 patience=0/6
+2026-11-08T09:22:22Z pog loo_mask seed=1 epoch=25 loss=9.15416
+2026-11-08T09:23:38Z pog loo_mask seed=1 epoch=26 loss=9.14881 VAL R20=0.048250 N20=0.031945 best_epoch=26 patience=0/6
+2026-11-08T09:24:52Z pog loo_mask seed=1 epoch=27 loss=9.14960
+2026-11-08T09:26:09Z pog loo_mask seed=1 epoch=28 loss=9.14349 VAL R20=0.051750 N20=0.032659 best_epoch=28 patience=0/6
+2026-11-08T09:27:20Z pog loo_mask seed=1 epoch=29 loss=9.13466
+2026-11-08T09:28:30Z pog loo_mask seed=1 epoch=30 loss=9.11579 VAL R20=0.050833 N20=0.032174 best_epoch=28 patience=1/6
+2026-11-08T09:30:20Z pog loo_mask seed=1 epoch=31 loss=9.12429
+2026-11-08T09:32:07Z pog loo_mask seed=1 epoch=32 loss=9.11292 VAL R20=0.050167 N20=0.033129 best_epoch=32 patience=0/6
+2026-11-08T09:33:47Z pog loo_mask seed=1 epoch=33 loss=9.11462
+2026-11-08T09:35:29Z pog loo_mask seed=1 epoch=34 loss=9.10946 VAL R20=0.050500 N20=0.032153 best_epoch=32 patience=1/6
+2026-11-08T09:37:09Z pog loo_mask seed=1 epoch=35 loss=9.09693
+2026-11-08T09:38:49Z pog loo_mask seed=1 epoch=36 loss=9.10682 VAL R20=0.050583 N20=0.031727 best_epoch=32 patience=2/6
+2026-11-08T09:40:25Z pog loo_mask seed=1 epoch=37 loss=9.09547
+2026-11-08T09:42:06Z pog loo_mask seed=1 epoch=38 loss=9.10453 VAL R20=0.049583 N20=0.031895 best_epoch=32 patience=3/6
+2026-11-08T09:43:45Z pog loo_mask seed=1 epoch=39 loss=9.08378
+2026-11-08T09:45:25Z pog loo_mask seed=1 epoch=40 loss=9.09463 VAL R20=0.048417 N20=0.032610 best_epoch=32 patience=4/6
+2026-11-08T09:46:50Z pog loo_mask seed=1 epoch=41 loss=9.08066
+2026-11-08T09:48:21Z pog loo_mask seed=1 epoch=42 loss=9.07386 VAL R20=0.051667 N20=0.032511 best_epoch=32 patience=5/6
+2026-11-08T09:49:47Z pog loo_mask seed=1 epoch=43 loss=9.06816
+2026-11-08T09:51:22Z pog loo_mask seed=1 epoch=44 loss=9.06975 VAL R20=0.055333 N20=0.033819 best_epoch=44 patience=0/6
+2026-11-08T09:52:51Z pog loo_mask seed=1 epoch=45 loss=9.07651
+2026-11-08T09:54:23Z pog loo_mask seed=1 epoch=46 loss=9.07538 VAL R20=0.052000 N20=0.033337 best_epoch=44 patience=1/6
+2026-11-08T09:55:57Z pog loo_mask seed=1 epoch=47 loss=9.06526
+2026-11-08T09:57:36Z pog loo_mask seed=1 epoch=48 loss=9.05769 VAL R20=0.054500 N20=0.033787 best_epoch=44 patience=2/6
+2026-11-08T09:59:14Z pog loo_mask seed=1 epoch=49 loss=9.07197
+2026-11-08T10:00:53Z pog loo_mask seed=1 epoch=50 loss=9.05443 VAL R20=0.054000 N20=0.033874 best_epoch=50 patience=0/6
+2026-11-08T10:02:58Z pog loo_mask seed=1 epoch=51 loss=9.04018
+2026-11-08T10:05:20Z pog loo_mask seed=1 epoch=52 loss=9.06019 VAL R20=0.049583 N20=0.033090 best_epoch=50 patience=1/6
+2026-11-08T10:07:59Z pog loo_mask seed=1 epoch=53 loss=9.04997
+2026-11-08T10:10:33Z pog loo_mask seed=1 epoch=54 loss=9.04453 VAL R20=0.053500 N20=0.034379 best_epoch=54 patience=0/6
+2026-11-08T10:12:42Z pog loo_mask seed=1 epoch=55 loss=9.03864
+2026-11-08T10:15:03Z pog loo_mask seed=1 epoch=56 loss=9.03539 VAL R20=0.050083 N20=0.032517 best_epoch=54 patience=1/6
+2026-11-08T10:17:18Z pog loo_mask seed=1 epoch=57 loss=9.04570
+2026-11-08T10:19:41Z pog loo_mask seed=1 epoch=58 loss=9.04027 VAL R20=0.052083 N20=0.033183 best_epoch=54 patience=2/6
+2026-11-08T10:22:21Z pog loo_mask seed=1 epoch=59 loss=9.03305
+2026-11-08T10:25:10Z pog loo_mask seed=1 epoch=60 loss=9.03518 VAL R20=0.050583 N20=0.031587 best_epoch=54 patience=3/6
+2026-11-08T10:27:46Z pog loo_mask seed=1 epoch=61 loss=9.02246
+2026-11-08T10:30:08Z pog loo_mask seed=1 epoch=62 loss=9.03657 VAL R20=0.051417 N20=0.032465 best_epoch=54 patience=4/6
+2026-11-08T10:32:26Z pog loo_mask seed=1 epoch=63 loss=9.02105
+2026-11-08T10:35:08Z pog loo_mask seed=1 epoch=64 loss=9.01322 VAL R20=0.051167 N20=0.032215 best_epoch=54 patience=5/6
+2026-11-08T10:37:56Z pog loo_mask seed=1 epoch=65 loss=9.02030
+2026-11-08T10:40:55Z pog loo_mask seed=1 epoch=66 loss=9.01616 VAL R20=0.053750 N20=0.033968 best_epoch=54 patience=6/6
+2026-11-08T10:41:01Z pog loo_mask_seed1 COMPLETE

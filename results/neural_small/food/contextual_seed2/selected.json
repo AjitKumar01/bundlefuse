@@ -1,0 +1,39 @@
+{
+  "variant": "contextual",
+  "seed": 2,
+  "checkpoint": "checkpoints/neural_small/food/contextual_seed2/epoch_0040.pt",
+  "best_epoch": 40,
+  "validation": {
+    "recall20": 0.4559659090909091,
+    "ndcg20": 0.3413206849349386,
+    "seconds": 1.206732374994317,
+    "item_encoding_seconds": 0.002491041988832876,
+    "full_catalogue": true,
+    "catalogue_size": 3767
+  },
+  "parameters": {
+    "total": 372369,
+    "item_identity": 241152,
+    "other": 131217,
+    "frozen_buffer_bytes": 1974432,
+    "config": {
+      "variant": "contextual",
+      "dim": 64,
+      "layers": 2,
+      "heads": 4,
+      "dropout": 0.1,
+      "identity_dropout": 0.1
+    }
+  },
+  "model_config": {
+    "variant": "contextual",
+    "dim": 64,
+    "layers": 2,
+    "heads": 4,
+    "dropout": 0.1,
+    "identity_dropout": 0.1
+  },
+  "elapsed_seconds": 218.81360766699072,
+  "epochs_run": 52,
+  "selection": "validation NDCG@20 only"
+}

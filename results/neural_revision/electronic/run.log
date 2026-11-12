@@ -1,0 +1,404 @@
+2026-11-07T19:05:48Z electronic: revised pilot train=1211 val=173 test=346
+2026-11-07T19:05:51Z attributes seed=0 parameters={'trainable_parameters': 237794, 'pair_parameters': 0, 'joint_parameters': 0, 'category_parameters': 229441, 'frozen_buffer_bytes': 2040567} start_epoch=1
+2026-11-07T19:05:51Z attributes seed=0 epoch=1 loss=7.51979
+2026-11-07T19:05:51Z attributes seed=0 epoch=2 loss=6.87935 VAL R20=0.215800 N20=0.117193 best_epoch=2 patience=0/6
+2026-11-07T19:05:51Z attributes seed=0 epoch=3 loss=6.57159
+2026-11-07T19:05:52Z attributes seed=0 epoch=4 loss=6.36381 VAL R20=0.228324 N20=0.117275 best_epoch=4 patience=0/6
+2026-11-07T19:05:52Z attributes seed=0 epoch=5 loss=6.18502
+2026-11-07T19:05:52Z attributes seed=0 epoch=6 loss=6.04576 VAL R20=0.208092 N20=0.109584 best_epoch=4 patience=1/6
+2026-11-07T19:05:52Z attributes seed=0 epoch=7 loss=5.91841
+2026-11-07T19:05:53Z attributes seed=0 epoch=8 loss=5.75471 VAL R20=0.216763 N20=0.107679 best_epoch=4 patience=2/6
+2026-11-07T19:05:53Z attributes seed=0 epoch=9 loss=5.71071
+2026-11-07T19:05:53Z attributes seed=0 epoch=10 loss=5.62335 VAL R20=0.219653 N20=0.107793 best_epoch=4 patience=3/6
+2026-11-07T19:05:53Z attributes seed=0 epoch=11 loss=5.47467
+2026-11-07T19:05:54Z attributes seed=0 epoch=12 loss=5.37280 VAL R20=0.223507 N20=0.108318 best_epoch=4 patience=4/6
+2026-11-07T19:05:54Z attributes seed=0 epoch=13 loss=5.30681
+2026-11-07T19:05:54Z attributes seed=0 epoch=14 loss=5.28256 VAL R20=0.218690 N20=0.106322 best_epoch=4 patience=5/6
+2026-11-07T19:05:54Z attributes seed=0 epoch=15 loss=5.17916
+2026-11-07T19:05:55Z attributes seed=0 epoch=16 loss=5.10921 VAL R20=0.208092 N20=0.098869 best_epoch=4 patience=6/6
+2026-11-07T19:05:55Z pair_no_cold seed=0 parameters={'trainable_parameters': 251582, 'pair_parameters': 13788, 'joint_parameters': 0, 'category_parameters': 229441, 'frozen_buffer_bytes': 2040567} start_epoch=1
+2026-11-07T19:05:55Z pair_no_cold seed=0 epoch=1 loss=7.54471
+2026-11-07T19:05:56Z pair_no_cold seed=0 epoch=2 loss=6.86098 VAL R20=0.235067 N20=0.131285 best_epoch=2 patience=0/6
+2026-11-07T19:05:56Z pair_no_cold seed=0 epoch=3 loss=6.46177
+2026-11-07T19:05:57Z pair_no_cold seed=0 epoch=4 loss=6.10350 VAL R20=0.261561 N20=0.140666 best_epoch=4 patience=0/6
+2026-11-07T19:05:57Z pair_no_cold seed=0 epoch=5 loss=5.79681
+2026-11-07T19:05:58Z pair_no_cold seed=0 epoch=6 loss=5.51253 VAL R20=0.248555 N20=0.148183 best_epoch=6 patience=0/6
+2026-11-07T19:05:58Z pair_no_cold seed=0 epoch=7 loss=5.21483
+2026-11-07T19:05:59Z pair_no_cold seed=0 epoch=8 loss=4.91063 VAL R20=0.258189 N20=0.163303 best_epoch=8 patience=0/6
+2026-11-07T19:05:59Z pair_no_cold seed=0 epoch=9 loss=4.71857
+2026-11-07T19:06:00Z pair_no_cold seed=0 epoch=10 loss=4.48924 VAL R20=0.256936 N20=0.165961 best_epoch=10 patience=0/6
+2026-11-07T19:06:00Z pair_no_cold seed=0 epoch=11 loss=4.17554
+2026-11-07T19:06:01Z pair_no_cold seed=0 epoch=12 loss=3.95488 VAL R20=0.280829 N20=0.177073 best_epoch=12 patience=0/6
+2026-11-07T19:06:01Z pair_no_cold seed=0 epoch=13 loss=3.74932
+2026-11-07T19:06:01Z pair_no_cold seed=0 epoch=14 loss=3.63388 VAL R20=0.289499 N20=0.183748 best_epoch=14 patience=0/6
+2026-11-07T19:06:02Z pair_no_cold seed=0 epoch=15 loss=3.40359
+2026-11-07T19:06:02Z pair_no_cold seed=0 epoch=16 loss=3.21708 VAL R20=0.269461 N20=0.176626 best_epoch=14 patience=1/6
+2026-11-07T19:06:03Z pair_no_cold seed=0 epoch=17 loss=3.06797
+2026-11-07T19:06:03Z pair_no_cold seed=0 epoch=18 loss=2.92868 VAL R20=0.293353 N20=0.189125 best_epoch=18 patience=0/6
+2026-11-07T19:06:04Z pair_no_cold seed=0 epoch=19 loss=2.71596
+2026-11-07T19:06:04Z pair_no_cold seed=0 epoch=20 loss=2.64812 VAL R20=0.299807 N20=0.191130 best_epoch=20 patience=0/6
+2026-11-07T19:06:05Z pair_no_cold seed=0 epoch=21 loss=2.45102
+2026-11-07T19:06:05Z pair_no_cold seed=0 epoch=22 loss=2.33332 VAL R20=0.315222 N20=0.199504 best_epoch=22 patience=0/6
+2026-11-07T19:06:06Z pair_no_cold seed=0 epoch=23 loss=2.30840
+2026-11-07T19:06:06Z pair_no_cold seed=0 epoch=24 loss=2.13862 VAL R20=0.316378 N20=0.200912 best_epoch=24 patience=0/6
+2026-11-07T19:06:07Z pair_no_cold seed=0 epoch=25 loss=2.07789
+2026-11-07T19:06:07Z pair_no_cold seed=0 epoch=26 loss=1.93718 VAL R20=0.316378 N20=0.205733 best_epoch=26 patience=0/6
+2026-11-07T19:06:08Z pair_no_cold seed=0 epoch=27 loss=1.86146
+2026-11-07T19:06:08Z pair_no_cold seed=0 epoch=28 loss=1.82651 VAL R20=0.314451 N20=0.207054 best_epoch=28 patience=0/6
+2026-11-07T19:06:09Z pair_no_cold seed=0 epoch=29 loss=1.69446
+2026-11-07T19:06:09Z pair_no_cold seed=0 epoch=30 loss=1.66350 VAL R20=0.304335 N20=0.206017 best_epoch=28 patience=1/6
+2026-11-07T19:06:10Z pair_no_cold seed=0 epoch=31 loss=1.56559
+2026-11-07T19:06:10Z pair_no_cold seed=0 epoch=32 loss=1.53586 VAL R20=0.325723 N20=0.207536 best_epoch=32 patience=0/6
+2026-11-07T19:06:10Z pair_no_cold seed=0 epoch=33 loss=1.51768
+2026-11-07T19:06:11Z pair_no_cold seed=0 epoch=34 loss=1.41116 VAL R20=0.332466 N20=0.214711 best_epoch=34 patience=0/6
+2026-11-07T19:06:12Z pair_no_cold seed=0 epoch=35 loss=1.33047
+2026-11-07T19:06:12Z pair_no_cold seed=0 epoch=36 loss=1.25332 VAL R20=0.333237 N20=0.213835 best_epoch=34 patience=1/6
+2026-11-07T19:06:13Z pair_no_cold seed=0 epoch=37 loss=1.31817
+2026-11-07T19:06:13Z pair_no_cold seed=0 epoch=38 loss=1.13769 VAL R20=0.335549 N20=0.223753 best_epoch=38 patience=0/6
+2026-11-07T19:06:14Z pair_no_cold seed=0 epoch=39 loss=1.19713
+2026-11-07T19:06:14Z pair_no_cold seed=0 epoch=40 loss=1.12168 VAL R20=0.336513 N20=0.223871 best_epoch=40 patience=0/6
+2026-11-07T19:06:14Z pair_no_cold seed=0 epoch=41 loss=1.06326
+2026-11-07T19:06:15Z pair_no_cold seed=0 epoch=42 loss=1.03683 VAL R20=0.334586 N20=0.225348 best_epoch=42 patience=0/6
+2026-11-07T19:06:15Z pair_no_cold seed=0 epoch=43 loss=1.03119
+2026-11-07T19:06:16Z pair_no_cold seed=0 epoch=44 loss=1.01356 VAL R20=0.321098 N20=0.220841 best_epoch=42 patience=1/6
+2026-11-07T19:06:16Z pair_no_cold seed=0 epoch=45 loss=0.96536
+2026-11-07T19:06:17Z pair_no_cold seed=0 epoch=46 loss=0.98041 VAL R20=0.315318 N20=0.214389 best_epoch=42 patience=2/6
+2026-11-07T19:06:17Z pair_no_cold seed=0 epoch=47 loss=0.91354
+2026-11-07T19:06:18Z pair_no_cold seed=0 epoch=48 loss=0.84810 VAL R20=0.324952 N20=0.219044 best_epoch=42 patience=3/6
+2026-11-07T19:06:18Z pair_no_cold seed=0 epoch=49 loss=0.85643
+2026-11-07T19:06:19Z pair_no_cold seed=0 epoch=50 loss=0.85438 VAL R20=0.335549 N20=0.227266 best_epoch=50 patience=0/6
+2026-11-07T19:06:19Z pair_no_cold seed=0 epoch=51 loss=0.79708
+2026-11-07T19:06:20Z pair_no_cold seed=0 epoch=52 loss=0.73927 VAL R20=0.335549 N20=0.229467 best_epoch=52 patience=0/6
+2026-11-07T19:06:20Z pair_no_cold seed=0 epoch=53 loss=0.76912
+2026-11-07T19:06:21Z pair_no_cold seed=0 epoch=54 loss=0.72947 VAL R20=0.328805 N20=0.224378 best_epoch=52 patience=1/6
+2026-11-07T19:06:21Z pair_no_cold seed=0 epoch=55 loss=0.73016
+2026-11-07T19:06:21Z pair_no_cold seed=0 epoch=56 loss=0.74890 VAL R20=0.335549 N20=0.227451 best_epoch=52 patience=2/6
+2026-11-07T19:06:22Z pair_no_cold seed=0 epoch=57 loss=0.70195
+2026-11-07T19:06:22Z pair_no_cold seed=0 epoch=58 loss=0.76121 VAL R20=0.330732 N20=0.222591 best_epoch=52 patience=3/6
+2026-11-07T19:06:23Z pair_no_cold seed=0 epoch=59 loss=0.69460
+2026-11-07T19:06:23Z pair_no_cold seed=0 epoch=60 loss=0.66856 VAL R20=0.336513 N20=0.227774 best_epoch=52 patience=4/6
+2026-11-07T19:06:24Z pair_no_cold seed=0 epoch=61 loss=0.63197
+2026-11-07T19:06:24Z pair_no_cold seed=0 epoch=62 loss=0.65986 VAL R20=0.330732 N20=0.227344 best_epoch=52 patience=5/6
+2026-11-07T19:06:25Z pair_no_cold seed=0 epoch=63 loss=0.62269
+2026-11-07T19:06:25Z pair_no_cold seed=0 epoch=64 loss=0.62899 VAL R20=0.330732 N20=0.224251 best_epoch=52 patience=6/6
+2026-11-07T19:06:25Z pair_cold seed=0 parameters={'trainable_parameters': 251582, 'pair_parameters': 13788, 'joint_parameters': 0, 'category_parameters': 229441, 'frozen_buffer_bytes': 2040567} start_epoch=1
+2026-11-07T19:06:26Z pair_cold seed=0 epoch=1 loss=7.52820
+2026-11-07T19:06:26Z pair_cold seed=0 epoch=2 loss=6.88192 VAL R20=0.223507 N20=0.122248 best_epoch=2 patience=0/6
+2026-11-07T19:06:27Z pair_cold seed=0 epoch=3 loss=6.56281
+2026-11-07T19:06:27Z pair_cold seed=0 epoch=4 loss=6.30806 VAL R20=0.256262 N20=0.131978 best_epoch=4 patience=0/6
+2026-11-07T19:06:28Z pair_cold seed=0 epoch=5 loss=6.09097
+2026-11-07T19:06:28Z pair_cold seed=0 epoch=6 loss=5.90835 VAL R20=0.236994 N20=0.141291 best_epoch=6 patience=0/6
+2026-11-07T19:06:29Z pair_cold seed=0 epoch=7 loss=5.72475
+2026-11-07T19:06:29Z pair_cold seed=0 epoch=8 loss=5.49679 VAL R20=0.256262 N20=0.152479 best_epoch=8 patience=0/6
+2026-11-07T19:06:30Z pair_cold seed=0 epoch=9 loss=5.40917
+2026-11-07T19:06:30Z pair_cold seed=0 epoch=10 loss=5.23191 VAL R20=0.241811 N20=0.158685 best_epoch=10 patience=0/6
+2026-11-07T19:06:30Z pair_cold seed=0 epoch=11 loss=5.01271
+2026-11-07T19:06:31Z pair_cold seed=0 epoch=12 loss=4.89066 VAL R20=0.260116 N20=0.161999 best_epoch=12 patience=0/6
+2026-11-07T19:06:31Z pair_cold seed=0 epoch=13 loss=4.73747
+2026-11-07T19:06:32Z pair_cold seed=0 epoch=14 loss=4.65997 VAL R20=0.261079 N20=0.165560 best_epoch=14 patience=0/6
+2026-11-07T19:06:32Z pair_cold seed=0 epoch=15 loss=4.52669
+2026-11-07T19:06:33Z pair_cold seed=0 epoch=16 loss=4.38259 VAL R20=0.247592 N20=0.153272 best_epoch=14 patience=1/6
+2026-11-07T19:06:33Z pair_cold seed=0 epoch=17 loss=4.30891
+2026-11-07T19:06:34Z pair_cold seed=0 epoch=18 loss=4.22966 VAL R20=0.264451 N20=0.164086 best_epoch=14 patience=2/6
+2026-11-07T19:06:34Z pair_cold seed=0 epoch=19 loss=4.07892
+2026-11-07T19:06:35Z pair_cold seed=0 epoch=20 loss=3.99849 VAL R20=0.270231 N20=0.170457 best_epoch=20 patience=0/6
+2026-11-07T19:06:35Z pair_cold seed=0 epoch=21 loss=3.84462
+2026-11-07T19:06:36Z pair_cold seed=0 epoch=22 loss=3.76178 VAL R20=0.268786 N20=0.170980 best_epoch=22 patience=0/6
+2026-11-07T19:06:36Z pair_cold seed=0 epoch=23 loss=3.77622
+2026-11-07T19:06:37Z pair_cold seed=0 epoch=24 loss=3.59461 VAL R20=0.282274 N20=0.179759 best_epoch=24 patience=0/6
+2026-11-07T19:06:37Z pair_cold seed=0 epoch=25 loss=3.57927
+2026-11-07T19:06:38Z pair_cold seed=0 epoch=26 loss=3.49631 VAL R20=0.286127 N20=0.185844 best_epoch=26 patience=0/6
+2026-11-07T19:06:38Z pair_cold seed=0 epoch=27 loss=3.40485
+2026-11-07T19:06:39Z pair_cold seed=0 epoch=28 loss=3.38395 VAL R20=0.268979 N20=0.181214 best_epoch=26 patience=1/6
+2026-11-07T19:06:39Z pair_cold seed=0 epoch=29 loss=3.29608
+2026-11-07T19:06:39Z pair_cold seed=0 epoch=30 loss=3.25102 VAL R20=0.270906 N20=0.187567 best_epoch=30 patience=0/6
+2026-11-07T19:06:40Z pair_cold seed=0 epoch=31 loss=3.20011
+2026-11-07T19:06:40Z pair_cold seed=0 epoch=32 loss=3.20882 VAL R20=0.284393 N20=0.187404 best_epoch=30 patience=1/6
+2026-11-07T19:06:41Z pair_cold seed=0 epoch=33 loss=3.14908
+2026-11-07T19:06:41Z pair_cold seed=0 epoch=34 loss=3.07850 VAL R20=0.278613 N20=0.184607 best_epoch=30 patience=2/6
+2026-11-07T19:06:42Z pair_cold seed=0 epoch=35 loss=3.00658
+2026-11-07T19:06:42Z pair_cold seed=0 epoch=36 loss=2.91211 VAL R20=0.282466 N20=0.186183 best_epoch=30 patience=3/6
+2026-11-07T19:06:43Z pair_cold seed=0 epoch=37 loss=2.94078
+2026-11-07T19:06:43Z pair_cold seed=0 epoch=38 loss=2.80002 VAL R20=0.304817 N20=0.195489 best_epoch=38 patience=0/6
+2026-11-07T19:06:44Z pair_cold seed=0 epoch=39 loss=2.89451
+2026-11-07T19:06:44Z pair_cold seed=0 epoch=40 loss=2.82347 VAL R20=0.306744 N20=0.199394 best_epoch=40 patience=0/6
+2026-11-07T19:06:44Z pair_cold seed=0 epoch=41 loss=2.75264
+2026-11-07T19:06:45Z pair_cold seed=0 epoch=42 loss=2.67805 VAL R20=0.313969 N20=0.198843 best_epoch=40 patience=1/6
+2026-11-07T19:06:45Z pair_cold seed=0 epoch=43 loss=2.74301
+2026-11-07T19:06:46Z pair_cold seed=0 epoch=44 loss=2.70253 VAL R20=0.296628 N20=0.195556 best_epoch=40 patience=2/6
+2026-11-07T19:06:46Z pair_cold seed=0 epoch=45 loss=2.62385
+2026-11-07T19:06:47Z pair_cold seed=0 epoch=46 loss=2.58495 VAL R20=0.302408 N20=0.196862 best_epoch=40 patience=3/6
+2026-11-07T19:06:47Z pair_cold seed=0 epoch=47 loss=2.51338
+2026-11-07T19:06:48Z pair_cold seed=0 epoch=48 loss=2.54593 VAL R20=0.294701 N20=0.193581 best_epoch=40 patience=4/6
+2026-11-07T19:06:48Z pair_cold seed=0 epoch=49 loss=2.52285
+2026-11-07T19:06:49Z pair_cold seed=0 epoch=50 loss=2.60952 VAL R20=0.313969 N20=0.200361 best_epoch=50 patience=0/6
+2026-11-07T19:06:49Z pair_cold seed=0 epoch=51 loss=2.38414
+2026-11-07T19:06:49Z pair_cold seed=0 epoch=52 loss=2.44932 VAL R20=0.306262 N20=0.200094 best_epoch=50 patience=1/6
+2026-11-07T19:06:50Z pair_cold seed=0 epoch=53 loss=2.32902
+2026-11-07T19:06:50Z pair_cold seed=0 epoch=54 loss=2.38842 VAL R20=0.314933 N20=0.200412 best_epoch=54 patience=0/6
+2026-11-07T19:06:51Z pair_cold seed=0 epoch=55 loss=2.34246
+2026-11-07T19:06:51Z pair_cold seed=0 epoch=56 loss=2.42673 VAL R20=0.320135 N20=0.210643 best_epoch=56 patience=0/6
+2026-11-07T19:06:52Z pair_cold seed=0 epoch=57 loss=2.37280
+2026-11-07T19:06:52Z pair_cold seed=0 epoch=58 loss=2.36704 VAL R20=0.317245 N20=0.207178 best_epoch=56 patience=1/6
+2026-11-07T19:06:53Z pair_cold seed=0 epoch=59 loss=2.34236
+2026-11-07T19:06:53Z pair_cold seed=0 epoch=60 loss=2.33592 VAL R20=0.325915 N20=0.206727 best_epoch=56 patience=2/6
+2026-11-07T19:06:53Z pair_cold seed=0 epoch=61 loss=2.30071
+2026-11-07T19:06:54Z pair_cold seed=0 epoch=62 loss=2.27322 VAL R20=0.322062 N20=0.212306 best_epoch=62 patience=0/6
+2026-11-07T19:06:54Z pair_cold seed=0 epoch=63 loss=2.19246
+2026-11-07T19:06:55Z pair_cold seed=0 epoch=64 loss=2.35157 VAL R20=0.325915 N20=0.212913 best_epoch=64 patience=0/6
+2026-11-07T19:06:55Z pair_cold seed=0 epoch=65 loss=2.20193
+2026-11-07T19:06:56Z pair_cold seed=0 epoch=66 loss=2.18617 VAL R20=0.311464 N20=0.203485 best_epoch=64 patience=1/6
+2026-11-07T19:06:56Z pair_cold seed=0 epoch=67 loss=2.17875
+2026-11-07T19:06:57Z pair_cold seed=0 epoch=68 loss=2.12242 VAL R20=0.324952 N20=0.212100 best_epoch=64 patience=2/6
+2026-11-07T19:06:57Z pair_cold seed=0 epoch=69 loss=2.15148
+2026-11-07T19:06:57Z pair_cold seed=0 epoch=70 loss=2.16049 VAL R20=0.327842 N20=0.206405 best_epoch=64 patience=3/6
+2026-11-07T19:06:58Z pair_cold seed=0 epoch=71 loss=2.18257
+2026-11-07T19:06:58Z pair_cold seed=0 epoch=72 loss=2.12609 VAL R20=0.313391 N20=0.209857 best_epoch=64 patience=4/6
+2026-11-07T19:06:59Z pair_cold seed=0 epoch=73 loss=2.20119
+2026-11-07T19:06:59Z pair_cold seed=0 epoch=74 loss=2.11535 VAL R20=0.333622 N20=0.218229 best_epoch=74 patience=0/6
+2026-11-07T19:07:00Z pair_cold seed=0 epoch=75 loss=2.14283
+2026-11-07T19:07:00Z pair_cold seed=0 epoch=76 loss=2.16976 VAL R20=0.324952 N20=0.219899 best_epoch=76 patience=0/6
+2026-11-07T19:07:01Z pair_cold seed=0 epoch=77 loss=2.09394
+2026-11-07T19:07:01Z pair_cold seed=0 epoch=78 loss=2.25788 VAL R20=0.341329 N20=0.215031 best_epoch=76 patience=1/6
+2026-11-07T19:07:01Z pair_cold seed=0 epoch=79 loss=2.02929
+2026-11-07T19:07:02Z pair_cold seed=0 epoch=80 loss=2.10769 VAL R20=0.333622 N20=0.222125 best_epoch=80 patience=0/6
+2026-11-07T19:07:02Z pair_cold seed=0 epoch=81 loss=2.01952
+2026-11-07T19:07:03Z pair_cold seed=0 epoch=82 loss=2.01992 VAL R20=0.320135 N20=0.220092 best_epoch=80 patience=1/6
+2026-11-07T19:07:03Z pair_cold seed=0 epoch=83 loss=2.06572
+2026-11-07T19:07:04Z pair_cold seed=0 epoch=84 loss=2.11631 VAL R20=0.322062 N20=0.219390 best_epoch=80 patience=2/6
+2026-11-07T19:07:04Z pair_cold seed=0 epoch=85 loss=2.05763
+2026-11-07T19:07:04Z pair_cold seed=0 epoch=86 loss=2.09344 VAL R20=0.319171 N20=0.216925 best_epoch=80 patience=3/6
+2026-11-07T19:07:05Z pair_cold seed=0 epoch=87 loss=2.16765
+2026-11-07T19:07:05Z pair_cold seed=0 epoch=88 loss=2.13909 VAL R20=0.312428 N20=0.214977 best_epoch=80 patience=4/6
+2026-11-07T19:07:06Z pair_cold seed=0 epoch=89 loss=2.07412
+2026-11-07T19:07:06Z pair_cold seed=0 epoch=90 loss=2.00444 VAL R20=0.312428 N20=0.215460 best_epoch=80 patience=5/6
+2026-11-07T19:07:06Z pair_cold seed=0 epoch=91 loss=2.04091
+2026-11-07T19:07:07Z pair_cold seed=0 epoch=92 loss=1.99774 VAL R20=0.316281 N20=0.215433 best_epoch=80 patience=6/6
+2026-11-07T19:07:07Z joint_cold seed=0 parameters={'trainable_parameters': 282839, 'pair_parameters': 13788, 'joint_parameters': 31257, 'category_parameters': 229441, 'frozen_buffer_bytes': 3040791} start_epoch=1
+2026-11-07T19:07:08Z joint_cold seed=0 epoch=1 loss=7.52817
+2026-11-07T19:07:09Z joint_cold seed=0 epoch=2 loss=6.87719 VAL R20=0.223507 N20=0.123007 best_epoch=2 patience=0/6
+2026-11-07T19:07:09Z joint_cold seed=0 epoch=3 loss=6.55377
+2026-11-07T19:07:10Z joint_cold seed=0 epoch=4 loss=6.28703 VAL R20=0.258189 N20=0.137687 best_epoch=4 patience=0/6
+2026-11-07T19:07:11Z joint_cold seed=0 epoch=5 loss=6.06640
+2026-11-07T19:07:12Z joint_cold seed=0 epoch=6 loss=5.87880 VAL R20=0.236994 N20=0.143338 best_epoch=6 patience=0/6
+2026-11-07T19:07:13Z joint_cold seed=0 epoch=7 loss=5.67249
+2026-11-07T19:07:13Z joint_cold seed=0 epoch=8 loss=5.44949 VAL R20=0.258189 N20=0.158747 best_epoch=8 patience=0/6
+2026-11-07T19:07:14Z joint_cold seed=0 epoch=9 loss=5.34374
+2026-11-07T19:07:15Z joint_cold seed=0 epoch=10 loss=5.14954 VAL R20=0.246821 N20=0.164031 best_epoch=10 patience=0/6
+2026-11-07T19:07:16Z joint_cold seed=0 epoch=11 loss=4.93568
+2026-11-07T19:07:17Z joint_cold seed=0 epoch=12 loss=4.81435 VAL R20=0.264162 N20=0.168938 best_epoch=12 patience=0/6
+2026-11-07T19:07:17Z joint_cold seed=0 epoch=13 loss=4.65128
+2026-11-07T19:07:18Z joint_cold seed=0 epoch=14 loss=4.56091 VAL R20=0.268786 N20=0.174584 best_epoch=14 patience=0/6
+2026-11-07T19:07:18Z joint_cold seed=0 epoch=15 loss=4.43322
+2026-11-07T19:07:19Z joint_cold seed=0 epoch=16 loss=4.27701 VAL R20=0.249518 N20=0.162403 best_epoch=14 patience=1/6
+2026-11-07T19:07:20Z joint_cold seed=0 epoch=17 loss=4.20778
+2026-11-07T19:07:20Z joint_cold seed=0 epoch=18 loss=4.13142 VAL R20=0.270231 N20=0.171108 best_epoch=14 patience=2/6
+2026-11-07T19:07:21Z joint_cold seed=0 epoch=19 loss=3.98024
+2026-11-07T19:07:22Z joint_cold seed=0 epoch=20 loss=3.90109 VAL R20=0.285645 N20=0.176775 best_epoch=20 patience=0/6
+2026-11-07T19:07:22Z joint_cold seed=0 epoch=21 loss=3.75194
+2026-11-07T19:07:23Z joint_cold seed=0 epoch=22 loss=3.64876 VAL R20=0.288054 N20=0.180068 best_epoch=22 patience=0/6
+2026-11-07T19:07:23Z joint_cold seed=0 epoch=23 loss=3.68406
+2026-11-07T19:07:24Z joint_cold seed=0 epoch=24 loss=3.49418 VAL R20=0.290366 N20=0.184275 best_epoch=24 patience=0/6
+2026-11-07T19:07:25Z joint_cold seed=0 epoch=25 loss=3.48919
+2026-11-07T19:07:25Z joint_cold seed=0 epoch=26 loss=3.39134 VAL R20=0.300771 N20=0.192570 best_epoch=26 patience=0/6
+2026-11-07T19:07:26Z joint_cold seed=0 epoch=27 loss=3.30927
+2026-11-07T19:07:27Z joint_cold seed=0 epoch=28 loss=3.30680 VAL R20=0.288728 N20=0.190423 best_epoch=26 patience=1/6
+2026-11-07T19:07:27Z joint_cold seed=0 epoch=29 loss=3.20195
+2026-11-07T19:07:28Z joint_cold seed=0 epoch=30 loss=3.16146 VAL R20=0.276686 N20=0.189256 best_epoch=26 patience=2/6
+2026-11-07T19:07:28Z joint_cold seed=0 epoch=31 loss=3.10702
+2026-11-07T19:07:29Z joint_cold seed=0 epoch=32 loss=3.14066 VAL R20=0.299518 N20=0.193136 best_epoch=32 patience=0/6
+2026-11-07T19:07:30Z joint_cold seed=0 epoch=33 loss=3.06441
+2026-11-07T19:07:30Z joint_cold seed=0 epoch=34 loss=3.00133 VAL R20=0.283333 N20=0.189140 best_epoch=32 patience=1/6
+2026-11-07T19:07:31Z joint_cold seed=0 epoch=35 loss=2.93128
+2026-11-07T19:07:32Z joint_cold seed=0 epoch=36 loss=2.84469 VAL R20=0.283622 N20=0.187785 best_epoch=32 patience=2/6
+2026-11-07T19:07:32Z joint_cold seed=0 epoch=37 loss=2.87795
+2026-11-07T19:07:33Z joint_cold seed=0 epoch=38 loss=2.74129 VAL R20=0.304817 N20=0.200592 best_epoch=38 patience=0/6
+2026-11-07T19:07:34Z joint_cold seed=0 epoch=39 loss=2.84756
+2026-11-07T19:07:34Z joint_cold seed=0 epoch=40 loss=2.76420 VAL R20=0.309827 N20=0.202310 best_epoch=40 patience=0/6
+2026-11-07T19:07:35Z joint_cold seed=0 epoch=41 loss=2.70018
+2026-11-07T19:07:35Z joint_cold seed=0 epoch=42 loss=2.61951 VAL R20=0.307900 N20=0.201912 best_epoch=40 patience=1/6
+2026-11-07T19:07:36Z joint_cold seed=0 epoch=43 loss=2.69922
+2026-11-07T19:07:37Z joint_cold seed=0 epoch=44 loss=2.65719 VAL R20=0.308382 N20=0.201419 best_epoch=40 patience=2/6
+2026-11-07T19:07:37Z joint_cold seed=0 epoch=45 loss=2.57788
+2026-11-07T19:07:38Z joint_cold seed=0 epoch=46 loss=2.55064 VAL R20=0.304335 N20=0.196245 best_epoch=40 patience=3/6
+2026-11-07T19:07:39Z joint_cold seed=0 epoch=47 loss=2.48202
+2026-11-07T19:07:39Z joint_cold seed=0 epoch=48 loss=2.50664 VAL R20=0.303565 N20=0.194493 best_epoch=40 patience=4/6
+2026-11-07T19:07:40Z joint_cold seed=0 epoch=49 loss=2.49062
+2026-11-07T19:07:40Z joint_cold seed=0 epoch=50 loss=2.58646 VAL R20=0.303565 N20=0.198371 best_epoch=40 patience=5/6
+2026-11-07T19:07:41Z joint_cold seed=0 epoch=51 loss=2.35411
+2026-11-07T19:07:42Z joint_cold seed=0 epoch=52 loss=2.42070 VAL R20=0.303565 N20=0.198384 best_epoch=40 patience=6/6
+2026-11-07T19:07:42Z graph_joint_cold seed=0 parameters={'trainable_parameters': 299223, 'pair_parameters': 13788, 'joint_parameters': 31257, 'category_parameters': 229441, 'frozen_buffer_bytes': 3040791} start_epoch=1
+2026-11-07T19:07:42Z graph_joint_cold seed=0 epoch=1 loss=7.38141
+2026-11-07T19:07:43Z graph_joint_cold seed=0 epoch=2 loss=6.65681 VAL R20=0.225434 N20=0.137236 best_epoch=2 patience=0/6
+2026-11-07T19:07:44Z graph_joint_cold seed=0 epoch=3 loss=6.14503
+2026-11-07T19:07:44Z graph_joint_cold seed=0 epoch=4 loss=5.75743 VAL R20=0.285645 N20=0.175420 best_epoch=4 patience=0/6
+2026-11-07T19:07:45Z graph_joint_cold seed=0 epoch=5 loss=5.42561
+2026-11-07T19:07:46Z graph_joint_cold seed=0 epoch=6 loss=5.01668 VAL R20=0.292389 N20=0.198972 best_epoch=6 patience=0/6
+2026-11-07T19:07:46Z graph_joint_cold seed=0 epoch=7 loss=4.60096
+2026-11-07T19:07:47Z graph_joint_cold seed=0 epoch=8 loss=4.34795 VAL R20=0.308960 N20=0.221296 best_epoch=8 patience=0/6
+2026-11-07T19:07:48Z graph_joint_cold seed=0 epoch=9 loss=4.04903
+2026-11-07T19:07:48Z graph_joint_cold seed=0 epoch=10 loss=3.84854 VAL R20=0.323603 N20=0.235843 best_epoch=10 patience=0/6
+2026-11-07T19:07:49Z graph_joint_cold seed=0 epoch=11 loss=3.65821
+2026-11-07T19:07:50Z graph_joint_cold seed=0 epoch=12 loss=3.51970 VAL R20=0.323121 N20=0.239918 best_epoch=12 patience=0/6
+2026-11-07T19:07:50Z graph_joint_cold seed=0 epoch=13 loss=3.27632
+2026-11-07T19:07:51Z graph_joint_cold seed=0 epoch=14 loss=3.26315 VAL R20=0.322543 N20=0.242180 best_epoch=14 patience=0/6
+2026-11-07T19:07:52Z graph_joint_cold seed=0 epoch=15 loss=3.04435
+2026-11-07T19:07:52Z graph_joint_cold seed=0 epoch=16 loss=2.99643 VAL R20=0.339210 N20=0.247859 best_epoch=16 patience=0/6
+2026-11-07T19:07:53Z graph_joint_cold seed=0 epoch=17 loss=2.87200
+2026-11-07T19:07:54Z graph_joint_cold seed=0 epoch=18 loss=2.93493 VAL R20=0.334586 N20=0.246572 best_epoch=16 patience=1/6
+2026-11-07T19:07:54Z graph_joint_cold seed=0 epoch=19 loss=2.68390
+2026-11-07T19:07:55Z graph_joint_cold seed=0 epoch=20 loss=2.75658 VAL R20=0.355780 N20=0.255757 best_epoch=20 patience=0/6
+2026-11-07T19:07:56Z graph_joint_cold seed=0 epoch=21 loss=2.67410
+2026-11-07T19:07:57Z graph_joint_cold seed=0 epoch=22 loss=2.63194 VAL R20=0.363487 N20=0.245607 best_epoch=20 patience=1/6
+2026-11-07T19:07:57Z graph_joint_cold seed=0 epoch=23 loss=2.67656
+2026-11-07T19:07:58Z graph_joint_cold seed=0 epoch=24 loss=2.51487 VAL R20=0.373121 N20=0.245872 best_epoch=20 patience=2/6
+2026-11-07T19:07:58Z graph_joint_cold seed=0 epoch=25 loss=2.49525
+2026-11-07T19:07:59Z graph_joint_cold seed=0 epoch=26 loss=2.48517 VAL R20=0.377457 N20=0.251428 best_epoch=20 patience=3/6
+2026-11-07T19:08:00Z graph_joint_cold seed=0 epoch=27 loss=2.53557
+2026-11-07T19:08:01Z graph_joint_cold seed=0 epoch=28 loss=2.46928 VAL R20=0.374566 N20=0.260013 best_epoch=28 patience=0/6
+2026-11-07T19:08:01Z graph_joint_cold seed=0 epoch=29 loss=2.41525
+2026-11-07T19:08:02Z graph_joint_cold seed=0 epoch=30 loss=2.37576 VAL R20=0.372640 N20=0.253925 best_epoch=28 patience=1/6
+2026-11-07T19:08:02Z graph_joint_cold seed=0 epoch=31 loss=2.35244
+2026-11-07T19:08:03Z graph_joint_cold seed=0 epoch=32 loss=2.38001 VAL R20=0.361079 N20=0.253893 best_epoch=28 patience=2/6
+2026-11-07T19:08:04Z graph_joint_cold seed=0 epoch=33 loss=2.35291
+2026-11-07T19:08:05Z graph_joint_cold seed=0 epoch=34 loss=2.37110 VAL R20=0.366859 N20=0.262811 best_epoch=34 patience=0/6
+2026-11-07T19:08:05Z graph_joint_cold seed=0 epoch=35 loss=2.36956
+2026-11-07T19:08:06Z graph_joint_cold seed=0 epoch=36 loss=2.31763 VAL R20=0.361561 N20=0.261198 best_epoch=34 patience=1/6
+2026-11-07T19:08:06Z graph_joint_cold seed=0 epoch=37 loss=2.26700
+2026-11-07T19:08:07Z graph_joint_cold seed=0 epoch=38 loss=2.19527 VAL R20=0.379865 N20=0.268235 best_epoch=38 patience=0/6
+2026-11-07T19:08:08Z graph_joint_cold seed=0 epoch=39 loss=2.27513
+2026-11-07T19:08:08Z graph_joint_cold seed=0 epoch=40 loss=2.16964 VAL R20=0.380347 N20=0.263298 best_epoch=38 patience=1/6
+2026-11-07T19:08:09Z graph_joint_cold seed=0 epoch=41 loss=2.21656
+2026-11-07T19:08:10Z graph_joint_cold seed=0 epoch=42 loss=2.18150 VAL R20=0.373121 N20=0.264097 best_epoch=38 patience=2/6
+2026-11-07T19:08:10Z graph_joint_cold seed=0 epoch=43 loss=2.20385
+2026-11-07T19:08:11Z graph_joint_cold seed=0 epoch=44 loss=2.23504 VAL R20=0.373603 N20=0.259283 best_epoch=38 patience=3/6
+2026-11-07T19:08:12Z graph_joint_cold seed=0 epoch=45 loss=2.20786
+2026-11-07T19:08:12Z graph_joint_cold seed=0 epoch=46 loss=2.15334 VAL R20=0.369750 N20=0.264000 best_epoch=38 patience=4/6
+2026-11-07T19:08:13Z graph_joint_cold seed=0 epoch=47 loss=2.24607
+2026-11-07T19:08:14Z graph_joint_cold seed=0 epoch=48 loss=2.18600 VAL R20=0.354817 N20=0.252081 best_epoch=38 patience=5/6
+2026-11-07T19:08:14Z graph_joint_cold seed=0 epoch=49 loss=2.15168
+2026-11-07T19:08:15Z graph_joint_cold seed=0 epoch=50 loss=2.08456 VAL R20=0.371195 N20=0.256724 best_epoch=38 patience=6/6
+2026-11-07T19:08:15Z VALIDATION SELECTED graph_joint_cold; repeat training seeds 1 and 2
+2026-11-07T19:08:15Z graph_joint_cold seed=1 parameters={'trainable_parameters': 299223, 'pair_parameters': 13788, 'joint_parameters': 31257, 'category_parameters': 229441, 'frozen_buffer_bytes': 3040791} start_epoch=1
+2026-11-07T19:08:16Z graph_joint_cold seed=1 epoch=1 loss=7.38765
+2026-11-07T19:08:16Z graph_joint_cold seed=1 epoch=2 loss=6.60408 VAL R20=0.227360 N20=0.135282 best_epoch=2 patience=0/6
+2026-11-07T19:08:17Z graph_joint_cold seed=1 epoch=3 loss=6.15219
+2026-11-07T19:08:18Z graph_joint_cold seed=1 epoch=4 loss=5.74623 VAL R20=0.271869 N20=0.170832 best_epoch=4 patience=0/6
+2026-11-07T19:08:18Z graph_joint_cold seed=1 epoch=5 loss=5.38158
+2026-11-07T19:08:19Z graph_joint_cold seed=1 epoch=6 loss=4.95444 VAL R20=0.295954 N20=0.199270 best_epoch=6 patience=0/6
+2026-11-07T19:08:20Z graph_joint_cold seed=1 epoch=7 loss=4.66459
+2026-11-07T19:08:20Z graph_joint_cold seed=1 epoch=8 loss=4.26705 VAL R20=0.320713 N20=0.223709 best_epoch=8 patience=0/6
+2026-11-07T19:08:21Z graph_joint_cold seed=1 epoch=9 loss=4.02831
+2026-11-07T19:08:22Z graph_joint_cold seed=1 epoch=10 loss=3.80402 VAL R20=0.341908 N20=0.236303 best_epoch=10 patience=0/6
+2026-11-07T19:08:22Z graph_joint_cold seed=1 epoch=11 loss=3.57027
+2026-11-07T19:08:23Z graph_joint_cold seed=1 epoch=12 loss=3.51504 VAL R20=0.324855 N20=0.234387 best_epoch=10 patience=1/6
+2026-11-07T19:08:24Z graph_joint_cold seed=1 epoch=13 loss=3.31753
+2026-11-07T19:08:25Z graph_joint_cold seed=1 epoch=14 loss=3.30140 VAL R20=0.324277 N20=0.230122 best_epoch=10 patience=2/6
+2026-11-07T19:08:25Z graph_joint_cold seed=1 epoch=15 loss=3.11417
+2026-11-07T19:08:26Z graph_joint_cold seed=1 epoch=16 loss=3.01136 VAL R20=0.346243 N20=0.240388 best_epoch=16 patience=0/6
+2026-11-07T19:08:27Z graph_joint_cold seed=1 epoch=17 loss=2.82741
+2026-11-07T19:08:27Z graph_joint_cold seed=1 epoch=18 loss=2.87484 VAL R20=0.335838 N20=0.240828 best_epoch=18 patience=0/6
+2026-11-07T19:08:28Z graph_joint_cold seed=1 epoch=19 loss=2.90246
+2026-11-07T19:08:29Z graph_joint_cold seed=1 epoch=20 loss=2.76171 VAL R20=0.352216 N20=0.243137 best_epoch=20 patience=0/6
+2026-11-07T19:08:29Z graph_joint_cold seed=1 epoch=21 loss=2.68135
+2026-11-07T19:08:30Z graph_joint_cold seed=1 epoch=22 loss=2.61854 VAL R20=0.356069 N20=0.239203 best_epoch=20 patience=1/6
+2026-11-07T19:08:31Z graph_joint_cold seed=1 epoch=23 loss=2.63015
+2026-11-07T19:08:31Z graph_joint_cold seed=1 epoch=24 loss=2.56861 VAL R20=0.355106 N20=0.253450 best_epoch=24 patience=0/6
+2026-11-07T19:08:32Z graph_joint_cold seed=1 epoch=25 loss=2.68109
+2026-11-07T19:08:33Z graph_joint_cold seed=1 epoch=26 loss=2.62044 VAL R20=0.350289 N20=0.253353 best_epoch=24 patience=1/6
+2026-11-07T19:08:33Z graph_joint_cold seed=1 epoch=27 loss=2.41948
+2026-11-07T19:08:34Z graph_joint_cold seed=1 epoch=28 loss=2.48115 VAL R20=0.379191 N20=0.259485 best_epoch=28 patience=0/6
+2026-11-07T19:08:35Z graph_joint_cold seed=1 epoch=29 loss=2.39975
+2026-11-07T19:08:35Z graph_joint_cold seed=1 epoch=30 loss=2.42994 VAL R20=0.375048 N20=0.256301 best_epoch=28 patience=1/6
+2026-11-07T19:08:36Z graph_joint_cold seed=1 epoch=31 loss=2.34859
+2026-11-07T19:08:37Z graph_joint_cold seed=1 epoch=32 loss=2.43459 VAL R20=0.384200 N20=0.260195 best_epoch=32 patience=0/6
+2026-11-07T19:08:38Z graph_joint_cold seed=1 epoch=33 loss=2.28930
+2026-11-07T19:08:38Z graph_joint_cold seed=1 epoch=34 loss=2.40217 VAL R20=0.381310 N20=0.259527 best_epoch=32 patience=1/6
+2026-11-07T19:08:39Z graph_joint_cold seed=1 epoch=35 loss=2.25733
+2026-11-07T19:08:40Z graph_joint_cold seed=1 epoch=36 loss=2.38535 VAL R20=0.360116 N20=0.250381 best_epoch=32 patience=2/6
+2026-11-07T19:08:40Z graph_joint_cold seed=1 epoch=37 loss=2.20042
+2026-11-07T19:08:41Z graph_joint_cold seed=1 epoch=38 loss=2.27119 VAL R20=0.368786 N20=0.254535 best_epoch=32 patience=3/6
+2026-11-07T19:08:42Z graph_joint_cold seed=1 epoch=39 loss=2.35482
+2026-11-07T19:08:43Z graph_joint_cold seed=1 epoch=40 loss=2.20183 VAL R20=0.376012 N20=0.259929 best_epoch=32 patience=4/6
+2026-11-07T19:08:43Z graph_joint_cold seed=1 epoch=41 loss=2.26983
+2026-11-07T19:08:44Z graph_joint_cold seed=1 epoch=42 loss=2.16428 VAL R20=0.364451 N20=0.262816 best_epoch=42 patience=0/6
+2026-11-07T19:08:45Z graph_joint_cold seed=1 epoch=43 loss=2.16968
+2026-11-07T19:08:45Z graph_joint_cold seed=1 epoch=44 loss=2.13462 VAL R20=0.368786 N20=0.255115 best_epoch=42 patience=1/6
+2026-11-07T19:08:46Z graph_joint_cold seed=1 epoch=45 loss=2.14264
+2026-11-07T19:08:47Z graph_joint_cold seed=1 epoch=46 loss=2.19554 VAL R20=0.354335 N20=0.250773 best_epoch=42 patience=2/6
+2026-11-07T19:08:48Z graph_joint_cold seed=1 epoch=47 loss=2.11035
+2026-11-07T19:08:49Z graph_joint_cold seed=1 epoch=48 loss=2.11679 VAL R20=0.360116 N20=0.251912 best_epoch=42 patience=3/6
+2026-11-07T19:08:49Z graph_joint_cold seed=1 epoch=49 loss=2.10071
+2026-11-07T19:08:50Z graph_joint_cold seed=1 epoch=50 loss=2.03662 VAL R20=0.374566 N20=0.260599 best_epoch=42 patience=4/6
+2026-11-07T19:08:51Z graph_joint_cold seed=1 epoch=51 loss=2.06773
+2026-11-07T19:08:52Z graph_joint_cold seed=1 epoch=52 loss=2.12677 VAL R20=0.355780 N20=0.255502 best_epoch=42 patience=5/6
+2026-11-07T19:08:52Z graph_joint_cold seed=1 epoch=53 loss=2.06700
+2026-11-07T19:08:53Z graph_joint_cold seed=1 epoch=54 loss=2.03601 VAL R20=0.353372 N20=0.253314 best_epoch=42 patience=6/6
+2026-11-07T19:08:53Z graph_joint_cold seed=2 parameters={'trainable_parameters': 299223, 'pair_parameters': 13788, 'joint_parameters': 31257, 'category_parameters': 229441, 'frozen_buffer_bytes': 3040791} start_epoch=1
+2026-11-07T19:08:54Z graph_joint_cold seed=2 epoch=1 loss=7.39249
+2026-11-07T19:08:54Z graph_joint_cold seed=2 epoch=2 loss=6.58752 VAL R20=0.224470 N20=0.131172 best_epoch=2 patience=0/6
+2026-11-07T19:08:55Z graph_joint_cold seed=2 epoch=3 loss=6.11871
+2026-11-07T19:08:56Z graph_joint_cold seed=2 epoch=4 loss=5.71226 VAL R20=0.261079 N20=0.176646 best_epoch=4 patience=0/6
+2026-11-07T19:08:57Z graph_joint_cold seed=2 epoch=5 loss=5.36564
+2026-11-07T19:08:57Z graph_joint_cold seed=2 epoch=6 loss=4.98307 VAL R20=0.291618 N20=0.198124 best_epoch=6 patience=0/6
+2026-11-07T19:08:58Z graph_joint_cold seed=2 epoch=7 loss=4.55221
+2026-11-07T19:08:59Z graph_joint_cold seed=2 epoch=8 loss=4.27896 VAL R20=0.320039 N20=0.229270 best_epoch=8 patience=0/6
+2026-11-07T19:08:59Z graph_joint_cold seed=2 epoch=9 loss=3.97289
+2026-11-07T19:09:00Z graph_joint_cold seed=2 epoch=10 loss=3.77361 VAL R20=0.327746 N20=0.237364 best_epoch=10 patience=0/6
+2026-11-07T19:09:01Z graph_joint_cold seed=2 epoch=11 loss=3.61687
+2026-11-07T19:09:01Z graph_joint_cold seed=2 epoch=12 loss=3.43093 VAL R20=0.338343 N20=0.236182 best_epoch=10 patience=1/6
+2026-11-07T19:09:02Z graph_joint_cold seed=2 epoch=13 loss=3.28942
+2026-11-07T19:09:03Z graph_joint_cold seed=2 epoch=14 loss=3.25819 VAL R20=0.339499 N20=0.239339 best_epoch=14 patience=0/6
+2026-11-07T19:09:03Z graph_joint_cold seed=2 epoch=15 loss=3.06229
+2026-11-07T19:09:04Z graph_joint_cold seed=2 epoch=16 loss=2.98574 VAL R20=0.363776 N20=0.243253 best_epoch=16 patience=0/6
+2026-11-07T19:09:05Z graph_joint_cold seed=2 epoch=17 loss=2.96093
+2026-11-07T19:09:05Z graph_joint_cold seed=2 epoch=18 loss=2.75686 VAL R20=0.363295 N20=0.250236 best_epoch=18 patience=0/6
+2026-11-07T19:09:06Z graph_joint_cold seed=2 epoch=19 loss=2.73754
+2026-11-07T19:09:07Z graph_joint_cold seed=2 epoch=20 loss=2.74048 VAL R20=0.363295 N20=0.247084 best_epoch=18 patience=1/6
+2026-11-07T19:09:07Z graph_joint_cold seed=2 epoch=21 loss=2.73474
+2026-11-07T19:09:08Z graph_joint_cold seed=2 epoch=22 loss=2.56670 VAL R20=0.368786 N20=0.252099 best_epoch=22 patience=0/6
+2026-11-07T19:09:09Z graph_joint_cold seed=2 epoch=23 loss=2.73557
+2026-11-07T19:09:10Z graph_joint_cold seed=2 epoch=24 loss=2.66190 VAL R20=0.353372 N20=0.254863 best_epoch=24 patience=0/6
+2026-11-07T19:09:10Z graph_joint_cold seed=2 epoch=25 loss=2.51208
+2026-11-07T19:09:11Z graph_joint_cold seed=2 epoch=26 loss=2.46163 VAL R20=0.360597 N20=0.254689 best_epoch=24 patience=1/6
+2026-11-07T19:09:12Z graph_joint_cold seed=2 epoch=27 loss=2.49342
+2026-11-07T19:09:12Z graph_joint_cold seed=2 epoch=28 loss=2.39974 VAL R20=0.372158 N20=0.257897 best_epoch=28 patience=0/6
+2026-11-07T19:09:13Z graph_joint_cold seed=2 epoch=29 loss=2.37347
+2026-11-07T19:09:14Z graph_joint_cold seed=2 epoch=30 loss=2.36460 VAL R20=0.370713 N20=0.249131 best_epoch=28 patience=1/6
+2026-11-07T19:09:14Z graph_joint_cold seed=2 epoch=31 loss=2.43396
+2026-11-07T19:09:15Z graph_joint_cold seed=2 epoch=32 loss=2.35981 VAL R20=0.369268 N20=0.250591 best_epoch=28 patience=2/6
+2026-11-07T19:09:16Z graph_joint_cold seed=2 epoch=33 loss=2.41970
+2026-11-07T19:09:16Z graph_joint_cold seed=2 epoch=34 loss=2.25139 VAL R20=0.382274 N20=0.250709 best_epoch=28 patience=3/6
+2026-11-07T19:09:17Z graph_joint_cold seed=2 epoch=35 loss=2.19470
+2026-11-07T19:09:18Z graph_joint_cold seed=2 epoch=36 loss=2.20031 VAL R20=0.376493 N20=0.247675 best_epoch=28 patience=4/6
+2026-11-07T19:09:18Z graph_joint_cold seed=2 epoch=37 loss=2.17227
+2026-11-07T19:09:19Z graph_joint_cold seed=2 epoch=38 loss=2.15726 VAL R20=0.384200 N20=0.252719 best_epoch=28 patience=5/6
+2026-11-07T19:09:20Z graph_joint_cold seed=2 epoch=39 loss=2.19157
+2026-11-07T19:09:21Z graph_joint_cold seed=2 epoch=40 loss=2.18415 VAL R20=0.378420 N20=0.258073 best_epoch=40 patience=0/6
+2026-11-07T19:09:21Z graph_joint_cold seed=2 epoch=41 loss=2.19435
+2026-11-07T19:09:22Z graph_joint_cold seed=2 epoch=42 loss=2.20676 VAL R20=0.369268 N20=0.265333 best_epoch=42 patience=0/6
+2026-11-07T19:09:23Z graph_joint_cold seed=2 epoch=43 loss=2.23899
+2026-11-07T19:09:23Z graph_joint_cold seed=2 epoch=44 loss=2.22159 VAL R20=0.376493 N20=0.264346 best_epoch=42 patience=1/6
+2026-11-07T19:09:24Z graph_joint_cold seed=2 epoch=45 loss=2.04830
+2026-11-07T19:09:25Z graph_joint_cold seed=2 epoch=46 loss=2.12027 VAL R20=0.360597 N20=0.255667 best_epoch=42 patience=2/6
+2026-11-07T19:09:25Z graph_joint_cold seed=2 epoch=47 loss=2.03985
+2026-11-07T19:09:26Z graph_joint_cold seed=2 epoch=48 loss=2.00337 VAL R20=0.347592 N20=0.249324 best_epoch=42 patience=3/6
+2026-11-07T19:09:27Z graph_joint_cold seed=2 epoch=49 loss=2.17784
+2026-11-07T19:09:28Z graph_joint_cold seed=2 epoch=50 loss=2.07876 VAL R20=0.358189 N20=0.249221 best_epoch=42 patience=4/6
+2026-11-07T19:09:28Z graph_joint_cold seed=2 epoch=51 loss=2.12530
+2026-11-07T19:09:29Z graph_joint_cold seed=2 epoch=52 loss=2.02980 VAL R20=0.374566 N20=0.254789 best_epoch=42 patience=5/6
+2026-11-07T19:09:30Z graph_joint_cold seed=2 epoch=53 loss=2.10866
+2026-11-07T19:09:30Z graph_joint_cold seed=2 epoch=54 loss=2.08244 VAL R20=0.359634 N20=0.252400 best_epoch=42 patience=6/6
+2026-11-07T19:09:30Z Diagnostic source probes for attributes_seed0
+2026-11-07T19:09:32Z Diagnostic source probes for pair_no_cold_seed0
+2026-11-07T19:09:34Z Diagnostic source probes for pair_cold_seed0
+2026-11-07T19:09:36Z Diagnostic source probes for joint_cold_seed0
+2026-11-07T19:09:39Z Diagnostic source probes for graph_joint_cold_seed0
+2026-11-07T19:09:42Z attributes_seed0: TEST R20=0.217775 N20=0.096569
+2026-11-07T19:09:42Z pair_no_cold_seed0: TEST R20=0.364692 N20=0.248930
+2026-11-07T19:09:42Z pair_cold_seed0: TEST R20=0.354383 N20=0.243445
+2026-11-07T19:09:42Z joint_cold_seed0: TEST R20=0.328468 N20=0.219577
+2026-11-07T19:09:43Z graph_joint_cold_seed0: TEST R20=0.394316 N20=0.260694
+2026-11-07T19:09:43Z graph_joint_cold_seed1: TEST R20=0.405780 N20=0.278184
+2026-11-07T19:09:43Z graph_joint_cold_seed2: TEST R20=0.396339 N20=0.270884
+2026-11-07T19:09:43Z electronic: COMPLETE

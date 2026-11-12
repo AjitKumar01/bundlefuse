@@ -1,0 +1,342 @@
+{
+  "general": {
+    "config": {
+      "kind": "gate",
+      "weights": {
+        "lift0": 1.5,
+        "lift1": 1.5,
+        "residual_audio": 1.5,
+        "simp": 0.25,
+        "amp": 0.5
+      },
+      "prior_weights": {
+        "lift0": 1.5,
+        "lift1": 1.5,
+        "residual_audio": 1.5
+      },
+      "scale": 1.0,
+      "kappa": 0.5
+    },
+    "tuning_metrics": [
+      0.13838745998667884,
+      0.23001154786201908
+    ],
+    "keys": [
+      "lift0",
+      "lift1",
+      "residual_audio",
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 711.705123916996,
+    "fitting_candidates": 103
+  },
+  "raw": {
+    "config": {
+      "kind": "weighted",
+      "weights": {
+        "raw_audio": 1.5,
+        "simp": 0.5,
+        "amp": 1.5
+      }
+    },
+    "tuning_metrics": [
+      0.13400831310355968,
+      0.22541601862314403
+    ],
+    "keys": [
+      "raw_audio",
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 286.2698223750049,
+    "fitting_candidates": 52
+  },
+  "base": {
+    "config": {
+      "kind": "weighted",
+      "weights": {
+        "simp": 0.5,
+        "amp": 1.5
+      }
+    },
+    "tuning_metrics": [
+      0.13278911821421216,
+      0.2241484425867471
+    ],
+    "keys": [
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 187.5671245410049,
+    "fitting_candidates": 40
+  },
+  "shuf0": {
+    "config": {
+      "kind": "gate",
+      "weights": {
+        "shuf0_lift0": 1.5,
+        "shuf0_lift1": 1.5,
+        "residual_audio": 1.5,
+        "simp": 0.5,
+        "amp": 1.0
+      },
+      "prior_weights": {
+        "shuf0_lift0": 1.5,
+        "shuf0_lift1": 1.5,
+        "residual_audio": 1.5
+      },
+      "scale": 1.14072991621013,
+      "kappa": 0.05
+    },
+    "tuning_metrics": [
+      0.1343675182920625,
+      0.22542028332501643
+    ],
+    "keys": [
+      "shuf0_lift0",
+      "shuf0_lift1",
+      "residual_audio",
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 564.8296380419924,
+    "fitting_candidates": 80
+  },
+  "shuf1": {
+    "config": {
+      "kind": "weighted",
+      "weights": {
+        "shuf1_lift0": 1.5,
+        "shuf1_lift1": 1.5,
+        "residual_audio": 0.25,
+        "simp": 0.25,
+        "amp": 1.5
+      }
+    },
+    "tuning_metrics": [
+      0.13323755047861607,
+      0.22669370597996458
+    ],
+    "keys": [
+      "shuf1_lift0",
+      "shuf1_lift1",
+      "residual_audio",
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 604.5132152910228,
+    "fitting_candidates": 92
+  },
+  "shuf2": {
+    "config": {
+      "kind": "weighted",
+      "weights": {
+        "shuf2_lift0": 1.5,
+        "shuf2_lift1": 1.0,
+        "residual_audio": 1.5,
+        "simp": 0.25,
+        "amp": 1.5
+      }
+    },
+    "tuning_metrics": [
+      0.13474625052613273,
+      0.22760793354158437
+    ],
+    "keys": [
+      "shuf2_lift0",
+      "shuf2_lift1",
+      "residual_audio",
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 454.6704524589877,
+    "fitting_candidates": 76
+  },
+  "lift_only": {
+    "config": {
+      "kind": "weighted",
+      "weights": {
+        "lift0": 1.0,
+        "lift1": 1.5,
+        "pop": 0.25,
+        "amp": 0.25
+      }
+    },
+    "tuning_metrics": [
+      0.14040543725404042,
+      0.2315841817795192
+    ],
+    "keys": [
+      "lift0",
+      "lift1",
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 240.84741474999464,
+    "fitting_candidates": 72
+  },
+  "residual_only": {
+    "config": {
+      "kind": "weighted",
+      "weights": {
+        "residual_audio": 1.5,
+        "simp": 0.5,
+        "amp": 1.5
+      }
+    },
+    "tuning_metrics": [
+      0.13329751095345557,
+      0.22530909460104756
+    ],
+    "keys": [
+      "residual_audio",
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 151.0152240410098,
+    "fitting_candidates": 52
+  },
+  "identity": {
+    "config": {
+      "kind": "gate",
+      "weights": {
+        "same0": 1.5,
+        "same1": 1.5,
+        "residual_audio": 1.5,
+        "pair": 0.25,
+        "simp": 1.5,
+        "amp": 1.5
+      },
+      "prior_weights": {
+        "same0": 1.5,
+        "same1": 1.5,
+        "residual_audio": 1.5
+      },
+      "scale": 1.6308176640679966,
+      "kappa": 0.05
+    },
+    "tuning_metrics": [
+      0.16904044791871434,
+      0.28784791266847437
+    ],
+    "keys": [
+      "same0",
+      "same1",
+      "residual_audio",
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 625.1366209580156,
+    "fitting_candidates": 100
+  },
+  "off_diagonal": {
+    "config": {
+      "kind": "weighted",
+      "weights": {
+        "residual_audio": 1.5,
+        "simp": 0.5,
+        "amp": 1.5
+      }
+    },
+    "tuning_metrics": [
+      0.13329751095345557,
+      0.22530909460104756
+    ],
+    "keys": [
+      "off0",
+      "off1",
+      "residual_audio",
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 452.3128931669926,
+    "fitting_candidates": 111
+  },
+  "general_no_history": {
+    "config": {
+      "kind": "weighted",
+      "weights": {
+        "lift0": 1.5,
+        "lift1": 1.5,
+        "residual_audio": 0.25,
+        "pop": 1.5
+      }
+    },
+    "tuning_metrics": [
+      0.11179310260945118,
+      0.17903038146310601
+    ],
+    "keys": [
+      "lift0",
+      "lift1",
+      "residual_audio",
+      "pop"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 135.67784033398493,
+    "fitting_candidates": 48
+  },
+  "raw_no_history": {
+    "config": {
+      "kind": "weighted",
+      "weights": {
+        "raw_audio": 1.0,
+        "pop": 0.25
+      }
+    },
+    "tuning_metrics": [
+      0.034899339027947916,
+      0.05941728745896751
+    ],
+    "keys": [
+      "raw_audio",
+      "pop"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 47.951967791013885,
+    "fitting_candidates": 15
+  }
+}

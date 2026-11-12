@@ -1,0 +1,64 @@
+2026-11-08T09:28:30Z pog_dense: loading supplied splits and released item features
+2026-11-08T09:28:35Z pog_dense: reusing retained attribute projection (31217, 128)
+2026-11-08T09:28:36Z pog_dense loo_mask seed=0 {'trainable_parameters': 45507, 'group_parameters': 2144, 'pair_function_parameters': 81, 'observed_directed_pairs': 153074, 'frozen_buffer_bytes': 34802115} train_rows=20780 start_epoch=1
+2026-11-08T09:30:58Z pog_dense loo_mask seed=0 epoch=1 loss=7.54304
+2026-11-08T09:33:10Z pog_dense loo_mask seed=0 epoch=2 loss=7.19050 VAL R20=0.403920 N20=0.302496 best_epoch=2 patience=0/6
+2026-11-08T09:35:18Z pog_dense loo_mask seed=0 epoch=3 loss=7.03617
+2026-11-08T09:37:29Z pog_dense loo_mask seed=0 epoch=4 loss=6.95803 VAL R20=0.409423 N20=0.304323 best_epoch=4 patience=0/6
+2026-11-08T09:39:31Z pog_dense loo_mask seed=0 epoch=5 loss=6.86298
+2026-11-08T09:41:38Z pog_dense loo_mask seed=0 epoch=6 loss=6.83980 VAL R20=0.409310 N20=0.306849 best_epoch=6 patience=0/6
+2026-11-08T09:43:44Z pog_dense loo_mask seed=0 epoch=7 loss=6.82755
+2026-11-08T09:45:50Z pog_dense loo_mask seed=0 epoch=8 loss=6.78645 VAL R20=0.410209 N20=0.306021 best_epoch=6 patience=1/6
+2026-11-08T09:47:41Z pog_dense loo_mask seed=0 epoch=9 loss=6.82753
+2026-11-08T09:49:36Z pog_dense loo_mask seed=0 epoch=10 loss=6.77122 VAL R20=0.405267 N20=0.306272 best_epoch=6 patience=2/6
+2026-11-08T09:51:34Z pog_dense loo_mask seed=0 epoch=11 loss=6.76765
+2026-11-08T09:53:32Z pog_dense loo_mask seed=0 epoch=12 loss=6.75771 VAL R20=0.404200 N20=0.301123 best_epoch=6 patience=3/6
+2026-11-08T09:55:30Z pog_dense loo_mask seed=0 epoch=13 loss=6.74164
+2026-11-08T09:57:40Z pog_dense loo_mask seed=0 epoch=14 loss=6.74634 VAL R20=0.412455 N20=0.309310 best_epoch=14 patience=0/6
+2026-11-08T09:59:46Z pog_dense loo_mask seed=0 epoch=15 loss=6.76075
+2026-11-08T10:02:12Z pog_dense loo_mask seed=0 epoch=16 loss=6.74960 VAL R20=0.408861 N20=0.308089 best_epoch=14 patience=1/6
+2026-11-08T10:04:59Z pog_dense loo_mask seed=0 epoch=17 loss=6.72994
+2026-11-08T10:08:22Z pog_dense loo_mask seed=0 epoch=18 loss=6.70293 VAL R20=0.411500 N20=0.310054 best_epoch=18 patience=0/6
+2026-11-08T10:11:17Z pog_dense loo_mask seed=0 epoch=19 loss=6.71463
+2026-11-08T10:14:13Z pog_dense loo_mask seed=0 epoch=20 loss=6.70534 VAL R20=0.411950 N20=0.311862 best_epoch=20 patience=0/6
+2026-11-08T10:17:01Z pog_dense loo_mask seed=0 epoch=21 loss=6.71907
+2026-11-08T10:20:01Z pog_dense loo_mask seed=0 epoch=22 loss=6.70169 VAL R20=0.411837 N20=0.312315 best_epoch=22 patience=0/6
+2026-11-08T10:23:20Z pog_dense loo_mask seed=0 epoch=23 loss=6.70329
+2026-11-08T10:26:57Z pog_dense loo_mask seed=0 epoch=24 loss=6.70161 VAL R20=0.412230 N20=0.310729 best_epoch=22 patience=1/6
+2026-11-08T10:29:45Z pog_dense loo_mask seed=0 epoch=25 loss=6.67029
+2026-11-08T10:32:43Z pog_dense loo_mask seed=0 epoch=26 loss=6.67012 VAL R20=0.414084 N20=0.310840 best_epoch=22 patience=2/6
+2026-11-08T10:36:06Z pog_dense loo_mask seed=0 epoch=27 loss=6.69262
+2026-11-08T10:39:43Z pog_dense loo_mask seed=0 epoch=28 loss=6.67751 VAL R20=0.410321 N20=0.308196 best_epoch=22 patience=3/6
+2026-11-08T10:42:53Z pog_dense loo_mask seed=0 epoch=29 loss=6.69568
+2026-11-08T10:45:40Z pog_dense loo_mask seed=0 epoch=30 loss=6.66036 VAL R20=0.413073 N20=0.312579 best_epoch=30 patience=0/6
+2026-11-08T10:48:10Z pog_dense loo_mask seed=0 epoch=31 loss=6.66831
+2026-11-08T10:50:43Z pog_dense loo_mask seed=0 epoch=32 loss=6.65712 VAL R20=0.412792 N20=0.313249 best_epoch=32 patience=0/6
+2026-11-08T10:53:10Z pog_dense loo_mask seed=0 epoch=33 loss=6.65618
+2026-11-08T10:55:37Z pog_dense loo_mask seed=0 epoch=34 loss=6.64336 VAL R20=0.412680 N20=0.312996 best_epoch=32 patience=1/6
+2026-11-08T10:58:03Z pog_dense loo_mask seed=0 epoch=35 loss=6.65884
+2026-11-08T11:00:34Z pog_dense loo_mask seed=0 epoch=36 loss=6.65953 VAL R20=0.412230 N20=0.311007 best_epoch=32 patience=2/6
+2026-11-08T11:03:00Z pog_dense loo_mask seed=0 epoch=37 loss=6.65498
+2026-11-08T11:05:27Z pog_dense loo_mask seed=0 epoch=38 loss=6.65323 VAL R20=0.412399 N20=0.312731 best_epoch=32 patience=3/6
+2026-11-08T11:07:51Z pog_dense loo_mask seed=0 epoch=39 loss=6.64085
+2026-11-08T11:10:21Z pog_dense loo_mask seed=0 epoch=40 loss=6.64783 VAL R20=0.412174 N20=0.308782 best_epoch=32 patience=4/6
+2026-11-08T11:12:46Z pog_dense loo_mask seed=0 epoch=41 loss=6.65046
+2026-11-08T11:15:14Z pog_dense loo_mask seed=0 epoch=42 loss=6.64016 VAL R20=0.416330 N20=0.314012 best_epoch=42 patience=0/6
+2026-11-08T11:17:33Z pog_dense loo_mask seed=0 epoch=43 loss=6.64361
+2026-11-08T11:20:01Z pog_dense loo_mask seed=0 epoch=44 loss=6.61187 VAL R20=0.414589 N20=0.312798 best_epoch=42 patience=1/6
+2026-11-08T11:22:23Z pog_dense loo_mask seed=0 epoch=45 loss=6.63766
+2026-11-08T11:24:49Z pog_dense loo_mask seed=0 epoch=46 loss=6.62606 VAL R20=0.414196 N20=0.313403 best_epoch=42 patience=2/6
+2026-11-08T11:26:41Z pog_dense loo_mask seed=0 epoch=47 loss=6.63607
+2026-11-08T11:28:34Z pog_dense loo_mask seed=0 epoch=48 loss=6.62945 VAL R20=0.414308 N20=0.314114 best_epoch=48 patience=0/6
+2026-11-08T11:30:04Z pog_dense loo_mask seed=0 epoch=49 loss=6.60244
+2026-11-08T11:31:35Z pog_dense loo_mask seed=0 epoch=50 loss=6.59772 VAL R20=0.415487 N20=0.312277 best_epoch=48 patience=1/6
+2026-11-08T11:33:02Z pog_dense loo_mask seed=0 epoch=51 loss=6.62080
+2026-11-08T11:34:34Z pog_dense loo_mask seed=0 epoch=52 loss=6.59450 VAL R20=0.415431 N20=0.312019 best_epoch=48 patience=2/6
+2026-11-08T11:36:02Z pog_dense loo_mask seed=0 epoch=53 loss=6.61088
+2026-11-08T11:37:24Z pog_dense loo_mask seed=0 epoch=54 loss=6.59383 VAL R20=0.414364 N20=0.312681 best_epoch=48 patience=3/6
+2026-11-08T11:38:39Z pog_dense loo_mask seed=0 epoch=55 loss=6.60218
+2026-11-08T11:39:58Z pog_dense loo_mask seed=0 epoch=56 loss=6.59940 VAL R20=0.414084 N20=0.311318 best_epoch=48 patience=4/6
+2026-11-08T11:41:15Z pog_dense loo_mask seed=0 epoch=57 loss=6.61019
+2026-11-08T11:42:47Z pog_dense loo_mask seed=0 epoch=58 loss=6.59402 VAL R20=0.415207 N20=0.311830 best_epoch=48 patience=5/6
+2026-11-08T11:44:15Z pog_dense loo_mask seed=0 epoch=59 loss=6.57938
+2026-11-08T11:45:46Z pog_dense loo_mask seed=0 epoch=60 loss=6.59291 VAL R20=0.413915 N20=0.312133 best_epoch=48 patience=6/6
+2026-11-08T11:45:50Z pog_dense v2_loo_mask_seed0 COMPLETE

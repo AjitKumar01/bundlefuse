@@ -1,0 +1,45 @@
+2026-11-11T12:12:37Z pog_dense: n=31217 train=20780 pairs=153074
+2026-11-11T12:12:40Z pog_dense hybrid {'k': 1000, 'shrink': 100, 'content': 0.0} VAL N20=0.223901
+2026-11-11T12:12:42Z pog_dense hybrid {'k': 1000, 'shrink': 100, 'content': 0.1} VAL N20=0.191976
+2026-11-11T12:12:44Z pog_dense hybrid {'k': 1000, 'shrink': 100, 'content': 0.2} VAL N20=0.190457
+2026-11-11T12:12:47Z pog_dense hybrid {'k': 1000, 'shrink': 100, 'content': 0.3} VAL N20=0.188556
+2026-11-11T12:12:49Z pog_dense hybrid {'k': 1000, 'shrink': 100, 'content': 0.5} VAL N20=0.180676
+2026-11-11T12:12:52Z pog_dense hybrid {'k': 1000, 'shrink': 100, 'content': 0.7} VAL N20=0.145521
+2026-11-11T12:12:55Z pog_dense hybrid {'k': 1000, 'shrink': 100, 'content': 0.9} VAL N20=0.003770
+2026-11-11T12:12:57Z pog_dense hybrid {'k': 1000, 'shrink': 100, 'content': 1.0} VAL N20=0.000047
+2026-11-11T12:13:02Z pog_dense hybrid TEST filtered {'recall20': 0.31593654227510365, 'ndcg20': 0.208070827047538}
+2026-11-11T12:13:02Z pog_dense COMPLETE
+2026-11-11T12:13:22Z pog: n=48676 train=14000 pairs=138274
+2026-11-11T12:13:25Z pog hybrid {'k': 200, 'shrink': 100, 'content': 0.0} VAL N20=0.018215
+2026-11-11T12:13:27Z pog hybrid {'k': 200, 'shrink': 100, 'content': 0.1} VAL N20=0.014552
+2026-11-11T12:13:30Z pog hybrid {'k': 200, 'shrink': 100, 'content': 0.2} VAL N20=0.014480
+2026-11-11T12:13:33Z pog hybrid {'k': 200, 'shrink': 100, 'content': 0.3} VAL N20=0.014673
+2026-11-11T12:13:36Z pog hybrid {'k': 200, 'shrink': 100, 'content': 0.5} VAL N20=0.015330
+2026-11-11T12:13:39Z pog hybrid {'k': 200, 'shrink': 100, 'content': 0.7} VAL N20=0.014807
+2026-11-11T12:13:42Z pog hybrid {'k': 200, 'shrink': 100, 'content': 0.9} VAL N20=0.000938
+2026-11-11T12:13:45Z pog hybrid {'k': 200, 'shrink': 100, 'content': 1.0} VAL N20=0.000169
+2026-11-11T12:13:51Z pog hybrid TEST filtered {'recall20': 0.02649144764288694, 'ndcg20': 0.017440896586669512}
+2026-11-11T12:13:51Z pog COMPLETE
+2026-11-11T12:14:38Z spotify_sparse: n=213325 train=8740 pairs=27319480
+2026-11-11T12:14:57Z spotify_sparse hybrid {'k': 1000, 'shrink': 10, 'content': 0.0} VAL N20=0.135002
+2026-11-11T12:15:14Z spotify_sparse hybrid {'k': 1000, 'shrink': 10, 'content': 0.1} VAL N20=0.138473
+2026-11-11T12:15:34Z spotify_sparse hybrid {'k': 1000, 'shrink': 10, 'content': 0.2} VAL N20=0.138927
+2026-11-11T12:15:50Z spotify_sparse hybrid {'k': 1000, 'shrink': 10, 'content': 0.3} VAL N20=0.139252
+2026-11-11T12:16:12Z spotify_sparse hybrid {'k': 1000, 'shrink': 10, 'content': 0.5} VAL N20=0.139441
+2026-11-11T12:16:29Z spotify_sparse hybrid {'k': 1000, 'shrink': 10, 'content': 0.7} VAL N20=0.135478
+2026-11-11T12:16:46Z spotify_sparse hybrid {'k': 1000, 'shrink': 10, 'content': 0.9} VAL N20=0.097941
+2026-11-11T12:17:07Z spotify_sparse hybrid {'k': 1000, 'shrink': 10, 'content': 1.0} VAL N20=0.029431
+2026-11-11T12:17:37Z spotify_sparse hybrid TEST filtered {'recall20': 0.11659480810776773, 'ndcg20': 0.15261855892235768}
+2026-11-11T12:17:38Z spotify_sparse COMPLETE
+2026-11-11T12:18:43Z spotify: n=254155 train=14000 pairs=67163986
+2026-11-11T12:20:03Z spotify hybrid {'k': 1000, 'shrink': 10, 'content': 0.0} VAL N20=0.221644
+2026-11-11T12:20:40Z spotify hybrid {'k': 1000, 'shrink': 10, 'content': 0.1} VAL N20=0.224328
+2026-11-11T12:21:32Z spotify hybrid {'k': 1000, 'shrink': 10, 'content': 0.2} VAL N20=0.225084
+2026-11-11T12:22:38Z spotify hybrid {'k': 1000, 'shrink': 10, 'content': 0.3} VAL N20=0.225997
+2026-11-11T12:23:51Z spotify hybrid {'k': 1000, 'shrink': 10, 'content': 0.5} VAL N20=0.224970
+2026-11-11T12:24:58Z spotify hybrid {'k': 1000, 'shrink': 10, 'content': 0.7} VAL N20=0.211620
+2026-11-11T12:26:04Z spotify hybrid {'k': 1000, 'shrink': 10, 'content': 0.9} VAL N20=0.145029
+2026-11-11T12:27:04Z spotify hybrid {'k': 1000, 'shrink': 10, 'content': 1.0} VAL N20=0.023957
+2026-11-11T12:28:44Z spotify hybrid TEST filtered {'recall20': 0.13236872178824627, 'ndcg20': 0.22281601396816073}
+2026-11-11T12:28:44Z spotify COMPLETE
+DONE

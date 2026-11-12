@@ -1,0 +1,8 @@
+{
+  "original_checkpoint": "checkpoints/reorganized_162dd8c/food/seed_0/model.pt",
+  "sha256_before": "6a0a92928ed0f43f80f8364db0fbf24c389b52e410e47531604ae89ed198c41b",
+  "sha256_after": "6a0a92928ed0f43f80f8364db0fbf24c389b52e410e47531604ae89ed198c41b",
+  "matched_checkpoint": "checkpoints/neural_small/food/comparisons/bundlefuse_matched.pt",
+  "matched_sha256": "bbd9fe98a917e3841041edf9f3814b407228d726d4b66aa9d4998e543f7151dc",
+  "note": "Classical baselines use repository default settings, not an exhaustive tuning search. p3alpha/rp3beta are local named implementations, not paper reproductions. Original BundleFuse additionally uses auxiliary/user histories."
+}

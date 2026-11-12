@@ -1,0 +1,64 @@
+{
+  "levels": [
+    43039,
+    98674
+  ],
+  "real": [
+    {
+      "weighted_mean": 3.620942537382008,
+      "negative_share": -0.00012909908889002648,
+      "occurrence_share_negative": 0.0515861412220753,
+      "occurrence_share_positive": 0.886417331494329
+    },
+    {
+      "weighted_mean": 2.323556189803332,
+      "negative_share": -0.0003176247745120312,
+      "occurrence_share_negative": 0.0830010273237053,
+      "occurrence_share_positive": 0.6788436009636659
+    }
+  ],
+  "shuffled": [
+    [
+      {
+        "weighted_mean": 0.9007294314838863,
+        "negative_share": -0.04002948226052761,
+        "occurrence_share_negative": 0.298231812876998,
+        "occurrence_share_positive": 0.6397716598394063
+      },
+      {
+        "weighted_mean": 0.44187889909399,
+        "negative_share": -0.07876727910533027,
+        "occurrence_share_negative": 0.42293390194104663,
+        "occurrence_share_positive": 0.3389107263463245
+      }
+    ],
+    [
+      {
+        "weighted_mean": 0.8990461878339802,
+        "negative_share": -0.04059533897894243,
+        "occurrence_share_negative": 0.3004650127703841,
+        "occurrence_share_positive": 0.6375384599460202
+      },
+      {
+        "weighted_mean": 0.43105892539944546,
+        "negative_share": -0.08510132618155127,
+        "occurrence_share_negative": 0.4261581974997477,
+        "occurrence_share_positive": 0.33568643078762345
+      }
+    ],
+    [
+      {
+        "weighted_mean": 0.9398012039669641,
+        "negative_share": -0.03391498224971417,
+        "occurrence_share_negative": 0.28831050535528063,
+        "occurrence_share_positive": 0.6496929673611237
+      },
+      {
+        "weighted_mean": 0.47010856176400984,
+        "negative_share": -0.07328903135884246,
+        "occurrence_share_negative": 0.4176523712546029,
+        "occurrence_share_positive": 0.3441922570327683
+      }
+    ]
+  ]
+}

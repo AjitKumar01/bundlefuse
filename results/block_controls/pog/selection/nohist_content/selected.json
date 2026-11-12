@@ -1,0 +1,19 @@
+{
+  "config": {
+    "kind": "weighted",
+    "weights": {
+      "content": 0.25
+    }
+  },
+  "tuning_metrics": [
+    0.0016666666666666668,
+    0.0005238827054676212
+  ],
+  "keys": [
+    "content"
+  ],
+  "history": "canonical",
+  "alpha": 0.0,
+  "seconds": 2.816740500013111,
+  "fitting_candidates": 4
+}

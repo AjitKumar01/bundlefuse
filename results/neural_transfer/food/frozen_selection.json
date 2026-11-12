@@ -1,0 +1,83 @@
+{
+  "graph_pair_no_category_seed0": {
+    "condition": {
+      "name": "graph_pair_no_category",
+      "variant": "graph_pair",
+      "cold_probability": 0.25,
+      "category_mode": "off",
+      "project_links": true
+    },
+    "seed": 0,
+    "checkpoint": "checkpoints/neural_transfer/food/graph_pair_no_category_seed0/epoch_0026.pt",
+    "best_epoch": 26,
+    "epochs_run": 38,
+    "validation": {
+      "recall20": 0.531534090909091,
+      "ndcg20": 0.3818168641843126,
+      "seconds": 0.019283292000181973,
+      "full_catalogue": true
+    },
+    "parameters": {
+      "trainable_parameters": 38461,
+      "pair_parameters": 13724,
+      "joint_parameters": 0,
+      "category_parameters": 0,
+      "frozen_buffer_bytes": 2179260
+    },
+    "elapsed": 12.97261300001992
+  },
+  "graph_pair_no_category_seed1": {
+    "condition": {
+      "name": "graph_pair_no_category",
+      "variant": "graph_pair",
+      "cold_probability": 0.25,
+      "category_mode": "off",
+      "project_links": true
+    },
+    "seed": 1,
+    "checkpoint": "checkpoints/neural_transfer/food/graph_pair_no_category_seed1/epoch_0046.pt",
+    "best_epoch": 46,
+    "epochs_run": 58,
+    "validation": {
+      "recall20": 0.5267992424242425,
+      "ndcg20": 0.37945284239382554,
+      "seconds": 0.01924970798427239,
+      "full_catalogue": true
+    },
+    "parameters": {
+      "trainable_parameters": 38461,
+      "pair_parameters": 13724,
+      "joint_parameters": 0,
+      "category_parameters": 0,
+      "frozen_buffer_bytes": 2179260
+    },
+    "elapsed": 19.96641016699141
+  },
+  "graph_pair_no_category_seed2": {
+    "condition": {
+      "name": "graph_pair_no_category",
+      "variant": "graph_pair",
+      "cold_probability": 0.25,
+      "category_mode": "off",
+      "project_links": true
+    },
+    "seed": 2,
+    "checkpoint": "checkpoints/neural_transfer/food/graph_pair_no_category_seed2/epoch_0024.pt",
+    "best_epoch": 24,
+    "epochs_run": 36,
+    "validation": {
+      "recall20": 0.5506628787878788,
+      "ndcg20": 0.3783935741480336,
+      "seconds": 0.019404958002269268,
+      "full_catalogue": true
+    },
+    "parameters": {
+      "trainable_parameters": 38461,
+      "pair_parameters": 13724,
+      "joint_parameters": 0,
+      "category_parameters": 0,
+      "frozen_buffer_bytes": 2179260
+    },
+    "elapsed": 12.50901533299475
+  }
+}

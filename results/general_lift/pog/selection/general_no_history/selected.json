@@ -1,0 +1,24 @@
+{
+  "config": {
+    "kind": "weighted",
+    "weights": {
+      "lift0": 1.0,
+      "residual_content": 0.25
+    }
+  },
+  "tuning_metrics": [
+    0.03833333333333333,
+    0.022370786824764
+  ],
+  "keys": [
+    "lift0",
+    "residual_content",
+    "residual_image",
+    "residual_desc",
+    "pop"
+  ],
+  "history": "simp",
+  "alpha": 1.0,
+  "seconds": 27.39353299999493,
+  "fitting_candidates": 39
+}

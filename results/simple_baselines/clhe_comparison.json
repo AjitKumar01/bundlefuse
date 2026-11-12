@@ -1,0 +1,265 @@
+{
+  "note": "DIALS (v3.1, frozen, three seeds) against CLHE (three seeds, Kaggle GPU) on POG, POG_DENSE, Spotify_sparse, Spotify.\n\nCLHE: its own code and shipped settings, trained on split files byte-identical to ours (SHA-256 recorded by the\nkernel and checked here); per-query test metrics keyed by bundle id, from bundle-dpo/clhe_seeds_out. Primary: filtered\ntest queries, NDCG@20 and Recall@20, paired cluster bootstrap and sign flips, Holm over all available tests.\n\nPYTHONPATH=. .venv/bin/python -m experiments.simple_baselines.compare_clhe\n",
+  "datasets": {
+    "pog_dense": {
+      "clhe_seeds": [
+        {
+          "seed": 0,
+          "epoch": 11,
+          "test": [
+            0.38346244623139875,
+            0.2772704518167067
+          ]
+        },
+        {
+          "seed": 1,
+          "epoch": 9,
+          "test": [
+            0.3811608856828095,
+            0.27578320938676004
+          ]
+        },
+        {
+          "seed": 2023,
+          "epoch": 12,
+          "test": [
+            0.3829852934436149,
+            0.2780931812606604
+          ]
+        }
+      ],
+      "parameters": 7248448,
+      "deviation": null,
+      "clhe_full": [
+        0.382536208452608,
+        0.27704894748804276
+      ],
+      "clhe_filtered": [
+        0.34862688643328765,
+        0.2475735664136652
+      ],
+      "dials_full": [
+        0.41209161333782435,
+        0.3101767734565122
+      ],
+      "dials_filtered": [
+        0.3797047453077726,
+        0.28052909469344434
+      ]
+    },
+    "pog": {
+      "clhe_seeds": [
+        {
+          "seed": 0,
+          "epoch": 11,
+          "test": [
+            0.028583333425223827,
+            0.018590830884873868
+          ]
+        },
+        {
+          "seed": 1,
+          "epoch": 11,
+          "test": [
+            0.026041666761040687,
+            0.017957390258088707
+          ]
+        },
+        {
+          "seed": 2023,
+          "epoch": 8,
+          "test": [
+            0.026166666738688945,
+            0.017742602245882155
+          ]
+        }
+      ],
+      "parameters": 9483200,
+      "deviation": null,
+      "clhe_full": [
+        0.026930555641651175,
+        0.01809694112961491
+      ],
+      "clhe_filtered": [
+        0.025921290588219785,
+        0.017216699090807648
+      ],
+      "dials_full": [
+        0.059847222222222204,
+        0.03595829687624699
+      ],
+      "dials_filtered": [
+        0.05908774857460713,
+        0.035273757488640235
+      ]
+    },
+    "spotify_sparse": {
+      "clhe_seeds": [
+        {
+          "seed": 0,
+          "epoch": 33,
+          "test": [
+            0.09724792116302981,
+            0.11538852336671088
+          ]
+        },
+        {
+          "seed": 1,
+          "epoch": 36,
+          "test": [
+            0.09699289447809156,
+            0.11552839026785641
+          ]
+        },
+        {
+          "seed": 2023,
+          "epoch": 29,
+          "test": [
+            0.09793753625625212,
+            0.11614297613579097
+          ]
+        }
+      ],
+      "parameters": 28984384,
+      "deviation": null,
+      "clhe_full": [
+        0.09739278396579118,
+        0.11568662992345274
+      ],
+      "clhe_filtered": [
+        0.09705037780990272,
+        0.11533247959502804
+      ],
+      "dials_full": [
+        0.18176173760858405,
+        0.25510868142661974
+      ],
+      "dials_filtered": [
+        0.1814531195810421,
+        0.2548103669217846
+      ]
+    }
+  },
+  "primary": [
+    {
+      "delta": 0.032955528279778365,
+      "ci95": [
+        0.029556632706218673,
+        0.036495815532859556
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.3165675139715161,
+      "seed": 20261109,
+      "dataset": "pog_dense",
+      "metric": "ndcg20",
+      "first": "dials",
+      "second": "clhe",
+      "p_holm": 0.0005999400059994001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.031077858874486584,
+      "ci95": [
+        0.026486892363822907,
+        0.03605660353374088
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.1014963043086353,
+      "seed": 20261109,
+      "dataset": "pog_dense",
+      "metric": "recall20",
+      "first": "dials",
+      "second": "clhe",
+      "p_holm": 0.0005999400059994001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.018057058397832608,
+      "ci95": [
+        0.015570572424997042,
+        0.020790035115864934
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.13291614518147685,
+      "seed": 20261109,
+      "dataset": "pog",
+      "metric": "ndcg20",
+      "first": "dials",
+      "second": "clhe",
+      "p_holm": 0.0005999400059994001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.033166457986387385,
+      "ci95": [
+        0.02915466085361568,
+        0.037542772392270225
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.11664580725907384,
+      "seed": 20261109,
+      "dataset": "pog",
+      "metric": "recall20",
+      "first": "dials",
+      "second": "clhe",
+      "p_holm": 0.0005999400059994001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.139477887326757,
+      "ci95": [
+        0.12959662818052015,
+        0.1496563358183759
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 2497,
+      "clusters": 2496,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.6291549859831799,
+      "seed": 20261109,
+      "dataset": "spotify_sparse",
+      "metric": "ndcg20",
+      "first": "dials",
+      "second": "clhe",
+      "p_holm": 0.0005999400059994001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.08440274177113971,
+      "ci95": [
+        0.07810415890510095,
+        0.09119561299553339
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 2497,
+      "clusters": 2496,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.5987184621545855,
+      "seed": 20261109,
+      "dataset": "spotify_sparse",
+      "metric": "recall20",
+      "first": "dials",
+      "second": "clhe",
+      "p_holm": 0.0005999400059994001,
+      "reject_05": true
+    }
+  ]
+}

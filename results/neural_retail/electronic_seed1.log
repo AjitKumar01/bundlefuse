@@ -1,0 +1,18 @@
+2026-11-08T17:52:57Z electronic loo seed=1 {'trainable_parameters': 41626, 'label_parameters': 256, 'label_mode': 'spectral', 'observed_directed_pairs': 13788, 'levels': 1, 'frozen_buffer_bytes': 14965607} train_rows=1211 start_epoch=1
+2026-11-08T17:52:58Z electronic loo seed=1 epoch=1 loss=6.62915 VAL R20=0.416570 N20=0.275589 best_epoch=1 patience=0/6
+2026-11-08T17:52:58Z electronic loo seed=1 epoch=2 loss=6.13119 VAL R20=0.407900 N20=0.283855 best_epoch=2 patience=0/6
+2026-11-08T17:52:59Z electronic loo seed=1 epoch=3 loss=5.81562 VAL R20=0.430732 N20=0.310298 best_epoch=3 patience=0/6
+2026-11-08T17:52:59Z electronic loo seed=1 epoch=4 loss=5.59263 VAL R20=0.444990 N20=0.327349 best_epoch=4 patience=0/6
+2026-11-08T17:53:00Z electronic loo seed=1 epoch=5 loss=5.35162 VAL R20=0.454624 N20=0.334081 best_epoch=5 patience=0/6
+2026-11-08T17:53:00Z electronic loo seed=1 epoch=6 loss=5.24162 VAL R20=0.464258 N20=0.341508 best_epoch=6 patience=0/6
+2026-11-08T17:53:01Z electronic loo seed=1 epoch=7 loss=5.16631 VAL R20=0.464258 N20=0.341102 best_epoch=6 patience=1/6
+2026-11-08T17:53:01Z electronic loo seed=1 epoch=8 loss=5.02020 VAL R20=0.472447 N20=0.339744 best_epoch=6 patience=2/6
+2026-11-08T17:53:02Z electronic loo seed=1 epoch=9 loss=5.02817 VAL R20=0.471002 N20=0.348603 best_epoch=9 patience=0/6
+2026-11-08T17:53:02Z electronic loo seed=1 epoch=10 loss=4.98904 VAL R20=0.476782 N20=0.349890 best_epoch=10 patience=0/6
+2026-11-08T17:53:03Z electronic loo seed=1 epoch=11 loss=4.84930 VAL R20=0.453372 N20=0.340506 best_epoch=10 patience=1/6
+2026-11-08T17:53:03Z electronic loo seed=1 epoch=12 loss=4.80251 VAL R20=0.449518 N20=0.334259 best_epoch=10 patience=2/6
+2026-11-08T17:53:04Z electronic loo seed=1 epoch=13 loss=4.83189 VAL R20=0.462524 N20=0.341874 best_epoch=10 patience=3/6
+2026-11-08T17:53:04Z electronic loo seed=1 epoch=14 loss=4.77773 VAL R20=0.475530 N20=0.337686 best_epoch=10 patience=4/6
+2026-11-08T17:53:05Z electronic loo seed=1 epoch=15 loss=4.73053 VAL R20=0.453661 N20=0.336258 best_epoch=10 patience=5/6
+2026-11-08T17:53:05Z electronic loo seed=1 epoch=16 loss=4.62421 VAL R20=0.452216 N20=0.329624 best_epoch=10 patience=6/6
+2026-11-08T17:53:05Z electronic v31_loo_seed1 COMPLETE

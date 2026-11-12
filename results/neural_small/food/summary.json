@@ -1,0 +1,609 @@
+{
+  "status": "complete",
+  "comparisons": {
+    "bundlefuse_original_auxiliary": {
+      "recall20": 0.5948536355051937,
+      "ndcg20": 0.46235458088796394,
+      "seconds": 0.6381355829944368,
+      "full_catalogue": true,
+      "fitted_recipe": {
+        "weights": {
+          "simp": 1.0,
+          "pretrain": 0.25,
+          "homo": 0.25,
+          "content": 1.0,
+          "csvd": 0.25
+        },
+        "prior": [
+          "homo",
+          "content"
+        ],
+        "backoff": [
+          0.05,
+          1.494066118544061
+        ],
+        "higher_order": [
+          0.0,
+          0.0
+        ],
+        "config": {
+          "n_items": 3767,
+          "families": [
+            "collaborative",
+            "content",
+            "taxonomy",
+            "popularity",
+            "personalization"
+          ],
+          "svd_dim": 128,
+          "alpha_deg": 0.5,
+          "gamma_vol": 0.5,
+          "beta_clique": 1.5,
+          "alpha_bridge": 0.5,
+          "n_soft_clusters": 400,
+          "soft_tau": 0.05,
+          "sel_obj": "ndcg20",
+          "compressed": true,
+          "content_rank": 128,
+          "signal_profile": "extended",
+          "fit_rounds": 4,
+          "seed_cap": 0,
+          "validation_chunk": 64
+        }
+      }
+    },
+    "bundlefuse_matched": {
+      "recall20": 0.5750708215297451,
+      "ndcg20": 0.44927877415724565,
+      "seconds": 0.3812729159835726,
+      "full_catalogue": true,
+      "fitted_recipe": {
+        "weights": {
+          "simp": 0.5,
+          "cat": 0.25,
+          "homo": 0.25,
+          "content": 1.0,
+          "csvd": 0.25
+        },
+        "prior": [
+          "cat",
+          "homo",
+          "content"
+        ],
+        "backoff": [
+          0.05,
+          1.1544630257899609
+        ],
+        "higher_order": [
+          0.5,
+          0.0
+        ],
+        "config": {
+          "n_items": 3767,
+          "families": [
+            "collaborative",
+            "content",
+            "taxonomy",
+            "popularity"
+          ],
+          "svd_dim": 128,
+          "alpha_deg": 0.5,
+          "gamma_vol": 0.5,
+          "beta_clique": 1.5,
+          "alpha_bridge": 0.5,
+          "n_soft_clusters": 400,
+          "soft_tau": 0.05,
+          "sel_obj": "ndcg20",
+          "compressed": true,
+          "content_rank": 128,
+          "signal_profile": "extended",
+          "fit_rounds": 4,
+          "seed_cap": 0,
+          "validation_chunk": 64
+        }
+      }
+    },
+    "popularity": {
+      "recall20": 0.035033050047214354,
+      "ndcg20": 0.016077125117044365,
+      "seconds": 0.013006084016524255,
+      "full_catalogue": true
+    },
+    "cooccurrence": {
+      "recall20": 0.3440037771482531,
+      "ndcg20": 0.2594564208411657,
+      "seconds": 0.018312416010303423,
+      "full_catalogue": true
+    },
+    "itemknn": {
+      "recall20": 0.3411709159584514,
+      "ndcg20": 0.26253630389953475,
+      "seconds": 0.020361125003546476,
+      "full_catalogue": true
+    },
+    "p3alpha": {
+      "recall20": 0.34230406043437206,
+      "ndcg20": 0.2382149374252977,
+      "seconds": 0.02889895800035447,
+      "full_catalogue": true
+    },
+    "rp3beta": {
+      "recall20": 0.3378186968838527,
+      "ndcg20": 0.2377206718528367,
+      "seconds": 0.031681958003900945,
+      "full_catalogue": true
+    },
+    "contentknn": {
+      "recall20": 0.34088762983947124,
+      "ndcg20": 0.2363056217537803,
+      "seconds": 0.023079625010723248,
+      "full_catalogue": true
+    }
+  },
+  "trials": {
+    "dot_seed0": {
+      "selected": {
+        "variant": "dot",
+        "seed": 0,
+        "checkpoint": "checkpoints/neural_small/food/dot_seed0/epoch_0026.pt",
+        "best_epoch": 26,
+        "validation": {
+          "recall20": 0.3829545454545455,
+          "ndcg20": 0.2524219584308567,
+          "seconds": 0.05047408299287781,
+          "item_encoding_seconds": 0.0009396249952260405,
+          "full_catalogue": true,
+          "catalogue_size": 3767
+        },
+        "parameters": {
+          "total": 347536,
+          "item_identity": 241152,
+          "other": 106384,
+          "frozen_buffer_bytes": 1974432,
+          "config": {
+            "variant": "dot",
+            "dim": 64,
+            "layers": 2,
+            "heads": 4,
+            "dropout": 0.1,
+            "identity_dropout": 0.1
+          }
+        },
+        "model_config": {
+          "variant": "dot",
+          "dim": 64,
+          "layers": 2,
+          "heads": 4,
+          "dropout": 0.1,
+          "identity_dropout": 0.1
+        },
+        "elapsed_seconds": 25.692256207985338,
+        "epochs_run": 38,
+        "selection": "validation NDCG@20 only"
+      },
+      "test": {
+        "recall20": 0.3714825306893295,
+        "ndcg20": 0.2474111468633919,
+        "seconds": 0.11970599999767728,
+        "item_encoding_seconds": 0.0015667080006096512,
+        "full_catalogue": true,
+        "catalogue_size": 3767
+      }
+    },
+    "relations_seed0": {
+      "selected": {
+        "variant": "relations",
+        "seed": 0,
+        "checkpoint": "checkpoints/neural_small/food/relations_seed0/epoch_0016.pt",
+        "best_epoch": 16,
+        "validation": {
+          "recall20": 0.43143939393939396,
+          "ndcg20": 0.3265489859230475,
+          "seconds": 0.9094376249995548,
+          "item_encoding_seconds": 0.000985999999102205,
+          "full_catalogue": true,
+          "catalogue_size": 3767
+        },
+        "parameters": {
+          "total": 305425,
+          "item_identity": 241152,
+          "other": 64273,
+          "frozen_buffer_bytes": 1974432,
+          "config": {
+            "variant": "relations",
+            "dim": 64,
+            "layers": 2,
+            "heads": 4,
+            "dropout": 0.1,
+            "identity_dropout": 0.1
+          }
+        },
+        "model_config": {
+          "variant": "relations",
+          "dim": 64,
+          "layers": 2,
+          "heads": 4,
+          "dropout": 0.1,
+          "identity_dropout": 0.1
+        },
+        "elapsed_seconds": 117.88081199998851,
+        "epochs_run": 28,
+        "selection": "validation NDCG@20 only"
+      },
+      "test": {
+        "recall20": 0.3999527856468367,
+        "ndcg20": 0.3013271195499712,
+        "seconds": 1.9393365840078332,
+        "item_encoding_seconds": 0.0011644169862847775,
+        "full_catalogue": true,
+        "catalogue_size": 3767
+      }
+    },
+    "contextual_seed0": {
+      "selected": {
+        "variant": "contextual",
+        "seed": 0,
+        "checkpoint": "checkpoints/neural_small/food/contextual_seed0/epoch_0024.pt",
+        "best_epoch": 24,
+        "validation": {
+          "recall20": 0.4612689393939393,
+          "ndcg20": 0.32972903553440136,
+          "seconds": 0.9400067499955185,
+          "item_encoding_seconds": 0.0010285830067005008,
+          "full_catalogue": true,
+          "catalogue_size": 3767
+        },
+        "parameters": {
+          "total": 372369,
+          "item_identity": 241152,
+          "other": 131217,
+          "frozen_buffer_bytes": 1974432,
+          "config": {
+            "variant": "contextual",
+            "dim": 64,
+            "layers": 2,
+            "heads": 4,
+            "dropout": 0.1,
+            "identity_dropout": 0.1
+          }
+        },
+        "model_config": {
+          "variant": "contextual",
+          "dim": 64,
+          "layers": 2,
+          "heads": 4,
+          "dropout": 0.1,
+          "identity_dropout": 0.1
+        },
+        "elapsed_seconds": 155.49870166601613,
+        "epochs_run": 36,
+        "selection": "validation NDCG@20 only"
+      },
+      "test": {
+        "recall20": 0.44853635505193573,
+        "ndcg20": 0.33008183098880245,
+        "seconds": 1.9588935830106493,
+        "item_encoding_seconds": 0.0010017080057878047,
+        "full_catalogue": true,
+        "catalogue_size": 3767
+      }
+    },
+    "dot_seed1": {
+      "selected": {
+        "variant": "dot",
+        "seed": 1,
+        "checkpoint": "checkpoints/neural_small/food/dot_seed1/epoch_0048.pt",
+        "best_epoch": 48,
+        "validation": {
+          "recall20": 0.33674242424242423,
+          "ndcg20": 0.2208275492378939,
+          "seconds": 0.050272791006136686,
+          "item_encoding_seconds": 0.0009577499877195805,
+          "full_catalogue": true,
+          "catalogue_size": 3767
+        },
+        "parameters": {
+          "total": 347536,
+          "item_identity": 241152,
+          "other": 106384,
+          "frozen_buffer_bytes": 1974432,
+          "config": {
+            "variant": "dot",
+            "dim": 64,
+            "layers": 2,
+            "heads": 4,
+            "dropout": 0.1,
+            "identity_dropout": 0.1
+          }
+        },
+        "model_config": {
+          "variant": "dot",
+          "dim": 64,
+          "layers": 2,
+          "heads": 4,
+          "dropout": 0.1,
+          "identity_dropout": 0.1
+        },
+        "elapsed_seconds": 40.801304792024894,
+        "epochs_run": 60,
+        "selection": "validation NDCG@20 only"
+      },
+      "test": {
+        "recall20": 0.34494806421152036,
+        "ndcg20": 0.24019837678977365,
+        "seconds": 0.09608866600319743,
+        "item_encoding_seconds": 0.0009921659948304296,
+        "full_catalogue": true,
+        "catalogue_size": 3767
+      }
+    },
+    "relations_seed1": {
+      "selected": {
+        "variant": "relations",
+        "seed": 1,
+        "checkpoint": "checkpoints/neural_small/food/relations_seed1/epoch_0028.pt",
+        "best_epoch": 28,
+        "validation": {
+          "recall20": 0.45274621212121213,
+          "ndcg20": 0.3266451612613002,
+          "seconds": 0.8899193750112318,
+          "item_encoding_seconds": 0.0009305420098826289,
+          "full_catalogue": true,
+          "catalogue_size": 3767
+        },
+        "parameters": {
+          "total": 305425,
+          "item_identity": 241152,
+          "other": 64273,
+          "frozen_buffer_bytes": 1974432,
+          "config": {
+            "variant": "relations",
+            "dim": 64,
+            "layers": 2,
+            "heads": 4,
+            "dropout": 0.1,
+            "identity_dropout": 0.1
+          }
+        },
+        "model_config": {
+          "variant": "relations",
+          "dim": 64,
+          "layers": 2,
+          "heads": 4,
+          "dropout": 0.1,
+          "identity_dropout": 0.1
+        },
+        "elapsed_seconds": 167.77418333402602,
+        "epochs_run": 40,
+        "selection": "validation NDCG@20 only"
+      },
+      "test": {
+        "recall20": 0.44291784702549575,
+        "ndcg20": 0.331294894150419,
+        "seconds": 1.880683915980626,
+        "item_encoding_seconds": 0.0009234579920303077,
+        "full_catalogue": true,
+        "catalogue_size": 3767
+      }
+    },
+    "contextual_seed1": {
+      "selected": {
+        "variant": "contextual",
+        "seed": 1,
+        "checkpoint": "checkpoints/neural_small/food/contextual_seed1/epoch_0050.pt",
+        "best_epoch": 50,
+        "validation": {
+          "recall20": 0.4299242424242424,
+          "ndcg20": 0.3212841508871998,
+          "seconds": 0.8923987089947332,
+          "item_encoding_seconds": 0.0009292500035371631,
+          "full_catalogue": true,
+          "catalogue_size": 3767
+        },
+        "parameters": {
+          "total": 372369,
+          "item_identity": 241152,
+          "other": 131217,
+          "frozen_buffer_bytes": 1974432,
+          "config": {
+            "variant": "contextual",
+            "dim": 64,
+            "layers": 2,
+            "heads": 4,
+            "dropout": 0.1,
+            "identity_dropout": 0.1
+          }
+        },
+        "model_config": {
+          "variant": "contextual",
+          "dim": 64,
+          "layers": 2,
+          "heads": 4,
+          "dropout": 0.1,
+          "identity_dropout": 0.1
+        },
+        "elapsed_seconds": 255.94717049997416,
+        "epochs_run": 62,
+        "selection": "validation NDCG@20 only"
+      },
+      "test": {
+        "recall20": 0.44428706326723316,
+        "ndcg20": 0.33435280869995593,
+        "seconds": 1.7936312920064665,
+        "item_encoding_seconds": 0.0009714589978102595,
+        "full_catalogue": true,
+        "catalogue_size": 3767
+      }
+    },
+    "dot_seed2": {
+      "selected": {
+        "variant": "dot",
+        "seed": 2,
+        "checkpoint": "checkpoints/neural_small/food/dot_seed2/epoch_0032.pt",
+        "best_epoch": 32,
+        "validation": {
+          "recall20": 0.35615530303030307,
+          "ndcg20": 0.24498111069329748,
+          "seconds": 0.04888579199905507,
+          "item_encoding_seconds": 0.0010263329895678908,
+          "full_catalogue": true,
+          "catalogue_size": 3767
+        },
+        "parameters": {
+          "total": 347536,
+          "item_identity": 241152,
+          "other": 106384,
+          "frozen_buffer_bytes": 1974432,
+          "config": {
+            "variant": "dot",
+            "dim": 64,
+            "layers": 2,
+            "heads": 4,
+            "dropout": 0.1,
+            "identity_dropout": 0.1
+          }
+        },
+        "model_config": {
+          "variant": "dot",
+          "dim": 64,
+          "layers": 2,
+          "heads": 4,
+          "dropout": 0.1,
+          "identity_dropout": 0.1
+        },
+        "elapsed_seconds": 29.075648083991837,
+        "epochs_run": 44,
+        "selection": "validation NDCG@20 only"
+      },
+      "test": {
+        "recall20": 0.36487252124645897,
+        "ndcg20": 0.23309956031786258,
+        "seconds": 0.10690558300120756,
+        "item_encoding_seconds": 0.0009429999918211251,
+        "full_catalogue": true,
+        "catalogue_size": 3767
+      }
+    },
+    "relations_seed2": {
+      "selected": {
+        "variant": "relations",
+        "seed": 2,
+        "checkpoint": "checkpoints/neural_small/food/relations_seed2/epoch_0028.pt",
+        "best_epoch": 28,
+        "validation": {
+          "recall20": 0.44223484848484856,
+          "ndcg20": 0.33280865276385824,
+          "seconds": 0.9186819170136005,
+          "item_encoding_seconds": 0.0011234169942326844,
+          "full_catalogue": true,
+          "catalogue_size": 3767
+        },
+        "parameters": {
+          "total": 305425,
+          "item_identity": 241152,
+          "other": 64273,
+          "frozen_buffer_bytes": 1974432,
+          "config": {
+            "variant": "relations",
+            "dim": 64,
+            "layers": 2,
+            "heads": 4,
+            "dropout": 0.1,
+            "identity_dropout": 0.1
+          }
+        },
+        "model_config": {
+          "variant": "relations",
+          "dim": 64,
+          "layers": 2,
+          "heads": 4,
+          "dropout": 0.1,
+          "identity_dropout": 0.1
+        },
+        "elapsed_seconds": 162.5012184579973,
+        "epochs_run": 40,
+        "selection": "validation NDCG@20 only"
+      },
+      "test": {
+        "recall20": 0.45599622285174696,
+        "ndcg20": 0.3411831276527308,
+        "seconds": 1.8380595829803497,
+        "item_encoding_seconds": 0.0009582909988239408,
+        "full_catalogue": true,
+        "catalogue_size": 3767
+      }
+    },
+    "contextual_seed2": {
+      "selected": {
+        "variant": "contextual",
+        "seed": 2,
+        "checkpoint": "checkpoints/neural_small/food/contextual_seed2/epoch_0040.pt",
+        "best_epoch": 40,
+        "validation": {
+          "recall20": 0.4559659090909091,
+          "ndcg20": 0.3413206849349386,
+          "seconds": 1.206732374994317,
+          "item_encoding_seconds": 0.002491041988832876,
+          "full_catalogue": true,
+          "catalogue_size": 3767
+        },
+        "parameters": {
+          "total": 372369,
+          "item_identity": 241152,
+          "other": 131217,
+          "frozen_buffer_bytes": 1974432,
+          "config": {
+            "variant": "contextual",
+            "dim": 64,
+            "layers": 2,
+            "heads": 4,
+            "dropout": 0.1,
+            "identity_dropout": 0.1
+          }
+        },
+        "model_config": {
+          "variant": "contextual",
+          "dim": 64,
+          "layers": 2,
+          "heads": 4,
+          "dropout": 0.1,
+          "identity_dropout": 0.1
+        },
+        "elapsed_seconds": 218.81360766699072,
+        "epochs_run": 52,
+        "selection": "validation NDCG@20 only"
+      },
+      "test": {
+        "recall20": 0.4517469310670444,
+        "ndcg20": 0.333295406537322,
+        "seconds": 2.0707195840077475,
+        "item_encoding_seconds": 0.0010410840041004121,
+        "full_catalogue": true,
+        "catalogue_size": 3767
+      }
+    }
+  },
+  "neural_means": {
+    "contextual": {
+      "seeds": 3,
+      "recall20_mean": 0.44819011646207113,
+      "ndcg20_mean": 0.3325766820753601,
+      "recall20_std": 0.003741967098799599,
+      "ndcg20_std": 0.0022243507572905913
+    },
+    "dot": {
+      "seeds": 3,
+      "recall20_mean": 0.36043437204910295,
+      "ndcg20_mean": 0.24023636132367607,
+      "recall20_std": 0.013812760550990105,
+      "ndcg20_std": 0.007155868883731442
+    },
+    "relations": {
+      "seeds": 3,
+      "recall20_mean": 0.4329556185080265,
+      "ndcg20_mean": 0.3246017137843737,
+      "recall20_std": 0.029319809194653525,
+      "ndcg20_std": 0.02075389946566959
+    }
+  }
+}

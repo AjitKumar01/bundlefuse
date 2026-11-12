@@ -1,0 +1,31 @@
+{
+  "config": {
+    "kind": "gate",
+    "weights": {
+      "residual_content": 1.0,
+      "pair": 1.5,
+      "amp": 1.5
+    },
+    "prior_weights": {
+      "residual_content": 1.0
+    },
+    "scale": 2.6678672494434816,
+    "kappa": 0.05
+  },
+  "tuning_metrics": [
+    0.5078616352201258,
+    0.3489877909975832
+  ],
+  "keys": [
+    "off0",
+    "residual_content",
+    "pop",
+    "pair",
+    "simp",
+    "amp"
+  ],
+  "history": "simp",
+  "alpha": 1.0,
+  "seconds": 0.5289079170033801,
+  "fitting_candidates": 60
+}

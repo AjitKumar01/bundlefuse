@@ -1,0 +1,39 @@
+{
+  "variant": "relations",
+  "seed": 2,
+  "checkpoint": "checkpoints/neural_small/electronic/relations_seed2/epoch_0022.pt",
+  "best_epoch": 22,
+  "validation": {
+    "recall20": 0.355009633911368,
+    "ndcg20": 0.26378970035172017,
+    "seconds": 1.0036401669785846,
+    "item_encoding_seconds": 0.0010425839864183217,
+    "full_catalogue": true,
+    "catalogue_size": 3499
+  },
+  "parameters": {
+    "total": 282561,
+    "item_identity": 224000,
+    "other": 58561,
+    "frozen_buffer_bytes": 1834000,
+    "config": {
+      "variant": "relations",
+      "dim": 64,
+      "layers": 2,
+      "heads": 4,
+      "dropout": 0.1,
+      "identity_dropout": 0.1
+    }
+  },
+  "model_config": {
+    "variant": "relations",
+    "dim": 64,
+    "layers": 2,
+    "heads": 4,
+    "dropout": 0.1,
+    "identity_dropout": 0.1
+  },
+  "elapsed_seconds": 155.08769637500518,
+  "epochs_run": 34,
+  "selection": "validation NDCG@20 only"
+}

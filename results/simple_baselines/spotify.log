@@ -1,0 +1,36 @@
+2026-11-08T18:06:16Z spotify: n=254155 train=14000 pairs=67163986
+2026-11-08T18:06:22Z spotify popularity {} VAL N20=0.022445
+2026-11-08T18:06:28Z spotify cooccurrence {} VAL N20=0.159006
+2026-11-08T18:06:35Z spotify itemknn {'k': 50, 'shrink': 0} VAL N20=0.153760
+2026-11-08T18:06:43Z spotify itemknn {'k': 50, 'shrink': 10} VAL N20=0.210978
+2026-11-08T18:06:51Z spotify itemknn {'k': 50, 'shrink': 100} VAL N20=0.189239
+2026-11-08T18:06:58Z spotify itemknn {'k': 200, 'shrink': 0} VAL N20=0.161414
+2026-11-08T18:07:05Z spotify itemknn {'k': 200, 'shrink': 10} VAL N20=0.216649
+2026-11-08T18:07:13Z spotify itemknn {'k': 200, 'shrink': 100} VAL N20=0.192129
+2026-11-08T18:07:20Z spotify itemknn {'k': 1000, 'shrink': 0} VAL N20=0.181876
+2026-11-08T18:07:27Z spotify itemknn {'k': 1000, 'shrink': 10} VAL N20=0.221644
+2026-11-08T18:07:35Z spotify itemknn {'k': 1000, 'shrink': 100} VAL N20=0.194533
+2026-11-08T18:07:43Z spotify rp3beta {'alpha': 0.5, 'beta': 0.0} VAL N20=0.183099
+2026-11-08T18:07:52Z spotify rp3beta {'alpha': 0.5, 'beta': 0.25} VAL N20=0.212740
+2026-11-08T18:08:01Z spotify rp3beta {'alpha': 0.5, 'beta': 0.5} VAL N20=0.198874
+2026-11-08T18:08:10Z spotify rp3beta {'alpha': 0.5, 'beta': 0.75} VAL N20=0.074478
+2026-11-08T18:08:18Z spotify rp3beta {'alpha': 1.0, 'beta': 0.0} VAL N20=0.192566
+2026-11-08T18:08:27Z spotify rp3beta {'alpha': 1.0, 'beta': 0.25} VAL N20=0.170317
+2026-11-08T18:08:36Z spotify rp3beta {'alpha': 1.0, 'beta': 0.5} VAL N20=0.087941
+2026-11-08T18:08:45Z spotify rp3beta {'alpha': 1.0, 'beta': 0.75} VAL N20=0.025680
+2026-11-08T18:08:53Z spotify gfcf {'rank': 64, 'ideal': 0.0} VAL N20=0.175123
+2026-11-08T18:09:01Z spotify gfcf {'rank': 64, 'ideal': 0.1} VAL N20=0.175119
+2026-11-08T18:09:09Z spotify gfcf {'rank': 64, 'ideal': 0.3} VAL N20=0.175857
+2026-11-08T18:09:17Z spotify gfcf {'rank': 64, 'ideal': 1.0} VAL N20=0.176358
+2026-11-08T18:09:25Z spotify gfcf {'rank': 64, 'ideal': 3.0} VAL N20=0.173604
+2026-11-08T18:09:32Z spotify gfcf {'rank': 256, 'ideal': 0.0} VAL N20=0.175123
+2026-11-08T18:09:43Z spotify gfcf {'rank': 256, 'ideal': 0.1} VAL N20=0.176054
+2026-11-08T18:09:53Z spotify gfcf {'rank': 256, 'ideal': 0.3} VAL N20=0.176513
+2026-11-08T18:10:03Z spotify gfcf {'rank': 256, 'ideal': 1.0} VAL N20=0.171344
+2026-11-08T18:10:13Z spotify gfcf {'rank': 256, 'ideal': 3.0} VAL N20=0.134451
+2026-11-08T18:10:24Z spotify popularity TEST filtered {'recall20': 0.01275044262761606, 'ndcg20': 0.022010152859139244}
+2026-11-08T18:10:37Z spotify cooccurrence TEST filtered {'recall20': 0.09510741387929814, 'ndcg20': 0.15956775777447416}
+2026-11-08T18:10:51Z spotify itemknn TEST filtered {'recall20': 0.1298610164421635, 'ndcg20': 0.2191994649611911}
+2026-11-08T18:11:06Z spotify rp3beta TEST filtered {'recall20': 0.12355450442425432, 'ndcg20': 0.209964056071929}
+2026-11-08T18:11:22Z spotify gfcf TEST filtered {'recall20': 0.1017086746393377, 'ndcg20': 0.17343528807811875}
+2026-11-08T18:11:22Z spotify COMPLETE

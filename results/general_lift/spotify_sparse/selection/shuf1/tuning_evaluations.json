@@ -1,0 +1,54 @@
+{
+  "{\"kind\": \"weighted\", \"weights\": {\"pair\": 1.5, \"residual_audio\": 0.5, \"shuf1_lift0\": 0.25, \"simp\": 1.5}}": [
+    0.10089768075564653,
+    0.13352936860024703
+  ],
+  "{\"kappa\": 0.0, \"kind\": \"gate\", \"prior_weights\": {\"residual_audio\": 0.5, \"shuf1_lift0\": 0.25}, \"scale\": 1.0, \"weights\": {\"pair\": 1.5, \"residual_audio\": 0.5, \"shuf1_lift0\": 0.25, \"simp\": 1.5}}": [
+    0.10089768075564653,
+    0.13352936860024703
+  ],
+  "{\"kappa\": 0.05, \"kind\": \"gate\", \"prior_weights\": {\"residual_audio\": 0.5, \"shuf1_lift0\": 0.25}, \"scale\": 1.0, \"weights\": {\"pair\": 1.5, \"residual_audio\": 0.5, \"shuf1_lift0\": 0.25, \"simp\": 1.5}}": [
+    0.09977612597263161,
+    0.13319505649757088
+  ],
+  "{\"kappa\": 0.5, \"kind\": \"gate\", \"prior_weights\": {\"residual_audio\": 0.5, \"shuf1_lift0\": 0.25}, \"scale\": 1.0, \"weights\": {\"pair\": 1.5, \"residual_audio\": 0.5, \"shuf1_lift0\": 0.25, \"simp\": 1.5}}": [
+    0.09903774201253422,
+    0.1323803763198308
+  ],
+  "{\"kappa\": 1.0, \"kind\": \"gate\", \"prior_weights\": {\"residual_audio\": 0.5, \"shuf1_lift0\": 0.25}, \"scale\": 1.0, \"weights\": {\"pair\": 1.5, \"residual_audio\": 0.5, \"shuf1_lift0\": 0.25, \"simp\": 1.5}}": [
+    0.09886609372590768,
+    0.13189088801279597
+  ],
+  "{\"kappa\": 5.0, \"kind\": \"gate\", \"prior_weights\": {\"residual_audio\": 0.5, \"shuf1_lift0\": 0.25}, \"scale\": 1.0, \"weights\": {\"pair\": 1.5, \"residual_audio\": 0.5, \"shuf1_lift0\": 0.25, \"simp\": 1.5}}": [
+    0.09514892236128435,
+    0.12493119571119998
+  ],
+  "{\"kappa\": 20.0, \"kind\": \"gate\", \"prior_weights\": {\"residual_audio\": 0.5, \"shuf1_lift0\": 0.25}, \"scale\": 1.0, \"weights\": {\"pair\": 1.5, \"residual_audio\": 0.5, \"shuf1_lift0\": 0.25, \"simp\": 1.5}}": [
+    0.08613880204378438,
+    0.11309507409998726
+  ],
+  "{\"kappa\": 0.0, \"kind\": \"gate\", \"prior_weights\": {\"residual_audio\": 0.5, \"shuf1_lift0\": 0.25}, \"scale\": 5.213444972205295, \"weights\": {\"pair\": 1.5, \"residual_audio\": 0.5, \"shuf1_lift0\": 0.25, \"simp\": 1.5}}": [
+    0.10089768075564653,
+    0.13352936860024703
+  ],
+  "{\"kappa\": 0.05, \"kind\": \"gate\", \"prior_weights\": {\"residual_audio\": 0.5, \"shuf1_lift0\": 0.25}, \"scale\": 5.213444972205295, \"weights\": {\"pair\": 1.5, \"residual_audio\": 0.5, \"shuf1_lift0\": 0.25, \"simp\": 1.5}}": [
+    0.10022057041707608,
+    0.1340873917644706
+  ],
+  "{\"kappa\": 0.5, \"kind\": \"gate\", \"prior_weights\": {\"residual_audio\": 0.5, \"shuf1_lift0\": 0.25}, \"scale\": 5.213444972205295, \"weights\": {\"pair\": 1.5, \"residual_audio\": 0.5, \"shuf1_lift0\": 0.25, \"simp\": 1.5}}": [
+    0.10022015576602812,
+    0.13372261997138948
+  ],
+  "{\"kappa\": 1.0, \"kind\": \"gate\", \"prior_weights\": {\"residual_audio\": 0.5, \"shuf1_lift0\": 0.25}, \"scale\": 5.213444972205295, \"weights\": {\"pair\": 1.5, \"residual_audio\": 0.5, \"shuf1_lift0\": 0.25, \"simp\": 1.5}}": [
+    0.09981509643440406,
+    0.1332426291317367
+  ],
+  "{\"kappa\": 5.0, \"kind\": \"gate\", \"prior_weights\": {\"residual_audio\": 0.5, \"shuf1_lift0\": 0.25}, \"scale\": 5.213444972205295, \"weights\": {\"pair\": 1.5, \"residual_audio\": 0.5, \"shuf1_lift0\": 0.25, \"simp\": 1.5}}": [
+    0.09492620148383173,
+    0.1250796721932821
+  ],
+  "{\"kappa\": 20.0, \"kind\": \"gate\", \"prior_weights\": {\"residual_audio\": 0.5, \"shuf1_lift0\": 0.25}, \"scale\": 5.213444972205295, \"weights\": {\"pair\": 1.5, \"residual_audio\": 0.5, \"shuf1_lift0\": 0.25, \"simp\": 1.5}}": [
+    0.08756867603394113,
+    0.11508671167377588
+  ]
+}

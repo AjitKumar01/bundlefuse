@@ -1,0 +1,49 @@
+{
+  "scope": "Validation-only linear probes on component scores and descriptive rank alignment. No teacher fitting of the neural model. Different representation dimension from v1; not a controlled capacity comparison.",
+  "component_names": [
+    "text",
+    "category"
+  ],
+  "heldout_probe_r2": {
+    "pair": 0.005366265773773193,
+    "simp": 0.004783034324645996,
+    "cooc": 0.005003392696380615,
+    "ppmi": 0.0047269463539123535,
+    "cat": 0.017608940601348877,
+    "homo": 0.07287091016769409,
+    "content": 0.9587050676345825,
+    "bridge": 0.13779473304748535,
+    "csvd": 0.0004730224609375,
+    "rao": 0.04646188020706177,
+    "joint_surplus": -0.0006093978881835938
+  },
+  "rank_alignment": {
+    "text": {
+      "pair": 0.027937241005979736,
+      "simp": 0.027937278416782698,
+      "cooc": 0.027936634369664953,
+      "ppmi": 0.027938299929197552,
+      "cat": 0.0933770254682998,
+      "homo": 0.10864594515711133,
+      "content": 0.9999999998852652,
+      "bridge": 0.23112679979443876,
+      "csvd": 0.003393740932031615,
+      "rao": 0.20285446655039813,
+      "joint_surplus": 0.029300745432940815
+    },
+    "final": {
+      "pair": 0.027937241005979736,
+      "simp": 0.027937278416782698,
+      "cooc": 0.027936634369664953,
+      "ppmi": 0.027938299929197552,
+      "cat": 0.0933770254682998,
+      "homo": 0.10864594515711133,
+      "content": 0.9999999998852652,
+      "bridge": 0.23112679979443876,
+      "csvd": 0.003393740932031615,
+      "rao": 0.20285446655039813,
+      "joint_surplus": 0.029300745432940815
+    }
+  },
+  "warning": "High rank agreement for sparse sources can reflect shared support. These probes do not establish causal recovery of BundleFuse mechanisms."
+}

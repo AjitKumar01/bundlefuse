@@ -1,0 +1,27 @@
+{
+  "condition": {
+    "name": "graph_pair_no_category",
+    "variant": "graph_pair",
+    "cold_probability": 0.25,
+    "category_mode": "off",
+    "project_links": true
+  },
+  "seed": 1,
+  "checkpoint": "checkpoints/neural_transfer/food/graph_pair_no_category_seed1/epoch_0046.pt",
+  "best_epoch": 46,
+  "epochs_run": 58,
+  "validation": {
+    "recall20": 0.5267992424242425,
+    "ndcg20": 0.37945284239382554,
+    "seconds": 0.01924970798427239,
+    "full_catalogue": true
+  },
+  "parameters": {
+    "trainable_parameters": 38461,
+    "pair_parameters": 13724,
+    "joint_parameters": 0,
+    "category_parameters": 0,
+    "frozen_buffer_bytes": 2179260
+  },
+  "elapsed": 19.96641016699141
+}

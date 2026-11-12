@@ -1,0 +1,35 @@
+{
+  "arm": "loo",
+  "config": {
+    "epochs": 100,
+    "batch": 32,
+    "eval_every": 2,
+    "patience": 6,
+    "shared_lr": 0.001,
+    "group_lr": 0.01,
+    "weight_decay": 0.001,
+    "rank": 64,
+    "group_rank": 16,
+    "hidden": 32,
+    "use_album": true,
+    "graph_rank": 64,
+    "model": "relation_family_v3"
+  },
+  "seed": 0,
+  "checkpoint": "checkpoints/neural_relations/pog_dense/v3_loo_seed0/epoch_0040.pt",
+  "best_epoch": 40,
+  "epochs_run": 52,
+  "validation": {
+    "recall20": 0.42127133872416894,
+    "ndcg20": 0.314568339983042,
+    "seconds": 5.249940083012916
+  },
+  "parameters": {
+    "trainable_parameters": 43514,
+    "label_parameters": 2144,
+    "observed_directed_pairs": 153074,
+    "levels": 1,
+    "frozen_buffer_bytes": 130576139
+  },
+  "elapsed": 6113.268874916015
+}

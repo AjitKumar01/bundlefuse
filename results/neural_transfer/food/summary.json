@@ -1,0 +1,281 @@
+{
+  "status": "complete",
+  "selected": {
+    "graph_pair_no_category_seed0": {
+      "condition": {
+        "name": "graph_pair_no_category",
+        "variant": "graph_pair",
+        "cold_probability": 0.25,
+        "category_mode": "off",
+        "project_links": true
+      },
+      "seed": 0,
+      "checkpoint": "checkpoints/neural_transfer/food/graph_pair_no_category_seed0/epoch_0026.pt",
+      "best_epoch": 26,
+      "epochs_run": 38,
+      "validation": {
+        "recall20": 0.531534090909091,
+        "ndcg20": 0.3818168641843126,
+        "seconds": 0.019283292000181973,
+        "full_catalogue": true
+      },
+      "parameters": {
+        "trainable_parameters": 38461,
+        "pair_parameters": 13724,
+        "joint_parameters": 0,
+        "category_parameters": 0,
+        "frozen_buffer_bytes": 2179260
+      },
+      "elapsed": 12.97261300001992
+    },
+    "graph_pair_no_category_seed1": {
+      "condition": {
+        "name": "graph_pair_no_category",
+        "variant": "graph_pair",
+        "cold_probability": 0.25,
+        "category_mode": "off",
+        "project_links": true
+      },
+      "seed": 1,
+      "checkpoint": "checkpoints/neural_transfer/food/graph_pair_no_category_seed1/epoch_0046.pt",
+      "best_epoch": 46,
+      "epochs_run": 58,
+      "validation": {
+        "recall20": 0.5267992424242425,
+        "ndcg20": 0.37945284239382554,
+        "seconds": 0.01924970798427239,
+        "full_catalogue": true
+      },
+      "parameters": {
+        "trainable_parameters": 38461,
+        "pair_parameters": 13724,
+        "joint_parameters": 0,
+        "category_parameters": 0,
+        "frozen_buffer_bytes": 2179260
+      },
+      "elapsed": 19.96641016699141
+    },
+    "graph_pair_no_category_seed2": {
+      "condition": {
+        "name": "graph_pair_no_category",
+        "variant": "graph_pair",
+        "cold_probability": 0.25,
+        "category_mode": "off",
+        "project_links": true
+      },
+      "seed": 2,
+      "checkpoint": "checkpoints/neural_transfer/food/graph_pair_no_category_seed2/epoch_0024.pt",
+      "best_epoch": 24,
+      "epochs_run": 36,
+      "validation": {
+        "recall20": 0.5506628787878788,
+        "ndcg20": 0.3783935741480336,
+        "seconds": 0.019404958002269268,
+        "full_catalogue": true
+      },
+      "parameters": {
+        "trainable_parameters": 38461,
+        "pair_parameters": 13724,
+        "joint_parameters": 0,
+        "category_parameters": 0,
+        "frozen_buffer_bytes": 2179260
+      },
+      "elapsed": 12.50901533299475
+    }
+  },
+  "baseline": {
+    "bundlefuse_matched": {
+      "validation": {
+        "recall20": 0.5362689393939394,
+        "ndcg20": 0.404335967619874,
+        "seconds": 0.2587372919952031,
+        "full_catalogue": true
+      },
+      "test": {
+        "recall20": 0.5750708215297451,
+        "ndcg20": 0.44927877415724565,
+        "seconds": 0.3812729159835726,
+        "full_catalogue": true,
+        "fitted_recipe": {
+          "weights": {
+            "simp": 0.5,
+            "cat": 0.25,
+            "homo": 0.25,
+            "content": 1.0,
+            "csvd": 0.25
+          },
+          "prior": [
+            "cat",
+            "homo",
+            "content"
+          ],
+          "backoff": [
+            0.05,
+            1.1544630257899609
+          ],
+          "higher_order": [
+            0.5,
+            0.0
+          ],
+          "config": {
+            "n_items": 3767,
+            "families": [
+              "collaborative",
+              "content",
+              "taxonomy",
+              "popularity"
+            ],
+            "svd_dim": 128,
+            "alpha_deg": 0.5,
+            "gamma_vol": 0.5,
+            "beta_clique": 1.5,
+            "alpha_bridge": 0.5,
+            "n_soft_clusters": 400,
+            "soft_tau": 0.05,
+            "sel_obj": "ndcg20",
+            "compressed": true,
+            "content_rank": 128,
+            "signal_profile": "extended",
+            "fit_rounds": 4,
+            "seed_cap": 0,
+            "validation_chunk": 64
+          }
+        }
+      },
+      "checkpoint": "checkpoints/neural_small/food/comparisons/bundlefuse_matched.pt",
+      "sha256": "bbd9fe98a917e3841041edf9f3814b407228d726d4b66aa9d4998e543f7151dc"
+    },
+    "bundlefuse_original_auxiliary": {
+      "validation": {
+        "recall20": 0.5684659090909091,
+        "ndcg20": 0.41937740527078654,
+        "seconds": 0.370697458012728,
+        "full_catalogue": true
+      },
+      "test": {
+        "recall20": 0.5948536355051937,
+        "ndcg20": 0.46235458088796394,
+        "seconds": 0.6381355829944368,
+        "full_catalogue": true,
+        "fitted_recipe": {
+          "weights": {
+            "simp": 1.0,
+            "pretrain": 0.25,
+            "homo": 0.25,
+            "content": 1.0,
+            "csvd": 0.25
+          },
+          "prior": [
+            "homo",
+            "content"
+          ],
+          "backoff": [
+            0.05,
+            1.494066118544061
+          ],
+          "higher_order": [
+            0.0,
+            0.0
+          ],
+          "config": {
+            "n_items": 3767,
+            "families": [
+              "collaborative",
+              "content",
+              "taxonomy",
+              "popularity",
+              "personalization"
+            ],
+            "svd_dim": 128,
+            "alpha_deg": 0.5,
+            "gamma_vol": 0.5,
+            "beta_clique": 1.5,
+            "alpha_bridge": 0.5,
+            "n_soft_clusters": 400,
+            "soft_tau": 0.05,
+            "sel_obj": "ndcg20",
+            "compressed": true,
+            "content_rank": 128,
+            "signal_profile": "extended",
+            "fit_rounds": 4,
+            "seed_cap": 0,
+            "validation_chunk": 64
+          }
+        }
+      },
+      "checkpoint": "checkpoints/reorganized_162dd8c/food/seed_0/model.pt",
+      "sha256": "6a0a92928ed0f43f80f8364db0fbf24c389b52e410e47531604ae89ed198c41b"
+    }
+  },
+  "test": {
+    "graph_pair_no_category_seed0": {
+      "recall20": 0.5697828139754485,
+      "ndcg20": 0.44320010000393956,
+      "seconds": 0.03987704199971631,
+      "full_catalogue": true,
+      "by_target_training_frequency": {
+        "unseen": {
+          "hits": 112,
+          "targets": 287,
+          "micro_recall20": 0.3902439024390244
+        },
+        "one_two": {
+          "hits": 184,
+          "targets": 267,
+          "micro_recall20": 0.6891385767790262
+        },
+        "three_plus": {
+          "hits": 38,
+          "targets": 67,
+          "micro_recall20": 0.5671641791044776
+        }
+      }
+    },
+    "graph_pair_no_category_seed1": {
+      "recall20": 0.5671860245514636,
+      "ndcg20": 0.4456796472587569,
+      "seconds": 0.038957207987550646,
+      "full_catalogue": true,
+      "by_target_training_frequency": {
+        "unseen": {
+          "hits": 110,
+          "targets": 287,
+          "micro_recall20": 0.3832752613240418
+        },
+        "one_two": {
+          "hits": 188,
+          "targets": 267,
+          "micro_recall20": 0.704119850187266
+        },
+        "three_plus": {
+          "hits": 39,
+          "targets": 67,
+          "micro_recall20": 0.582089552238806
+        }
+      }
+    },
+    "graph_pair_no_category_seed2": {
+      "recall20": 0.5542020774315392,
+      "ndcg20": 0.4334532549092936,
+      "seconds": 0.037567209015833214,
+      "full_catalogue": true,
+      "by_target_training_frequency": {
+        "unseen": {
+          "hits": 110,
+          "targets": 287,
+          "micro_recall20": 0.3832752613240418
+        },
+        "one_two": {
+          "hits": 182,
+          "targets": 267,
+          "micro_recall20": 0.6816479400749064
+        },
+        "three_plus": {
+          "hits": 36,
+          "targets": 67,
+          "micro_recall20": 0.5373134328358209
+        }
+      }
+    }
+  }
+}

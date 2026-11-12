@@ -1,0 +1,69 @@
+2026-11-12T17:56:41Z pog_dense frac10 popularity {} VAL N20=0.15284
+2026-11-12T17:56:44Z pog_dense frac10 popularity TEST clean {'recall20': 0.29241031188029565, 'ndcg20': 0.1566715807969427}
+2026-11-12T17:56:45Z pog_dense frac10 cooccurrence {} VAL N20=0.19296
+2026-11-12T17:56:48Z pog_dense frac10 cooccurrence TEST clean {'recall20': 0.31121927768763896, 'ndcg20': 0.1929055280224272}
+2026-11-12T17:56:49Z pog_dense frac10 itemknn {'k': 50, 'shrink': 0} VAL N20=0.14194
+2026-11-12T17:56:51Z pog_dense frac10 itemknn {'k': 50, 'shrink': 10} VAL N20=0.15598
+2026-11-12T17:56:52Z pog_dense frac10 itemknn {'k': 50, 'shrink': 100} VAL N20=0.17029
+2026-11-12T17:56:53Z pog_dense frac10 itemknn {'k': 200, 'shrink': 0} VAL N20=0.14303
+2026-11-12T17:56:55Z pog_dense frac10 itemknn {'k': 200, 'shrink': 10} VAL N20=0.15709
+2026-11-12T17:56:56Z pog_dense frac10 itemknn {'k': 200, 'shrink': 100} VAL N20=0.17178
+2026-11-12T17:56:57Z pog_dense frac10 itemknn {'k': 1000, 'shrink': 0} VAL N20=0.14309
+2026-11-12T17:56:59Z pog_dense frac10 itemknn {'k': 1000, 'shrink': 10} VAL N20=0.15758
+2026-11-12T17:57:00Z pog_dense frac10 itemknn {'k': 1000, 'shrink': 100} VAL N20=0.17216
+2026-11-12T17:57:03Z pog_dense frac10 itemknn TEST clean {'recall20': 0.30001201850850306, 'ndcg20': 0.167597534988604}
+2026-11-12T17:57:04Z pog_dense frac10 rp3beta {'alpha': 0.5, 'beta': 0.0} VAL N20=0.19764
+2026-11-12T17:57:06Z pog_dense frac10 rp3beta {'alpha': 0.5, 'beta': 0.25} VAL N20=0.15796
+2026-11-12T17:57:07Z pog_dense frac10 rp3beta {'alpha': 0.5, 'beta': 0.5} VAL N20=0.14233
+2026-11-12T17:57:08Z pog_dense frac10 rp3beta {'alpha': 0.5, 'beta': 0.75} VAL N20=0.13885
+2026-11-12T17:57:10Z pog_dense frac10 rp3beta {'alpha': 1.0, 'beta': 0.0} VAL N20=0.19733
+2026-11-12T17:57:11Z pog_dense frac10 rp3beta {'alpha': 1.0, 'beta': 0.25} VAL N20=0.15755
+2026-11-12T17:57:12Z pog_dense frac10 rp3beta {'alpha': 1.0, 'beta': 0.5} VAL N20=0.14338
+2026-11-12T17:57:14Z pog_dense frac10 rp3beta {'alpha': 1.0, 'beta': 0.75} VAL N20=0.13885
+2026-11-12T17:57:16Z pog_dense frac10 rp3beta TEST clean {'recall20': 0.3090559461570819, 'ndcg20': 0.19010923340770133}
+2026-11-12T17:57:19Z pog_dense frac10 ease {'l2': 50.0} VAL N20=0.17045
+2026-11-12T17:57:22Z pog_dense frac10 ease {'l2': 200.0} VAL N20=0.16637
+2026-11-12T17:57:25Z pog_dense frac10 ease {'l2': 500.0} VAL N20=0.17271
+2026-11-12T17:57:28Z pog_dense frac10 ease {'l2': 1000.0} VAL N20=0.18040
+2026-11-12T17:57:30Z pog_dense frac10 ease {'l2': 3000.0} VAL N20=0.19314
+2026-11-12T17:57:34Z pog_dense frac10 ease TEST clean {'recall20': 0.3048795144522565, 'ndcg20': 0.1900360254833438}
+2026-11-12T17:57:36Z pog_dense frac10 hybrid {'k': 1000, 'shrink': 100, 'content': 0.0} VAL N20=0.17216
+2026-11-12T17:57:39Z pog_dense frac10 hybrid {'k': 1000, 'shrink': 100, 'content': 0.1} VAL N20=0.08440
+2026-11-12T17:57:41Z pog_dense frac10 hybrid {'k': 1000, 'shrink': 100, 'content': 0.2} VAL N20=0.08427
+2026-11-12T17:57:44Z pog_dense frac10 hybrid {'k': 1000, 'shrink': 100, 'content': 0.3} VAL N20=0.08413
+2026-11-12T17:57:47Z pog_dense frac10 hybrid {'k': 1000, 'shrink': 100, 'content': 0.5} VAL N20=0.08400
+2026-11-12T17:57:49Z pog_dense frac10 hybrid {'k': 1000, 'shrink': 100, 'content': 0.7} VAL N20=0.07018
+2026-11-12T17:57:52Z pog_dense frac10 hybrid {'k': 1000, 'shrink': 100, 'content': 0.9} VAL N20=0.00118
+2026-11-12T17:57:54Z pog_dense frac10 hybrid {'k': 1000, 'shrink': 100, 'content': 1.0} VAL N20=0.00005
+2026-11-12T17:57:58Z pog_dense frac10 hybrid TEST clean {'recall20': 0.30001201850850306, 'ndcg20': 0.167597534988604}
+2026-11-12T17:58:00Z pog_dense frac10 samelabel {'a': (1.0,), 'gamma': 0.0} VAL N20=0.00000
+2026-11-12T17:58:03Z pog_dense frac10 samelabel {'a': (1.0,), 'gamma': 0.1} VAL N20=0.00000
+2026-11-12T17:58:05Z pog_dense frac10 samelabel {'a': (1.0,), 'gamma': 0.3} VAL N20=0.09915
+2026-11-12T17:58:08Z pog_dense frac10 samelabel {'a': (1.0,), 'gamma': 1.0} VAL N20=0.14049
+2026-11-12T17:58:13Z pog_dense frac10 samelabel TEST clean {'recall20': 0.2900967489934499, 'ndcg20': 0.14433063915831143}
+2026-11-12T17:58:16Z pog_dense frac10 transition {'a': (1.0,), 'gamma': 0.0, 'eps': 0.0001} VAL N20=0.11254
+2026-11-12T17:58:20Z pog_dense frac10 transition {'a': (1.0,), 'gamma': 0.0, 'eps': 0.01} VAL N20=0.11254
+2026-11-12T17:58:23Z pog_dense frac10 transition {'a': (1.0,), 'gamma': 0.5, 'eps': 0.0001} VAL N20=0.18556
+2026-11-12T17:58:26Z pog_dense frac10 transition {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01} VAL N20=0.18595
+2026-11-12T17:58:29Z pog_dense frac10 transition {'a': (1.0,), 'gamma': 1.0, 'eps': 0.0001} VAL N20=0.17954
+2026-11-12T17:58:32Z pog_dense frac10 transition {'a': (1.0,), 'gamma': 1.0, 'eps': 0.01} VAL N20=0.16724
+2026-11-12T17:58:36Z pog_dense frac10 transition {'a': (1.0,), 'gamma': 2.0, 'eps': 0.0001} VAL N20=0.16643
+2026-11-12T17:58:39Z pog_dense frac10 transition {'a': (1.0,), 'gamma': 2.0, 'eps': 0.01} VAL N20=0.09126
+2026-11-12T17:58:45Z pog_dense frac10 transition TEST clean {'recall20': 0.30043266630611143, 'ndcg20': 0.18848842794349233}
+2026-11-12T17:58:48Z pog_dense frac10 label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01}, 'itemknn': {'k': 1000, 'shrink': 100}, 'w': 0.0} VAL N20=0.17216
+2026-11-12T17:58:52Z pog_dense frac10 label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01}, 'itemknn': {'k': 1000, 'shrink': 100}, 'w': 0.1} VAL N20=0.19229
+2026-11-12T17:58:55Z pog_dense frac10 label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01}, 'itemknn': {'k': 1000, 'shrink': 100}, 'w': 0.2} VAL N20=0.20220
+2026-11-12T17:58:58Z pog_dense frac10 label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01}, 'itemknn': {'k': 1000, 'shrink': 100}, 'w': 0.3} VAL N20=0.20986
+2026-11-12T17:59:02Z pog_dense frac10 label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01}, 'itemknn': {'k': 1000, 'shrink': 100}, 'w': 0.5} VAL N20=0.21334
+2026-11-12T17:59:05Z pog_dense frac10 label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01}, 'itemknn': {'k': 1000, 'shrink': 100}, 'w': 0.7} VAL N20=0.21147
+2026-11-12T17:59:09Z pog_dense frac10 label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01}, 'itemknn': {'k': 1000, 'shrink': 100}, 'w': 0.9} VAL N20=0.19920
+2026-11-12T17:59:12Z pog_dense frac10 label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01}, 'itemknn': {'k': 1000, 'shrink': 100}, 'w': 1.0} VAL N20=0.18595
+2026-11-12T17:59:19Z pog_dense frac10 label_knn TEST clean {'recall20': 0.32209602788293973, 'ndcg20': 0.21316099586079312}
+2026-11-12T17:59:22Z pog_dense frac10 label_knn_content {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01}, 'itemknn': {'k': 1000, 'shrink': 100}, 'w': 0.5, 'v': 0.0} VAL N20=0.21334
+2026-11-12T17:59:26Z pog_dense frac10 label_knn_content {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01}, 'itemknn': {'k': 1000, 'shrink': 100}, 'w': 0.5, 'v': 0.05} VAL N20=0.21354
+2026-11-12T17:59:30Z pog_dense frac10 label_knn_content {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01}, 'itemknn': {'k': 1000, 'shrink': 100}, 'w': 0.5, 'v': 0.1} VAL N20=0.21418
+2026-11-12T17:59:34Z pog_dense frac10 label_knn_content {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01}, 'itemknn': {'k': 1000, 'shrink': 100}, 'w': 0.5, 'v': 0.2} VAL N20=0.21337
+2026-11-12T17:59:38Z pog_dense frac10 label_knn_content {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01}, 'itemknn': {'k': 1000, 'shrink': 100}, 'w': 0.5, 'v': 0.3} VAL N20=0.20950
+2026-11-12T17:59:42Z pog_dense frac10 label_knn_content {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01}, 'itemknn': {'k': 1000, 'shrink': 100}, 'w': 0.5, 'v': 0.5} VAL N20=0.20001
+2026-11-12T17:59:50Z pog_dense frac10 label_knn_content TEST clean {'recall20': 0.32086413076137255, 'ndcg20': 0.21360451181494547}
+2026-11-12T17:59:50Z pog_dense frac10 baselines COMPLETE

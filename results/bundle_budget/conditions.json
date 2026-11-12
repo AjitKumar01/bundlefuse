@@ -1,0 +1,91 @@
+{
+  "note": "Training sets for the bundle-budget test: how does bundle completion degrade as training bundles disappear?\n\nValidation and test queries are never changed; only the bundles the methods learn from are.\n  full          all training bundles (the published split)\n  frac10, frac1 nested random 10% and 1% of the training bundles (one fixed permutation, seed 20261113)\n  pseudo        no bundles at all: each user's interaction history (ui_full.txt of the released dataset) is one\n                pseudo-bundle; unique items, users with at least 2 items, histories over 30 items split at random into\n                pieces of at most 30\n  pseudo_clean  pseudo, minus every user who alone holds all seeds and at least one target of some validation or test\n                query (a contamination check; it can only remove evidence)\nDIALS trains on at most as many rows per epoch as the full split has bundles: when a condition has more, a fixed\nrandom sample of that size is the training rows, while counts, label factors and partner histories use all of them.\n\nPYTHONPATH=.:../dials .venv/bin/python -m experiments.bundle_budget.conditions\n",
+  "conditions": {
+    "pog": {
+      "full": {
+        "bundles": 14000,
+        "training_rows": 14000,
+        "mean_size": 3.616,
+        "catalogue": 0.7499178239789629,
+        "test_seeds": 0.405463934699317,
+        "test_targets": 0.41273809523809524
+      },
+      "frac10": {
+        "bundles": 1400,
+        "training_rows": 1400,
+        "mean_size": 3.6585714285714284,
+        "catalogue": 0.09778946503410305,
+        "test_seeds": 0.12643678160919541,
+        "test_targets": 0.12857142857142856
+      },
+      "frac1": {
+        "bundles": 140,
+        "training_rows": 140,
+        "mean_size": 3.55,
+        "catalogue": 0.010148738598077082,
+        "test_seeds": 0.01765783774779277,
+        "test_targets": 0.019166666666666665
+      },
+      "pseudo": {
+        "bundles": 12375,
+        "training_rows": 12375,
+        "mean_size": 4.595474747474747,
+        "catalogue": 0.24124825375955297,
+        "test_seeds": 0.338664001332667,
+        "test_targets": 0.32654761904761903,
+        "contaminating_users": 44
+      },
+      "pseudo_clean": {
+        "bundles": 12331,
+        "training_rows": 12331,
+        "mean_size": 4.574730354391371,
+        "catalogue": 0.24042649354918236,
+        "test_seeds": 0.33766450108279195,
+        "test_targets": 0.32535714285714284
+      }
+    },
+    "pog_dense": {
+      "full": {
+        "bundles": 20780,
+        "training_rows": 20780,
+        "mean_size": 3.56665062560154,
+        "catalogue": 0.7826184450780024,
+        "test_seeds": 0.7595073271599388,
+        "test_targets": 0.756187406469437
+      },
+      "frac10": {
+        "bundles": 2078,
+        "training_rows": 2078,
+        "mean_size": 3.5938402309913378,
+        "catalogue": 0.1298010699298459,
+        "test_seeds": 0.5309718601096827,
+        "test_targets": 0.5222746632899735
+      },
+      "frac1": {
+        "bundles": 208,
+        "training_rows": 208,
+        "mean_size": 3.485576923076923,
+        "catalogue": 0.015920812377871033,
+        "test_seeds": 0.36653780454913243,
+        "test_targets": 0.3405088062622309
+      },
+      "pseudo": {
+        "bundles": 1419189,
+        "training_rows": 20780,
+        "mean_size": 3.84121212889897,
+        "catalogue": 0.7595540891181087,
+        "test_seeds": 0.8988582217027781,
+        "test_targets": 0.9031886727293658,
+        "contaminating_users": 417
+      },
+      "pseudo_clean": {
+        "bundles": 1418772,
+        "training_rows": 20780,
+        "mean_size": 3.838606203110859,
+        "catalogue": 0.7594900214626645,
+        "test_seeds": 0.8988582217027781,
+        "test_targets": 0.9031886727293658
+      }
+    }
+  }
+}

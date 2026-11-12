@@ -1,0 +1,39 @@
+{
+  "variant": "relations",
+  "seed": 2,
+  "checkpoint": "checkpoints/neural_small/food/relations_seed2/epoch_0028.pt",
+  "best_epoch": 28,
+  "validation": {
+    "recall20": 0.44223484848484856,
+    "ndcg20": 0.33280865276385824,
+    "seconds": 0.9186819170136005,
+    "item_encoding_seconds": 0.0011234169942326844,
+    "full_catalogue": true,
+    "catalogue_size": 3767
+  },
+  "parameters": {
+    "total": 305425,
+    "item_identity": 241152,
+    "other": 64273,
+    "frozen_buffer_bytes": 1974432,
+    "config": {
+      "variant": "relations",
+      "dim": 64,
+      "layers": 2,
+      "heads": 4,
+      "dropout": 0.1,
+      "identity_dropout": 0.1
+    }
+  },
+  "model_config": {
+    "variant": "relations",
+    "dim": 64,
+    "layers": 2,
+    "heads": 4,
+    "dropout": 0.1,
+    "identity_dropout": 0.1
+  },
+  "elapsed_seconds": 162.5012184579973,
+  "epochs_run": 40,
+  "selection": "validation NDCG@20 only"
+}

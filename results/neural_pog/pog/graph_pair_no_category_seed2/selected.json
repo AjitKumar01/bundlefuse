@@ -1,0 +1,27 @@
+{
+  "condition": {
+    "name": "graph_pair_no_category",
+    "variant": "graph_pair",
+    "cold_probability": 0.25,
+    "category_mode": "off",
+    "project_links": true
+  },
+  "seed": 2,
+  "checkpoint": "checkpoints/neural_pog/pog/graph_pair_no_category_seed2/epoch_0034.pt",
+  "best_epoch": 34,
+  "epochs_run": 46,
+  "validation": {
+    "recall20": 0.03508333333333333,
+    "ndcg20": 0.02388314933633543,
+    "seconds": 2.883219667011872,
+    "full_catalogue": true
+  },
+  "parameters": {
+    "trainable_parameters": 163011,
+    "pair_parameters": 138274,
+    "joint_parameters": 0,
+    "category_parameters": 0,
+    "frozen_buffer_bytes": 27523976
+  },
+  "elapsed": 2304.2032352090173
+}

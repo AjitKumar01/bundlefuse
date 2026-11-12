@@ -1,0 +1,37 @@
+{
+  "config": {
+    "kind": "gate",
+    "weights": {
+      "raw_content": 0.25,
+      "raw_image": 0.5,
+      "raw_desc": 0.5,
+      "pop": 1.5,
+      "pair": 1.5
+    },
+    "prior_weights": {
+      "raw_content": 0.25,
+      "raw_image": 0.5,
+      "raw_desc": 0.5,
+      "pop": 1.5
+    },
+    "scale": 1.0,
+    "kappa": 0.5
+  },
+  "tuning_metrics": [
+    0.030833333333333334,
+    0.022123308140156513
+  ],
+  "keys": [
+    "raw_content",
+    "raw_image",
+    "raw_desc",
+    "pop",
+    "pair",
+    "simp",
+    "amp"
+  ],
+  "history": "simp",
+  "alpha": 1.0,
+  "seconds": 59.19672625002568,
+  "fitting_candidates": 87
+}

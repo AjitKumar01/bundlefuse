@@ -1,0 +1,54 @@
+{
+  "{\"kind\": \"weighted\", \"weights\": {\"amp\": 0.5, \"off0\": 0.25, \"pair\": 1.5, \"residual_audio\": 1.5, \"simp\": 0.5}}": [
+    0.10312341156714412,
+    0.13521888285525163
+  ],
+  "{\"kappa\": 0.0, \"kind\": \"gate\", \"prior_weights\": {\"off0\": 0.25, \"residual_audio\": 1.5}, \"scale\": 1.0, \"weights\": {\"amp\": 0.5, \"off0\": 0.25, \"pair\": 1.5, \"residual_audio\": 1.5, \"simp\": 0.5}}": [
+    0.10312341156714412,
+    0.13521888285525163
+  ],
+  "{\"kappa\": 0.05, \"kind\": \"gate\", \"prior_weights\": {\"off0\": 0.25, \"residual_audio\": 1.5}, \"scale\": 1.0, \"weights\": {\"amp\": 0.5, \"off0\": 0.25, \"pair\": 1.5, \"residual_audio\": 1.5, \"simp\": 0.5}}": [
+    0.10364430637423953,
+    0.1357257973685092
+  ],
+  "{\"kappa\": 0.5, \"kind\": \"gate\", \"prior_weights\": {\"off0\": 0.25, \"residual_audio\": 1.5}, \"scale\": 1.0, \"weights\": {\"amp\": 0.5, \"off0\": 0.25, \"pair\": 1.5, \"residual_audio\": 1.5, \"simp\": 0.5}}": [
+    0.10279022676689908,
+    0.13545979700658156
+  ],
+  "{\"kappa\": 1.0, \"kind\": \"gate\", \"prior_weights\": {\"off0\": 0.25, \"residual_audio\": 1.5}, \"scale\": 1.0, \"weights\": {\"amp\": 0.5, \"off0\": 0.25, \"pair\": 1.5, \"residual_audio\": 1.5, \"simp\": 0.5}}": [
+    0.1016984518326553,
+    0.13369514202414057
+  ],
+  "{\"kappa\": 5.0, \"kind\": \"gate\", \"prior_weights\": {\"off0\": 0.25, \"residual_audio\": 1.5}, \"scale\": 1.0, \"weights\": {\"amp\": 0.5, \"off0\": 0.25, \"pair\": 1.5, \"residual_audio\": 1.5, \"simp\": 0.5}}": [
+    0.09581146710021227,
+    0.12479191196314002
+  ],
+  "{\"kappa\": 20.0, \"kind\": \"gate\", \"prior_weights\": {\"off0\": 0.25, \"residual_audio\": 1.5}, \"scale\": 1.0, \"weights\": {\"amp\": 0.5, \"off0\": 0.25, \"pair\": 1.5, \"residual_audio\": 1.5, \"simp\": 0.5}}": [
+    0.08872810608453205,
+    0.11430146994022003
+  ],
+  "{\"kappa\": 0.0, \"kind\": \"gate\", \"prior_weights\": {\"off0\": 0.25, \"residual_audio\": 1.5}, \"scale\": 1.882596687089205, \"weights\": {\"amp\": 0.5, \"off0\": 0.25, \"pair\": 1.5, \"residual_audio\": 1.5, \"simp\": 0.5}}": [
+    0.10312341156714412,
+    0.13521888285525163
+  ],
+  "{\"kappa\": 0.05, \"kind\": \"gate\", \"prior_weights\": {\"off0\": 0.25, \"residual_audio\": 1.5}, \"scale\": 1.882596687089205, \"weights\": {\"amp\": 0.5, \"off0\": 0.25, \"pair\": 1.5, \"residual_audio\": 1.5, \"simp\": 0.5}}": [
+    0.10275541748535066,
+    0.1356415798731879
+  ],
+  "{\"kappa\": 0.5, \"kind\": \"gate\", \"prior_weights\": {\"off0\": 0.25, \"residual_audio\": 1.5}, \"scale\": 1.882596687089205, \"weights\": {\"amp\": 0.5, \"off0\": 0.25, \"pair\": 1.5, \"residual_audio\": 1.5, \"simp\": 0.5}}": [
+    0.1019965759732483,
+    0.13560967838687396
+  ],
+  "{\"kappa\": 1.0, \"kind\": \"gate\", \"prior_weights\": {\"off0\": 0.25, \"residual_audio\": 1.5}, \"scale\": 1.882596687089205, \"weights\": {\"amp\": 0.5, \"off0\": 0.25, \"pair\": 1.5, \"residual_audio\": 1.5, \"simp\": 0.5}}": [
+    0.10089809909896924,
+    0.13399784247665927
+  ],
+  "{\"kappa\": 5.0, \"kind\": \"gate\", \"prior_weights\": {\"off0\": 0.25, \"residual_audio\": 1.5}, \"scale\": 1.882596687089205, \"weights\": {\"amp\": 0.5, \"off0\": 0.25, \"pair\": 1.5, \"residual_audio\": 1.5, \"simp\": 0.5}}": [
+    0.09604018258640674,
+    0.12519075178725342
+  ],
+  "{\"kappa\": 20.0, \"kind\": \"gate\", \"prior_weights\": {\"off0\": 0.25, \"residual_audio\": 1.5}, \"scale\": 1.882596687089205, \"weights\": {\"amp\": 0.5, \"off0\": 0.25, \"pair\": 1.5, \"residual_audio\": 1.5, \"simp\": 0.5}}": [
+    0.08922857442037406,
+    0.11486658480523029
+  ]
+}

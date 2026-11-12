@@ -1,0 +1,54 @@
+{
+  "{\"kind\": \"weighted\", \"weights\": {\"pair\": 1.0, \"raw_audio\": 1.0, \"simp\": 1.0}}": [
+    0.1032960500071186,
+    0.1356937384037776
+  ],
+  "{\"kappa\": 0.0, \"kind\": \"gate\", \"prior_weights\": {\"raw_audio\": 1.0}, \"scale\": 1.0, \"weights\": {\"pair\": 1.0, \"raw_audio\": 1.0, \"simp\": 1.0}}": [
+    0.1032960500071186,
+    0.1356937384037776
+  ],
+  "{\"kappa\": 0.05, \"kind\": \"gate\", \"prior_weights\": {\"raw_audio\": 1.0}, \"scale\": 1.0, \"weights\": {\"pair\": 1.0, \"raw_audio\": 1.0, \"simp\": 1.0}}": [
+    0.10089290203652011,
+    0.1349063450632535
+  ],
+  "{\"kappa\": 0.5, \"kind\": \"gate\", \"prior_weights\": {\"raw_audio\": 1.0}, \"scale\": 1.0, \"weights\": {\"pair\": 1.0, \"raw_audio\": 1.0, \"simp\": 1.0}}": [
+    0.10132980809054117,
+    0.13442689696764681
+  ],
+  "{\"kappa\": 1.0, \"kind\": \"gate\", \"prior_weights\": {\"raw_audio\": 1.0}, \"scale\": 1.0, \"weights\": {\"pair\": 1.0, \"raw_audio\": 1.0, \"simp\": 1.0}}": [
+    0.1002257075340075,
+    0.13347394424861253
+  ],
+  "{\"kappa\": 5.0, \"kind\": \"gate\", \"prior_weights\": {\"raw_audio\": 1.0}, \"scale\": 1.0, \"weights\": {\"pair\": 1.0, \"raw_audio\": 1.0, \"simp\": 1.0}}": [
+    0.09505824503119434,
+    0.12629809544283602
+  ],
+  "{\"kappa\": 20.0, \"kind\": \"gate\", \"prior_weights\": {\"raw_audio\": 1.0}, \"scale\": 1.0, \"weights\": {\"pair\": 1.0, \"raw_audio\": 1.0, \"simp\": 1.0}}": [
+    0.08715753440609299,
+    0.11414786175356488
+  ],
+  "{\"kappa\": 0.0, \"kind\": \"gate\", \"prior_weights\": {\"raw_audio\": 1.0}, \"scale\": 2.2677784779241845, \"weights\": {\"pair\": 1.0, \"raw_audio\": 1.0, \"simp\": 1.0}}": [
+    0.1032960500071186,
+    0.1356937384037776
+  ],
+  "{\"kappa\": 0.05, \"kind\": \"gate\", \"prior_weights\": {\"raw_audio\": 1.0}, \"scale\": 2.2677784779241845, \"weights\": {\"pair\": 1.0, \"raw_audio\": 1.0, \"simp\": 1.0}}": [
+    0.10270030944392754,
+    0.1363694471293354
+  ],
+  "{\"kappa\": 0.5, \"kind\": \"gate\", \"prior_weights\": {\"raw_audio\": 1.0}, \"scale\": 2.2677784779241845, \"weights\": {\"pair\": 1.0, \"raw_audio\": 1.0, \"simp\": 1.0}}": [
+    0.10308492791624922,
+    0.1357901936209366
+  ],
+  "{\"kappa\": 1.0, \"kind\": \"gate\", \"prior_weights\": {\"raw_audio\": 1.0}, \"scale\": 2.2677784779241845, \"weights\": {\"pair\": 1.0, \"raw_audio\": 1.0, \"simp\": 1.0}}": [
+    0.10192878979986215,
+    0.1350179183885457
+  ],
+  "{\"kappa\": 5.0, \"kind\": \"gate\", \"prior_weights\": {\"raw_audio\": 1.0}, \"scale\": 2.2677784779241845, \"weights\": {\"pair\": 1.0, \"raw_audio\": 1.0, \"simp\": 1.0}}": [
+    0.09678850604961246,
+    0.1279623468510908
+  ],
+  "{\"kappa\": 20.0, \"kind\": \"gate\", \"prior_weights\": {\"raw_audio\": 1.0}, \"scale\": 2.2677784779241845, \"weights\": {\"pair\": 1.0, \"raw_audio\": 1.0, \"simp\": 1.0}}": [
+    0.08983503109778847,
+    0.11652251666306608
+  ]
+}

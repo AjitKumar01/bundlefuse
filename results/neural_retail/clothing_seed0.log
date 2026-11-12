@@ -1,0 +1,17 @@
+2026-11-08T17:53:21Z clothing loo seed=0 {'trainable_parameters': 41626, 'label_parameters': 256, 'label_mode': 'spectral', 'observed_directed_pairs': 12666, 'levels': 1, 'frozen_buffer_bytes': 20227897} train_rows=1294 start_epoch=1
+2026-11-08T17:53:22Z clothing loo seed=0 epoch=1 loss=5.78608 VAL R20=0.534783 N20=0.385512 best_epoch=1 patience=0/6
+2026-11-08T17:53:22Z clothing loo seed=0 epoch=2 loss=4.94155 VAL R20=0.566757 N20=0.419709 best_epoch=2 patience=0/6
+2026-11-08T17:53:23Z clothing loo seed=0 epoch=3 loss=4.67149 VAL R20=0.575815 N20=0.429487 best_epoch=3 patience=0/6
+2026-11-08T17:53:24Z clothing loo seed=0 epoch=4 loss=4.51770 VAL R20=0.579257 N20=0.434543 best_epoch=4 patience=0/6
+2026-11-08T17:53:24Z clothing loo seed=0 epoch=5 loss=4.34416 VAL R20=0.579891 N20=0.436626 best_epoch=5 patience=0/6
+2026-11-08T17:53:25Z clothing loo seed=0 epoch=6 loss=4.22020 VAL R20=0.571286 N20=0.437854 best_epoch=6 patience=0/6
+2026-11-08T17:53:25Z clothing loo seed=0 epoch=7 loss=4.18575 VAL R20=0.585326 N20=0.442661 best_epoch=7 patience=0/6
+2026-11-08T17:53:26Z clothing loo seed=0 epoch=8 loss=4.04861 VAL R20=0.579710 N20=0.446294 best_epoch=8 patience=0/6
+2026-11-08T17:53:27Z clothing loo seed=0 epoch=9 loss=4.00651 VAL R20=0.586957 N20=0.446719 best_epoch=9 patience=0/6
+2026-11-08T17:53:27Z clothing loo seed=0 epoch=10 loss=3.96741 VAL R20=0.580978 N20=0.440972 best_epoch=9 patience=1/6
+2026-11-08T17:53:28Z clothing loo seed=0 epoch=11 loss=3.88647 VAL R20=0.571739 N20=0.438252 best_epoch=9 patience=2/6
+2026-11-08T17:53:29Z clothing loo seed=0 epoch=12 loss=3.79233 VAL R20=0.581703 N20=0.442363 best_epoch=9 patience=3/6
+2026-11-08T17:53:29Z clothing loo seed=0 epoch=13 loss=3.81477 VAL R20=0.563587 N20=0.439207 best_epoch=9 patience=4/6
+2026-11-08T17:53:30Z clothing loo seed=0 epoch=14 loss=3.74662 VAL R20=0.562409 N20=0.427715 best_epoch=9 patience=5/6
+2026-11-08T17:53:31Z clothing loo seed=0 epoch=15 loss=3.69713 VAL R20=0.573822 N20=0.433298 best_epoch=9 patience=6/6
+2026-11-08T17:53:31Z clothing v31_loo_seed0 COMPLETE

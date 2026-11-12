@@ -1,0 +1,1429 @@
+{
+  "note": "Bundle-budget test: clean-test NDCG@20 and Recall@20 for DIALS, the best simple baseline (chosen on validation per\ncondition), the best label-free baseline, and CLHE, as training bundles go from all to 10%, 1% and none (user-history\npseudo-bundles). Paired cluster bootstrap and sign flips (clusters: identical complete bundles); Holm over all tests.\nDIALS full: the frozen runs; CLHE full: the three-seed Kaggle reruns; CLHE other conditions: kaggle_bundle_budget output.\n\nPYTHONPATH=.:../dials .venv/bin/python -m experiments.bundle_budget.compare\n",
+  "datasets": {
+    "pog": {
+      "full": {
+        "best_simple": "label_knn_content",
+        "all_simple": {
+          "popularity": {
+            "recall20": 0.014434710054234457,
+            "ndcg20": 0.006816533116516506
+          },
+          "cooccurrence": {
+            "recall20": 0.029954109303295784,
+            "ndcg20": 0.01954053139141483
+          },
+          "itemknn": {
+            "recall20": 0.02649144764288694,
+            "ndcg20": 0.017440896586669512
+          },
+          "rp3beta": {
+            "recall20": 0.02811848143512724,
+            "ndcg20": 0.01934191199948274
+          },
+          "ease": {
+            "recall20": 0.029453483521068,
+            "ndcg20": 0.019795451057974044
+          },
+          "hybrid": {
+            "recall20": 0.02649144764288694,
+            "ndcg20": 0.017440896586669512
+          },
+          "samelabel": {
+            "recall20": 0.011681268251981644,
+            "ndcg20": 0.005191362712583063
+          },
+          "transition": {
+            "recall20": 0.02348769294952023,
+            "ndcg20": 0.011704219210280352
+          },
+          "label_knn": {
+            "recall20": 0.03717146433041302,
+            "ndcg20": 0.02342802989025408
+          },
+          "label_knn_content": {
+            "recall20": 0.036253650396328746,
+            "ndcg20": 0.02344972940861992
+          }
+        },
+        "means": {
+          "DIALS": [
+            0.05427617855652902,
+            0.03133739223379296
+          ],
+          "CLHE": [
+            0.025921290588219785,
+            0.017216699090807648
+          ],
+          "best simple (label_knn_content)": [
+            0.03625365039632872,
+            0.023449729408619932
+          ],
+          "best label-free (ease)": [
+            0.029453483521067997,
+            0.019795451057974065
+          ]
+        }
+      },
+      "frac10": {
+        "best_simple": "label_knn",
+        "all_simple": {
+          "popularity": {
+            "recall20": 0.011973299958281183,
+            "ndcg20": 0.005918544353501359
+          },
+          "cooccurrence": {
+            "recall20": 0.014059240717563619,
+            "ndcg20": 0.007389805212978047
+          },
+          "itemknn": {
+            "recall20": 0.014059240717563619,
+            "ndcg20": 0.00700133173994572
+          },
+          "rp3beta": {
+            "recall20": 0.014059240717563619,
+            "ndcg20": 0.0069930335704440185
+          },
+          "ease": {
+            "recall20": 0.014059240717563619,
+            "ndcg20": 0.0075272506071466525
+          },
+          "hybrid": {
+            "recall20": 0.014059240717563619,
+            "ndcg20": 0.00700133173994572
+          },
+          "samelabel": {
+            "recall20": 0.007801418439716311,
+            "ndcg20": 0.0038845938538368575
+          },
+          "transition": {
+            "recall20": 0.013016270337922404,
+            "ndcg20": 0.007013666825023516
+          },
+          "label_knn": {
+            "recall20": 0.014977054651647892,
+            "ndcg20": 0.008355117438832606
+          },
+          "label_knn_content": {
+            "recall20": 0.014977054651647892,
+            "ndcg20": 0.008355117438832606
+          }
+        },
+        "means": {
+          "DIALS": [
+            0.019204561257126974,
+            0.011336129804296055
+          ],
+          "CLHE": [
+            0.007870949826540926,
+            0.004887248144877864
+          ],
+          "best simple (label_knn)": [
+            0.014977054651647895,
+            0.008355117438832606
+          ],
+          "best label-free (itemknn)": [
+            0.014059240717563624,
+            0.0070013317399457205
+          ]
+        }
+      },
+      "frac1": {
+        "best_simple": "label_knn_content",
+        "all_simple": {
+          "popularity": {
+            "recall20": 0.0017104714226115977,
+            "ndcg20": 0.0005668375696819098
+          },
+          "cooccurrence": {
+            "recall20": 0.00196078431372549,
+            "ndcg20": 0.0007404111375460576
+          },
+          "itemknn": {
+            "recall20": 0.00196078431372549,
+            "ndcg20": 0.0007404111375460576
+          },
+          "rp3beta": {
+            "recall20": 0.00196078431372549,
+            "ndcg20": 0.0007404111375460576
+          },
+          "ease": {
+            "recall20": 0.00196078431372549,
+            "ndcg20": 0.0007404111375460576
+          },
+          "hybrid": {
+            "recall20": 0.00196078431372549,
+            "ndcg20": 0.0007404111375460576
+          },
+          "samelabel": {
+            "recall20": 0.0,
+            "ndcg20": 0.0
+          },
+          "transition": {
+            "recall20": 0.002002503128911139,
+            "ndcg20": 0.0010492712536264495
+          },
+          "label_knn": {
+            "recall20": 0.0022528160200250315,
+            "ndcg20": 0.001192110232088357
+          },
+          "label_knn_content": {
+            "recall20": 0.0037129745515227363,
+            "ndcg20": 0.0015856712544694428
+          }
+        },
+        "means": {
+          "DIALS": [
+            0.0005423445974134334,
+            0.00023512547100641907
+          ],
+          "CLHE": [
+            0.001905159230126806,
+            0.0009513374954200953
+          ],
+          "best simple (label_knn_content)": [
+            0.0037129745515227367,
+            0.0015856712544694428
+          ],
+          "best label-free (popularity)": [
+            0.0017104714226115977,
+            0.0005668375696819098
+          ]
+        }
+      },
+      "pseudo": {
+        "best_simple": "label_knn",
+        "all_simple": {
+          "popularity": {
+            "recall20": 0.0010012515644555694,
+            "ndcg20": 0.0004675105956523746
+          },
+          "cooccurrence": {
+            "recall20": 0.004297037964121818,
+            "ndcg20": 0.0028530805971649347
+          },
+          "itemknn": {
+            "recall20": 0.005089695452649145,
+            "ndcg20": 0.0039805347863132905
+          },
+          "rp3beta": {
+            "recall20": 0.004463913224864414,
+            "ndcg20": 0.003203312906693026
+          },
+          "ease": {
+            "recall20": 0.005214851898206091,
+            "ndcg20": 0.003856863506842632
+          },
+          "hybrid": {
+            "recall20": 0.004839382561535252,
+            "ndcg20": 0.0036730680939721775
+          },
+          "samelabel": {
+            "recall20": 0.000750938673341677,
+            "ndcg20": 0.0003289443785993166
+          },
+          "transition": {
+            "recall20": 0.001042970379641218,
+            "ndcg20": 0.000410055410388795
+          },
+          "label_knn": {
+            "recall20": 0.004964539007092198,
+            "ndcg20": 0.00389952324349659
+          },
+          "label_knn_content": {
+            "recall20": 0.004964539007092198,
+            "ndcg20": 0.00389952324349659
+          }
+        },
+        "means": {
+          "DIALS": [
+            0.0023223473786677788,
+            0.0012968801501638417
+          ],
+          "CLHE": [
+            0.003128911148870195,
+            0.001999118602121677
+          ],
+          "best simple (label_knn)": [
+            0.004964539007092198,
+            0.0038995232434965894
+          ],
+          "best label-free (hybrid)": [
+            0.004839382561535251,
+            0.0036730680939721758
+          ]
+        }
+      },
+      "pseudo_clean": {
+        "best_simple": "label_knn",
+        "all_simple": {
+          "popularity": {
+            "recall20": 0.0010012515644555694,
+            "ndcg20": 0.000464767306901512
+          },
+          "cooccurrence": {
+            "recall20": 0.0024614100959532747,
+            "ndcg20": 0.0014548965900200712
+          },
+          "itemknn": {
+            "recall20": 0.0025031289111389237,
+            "ndcg20": 0.0020268854794213147
+          },
+          "rp3beta": {
+            "recall20": 0.002127659574468085,
+            "ndcg20": 0.001729494672510746
+          },
+          "ease": {
+            "recall20": 0.0025031289111389237,
+            "ndcg20": 0.002019697836617426
+          },
+          "hybrid": {
+            "recall20": 0.0025031289111389237,
+            "ndcg20": 0.0020268854794213147
+          },
+          "samelabel": {
+            "recall20": 0.0005006257822277847,
+            "ndcg20": 0.000258144905779275
+          },
+          "transition": {
+            "recall20": 0.001042970379641218,
+            "ndcg20": 0.0005678738367698269
+          },
+          "label_knn": {
+            "recall20": 0.002753441802252816,
+            "ndcg20": 0.0020430244997694867
+          },
+          "label_knn_content": {
+            "recall20": 0.002753441802252816,
+            "ndcg20": 0.0020430244997694867
+          }
+        },
+        "means": {
+          "DIALS": [
+            0.0015853149770546514,
+            0.0008155359777335271
+          ],
+          "CLHE": [
+            0.001960784318698761,
+            0.0010454549863281775
+          ],
+          "best simple (label_knn)": [
+            0.0027534418022528164,
+            0.0020430244997694867
+          ],
+          "best label-free (itemknn)": [
+            0.002503128911138924,
+            0.0020268854794213143
+          ]
+        }
+      }
+    },
+    "pog_dense": {
+      "full": {
+        "best_simple": "rp3beta",
+        "all_simple": {
+          "popularity": {
+            "recall20": 0.29406285679947114,
+            "ndcg20": 0.15616860441957497
+          },
+          "cooccurrence": {
+            "recall20": 0.3413857340304068,
+            "ndcg20": 0.23949523499784195
+          },
+          "itemknn": {
+            "recall20": 0.31593654227510365,
+            "ndcg20": 0.208070827047538
+          },
+          "rp3beta": {
+            "recall20": 0.3447208701400156,
+            "ndcg20": 0.24071678151966952
+          },
+          "ease": {
+            "recall20": 0.3242894056847545,
+            "ndcg20": 0.22771051917856888
+          },
+          "hybrid": {
+            "recall20": 0.31593654227510365,
+            "ndcg20": 0.208070827047538
+          },
+          "samelabel": {
+            "recall20": 0.29021693407848087,
+            "ndcg20": 0.13962008711568044
+          },
+          "transition": {
+            "recall20": 0.3010636380025239,
+            "ndcg20": 0.19694467398994986
+          },
+          "label_knn": {
+            "recall20": 0.34198665945556156,
+            "ndcg20": 0.2490202370993495
+          },
+          "label_knn_content": {
+            "recall20": 0.34198665945556156,
+            "ndcg20": 0.2490202370993495
+          }
+        },
+        "means": {
+          "DIALS": [
+            0.37557839072171,
+            0.2802226827501821
+          ],
+          "CLHE": [
+            0.34862688643328765,
+            0.2475735664136652
+          ],
+          "best simple (rp3beta)": [
+            0.3447208701400142,
+            0.24071678151966885
+          ]
+        }
+      },
+      "frac10": {
+        "best_simple": "label_knn_content",
+        "all_simple": {
+          "popularity": {
+            "recall20": 0.29241031188029565,
+            "ndcg20": 0.1566715807969427
+          },
+          "cooccurrence": {
+            "recall20": 0.31121927768763896,
+            "ndcg20": 0.1929055280224272
+          },
+          "itemknn": {
+            "recall20": 0.30001201850850306,
+            "ndcg20": 0.167597534988604
+          },
+          "rp3beta": {
+            "recall20": 0.3090559461570819,
+            "ndcg20": 0.19010923340770133
+          },
+          "ease": {
+            "recall20": 0.3048795144522565,
+            "ndcg20": 0.1900360254833438
+          },
+          "hybrid": {
+            "recall20": 0.30001201850850306,
+            "ndcg20": 0.167597534988604
+          },
+          "samelabel": {
+            "recall20": 0.2900967489934499,
+            "ndcg20": 0.14433063915831143
+          },
+          "transition": {
+            "recall20": 0.30043266630611143,
+            "ndcg20": 0.18848842794349233
+          },
+          "label_knn": {
+            "recall20": 0.32209602788293973,
+            "ndcg20": 0.21316099586079312
+          },
+          "label_knn_content": {
+            "recall20": 0.32086413076137255,
+            "ndcg20": 0.21360451181494547
+          }
+        },
+        "means": {
+          "DIALS": [
+            0.33385413536846553,
+            0.23929688598793947
+          ],
+          "CLHE": [
+            0.3048594844852756,
+            0.20161022443867616
+          ],
+          "best simple (label_knn_content)": [
+            0.3208641307613707,
+            0.21360451181494533
+          ],
+          "best label-free (rp3beta)": [
+            0.3090559461570803,
+            0.19010923340770128
+          ]
+        }
+      },
+      "frac1": {
+        "best_simple": "label_knn_content",
+        "all_simple": {
+          "popularity": {
+            "recall20": 0.28108286761612883,
+            "ndcg20": 0.15316742656410673
+          },
+          "cooccurrence": {
+            "recall20": 0.2740820864130762,
+            "ndcg20": 0.15541537678214035
+          },
+          "itemknn": {
+            "recall20": 0.2705967189471787,
+            "ndcg20": 0.14496300270534196
+          },
+          "rp3beta": {
+            "recall20": 0.273300883360375,
+            "ndcg20": 0.1531839701506098
+          },
+          "ease": {
+            "recall20": 0.27504356709332367,
+            "ndcg20": 0.15562221929321687
+          },
+          "hybrid": {
+            "recall20": 0.2705967189471787,
+            "ndcg20": 0.14496300270534196
+          },
+          "samelabel": {
+            "recall20": 0.2757646776035094,
+            "ndcg20": 0.1397341332198819
+          },
+          "transition": {
+            "recall20": 0.27083708911724047,
+            "ndcg20": 0.1709347615449
+          },
+          "label_knn": {
+            "recall20": 0.27263986539270474,
+            "ndcg20": 0.17526460651846174
+          },
+          "label_knn_content": {
+            "recall20": 0.27104741301604474,
+            "ndcg20": 0.17593022080254317
+          }
+        },
+        "means": {
+          "DIALS": [
+            0.2966067744326248,
+            0.20120977583201746
+          ],
+          "CLHE": [
+            0.2790697682298553,
+            0.16904252020803454
+          ],
+          "best simple (label_knn_content)": [
+            0.2710474130160437,
+            0.17593022080254295
+          ],
+          "best label-free (cooccurrence)": [
+            0.2740820864130751,
+            0.15541537678214054
+          ]
+        }
+      },
+      "pseudo": {
+        "best_simple": "rp3beta",
+        "all_simple": {
+          "popularity": {
+            "recall20": 0.005228051198846223,
+            "ndcg20": 0.0015531754166990667
+          },
+          "cooccurrence": {
+            "recall20": 0.017336698515714198,
+            "ndcg20": 0.008277575534244248
+          },
+          "itemknn": {
+            "recall20": 0.016855958175590408,
+            "ndcg20": 0.00926329925882584
+          },
+          "rp3beta": {
+            "recall20": 0.01901928970614747,
+            "ndcg20": 0.011093238058943685
+          },
+          "ease": {
+            "recall20": 0.01916952106243615,
+            "ndcg20": 0.010644141107308111
+          },
+          "hybrid": {
+            "recall20": 0.016855958175590408,
+            "ndcg20": 0.00926329925882584
+          },
+          "samelabel": {
+            "recall20": 0.002674118141938585,
+            "ndcg20": 0.0007621878783287775
+          },
+          "transition": {
+            "recall20": 0.01099693528033171,
+            "ndcg20": 0.0048333658197456525
+          },
+          "label_knn": {
+            "recall20": 0.022414518358271737,
+            "ndcg20": 0.010993965497280149
+          },
+          "label_knn_content": {
+            "recall20": 0.022414518358271737,
+            "ndcg20": 0.010993965497280149
+          }
+        },
+        "means": {
+          "DIALS": [
+            0.010536225787713082,
+            0.004592705991585939
+          ],
+          "CLHE": [
+            0.006259639859092072,
+            0.0028234338079476816
+          ],
+          "best simple (rp3beta)": [
+            0.019019289706147458,
+            0.011093238058943685
+          ]
+        }
+      },
+      "pseudo_clean": {
+        "best_simple": "rp3beta",
+        "all_simple": {
+          "popularity": {
+            "recall20": 0.005228051198846223,
+            "ndcg20": 0.0015313718263187696
+          },
+          "cooccurrence": {
+            "recall20": 0.014692626645033352,
+            "ndcg20": 0.007381283366964789
+          },
+          "itemknn": {
+            "recall20": 0.014872904272579772,
+            "ndcg20": 0.00848397136768055
+          },
+          "rp3beta": {
+            "recall20": 0.018147947839673096,
+            "ndcg20": 0.01061478895126229
+          },
+          "ease": {
+            "recall20": 0.01703623580313683,
+            "ndcg20": 0.009563037693499052
+          },
+          "hybrid": {
+            "recall20": 0.014061654948620876,
+            "ndcg20": 0.008185388491692704
+          },
+          "samelabel": {
+            "recall20": 0.002674118141938585,
+            "ndcg20": 0.0007510959382918917
+          },
+          "transition": {
+            "recall20": 0.01099693528033171,
+            "ndcg20": 0.0048319707116386236
+          },
+          "label_knn": {
+            "recall20": 0.02025118682771468,
+            "ndcg20": 0.010141388197180171
+          },
+          "label_knn_content": {
+            "recall20": 0.02025118682771468,
+            "ndcg20": 0.010141388197180171
+          }
+        },
+        "means": {
+          "DIALS": [
+            0.009714961040001604,
+            0.004253428319259475
+          ],
+          "CLHE": [
+            0.007641768344111559,
+            0.004065373357611272
+          ],
+          "best simple (rp3beta)": [
+            0.01814794783967309,
+            0.010614788951262293
+          ]
+        }
+      }
+    }
+  },
+  "tests": [
+    {
+      "dataset": "pog",
+      "condition": "full",
+      "comparison": "DIALS vs CLHE",
+      "metric": "recall20",
+      "delta": 0.028354887968309234,
+      "ci95": [
+        0.02443331934415304,
+        0.03211013008378535
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.10062578222778473,
+      "seed": 20261109,
+      "p_holm": 0.003999600039996,
+      "reject_05": true
+    },
+    {
+      "dataset": "pog",
+      "condition": "full",
+      "comparison": "DIALS vs CLHE",
+      "metric": "ndcg20",
+      "delta": 0.014120693142985379,
+      "ci95": [
+        0.01179901067359174,
+        0.016497746055836687
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.11364205256570713,
+      "seed": 20261109,
+      "p_holm": 0.003999600039996,
+      "reject_05": true
+    },
+    {
+      "dataset": "pog",
+      "condition": "full",
+      "comparison": "DIALS vs best simple (label_knn_content)",
+      "metric": "recall20",
+      "delta": 0.018022528160200252,
+      "ci95": [
+        0.014086793693530143,
+        0.021665971353080234
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.07709637046307885,
+      "seed": 20261109,
+      "p_holm": 0.003999600039996,
+      "reject_05": true
+    },
+    {
+      "dataset": "pog",
+      "condition": "full",
+      "comparison": "DIALS vs best simple (label_knn_content)",
+      "metric": "ndcg20",
+      "delta": 0.007887662825173104,
+      "ci95": [
+        0.0056058274553393754,
+        0.010111470500278264
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.09586983729662078,
+      "seed": 20261109,
+      "p_holm": 0.003999600039996,
+      "reject_05": true
+    },
+    {
+      "dataset": "pog",
+      "condition": "frac10",
+      "comparison": "DIALS vs CLHE",
+      "metric": "recall20",
+      "delta": 0.01133361143058604,
+      "ci95": [
+        0.009091844075973287,
+        0.01352045878306887
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.047809762202753445,
+      "seed": 20261109,
+      "p_holm": 0.003999600039996,
+      "reject_05": true
+    },
+    {
+      "dataset": "pog",
+      "condition": "frac10",
+      "comparison": "DIALS vs CLHE",
+      "metric": "ndcg20",
+      "delta": 0.00644888165941819,
+      "ci95": [
+        0.004996027217132634,
+        0.00787047407478963
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.048310387984981225,
+      "seed": 20261109,
+      "p_holm": 0.003999600039996,
+      "reject_05": true
+    },
+    {
+      "dataset": "pog",
+      "condition": "frac10",
+      "comparison": "DIALS vs best simple (label_knn)",
+      "metric": "recall20",
+      "delta": 0.00422750660547907,
+      "ci95": [
+        0.0020864499711603277,
+        0.006426573286411653
+      ],
+      "p_value": 0.00039996000399960006,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.029036295369211516,
+      "seed": 20261109,
+      "p_holm": 0.003999600039996,
+      "reject_05": true
+    },
+    {
+      "dataset": "pog",
+      "condition": "frac10",
+      "comparison": "DIALS vs best simple (label_knn)",
+      "metric": "ndcg20",
+      "delta": 0.0029810123654634485,
+      "ci95": [
+        0.001533213567826799,
+        0.004335342306991309
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.04030037546933667,
+      "seed": 20261109,
+      "p_holm": 0.003999600039996,
+      "reject_05": true
+    },
+    {
+      "dataset": "pog",
+      "condition": "frac1",
+      "comparison": "DIALS vs CLHE",
+      "metric": "recall20",
+      "delta": -0.0013628146327133719,
+      "ci95": [
+        -0.0021560117988495093,
+        -0.0005423445999000686
+      ],
+      "p_value": 0.00029997000299970003,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0012515644555694619,
+      "seed": 20261109,
+      "p_holm": 0.003999600039996,
+      "reject_05": true
+    },
+    {
+      "dataset": "pog",
+      "condition": "frac1",
+      "comparison": "DIALS vs CLHE",
+      "metric": "ndcg20",
+      "delta": -0.0007162120244136764,
+      "ci95": [
+        -0.001117595651758877,
+        -0.0002968460334559281
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0012515644555694619,
+      "seed": 20261109,
+      "p_holm": 0.003999600039996,
+      "reject_05": true
+    },
+    {
+      "dataset": "pog",
+      "condition": "frac1",
+      "comparison": "DIALS vs best simple (label_knn_content)",
+      "metric": "recall20",
+      "delta": -0.003170629954109303,
+      "ci95": [
+        -0.004672507300792657,
+        -0.0018764073054791093
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0010012515644555694,
+      "seed": 20261109,
+      "p_holm": 0.003999600039996,
+      "reject_05": true
+    },
+    {
+      "dataset": "pog",
+      "condition": "frac1",
+      "comparison": "DIALS vs best simple (label_knn_content)",
+      "metric": "ndcg20",
+      "delta": -0.0013505457834630237,
+      "ci95": [
+        -0.002061364147087807,
+        -0.0007316257713503008
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0010012515644555694,
+      "seed": 20261109,
+      "p_holm": 0.003999600039996,
+      "reject_05": true
+    },
+    {
+      "dataset": "pog",
+      "condition": "pseudo",
+      "comparison": "DIALS vs CLHE",
+      "metric": "recall20",
+      "delta": -0.0008065637702024159,
+      "ci95": [
+        -0.0017668530414065374,
+        9.771531195783877e-05
+      ],
+      "p_value": 0.07979202079792021,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.003504380475594493,
+      "seed": 20261109,
+      "p_holm": 0.38396160383961603,
+      "reject_05": false
+    },
+    {
+      "dataset": "pog",
+      "condition": "pseudo",
+      "comparison": "DIALS vs CLHE",
+      "metric": "ndcg20",
+      "delta": -0.0007022384519578346,
+      "ci95": [
+        -0.00147344898065177,
+        5.650287461959181e-05
+      ],
+      "p_value": 0.063993600639936,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.005256570713391739,
+      "seed": 20261109,
+      "p_holm": 0.38396160383961603,
+      "reject_05": false
+    },
+    {
+      "dataset": "pog",
+      "condition": "pseudo",
+      "comparison": "DIALS vs best simple (label_knn)",
+      "metric": "recall20",
+      "delta": -0.002642191628424419,
+      "ci95": [
+        -0.004199720349541139,
+        -0.0012101409832729908
+      ],
+      "p_value": 0.00019998000199980003,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.002753441802252816,
+      "seed": 20261109,
+      "p_holm": 0.003999600039996,
+      "reject_05": true
+    },
+    {
+      "dataset": "pog",
+      "condition": "pseudo",
+      "comparison": "DIALS vs best simple (label_knn)",
+      "metric": "ndcg20",
+      "delta": -0.0026026430933327473,
+      "ci95": [
+        -0.003921759751780746,
+        -0.0013128937229343724
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.004005006257822278,
+      "seed": 20261109,
+      "p_holm": 0.003999600039996,
+      "reject_05": true
+    },
+    {
+      "dataset": "pog",
+      "condition": "pseudo_clean",
+      "comparison": "DIALS vs CLHE",
+      "metric": "recall20",
+      "delta": -0.0003754693416441088,
+      "ci95": [
+        -0.0012936070823192875,
+        0.0005006289108660395
+      ],
+      "p_value": 0.404959504049595,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.003003754693366708,
+      "seed": 20261109,
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "dataset": "pog",
+      "condition": "pseudo_clean",
+      "comparison": "DIALS vs CLHE",
+      "metric": "ndcg20",
+      "delta": -0.00022991900859465025,
+      "ci95": [
+        -0.000860080898521887,
+        0.0003369840990828291
+      ],
+      "p_value": 0.45855414458554145,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.003254067584480601,
+      "seed": 20261109,
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "dataset": "pog",
+      "condition": "pseudo_clean",
+      "comparison": "DIALS vs best simple (label_knn)",
+      "metric": "recall20",
+      "delta": -0.0011681268251981642,
+      "ci95": [
+        -0.0024197064265568144,
+        4.1719076319945065e-05
+      ],
+      "p_value": 0.06769323067693231,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.003003754693366708,
+      "seed": 20261109,
+      "p_holm": 0.38396160383961603,
+      "reject_05": false
+    },
+    {
+      "dataset": "pog",
+      "condition": "pseudo_clean",
+      "comparison": "DIALS vs best simple (label_knn)",
+      "metric": "ndcg20",
+      "delta": -0.0012274885220359593,
+      "ci95": [
+        -0.0022501718682811436,
+        -0.00032016403655146667
+      ],
+      "p_value": 0.0082991700829917,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.003254067584480601,
+      "seed": 20261109,
+      "p_holm": 0.0663933606639336,
+      "reject_05": false
+    },
+    {
+      "dataset": "pog_dense",
+      "condition": "full",
+      "comparison": "DIALS vs CLHE",
+      "metric": "recall20",
+      "delta": 0.02695150428842405,
+      "ci95": [
+        0.023029508369206662,
+        0.031177473442158026
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.09194159004867496,
+      "seed": 20261109,
+      "p_holm": 0.003999600039996,
+      "reject_05": true
+    },
+    {
+      "dataset": "pog_dense",
+      "condition": "full",
+      "comparison": "DIALS vs CLHE",
+      "metric": "ndcg20",
+      "delta": 0.03264911633651607,
+      "ci95": [
+        0.029574475973303392,
+        0.03584266995606275
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.3138633495583198,
+      "seed": 20261109,
+      "p_holm": 0.003999600039996,
+      "reject_05": true
+    },
+    {
+      "dataset": "pog_dense",
+      "condition": "full",
+      "comparison": "DIALS vs best simple (rp3beta)",
+      "metric": "recall20",
+      "delta": 0.03085752058169581,
+      "ci95": [
+        0.026004616278138267,
+        0.036080010739366335
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.07860104561023977,
+      "seed": 20261109,
+      "p_holm": 0.003999600039996,
+      "reject_05": true
+    },
+    {
+      "dataset": "pog_dense",
+      "condition": "full",
+      "comparison": "DIALS vs best simple (rp3beta)",
+      "metric": "ndcg20",
+      "delta": 0.039505901230511536,
+      "ci95": [
+        0.03590610843797117,
+        0.04317075642259719
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.2752839372633856,
+      "seed": 20261109,
+      "p_holm": 0.003999600039996,
+      "reject_05": true
+    },
+    {
+      "dataset": "pog_dense",
+      "condition": "frac10",
+      "comparison": "DIALS vs CLHE",
+      "metric": "recall20",
+      "delta": 0.028994650883191603,
+      "ci95": [
+        0.025021184107974347,
+        0.03274456319285193
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.08346854155399315,
+      "seed": 20261109,
+      "p_holm": 0.003999600039996,
+      "reject_05": true
+    },
+    {
+      "dataset": "pog_dense",
+      "condition": "frac10",
+      "comparison": "DIALS vs CLHE",
+      "metric": "ndcg20",
+      "delta": 0.03768666154926192,
+      "ci95": [
+        0.034583019331825594,
+        0.04073663049387028
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.32161528754281593,
+      "seed": 20261109,
+      "p_holm": 0.003999600039996,
+      "reject_05": true
+    },
+    {
+      "dataset": "pog_dense",
+      "condition": "frac10",
+      "comparison": "DIALS vs best simple (label_knn_content)",
+      "metric": "recall20",
+      "delta": 0.012990004607094926,
+      "ci95": [
+        0.009010470280376548,
+        0.01695098013981878
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.04741301604470885,
+      "seed": 20261109,
+      "p_holm": 0.003999600039996,
+      "reject_05": true
+    },
+    {
+      "dataset": "pog_dense",
+      "condition": "frac10",
+      "comparison": "DIALS vs best simple (label_knn_content)",
+      "metric": "ndcg20",
+      "delta": 0.0256923741729928,
+      "ci95": [
+        0.022626471316233476,
+        0.028836194206347768
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.25022534703443305,
+      "seed": 20261109,
+      "p_holm": 0.003999600039996,
+      "reject_05": true
+    },
+    {
+      "dataset": "pog_dense",
+      "condition": "frac1",
+      "comparison": "DIALS vs CLHE",
+      "metric": "recall20",
+      "delta": 0.017537006202770954,
+      "ci95": [
+        0.014564337553803867,
+        0.02056428303639769
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.06237605913106183,
+      "seed": 20261109,
+      "p_holm": 0.003999600039996,
+      "reject_05": true
+    },
+    {
+      "dataset": "pog_dense",
+      "condition": "frac1",
+      "comparison": "DIALS vs CLHE",
+      "metric": "ndcg20",
+      "delta": 0.03216725562398243,
+      "ci95": [
+        0.02892303817000237,
+        0.03552688387902407
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.27888948981431405,
+      "seed": 20261109,
+      "p_holm": 0.003999600039996,
+      "reject_05": true
+    },
+    {
+      "dataset": "pog_dense",
+      "condition": "frac1",
+      "comparison": "DIALS vs best simple (label_knn_content)",
+      "metric": "recall20",
+      "delta": 0.025559361416581536,
+      "ci95": [
+        0.020943497068497068,
+        0.03036438225362875
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.05408328826392644,
+      "seed": 20261109,
+      "p_holm": 0.003999600039996,
+      "reject_05": true
+    },
+    {
+      "dataset": "pog_dense",
+      "condition": "frac1",
+      "comparison": "DIALS vs best simple (label_knn_content)",
+      "metric": "ndcg20",
+      "delta": 0.025279555029473814,
+      "ci95": [
+        0.02206951838752732,
+        0.02852093337552908
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.22570758968811971,
+      "seed": 20261109,
+      "p_holm": 0.003999600039996,
+      "reject_05": true
+    },
+    {
+      "dataset": "pog_dense",
+      "condition": "pseudo",
+      "comparison": "DIALS vs CLHE",
+      "metric": "recall20",
+      "delta": 0.004276585928621008,
+      "ci95": [
+        0.002242547302241306,
+        0.0064196309850734
+      ],
+      "p_value": 0.00019998000199980003,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.01694609698936362,
+      "seed": 20261109,
+      "p_holm": 0.003999600039996,
+      "reject_05": true
+    },
+    {
+      "dataset": "pog_dense",
+      "condition": "pseudo",
+      "comparison": "DIALS vs CLHE",
+      "metric": "ndcg20",
+      "delta": 0.0017692721836382573,
+      "ci95": [
+        0.0007281649733084328,
+        0.0028651354781665172
+      ],
+      "p_value": 0.0010998900109989002,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0167658193618172,
+      "seed": 20261109,
+      "p_holm": 0.009899010098990102,
+      "reject_05": true
+    },
+    {
+      "dataset": "pog_dense",
+      "condition": "pseudo",
+      "comparison": "DIALS vs best simple (rp3beta)",
+      "metric": "recall20",
+      "delta": -0.00848306391843439,
+      "ci95": [
+        -0.011355744966931843,
+        -0.005566691394156187
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.009194159004867496,
+      "seed": 20261109,
+      "p_holm": 0.003999600039996,
+      "reject_05": true
+    },
+    {
+      "dataset": "pog_dense",
+      "condition": "pseudo",
+      "comparison": "DIALS vs best simple (rp3beta)",
+      "metric": "ndcg20",
+      "delta": -0.006500532067357746,
+      "ci95": [
+        -0.008318176466125446,
+        -0.004768043577550017
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.012258878673156661,
+      "seed": 20261109,
+      "p_holm": 0.003999600039996,
+      "reject_05": true
+    },
+    {
+      "dataset": "pog_dense",
+      "condition": "pseudo_clean",
+      "comparison": "DIALS vs CLHE",
+      "metric": "recall20",
+      "delta": 0.0020731926958900446,
+      "ci95": [
+        -1.0277585985917042e-05,
+        0.0041852074004805504
+      ],
+      "p_value": 0.052894710528947106,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.014422210203713719,
+      "seed": 20261109,
+      "p_holm": 0.3702629737026297,
+      "reject_05": false
+    },
+    {
+      "dataset": "pog_dense",
+      "condition": "pseudo_clean",
+      "comparison": "DIALS vs CLHE",
+      "metric": "ndcg20",
+      "delta": 0.00018805496164820193,
+      "ci95": [
+        -0.0009034687326044089,
+        0.0012607406980136315
+      ],
+      "p_value": 0.7370262973702629,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.014963043086352984,
+      "seed": 20261109,
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "dataset": "pog_dense",
+      "condition": "pseudo_clean",
+      "comparison": "DIALS vs best simple (rp3beta)",
+      "metric": "recall20",
+      "delta": -0.008432986799671496,
+      "ci95": [
+        -0.011216006791065183,
+        -0.005606365511303339
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.008833603749774653,
+      "seed": 20261109,
+      "p_holm": 0.003999600039996,
+      "reject_05": true
+    },
+    {
+      "dataset": "pog_dense",
+      "condition": "pseudo_clean",
+      "comparison": "DIALS vs best simple (rp3beta)",
+      "metric": "ndcg20",
+      "delta": -0.006361360632002815,
+      "ci95": [
+        -0.008151838726045696,
+        -0.004704511791605861
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.012078601045610239,
+      "seed": 20261109,
+      "p_holm": 0.003999600039996,
+      "reject_05": true
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "variant": "dot",
+  "seed": 0,
+  "checkpoint": "checkpoints/neural_small/clothing/dot_seed0/epoch_0024.pt",
+  "best_epoch": 24,
+  "validation": {
+    "recall20": 0.42563405797101445,
+    "ndcg20": 0.29834098663224395,
+    "seconds": 0.05866825001430698,
+    "item_encoding_seconds": 0.0010926660033874214,
+    "full_catalogue": true,
+    "catalogue_size": 4487
+  },
+  "parameters": {
+    "total": 412768,
+    "item_identity": 287232,
+    "other": 125536,
+    "frozen_buffer_bytes": 2351712,
+    "config": {
+      "variant": "dot",
+      "dim": 64,
+      "layers": 2,
+      "heads": 4,
+      "dropout": 0.1,
+      "identity_dropout": 0.1
+    }
+  },
+  "model_config": {
+    "variant": "dot",
+    "dim": 64,
+    "layers": 2,
+    "heads": 4,
+    "dropout": 0.1,
+    "identity_dropout": 0.1
+  },
+  "elapsed_seconds": 25.068819917010842,
+  "epochs_run": 36,
+  "selection": "validation NDCG@20 only"
+}

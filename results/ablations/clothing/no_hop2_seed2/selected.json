@@ -1,0 +1,40 @@
+{
+  "arm": "loo",
+  "config": {
+    "epochs": 100,
+    "batch": 32,
+    "eval_every": 1,
+    "patience": 6,
+    "shared_lr": 0.001,
+    "group_lr": 0.01,
+    "weight_decay": 0.001,
+    "rank": 64,
+    "group_rank": 16,
+    "hidden": 32,
+    "use_album": true,
+    "graph_rank": 64,
+    "model": "relation_family_v3",
+    "label_mode": "spectral",
+    "disabled": [
+      "hop2"
+    ]
+  },
+  "seed": 2,
+  "checkpoint": "checkpoints/ablations/clothing/no_hop2_seed2/epoch_0012.pt",
+  "best_epoch": 12,
+  "epochs_run": 18,
+  "validation": {
+    "recall20": 0.5992753623188405,
+    "ndcg20": 0.4615971295798297,
+    "seconds": 0.0828490830026567
+  },
+  "parameters": {
+    "trainable_parameters": 41626,
+    "label_parameters": 256,
+    "label_mode": "spectral",
+    "observed_directed_pairs": 12666,
+    "levels": 1,
+    "frozen_buffer_bytes": 20227897
+  },
+  "elapsed": 35.024345249985345
+}

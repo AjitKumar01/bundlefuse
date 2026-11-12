@@ -1,0 +1,46 @@
+electronic DIALS [0.4691 0.3346] simple hybrid [0.432  0.2986]
+food DIALS [0.5862 0.4388] simple hybrid [0.5442 0.4252]
+clothing DIALS [0.5338 0.3876] simple hybrid [0.4329 0.3303]
+pog_dense DIALS [0.3756 0.2802] simple rp3beta [0.3447 0.2407]
+pog DIALS [0.0543 0.0313] simple ease [0.0295 0.0198]
+spotify_sparse DIALS [0.1837 0.2562] simple hybrid [0.1166 0.1526]
+spotify DIALS [0.1674 0.2824] simple hybrid [0.1324 0.2228]
+dunnhumby DIALS [0.149  0.1023] simple hybrid [0.1441 0.1044]
+pog_dense_k4 {'pool_f1': 0.488, 'pool_jaccard': 0.396, 'full_f1': 0.191, 'full_jaccard': 0.135}
+spotify_k30 {'pool_f1': 0.625, 'pool_jaccard': 0.482, 'full_f1': 0.101, 'full_jaccard': 0.057}
+spotify_k60 {'pool_f1': 0.643, 'pool_jaccard': 0.495, 'full_f1': 0.154, 'full_jaccard': 0.09}
+spotify_k90 {'pool_f1': 0.651, 'pool_jaccard': 0.501, 'full_f1': 0.192, 'full_jaccard': 0.114}
+simple electronic ndcg20 simple:hybrid 0.036 [0.0155, 0.0573] 0.0024
+simple electronic recall20 simple:hybrid 0.0371 [0.0071, 0.0667] 0.0536
+neural electronic ndcg20 ramen_clean 0.0809 [0.0565, 0.1069] 0.002
+neural electronic recall20 ramen_clean 0.1251 [0.0853, 0.1637] 0.002
+neural electronic ndcg20 clhe_clean 0.0746 [0.0485, 0.1029] 0.002
+neural electronic recall20 clhe_clean 0.1073 [0.0653, 0.1483] 0.002
+simple food ndcg20 simple:hybrid 0.0136 [-0.0064, 0.0343] 0.2846
+simple food recall20 simple:hybrid 0.0419 [0.0144, 0.071] 0.0225
+neural food ndcg20 ramen_clean 0.1644 [0.1334, 0.1966] 0.002
+neural food recall20 ramen_clean 0.2338 [0.1905, 0.276] 0.002
+neural food ndcg20 clhe_clean 0.1667 [0.1356, 0.1998] 0.002
+neural food recall20 clhe_clean 0.2161 [0.1739, 0.2584] 0.002
+simple clothing ndcg20 simple:hybrid 0.0573 [0.0354, 0.08] 0.0016
+simple clothing recall20 simple:hybrid 0.1008 [0.0696, 0.1315] 0.0016
+neural clothing ndcg20 ramen_clean 0.1971 [0.1675, 0.2285] 0.002
+neural clothing recall20 ramen_clean 0.296 [0.2537, 0.3398] 0.002
+neural clothing ndcg20 clhe_clean 0.2018 [0.1732, 0.2324] 0.002
+neural clothing recall20 clhe_clean 0.2923 [0.2508, 0.3347] 0.002
+simple pog_dense ndcg20 simple:rp3beta 0.0395 [0.0359, 0.0432] 0.0016
+simple pog_dense recall20 simple:rp3beta 0.0309 [0.026, 0.0361] 0.0016
+neural pog_dense ndcg20 clhe 0.0326 [0.0296, 0.0358] 0.002
+neural pog_dense recall20 clhe 0.027 [0.023, 0.0312] 0.002
+simple pog ndcg20 simple:ease 0.0115 [0.0092, 0.0139] 0.0016
+simple pog recall20 simple:ease 0.0248 [0.0208, 0.0288] 0.0016
+neural pog ndcg20 clhe 0.0141 [0.0118, 0.0165] 0.002
+neural pog recall20 clhe 0.0284 [0.0244, 0.0321] 0.002
+simple spotify_sparse ndcg20 simple:hybrid 0.1036 [0.0954, 0.1123] 0.0016
+simple spotify_sparse recall20 simple:hybrid 0.0671 [0.0613, 0.0727] 0.0016
+neural spotify_sparse ndcg20 clhe 0.1409 [0.131, 0.1512] 0.002
+neural spotify_sparse recall20 clhe 0.0866 [0.0801, 0.0934] 0.002
+simple spotify ndcg20 simple:hybrid 0.0596 [0.0538, 0.0659] 0.0016
+simple spotify recall20 simple:hybrid 0.0351 [0.0313, 0.0391] 0.0016
+simple dunnhumby ndcg20 simple:hybrid -0.002 [-0.0049, 0.0007] 0.2846
+simple dunnhumby recall20 simple:hybrid 0.005 [0.0004, 0.0094] 0.0702

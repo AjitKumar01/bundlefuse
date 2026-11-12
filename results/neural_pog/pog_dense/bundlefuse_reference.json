@@ -1,0 +1,66 @@
+{
+  "full": {
+    "queries": 5938,
+    "recall20": 0.39522285842595706,
+    "ndcg20": 0.2878758077142882
+  },
+  "overlap_filtered": {
+    "queries": 5547,
+    "recall20": 0.3600144222102037,
+    "ndcg20": 0.25799964949625076
+  },
+  "checkpoint": "checkpoints/publication_mechanisms/pog_dense/artifacts.pt",
+  "sha256": "5c7bfc38feb43bf9f045630bd7b45e71b57e8dda168209245b7aa105b7e6fd47",
+  "recipe": {
+    "weights": {
+      "cat": 0.5,
+      "bridge": 0.25,
+      "simp": 0.5,
+      "pop": 0.25,
+      "csvd": 0.25
+    },
+    "prior": [
+      "cat",
+      "bridge"
+    ],
+    "backoff": [
+      0.5,
+      1.4605515925404695
+    ],
+    "higher_order": [
+      1.0,
+      0.0
+    ],
+    "variance": {
+      "identifiable": true,
+      "raw_sigma0_sq": 2.474907838035391,
+      "raw_sigma_eps_sq": -2.5281071910569533,
+      "sigma0_sq": 2.474907838035391,
+      "sigma_eps_sq": 0.0001,
+      "kappa_f": 0.05,
+      "raw_slope_negative": true,
+      "truncated": true
+    },
+    "validation_ndcg20": 0.2848662286725829
+  },
+  "query_predictions_sha256": "e5f5f851533e6452a42a662b95e307f6b280d12891ba2383131796ab6283a6c7",
+  "replayed_query_indices": [
+    0,
+    1,
+    2,
+    3,
+    571,
+    744,
+    1365,
+    1894,
+    2207,
+    2482,
+    3075,
+    3121,
+    3160,
+    3885,
+    4043,
+    4133
+  ],
+  "source": "Retained canonical BundleFuse predictions on identical supplied queries; input hashes and 16 deterministic probe rankings checked."
+}

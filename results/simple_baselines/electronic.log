@@ -1,0 +1,42 @@
+2026-11-08T17:53:37Z electronic: n=3499 train=1211 pairs=13788
+2026-11-08T17:53:37Z electronic popularity {} VAL N20=0.020717
+2026-11-08T17:53:37Z electronic cooccurrence {} VAL N20=0.185343
+2026-11-08T17:53:37Z electronic itemknn {'k': 50, 'shrink': 0} VAL N20=0.231817
+2026-11-08T17:53:37Z electronic itemknn {'k': 50, 'shrink': 10} VAL N20=0.224879
+2026-11-08T17:53:37Z electronic itemknn {'k': 50, 'shrink': 100} VAL N20=0.224879
+2026-11-08T17:53:37Z electronic itemknn {'k': 200, 'shrink': 0} VAL N20=0.232935
+2026-11-08T17:53:37Z electronic itemknn {'k': 200, 'shrink': 10} VAL N20=0.225997
+2026-11-08T17:53:37Z electronic itemknn {'k': 200, 'shrink': 100} VAL N20=0.225997
+2026-11-08T17:53:37Z electronic itemknn {'k': 1000, 'shrink': 0} VAL N20=0.232935
+2026-11-08T17:53:37Z electronic itemknn {'k': 1000, 'shrink': 10} VAL N20=0.225997
+2026-11-08T17:53:37Z electronic itemknn {'k': 1000, 'shrink': 100} VAL N20=0.225997
+2026-11-08T17:53:37Z electronic rp3beta {'alpha': 0.5, 'beta': 0.0} VAL N20=0.207345
+2026-11-08T17:53:37Z electronic rp3beta {'alpha': 0.5, 'beta': 0.25} VAL N20=0.230401
+2026-11-08T17:53:37Z electronic rp3beta {'alpha': 0.5, 'beta': 0.5} VAL N20=0.232443
+2026-11-08T17:53:37Z electronic rp3beta {'alpha': 0.5, 'beta': 0.75} VAL N20=0.230684
+2026-11-08T17:53:37Z electronic rp3beta {'alpha': 1.0, 'beta': 0.0} VAL N20=0.205363
+2026-11-08T17:53:37Z electronic rp3beta {'alpha': 1.0, 'beta': 0.25} VAL N20=0.228403
+2026-11-08T17:53:37Z electronic rp3beta {'alpha': 1.0, 'beta': 0.5} VAL N20=0.228727
+2026-11-08T17:53:37Z electronic rp3beta {'alpha': 1.0, 'beta': 0.75} VAL N20=0.224945
+2026-11-08T17:53:37Z electronic gfcf {'rank': 64, 'ideal': 0.0} VAL N20=0.226148
+2026-11-08T17:53:37Z electronic gfcf {'rank': 64, 'ideal': 0.1} VAL N20=0.224469
+2026-11-08T17:53:37Z electronic gfcf {'rank': 64, 'ideal': 0.3} VAL N20=0.224870
+2026-11-08T17:53:37Z electronic gfcf {'rank': 64, 'ideal': 1.0} VAL N20=0.221499
+2026-11-08T17:53:37Z electronic gfcf {'rank': 64, 'ideal': 3.0} VAL N20=0.217661
+2026-11-08T17:53:37Z electronic gfcf {'rank': 256, 'ideal': 0.0} VAL N20=0.226148
+2026-11-08T17:53:37Z electronic gfcf {'rank': 256, 'ideal': 0.1} VAL N20=0.223782
+2026-11-08T17:53:37Z electronic gfcf {'rank': 256, 'ideal': 0.3} VAL N20=0.221847
+2026-11-08T17:53:37Z electronic gfcf {'rank': 256, 'ideal': 1.0} VAL N20=0.214311
+2026-11-08T17:53:37Z electronic gfcf {'rank': 256, 'ideal': 3.0} VAL N20=0.206233
+2026-11-08T17:53:37Z electronic ease {'l2': 50.0} VAL N20=0.235009
+2026-11-08T17:53:38Z electronic ease {'l2': 200.0} VAL N20=0.225280
+2026-11-08T17:53:38Z electronic ease {'l2': 500.0} VAL N20=0.214182
+2026-11-08T17:53:38Z electronic ease {'l2': 1000.0} VAL N20=0.214823
+2026-11-08T17:53:38Z electronic ease {'l2': 3000.0} VAL N20=0.200859
+2026-11-08T17:53:38Z electronic popularity TEST filtered {'recall20': 0.059874759152215795, 'ndcg20': 0.02577193985304718}
+2026-11-08T17:53:38Z electronic cooccurrence TEST filtered {'recall20': 0.34364161849710984, 'ndcg20': 0.2307929399405525}
+2026-11-08T17:53:38Z electronic itemknn TEST filtered {'recall20': 0.3524566473988439, 'ndcg20': 0.24767320983459046}
+2026-11-08T17:53:38Z electronic rp3beta TEST filtered {'recall20': 0.35573217726396916, 'ndcg20': 0.25543581135499194}
+2026-11-08T17:53:38Z electronic gfcf TEST filtered {'recall20': 0.3551541425818882, 'ndcg20': 0.25422657829477874}
+2026-11-08T17:53:38Z electronic ease TEST filtered {'recall20': 0.35351637764932564, 'ndcg20': 0.25383723898273713}
+2026-11-08T17:53:38Z electronic COMPLETE

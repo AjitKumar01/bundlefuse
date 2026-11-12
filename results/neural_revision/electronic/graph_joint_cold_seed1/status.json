@@ -1,0 +1,26 @@
+{
+  "status": "selected",
+  "condition": {
+    "name": "graph_joint_cold",
+    "variant": "graph_joint",
+    "cold_probability": 0.25
+  },
+  "seed": 1,
+  "checkpoint": "checkpoints/neural_revision/electronic/graph_joint_cold_seed1/epoch_0042.pt",
+  "best_epoch": 42,
+  "epochs_run": 54,
+  "validation": {
+    "recall20": 0.3644508670520231,
+    "ndcg20": 0.2628162535184543,
+    "seconds": 0.032973207999020815,
+    "full_catalogue": true
+  },
+  "parameters": {
+    "trainable_parameters": 299223,
+    "pair_parameters": 13788,
+    "joint_parameters": 31257,
+    "category_parameters": 229441,
+    "frozen_buffer_bytes": 3040791
+  },
+  "elapsed": 37.83128383301664
+}

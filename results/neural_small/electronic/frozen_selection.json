@@ -1,0 +1,353 @@
+{
+  "dot_seed0": {
+    "variant": "dot",
+    "seed": 0,
+    "checkpoint": "checkpoints/neural_small/electronic/dot_seed0/epoch_0026.pt",
+    "best_epoch": 26,
+    "validation": {
+      "recall20": 0.2950867052023121,
+      "ndcg20": 0.20139761964878744,
+      "seconds": 0.07414625000092201,
+      "item_encoding_seconds": 0.0014300000038929284,
+      "full_catalogue": true,
+      "catalogue_size": 3499
+    },
+    "parameters": {
+      "total": 324672,
+      "item_identity": 224000,
+      "other": 100672,
+      "frozen_buffer_bytes": 1834000,
+      "config": {
+        "variant": "dot",
+        "dim": 64,
+        "layers": 2,
+        "heads": 4,
+        "dropout": 0.1,
+        "identity_dropout": 0.1
+      }
+    },
+    "model_config": {
+      "variant": "dot",
+      "dim": 64,
+      "layers": 2,
+      "heads": 4,
+      "dropout": 0.1,
+      "identity_dropout": 0.1
+    },
+    "elapsed_seconds": 37.45170624999446,
+    "epochs_run": 38,
+    "selection": "validation NDCG@20 only"
+  },
+  "relations_seed0": {
+    "variant": "relations",
+    "seed": 0,
+    "checkpoint": "checkpoints/neural_small/electronic/relations_seed0/epoch_0036.pt",
+    "best_epoch": 36,
+    "validation": {
+      "recall20": 0.3556840077071291,
+      "ndcg20": 0.25779900045264464,
+      "seconds": 1.1815284159965813,
+      "item_encoding_seconds": 0.0013057500182185322,
+      "full_catalogue": true,
+      "catalogue_size": 3499
+    },
+    "parameters": {
+      "total": 282561,
+      "item_identity": 224000,
+      "other": 58561,
+      "frozen_buffer_bytes": 1834000,
+      "config": {
+        "variant": "relations",
+        "dim": 64,
+        "layers": 2,
+        "heads": 4,
+        "dropout": 0.1,
+        "identity_dropout": 0.1
+      }
+    },
+    "model_config": {
+      "variant": "relations",
+      "dim": 64,
+      "layers": 2,
+      "heads": 4,
+      "dropout": 0.1,
+      "identity_dropout": 0.1
+    },
+    "elapsed_seconds": 280.1651921669836,
+    "epochs_run": 48,
+    "selection": "validation NDCG@20 only"
+  },
+  "contextual_seed0": {
+    "variant": "contextual",
+    "seed": 0,
+    "checkpoint": "checkpoints/neural_small/electronic/contextual_seed0/epoch_0032.pt",
+    "best_epoch": 32,
+    "validation": {
+      "recall20": 0.33670520231213874,
+      "ndcg20": 0.2662579886422845,
+      "seconds": 0.928151666012127,
+      "item_encoding_seconds": 0.0010105830151587725,
+      "full_catalogue": true,
+      "catalogue_size": 3499
+    },
+    "parameters": {
+      "total": 349505,
+      "item_identity": 224000,
+      "other": 125505,
+      "frozen_buffer_bytes": 1834000,
+      "config": {
+        "variant": "contextual",
+        "dim": 64,
+        "layers": 2,
+        "heads": 4,
+        "dropout": 0.1,
+        "identity_dropout": 0.1
+      }
+    },
+    "model_config": {
+      "variant": "contextual",
+      "dim": 64,
+      "layers": 2,
+      "heads": 4,
+      "dropout": 0.1,
+      "identity_dropout": 0.1
+    },
+    "elapsed_seconds": 215.2870428749884,
+    "epochs_run": 44,
+    "selection": "validation NDCG@20 only"
+  },
+  "dot_seed1": {
+    "variant": "dot",
+    "seed": 1,
+    "checkpoint": "checkpoints/neural_small/electronic/dot_seed1/epoch_0040.pt",
+    "best_epoch": 40,
+    "validation": {
+      "recall20": 0.29942196531791904,
+      "ndcg20": 0.2063929768122523,
+      "seconds": 0.04494754198822193,
+      "item_encoding_seconds": 0.0009592499991413206,
+      "full_catalogue": true,
+      "catalogue_size": 3499
+    },
+    "parameters": {
+      "total": 324672,
+      "item_identity": 224000,
+      "other": 100672,
+      "frozen_buffer_bytes": 1834000,
+      "config": {
+        "variant": "dot",
+        "dim": 64,
+        "layers": 2,
+        "heads": 4,
+        "dropout": 0.1,
+        "identity_dropout": 0.1
+      }
+    },
+    "model_config": {
+      "variant": "dot",
+      "dim": 64,
+      "layers": 2,
+      "heads": 4,
+      "dropout": 0.1,
+      "identity_dropout": 0.1
+    },
+    "elapsed_seconds": 37.61290666699642,
+    "epochs_run": 52,
+    "selection": "validation NDCG@20 only"
+  },
+  "relations_seed1": {
+    "variant": "relations",
+    "seed": 1,
+    "checkpoint": "checkpoints/neural_small/electronic/relations_seed1/epoch_0052.pt",
+    "best_epoch": 52,
+    "validation": {
+      "recall20": 0.3747591522157997,
+      "ndcg20": 0.2808505189016318,
+      "seconds": 1.103885500022443,
+      "item_encoding_seconds": 0.00155387501581572,
+      "full_catalogue": true,
+      "catalogue_size": 3499
+    },
+    "parameters": {
+      "total": 282561,
+      "item_identity": 224000,
+      "other": 58561,
+      "frozen_buffer_bytes": 1834000,
+      "config": {
+        "variant": "relations",
+        "dim": 64,
+        "layers": 2,
+        "heads": 4,
+        "dropout": 0.1,
+        "identity_dropout": 0.1
+      }
+    },
+    "model_config": {
+      "variant": "relations",
+      "dim": 64,
+      "layers": 2,
+      "heads": 4,
+      "dropout": 0.1,
+      "identity_dropout": 0.1
+    },
+    "elapsed_seconds": 347.43999020798947,
+    "epochs_run": 64,
+    "selection": "validation NDCG@20 only"
+  },
+  "contextual_seed1": {
+    "variant": "contextual",
+    "seed": 1,
+    "checkpoint": "checkpoints/neural_small/electronic/contextual_seed1/epoch_0016.pt",
+    "best_epoch": 16,
+    "validation": {
+      "recall20": 0.32504816955684007,
+      "ndcg20": 0.25186048491261254,
+      "seconds": 0.9924054580042139,
+      "item_encoding_seconds": 0.0009544999920763075,
+      "full_catalogue": true,
+      "catalogue_size": 3499
+    },
+    "parameters": {
+      "total": 349505,
+      "item_identity": 224000,
+      "other": 125505,
+      "frozen_buffer_bytes": 1834000,
+      "config": {
+        "variant": "contextual",
+        "dim": 64,
+        "layers": 2,
+        "heads": 4,
+        "dropout": 0.1,
+        "identity_dropout": 0.1
+      }
+    },
+    "model_config": {
+      "variant": "contextual",
+      "dim": 64,
+      "layers": 2,
+      "heads": 4,
+      "dropout": 0.1,
+      "identity_dropout": 0.1
+    },
+    "elapsed_seconds": 148.4466070829949,
+    "epochs_run": 28,
+    "selection": "validation NDCG@20 only"
+  },
+  "dot_seed2": {
+    "variant": "dot",
+    "seed": 2,
+    "checkpoint": "checkpoints/neural_small/electronic/dot_seed2/epoch_0032.pt",
+    "best_epoch": 32,
+    "validation": {
+      "recall20": 0.3105009633911368,
+      "ndcg20": 0.20626351176704738,
+      "seconds": 0.04972454201197252,
+      "item_encoding_seconds": 0.0010084999958053231,
+      "full_catalogue": true,
+      "catalogue_size": 3499
+    },
+    "parameters": {
+      "total": 324672,
+      "item_identity": 224000,
+      "other": 100672,
+      "frozen_buffer_bytes": 1834000,
+      "config": {
+        "variant": "dot",
+        "dim": 64,
+        "layers": 2,
+        "heads": 4,
+        "dropout": 0.1,
+        "identity_dropout": 0.1
+      }
+    },
+    "model_config": {
+      "variant": "dot",
+      "dim": 64,
+      "layers": 2,
+      "heads": 4,
+      "dropout": 0.1,
+      "identity_dropout": 0.1
+    },
+    "elapsed_seconds": 32.791804625012446,
+    "epochs_run": 44,
+    "selection": "validation NDCG@20 only"
+  },
+  "relations_seed2": {
+    "variant": "relations",
+    "seed": 2,
+    "checkpoint": "checkpoints/neural_small/electronic/relations_seed2/epoch_0022.pt",
+    "best_epoch": 22,
+    "validation": {
+      "recall20": 0.355009633911368,
+      "ndcg20": 0.26378970035172017,
+      "seconds": 1.0036401669785846,
+      "item_encoding_seconds": 0.0010425839864183217,
+      "full_catalogue": true,
+      "catalogue_size": 3499
+    },
+    "parameters": {
+      "total": 282561,
+      "item_identity": 224000,
+      "other": 58561,
+      "frozen_buffer_bytes": 1834000,
+      "config": {
+        "variant": "relations",
+        "dim": 64,
+        "layers": 2,
+        "heads": 4,
+        "dropout": 0.1,
+        "identity_dropout": 0.1
+      }
+    },
+    "model_config": {
+      "variant": "relations",
+      "dim": 64,
+      "layers": 2,
+      "heads": 4,
+      "dropout": 0.1,
+      "identity_dropout": 0.1
+    },
+    "elapsed_seconds": 155.08769637500518,
+    "epochs_run": 34,
+    "selection": "validation NDCG@20 only"
+  },
+  "contextual_seed2": {
+    "variant": "contextual",
+    "seed": 2,
+    "checkpoint": "checkpoints/neural_small/electronic/contextual_seed2/epoch_0028.pt",
+    "best_epoch": 28,
+    "validation": {
+      "recall20": 0.33188824662813105,
+      "ndcg20": 0.2738877331919395,
+      "seconds": 0.9348382920143194,
+      "item_encoding_seconds": 0.0010102500091306865,
+      "full_catalogue": true,
+      "catalogue_size": 3499
+    },
+    "parameters": {
+      "total": 349505,
+      "item_identity": 224000,
+      "other": 125505,
+      "frozen_buffer_bytes": 1834000,
+      "config": {
+        "variant": "contextual",
+        "dim": 64,
+        "layers": 2,
+        "heads": 4,
+        "dropout": 0.1,
+        "identity_dropout": 0.1
+      }
+    },
+    "model_config": {
+      "variant": "contextual",
+      "dim": 64,
+      "layers": 2,
+      "heads": 4,
+      "dropout": 0.1,
+      "identity_dropout": 0.1
+    },
+    "elapsed_seconds": 183.82550841700868,
+    "epochs_run": 40,
+    "selection": "validation NDCG@20 only"
+  }
+}

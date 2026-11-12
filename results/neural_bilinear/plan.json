@@ -1,0 +1,28 @@
+{
+  "question": "Do a learned bilinear form V M V^T and a learned category table close the POG gap in the neural baseline?",
+  "arms": {
+    "bilinear": "M starts at the identity, unconstrained, shared learning rate",
+    "category": "free signed category table, starts at zero, link learning rate, no cold mask",
+    "both": "both changes"
+  },
+  "unchanged": "All other settings, features, masks, and epoch selection match the baseline. No BundleFuse signal is an input.",
+  "selection": "On seed 0 validation NDCG@20, choose the one arm with the highest mean ratio to baseline across POG and POG_DENSE. The baseline is a candidate. Test is not used.",
+  "replication": "Train the chosen arm at seeds 1 and 2; compare per-query three-seed means with the baseline on the test set.",
+  "primary": "Filtered test queries. Selected vs baseline and selected vs BundleFuse, on NDCG@20 and Recall@20, per dataset. Holm over 8 tests.",
+  "decision": {
+    "helps": "Selected beats baseline on NDCG with Holm p<.05 on both datasets.",
+    "versus_bundlefuse": "Ahead or behind only with Holm p<.05 on NDCG. Otherwise not separated, which is not equivalence."
+  },
+  "scope": "Exploratory: the splits were inspected earlier, and these changes came from a validation audit of the same data.",
+  "config": {
+    "epochs": 100,
+    "batch": 32,
+    "eval_every": 2,
+    "patience": 6,
+    "link_lr": 0.03,
+    "shared_lr": 0.001,
+    "weight_decay": 0.001,
+    "log_every_batches": 50
+  },
+  "source_sha256": "4e3c60629022ab75f328fb1d306e5f745d8ff428b9fce0ec0a907ad06557b29f"
+}

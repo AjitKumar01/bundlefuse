@@ -1,0 +1,46 @@
+{
+  "question": "Can a low-rank model with shared pair weights and leave-one-out training replace the per-pair table, symmetric similarity, graph matrix and full category table without losing accuracy?",
+  "arms": {
+    "loo": "leave-one-out history only",
+    "loo_mask": "leave-one-out plus the earlier 25% random history mask"
+  },
+  "selection": "On seed 0 validation NDCG@20, pick the arm with the higher mean ratio to the earlier category model across POG and POG_DENSE. Test is not used. The pick is tested whichever way it compares.",
+  "replication": "Train the pick at seeds 1 and 2 on POG and POG_DENSE, and at seeds 0, 1 and 2 on Spotify_sparse and Spotify with no further choices.",
+  "primary": "Filtered test queries, three-seed per-query means. POG and POG_DENSE: pick vs the earlier category model and vs BundleFuse. Spotify datasets: pick vs BundleFuse where a BundleFuse test reference exists. NDCG@20 and Recall@20. Holm over all of these tests together.",
+  "decision": {
+    "replaces": "Pick not significantly behind the category model on NDCG on either POG dataset (Holm p<.05 would count as behind).",
+    "versus_bundlefuse": "Ahead or behind only with Holm p<.05 on NDCG. Otherwise not separated, which is not equivalence."
+  },
+  "scope": "Exploratory: POG splits were inspected earlier, and the design follows an audit of the same validation data. Spotify has not been used by any neural model before.",
+  "config": {
+    "epochs": 100,
+    "batch": 32,
+    "eval_every": 2,
+    "patience": 6,
+    "shared_lr": 0.001,
+    "group_lr": 0.01,
+    "weight_decay": 0.001,
+    "rank": 64,
+    "group_rank": 16,
+    "hidden": 32
+  },
+  "source_sha256": "a613b8501b37443a53afc9c99a95ff45e9db17a87f0e9c0cb6b5c2f336664bb5",
+  "amendments": [
+    {
+      "date": "2026-11-08",
+      "before_any_result": true,
+      "old_source_sha256": "2b151baeb57d6b7f48daa438758e8103732fb34c0cc942a0cf457f9b1c3083be",
+      "change": "Spotify_sparse has no publication test predictions (that run stopped during selection). Its BundleFuse reference is the general_lift recipe refit, per-query on the 2,497 filtered test queries, matched by bundle. Only the test step changed; model and training code are identical, so the four seed-0 runs already started are unaffected."
+    },
+    {
+      "date": "2026-11-08",
+      "old_source_sha256": "6d5e9f613e8360312f6796df7101f5774e21c6b3e3bb751a25b28def90127e83",
+      "change": "Spotify runs stopped on request at epoch 10-12 (validation NDCG about .11 against BundleFuse .22); diagnosis in results/neural_audit/lowrank_spotify_sparse.json. fit() now asks a model for its fast-learning parameters when it defines them; v1 models do not, so v1 training is unchanged. POG and POG_DENSE seeds 1-2 continue under the original plan."
+    },
+    {
+      "date": "2026-11-08",
+      "old_source_sha256": "87cdcf5a368db1758c9c1d4c8bb7e4e28d06a4bdf9a6235690726cfd34cc4f19",
+      "change": "fit() accepts an optional fast_weight_decay; v1 configs do not set it, so v1 training is unchanged."
+    }
+  ]
+}

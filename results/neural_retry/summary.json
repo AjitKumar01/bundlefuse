@@ -1,0 +1,201 @@
+{
+  "datasets": {
+    "electronic": {
+      "status": "complete",
+      "source": "results/neural_constrained/electronic",
+      "condition": "graph_pair_no_category",
+      "mean": {
+        "recall20": 0.4578516377649326,
+        "ndcg20": 0.32975373477928943
+      },
+      "sample_std": {
+        "recall20": 0.0010760263922778815,
+        "ndcg20": 0.0042224382788613995
+      },
+      "relative_difference_vs_matched": {
+        "recall20": -0.005649126477664912,
+        "ndcg20": -0.04201267413723697
+      },
+      "bundlefuse_matched": {
+        "recall20": 0.4604527938342967,
+        "ndcg20": 0.3442151329949103
+      },
+      "bundlefuse_original": {
+        "recall20": 0.4868015414258189,
+        "ndcg20": 0.3432175015639911
+      },
+      "parameters": {
+        "trainable_parameters": 38525,
+        "pair_parameters": 13788,
+        "joint_parameters": 0,
+        "category_parameters": 0,
+        "frozen_buffer_bytes": 2040567
+      },
+      "by_target_frequency": {
+        "unseen": 0.20952380952380953,
+        "one_two": 0.5989583333333334,
+        "three_plus": 0.531986531986532
+      },
+      "previous_neural_means": {
+        "contextual": {
+          "seeds": 3,
+          "recall20_mean": 0.3627167630057803,
+          "ndcg20_mean": 0.2563398351224864,
+          "recall20_std": 0.024446085689581818,
+          "ndcg20_std": 0.021031407956846927
+        },
+        "dot": {
+          "seeds": 3,
+          "recall20_mean": 0.31676300578034683,
+          "ndcg20_mean": 0.20057992312094244,
+          "recall20_std": 0.012200598511728302,
+          "ndcg20_std": 0.012447235785318762
+        },
+        "relations": {
+          "seeds": 3,
+          "recall20_mean": 0.37464675658317276,
+          "ndcg20_mean": 0.2665903423514772,
+          "recall20_std": 0.013854198754021912,
+          "ndcg20_std": 0.010803363524159282
+        }
+      },
+      "signal_probe_r2_seed0": {
+        "pair": 0.5705298185348511,
+        "simp": 0.5479382276535034,
+        "cooc": 0.6362665891647339,
+        "ppmi": 0.6131005883216858,
+        "cat": 0.05193281173706055,
+        "homo": 0.13387632369995117,
+        "content": 0.39635151624679565,
+        "bridge": 0.20955175161361694,
+        "csvd": 0.3472821116447449,
+        "rao": 0.14050793647766113,
+        "joint_surplus": 0.23654472827911377
+      }
+    },
+    "food": {
+      "status": "complete",
+      "source": "results/neural_transfer/food",
+      "condition": "graph_pair_no_category",
+      "mean": {
+        "recall20": 0.5637236386528172,
+        "ndcg20": 0.4407776673906634
+      },
+      "sample_std": {
+        "recall20": 0.00834751010158345,
+        "ndcg20": 0.006463149564659009
+      },
+      "relative_difference_vs_matched": {
+        "recall20": -0.019731800766283558,
+        "ndcg20": -0.018921674593972537
+      },
+      "bundlefuse_matched": {
+        "recall20": 0.5750708215297451,
+        "ndcg20": 0.44927877415724565
+      },
+      "bundlefuse_original": {
+        "recall20": 0.5948536355051937,
+        "ndcg20": 0.46235458088796394
+      },
+      "parameters": {
+        "trainable_parameters": 38461,
+        "pair_parameters": 13724,
+        "joint_parameters": 0,
+        "category_parameters": 0,
+        "frozen_buffer_bytes": 2179260
+      },
+      "by_target_frequency": {
+        "unseen": 0.38559814169570267,
+        "one_two": 0.6916354556803995,
+        "three_plus": 0.5621890547263682
+      },
+      "previous_neural_means": {
+        "contextual": {
+          "seeds": 3,
+          "recall20_mean": 0.44819011646207113,
+          "ndcg20_mean": 0.3325766820753601,
+          "recall20_std": 0.003741967098799599,
+          "ndcg20_std": 0.0022243507572905913
+        },
+        "dot": {
+          "seeds": 3,
+          "recall20_mean": 0.36043437204910295,
+          "ndcg20_mean": 0.24023636132367607,
+          "recall20_std": 0.013812760550990105,
+          "ndcg20_std": 0.007155868883731442
+        },
+        "relations": {
+          "seeds": 3,
+          "recall20_mean": 0.4329556185080265,
+          "ndcg20_mean": 0.3246017137843737,
+          "recall20_std": 0.029319809194653525,
+          "ndcg20_std": 0.02075389946566959
+        }
+      },
+      "signal_probe_r2_seed0": {
+        "pair": 0.6395775079727173,
+        "simp": 0.6281285285949707,
+        "cooc": 0.6500147581100464,
+        "ppmi": 0.6488527655601501,
+        "cat": 0.04166465997695923,
+        "homo": 0.044630467891693115,
+        "content": 0.43498146533966064,
+        "bridge": 0.2606120705604553,
+        "csvd": 0.3280717134475708,
+        "rao": 0.16331321001052856,
+        "joint_surplus": 0.32599061727523804
+      }
+    },
+    "clothing": {
+      "status": "complete",
+      "source": "results/neural_transfer/clothing",
+      "condition": "graph_pair_no_category",
+      "mean": {
+        "recall20": 0.5034890685834083,
+        "ndcg20": 0.3797983314551197
+      },
+      "sample_std": {
+        "recall20": 0.009282719256277022,
+        "ndcg20": 0.004051198753320851
+      },
+      "relative_difference_vs_matched": {
+        "recall20": 0.06072938355732238,
+        "ndcg20": -0.02327409441428785
+      },
+      "bundlefuse_matched": {
+        "recall20": 0.4746630727762803,
+        "ndcg20": 0.388848426445049
+      },
+      "bundlefuse_original": {
+        "recall20": 0.5169362084456424,
+        "ndcg20": 0.4048626069048149
+      },
+      "parameters": {
+        "trainable_parameters": 37403,
+        "pair_parameters": 12666,
+        "joint_parameters": 0,
+        "category_parameters": 0,
+        "frozen_buffer_bytes": 2537929
+      },
+      "by_target_frequency": {
+        "unseen": 0.37254901960784315,
+        "one_two": 0.7821229050279329,
+        "three_plus": 0.5
+      },
+      "signal_probe_r2_seed0": {
+        "pair": 0.7031838893890381,
+        "simp": 0.7097022533416748,
+        "cooc": 0.6756633520126343,
+        "ppmi": 0.6712849140167236,
+        "cat": 0.10284852981567383,
+        "homo": 0.08748215436935425,
+        "content": 0.4846418499946594,
+        "bridge": 0.13367629051208496,
+        "csvd": 0.3647284507751465,
+        "rao": 0.18946635723114014,
+        "joint_surplus": 0.5068316459655762
+      }
+    }
+  },
+  "scope": "Three fixed training seeds per dataset; architecture selected on Electronic validation then transferred unchanged. Same dataset-specific validation selects epochs. No test-based architecture selection; previously inspected splits."
+}

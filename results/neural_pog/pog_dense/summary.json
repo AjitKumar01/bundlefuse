@@ -1,0 +1,238 @@
+{
+  "status": "complete",
+  "selected": {
+    "graph_pair_no_category_seed0": {
+      "condition": {
+        "name": "graph_pair_no_category",
+        "variant": "graph_pair",
+        "cold_probability": 0.25,
+        "category_mode": "off",
+        "project_links": true
+      },
+      "seed": 0,
+      "checkpoint": "checkpoints/neural_pog/pog_dense/graph_pair_no_category_seed0/epoch_0012.pt",
+      "best_epoch": 12,
+      "epochs_run": 24,
+      "validation": {
+        "recall20": 0.3762915543575921,
+        "ndcg20": 0.27006947519944097,
+        "seconds": 1.862937709025573,
+        "full_catalogue": true
+      },
+      "parameters": {
+        "trainable_parameters": 177811,
+        "pair_parameters": 153074,
+        "joint_parameters": 0,
+        "category_parameters": 0,
+        "frozen_buffer_bytes": 18682091
+      },
+      "elapsed": 1138.929876166978
+    },
+    "graph_pair_no_category_seed1": {
+      "condition": {
+        "name": "graph_pair_no_category",
+        "variant": "graph_pair",
+        "cold_probability": 0.25,
+        "category_mode": "off",
+        "project_links": true
+      },
+      "seed": 1,
+      "checkpoint": "checkpoints/neural_pog/pog_dense/graph_pair_no_category_seed1/epoch_0030.pt",
+      "best_epoch": 30,
+      "epochs_run": 42,
+      "validation": {
+        "recall20": 0.3762353998203054,
+        "ndcg20": 0.2709669065842676,
+        "seconds": 1.8356009160052054,
+        "full_catalogue": true
+      },
+      "parameters": {
+        "trainable_parameters": 177811,
+        "pair_parameters": 153074,
+        "joint_parameters": 0,
+        "category_parameters": 0,
+        "frozen_buffer_bytes": 18682091
+      },
+      "elapsed": 1830.5444698750216
+    },
+    "graph_pair_no_category_seed2": {
+      "condition": {
+        "name": "graph_pair_no_category",
+        "variant": "graph_pair",
+        "cold_probability": 0.25,
+        "category_mode": "off",
+        "project_links": true
+      },
+      "seed": 2,
+      "checkpoint": "checkpoints/neural_pog/pog_dense/graph_pair_no_category_seed2/epoch_0034.pt",
+      "best_epoch": 34,
+      "epochs_run": 46,
+      "validation": {
+        "recall20": 0.381233153638814,
+        "ndcg20": 0.27260208097911615,
+        "seconds": 3.703200249990914,
+        "full_catalogue": true
+      },
+      "parameters": {
+        "trainable_parameters": 177811,
+        "pair_parameters": 153074,
+        "joint_parameters": 0,
+        "category_parameters": 0,
+        "frozen_buffer_bytes": 18682091
+      },
+      "elapsed": 2000.2562702079886
+    }
+  },
+  "bundlefuse": {
+    "full": {
+      "queries": 5938,
+      "recall20": 0.39522285842595706,
+      "ndcg20": 0.2878758077142882
+    },
+    "overlap_filtered": {
+      "queries": 5547,
+      "recall20": 0.3600144222102037,
+      "ndcg20": 0.25799964949625076
+    },
+    "checkpoint": "checkpoints/publication_mechanisms/pog_dense/artifacts.pt",
+    "sha256": "5c7bfc38feb43bf9f045630bd7b45e71b57e8dda168209245b7aa105b7e6fd47",
+    "recipe": {
+      "weights": {
+        "cat": 0.5,
+        "bridge": 0.25,
+        "simp": 0.5,
+        "pop": 0.25,
+        "csvd": 0.25
+      },
+      "prior": [
+        "cat",
+        "bridge"
+      ],
+      "backoff": [
+        0.5,
+        1.4605515925404695
+      ],
+      "higher_order": [
+        1.0,
+        0.0
+      ],
+      "variance": {
+        "identifiable": true,
+        "raw_sigma0_sq": 2.474907838035391,
+        "raw_sigma_eps_sq": -2.5281071910569533,
+        "sigma0_sq": 2.474907838035391,
+        "sigma_eps_sq": 0.0001,
+        "kappa_f": 0.05,
+        "raw_slope_negative": true,
+        "truncated": true
+      },
+      "validation_ndcg20": 0.2848662286725829
+    },
+    "query_predictions_sha256": "e5f5f851533e6452a42a662b95e307f6b280d12891ba2383131796ab6283a6c7",
+    "replayed_query_indices": [
+      0,
+      1,
+      2,
+      3,
+      571,
+      744,
+      1365,
+      1894,
+      2207,
+      2482,
+      3075,
+      3121,
+      3160,
+      3885,
+      4043,
+      4133
+    ],
+    "source": "Retained canonical BundleFuse predictions on identical supplied queries; input hashes and 16 deterministic probe rankings checked."
+  },
+  "tests": {
+    "graph_pair_no_category_seed0": {
+      "recall20": 0.3716458964859099,
+      "ndcg20": 0.26819406648732713,
+      "seconds": 7.423734165990027,
+      "full_catalogue": true,
+      "overlap_filtered": {
+        "queries": 5547,
+        "recall20": 0.3373294874106123,
+        "ndcg20": 0.23573106997787374
+      },
+      "by_target_frequency": {
+        "unseen": {
+          "hits": 0,
+          "targets": 2127,
+          "micro_recall20": 0.0
+        },
+        "one_two": {
+          "hits": 126,
+          "targets": 1358,
+          "micro_recall20": 0.09278350515463918
+        },
+        "three_plus": {
+          "hits": 3144,
+          "targets": 5700,
+          "micro_recall20": 0.5515789473684211
+        }
+      }
+    },
+    "graph_pair_no_category_seed1": {
+      "recall20": 0.37321769394857984,
+      "ndcg20": 0.2683529211497989,
+      "seconds": 7.45597949999501,
+      "full_catalogue": true,
+      "overlap_filtered": {
+        "queries": 5547,
+        "recall20": 0.3378102277507361,
+        "ndcg20": 0.2345996224735589
+      },
+      "by_target_frequency": {
+        "unseen": {
+          "hits": 0,
+          "targets": 2127,
+          "micro_recall20": 0.0
+        },
+        "one_two": {
+          "hits": 128,
+          "targets": 1358,
+          "micro_recall20": 0.09425625920471281
+        },
+        "three_plus": {
+          "hits": 3162,
+          "targets": 5700,
+          "micro_recall20": 0.5547368421052632
+        }
+      }
+    },
+    "graph_pair_no_category_seed2": {
+      "recall20": 0.3756034579544178,
+      "ndcg20": 0.2683288789321521,
+      "seconds": 7.188363124994794,
+      "full_catalogue": true,
+      "overlap_filtered": {
+        "queries": 5547,
+        "recall20": 0.339192356228592,
+        "ndcg20": 0.23537798038037205
+      },
+      "by_target_frequency": {
+        "unseen": {
+          "hits": 1,
+          "targets": 2127,
+          "micro_recall20": 0.0004701457451810061
+        },
+        "one_two": {
+          "hits": 134,
+          "targets": 1358,
+          "micro_recall20": 0.09867452135493372
+        },
+        "three_plus": {
+          "hits": 3171,
+          "targets": 5700,
+          "micro_recall20": 0.5563157894736842
+        }
+      }
+    }
+  }
+}

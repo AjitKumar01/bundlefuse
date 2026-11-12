@@ -1,0 +1,28 @@
+{
+  "condition": {
+    "name": "both",
+    "variant": "graph_pair",
+    "cold_probability": 0.25,
+    "project_links": true,
+    "category_mode": "free",
+    "bilinear": true
+  },
+  "seed": 0,
+  "checkpoint": "checkpoints/neural_bilinear/pog_dense/both_seed0/epoch_0012.pt",
+  "best_epoch": 12,
+  "epochs_run": 24,
+  "validation": {
+    "recall20": 0.4042003593890386,
+    "ndcg20": 0.3022806906448165,
+    "seconds": 2.9064539579849225,
+    "full_catalogue": true
+  },
+  "parameters": {
+    "trainable_parameters": 198684,
+    "pair_parameters": 153074,
+    "joint_parameters": 0,
+    "category_parameters": 4489,
+    "frozen_buffer_bytes": 18682091
+  },
+  "elapsed": 1724.3751160829852
+}

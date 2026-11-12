@@ -1,0 +1,864 @@
+{
+  "protocol": {
+    "seed": 20261107,
+    "shuffles": 5,
+    "base": {
+      "pog": [
+        "hist"
+      ],
+      "pog_dense": [
+        "pop",
+        "hist"
+      ]
+    },
+    "scope": "Exploratory: same filtered population as results/sufficiency, whose test split is already inspected.",
+    "primary": [
+      "cat_style vs content",
+      "cat_style vs per-query mean of shuffled arms"
+    ],
+    "metrics": [
+      "ndcg20",
+      "recall20"
+    ],
+    "holm_family": 8,
+    "null": "Curveball trades on training bundles: item frequencies and bundle sizes kept, co-occurrence destroyed. Only cat is rebuilt from them, including its slot penalty; hist stays real.",
+    "decision": {
+      "raw_description": "Supported on a dataset if cat_style beats content on NDCG with Holm p<.05.",
+      "shuffled_history": "Supported on a dataset if cat_style beats the shuffled mean on NDCG with Holm p<.05 and beats every seed. If not, the gain does not depend on real bundle lift and the claim fails there.",
+      "spotify": "Not tested: its selected recipes do not use cat, so these controls cannot speak to it."
+    },
+    "note": "style uses title features only, while content joins title, image and description, so the primary raw-description arm has more input. allstyle_cat and title are the same-input secondary arms."
+  },
+  "tables": {
+    "pog": {
+      "nohist_content": {
+        "recall20": 0.0010012515644555694,
+        "ndcg20": 0.0003613283603780367,
+        "cold_target_recall20": 0.0016217311980539226,
+        "warm_target_recall20": 0.0,
+        "cold_targets": 4933,
+        "warm_targets": 3467
+      },
+      "content": {
+        "recall20": 0.022903629536921155,
+        "ndcg20": 0.017319630352068526,
+        "cold_target_recall20": 0.004054327995134806,
+        "warm_target_recall20": 0.05018748197288722,
+        "cold_targets": 4933,
+        "warm_targets": 3467
+      },
+      "catslot_style": {
+        "recall20": 0.04839382561535253,
+        "ndcg20": 0.03293860514468874,
+        "cold_target_recall20": 0.042570443948915467,
+        "warm_target_recall20": 0.055379290452841075,
+        "cold_targets": 4933,
+        "warm_targets": 3467
+      },
+      "base_only": {
+        "recall20": 0.01856487275761369,
+        "ndcg20": 0.0144854486079433,
+        "cold_target_recall20": 0.0,
+        "warm_target_recall20": 0.04528410729737525,
+        "cold_targets": 4933,
+        "warm_targets": 3467
+      },
+      "shuf1": {
+        "recall20": 0.04276178556528995,
+        "ndcg20": 0.03009458489821496,
+        "cold_target_recall20": 0.03365092235961889,
+        "warm_target_recall20": 0.05451398903951543,
+        "cold_targets": 4933,
+        "warm_targets": 3467
+      },
+      "content_cat": {
+        "recall20": 0.040467250730079264,
+        "ndcg20": 0.027882434717658038,
+        "cold_target_recall20": 0.03324548956010541,
+        "warm_target_recall20": 0.04989904816844534,
+        "cold_targets": 4933,
+        "warm_targets": 3467
+      },
+      "shuf0": {
+        "recall20": 0.04764288694201085,
+        "ndcg20": 0.03299905025809911,
+        "cold_target_recall20": 0.042570443948915467,
+        "warm_target_recall20": 0.05336025382174791,
+        "cold_targets": 4933,
+        "warm_targets": 3467
+      },
+      "shuf3": {
+        "recall20": 0.04835210680016688,
+        "ndcg20": 0.03323273370448332,
+        "cold_target_recall20": 0.04398945874721265,
+        "warm_target_recall20": 0.05307182001730603,
+        "cold_targets": 4933,
+        "warm_targets": 3467
+      },
+      "reference": {
+        "recall20": 0.056487275761368395,
+        "ndcg20": 0.03995816921834911,
+        "cold_target_recall20": 0.052300831137239004,
+        "warm_target_recall20": 0.06028266512835304,
+        "cold_targets": 4933,
+        "warm_targets": 3467
+      },
+      "style_only": {
+        "recall20": 0.04526491447642888,
+        "ndcg20": 0.030662460414250515,
+        "cold_target_recall20": 0.040543279951348064,
+        "warm_target_recall20": 0.0504759157773291,
+        "cold_targets": 4933,
+        "warm_targets": 3467
+      },
+      "cat_style": {
+        "recall20": 0.056487275761368395,
+        "ndcg20": 0.03995816921834911,
+        "cold_target_recall20": 0.052300831137239004,
+        "warm_target_recall20": 0.06028266512835304,
+        "cold_targets": 4933,
+        "warm_targets": 3467
+      },
+      "allstyle_cat": {
+        "recall20": 0.056487275761368395,
+        "ndcg20": 0.03995816921834911,
+        "cold_target_recall20": 0.052300831137239004,
+        "warm_target_recall20": 0.06028266512835304,
+        "cold_targets": 4933,
+        "warm_targets": 3467
+      },
+      "nohist_cat_style": {
+        "recall20": 0.03667083854818523,
+        "ndcg20": 0.021682743027830565,
+        "cold_target_recall20": 0.04398945874721265,
+        "warm_target_recall20": 0.02365157196423421,
+        "cold_targets": 4933,
+        "warm_targets": 3467
+      },
+      "title": {
+        "recall20": 0.030329578639966617,
+        "ndcg20": 0.020515828233521445,
+        "cold_target_recall20": 0.015609162781269005,
+        "warm_target_recall20": 0.0504759157773291,
+        "cold_targets": 4933,
+        "warm_targets": 3467
+      },
+      "shuf2": {
+        "recall20": 0.04860241969128078,
+        "ndcg20": 0.03317036642361317,
+        "cold_target_recall20": 0.04439489154672613,
+        "warm_target_recall20": 0.05307182001730603,
+        "cold_targets": 4933,
+        "warm_targets": 3467
+      },
+      "catpmi_style": {
+        "recall20": 0.055694618272841064,
+        "ndcg20": 0.03909217057945698,
+        "cold_target_recall20": 0.05108453273869856,
+        "warm_target_recall20": 0.059994231323911164,
+        "cold_targets": 4933,
+        "warm_targets": 3467
+      },
+      "samecat_style": {
+        "recall20": 0.04526491447642888,
+        "ndcg20": 0.030662460414250515,
+        "cold_target_recall20": 0.040543279951348064,
+        "warm_target_recall20": 0.0504759157773291,
+        "cold_targets": 4933,
+        "warm_targets": 3467
+      },
+      "shuf4": {
+        "recall20": 0.049603671255736344,
+        "ndcg20": 0.03284957969584603,
+        "cold_target_recall20": 0.04480032434623961,
+        "warm_target_recall20": 0.05480242284395731,
+        "cold_targets": 4933,
+        "warm_targets": 3467
+      },
+      "cat_style_minus_each_shuffle_ndcg": [
+        0.0069591189602500395,
+        0.00986358432013417,
+        0.006787802794735995,
+        0.0067254355138658475,
+        0.007108589522503109
+      ]
+    },
+    "pog_dense": {
+      "nohist_content": {
+        "recall20": 0.29406285679946964,
+        "ndcg20": 0.15616860441957492,
+        "cold_target_recall20": 0.0,
+        "warm_target_recall20": 0.3632211904399452,
+        "cold_targets": 2118,
+        "warm_targets": 6569
+      },
+      "content": {
+        "recall20": 0.34862688540351966,
+        "ndcg20": 0.2470004564672015,
+        "cold_target_recall20": 0.0,
+        "warm_target_recall20": 0.45166692038362005,
+        "cold_targets": 2118,
+        "warm_targets": 6569
+      },
+      "catslot_style": {
+        "recall20": 0.3541854455862011,
+        "ndcg20": 0.24959623123091587,
+        "cold_target_recall20": 0.0,
+        "warm_target_recall20": 0.4594306591566448,
+        "cold_targets": 2118,
+        "warm_targets": 6569
+      },
+      "base_only": {
+        "recall20": 0.34862688540351966,
+        "ndcg20": 0.2470004564672015,
+        "cold_target_recall20": 0.0,
+        "warm_target_recall20": 0.45166692038362005,
+        "cold_targets": 2118,
+        "warm_targets": 6569
+      },
+      "shuf1": {
+        "recall20": 0.33693888588426,
+        "ndcg20": 0.24336728037901947,
+        "cold_target_recall20": 0.0,
+        "warm_target_recall20": 0.4341604506013092,
+        "cold_targets": 2118,
+        "warm_targets": 6569
+      },
+      "content_cat": {
+        "recall20": 0.3540953067724279,
+        "ndcg20": 0.2543163874642779,
+        "cold_target_recall20": 0.0,
+        "warm_target_recall20": 0.45729943674836354,
+        "cold_targets": 2118,
+        "warm_targets": 6569
+      },
+      "shuf0": {
+        "recall20": 0.33585722011898156,
+        "ndcg20": 0.24320761205844146,
+        "cold_target_recall20": 0.0,
+        "warm_target_recall20": 0.4333992997412087,
+        "cold_targets": 2118,
+        "warm_targets": 6569
+      },
+      "shuf3": {
+        "recall20": 0.34739498828195253,
+        "ndcg20": 0.24699136264050728,
+        "cold_target_recall20": 0.0,
+        "warm_target_recall20": 0.4489267772872583,
+        "cold_targets": 2118,
+        "warm_targets": 6569
+      },
+      "reference": {
+        "recall20": 0.3583618772910264,
+        "ndcg20": 0.25718063631519344,
+        "cold_target_recall20": 0.0,
+        "warm_target_recall20": 0.4641497944892678,
+        "cold_targets": 2118,
+        "warm_targets": 6569
+      },
+      "style_only": {
+        "recall20": 0.34862688540351966,
+        "ndcg20": 0.2470004564672015,
+        "cold_target_recall20": 0.0,
+        "warm_target_recall20": 0.45166692038362005,
+        "cold_targets": 2118,
+        "warm_targets": 6569
+      },
+      "cat_style": {
+        "recall20": 0.3561384532179539,
+        "ndcg20": 0.25485112485188366,
+        "cold_target_recall20": 0.0,
+        "warm_target_recall20": 0.4608007307048257,
+        "cold_targets": 2118,
+        "warm_targets": 6569
+      },
+      "allstyle_cat": {
+        "recall20": 0.3561384532179539,
+        "ndcg20": 0.25485112485188366,
+        "cold_target_recall20": 0.0,
+        "warm_target_recall20": 0.4608007307048257,
+        "cold_targets": 2118,
+        "warm_targets": 6569
+      },
+      "nohist_cat_style": {
+        "recall20": 0.3141638122708956,
+        "ndcg20": 0.2037121334229356,
+        "cold_target_recall20": 0.0,
+        "warm_target_recall20": 0.39168823260770286,
+        "cold_targets": 2118,
+        "warm_targets": 6569
+      },
+      "title": {
+        "recall20": 0.34862688540351966,
+        "ndcg20": 0.2470004564672015,
+        "cold_target_recall20": 0.0,
+        "warm_target_recall20": 0.45166692038362005,
+        "cold_targets": 2118,
+        "warm_targets": 6569
+      },
+      "shuf2": {
+        "recall20": 0.33507601706628043,
+        "ndcg20": 0.24218522997994493,
+        "cold_target_recall20": 0.0,
+        "warm_target_recall20": 0.43309483939716853,
+        "cold_targets": 2118,
+        "warm_targets": 6569
+      },
+      "catpmi_style": {
+        "recall20": 0.35514692626644856,
+        "ndcg20": 0.2545268527034965,
+        "cold_target_recall20": 0.0,
+        "warm_target_recall20": 0.4595828893286649,
+        "cold_targets": 2118,
+        "warm_targets": 6569
+      },
+      "samecat_style": {
+        "recall20": 0.34862688540351966,
+        "ndcg20": 0.2470004564672015,
+        "cold_target_recall20": 0.0,
+        "warm_target_recall20": 0.45166692038362005,
+        "cold_targets": 2118,
+        "warm_targets": 6569
+      },
+      "shuf4": {
+        "recall20": 0.33585722011898145,
+        "ndcg20": 0.2417428474429912,
+        "cold_target_recall20": 0.0,
+        "warm_target_recall20": 0.4335515299132288,
+        "cold_targets": 2118,
+        "warm_targets": 6569
+      },
+      "cat_style_minus_each_shuffle_ndcg": [
+        0.011643512793442723,
+        0.011483844472864102,
+        0.012665894871939032,
+        0.007859762211376325,
+        0.01310827740889281
+      ]
+    }
+  },
+  "primary": [
+    {
+      "delta": 0.022638538866280616,
+      "ci95": [
+        0.019586699835763898,
+        0.025782959104825448
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0853566958698373,
+      "seed": 20261107,
+      "dataset": "pog",
+      "metric": "ndcg20",
+      "first": "cat_style",
+      "second": "content",
+      "p_holm": 0.0007999200079992001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.007488906222297828,
+      "ci95": [
+        0.00609192710227951,
+        0.008861321825317613
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.06958698372966207,
+      "seed": 20261107,
+      "dataset": "pog",
+      "metric": "ndcg20",
+      "first": "cat_style",
+      "second": "shuffled_mean",
+      "p_holm": 0.0007999200079992001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.03358364622444723,
+      "ci95": [
+        0.029354857853872793,
+        0.03805741397101072
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.07108886107634543,
+      "seed": 20261107,
+      "dataset": "pog",
+      "metric": "recall20",
+      "first": "cat_style",
+      "second": "content",
+      "p_holm": 0.0007999200079992001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.009094701710471421,
+      "ci95": [
+        0.006833167408601429,
+        0.011459617617916232
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.03579474342928661,
+      "seed": 20261107,
+      "dataset": "pog",
+      "metric": "recall20",
+      "first": "cat_style",
+      "second": "shuffled_mean",
+      "p_holm": 0.0007999200079992001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.00785066838468227,
+      "ci95": [
+        0.006198353139316103,
+        0.009530969993164313
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.10762574364521363,
+      "seed": 20261107,
+      "dataset": "pog_dense",
+      "metric": "ndcg20",
+      "first": "cat_style",
+      "second": "content",
+      "p_holm": 0.0007999200079992001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.011352258351702985,
+      "ci95": [
+        0.009591459527026452,
+        0.013146187961927144
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.14963043086352984,
+      "seed": 20261107,
+      "dataset": "pog_dense",
+      "metric": "ndcg20",
+      "first": "cat_style",
+      "second": "shuffled_mean",
+      "p_holm": 0.0007999200079992001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.007511567814434229,
+      "ci95": [
+        0.004955847900522617,
+        0.010088317826022744
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.01568415359653867,
+      "seed": 20261107,
+      "dataset": "pog_dense",
+      "metric": "recall20",
+      "first": "cat_style",
+      "second": "content",
+      "p_holm": 0.0007999200079992001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.01791358692386275,
+      "ci95": [
+        0.01490231085262936,
+        0.02094870100326928
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.04561023976924464,
+      "seed": 20261107,
+      "dataset": "pog_dense",
+      "metric": "recall20",
+      "first": "cat_style",
+      "second": "shuffled_mean",
+      "p_holm": 0.0007999200079992001,
+      "reject_05": true
+    }
+  ],
+  "secondary_unadjusted": [
+    {
+      "delta": 0.022638538866280616,
+      "ci95": [
+        0.019586699835763898,
+        0.025782959104825448
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0853566958698373,
+      "seed": 20261107,
+      "dataset": "pog",
+      "metric": "ndcg20",
+      "first": "allstyle_cat",
+      "second": "content"
+    },
+    {
+      "delta": 0.019442340984827715,
+      "ci95": [
+        0.016706682177779035,
+        0.022286293035208387
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.08410513141426783,
+      "seed": 20261107,
+      "dataset": "pog",
+      "metric": "ndcg20",
+      "first": "cat_style",
+      "second": "title"
+    },
+    {
+      "delta": 0.010562804365589509,
+      "ci95": [
+        0.008494274269671755,
+        0.012761332148966532
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.05381727158948686,
+      "seed": 20261107,
+      "dataset": "pog",
+      "metric": "ndcg20",
+      "first": "content_cat",
+      "second": "content"
+    },
+    {
+      "delta": 0.009295708804098636,
+      "ci95": [
+        0.007724195084705696,
+        0.010852838565107284
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.06758448060075094,
+      "seed": 20261107,
+      "dataset": "pog",
+      "metric": "ndcg20",
+      "first": "cat_style",
+      "second": "samecat_style"
+    },
+    {
+      "delta": 0.009295708804098636,
+      "ci95": [
+        0.007724195084705696,
+        0.010852838565107284
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.06758448060075094,
+      "seed": 20261107,
+      "dataset": "pog",
+      "metric": "ndcg20",
+      "first": "cat_style",
+      "second": "style_only"
+    },
+    {
+      "delta": 0.008429710165206487,
+      "ci95": [
+        0.006945921965837034,
+        0.009885546250990782
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.06483103879849812,
+      "seed": 20261107,
+      "dataset": "pog",
+      "metric": "ndcg20",
+      "first": "catpmi_style",
+      "second": "style_only"
+    },
+    {
+      "delta": 0.0022761447304382107,
+      "ci95": [
+        0.0013860487477184906,
+        0.003132222386383691
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.03504380475594493,
+      "seed": 20261107,
+      "dataset": "pog",
+      "metric": "ndcg20",
+      "first": "catslot_style",
+      "second": "style_only"
+    },
+    {
+      "delta": 0.021321414667452524,
+      "ci95": [
+        0.018553255162169373,
+        0.024213139212030527
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.07158948685857322,
+      "seed": 20261107,
+      "dataset": "pog",
+      "metric": "ndcg20",
+      "first": "nohist_cat_style",
+      "second": "nohist_content"
+    },
+    {
+      "delta": 0.012075734500691111,
+      "ci95": [
+        0.009655805737011844,
+        0.014544946981956176
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.06833541927409262,
+      "seed": 20261107,
+      "dataset": "pog",
+      "metric": "ndcg20",
+      "first": "cat_style",
+      "second": "content_cat"
+    },
+    {
+      "delta": 0.010146632180729075,
+      "ci95": [
+        0.00813925357091177,
+        0.012283500066993022
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.05857321652065081,
+      "seed": 20261107,
+      "dataset": "pog",
+      "metric": "ndcg20",
+      "first": "style_only",
+      "second": "title"
+    },
+    {
+      "delta": 0.00785066838468227,
+      "ci95": [
+        0.006198353139316103,
+        0.009530969993164313
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.10762574364521363,
+      "seed": 20261107,
+      "dataset": "pog_dense",
+      "metric": "ndcg20",
+      "first": "allstyle_cat",
+      "second": "content"
+    },
+    {
+      "delta": 0.00785066838468227,
+      "ci95": [
+        0.006198353139316103,
+        0.009530969993164313
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.10762574364521363,
+      "seed": 20261107,
+      "dataset": "pog_dense",
+      "metric": "ndcg20",
+      "first": "cat_style",
+      "second": "title"
+    },
+    {
+      "delta": 0.00731593099707664,
+      "ci95": [
+        0.005652041886985468,
+        0.008956288678309448
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.11303407247160627,
+      "seed": 20261107,
+      "dataset": "pog_dense",
+      "metric": "ndcg20",
+      "first": "content_cat",
+      "second": "content"
+    },
+    {
+      "delta": 0.00785066838468227,
+      "ci95": [
+        0.006198353139316103,
+        0.009530969993164313
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.10762574364521363,
+      "seed": 20261107,
+      "dataset": "pog_dense",
+      "metric": "ndcg20",
+      "first": "cat_style",
+      "second": "samecat_style"
+    },
+    {
+      "delta": 0.00785066838468227,
+      "ci95": [
+        0.006198353139316103,
+        0.009530969993164313
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.10762574364521363,
+      "seed": 20261107,
+      "dataset": "pog_dense",
+      "metric": "ndcg20",
+      "first": "cat_style",
+      "second": "style_only"
+    },
+    {
+      "delta": 0.007526396236295077,
+      "ci95": [
+        0.005855366628339798,
+        0.009206266999637423
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.10546241211465657,
+      "seed": 20261107,
+      "dataset": "pog_dense",
+      "metric": "ndcg20",
+      "first": "catpmi_style",
+      "second": "style_only"
+    },
+    {
+      "delta": 0.0025957747637144657,
+      "ci95": [
+        0.0018889357389064848,
+        0.003288225559184977
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.07157021813592933,
+      "seed": 20261107,
+      "dataset": "pog_dense",
+      "metric": "ndcg20",
+      "first": "catslot_style",
+      "second": "style_only"
+    },
+    {
+      "delta": 0.04754352900336049,
+      "ci95": [
+        0.044268631325081104,
+        0.05109521948462495
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.30683252208400935,
+      "seed": 20261107,
+      "dataset": "pog_dense",
+      "metric": "ndcg20",
+      "first": "nohist_cat_style",
+      "second": "nohist_content"
+    },
+    {
+      "delta": 0.0005347373876056296,
+      "ci95": [
+        -8.901763147727317e-05,
+        0.0011858262113466388
+      ],
+      "p_value": 0.11038896110388961,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.037137191274562824,
+      "seed": 20261107,
+      "dataset": "pog_dense",
+      "metric": "ndcg20",
+      "first": "cat_style",
+      "second": "content_cat"
+    },
+    {
+      "delta": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "p_value": 1.0,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0,
+      "seed": 20261107,
+      "dataset": "pog_dense",
+      "metric": "ndcg20",
+      "first": "style_only",
+      "second": "title"
+    }
+  ]
+}

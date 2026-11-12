@@ -1,0 +1,290 @@
+{
+  "note": "DIALS (frozen, 3 seeds) against the best label-aware simple baseline per dataset (chosen on validation NDCG@20\namong samelabel, transition, label_knn, label_knn_content), clean test queries, paired cluster bootstrap and sign\nflips, Holm over the 8 tests (4 datasets x NDCG@20, Recall@20).\n\nPYTHONPATH=.:../dials .venv/bin/python -m experiments.label_baselines.compare\n",
+  "datasets": {
+    "pog_dense": {
+      "dials": [
+        0.37557839072171,
+        0.2802226827501821
+      ],
+      "label_baseline": {
+        "method": "label_knn",
+        "params": {
+          "label": "transition",
+          "label_params": {
+            "a": [
+              1.0
+            ],
+            "gamma": 0.5,
+            "eps": 0.0001
+          },
+          "itemknn": {
+            "k": 1000,
+            "shrink": 100
+          },
+          "w": 0.7
+        },
+        "test": [
+          0.34198665945555984,
+          0.2490202370993495
+        ]
+      }
+    },
+    "pog": {
+      "dials": [
+        0.05427617855652902,
+        0.03133739223379296
+      ],
+      "label_baseline": {
+        "method": "label_knn_content",
+        "params": {
+          "label": "transition",
+          "label_params": {
+            "a": [
+              1.0
+            ],
+            "gamma": 1.0,
+            "eps": 0.0001
+          },
+          "itemknn": {
+            "k": 200,
+            "shrink": 100
+          },
+          "w": 0.5,
+          "v": 0.2
+        },
+        "test": [
+          0.03625365039632872,
+          0.023449729408619932
+        ]
+      }
+    },
+    "spotify_sparse": {
+      "dials": [
+        0.18365124107479236,
+        0.2562208437519258
+      ],
+      "label_baseline": {
+        "method": "label_knn_content",
+        "params": {
+          "label": "samelabel",
+          "label_params": {
+            "a": [
+              1.0,
+              1.0
+            ],
+            "gamma": 0.3
+          },
+          "itemknn": {
+            "k": 1000,
+            "shrink": 10
+          },
+          "w": 0.7,
+          "v": 0.5
+        },
+        "test": [
+          0.14669818448174818,
+          0.20534430126409248
+        ]
+      }
+    },
+    "spotify": {
+      "dials": [
+        0.16742106928940578,
+        0.2824496478970466
+      ],
+      "label_baseline": {
+        "method": "label_knn_content",
+        "params": {
+          "label": "samelabel",
+          "label_params": {
+            "a": [
+              1.0,
+              1.0
+            ],
+            "gamma": 0.3
+          },
+          "itemknn": {
+            "k": 1000,
+            "shrink": 10
+          },
+          "w": 0.5,
+          "v": 0.5
+        },
+        "test": [
+          0.14663340897681162,
+          0.2468946783253548
+        ]
+      }
+    }
+  },
+  "primary": [
+    {
+      "delta": 0.031202445650831585,
+      "ci95": [
+        0.027917792523768564,
+        0.034347586172436974
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.2561745087434649,
+      "seed": 20261109,
+      "family": "label",
+      "dataset": "pog_dense",
+      "metric": "ndcg20",
+      "first": "dials",
+      "second": "label:label_knn",
+      "p_holm": 0.0007999200079992001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.033591731266149866,
+      "ci95": [
+        0.029175555532559863,
+        0.03812200277061488
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.07950243374797188,
+      "seed": 20261109,
+      "family": "label",
+      "dataset": "pog_dense",
+      "metric": "recall20",
+      "first": "dials",
+      "second": "label:label_knn",
+      "p_holm": 0.0007999200079992001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.007887662825173104,
+      "ci95": [
+        0.0056058274553393754,
+        0.010111470500278264
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.09586983729662078,
+      "seed": 20261109,
+      "family": "label",
+      "dataset": "pog",
+      "metric": "ndcg20",
+      "first": "dials",
+      "second": "label:label_knn_content",
+      "p_holm": 0.0007999200079992001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.018022528160200252,
+      "ci95": [
+        0.014086793693530143,
+        0.021665971353080234
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.07709637046307885,
+      "seed": 20261109,
+      "family": "label",
+      "dataset": "pog",
+      "metric": "recall20",
+      "first": "dials",
+      "second": "label:label_knn_content",
+      "p_holm": 0.0007999200079992001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.050876542487833645,
+      "ci95": [
+        0.04635802964998701,
+        0.055508537584844315
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 2497,
+      "clusters": 2496,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.5706848217861433,
+      "seed": 20261109,
+      "family": "label",
+      "dataset": "spotify_sparse",
+      "metric": "ndcg20",
+      "first": "dials",
+      "second": "label:label_knn_content",
+      "p_holm": 0.0007999200079992001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.03695305659304451,
+      "ci95": [
+        0.033305181758022474,
+        0.04057991281175531
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 2497,
+      "clusters": 2496,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.4805766920304365,
+      "seed": 20261109,
+      "family": "label",
+      "dataset": "spotify_sparse",
+      "metric": "recall20",
+      "first": "dials",
+      "second": "label:label_knn_content",
+      "p_holm": 0.0007999200079992001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.03555496957169167,
+      "ci95": [
+        0.031384974469129134,
+        0.039791867750605774
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3995,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.5073842302878598,
+      "seed": 20261109,
+      "family": "label",
+      "dataset": "spotify",
+      "metric": "ndcg20",
+      "first": "dials",
+      "second": "label:label_knn_content",
+      "p_holm": 0.0007999200079992001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.020787660312594658,
+      "ci95": [
+        0.0179849766758871,
+        0.023608042079436904
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3995,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.4282853566958698,
+      "seed": 20261109,
+      "family": "label",
+      "dataset": "spotify",
+      "metric": "recall20",
+      "first": "dials",
+      "second": "label:label_knn_content",
+      "p_holm": 0.0007999200079992001,
+      "reject_05": true
+    }
+  ]
+}

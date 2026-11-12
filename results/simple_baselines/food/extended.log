@@ -1,0 +1,45 @@
+2026-11-08T22:27:34Z food: n=3767 train=1232 pairs=13724
+2026-11-08T22:27:34Z food hybrid {'k': 50, 'shrink': 10, 'content': 0.0} VAL N20=0.259398
+2026-11-08T22:27:34Z food hybrid {'k': 50, 'shrink': 10, 'content': 0.1} VAL N20=0.368866
+2026-11-08T22:27:34Z food hybrid {'k': 50, 'shrink': 10, 'content': 0.2} VAL N20=0.371270
+2026-11-08T22:27:34Z food hybrid {'k': 50, 'shrink': 10, 'content': 0.3} VAL N20=0.376013
+2026-11-08T22:27:34Z food hybrid {'k': 50, 'shrink': 10, 'content': 0.5} VAL N20=0.368001
+2026-11-08T22:27:34Z food hybrid {'k': 50, 'shrink': 10, 'content': 0.7} VAL N20=0.265386
+2026-11-08T22:27:34Z food hybrid {'k': 50, 'shrink': 10, 'content': 0.9} VAL N20=0.208465
+2026-11-08T22:27:34Z food hybrid {'k': 50, 'shrink': 10, 'content': 1.0} VAL N20=0.184592
+2026-11-08T22:27:38Z food ials {'rank': 64, 'alpha': 5.0, 'l2': 1.0} VAL N20=0.186549
+2026-11-08T22:27:42Z food ials {'rank': 64, 'alpha': 5.0, 'l2': 10.0} VAL N20=0.124772
+2026-11-08T22:27:46Z food ials {'rank': 64, 'alpha': 20.0, 'l2': 1.0} VAL N20=0.228937
+2026-11-08T22:27:50Z food ials {'rank': 64, 'alpha': 20.0, 'l2': 10.0} VAL N20=0.217666
+2026-11-08T22:28:05Z food ials {'rank': 128, 'alpha': 5.0, 'l2': 1.0} VAL N20=0.223726
+2026-11-08T22:28:22Z food ials {'rank': 128, 'alpha': 5.0, 'l2': 10.0} VAL N20=0.155035
+2026-11-08T22:28:40Z food ials {'rank': 128, 'alpha': 20.0, 'l2': 1.0} VAL N20=0.240986
+2026-11-08T22:28:57Z food ials {'rank': 128, 'alpha': 20.0, 'l2': 10.0} VAL N20=0.235356
+2026-11-08T22:28:57Z food sgfcf {'rank': 64, 'eps': 0.3, 'beta': 1.0, 'gamma': 0.0} VAL N20=0.124106
+2026-11-08T22:28:58Z food sgfcf {'rank': 64, 'eps': 0.3, 'beta': 1.0, 'gamma': 0.5} VAL N20=0.246895
+2026-11-08T22:28:58Z food sgfcf {'rank': 64, 'eps': 0.3, 'beta': 1.0, 'gamma': 1.0} VAL N20=0.260346
+2026-11-08T22:28:58Z food sgfcf {'rank': 64, 'eps': 0.3, 'beta': 2.5, 'gamma': 0.0} VAL N20=0.114359
+2026-11-08T22:28:58Z food sgfcf {'rank': 64, 'eps': 0.3, 'beta': 2.5, 'gamma': 0.5} VAL N20=0.248053
+2026-11-08T22:28:58Z food sgfcf {'rank': 64, 'eps': 0.3, 'beta': 2.5, 'gamma': 1.0} VAL N20=0.257794
+2026-11-08T22:28:58Z food sgfcf {'rank': 64, 'eps': 0.5, 'beta': 1.0, 'gamma': 0.0} VAL N20=0.210754
+2026-11-08T22:28:58Z food sgfcf {'rank': 64, 'eps': 0.5, 'beta': 1.0, 'gamma': 0.5} VAL N20=0.264927
+2026-11-08T22:28:58Z food sgfcf {'rank': 64, 'eps': 0.5, 'beta': 1.0, 'gamma': 1.0} VAL N20=0.264977
+2026-11-08T22:28:58Z food sgfcf {'rank': 64, 'eps': 0.5, 'beta': 2.5, 'gamma': 0.0} VAL N20=0.210733
+2026-11-08T22:28:58Z food sgfcf {'rank': 64, 'eps': 0.5, 'beta': 2.5, 'gamma': 0.5} VAL N20=0.264927
+2026-11-08T22:28:58Z food sgfcf {'rank': 64, 'eps': 0.5, 'beta': 2.5, 'gamma': 1.0} VAL N20=0.264977
+2026-11-08T22:28:58Z food sgfcf {'rank': 256, 'eps': 0.3, 'beta': 1.0, 'gamma': 0.0} VAL N20=0.213630
+2026-11-08T22:28:58Z food sgfcf {'rank': 256, 'eps': 0.3, 'beta': 1.0, 'gamma': 0.5} VAL N20=0.233048
+2026-11-08T22:28:58Z food sgfcf {'rank': 256, 'eps': 0.3, 'beta': 1.0, 'gamma': 1.0} VAL N20=0.243593
+2026-11-08T22:28:58Z food sgfcf {'rank': 256, 'eps': 0.3, 'beta': 2.5, 'gamma': 0.0} VAL N20=0.212826
+2026-11-08T22:28:58Z food sgfcf {'rank': 256, 'eps': 0.3, 'beta': 2.5, 'gamma': 0.5} VAL N20=0.231880
+2026-11-08T22:28:58Z food sgfcf {'rank': 256, 'eps': 0.3, 'beta': 2.5, 'gamma': 1.0} VAL N20=0.245108
+2026-11-08T22:28:58Z food sgfcf {'rank': 256, 'eps': 0.5, 'beta': 1.0, 'gamma': 0.0} VAL N20=0.243744
+2026-11-08T22:28:58Z food sgfcf {'rank': 256, 'eps': 0.5, 'beta': 1.0, 'gamma': 0.5} VAL N20=0.256171
+2026-11-08T22:28:58Z food sgfcf {'rank': 256, 'eps': 0.5, 'beta': 1.0, 'gamma': 1.0} VAL N20=0.266481
+2026-11-08T22:28:58Z food sgfcf {'rank': 256, 'eps': 0.5, 'beta': 2.5, 'gamma': 0.0} VAL N20=0.243593
+2026-11-08T22:28:58Z food sgfcf {'rank': 256, 'eps': 0.5, 'beta': 2.5, 'gamma': 0.5} VAL N20=0.256149
+2026-11-08T22:28:58Z food sgfcf {'rank': 256, 'eps': 0.5, 'beta': 2.5, 'gamma': 1.0} VAL N20=0.266481
+2026-11-08T22:28:58Z food hybrid TEST filtered {'recall20': 0.5442398489140698, 'ndcg20': 0.42523860057125507}
+2026-11-08T22:29:17Z food ials TEST filtered {'recall20': 0.34655335221907463, 'ndcg20': 0.2496570086375083}
+2026-11-08T22:29:17Z food sgfcf TEST filtered {'recall20': 0.3404154863078376, 'ndcg20': 0.2720413543654796}
+2026-11-08T22:29:17Z food COMPLETE

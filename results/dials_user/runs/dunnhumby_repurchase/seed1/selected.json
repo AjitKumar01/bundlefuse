@@ -1,0 +1,23 @@
+{
+ "dataset": "dunnhumby",
+ "seed": 1,
+ "config": {
+  "epochs": 100,
+  "batch": 32,
+  "patience": 6,
+  "shared_lr": 0.001,
+  "fast_lr": 0.01,
+  "weight_decay": 0.001,
+  "rank": 64,
+  "label_rank": 16,
+  "hidden": 32
+ },
+ "best_epoch": 12,
+ "epochs_run": 18,
+ "validation": {
+  "recall20": 0.20604209437017007,
+  "ndcg20": 0.14689629583703226
+ },
+ "parameters": 41738,
+ "seconds": 787.5015260420623
+}

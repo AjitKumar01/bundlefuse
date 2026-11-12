@@ -1,0 +1,34 @@
+{
+  "selected": "graph_pair_no_category",
+  "seeds": 3,
+  "mean": {
+    "recall20": 0.4578516377649326,
+    "ndcg20": 0.32975373477928943
+  },
+  "sample_std": {
+    "recall20": 0.0010760263922778815,
+    "ndcg20": 0.0042224382788613995
+  },
+  "relative_difference_vs_matched": {
+    "recall20": -0.005649126477664912,
+    "ndcg20": -0.04201267413723697
+  },
+  "paired_query_bootstrap95": {
+    "recall20": [
+      -0.02867854849068723,
+      0.025274566473988413
+    ],
+    "ndcg20": [
+      -0.031261677954717175,
+      0.0019685446279564213
+    ]
+  },
+  "bootstrap_scope": "Descriptive query resampling of mean per-query metrics over three fixed seeds. Not simultaneous confidence intervals, training-seed uncertainty, or a noninferiority certificate. Splits previously inspected.",
+  "parameters": {
+    "trainable_parameters": 38525,
+    "pair_parameters": 13788,
+    "joint_parameters": 0,
+    "category_parameters": 0,
+    "frozen_buffer_bytes": 2040567
+  }
+}

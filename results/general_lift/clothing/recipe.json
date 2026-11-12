@@ -1,0 +1,28 @@
+{
+  "weights": {
+    "ppmi": 1.5,
+    "csvd": 0.25,
+    "cat": 0.25,
+    "homo": 0.25,
+    "tfidf": 1.5,
+    "bridge": 1.5
+  },
+  "prior_keys": [
+    "cat",
+    "homo",
+    "tfidf",
+    "bridge"
+  ],
+  "backoff": [
+    0.05,
+    1.130583643913269
+  ],
+  "higher_order": [
+    0.0,
+    0.2
+  ],
+  "filtered_test": [
+    0.5344564240790656,
+    0.42217220094160435
+  ]
+}

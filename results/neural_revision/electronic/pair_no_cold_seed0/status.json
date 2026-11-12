@@ -1,0 +1,26 @@
+{
+  "status": "selected",
+  "condition": {
+    "name": "pair_no_cold",
+    "variant": "pair",
+    "cold_probability": 0.0
+  },
+  "seed": 0,
+  "checkpoint": "checkpoints/neural_revision/electronic/pair_no_cold_seed0/epoch_0052.pt",
+  "best_epoch": 52,
+  "epochs_run": 64,
+  "validation": {
+    "recall20": 0.33554913294797684,
+    "ndcg20": 0.2294674371043428,
+    "seconds": 0.02873841699329205,
+    "full_catalogue": true
+  },
+  "parameters": {
+    "trainable_parameters": 251582,
+    "pair_parameters": 13788,
+    "joint_parameters": 0,
+    "category_parameters": 229441,
+    "frozen_buffer_bytes": 2040567
+  },
+  "elapsed": 30.41812512499746
+}

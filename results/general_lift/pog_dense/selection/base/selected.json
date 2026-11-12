@@ -1,0 +1,30 @@
+{
+  "config": {
+    "kind": "gate",
+    "weights": {
+      "pop": 0.25,
+      "pair": 0.5,
+      "simp": 1.5,
+      "amp": 0.5
+    },
+    "prior_weights": {
+      "pop": 0.25
+    },
+    "scale": 1.0,
+    "kappa": 1.0
+  },
+  "tuning_metrics": [
+    0.37455197132616475,
+    0.25326345219385965
+  ],
+  "keys": [
+    "pop",
+    "pair",
+    "simp",
+    "amp"
+  ],
+  "history": "simp",
+  "alpha": 1.0,
+  "seconds": 17.057299542007968,
+  "fitting_candidates": 36
+}

@@ -1,0 +1,17 @@
+2026-11-08T17:53:11Z food loo seed=1 {'trainable_parameters': 41626, 'label_parameters': 256, 'label_mode': 'spectral', 'observed_directed_pairs': 13724, 'levels': 1, 'frozen_buffer_bytes': 16346032} train_rows=1232 start_epoch=1
+2026-11-08T17:53:12Z food loo seed=1 epoch=1 loss=6.26090 VAL R20=0.497443 N20=0.339296 best_epoch=1 patience=0/6
+2026-11-08T17:53:12Z food loo seed=1 epoch=2 loss=5.73040 VAL R20=0.527746 N20=0.347956 best_epoch=2 patience=0/6
+2026-11-08T17:53:13Z food loo seed=1 epoch=3 loss=5.47933 VAL R20=0.549527 N20=0.375090 best_epoch=3 patience=0/6
+2026-11-08T17:53:13Z food loo seed=1 epoch=4 loss=5.23163 VAL R20=0.536742 N20=0.376857 best_epoch=4 patience=0/6
+2026-11-08T17:53:14Z food loo seed=1 epoch=5 loss=5.06880 VAL R20=0.550000 N20=0.390345 best_epoch=5 patience=0/6
+2026-11-08T17:53:14Z food loo seed=1 epoch=6 loss=5.03350 VAL R20=0.533617 N20=0.383522 best_epoch=5 patience=1/6
+2026-11-08T17:53:15Z food loo seed=1 epoch=7 loss=4.91100 VAL R20=0.554451 N20=0.391989 best_epoch=7 patience=0/6
+2026-11-08T17:53:15Z food loo seed=1 epoch=8 loss=4.83859 VAL R20=0.556818 N20=0.399674 best_epoch=8 patience=0/6
+2026-11-08T17:53:16Z food loo seed=1 epoch=9 loss=4.78950 VAL R20=0.562027 N20=0.402791 best_epoch=9 patience=0/6
+2026-11-08T17:53:16Z food loo seed=1 epoch=10 loss=4.72953 VAL R20=0.538826 N20=0.400560 best_epoch=9 patience=1/6
+2026-11-08T17:53:17Z food loo seed=1 epoch=11 loss=4.67172 VAL R20=0.551610 N20=0.397020 best_epoch=9 patience=2/6
+2026-11-08T17:53:17Z food loo seed=1 epoch=12 loss=4.59052 VAL R20=0.546402 N20=0.387264 best_epoch=9 patience=3/6
+2026-11-08T17:53:18Z food loo seed=1 epoch=13 loss=4.54129 VAL R20=0.541667 N20=0.396498 best_epoch=9 patience=4/6
+2026-11-08T17:53:18Z food loo seed=1 epoch=14 loss=4.44124 VAL R20=0.549716 N20=0.393245 best_epoch=9 patience=5/6
+2026-11-08T17:53:19Z food loo seed=1 epoch=15 loss=4.42664 VAL R20=0.546402 N20=0.400894 best_epoch=9 patience=6/6
+2026-11-08T17:53:19Z food v31_loo_seed1 COMPLETE

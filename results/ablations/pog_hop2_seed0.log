@@ -1,0 +1,30 @@
+2026-11-09T06:28:30Z pog: loading supplied splits and released item features
+2026-11-09T06:28:33Z pog: reusing retained attribute projection (48676, 128)
+2026-11-09T06:28:35Z pog loo seed=0 {'trainable_parameters': 41626, 'label_parameters': 256, 'label_mode': 'spectral', 'observed_directed_pairs': 138274, 'levels': 1, 'frozen_buffer_bytes': 202454776} train_rows=14000 start_epoch=1
+2026-11-09T06:31:01Z pog loo seed=0 epoch=1 loss=9.35592 VAL R20=0.047583 N20=0.030685 best_epoch=1 patience=0/6
+2026-11-09T06:34:03Z pog loo seed=0 epoch=2 loss=8.98625 VAL R20=0.049417 N20=0.031448 best_epoch=2 patience=0/6
+2026-11-09T06:37:11Z pog loo seed=0 epoch=3 loss=8.90998 VAL R20=0.050917 N20=0.032815 best_epoch=3 patience=0/6
+2026-11-09T06:40:16Z pog loo seed=0 epoch=4 loss=8.86570 VAL R20=0.055250 N20=0.034679 best_epoch=4 patience=0/6
+2026-11-09T06:43:36Z pog loo seed=0 epoch=5 loss=8.83716 VAL R20=0.053833 N20=0.034017 best_epoch=4 patience=1/6
+2026-11-09T06:46:50Z pog loo seed=0 epoch=6 loss=8.81497 VAL R20=0.057917 N20=0.035225 best_epoch=6 patience=0/6
+2026-11-09T06:50:02Z pog loo seed=0 epoch=7 loss=8.77573 VAL R20=0.058083 N20=0.036970 best_epoch=7 patience=0/6
+2026-11-09T06:53:23Z pog loo seed=0 epoch=8 loss=8.77556 VAL R20=0.058417 N20=0.036738 best_epoch=7 patience=1/6
+2026-11-09T06:56:39Z pog loo seed=0 epoch=9 loss=8.75026 VAL R20=0.061583 N20=0.038726 best_epoch=9 patience=0/6
+2026-11-09T07:00:01Z pog loo seed=0 epoch=10 loss=8.73549 VAL R20=0.061500 N20=0.038221 best_epoch=9 patience=1/6
+2026-11-09T07:03:20Z pog loo seed=0 epoch=11 loss=8.72108 VAL R20=0.061417 N20=0.038883 best_epoch=11 patience=0/6
+2026-11-09T07:07:08Z pog loo seed=0 epoch=12 loss=8.71781 VAL R20=0.061167 N20=0.038444 best_epoch=11 patience=1/6
+2026-11-09T07:10:44Z pog loo seed=0 epoch=13 loss=8.70984 VAL R20=0.060000 N20=0.037761 best_epoch=11 patience=2/6
+2026-11-09T07:14:31Z pog loo seed=0 epoch=14 loss=8.70959 VAL R20=0.062333 N20=0.039952 best_epoch=14 patience=0/6
+2026-11-09T07:18:21Z pog loo seed=0 epoch=15 loss=8.68996 VAL R20=0.061583 N20=0.038139 best_epoch=14 patience=1/6
+2026-11-09T07:21:38Z pog loo seed=0 epoch=16 loss=8.66892 VAL R20=0.060250 N20=0.038639 best_epoch=14 patience=2/6
+2026-11-09T07:25:08Z pog loo seed=0 epoch=17 loss=8.68567 VAL R20=0.063833 N20=0.040613 best_epoch=17 patience=0/6
+2026-11-09T07:28:23Z pog loo seed=0 epoch=18 loss=8.67684 VAL R20=0.065750 N20=0.041073 best_epoch=18 patience=0/6
+2026-11-09T07:31:04Z pog loo seed=0 epoch=19 loss=8.63765 VAL R20=0.062667 N20=0.039165 best_epoch=18 patience=1/6
+2026-11-09T07:33:43Z pog loo seed=0 epoch=20 loss=8.65185 VAL R20=0.067333 N20=0.041817 best_epoch=20 patience=0/6
+2026-11-09T07:36:22Z pog loo seed=0 epoch=21 loss=8.63752 VAL R20=0.064000 N20=0.039987 best_epoch=20 patience=1/6
+2026-11-09T07:39:03Z pog loo seed=0 epoch=22 loss=8.64009 VAL R20=0.063917 N20=0.040519 best_epoch=20 patience=2/6
+2026-11-09T07:41:41Z pog loo seed=0 epoch=23 loss=8.64495 VAL R20=0.063417 N20=0.040333 best_epoch=20 patience=3/6
+2026-11-09T07:44:19Z pog loo seed=0 epoch=24 loss=8.62039 VAL R20=0.063667 N20=0.040220 best_epoch=20 patience=4/6
+2026-11-09T07:47:01Z pog loo seed=0 epoch=25 loss=8.61164 VAL R20=0.064500 N20=0.040072 best_epoch=20 patience=5/6
+2026-11-09T07:49:40Z pog loo seed=0 epoch=26 loss=8.61915 VAL R20=0.067167 N20=0.040924 best_epoch=20 patience=6/6
+2026-11-09T07:49:46Z pog no_hop2_seed0 COMPLETE

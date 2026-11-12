@@ -1,0 +1,256 @@
+2026-11-07T21:16:07Z pog: loading supplied splits and released item features
+2026-11-07T21:16:11Z pog: reusing retained attribute projection (48676, 128)
+2026-11-07T21:16:12Z both seed=0 parameters={'trainable_parameters': 184579, 'pair_parameters': 138274, 'joint_parameters': 0, 'category_parameters': 5184, 'frozen_buffer_bytes': 27523976} start_epoch=1
+2026-11-07T21:16:19Z both seed=0 epoch=1 batches=50/438 loss=9.92990
+2026-11-07T21:16:25Z both seed=0 epoch=1 batches=100/438 loss=9.24896
+2026-11-07T21:16:32Z both seed=0 epoch=1 batches=150/438 loss=8.67245
+2026-11-07T21:16:39Z both seed=0 epoch=1 batches=200/438 loss=8.77357
+2026-11-07T21:16:45Z both seed=0 epoch=1 batches=250/438 loss=8.52608
+2026-11-07T21:16:52Z both seed=0 epoch=1 batches=300/438 loss=7.83512
+2026-11-07T21:16:59Z both seed=0 epoch=1 batches=350/438 loss=6.67045
+2026-11-07T21:17:06Z both seed=0 epoch=1 batches=400/438 loss=6.50205
+2026-11-07T21:17:11Z both seed=0 epoch=1 loss=8.42814
+2026-11-07T21:17:18Z both seed=0 epoch=2 batches=50/438 loss=5.14822
+2026-11-07T21:17:24Z both seed=0 epoch=2 batches=100/438 loss=6.51351
+2026-11-07T21:17:31Z both seed=0 epoch=2 batches=150/438 loss=4.85765
+2026-11-07T21:17:38Z both seed=0 epoch=2 batches=200/438 loss=5.47812
+2026-11-07T21:17:46Z both seed=0 epoch=2 batches=250/438 loss=6.24198
+2026-11-07T21:17:52Z both seed=0 epoch=2 batches=300/438 loss=5.71238
+2026-11-07T21:18:00Z both seed=0 epoch=2 batches=350/438 loss=5.52573
+2026-11-07T21:18:07Z both seed=0 epoch=2 batches=400/438 loss=5.16900
+2026-11-07T21:18:15Z both seed=0 epoch=2 loss=5.59394 VAL R20=0.024250 N20=0.015333 best_epoch=2 patience=0/6
+2026-11-07T21:18:22Z both seed=0 epoch=3 batches=50/438 loss=5.94472
+2026-11-07T21:18:29Z both seed=0 epoch=3 batches=100/438 loss=4.73889
+2026-11-07T21:18:36Z both seed=0 epoch=3 batches=150/438 loss=5.12118
+2026-11-07T21:18:44Z both seed=0 epoch=3 batches=200/438 loss=4.85178
+2026-11-07T21:18:52Z both seed=0 epoch=3 batches=250/438 loss=4.93696
+2026-11-07T21:18:59Z both seed=0 epoch=3 batches=300/438 loss=5.43688
+2026-11-07T21:19:07Z both seed=0 epoch=3 batches=350/438 loss=4.82480
+2026-11-07T21:19:16Z both seed=0 epoch=3 batches=400/438 loss=4.57777
+2026-11-07T21:19:22Z both seed=0 epoch=3 loss=5.03899
+2026-11-07T21:19:31Z both seed=0 epoch=4 batches=50/438 loss=5.23727
+2026-11-07T21:19:40Z both seed=0 epoch=4 batches=100/438 loss=5.04374
+2026-11-07T21:19:49Z both seed=0 epoch=4 batches=150/438 loss=5.60068
+2026-11-07T21:19:57Z both seed=0 epoch=4 batches=200/438 loss=5.03065
+2026-11-07T21:20:05Z both seed=0 epoch=4 batches=250/438 loss=5.83159
+2026-11-07T21:20:13Z both seed=0 epoch=4 batches=300/438 loss=5.42610
+2026-11-07T21:20:20Z both seed=0 epoch=4 batches=350/438 loss=5.29068
+2026-11-07T21:20:29Z both seed=0 epoch=4 batches=400/438 loss=6.21767
+2026-11-07T21:20:40Z both seed=0 epoch=4 loss=4.84406 VAL R20=0.027583 N20=0.018617 best_epoch=4 patience=0/6
+2026-11-07T21:20:49Z both seed=0 epoch=5 batches=50/438 loss=5.55557
+2026-11-07T21:20:56Z both seed=0 epoch=5 batches=100/438 loss=4.89010
+2026-11-07T21:21:05Z both seed=0 epoch=5 batches=150/438 loss=4.11771
+2026-11-07T21:21:14Z both seed=0 epoch=5 batches=200/438 loss=4.86221
+2026-11-07T21:21:22Z both seed=0 epoch=5 batches=250/438 loss=5.66890
+2026-11-07T21:21:31Z both seed=0 epoch=5 batches=300/438 loss=4.88229
+2026-11-07T21:21:39Z both seed=0 epoch=5 batches=350/438 loss=4.69595
+2026-11-07T21:21:48Z both seed=0 epoch=5 batches=400/438 loss=3.17011
+2026-11-07T21:21:54Z both seed=0 epoch=5 loss=4.70963
+2026-11-07T21:22:02Z both seed=0 epoch=6 batches=50/438 loss=5.12431
+2026-11-07T21:22:11Z both seed=0 epoch=6 batches=100/438 loss=3.81064
+2026-11-07T21:22:18Z both seed=0 epoch=6 batches=150/438 loss=3.96040
+2026-11-07T21:22:26Z both seed=0 epoch=6 batches=200/438 loss=5.10890
+2026-11-07T21:22:33Z both seed=0 epoch=6 batches=250/438 loss=4.51853
+2026-11-07T21:22:42Z both seed=0 epoch=6 batches=300/438 loss=3.44462
+2026-11-07T21:22:48Z both seed=0 epoch=6 batches=350/438 loss=5.63259
+2026-11-07T21:22:55Z both seed=0 epoch=6 batches=400/438 loss=3.21533
+2026-11-07T21:23:04Z both seed=0 epoch=6 loss=4.65520 VAL R20=0.028750 N20=0.020034 best_epoch=6 patience=0/6
+2026-11-07T21:23:11Z both seed=0 epoch=7 batches=50/438 loss=4.69277
+2026-11-07T21:23:18Z both seed=0 epoch=7 batches=100/438 loss=3.36667
+2026-11-07T21:23:25Z both seed=0 epoch=7 batches=150/438 loss=4.93501
+2026-11-07T21:23:32Z both seed=0 epoch=7 batches=200/438 loss=4.53557
+2026-11-07T21:23:39Z both seed=0 epoch=7 batches=250/438 loss=3.92621
+2026-11-07T21:23:46Z both seed=0 epoch=7 batches=300/438 loss=6.04555
+2026-11-07T21:23:54Z both seed=0 epoch=7 batches=350/438 loss=4.35489
+2026-11-07T21:24:02Z both seed=0 epoch=7 batches=400/438 loss=3.69772
+2026-11-07T21:24:08Z both seed=0 epoch=7 loss=4.55197
+2026-11-07T21:24:16Z both seed=0 epoch=8 batches=50/438 loss=5.41759
+2026-11-07T21:24:23Z both seed=0 epoch=8 batches=100/438 loss=4.80392
+2026-11-07T21:24:30Z both seed=0 epoch=8 batches=150/438 loss=4.57871
+2026-11-07T21:24:38Z both seed=0 epoch=8 batches=200/438 loss=4.30499
+2026-11-07T21:24:45Z both seed=0 epoch=8 batches=250/438 loss=5.40452
+2026-11-07T21:24:52Z both seed=0 epoch=8 batches=300/438 loss=4.89129
+2026-11-07T21:25:00Z both seed=0 epoch=8 batches=350/438 loss=5.46758
+2026-11-07T21:25:08Z both seed=0 epoch=8 batches=400/438 loss=5.80210
+2026-11-07T21:25:17Z both seed=0 epoch=8 loss=4.52956 VAL R20=0.029000 N20=0.019503 best_epoch=6 patience=1/6
+2026-11-07T21:25:25Z both seed=0 epoch=9 batches=50/438 loss=5.19497
+2026-11-07T21:25:33Z both seed=0 epoch=9 batches=100/438 loss=4.24622
+2026-11-07T21:25:41Z both seed=0 epoch=9 batches=150/438 loss=4.38577
+2026-11-07T21:25:48Z both seed=0 epoch=9 batches=200/438 loss=3.67999
+2026-11-07T21:25:56Z both seed=0 epoch=9 batches=250/438 loss=4.27097
+2026-11-07T21:26:03Z both seed=0 epoch=9 batches=300/438 loss=4.63383
+2026-11-07T21:26:11Z both seed=0 epoch=9 batches=350/438 loss=3.95438
+2026-11-07T21:26:19Z both seed=0 epoch=9 batches=400/438 loss=3.91225
+2026-11-07T21:26:24Z both seed=0 epoch=9 loss=4.51475
+2026-11-07T21:26:32Z both seed=0 epoch=10 batches=50/438 loss=4.21478
+2026-11-07T21:26:41Z both seed=0 epoch=10 batches=100/438 loss=4.61039
+2026-11-07T21:26:48Z both seed=0 epoch=10 batches=150/438 loss=4.77824
+2026-11-07T21:26:55Z both seed=0 epoch=10 batches=200/438 loss=5.06424
+2026-11-07T21:27:03Z both seed=0 epoch=10 batches=250/438 loss=5.32663
+2026-11-07T21:27:10Z both seed=0 epoch=10 batches=300/438 loss=4.84622
+2026-11-07T21:27:18Z both seed=0 epoch=10 batches=350/438 loss=4.36671
+2026-11-07T21:27:26Z both seed=0 epoch=10 batches=400/438 loss=5.50703
+2026-11-07T21:27:35Z both seed=0 epoch=10 loss=4.53853 VAL R20=0.030167 N20=0.021167 best_epoch=10 patience=0/6
+2026-11-07T21:27:43Z both seed=0 epoch=11 batches=50/438 loss=4.73011
+2026-11-07T21:27:51Z both seed=0 epoch=11 batches=100/438 loss=3.84644
+2026-11-07T21:27:59Z both seed=0 epoch=11 batches=150/438 loss=4.38431
+2026-11-07T21:28:07Z both seed=0 epoch=11 batches=200/438 loss=4.20595
+2026-11-07T21:28:15Z both seed=0 epoch=11 batches=250/438 loss=5.43141
+2026-11-07T21:28:23Z both seed=0 epoch=11 batches=300/438 loss=3.92696
+2026-11-07T21:28:30Z both seed=0 epoch=11 batches=350/438 loss=4.36380
+2026-11-07T21:28:38Z both seed=0 epoch=11 batches=400/438 loss=5.35466
+2026-11-07T21:28:43Z both seed=0 epoch=11 loss=4.39758
+2026-11-07T21:28:51Z both seed=0 epoch=12 batches=50/438 loss=4.20245
+2026-11-07T21:28:59Z both seed=0 epoch=12 batches=100/438 loss=3.66061
+2026-11-07T21:29:07Z both seed=0 epoch=12 batches=150/438 loss=3.32283
+2026-11-07T21:29:14Z both seed=0 epoch=12 batches=200/438 loss=3.75526
+2026-11-07T21:29:21Z both seed=0 epoch=12 batches=250/438 loss=3.83833
+2026-11-07T21:29:28Z both seed=0 epoch=12 batches=300/438 loss=4.47183
+2026-11-07T21:29:36Z both seed=0 epoch=12 batches=350/438 loss=3.72717
+2026-11-07T21:29:44Z both seed=0 epoch=12 batches=400/438 loss=3.97769
+2026-11-07T21:29:54Z both seed=0 epoch=12 loss=4.41453 VAL R20=0.029500 N20=0.020363 best_epoch=10 patience=1/6
+2026-11-07T21:30:01Z both seed=0 epoch=13 batches=50/438 loss=5.13559
+2026-11-07T21:30:09Z both seed=0 epoch=13 batches=100/438 loss=5.28847
+2026-11-07T21:30:17Z both seed=0 epoch=13 batches=150/438 loss=4.11299
+2026-11-07T21:30:25Z both seed=0 epoch=13 batches=200/438 loss=4.09215
+2026-11-07T21:30:32Z both seed=0 epoch=13 batches=250/438 loss=3.74979
+2026-11-07T21:30:40Z both seed=0 epoch=13 batches=300/438 loss=5.92602
+2026-11-07T21:30:47Z both seed=0 epoch=13 batches=350/438 loss=3.01603
+2026-11-07T21:30:54Z both seed=0 epoch=13 batches=400/438 loss=4.63345
+2026-11-07T21:31:00Z both seed=0 epoch=13 loss=4.38567
+2026-11-07T21:31:08Z both seed=0 epoch=14 batches=50/438 loss=5.27441
+2026-11-07T21:31:15Z both seed=0 epoch=14 batches=100/438 loss=3.61102
+2026-11-07T21:31:22Z both seed=0 epoch=14 batches=150/438 loss=3.48508
+2026-11-07T21:31:29Z both seed=0 epoch=14 batches=200/438 loss=5.17196
+2026-11-07T21:31:37Z both seed=0 epoch=14 batches=250/438 loss=4.16138
+2026-11-07T21:31:45Z both seed=0 epoch=14 batches=300/438 loss=4.64187
+2026-11-07T21:31:52Z both seed=0 epoch=14 batches=350/438 loss=4.89702
+2026-11-07T21:32:00Z both seed=0 epoch=14 batches=400/438 loss=4.51759
+2026-11-07T21:32:08Z both seed=0 epoch=14 loss=4.40730 VAL R20=0.031750 N20=0.022048 best_epoch=14 patience=0/6
+2026-11-07T21:32:15Z both seed=0 epoch=15 batches=50/438 loss=4.10923
+2026-11-07T21:32:22Z both seed=0 epoch=15 batches=100/438 loss=4.14603
+2026-11-07T21:32:29Z both seed=0 epoch=15 batches=150/438 loss=4.61792
+2026-11-07T21:32:36Z both seed=0 epoch=15 batches=200/438 loss=4.43061
+2026-11-07T21:32:44Z both seed=0 epoch=15 batches=250/438 loss=4.15297
+2026-11-07T21:32:51Z both seed=0 epoch=15 batches=300/438 loss=3.91964
+2026-11-07T21:32:59Z both seed=0 epoch=15 batches=350/438 loss=4.08242
+2026-11-07T21:33:06Z both seed=0 epoch=15 batches=400/438 loss=5.15813
+2026-11-07T21:33:12Z both seed=0 epoch=15 loss=4.33461
+2026-11-07T21:33:18Z both seed=0 epoch=16 batches=50/438 loss=3.68863
+2026-11-07T21:33:26Z both seed=0 epoch=16 batches=100/438 loss=3.97017
+2026-11-07T21:33:33Z both seed=0 epoch=16 batches=150/438 loss=3.01463
+2026-11-07T21:33:40Z both seed=0 epoch=16 batches=200/438 loss=3.67676
+2026-11-07T21:33:46Z both seed=0 epoch=16 batches=250/438 loss=4.51842
+2026-11-07T21:33:53Z both seed=0 epoch=16 batches=300/438 loss=3.76994
+2026-11-07T21:34:00Z both seed=0 epoch=16 batches=350/438 loss=3.63258
+2026-11-07T21:34:07Z both seed=0 epoch=16 batches=400/438 loss=3.77383
+2026-11-07T21:34:16Z both seed=0 epoch=16 loss=4.30645 VAL R20=0.035583 N20=0.023053 best_epoch=16 patience=0/6
+2026-11-07T21:34:22Z both seed=0 epoch=17 batches=50/438 loss=4.73224
+2026-11-07T21:34:29Z both seed=0 epoch=17 batches=100/438 loss=3.61754
+2026-11-07T21:34:36Z both seed=0 epoch=17 batches=150/438 loss=4.47900
+2026-11-07T21:34:43Z both seed=0 epoch=17 batches=200/438 loss=4.21161
+2026-11-07T21:34:51Z both seed=0 epoch=17 batches=250/438 loss=3.85725
+2026-11-07T21:34:57Z both seed=0 epoch=17 batches=300/438 loss=5.25641
+2026-11-07T21:35:04Z both seed=0 epoch=17 batches=350/438 loss=3.99970
+2026-11-07T21:35:10Z both seed=0 epoch=17 batches=400/438 loss=4.47538
+2026-11-07T21:35:16Z both seed=0 epoch=17 loss=4.24748
+2026-11-07T21:35:22Z both seed=0 epoch=18 batches=50/438 loss=4.74767
+2026-11-07T21:35:29Z both seed=0 epoch=18 batches=100/438 loss=4.35770
+2026-11-07T21:35:37Z both seed=0 epoch=18 batches=150/438 loss=3.80799
+2026-11-07T21:35:43Z both seed=0 epoch=18 batches=200/438 loss=4.63401
+2026-11-07T21:35:50Z both seed=0 epoch=18 batches=250/438 loss=5.17854
+2026-11-07T21:35:58Z both seed=0 epoch=18 batches=300/438 loss=3.67658
+2026-11-07T21:36:05Z both seed=0 epoch=18 batches=350/438 loss=3.64495
+2026-11-07T21:36:12Z both seed=0 epoch=18 batches=400/438 loss=3.95825
+2026-11-07T21:36:20Z both seed=0 epoch=18 loss=4.32328 VAL R20=0.034500 N20=0.022854 best_epoch=16 patience=1/6
+2026-11-07T21:36:28Z both seed=0 epoch=19 batches=50/438 loss=3.77359
+2026-11-07T21:36:34Z both seed=0 epoch=19 batches=100/438 loss=4.72493
+2026-11-07T21:36:41Z both seed=0 epoch=19 batches=150/438 loss=4.41988
+2026-11-07T21:36:48Z both seed=0 epoch=19 batches=200/438 loss=3.46270
+2026-11-07T21:36:56Z both seed=0 epoch=19 batches=250/438 loss=3.71360
+2026-11-07T21:37:03Z both seed=0 epoch=19 batches=300/438 loss=4.20099
+2026-11-07T21:37:09Z both seed=0 epoch=19 batches=350/438 loss=3.94889
+2026-11-07T21:37:16Z both seed=0 epoch=19 batches=400/438 loss=5.79029
+2026-11-07T21:37:22Z both seed=0 epoch=19 loss=4.24297
+2026-11-07T21:37:29Z both seed=0 epoch=20 batches=50/438 loss=3.58222
+2026-11-07T21:37:36Z both seed=0 epoch=20 batches=100/438 loss=5.44699
+2026-11-07T21:37:44Z both seed=0 epoch=20 batches=150/438 loss=3.65048
+2026-11-07T21:37:51Z both seed=0 epoch=20 batches=200/438 loss=5.29366
+2026-11-07T21:37:59Z both seed=0 epoch=20 batches=250/438 loss=3.66497
+2026-11-07T21:38:06Z both seed=0 epoch=20 batches=300/438 loss=4.64907
+2026-11-07T21:38:14Z both seed=0 epoch=20 batches=350/438 loss=2.66019
+2026-11-07T21:38:21Z both seed=0 epoch=20 batches=400/438 loss=4.82164
+2026-11-07T21:38:29Z both seed=0 epoch=20 loss=4.25475 VAL R20=0.030250 N20=0.020525 best_epoch=16 patience=2/6
+2026-11-07T21:38:37Z both seed=0 epoch=21 batches=50/438 loss=3.49575
+2026-11-07T21:38:44Z both seed=0 epoch=21 batches=100/438 loss=5.31637
+2026-11-07T21:38:52Z both seed=0 epoch=21 batches=150/438 loss=4.49824
+2026-11-07T21:38:59Z both seed=0 epoch=21 batches=200/438 loss=4.85131
+2026-11-07T21:39:07Z both seed=0 epoch=21 batches=250/438 loss=4.38423
+2026-11-07T21:39:14Z both seed=0 epoch=21 batches=300/438 loss=3.47939
+2026-11-07T21:39:22Z both seed=0 epoch=21 batches=350/438 loss=4.05772
+2026-11-07T21:39:30Z both seed=0 epoch=21 batches=400/438 loss=3.76442
+2026-11-07T21:39:35Z both seed=0 epoch=21 loss=4.21582
+2026-11-07T21:39:42Z both seed=0 epoch=22 batches=50/438 loss=5.22052
+2026-11-07T21:39:50Z both seed=0 epoch=22 batches=100/438 loss=4.33018
+2026-11-07T21:39:56Z both seed=0 epoch=22 batches=150/438 loss=4.65584
+2026-11-07T21:40:03Z both seed=0 epoch=22 batches=200/438 loss=4.11830
+2026-11-07T21:40:10Z both seed=0 epoch=22 batches=250/438 loss=3.90834
+2026-11-07T21:40:17Z both seed=0 epoch=22 batches=300/438 loss=4.13092
+2026-11-07T21:40:25Z both seed=0 epoch=22 batches=350/438 loss=3.50228
+2026-11-07T21:40:32Z both seed=0 epoch=22 batches=400/438 loss=3.06191
+2026-11-07T21:40:41Z both seed=0 epoch=22 loss=4.24521 VAL R20=0.032083 N20=0.021756 best_epoch=16 patience=3/6
+2026-11-07T21:40:49Z both seed=0 epoch=23 batches=50/438 loss=4.38187
+2026-11-07T21:40:55Z both seed=0 epoch=23 batches=100/438 loss=3.66741
+2026-11-07T21:41:02Z both seed=0 epoch=23 batches=150/438 loss=4.83656
+2026-11-07T21:41:09Z both seed=0 epoch=23 batches=200/438 loss=5.54516
+2026-11-07T21:41:16Z both seed=0 epoch=23 batches=250/438 loss=3.41070
+2026-11-07T21:41:22Z both seed=0 epoch=23 batches=300/438 loss=4.03435
+2026-11-07T21:41:29Z both seed=0 epoch=23 batches=350/438 loss=4.41411
+2026-11-07T21:41:36Z both seed=0 epoch=23 batches=400/438 loss=4.43219
+2026-11-07T21:41:41Z both seed=0 epoch=23 loss=4.27412
+2026-11-07T21:41:48Z both seed=0 epoch=24 batches=50/438 loss=5.54095
+2026-11-07T21:41:55Z both seed=0 epoch=24 batches=100/438 loss=4.91349
+2026-11-07T21:42:01Z both seed=0 epoch=24 batches=150/438 loss=4.71807
+2026-11-07T21:42:08Z both seed=0 epoch=24 batches=200/438 loss=3.72628
+2026-11-07T21:42:15Z both seed=0 epoch=24 batches=250/438 loss=3.41288
+2026-11-07T21:42:22Z both seed=0 epoch=24 batches=300/438 loss=4.30447
+2026-11-07T21:42:29Z both seed=0 epoch=24 batches=350/438 loss=3.04323
+2026-11-07T21:42:36Z both seed=0 epoch=24 batches=400/438 loss=4.77255
+2026-11-07T21:42:44Z both seed=0 epoch=24 loss=4.19997 VAL R20=0.032250 N20=0.020804 best_epoch=16 patience=4/6
+2026-11-07T21:42:51Z both seed=0 epoch=25 batches=50/438 loss=4.07276
+2026-11-07T21:42:57Z both seed=0 epoch=25 batches=100/438 loss=3.85055
+2026-11-07T21:43:04Z both seed=0 epoch=25 batches=150/438 loss=4.58454
+2026-11-07T21:43:11Z both seed=0 epoch=25 batches=200/438 loss=5.19131
+2026-11-07T21:43:18Z both seed=0 epoch=25 batches=250/438 loss=3.95475
+2026-11-07T21:43:25Z both seed=0 epoch=25 batches=300/438 loss=3.61842
+2026-11-07T21:43:31Z both seed=0 epoch=25 batches=350/438 loss=3.05794
+2026-11-07T21:43:38Z both seed=0 epoch=25 batches=400/438 loss=4.64066
+2026-11-07T21:43:43Z both seed=0 epoch=25 loss=4.21019
+2026-11-07T21:43:50Z both seed=0 epoch=26 batches=50/438 loss=3.11635
+2026-11-07T21:43:57Z both seed=0 epoch=26 batches=100/438 loss=4.94868
+2026-11-07T21:44:03Z both seed=0 epoch=26 batches=150/438 loss=2.98470
+2026-11-07T21:44:09Z both seed=0 epoch=26 batches=200/438 loss=3.80514
+2026-11-07T21:44:15Z both seed=0 epoch=26 batches=250/438 loss=4.03015
+2026-11-07T21:44:21Z both seed=0 epoch=26 batches=300/438 loss=4.56587
+2026-11-07T21:44:28Z both seed=0 epoch=26 batches=350/438 loss=4.81066
+2026-11-07T21:44:33Z both seed=0 epoch=26 batches=400/438 loss=5.18994
+2026-11-07T21:44:41Z both seed=0 epoch=26 loss=4.15563 VAL R20=0.035167 N20=0.022343 best_epoch=16 patience=5/6
+2026-11-07T21:44:47Z both seed=0 epoch=27 batches=50/438 loss=2.84192
+2026-11-07T21:44:53Z both seed=0 epoch=27 batches=100/438 loss=4.80690
+2026-11-07T21:44:58Z both seed=0 epoch=27 batches=150/438 loss=3.08200
+2026-11-07T21:45:03Z both seed=0 epoch=27 batches=200/438 loss=5.19928
+2026-11-07T21:45:08Z both seed=0 epoch=27 batches=250/438 loss=4.36790
+2026-11-07T21:45:13Z both seed=0 epoch=27 batches=300/438 loss=3.11133
+2026-11-07T21:45:18Z both seed=0 epoch=27 batches=350/438 loss=4.49654
+2026-11-07T21:45:23Z both seed=0 epoch=27 batches=400/438 loss=4.32443
+2026-11-07T21:45:27Z both seed=0 epoch=27 loss=4.23413
+2026-11-07T21:45:31Z both seed=0 epoch=28 batches=50/438 loss=4.01453
+2026-11-07T21:45:36Z both seed=0 epoch=28 batches=100/438 loss=4.16159
+2026-11-07T21:45:41Z both seed=0 epoch=28 batches=150/438 loss=3.78556
+2026-11-07T21:45:47Z both seed=0 epoch=28 batches=200/438 loss=3.62135
+2026-11-07T21:45:52Z both seed=0 epoch=28 batches=250/438 loss=4.46572
+2026-11-07T21:45:58Z both seed=0 epoch=28 batches=300/438 loss=6.05462
+2026-11-07T21:46:04Z both seed=0 epoch=28 batches=350/438 loss=4.44739
+2026-11-07T21:46:09Z both seed=0 epoch=28 batches=400/438 loss=4.53646
+2026-11-07T21:46:15Z both seed=0 epoch=28 loss=4.15657 VAL R20=0.033500 N20=0.021564 best_epoch=16 patience=6/6
+2026-11-07T21:46:17Z pog both_seed0 COMPLETE

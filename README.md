@@ -157,6 +157,26 @@ original queries; `seed_stress` reduces context and moves removed seeds into the
 
 ## Verification
 
+### Independent neural experiments
+
+The [completed retry](results/neural_retry/README.md) evaluates an independent neural scorer on
+Electronic, Food and Clothing with three training seeds each. The architecture was selected on
+Electronic validation and transferred unchanged to the other two datasets. It learns a small
+attribute encoder, a graph propagation layer and nonnegative weights for observed training item
+pairs. It uses no BundleFuse scores or teacher, no item-ID embedding table, and no frequency input.
+
+The [implementation and protocol](experiments/neural_revision/README.md) explain full-catalogue
+training, simulated unseen items, source-recovery probes and the comparison scope. The model has
+37,403–38,525 trainable parameters; its Recall is close to the no-auxiliary BundleFuse control on
+Electronic/Food and higher on Clothing, while NDCG remains lower on all three. These are exploratory
+results on previously inspected splits, not a non-inferiority or universal-superiority claim.
+
+The original [neural pilot](experiments/neural/README.md) was stopped during Clothing at the user's
+request. All old and revised checkpoints, optimizer states, logs and source archives remain retained.
+[Diagnostic findings](results/neural_revision/FINDINGS.md) document the revisions. Regenerate the
+consolidated report with `.venv/bin/python scripts/review_neural_retry.py`. Final logs are under
+`results/neural_constrained/electronic/` and `results/neural_transfer/{food,clothing}/`.
+
 ```bash
 python -m pytest tests/ -q
 # Explicit dataset integration check; fit, save, reload, compare every requested test score:

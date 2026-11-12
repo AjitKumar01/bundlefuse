@@ -1,0 +1,42 @@
+2026-11-08T17:53:43Z clothing: n=4487 train=1294 pairs=12666
+2026-11-08T17:53:43Z clothing popularity {} VAL N20=0.001666
+2026-11-08T17:53:43Z clothing cooccurrence {} VAL N20=0.249995
+2026-11-08T17:53:43Z clothing itemknn {'k': 50, 'shrink': 0} VAL N20=0.271831
+2026-11-08T17:53:43Z clothing itemknn {'k': 50, 'shrink': 10} VAL N20=0.268780
+2026-11-08T17:53:43Z clothing itemknn {'k': 50, 'shrink': 100} VAL N20=0.268780
+2026-11-08T17:53:43Z clothing itemknn {'k': 200, 'shrink': 0} VAL N20=0.271831
+2026-11-08T17:53:43Z clothing itemknn {'k': 200, 'shrink': 10} VAL N20=0.268780
+2026-11-08T17:53:43Z clothing itemknn {'k': 200, 'shrink': 100} VAL N20=0.268780
+2026-11-08T17:53:43Z clothing itemknn {'k': 1000, 'shrink': 0} VAL N20=0.271831
+2026-11-08T17:53:43Z clothing itemknn {'k': 1000, 'shrink': 10} VAL N20=0.268780
+2026-11-08T17:53:43Z clothing itemknn {'k': 1000, 'shrink': 100} VAL N20=0.268780
+2026-11-08T17:53:43Z clothing rp3beta {'alpha': 0.5, 'beta': 0.0} VAL N20=0.257917
+2026-11-08T17:53:43Z clothing rp3beta {'alpha': 0.5, 'beta': 0.25} VAL N20=0.272165
+2026-11-08T17:53:43Z clothing rp3beta {'alpha': 0.5, 'beta': 0.5} VAL N20=0.272165
+2026-11-08T17:53:43Z clothing rp3beta {'alpha': 0.5, 'beta': 0.75} VAL N20=0.272165
+2026-11-08T17:53:43Z clothing rp3beta {'alpha': 1.0, 'beta': 0.0} VAL N20=0.257917
+2026-11-08T17:53:43Z clothing rp3beta {'alpha': 1.0, 'beta': 0.25} VAL N20=0.271593
+2026-11-08T17:53:43Z clothing rp3beta {'alpha': 1.0, 'beta': 0.5} VAL N20=0.271831
+2026-11-08T17:53:43Z clothing rp3beta {'alpha': 1.0, 'beta': 0.75} VAL N20=0.271831
+2026-11-08T17:53:43Z clothing gfcf {'rank': 64, 'ideal': 0.0} VAL N20=0.272165
+2026-11-08T17:53:43Z clothing gfcf {'rank': 64, 'ideal': 0.1} VAL N20=0.275722
+2026-11-08T17:53:43Z clothing gfcf {'rank': 64, 'ideal': 0.3} VAL N20=0.275722
+2026-11-08T17:53:43Z clothing gfcf {'rank': 64, 'ideal': 1.0} VAL N20=0.275722
+2026-11-08T17:53:43Z clothing gfcf {'rank': 64, 'ideal': 3.0} VAL N20=0.275722
+2026-11-08T17:53:43Z clothing gfcf {'rank': 256, 'ideal': 0.0} VAL N20=0.272165
+2026-11-08T17:53:43Z clothing gfcf {'rank': 256, 'ideal': 0.1} VAL N20=0.275501
+2026-11-08T17:53:43Z clothing gfcf {'rank': 256, 'ideal': 0.3} VAL N20=0.275501
+2026-11-08T17:53:43Z clothing gfcf {'rank': 256, 'ideal': 1.0} VAL N20=0.275501
+2026-11-08T17:53:43Z clothing gfcf {'rank': 256, 'ideal': 3.0} VAL N20=0.262794
+2026-11-08T17:53:44Z clothing ease {'l2': 50.0} VAL N20=0.272061
+2026-11-08T17:53:44Z clothing ease {'l2': 200.0} VAL N20=0.269166
+2026-11-08T17:53:44Z clothing ease {'l2': 500.0} VAL N20=0.278246
+2026-11-08T17:53:44Z clothing ease {'l2': 1000.0} VAL N20=0.285196
+2026-11-08T17:53:44Z clothing ease {'l2': 3000.0} VAL N20=0.255919
+2026-11-08T17:53:44Z clothing popularity TEST filtered {'recall20': 0.008086253369272238, 'ndcg20': 0.0027702737874506058}
+2026-11-08T17:53:44Z clothing cooccurrence TEST filtered {'recall20': 0.23495058400718777, 'ndcg20': 0.17721494611885164}
+2026-11-08T17:53:44Z clothing itemknn TEST filtered {'recall20': 0.23495058400718777, 'ndcg20': 0.19273837159767754}
+2026-11-08T17:53:44Z clothing rp3beta TEST filtered {'recall20': 0.23495058400718777, 'ndcg20': 0.1934905158702088}
+2026-11-08T17:53:44Z clothing gfcf TEST filtered {'recall20': 0.23189577717879603, 'ndcg20': 0.1918797794490447}
+2026-11-08T17:53:44Z clothing ease TEST filtered {'recall20': 0.23495058400718777, 'ndcg20': 0.20089034507109932}
+2026-11-08T17:53:44Z clothing COMPLETE

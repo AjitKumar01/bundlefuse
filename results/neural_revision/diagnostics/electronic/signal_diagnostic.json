@@ -1,0 +1,169 @@
+{
+  "dataset": "electronic",
+  "split": "validation only; 50/50 query-level probe fit/holdout",
+  "interpretation": "R2 is held-out linear decodability from frozen hidden features, not proof that a source is absent or unlearnable. Correlation is not a mechanism test.",
+  "diagnostic_training": "Only separate Ridge probes fit source targets; neural weights remain frozen. No probe enters inference.",
+  "selected_bundlefuse_sources": {
+    "simp": 1.0,
+    "ppmi": 1.5,
+    "cat": 0.25,
+    "homo": 0.5,
+    "content": 1.5,
+    "bridge": 0.5
+  },
+  "source_active_queries": {
+    "pair": 114,
+    "simp": 114,
+    "cooc": 114,
+    "ppmi": 114,
+    "cat": 172,
+    "homo": 172,
+    "content": 173,
+    "bridge": 172,
+    "csvd": 114,
+    "rao": 88,
+    "pop": 173,
+    "joint_surplus": 34
+  },
+  "training_item_frequency": {
+    "0": 680,
+    "1": 1935,
+    "2": 657
+  },
+  "variants": {
+    "relations": {
+      "checkpoint": "checkpoints/neural_small/electronic/relations_seed0/epoch_0036.pt",
+      "probe_rows_fit": 18374,
+      "probe_rows_heldout": 18412,
+      "sources": {
+        "pair": {
+          "heldout_probe_r2": 0.28118717670440674,
+          "mean_score_spearman": 0.08066206358623032,
+          "mean_top20_overlap": 0.2234513274336283
+        },
+        "simp": {
+          "heldout_probe_r2": 0.2586231231689453,
+          "mean_score_spearman": 0.08066202740860572,
+          "mean_top20_overlap": 0.2234513274336283
+        },
+        "cooc": {
+          "heldout_probe_r2": 0.30171889066696167,
+          "mean_score_spearman": 0.08063777355388688,
+          "mean_top20_overlap": 0.21238938053097345
+        },
+        "ppmi": {
+          "heldout_probe_r2": 0.3191230297088623,
+          "mean_score_spearman": 0.08063573069121698,
+          "mean_top20_overlap": 0.21460176991150443
+        },
+        "cat": {
+          "heldout_probe_r2": 0.029048681259155273,
+          "mean_score_spearman": 0.13350320923490766,
+          "mean_top20_overlap": 0.053488372093023255
+        },
+        "homo": {
+          "heldout_probe_r2": 0.16648930311203003,
+          "mean_score_spearman": 0.14301533159849847,
+          "mean_top20_overlap": 0.08459302325581396
+        },
+        "content": {
+          "heldout_probe_r2": 0.127133309841156,
+          "mean_score_spearman": 0.0965779901902627,
+          "mean_top20_overlap": 0.0968208092485549
+        },
+        "bridge": {
+          "heldout_probe_r2": 0.0648965835571289,
+          "mean_score_spearman": 0.031793787082521424,
+          "mean_top20_overlap": 0.13982558139534887
+        },
+        "csvd": {
+          "heldout_probe_r2": 0.20528823137283325,
+          "mean_score_spearman": 0.02734116307953737,
+          "mean_top20_overlap": 0.21447368421052634
+        },
+        "rao": {
+          "heldout_probe_r2": 0.053577303886413574,
+          "mean_score_spearman": 0.027665858984878958,
+          "mean_top20_overlap": 0.11931818181818182
+        },
+        "pop": {
+          "heldout_probe_r2": 0.9994603991508484,
+          "mean_score_spearman": 0.37006663826382286,
+          "mean_top20_overlap": 0.05838150289017341
+        },
+        "joint_surplus": {
+          "heldout_probe_r2": 0.0786658525466919,
+          "mean_score_spearman": 0.05487049415594945,
+          "mean_top20_overlap": 0.18
+        }
+      }
+    },
+    "contextual": {
+      "checkpoint": "checkpoints/neural_small/electronic/contextual_seed0/epoch_0032.pt",
+      "probe_rows_fit": 18374,
+      "probe_rows_heldout": 18412,
+      "sources": {
+        "pair": {
+          "heldout_probe_r2": 0.2088465690612793,
+          "mean_score_spearman": 0.07811066811940413,
+          "mean_top20_overlap": 0.22876106194690266
+        },
+        "simp": {
+          "heldout_probe_r2": 0.19120275974273682,
+          "mean_score_spearman": 0.07811023955833582,
+          "mean_top20_overlap": 0.22876106194690266
+        },
+        "cooc": {
+          "heldout_probe_r2": 0.21222639083862305,
+          "mean_score_spearman": 0.07807659031260523,
+          "mean_top20_overlap": 0.21858407079646014
+        },
+        "ppmi": {
+          "heldout_probe_r2": 0.21687543392181396,
+          "mean_score_spearman": 0.0780741708531089,
+          "mean_top20_overlap": 0.21548672566371677
+        },
+        "cat": {
+          "heldout_probe_r2": 0.03978753089904785,
+          "mean_score_spearman": 0.15516682088689213,
+          "mean_top20_overlap": 0.046802325581395354
+        },
+        "homo": {
+          "heldout_probe_r2": 0.12521135807037354,
+          "mean_score_spearman": 0.16962684198837052,
+          "mean_top20_overlap": 0.08575581395348839
+        },
+        "content": {
+          "heldout_probe_r2": 0.1225232481956482,
+          "mean_score_spearman": 0.09829223590737934,
+          "mean_top20_overlap": 0.09190751445086706
+        },
+        "bridge": {
+          "heldout_probe_r2": 0.05315476655960083,
+          "mean_score_spearman": 0.021855916369012605,
+          "mean_top20_overlap": 0.13924418604651165
+        },
+        "csvd": {
+          "heldout_probe_r2": 0.12641912698745728,
+          "mean_score_spearman": 0.025306658285696556,
+          "mean_top20_overlap": 0.2114035087719298
+        },
+        "rao": {
+          "heldout_probe_r2": 0.03206592798233032,
+          "mean_score_spearman": 0.023254435305497697,
+          "mean_top20_overlap": 0.11931818181818182
+        },
+        "pop": {
+          "heldout_probe_r2": 0.9994646906852722,
+          "mean_score_spearman": 0.3773164907498245,
+          "mean_top20_overlap": 0.056069364161849704
+        },
+        "joint_surplus": {
+          "heldout_probe_r2": 0.014599204063415527,
+          "mean_score_spearman": 0.0531007245514169,
+          "mean_top20_overlap": 0.16833333333333333
+        }
+      }
+    }
+  }
+}

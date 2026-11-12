@@ -1,0 +1,15 @@
+2026-11-09T06:29:24Z spotify_sparse: loading supplied splits and released item features
+2026-11-09T06:29:31Z spotify_sparse: reusing retained attribute projection (213325, 128)
+2026-11-09T06:29:55Z spotify_sparse loo seed=2 {'trainable_parameters': 41980, 'label_parameters': 512, 'label_mode': 'spectral', 'observed_directed_pairs': 27319480, 'levels': 2, 'frozen_buffer_bytes': 1318836817} train_rows=8739 start_epoch=1
+2026-11-09T07:09:11Z spotify_sparse loo seed=2 epoch=1 loss=8.34100 VAL R20=0.173692 N20=0.244593 best_epoch=1 patience=0/6
+2026-11-09T07:42:17Z spotify_sparse loo seed=2 epoch=2 loss=8.15744 VAL R20=0.174282 N20=0.247179 best_epoch=2 patience=0/6
+2026-11-09T08:01:39Z spotify_sparse loo seed=2 epoch=3 loss=8.11334 VAL R20=0.175445 N20=0.248300 best_epoch=3 patience=0/6
+2026-11-09T08:11:15Z spotify_sparse loo seed=2 epoch=4 loss=8.09619 VAL R20=0.175405 N20=0.246844 best_epoch=3 patience=1/6
+2026-11-09T08:19:13Z spotify_sparse loo seed=2 epoch=5 loss=8.08868 VAL R20=0.178586 N20=0.253085 best_epoch=5 patience=0/6
+2026-11-09T08:27:57Z spotify_sparse loo seed=2 epoch=6 loss=8.08005 VAL R20=0.172692 N20=0.244646 best_epoch=5 patience=1/6
+2026-11-09T08:39:49Z spotify_sparse loo seed=2 epoch=7 loss=8.07561 VAL R20=0.178232 N20=0.252316 best_epoch=5 patience=2/6
+2026-11-09T08:52:45Z spotify_sparse loo seed=2 epoch=8 loss=8.07458 VAL R20=0.175014 N20=0.246730 best_epoch=5 patience=3/6
+2026-11-09T09:01:40Z spotify_sparse loo seed=2 epoch=9 loss=8.04876 VAL R20=0.176965 N20=0.251688 best_epoch=5 patience=4/6
+2026-11-09T09:10:40Z spotify_sparse loo seed=2 epoch=10 loss=8.02717 VAL R20=0.177044 N20=0.250452 best_epoch=5 patience=5/6
+2026-11-09T09:20:21Z spotify_sparse loo seed=2 epoch=11 loss=8.03683 VAL R20=0.177864 N20=0.250802 best_epoch=5 patience=6/6
+2026-11-09T09:20:38Z spotify_sparse no_hop2_seed2 COMPLETE

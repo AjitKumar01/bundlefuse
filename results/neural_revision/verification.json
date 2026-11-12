@@ -1,0 +1,9 @@
+{
+  "utc": "2026-11-07T19:05:46Z",
+  "unit_tests": 6,
+  "passed": true,
+  "smoke_status": "smoke_complete",
+  "old_queue_stop_record": "results/neural_small/stopped.json",
+  "source_recovery_diagnostic": "results/neural_revision/diagnostics/electronic/signal_diagnostic.json",
+  "statement": "Synthetic capacity and optimization checks pass. Real-data superiority and learned source recovery are pending."
+}

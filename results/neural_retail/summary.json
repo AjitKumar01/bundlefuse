@@ -1,0 +1,455 @@
+{
+  "plan": "Ahead or behind only with Holm p<.05 on NDCG@20. Otherwise not separated. Test sets are small (346-371 queries).",
+  "datasets": {
+    "electronic": {
+      "v31": [
+        0.46910725754656407,
+        0.33560079612449645
+      ],
+      "seeds": [
+        [
+          0.48155105973025053,
+          0.33388716465806795
+        ],
+        [
+          0.4667148362235068,
+          0.33446032162804834
+        ],
+        [
+          0.45905587668593445,
+          0.33845490208737306
+        ]
+      ],
+      "best_simple": {
+        "method": "ease",
+        "params": {
+          "l2": 50.0
+        },
+        "test": [
+          0.35351637764932564,
+          0.25383723898273697
+        ]
+      },
+      "all_simple": {
+        "popularity": [
+          0.059874759152215795,
+          0.02577193985304718
+        ],
+        "cooccurrence": [
+          0.34364161849710984,
+          0.2307929399405525
+        ],
+        "itemknn": [
+          0.3524566473988439,
+          0.24767320983459046
+        ],
+        "rp3beta": [
+          0.35573217726396916,
+          0.25543581135499194
+        ],
+        "gfcf": [
+          0.3551541425818882,
+          0.25422657829477874
+        ],
+        "ease": [
+          0.35351637764932564,
+          0.25383723898273713
+        ]
+      },
+      "by_target_frequency": [
+        {
+          "unseen": {
+            "hits": 68,
+            "targets": 245,
+            "micro_recall20": 0.27755102040816326
+          },
+          "one_two": {
+            "hits": 149,
+            "targets": 256,
+            "micro_recall20": 0.58203125
+          },
+          "three_plus": {
+            "hits": 52,
+            "targets": 99,
+            "micro_recall20": 0.5252525252525253
+          }
+        },
+        {
+          "unseen": {
+            "hits": 63,
+            "targets": 245,
+            "micro_recall20": 0.2571428571428571
+          },
+          "one_two": {
+            "hits": 148,
+            "targets": 256,
+            "micro_recall20": 0.578125
+          },
+          "three_plus": {
+            "hits": 52,
+            "targets": 99,
+            "micro_recall20": 0.5252525252525253
+          }
+        },
+        {
+          "unseen": {
+            "hits": 62,
+            "targets": 245,
+            "micro_recall20": 0.2530612244897959
+          },
+          "one_two": {
+            "hits": 146,
+            "targets": 256,
+            "micro_recall20": 0.5703125
+          },
+          "three_plus": {
+            "hits": 51,
+            "targets": 99,
+            "micro_recall20": 0.5151515151515151
+          }
+        }
+      ]
+    },
+    "food": {
+      "v31": [
+        0.5846553352219075,
+        0.4375626738101226
+      ],
+      "seeds": [
+        [
+          0.5857412653446649,
+          0.4396824100635079
+        ],
+        [
+          0.5811614730878187,
+          0.43712730579198467
+        ],
+        [
+          0.587063267233239,
+          0.4358783055748752
+        ]
+      ],
+      "best_simple": {
+        "method": "gfcf",
+        "params": {
+          "rank": 256,
+          "ideal": 0.3
+        },
+        "test": [
+          0.3404154863078376,
+          0.2684588349982255
+        ]
+      },
+      "all_simple": {
+        "popularity": [
+          0.035033050047214354,
+          0.016077125117044365
+        ],
+        "cooccurrence": [
+          0.3452785646836638,
+          0.24944642316421434
+        ],
+        "itemknn": [
+          0.3384324834749764,
+          0.2620955366861382
+        ],
+        "rp3beta": [
+          0.3393767705382436,
+          0.2743314941123546
+        ],
+        "gfcf": [
+          0.3404154863078376,
+          0.2684588349982257
+        ],
+        "ease": [
+          0.34164305949008494,
+          0.2671776349856446
+        ]
+      },
+      "by_target_frequency": [
+        {
+          "unseen": {
+            "hits": 123,
+            "targets": 287,
+            "micro_recall20": 0.42857142857142855
+          },
+          "one_two": {
+            "hits": 183,
+            "targets": 267,
+            "micro_recall20": 0.6853932584269663
+          },
+          "three_plus": {
+            "hits": 40,
+            "targets": 67,
+            "micro_recall20": 0.5970149253731343
+          }
+        },
+        {
+          "unseen": {
+            "hits": 123,
+            "targets": 287,
+            "micro_recall20": 0.42857142857142855
+          },
+          "one_two": {
+            "hits": 183,
+            "targets": 267,
+            "micro_recall20": 0.6853932584269663
+          },
+          "three_plus": {
+            "hits": 39,
+            "targets": 67,
+            "micro_recall20": 0.582089552238806
+          }
+        },
+        {
+          "unseen": {
+            "hits": 128,
+            "targets": 287,
+            "micro_recall20": 0.445993031358885
+          },
+          "one_two": {
+            "hits": 179,
+            "targets": 267,
+            "micro_recall20": 0.6704119850187266
+          },
+          "three_plus": {
+            "hits": 39,
+            "targets": 67,
+            "micro_recall20": 0.582089552238806
+          }
+        }
+      ]
+    },
+    "clothing": {
+      "v31": [
+        0.5337526205450736,
+        0.3882519592656589
+      ],
+      "seeds": [
+        [
+          0.5342767295597485,
+          0.3863231215392903
+        ],
+        [
+          0.5304582210242588,
+          0.3894800538285787
+        ],
+        [
+          0.536522911051213,
+          0.3889527024291081
+        ]
+      ],
+      "best_simple": {
+        "method": "ease",
+        "params": {
+          "l2": 1000.0
+        },
+        "test": [
+          0.2349505840071878,
+          0.20089034507109932
+        ]
+      },
+      "all_simple": {
+        "popularity": [
+          0.008086253369272238,
+          0.0027702737874506058
+        ],
+        "cooccurrence": [
+          0.23495058400718777,
+          0.17721494611885164
+        ],
+        "itemknn": [
+          0.23495058400718777,
+          0.19273837159767754
+        ],
+        "rp3beta": [
+          0.23495058400718777,
+          0.1934905158702088
+        ],
+        "gfcf": [
+          0.23189577717879603,
+          0.1918797794490447
+        ],
+        "ease": [
+          0.23495058400718777,
+          0.20089034507109932
+        ]
+      },
+      "by_target_frequency": [
+        {
+          "unseen": {
+            "hits": 152,
+            "targets": 374,
+            "micro_recall20": 0.40641711229946526
+          },
+          "one_two": {
+            "hits": 142,
+            "targets": 179,
+            "micro_recall20": 0.7932960893854749
+          },
+          "three_plus": {
+            "hits": 3,
+            "targets": 8,
+            "micro_recall20": 0.375
+          }
+        },
+        {
+          "unseen": {
+            "hits": 154,
+            "targets": 374,
+            "micro_recall20": 0.4117647058823529
+          },
+          "one_two": {
+            "hits": 141,
+            "targets": 179,
+            "micro_recall20": 0.7877094972067039
+          },
+          "three_plus": {
+            "hits": 3,
+            "targets": 8,
+            "micro_recall20": 0.375
+          }
+        },
+        {
+          "unseen": {
+            "hits": 157,
+            "targets": 374,
+            "micro_recall20": 0.4197860962566845
+          },
+          "one_two": {
+            "hits": 141,
+            "targets": 179,
+            "micro_recall20": 0.7877094972067039
+          },
+          "three_plus": {
+            "hits": 3,
+            "targets": 8,
+            "micro_recall20": 0.375
+          }
+        }
+      ]
+    }
+  },
+  "primary": [
+    {
+      "delta": 0.0817635571417593,
+      "ci95": [
+        0.05635767528961181,
+        0.10758194736154371
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.3439306358381503,
+      "seed": 20261108,
+      "dataset": "electronic",
+      "metric": "ndcg20",
+      "first": "v31",
+      "second": "simple:ease",
+      "p_holm": 0.0005999400059994001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.11559087989723826,
+      "ci95": [
+        0.07597222222222222,
+        0.15685693641618498
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.2138728323699422,
+      "seed": 20261108,
+      "dataset": "electronic",
+      "metric": "recall20",
+      "first": "v31",
+      "second": "simple:ease",
+      "p_holm": 0.0005999400059994001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.1691038388118969,
+      "ci95": [
+        0.13685034189518447,
+        0.19907743211869317
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.48441926345609065,
+      "seed": 20261108,
+      "dataset": "food",
+      "metric": "ndcg20",
+      "first": "v31",
+      "second": "simple:gfcf",
+      "p_holm": 0.0005999400059994001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.24423984891406988,
+      "ci95": [
+        0.20108278249921305,
+        0.2848685867170286
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.34277620396600567,
+      "seed": 20261108,
+      "dataset": "food",
+      "metric": "recall20",
+      "first": "v31",
+      "second": "simple:gfcf",
+      "p_holm": 0.0005999400059994001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.18736161419455974,
+      "ci95": [
+        0.15616578744691353,
+        0.2189245108223427
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 371,
+      "clusters": 371,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.49056603773584906,
+      "seed": 20261108,
+      "dataset": "clothing",
+      "metric": "ndcg20",
+      "first": "v31",
+      "second": "simple:ease",
+      "p_holm": 0.0005999400059994001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.2988020365378856,
+      "ci95": [
+        0.2557427373465109,
+        0.3427403414195867
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 371,
+      "clusters": 371,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.40700808625336926,
+      "seed": 20261108,
+      "dataset": "clothing",
+      "metric": "recall20",
+      "first": "v31",
+      "second": "simple:ease",
+      "p_holm": 0.0005999400059994001,
+      "reject_05": true
+    }
+  ]
+}

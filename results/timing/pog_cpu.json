@@ -1,0 +1,100 @@
+{
+  "note": "Training and inference time of DIALS and the simple baselines on POG, on one machine, one method at a time.\n\nAll methods use the same thread count (BLAS and torch). Inference is the wall time to score and rank the whole catalogue\nfor the 4,000 test queries (metrics included, as in every evaluation here), reported per query.\n  simple baselines  fit = building the shared co-occurrence statistics plus the method's own matrix or factors, at the\n                    setting chosen on validation (results/simple_baselines/pog); grids are not re-run.\n  DIALS             fit = the cross-fitted label factors (computed afresh) and model construction, plus --epochs epochs\n                    of training, each with its validation pass, as in dials.train.fit; the total is extrapolated to the\n                    epochs the three frozen runs actually ran. Inference uses the frozen seed-0 model.\nCLHE and RaMen are timed with experiments/timing/neural.py in their own environment.\n\nTHREADS=4; VECLIB_MAXIMUM_THREADS=$THREADS OMP_NUM_THREADS=$THREADS PYTHONPATH=.:../dials .venv/bin/python -m experiments.timing.run --threads $THREADS\n",
+  "threads": 4,
+  "dataset": "pog",
+  "test_queries": 4000,
+  "n_items": 48676,
+  "methods": {
+    "dials": {
+      "setup_seconds": 0.35477516701212153,
+      "seconds_per_epoch_with_validation": 31.633198374969652,
+      "validation_pass_seconds": 1.4132123330491595,
+      "epochs_run": [
+        26,
+        31,
+        30
+      ],
+      "fit_seconds": 917.717528041132,
+      "inference_ms_per_query": 0.6957916667452082,
+      "parameters": 41624
+    },
+    "popularity": {
+      "params": {},
+      "fit_seconds": 0.024460666987579316,
+      "inference_ms_per_query": 0.2339172292558942,
+      "parameters": null
+    },
+    "cooccurrence": {
+      "params": {},
+      "fit_seconds": 0.023976167023647577,
+      "inference_ms_per_query": 0.29441428124846425,
+      "parameters": null
+    },
+    "itemknn": {
+      "params": {
+        "k": 200,
+        "shrink": 100
+      },
+      "fit_seconds": 0.038816082989796996,
+      "inference_ms_per_query": 0.29454417724628,
+      "parameters": null
+    },
+    "rp3beta": {
+      "params": {
+        "alpha": 0.5,
+        "beta": 0.0
+      },
+      "fit_seconds": 0.03308937500696629,
+      "inference_ms_per_query": 0.3011281042563496,
+      "parameters": null
+    },
+    "gfcf": {
+      "params": {
+        "rank": 64,
+        "ideal": 0.0
+      },
+      "fit_seconds": 0.02675125002861023,
+      "inference_ms_per_query": 0.30376761448860634,
+      "parameters": null
+    },
+    "ease": {
+      "params": {
+        "l2": 3000.0
+      },
+      "fit_seconds": 64.68582625000272,
+      "inference_ms_per_query": 1.9762082082597772,
+      "parameters": null
+    },
+    "hybrid": {
+      "params": {
+        "k": 200,
+        "shrink": 100,
+        "content": 0.0
+      },
+      "fit_seconds": 0.04659920802805573,
+      "inference_ms_per_query": 0.3369546875037486,
+      "parameters": null
+    },
+    "ials": {
+      "params": {
+        "rank": 128,
+        "alpha": 20.0,
+        "l2": 1.0
+      },
+      "fit_seconds": 121.26778866699897,
+      "inference_ms_per_query": 0.6656341769994469,
+      "parameters": null
+    },
+    "sgfcf": {
+      "params": {
+        "rank": 64,
+        "eps": 0.3,
+        "beta": 1.0,
+        "gamma": 0.5
+      },
+      "fit_seconds": 0.15134799998486415,
+      "inference_ms_per_query": 0.4480793227558024,
+      "parameters": null
+    }
+  }
+}

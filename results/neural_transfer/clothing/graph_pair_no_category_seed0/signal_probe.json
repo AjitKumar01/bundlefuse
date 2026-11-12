@@ -1,0 +1,63 @@
+{
+  "scope": "Validation-only linear probes on component scores and descriptive rank alignment. No teacher fitting of the neural model. Different representation dimension from v1; not a controlled capacity comparison.",
+  "component_names": [
+    "text",
+    "category",
+    "pair"
+  ],
+  "heldout_probe_r2": {
+    "pair": 0.7031838893890381,
+    "simp": 0.7097022533416748,
+    "cooc": 0.6756633520126343,
+    "ppmi": 0.6712849140167236,
+    "cat": 0.10284852981567383,
+    "homo": 0.08748215436935425,
+    "content": 0.4846418499946594,
+    "bridge": 0.13367629051208496,
+    "csvd": 0.3647284507751465,
+    "rao": 0.18946635723114014,
+    "joint_surplus": 0.5068316459655762
+  },
+  "rank_alignment": {
+    "text": {
+      "pair": 0.047307946623575466,
+      "simp": 0.04730795790453286,
+      "cooc": 0.04730785779725511,
+      "ppmi": 0.047307960903772844,
+      "cat": 0.12531632747682478,
+      "homo": 0.13832220638565595,
+      "content": 0.33942462460817036,
+      "bridge": 0.09258045670134432,
+      "csvd": 0.0026692070232297127,
+      "rao": 0.06603952650821653,
+      "joint_surplus": 0.04571107531349819
+    },
+    "pair": {
+      "pair": 0.9824625848345568,
+      "simp": 0.9824625901124576,
+      "cooc": 0.9824621676495466,
+      "ppmi": 0.982459614769066,
+      "cat": 0.2189355966527769,
+      "homo": 0.22787348762876347,
+      "content": 0.02678788336720656,
+      "bridge": 0.04164632005698082,
+      "csvd": 0.042262446398654806,
+      "rao": 0.20668750156201599,
+      "joint_surplus": 0.9037113131178075
+    },
+    "final": {
+      "pair": 0.04779476498001564,
+      "simp": 0.04779476723620712,
+      "cooc": 0.04779471745141778,
+      "ppmi": 0.04779476858167134,
+      "cat": 0.12535315654332793,
+      "homo": 0.138356487846889,
+      "content": 0.33941726865744604,
+      "bridge": 0.0925923388496308,
+      "csvd": 0.0026945978592748205,
+      "rao": 0.06608063608150096,
+      "joint_surplus": 0.045784396242340514
+    }
+  },
+  "warning": "High rank agreement for sparse sources can reflect shared support. These probes do not establish causal recovery of BundleFuse mechanisms."
+}

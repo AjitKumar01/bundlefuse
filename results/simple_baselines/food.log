@@ -1,0 +1,42 @@
+2026-11-08T17:53:40Z food: n=3767 train=1232 pairs=13724
+2026-11-08T17:53:40Z food popularity {} VAL N20=0.006889
+2026-11-08T17:53:40Z food cooccurrence {} VAL N20=0.232844
+2026-11-08T17:53:40Z food itemknn {'k': 50, 'shrink': 0} VAL N20=0.256447
+2026-11-08T17:53:40Z food itemknn {'k': 50, 'shrink': 10} VAL N20=0.259398
+2026-11-08T17:53:40Z food itemknn {'k': 50, 'shrink': 100} VAL N20=0.259398
+2026-11-08T17:53:40Z food itemknn {'k': 200, 'shrink': 0} VAL N20=0.256447
+2026-11-08T17:53:40Z food itemknn {'k': 200, 'shrink': 10} VAL N20=0.259398
+2026-11-08T17:53:40Z food itemknn {'k': 200, 'shrink': 100} VAL N20=0.259398
+2026-11-08T17:53:40Z food itemknn {'k': 1000, 'shrink': 0} VAL N20=0.256447
+2026-11-08T17:53:40Z food itemknn {'k': 1000, 'shrink': 10} VAL N20=0.259398
+2026-11-08T17:53:40Z food itemknn {'k': 1000, 'shrink': 100} VAL N20=0.259398
+2026-11-08T17:53:40Z food rp3beta {'alpha': 0.5, 'beta': 0.0} VAL N20=0.254705
+2026-11-08T17:53:40Z food rp3beta {'alpha': 0.5, 'beta': 0.25} VAL N20=0.264305
+2026-11-08T17:53:40Z food rp3beta {'alpha': 0.5, 'beta': 0.5} VAL N20=0.263003
+2026-11-08T17:53:40Z food rp3beta {'alpha': 0.5, 'beta': 0.75} VAL N20=0.259596
+2026-11-08T17:53:40Z food rp3beta {'alpha': 1.0, 'beta': 0.0} VAL N20=0.253089
+2026-11-08T17:53:40Z food rp3beta {'alpha': 1.0, 'beta': 0.25} VAL N20=0.261815
+2026-11-08T17:53:40Z food rp3beta {'alpha': 1.0, 'beta': 0.5} VAL N20=0.263530
+2026-11-08T17:53:40Z food rp3beta {'alpha': 1.0, 'beta': 0.75} VAL N20=0.259674
+2026-11-08T17:53:40Z food gfcf {'rank': 64, 'ideal': 0.0} VAL N20=0.261619
+2026-11-08T17:53:40Z food gfcf {'rank': 64, 'ideal': 0.1} VAL N20=0.263762
+2026-11-08T17:53:40Z food gfcf {'rank': 64, 'ideal': 0.3} VAL N20=0.264506
+2026-11-08T17:53:40Z food gfcf {'rank': 64, 'ideal': 1.0} VAL N20=0.265673
+2026-11-08T17:53:40Z food gfcf {'rank': 64, 'ideal': 3.0} VAL N20=0.265929
+2026-11-08T17:53:40Z food gfcf {'rank': 256, 'ideal': 0.0} VAL N20=0.261619
+2026-11-08T17:53:40Z food gfcf {'rank': 256, 'ideal': 0.1} VAL N20=0.265587
+2026-11-08T17:53:40Z food gfcf {'rank': 256, 'ideal': 0.3} VAL N20=0.266755
+2026-11-08T17:53:40Z food gfcf {'rank': 256, 'ideal': 1.0} VAL N20=0.266711
+2026-11-08T17:53:40Z food gfcf {'rank': 256, 'ideal': 3.0} VAL N20=0.253218
+2026-11-08T17:53:40Z food ease {'l2': 50.0} VAL N20=0.259522
+2026-11-08T17:53:40Z food ease {'l2': 200.0} VAL N20=0.260458
+2026-11-08T17:53:41Z food ease {'l2': 500.0} VAL N20=0.257645
+2026-11-08T17:53:41Z food ease {'l2': 1000.0} VAL N20=0.261171
+2026-11-08T17:53:41Z food ease {'l2': 3000.0} VAL N20=0.243314
+2026-11-08T17:53:41Z food popularity TEST filtered {'recall20': 0.035033050047214354, 'ndcg20': 0.016077125117044365}
+2026-11-08T17:53:41Z food cooccurrence TEST filtered {'recall20': 0.3452785646836638, 'ndcg20': 0.24944642316421434}
+2026-11-08T17:53:41Z food itemknn TEST filtered {'recall20': 0.3384324834749764, 'ndcg20': 0.2620955366861382}
+2026-11-08T17:53:41Z food rp3beta TEST filtered {'recall20': 0.3393767705382436, 'ndcg20': 0.2743314941123546}
+2026-11-08T17:53:41Z food gfcf TEST filtered {'recall20': 0.3404154863078376, 'ndcg20': 0.2684588349982257}
+2026-11-08T17:53:41Z food ease TEST filtered {'recall20': 0.34164305949008494, 'ndcg20': 0.2671776349856446}
+2026-11-08T17:53:41Z food COMPLETE

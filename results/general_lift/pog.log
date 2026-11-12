@@ -1,0 +1,258 @@
+2026-11-07T17:15:27.257781+00:00 pog: 1997 validation, 3995 test queries; building estimators
+2026-11-07T17:15:30.010711+00:00 lift audit written
+2026-11-07T17:15:33.574808+00:00 validation columns 50/1997
+2026-11-07T17:15:36.053728+00:00 validation columns 100/1997
+2026-11-07T17:15:38.244058+00:00 validation columns 150/1997
+2026-11-07T17:15:41.177302+00:00 validation columns 200/1997
+2026-11-07T17:15:43.295619+00:00 validation columns 250/1997
+2026-11-07T17:15:45.359852+00:00 validation columns 300/1997
+2026-11-07T17:15:47.771392+00:00 validation columns 350/1997
+2026-11-07T17:15:49.966322+00:00 validation columns 400/1997
+2026-11-07T17:15:51.938479+00:00 validation columns 450/1997
+2026-11-07T17:15:53.951301+00:00 validation columns 500/1997
+2026-11-07T17:15:55.951450+00:00 validation columns 550/1997
+2026-11-07T17:15:57.949797+00:00 validation columns 600/1997
+2026-11-07T17:15:59.981217+00:00 validation columns 650/1997
+2026-11-07T17:16:02.295687+00:00 validation columns 700/1997
+2026-11-07T17:16:04.215136+00:00 validation columns 750/1997
+2026-11-07T17:16:06.359466+00:00 validation columns 800/1997
+2026-11-07T17:16:08.726122+00:00 validation columns 850/1997
+2026-11-07T17:16:10.628601+00:00 validation columns 900/1997
+2026-11-07T17:16:12.571398+00:00 validation columns 950/1997
+2026-11-07T17:16:15.106410+00:00 validation columns 1000/1997
+2026-11-07T17:16:17.673307+00:00 validation columns 1050/1997
+2026-11-07T17:16:19.793609+00:00 validation columns 1100/1997
+2026-11-07T17:16:21.964351+00:00 validation columns 1150/1997
+2026-11-07T17:16:23.959340+00:00 validation columns 1200/1997
+2026-11-07T17:16:26.225242+00:00 validation columns 1250/1997
+2026-11-07T17:16:28.384080+00:00 validation columns 1300/1997
+2026-11-07T17:16:30.577443+00:00 validation columns 1350/1997
+2026-11-07T17:16:32.655013+00:00 validation columns 1400/1997
+2026-11-07T17:16:35.053457+00:00 validation columns 1450/1997
+2026-11-07T17:16:37.232688+00:00 validation columns 1500/1997
+2026-11-07T17:16:39.502361+00:00 validation columns 1550/1997
+2026-11-07T17:16:41.611787+00:00 validation columns 1600/1997
+2026-11-07T17:16:43.653376+00:00 validation columns 1650/1997
+2026-11-07T17:16:45.719581+00:00 validation columns 1700/1997
+2026-11-07T17:16:47.715335+00:00 validation columns 1750/1997
+2026-11-07T17:16:49.724595+00:00 validation columns 1800/1997
+2026-11-07T17:16:51.936783+00:00 validation columns 1850/1997
+2026-11-07T17:16:53.919741+00:00 validation columns 1900/1997
+2026-11-07T17:16:55.876359+00:00 validation columns 1950/1997
+2026-11-07T17:16:57.687779+00:00 validation columns 1997/1997
+2026-11-07T17:16:59.403378+00:00 general: evaluations retained=1
+2026-11-07T17:17:00.994912+00:00 general: evaluations retained=4
+2026-11-07T17:17:03.937200+00:00 general: evaluations retained=8
+2026-11-07T17:17:07.152243+00:00 general: evaluations retained=12
+2026-11-07T17:17:10.457081+00:00 general: evaluations retained=16
+2026-11-07T17:17:13.090957+00:00 general: evaluations retained=20
+2026-11-07T17:17:15.979162+00:00 general: evaluations retained=24
+2026-11-07T17:17:18.917597+00:00 general: evaluations retained=28
+2026-11-07T17:17:21.993333+00:00 general: evaluations retained=32
+2026-11-07T17:17:24.317513+00:00 general: evaluations retained=36
+2026-11-07T17:17:26.574657+00:00 general: evaluations retained=40
+2026-11-07T17:17:29.737835+00:00 general: evaluations retained=44
+2026-11-07T17:17:32.835939+00:00 general: evaluations retained=48
+2026-11-07T17:17:35.375173+00:00 general: evaluations retained=52
+2026-11-07T17:17:37.519208+00:00 general: evaluations retained=56
+2026-11-07T17:17:40.653739+00:00 general: evaluations retained=60
+2026-11-07T17:17:44.202514+00:00 general: evaluations retained=64
+2026-11-07T17:17:48.624073+00:00 general: evaluations retained=13
+2026-11-07T17:17:48.624586+00:00 general: {'kind': 'gate', 'weights': {'lift0': 1.0, 'residual_content': 0.25, 'pair': 0.25}, 'prior_weights': {'lift0': 1.0, 'residual_content': 0.25}, 'scale': 1.0157536694766283, 'kappa': 0.05} tuning [0.051666666666666666, 0.03898849858647094]
+2026-11-07T17:17:50.065339+00:00 raw: evaluations retained=1
+2026-11-07T17:17:51.514313+00:00 raw: evaluations retained=4
+2026-11-07T17:17:54.633890+00:00 raw: evaluations retained=8
+2026-11-07T17:17:57.303692+00:00 raw: evaluations retained=12
+2026-11-07T17:17:59.629913+00:00 raw: evaluations retained=16
+2026-11-07T17:18:01.874946+00:00 raw: evaluations retained=20
+2026-11-07T17:18:04.978645+00:00 raw: evaluations retained=24
+2026-11-07T17:18:08.036027+00:00 raw: evaluations retained=28
+2026-11-07T17:18:10.334013+00:00 raw: evaluations retained=32
+2026-11-07T17:18:12.839424+00:00 raw: evaluations retained=36
+2026-11-07T17:18:15.074711+00:00 raw: evaluations retained=40
+2026-11-07T17:18:17.164014+00:00 raw: evaluations retained=44
+2026-11-07T17:18:19.771173+00:00 raw: evaluations retained=48
+2026-11-07T17:18:22.435083+00:00 raw: evaluations retained=52
+2026-11-07T17:18:24.630226+00:00 raw: evaluations retained=56
+2026-11-07T17:18:26.856391+00:00 raw: evaluations retained=60
+2026-11-07T17:18:29.443802+00:00 raw: evaluations retained=64
+2026-11-07T17:18:31.138226+00:00 raw: evaluations retained=67
+2026-11-07T17:18:33.408767+00:00 raw: evaluations retained=71
+2026-11-07T17:18:35.620949+00:00 raw: evaluations retained=75
+2026-11-07T17:18:37.920901+00:00 raw: evaluations retained=79
+2026-11-07T17:18:40.253128+00:00 raw: evaluations retained=83
+2026-11-07T17:18:42.605146+00:00 raw: evaluations retained=87
+2026-11-07T17:18:47.821499+00:00 raw: evaluations retained=13
+2026-11-07T17:18:47.822003+00:00 raw: {'kind': 'gate', 'weights': {'raw_content': 0.25, 'raw_image': 0.5, 'raw_desc': 0.5, 'pop': 1.5, 'pair': 1.5}, 'prior_weights': {'raw_content': 0.25, 'raw_image': 0.5, 'raw_desc': 0.5, 'pop': 1.5}, 'scale': 1.0, 'kappa': 0.5} tuning [0.030833333333333334, 0.022123308140156513]
+2026-11-07T17:18:48.097180+00:00 base: evaluations retained=1
+2026-11-07T17:18:48.970698+00:00 base: evaluations retained=4
+2026-11-07T17:18:50.337635+00:00 base: evaluations retained=8
+2026-11-07T17:18:51.747793+00:00 base: evaluations retained=12
+2026-11-07T17:18:53.132561+00:00 base: evaluations retained=16
+2026-11-07T17:18:54.271653+00:00 base: evaluations retained=20
+2026-11-07T17:18:56.180951+00:00 base: evaluations retained=13
+2026-11-07T17:18:56.181180+00:00 base: {'kind': 'gate', 'weights': {'pop': 0.25, 'pair': 0.25}, 'prior_weights': {'pop': 0.25}, 'scale': 1.0, 'kappa': 0.5} tuning [0.03361111111111111, 0.022605521925809665]
+2026-11-07T17:18:57.468767+00:00 shuf0: evaluations retained=1
+2026-11-07T17:18:58.824134+00:00 shuf0: evaluations retained=4
+2026-11-07T17:19:01.714728+00:00 shuf0: evaluations retained=8
+2026-11-07T17:19:04.437970+00:00 shuf0: evaluations retained=12
+2026-11-07T17:19:07.211102+00:00 shuf0: evaluations retained=16
+2026-11-07T17:19:09.209868+00:00 shuf0: evaluations retained=20
+2026-11-07T17:19:11.821639+00:00 shuf0: evaluations retained=24
+2026-11-07T17:19:14.463266+00:00 shuf0: evaluations retained=28
+2026-11-07T17:19:17.356150+00:00 shuf0: evaluations retained=32
+2026-11-07T17:19:19.281672+00:00 shuf0: evaluations retained=36
+2026-11-07T17:19:21.214208+00:00 shuf0: evaluations retained=40
+2026-11-07T17:19:24.004924+00:00 shuf0: evaluations retained=44
+2026-11-07T17:19:26.802895+00:00 shuf0: evaluations retained=48
+2026-11-07T17:19:28.896102+00:00 shuf0: evaluations retained=52
+2026-11-07T17:19:33.075704+00:00 shuf0: evaluations retained=13
+2026-11-07T17:19:33.076142+00:00 shuf0: {'kind': 'gate', 'weights': {'shuf0_lift0': 0.25, 'residual_content': 1.5, 'pair': 1.5}, 'prior_weights': {'shuf0_lift0': 0.25, 'residual_content': 1.5}, 'scale': 1.2299855868547591, 'kappa': 0.05} tuning [0.04638888888888889, 0.03257723378403413]
+2026-11-07T17:19:34.368634+00:00 shuf1: evaluations retained=1
+2026-11-07T17:19:35.706289+00:00 shuf1: evaluations retained=4
+2026-11-07T17:19:37.606266+00:00 shuf1: evaluations retained=8
+2026-11-07T17:19:40.321864+00:00 shuf1: evaluations retained=12
+2026-11-07T17:19:43.012326+00:00 shuf1: evaluations retained=16
+2026-11-07T17:19:45.059116+00:00 shuf1: evaluations retained=20
+2026-11-07T17:19:47.697031+00:00 shuf1: evaluations retained=24
+2026-11-07T17:19:50.422987+00:00 shuf1: evaluations retained=28
+2026-11-07T17:19:53.099979+00:00 shuf1: evaluations retained=32
+2026-11-07T17:19:55.016994+00:00 shuf1: evaluations retained=36
+2026-11-07T17:19:56.948309+00:00 shuf1: evaluations retained=40
+2026-11-07T17:19:59.889611+00:00 shuf1: evaluations retained=44
+2026-11-07T17:20:02.624338+00:00 shuf1: evaluations retained=48
+2026-11-07T17:20:04.689740+00:00 shuf1: evaluations retained=52
+2026-11-07T17:20:08.923473+00:00 shuf1: evaluations retained=13
+2026-11-07T17:20:08.923828+00:00 shuf1: {'kind': 'gate', 'weights': {'shuf1_lift0': 0.25, 'residual_content': 1.0, 'pair': 1.0}, 'prior_weights': {'shuf1_lift0': 0.25, 'residual_content': 1.0}, 'scale': 1.2231909974505901, 'kappa': 0.05} tuning [0.04805555555555555, 0.033979255520131486]
+2026-11-07T17:20:10.260150+00:00 shuf2: evaluations retained=1
+2026-11-07T17:20:11.654277+00:00 shuf2: evaluations retained=4
+2026-11-07T17:20:13.619331+00:00 shuf2: evaluations retained=8
+2026-11-07T17:20:16.493453+00:00 shuf2: evaluations retained=12
+2026-11-07T17:20:19.244069+00:00 shuf2: evaluations retained=16
+2026-11-07T17:20:21.268767+00:00 shuf2: evaluations retained=20
+2026-11-07T17:20:23.569130+00:00 shuf2: evaluations retained=24
+2026-11-07T17:20:26.460792+00:00 shuf2: evaluations retained=28
+2026-11-07T17:20:29.193537+00:00 shuf2: evaluations retained=32
+2026-11-07T17:20:31.202750+00:00 shuf2: evaluations retained=36
+2026-11-07T17:20:32.879083+00:00 shuf2: evaluations retained=40
+2026-11-07T17:20:35.905942+00:00 shuf2: evaluations retained=44
+2026-11-07T17:20:38.779043+00:00 shuf2: evaluations retained=48
+2026-11-07T17:20:41.019390+00:00 shuf2: evaluations retained=52
+2026-11-07T17:20:42.919045+00:00 shuf2: evaluations retained=56
+2026-11-07T17:20:45.715763+00:00 shuf2: evaluations retained=60
+2026-11-07T17:20:48.395927+00:00 shuf2: evaluations retained=64
+2026-11-07T17:20:52.354593+00:00 shuf2: evaluations retained=13
+2026-11-07T17:20:52.354874+00:00 shuf2: {'kind': 'gate', 'weights': {'residual_content': 1.0, 'pair': 1.0}, 'prior_weights': {'residual_content': 1.0}, 'scale': 1.2357976161834736, 'kappa': 0.05} tuning [0.04638888888888889, 0.033008643524164126]
+2026-11-07T17:20:53.577981+00:00 lift_only: evaluations retained=1
+2026-11-07T17:20:54.838417+00:00 lift_only: evaluations retained=4
+2026-11-07T17:20:56.863686+00:00 lift_only: evaluations retained=8
+2026-11-07T17:20:59.041524+00:00 lift_only: evaluations retained=12
+2026-11-07T17:21:01.875045+00:00 lift_only: evaluations retained=16
+2026-11-07T17:21:04.711982+00:00 lift_only: evaluations retained=20
+2026-11-07T17:21:06.615794+00:00 lift_only: evaluations retained=24
+2026-11-07T17:21:08.632673+00:00 lift_only: evaluations retained=28
+2026-11-07T17:21:10.586662+00:00 lift_only: evaluations retained=32
+2026-11-07T17:21:12.698867+00:00 lift_only: evaluations retained=36
+2026-11-07T17:21:14.775987+00:00 lift_only: evaluations retained=40
+2026-11-07T17:21:18.760888+00:00 lift_only: evaluations retained=13
+2026-11-07T17:21:18.761426+00:00 lift_only: {'kind': 'gate', 'weights': {'lift0': 0.5, 'pop': 0.25, 'pair': 0.25}, 'prior_weights': {'lift0': 0.5, 'pop': 0.25}, 'scale': 1.0505167236143031, 'kappa': 5.0} tuning [0.042222222222222223, 0.026874436486862135]
+2026-11-07T17:21:20.059113+00:00 residual_only: evaluations retained=1
+2026-11-07T17:21:21.488906+00:00 residual_only: evaluations retained=4
+2026-11-07T17:21:24.598758+00:00 residual_only: evaluations retained=8
+2026-11-07T17:21:27.572217+00:00 residual_only: evaluations retained=12
+2026-11-07T17:21:29.810590+00:00 residual_only: evaluations retained=16
+2026-11-07T17:21:32.543743+00:00 residual_only: evaluations retained=20
+2026-11-07T17:21:35.703990+00:00 residual_only: evaluations retained=24
+2026-11-07T17:21:38.645151+00:00 residual_only: evaluations retained=28
+2026-11-07T17:21:40.278053+00:00 residual_only: evaluations retained=32
+2026-11-07T17:21:43.249577+00:00 residual_only: evaluations retained=36
+2026-11-07T17:21:46.622006+00:00 residual_only: evaluations retained=40
+2026-11-07T17:21:48.896438+00:00 residual_only: evaluations retained=44
+2026-11-07T17:21:52.674875+00:00 residual_only: evaluations retained=13
+2026-11-07T17:21:52.675250+00:00 residual_only: {'kind': 'gate', 'weights': {'residual_content': 0.25, 'pair': 0.25}, 'prior_weights': {'residual_content': 0.25}, 'scale': 1.2357976154760735, 'kappa': 0.05} tuning [0.04638888888888889, 0.033008643524164126]
+2026-11-07T17:21:53.691545+00:00 identity: evaluations retained=1
+2026-11-07T17:21:54.412874+00:00 identity: evaluations retained=4
+2026-11-07T17:21:56.411861+00:00 identity: evaluations retained=8
+2026-11-07T17:21:59.304338+00:00 identity: evaluations retained=12
+2026-11-07T17:22:02.307761+00:00 identity: evaluations retained=16
+2026-11-07T17:22:04.490934+00:00 identity: evaluations retained=20
+2026-11-07T17:22:06.953182+00:00 identity: evaluations retained=24
+2026-11-07T17:22:10.014708+00:00 identity: evaluations retained=28
+2026-11-07T17:22:13.310367+00:00 identity: evaluations retained=32
+2026-11-07T17:22:15.412505+00:00 identity: evaluations retained=36
+2026-11-07T17:22:17.452005+00:00 identity: evaluations retained=40
+2026-11-07T17:22:20.525984+00:00 identity: evaluations retained=44
+2026-11-07T17:22:22.708411+00:00 identity: evaluations retained=48
+2026-11-07T17:22:24.903971+00:00 identity: evaluations retained=52
+2026-11-07T17:22:26.935876+00:00 identity: evaluations retained=56
+2026-11-07T17:22:29.946882+00:00 identity: evaluations retained=60
+2026-11-07T17:22:32.952825+00:00 identity: evaluations retained=64
+2026-11-07T17:22:35.886340+00:00 identity: evaluations retained=68
+2026-11-07T17:22:37.839588+00:00 identity: evaluations retained=72
+2026-11-07T17:22:40.950886+00:00 identity: evaluations retained=76
+2026-11-07T17:22:44.992244+00:00 identity: evaluations retained=13
+2026-11-07T17:22:44.992578+00:00 identity: {'kind': 'gate', 'weights': {'residual_content': 1.5, 'pair': 1.5}, 'prior_weights': {'residual_content': 1.5}, 'scale': 1.2357976142371976, 'kappa': 0.05} tuning [0.04638888888888889, 0.033008643524164126]
+2026-11-07T17:22:46.618277+00:00 off_diagonal: evaluations retained=1
+2026-11-07T17:22:47.968937+00:00 off_diagonal: evaluations retained=4
+2026-11-07T17:22:50.869291+00:00 off_diagonal: evaluations retained=8
+2026-11-07T17:22:53.820744+00:00 off_diagonal: evaluations retained=12
+2026-11-07T17:22:56.757380+00:00 off_diagonal: evaluations retained=16
+2026-11-07T17:22:59.022219+00:00 off_diagonal: evaluations retained=20
+2026-11-07T17:23:01.945756+00:00 off_diagonal: evaluations retained=24
+2026-11-07T17:23:04.857093+00:00 off_diagonal: evaluations retained=28
+2026-11-07T17:23:07.741529+00:00 off_diagonal: evaluations retained=32
+2026-11-07T17:23:09.811046+00:00 off_diagonal: evaluations retained=36
+2026-11-07T17:23:11.964216+00:00 off_diagonal: evaluations retained=40
+2026-11-07T17:23:15.184803+00:00 off_diagonal: evaluations retained=44
+2026-11-07T17:23:18.273395+00:00 off_diagonal: evaluations retained=48
+2026-11-07T17:23:20.562800+00:00 off_diagonal: evaluations retained=52
+2026-11-07T17:23:22.560360+00:00 off_diagonal: evaluations retained=56
+2026-11-07T17:23:25.386053+00:00 off_diagonal: evaluations retained=60
+2026-11-07T17:23:28.271507+00:00 off_diagonal: evaluations retained=64
+2026-11-07T17:23:32.912536+00:00 off_diagonal: evaluations retained=13
+2026-11-07T17:23:32.912915+00:00 off_diagonal: {'kind': 'gate', 'weights': {'off0': 1.0, 'residual_content': 0.25, 'pair': 0.25}, 'prior_weights': {'off0': 1.0, 'residual_content': 0.25}, 'scale': 1.0163898094304098, 'kappa': 0.05} tuning [0.04805555555555555, 0.03640914997032916]
+2026-11-07T17:23:34.217011+00:00 general_no_history: evaluations retained=1
+2026-11-07T17:23:35.549283+00:00 general_no_history: evaluations retained=4
+2026-11-07T17:23:37.877296+00:00 general_no_history: evaluations retained=8
+2026-11-07T17:23:41.006017+00:00 general_no_history: evaluations retained=12
+2026-11-07T17:23:44.020976+00:00 general_no_history: evaluations retained=16
+2026-11-07T17:23:46.258616+00:00 general_no_history: evaluations retained=20
+2026-11-07T17:23:48.231984+00:00 general_no_history: evaluations retained=24
+2026-11-07T17:23:49.759750+00:00 general_no_history: evaluations retained=27
+2026-11-07T17:23:52.740558+00:00 general_no_history: evaluations retained=31
+2026-11-07T17:23:55.704323+00:00 general_no_history: evaluations retained=35
+2026-11-07T17:23:57.816466+00:00 general_no_history: evaluations retained=39
+2026-11-07T17:24:00.306480+00:00 general_no_history: evaluations retained=7
+2026-11-07T17:24:00.306863+00:00 general_no_history: {'kind': 'weighted', 'weights': {'lift0': 1.0, 'residual_content': 0.25}} tuning [0.03833333333333333, 0.022370786824764]
+2026-11-07T17:24:01.661093+00:00 raw_no_history: evaluations retained=1
+2026-11-07T17:24:03.083038+00:00 raw_no_history: evaluations retained=4
+2026-11-07T17:24:06.129285+00:00 raw_no_history: evaluations retained=8
+2026-11-07T17:24:08.832113+00:00 raw_no_history: evaluations retained=12
+2026-11-07T17:24:11.076737+00:00 raw_no_history: evaluations retained=16
+2026-11-07T17:24:13.155764+00:00 raw_no_history: evaluations retained=20
+2026-11-07T17:24:16.501992+00:00 raw_no_history: evaluations retained=24
+2026-11-07T17:24:19.476754+00:00 raw_no_history: evaluations retained=28
+2026-11-07T17:24:21.695980+00:00 raw_no_history: evaluations retained=7
+2026-11-07T17:24:21.696365+00:00 raw_no_history: {'kind': 'weighted', 'weights': {'raw_content': 0.25, 'pop': 1.5}} tuning [0.016388888888888887, 0.009183115184996704]
+2026-11-07T17:24:21.696757+00:00 SELECTION FROZEN; scoring test queries
+2026-11-07T17:24:30.234029+00:00 test 200/3995
+2026-11-07T17:24:38.418044+00:00 test 400/3995
+2026-11-07T17:24:46.625401+00:00 test 600/3995
+2026-11-07T17:24:55.707524+00:00 test 800/3995
+2026-11-07T17:25:03.977154+00:00 test 1000/3995
+2026-11-07T17:25:12.907211+00:00 test 1200/3995
+2026-11-07T17:25:22.153050+00:00 test 1400/3995
+2026-11-07T17:25:32.182583+00:00 test 1600/3995
+2026-11-07T17:25:42.352625+00:00 test 1800/3995
+2026-11-07T17:25:52.851015+00:00 test 2000/3995
+2026-11-07T17:26:03.346560+00:00 test 2200/3995
+2026-11-07T17:26:14.097129+00:00 test 2400/3995
+2026-11-07T17:26:24.993368+00:00 test 2600/3995
+2026-11-07T17:26:36.035724+00:00 test 2800/3995
+2026-11-07T17:26:46.949487+00:00 test 3000/3995
+2026-11-07T17:26:58.348264+00:00 test 3200/3995
+2026-11-07T17:27:10.074435+00:00 test 3400/3995
+2026-11-07T17:27:21.041592+00:00 test 3600/3995
+2026-11-07T17:27:32.204410+00:00 test 3800/3995
+2026-11-07T17:27:43.279350+00:00 arms COMPLETE {"general": [0.053, 0.0369], "raw": [0.0285, 0.0198], "base": [0.03, 0.0199], "shuf0": [0.0447, 0.0306], "shuf1": [0.044, 0.0305], "shuf2": [0.0453, 0.0307], "lift_only": [0.0382, 0.0235], "residual_only": [0.0453, 0.0307], "identity": [0.0453, 0.0307], "off_diagonal": [0.0495, 0.0342], "general_no_history": [0.0383, 0.0231], "raw_no_history": [0.0154, 0.007]}
+2026-11-07T17:27:43.279372+00:00 COMPLETE

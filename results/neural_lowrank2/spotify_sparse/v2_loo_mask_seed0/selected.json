@@ -1,0 +1,35 @@
+{
+  "arm": "loo_mask",
+  "config": {
+    "epochs": 100,
+    "batch": 32,
+    "eval_every": 2,
+    "patience": 6,
+    "shared_lr": 0.001,
+    "group_lr": 0.01,
+    "weight_decay": 0.001,
+    "rank": 64,
+    "group_rank": 16,
+    "hidden": 32,
+    "group_match": true,
+    "popularity": true,
+    "use_album": true
+  },
+  "seed": 0,
+  "checkpoint": "checkpoints/neural_lowrank2/spotify_sparse/v2_loo_mask_seed0/epoch_0006.pt",
+  "best_epoch": 6,
+  "epochs_run": 18,
+  "validation": {
+    "recall20": 0.15090696308026672,
+    "ndcg20": 0.21450074359844448,
+    "seconds": 17.022764249995816
+  },
+  "parameters": {
+    "trainable_parameters": 1420676,
+    "group_parameters": 1377248,
+    "pair_function_parameters": 81,
+    "observed_directed_pairs": 27319480,
+    "frozen_buffer_bytes": 554854607
+  },
+  "elapsed": 4525.924603583
+}

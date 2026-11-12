@@ -1,0 +1,37 @@
+{
+  "config": {
+    "kind": "gate",
+    "weights": {
+      "same0": 0.25,
+      "same1": 0.25,
+      "residual_audio": 1.5,
+      "pop": 1.0,
+      "pair": 0.25
+    },
+    "prior_weights": {
+      "same0": 0.25,
+      "same1": 0.25,
+      "residual_audio": 1.5,
+      "pop": 1.0
+    },
+    "scale": 1.0325332480124456,
+    "kappa": 1.0
+  },
+  "tuning_metrics": [
+    0.1457561266844174,
+    0.21184689111238234
+  ],
+  "keys": [
+    "same0",
+    "same1",
+    "residual_audio",
+    "pop",
+    "pair",
+    "simp",
+    "amp"
+  ],
+  "history": "simp",
+  "alpha": 1.0,
+  "seconds": 122.89673720800783,
+  "fitting_candidates": 67
+}

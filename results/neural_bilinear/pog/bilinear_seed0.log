@@ -1,0 +1,274 @@
+2026-11-07T21:16:07Z pog: loading supplied splits and released item features
+2026-11-07T21:16:11Z pog: reusing retained attribute projection (48676, 128)
+2026-11-07T21:16:12Z bilinear seed=0 parameters={'trainable_parameters': 179395, 'pair_parameters': 138274, 'joint_parameters': 0, 'category_parameters': 0, 'frozen_buffer_bytes': 27523976} start_epoch=1
+2026-11-07T21:16:18Z bilinear seed=0 epoch=1 batches=50/438 loss=10.46309
+2026-11-07T21:16:25Z bilinear seed=0 epoch=1 batches=100/438 loss=9.94014
+2026-11-07T21:16:31Z bilinear seed=0 epoch=1 batches=150/438 loss=9.53992
+2026-11-07T21:16:37Z bilinear seed=0 epoch=1 batches=200/438 loss=9.49042
+2026-11-07T21:16:43Z bilinear seed=0 epoch=1 batches=250/438 loss=9.22223
+2026-11-07T21:16:50Z bilinear seed=0 epoch=1 batches=300/438 loss=8.91518
+2026-11-07T21:16:57Z bilinear seed=0 epoch=1 batches=350/438 loss=7.77423
+2026-11-07T21:17:04Z bilinear seed=0 epoch=1 batches=400/438 loss=7.48250
+2026-11-07T21:17:09Z bilinear seed=0 epoch=1 loss=9.21936
+2026-11-07T21:17:16Z bilinear seed=0 epoch=2 batches=50/438 loss=6.08013
+2026-11-07T21:17:22Z bilinear seed=0 epoch=2 batches=100/438 loss=7.29022
+2026-11-07T21:17:29Z bilinear seed=0 epoch=2 batches=150/438 loss=5.45872
+2026-11-07T21:17:35Z bilinear seed=0 epoch=2 batches=200/438 loss=6.02071
+2026-11-07T21:17:41Z bilinear seed=0 epoch=2 batches=250/438 loss=6.63062
+2026-11-07T21:17:48Z bilinear seed=0 epoch=2 batches=300/438 loss=6.22184
+2026-11-07T21:17:54Z bilinear seed=0 epoch=2 batches=350/438 loss=5.92297
+2026-11-07T21:18:00Z bilinear seed=0 epoch=2 batches=400/438 loss=5.60207
+2026-11-07T21:18:08Z bilinear seed=0 epoch=2 loss=6.16129 VAL R20=0.016667 N20=0.010761 best_epoch=2 patience=0/6
+2026-11-07T21:18:15Z bilinear seed=0 epoch=3 batches=50/438 loss=6.20473
+2026-11-07T21:18:21Z bilinear seed=0 epoch=3 batches=100/438 loss=5.12692
+2026-11-07T21:18:28Z bilinear seed=0 epoch=3 batches=150/438 loss=5.40868
+2026-11-07T21:18:35Z bilinear seed=0 epoch=3 batches=200/438 loss=5.27458
+2026-11-07T21:18:43Z bilinear seed=0 epoch=3 batches=250/438 loss=5.37533
+2026-11-07T21:18:50Z bilinear seed=0 epoch=3 batches=300/438 loss=5.74664
+2026-11-07T21:18:57Z bilinear seed=0 epoch=3 batches=350/438 loss=5.14668
+2026-11-07T21:19:04Z bilinear seed=0 epoch=3 batches=400/438 loss=4.66650
+2026-11-07T21:19:10Z bilinear seed=0 epoch=3 loss=5.34326
+2026-11-07T21:19:18Z bilinear seed=0 epoch=4 batches=50/438 loss=5.52906
+2026-11-07T21:19:26Z bilinear seed=0 epoch=4 batches=100/438 loss=5.31015
+2026-11-07T21:19:34Z bilinear seed=0 epoch=4 batches=150/438 loss=6.03530
+2026-11-07T21:19:43Z bilinear seed=0 epoch=4 batches=200/438 loss=5.42284
+2026-11-07T21:19:51Z bilinear seed=0 epoch=4 batches=250/438 loss=6.06981
+2026-11-07T21:20:00Z bilinear seed=0 epoch=4 batches=300/438 loss=5.71395
+2026-11-07T21:20:09Z bilinear seed=0 epoch=4 batches=350/438 loss=5.61741
+2026-11-07T21:20:17Z bilinear seed=0 epoch=4 batches=400/438 loss=6.48507
+2026-11-07T21:20:27Z bilinear seed=0 epoch=4 loss=5.09445 VAL R20=0.025333 N20=0.015978 best_epoch=4 patience=0/6
+2026-11-07T21:20:36Z bilinear seed=0 epoch=5 batches=50/438 loss=5.77885
+2026-11-07T21:20:44Z bilinear seed=0 epoch=5 batches=100/438 loss=5.07106
+2026-11-07T21:20:53Z bilinear seed=0 epoch=5 batches=150/438 loss=4.32036
+2026-11-07T21:21:02Z bilinear seed=0 epoch=5 batches=200/438 loss=5.17085
+2026-11-07T21:21:10Z bilinear seed=0 epoch=5 batches=250/438 loss=5.82492
+2026-11-07T21:21:18Z bilinear seed=0 epoch=5 batches=300/438 loss=5.12769
+2026-11-07T21:21:25Z bilinear seed=0 epoch=5 batches=350/438 loss=4.90750
+2026-11-07T21:21:32Z bilinear seed=0 epoch=5 batches=400/438 loss=3.28465
+2026-11-07T21:21:38Z bilinear seed=0 epoch=5 loss=4.94038
+2026-11-07T21:21:45Z bilinear seed=0 epoch=6 batches=50/438 loss=5.28459
+2026-11-07T21:21:53Z bilinear seed=0 epoch=6 batches=100/438 loss=4.04934
+2026-11-07T21:22:01Z bilinear seed=0 epoch=6 batches=150/438 loss=4.04851
+2026-11-07T21:22:07Z bilinear seed=0 epoch=6 batches=200/438 loss=5.41016
+2026-11-07T21:22:14Z bilinear seed=0 epoch=6 batches=250/438 loss=4.70944
+2026-11-07T21:22:21Z bilinear seed=0 epoch=6 batches=300/438 loss=3.74375
+2026-11-07T21:22:28Z bilinear seed=0 epoch=6 batches=350/438 loss=5.94248
+2026-11-07T21:22:35Z bilinear seed=0 epoch=6 batches=400/438 loss=3.42948
+2026-11-07T21:22:43Z bilinear seed=0 epoch=6 loss=4.86542 VAL R20=0.027417 N20=0.018358 best_epoch=6 patience=0/6
+2026-11-07T21:22:50Z bilinear seed=0 epoch=7 batches=50/438 loss=4.56316
+2026-11-07T21:22:58Z bilinear seed=0 epoch=7 batches=100/438 loss=3.47349
+2026-11-07T21:23:04Z bilinear seed=0 epoch=7 batches=150/438 loss=5.13585
+2026-11-07T21:23:11Z bilinear seed=0 epoch=7 batches=200/438 loss=4.81422
+2026-11-07T21:23:19Z bilinear seed=0 epoch=7 batches=250/438 loss=4.12939
+2026-11-07T21:23:26Z bilinear seed=0 epoch=7 batches=300/438 loss=6.16118
+2026-11-07T21:23:33Z bilinear seed=0 epoch=7 batches=350/438 loss=4.40976
+2026-11-07T21:23:41Z bilinear seed=0 epoch=7 batches=400/438 loss=3.93880
+2026-11-07T21:23:45Z bilinear seed=0 epoch=7 loss=4.74819
+2026-11-07T21:23:53Z bilinear seed=0 epoch=8 batches=50/438 loss=5.51796
+2026-11-07T21:23:59Z bilinear seed=0 epoch=8 batches=100/438 loss=4.95396
+2026-11-07T21:24:06Z bilinear seed=0 epoch=8 batches=150/438 loss=4.59723
+2026-11-07T21:24:13Z bilinear seed=0 epoch=8 batches=200/438 loss=4.45811
+2026-11-07T21:24:21Z bilinear seed=0 epoch=8 batches=250/438 loss=5.42146
+2026-11-07T21:24:28Z bilinear seed=0 epoch=8 batches=300/438 loss=5.06481
+2026-11-07T21:24:35Z bilinear seed=0 epoch=8 batches=350/438 loss=5.65815
+2026-11-07T21:24:41Z bilinear seed=0 epoch=8 batches=400/438 loss=5.83922
+2026-11-07T21:24:50Z bilinear seed=0 epoch=8 loss=4.69935 VAL R20=0.028917 N20=0.018715 best_epoch=8 patience=0/6
+2026-11-07T21:24:57Z bilinear seed=0 epoch=9 batches=50/438 loss=5.26976
+2026-11-07T21:25:05Z bilinear seed=0 epoch=9 batches=100/438 loss=4.31748
+2026-11-07T21:25:11Z bilinear seed=0 epoch=9 batches=150/438 loss=4.53822
+2026-11-07T21:25:18Z bilinear seed=0 epoch=9 batches=200/438 loss=3.75332
+2026-11-07T21:25:24Z bilinear seed=0 epoch=9 batches=250/438 loss=4.52463
+2026-11-07T21:25:31Z bilinear seed=0 epoch=9 batches=300/438 loss=4.72097
+2026-11-07T21:25:38Z bilinear seed=0 epoch=9 batches=350/438 loss=4.22899
+2026-11-07T21:25:45Z bilinear seed=0 epoch=9 batches=400/438 loss=3.99388
+2026-11-07T21:25:51Z bilinear seed=0 epoch=9 loss=4.65377
+2026-11-07T21:25:58Z bilinear seed=0 epoch=10 batches=50/438 loss=4.54951
+2026-11-07T21:26:05Z bilinear seed=0 epoch=10 batches=100/438 loss=4.64107
+2026-11-07T21:26:12Z bilinear seed=0 epoch=10 batches=150/438 loss=4.91967
+2026-11-07T21:26:19Z bilinear seed=0 epoch=10 batches=200/438 loss=5.21050
+2026-11-07T21:26:26Z bilinear seed=0 epoch=10 batches=250/438 loss=5.45936
+2026-11-07T21:26:34Z bilinear seed=0 epoch=10 batches=300/438 loss=5.31414
+2026-11-07T21:26:41Z bilinear seed=0 epoch=10 batches=350/438 loss=4.49933
+2026-11-07T21:26:49Z bilinear seed=0 epoch=10 batches=400/438 loss=5.60809
+2026-11-07T21:26:58Z bilinear seed=0 epoch=10 loss=4.66699 VAL R20=0.029583 N20=0.020253 best_epoch=10 patience=0/6
+2026-11-07T21:27:06Z bilinear seed=0 epoch=11 batches=50/438 loss=4.82109
+2026-11-07T21:27:13Z bilinear seed=0 epoch=11 batches=100/438 loss=3.88509
+2026-11-07T21:27:20Z bilinear seed=0 epoch=11 batches=150/438 loss=4.47105
+2026-11-07T21:27:27Z bilinear seed=0 epoch=11 batches=200/438 loss=4.30785
+2026-11-07T21:27:35Z bilinear seed=0 epoch=11 batches=250/438 loss=5.54890
+2026-11-07T21:27:42Z bilinear seed=0 epoch=11 batches=300/438 loss=4.03844
+2026-11-07T21:27:49Z bilinear seed=0 epoch=11 batches=350/438 loss=4.46624
+2026-11-07T21:27:56Z bilinear seed=0 epoch=11 batches=400/438 loss=5.53475
+2026-11-07T21:28:01Z bilinear seed=0 epoch=11 loss=4.50629
+2026-11-07T21:28:07Z bilinear seed=0 epoch=12 batches=50/438 loss=4.25400
+2026-11-07T21:28:15Z bilinear seed=0 epoch=12 batches=100/438 loss=3.68018
+2026-11-07T21:28:22Z bilinear seed=0 epoch=12 batches=150/438 loss=3.53701
+2026-11-07T21:28:29Z bilinear seed=0 epoch=12 batches=200/438 loss=3.75262
+2026-11-07T21:28:35Z bilinear seed=0 epoch=12 batches=250/438 loss=3.97721
+2026-11-07T21:28:42Z bilinear seed=0 epoch=12 batches=300/438 loss=4.56694
+2026-11-07T21:28:50Z bilinear seed=0 epoch=12 batches=350/438 loss=3.79851
+2026-11-07T21:28:57Z bilinear seed=0 epoch=12 batches=400/438 loss=3.96868
+2026-11-07T21:29:06Z bilinear seed=0 epoch=12 loss=4.51946 VAL R20=0.029667 N20=0.020821 best_epoch=12 patience=0/6
+2026-11-07T21:29:13Z bilinear seed=0 epoch=13 batches=50/438 loss=5.33858
+2026-11-07T21:29:21Z bilinear seed=0 epoch=13 batches=100/438 loss=5.30665
+2026-11-07T21:29:28Z bilinear seed=0 epoch=13 batches=150/438 loss=4.31545
+2026-11-07T21:29:35Z bilinear seed=0 epoch=13 batches=200/438 loss=4.11469
+2026-11-07T21:29:43Z bilinear seed=0 epoch=13 batches=250/438 loss=3.63846
+2026-11-07T21:29:50Z bilinear seed=0 epoch=13 batches=300/438 loss=5.89303
+2026-11-07T21:29:57Z bilinear seed=0 epoch=13 batches=350/438 loss=3.18071
+2026-11-07T21:30:04Z bilinear seed=0 epoch=13 batches=400/438 loss=4.72584
+2026-11-07T21:30:10Z bilinear seed=0 epoch=13 loss=4.48651
+2026-11-07T21:30:17Z bilinear seed=0 epoch=14 batches=50/438 loss=5.52483
+2026-11-07T21:30:25Z bilinear seed=0 epoch=14 batches=100/438 loss=3.69831
+2026-11-07T21:30:32Z bilinear seed=0 epoch=14 batches=150/438 loss=3.57847
+2026-11-07T21:30:39Z bilinear seed=0 epoch=14 batches=200/438 loss=5.35996
+2026-11-07T21:30:47Z bilinear seed=0 epoch=14 batches=250/438 loss=4.19236
+2026-11-07T21:30:54Z bilinear seed=0 epoch=14 batches=300/438 loss=4.78533
+2026-11-07T21:31:01Z bilinear seed=0 epoch=14 batches=350/438 loss=5.01197
+2026-11-07T21:31:09Z bilinear seed=0 epoch=14 batches=400/438 loss=4.68728
+2026-11-07T21:31:17Z bilinear seed=0 epoch=14 loss=4.50851 VAL R20=0.034083 N20=0.021694 best_epoch=14 patience=0/6
+2026-11-07T21:31:24Z bilinear seed=0 epoch=15 batches=50/438 loss=4.28879
+2026-11-07T21:31:32Z bilinear seed=0 epoch=15 batches=100/438 loss=4.38122
+2026-11-07T21:31:38Z bilinear seed=0 epoch=15 batches=150/438 loss=4.66244
+2026-11-07T21:31:44Z bilinear seed=0 epoch=15 batches=200/438 loss=4.49297
+2026-11-07T21:31:51Z bilinear seed=0 epoch=15 batches=250/438 loss=4.21998
+2026-11-07T21:31:58Z bilinear seed=0 epoch=15 batches=300/438 loss=3.98811
+2026-11-07T21:32:05Z bilinear seed=0 epoch=15 batches=350/438 loss=4.05815
+2026-11-07T21:32:11Z bilinear seed=0 epoch=15 batches=400/438 loss=5.22080
+2026-11-07T21:32:17Z bilinear seed=0 epoch=15 loss=4.42612
+2026-11-07T21:32:23Z bilinear seed=0 epoch=16 batches=50/438 loss=3.76842
+2026-11-07T21:32:30Z bilinear seed=0 epoch=16 batches=100/438 loss=4.26808
+2026-11-07T21:32:37Z bilinear seed=0 epoch=16 batches=150/438 loss=3.07123
+2026-11-07T21:32:44Z bilinear seed=0 epoch=16 batches=200/438 loss=3.79211
+2026-11-07T21:32:51Z bilinear seed=0 epoch=16 batches=250/438 loss=4.64438
+2026-11-07T21:32:57Z bilinear seed=0 epoch=16 batches=300/438 loss=3.80576
+2026-11-07T21:33:04Z bilinear seed=0 epoch=16 batches=350/438 loss=3.63805
+2026-11-07T21:33:11Z bilinear seed=0 epoch=16 batches=400/438 loss=3.91700
+2026-11-07T21:33:19Z bilinear seed=0 epoch=16 loss=4.39782 VAL R20=0.033833 N20=0.022222 best_epoch=16 patience=0/6
+2026-11-07T21:33:27Z bilinear seed=0 epoch=17 batches=50/438 loss=4.73383
+2026-11-07T21:33:34Z bilinear seed=0 epoch=17 batches=100/438 loss=3.72044
+2026-11-07T21:33:40Z bilinear seed=0 epoch=17 batches=150/438 loss=4.50832
+2026-11-07T21:33:47Z bilinear seed=0 epoch=17 batches=200/438 loss=4.31234
+2026-11-07T21:33:55Z bilinear seed=0 epoch=17 batches=250/438 loss=4.10233
+2026-11-07T21:34:02Z bilinear seed=0 epoch=17 batches=300/438 loss=5.38080
+2026-11-07T21:34:09Z bilinear seed=0 epoch=17 batches=350/438 loss=4.12117
+2026-11-07T21:34:16Z bilinear seed=0 epoch=17 batches=400/438 loss=4.59876
+2026-11-07T21:34:21Z bilinear seed=0 epoch=17 loss=4.32816
+2026-11-07T21:34:27Z bilinear seed=0 epoch=18 batches=50/438 loss=4.85440
+2026-11-07T21:34:34Z bilinear seed=0 epoch=18 batches=100/438 loss=4.56133
+2026-11-07T21:34:42Z bilinear seed=0 epoch=18 batches=150/438 loss=3.87913
+2026-11-07T21:34:48Z bilinear seed=0 epoch=18 batches=200/438 loss=4.79065
+2026-11-07T21:34:56Z bilinear seed=0 epoch=18 batches=250/438 loss=5.23832
+2026-11-07T21:35:03Z bilinear seed=0 epoch=18 batches=300/438 loss=3.68207
+2026-11-07T21:35:10Z bilinear seed=0 epoch=18 batches=350/438 loss=3.69165
+2026-11-07T21:35:18Z bilinear seed=0 epoch=18 batches=400/438 loss=3.93569
+2026-11-07T21:35:27Z bilinear seed=0 epoch=18 loss=4.40671 VAL R20=0.033500 N20=0.022677 best_epoch=18 patience=0/6
+2026-11-07T21:35:33Z bilinear seed=0 epoch=19 batches=50/438 loss=3.74571
+2026-11-07T21:35:41Z bilinear seed=0 epoch=19 batches=100/438 loss=4.86334
+2026-11-07T21:35:49Z bilinear seed=0 epoch=19 batches=150/438 loss=4.50710
+2026-11-07T21:35:55Z bilinear seed=0 epoch=19 batches=200/438 loss=3.47752
+2026-11-07T21:36:02Z bilinear seed=0 epoch=19 batches=250/438 loss=3.78508
+2026-11-07T21:36:08Z bilinear seed=0 epoch=19 batches=300/438 loss=4.28943
+2026-11-07T21:36:15Z bilinear seed=0 epoch=19 batches=350/438 loss=4.04248
+2026-11-07T21:36:22Z bilinear seed=0 epoch=19 batches=400/438 loss=5.94043
+2026-11-07T21:36:28Z bilinear seed=0 epoch=19 loss=4.32502
+2026-11-07T21:36:35Z bilinear seed=0 epoch=20 batches=50/438 loss=3.62176
+2026-11-07T21:36:43Z bilinear seed=0 epoch=20 batches=100/438 loss=5.49629
+2026-11-07T21:36:49Z bilinear seed=0 epoch=20 batches=150/438 loss=3.79882
+2026-11-07T21:36:56Z bilinear seed=0 epoch=20 batches=200/438 loss=5.39343
+2026-11-07T21:37:03Z bilinear seed=0 epoch=20 batches=250/438 loss=3.78204
+2026-11-07T21:37:09Z bilinear seed=0 epoch=20 batches=300/438 loss=4.60608
+2026-11-07T21:37:16Z bilinear seed=0 epoch=20 batches=350/438 loss=2.71739
+2026-11-07T21:37:23Z bilinear seed=0 epoch=20 batches=400/438 loss=4.88283
+2026-11-07T21:37:31Z bilinear seed=0 epoch=20 loss=4.34197 VAL R20=0.033083 N20=0.021238 best_epoch=18 patience=1/6
+2026-11-07T21:37:37Z bilinear seed=0 epoch=21 batches=50/438 loss=3.59945
+2026-11-07T21:37:44Z bilinear seed=0 epoch=21 batches=100/438 loss=5.41369
+2026-11-07T21:37:51Z bilinear seed=0 epoch=21 batches=150/438 loss=4.60806
+2026-11-07T21:37:58Z bilinear seed=0 epoch=21 batches=200/438 loss=5.03369
+2026-11-07T21:38:04Z bilinear seed=0 epoch=21 batches=250/438 loss=4.53854
+2026-11-07T21:38:11Z bilinear seed=0 epoch=21 batches=300/438 loss=3.53706
+2026-11-07T21:38:18Z bilinear seed=0 epoch=21 batches=350/438 loss=4.15860
+2026-11-07T21:38:25Z bilinear seed=0 epoch=21 batches=400/438 loss=4.06094
+2026-11-07T21:38:29Z bilinear seed=0 epoch=21 loss=4.29551
+2026-11-07T21:38:36Z bilinear seed=0 epoch=22 batches=50/438 loss=5.26006
+2026-11-07T21:38:44Z bilinear seed=0 epoch=22 batches=100/438 loss=4.51294
+2026-11-07T21:38:51Z bilinear seed=0 epoch=22 batches=150/438 loss=4.67615
+2026-11-07T21:38:58Z bilinear seed=0 epoch=22 batches=200/438 loss=4.15735
+2026-11-07T21:39:04Z bilinear seed=0 epoch=22 batches=250/438 loss=4.10836
+2026-11-07T21:39:11Z bilinear seed=0 epoch=22 batches=300/438 loss=4.25539
+2026-11-07T21:39:18Z bilinear seed=0 epoch=22 batches=350/438 loss=3.63619
+2026-11-07T21:39:25Z bilinear seed=0 epoch=22 batches=400/438 loss=3.16354
+2026-11-07T21:39:34Z bilinear seed=0 epoch=22 loss=4.32651 VAL R20=0.033583 N20=0.021853 best_epoch=18 patience=2/6
+2026-11-07T21:39:41Z bilinear seed=0 epoch=23 batches=50/438 loss=4.49052
+2026-11-07T21:39:47Z bilinear seed=0 epoch=23 batches=100/438 loss=3.76830
+2026-11-07T21:39:55Z bilinear seed=0 epoch=23 batches=150/438 loss=4.86059
+2026-11-07T21:40:02Z bilinear seed=0 epoch=23 batches=200/438 loss=5.48171
+2026-11-07T21:40:09Z bilinear seed=0 epoch=23 batches=250/438 loss=3.56567
+2026-11-07T21:40:15Z bilinear seed=0 epoch=23 batches=300/438 loss=4.01994
+2026-11-07T21:40:22Z bilinear seed=0 epoch=23 batches=350/438 loss=4.46671
+2026-11-07T21:40:29Z bilinear seed=0 epoch=23 batches=400/438 loss=4.68084
+2026-11-07T21:40:34Z bilinear seed=0 epoch=23 loss=4.34316
+2026-11-07T21:40:41Z bilinear seed=0 epoch=24 batches=50/438 loss=5.64489
+2026-11-07T21:40:48Z bilinear seed=0 epoch=24 batches=100/438 loss=4.79574
+2026-11-07T21:40:54Z bilinear seed=0 epoch=24 batches=150/438 loss=4.99249
+2026-11-07T21:41:01Z bilinear seed=0 epoch=24 batches=200/438 loss=3.90573
+2026-11-07T21:41:07Z bilinear seed=0 epoch=24 batches=250/438 loss=3.41416
+2026-11-07T21:41:13Z bilinear seed=0 epoch=24 batches=300/438 loss=4.40151
+2026-11-07T21:41:20Z bilinear seed=0 epoch=24 batches=350/438 loss=3.17250
+2026-11-07T21:41:26Z bilinear seed=0 epoch=24 batches=400/438 loss=4.80595
+2026-11-07T21:41:34Z bilinear seed=0 epoch=24 loss=4.27001 VAL R20=0.031833 N20=0.020884 best_epoch=18 patience=3/6
+2026-11-07T21:41:40Z bilinear seed=0 epoch=25 batches=50/438 loss=4.23472
+2026-11-07T21:41:47Z bilinear seed=0 epoch=25 batches=100/438 loss=3.76334
+2026-11-07T21:41:53Z bilinear seed=0 epoch=25 batches=150/438 loss=4.66028
+2026-11-07T21:42:00Z bilinear seed=0 epoch=25 batches=200/438 loss=5.20318
+2026-11-07T21:42:06Z bilinear seed=0 epoch=25 batches=250/438 loss=4.11985
+2026-11-07T21:42:12Z bilinear seed=0 epoch=25 batches=300/438 loss=3.65687
+2026-11-07T21:42:19Z bilinear seed=0 epoch=25 batches=350/438 loss=3.02294
+2026-11-07T21:42:26Z bilinear seed=0 epoch=25 batches=400/438 loss=4.67662
+2026-11-07T21:42:31Z bilinear seed=0 epoch=25 loss=4.28721
+2026-11-07T21:42:37Z bilinear seed=0 epoch=26 batches=50/438 loss=3.20817
+2026-11-07T21:42:43Z bilinear seed=0 epoch=26 batches=100/438 loss=5.10040
+2026-11-07T21:42:50Z bilinear seed=0 epoch=26 batches=150/438 loss=3.04880
+2026-11-07T21:42:56Z bilinear seed=0 epoch=26 batches=200/438 loss=3.75742
+2026-11-07T21:43:02Z bilinear seed=0 epoch=26 batches=250/438 loss=4.08809
+2026-11-07T21:43:09Z bilinear seed=0 epoch=26 batches=300/438 loss=4.75084
+2026-11-07T21:43:15Z bilinear seed=0 epoch=26 batches=350/438 loss=4.85213
+2026-11-07T21:43:22Z bilinear seed=0 epoch=26 batches=400/438 loss=5.37980
+2026-11-07T21:43:30Z bilinear seed=0 epoch=26 loss=4.23201 VAL R20=0.034250 N20=0.021173 best_epoch=18 patience=4/6
+2026-11-07T21:43:36Z bilinear seed=0 epoch=27 batches=50/438 loss=2.88712
+2026-11-07T21:43:43Z bilinear seed=0 epoch=27 batches=100/438 loss=4.92522
+2026-11-07T21:43:49Z bilinear seed=0 epoch=27 batches=150/438 loss=3.17919
+2026-11-07T21:43:55Z bilinear seed=0 epoch=27 batches=200/438 loss=5.05364
+2026-11-07T21:44:02Z bilinear seed=0 epoch=27 batches=250/438 loss=4.38505
+2026-11-07T21:44:07Z bilinear seed=0 epoch=27 batches=300/438 loss=2.99778
+2026-11-07T21:44:13Z bilinear seed=0 epoch=27 batches=350/438 loss=4.51043
+2026-11-07T21:44:19Z bilinear seed=0 epoch=27 batches=400/438 loss=4.40645
+2026-11-07T21:44:23Z bilinear seed=0 epoch=27 loss=4.30268
+2026-11-07T21:44:29Z bilinear seed=0 epoch=28 batches=50/438 loss=4.12994
+2026-11-07T21:44:34Z bilinear seed=0 epoch=28 batches=100/438 loss=4.21706
+2026-11-07T21:44:40Z bilinear seed=0 epoch=28 batches=150/438 loss=3.90503
+2026-11-07T21:44:46Z bilinear seed=0 epoch=28 batches=200/438 loss=3.60760
+2026-11-07T21:44:52Z bilinear seed=0 epoch=28 batches=250/438 loss=4.50745
+2026-11-07T21:44:57Z bilinear seed=0 epoch=28 batches=300/438 loss=6.03029
+2026-11-07T21:45:03Z bilinear seed=0 epoch=28 batches=350/438 loss=4.44864
+2026-11-07T21:45:08Z bilinear seed=0 epoch=28 batches=400/438 loss=4.59603
+2026-11-07T21:45:14Z bilinear seed=0 epoch=28 loss=4.22361 VAL R20=0.031583 N20=0.020701 best_epoch=18 patience=5/6
+2026-11-07T21:45:19Z bilinear seed=0 epoch=29 batches=50/438 loss=4.35715
+2026-11-07T21:45:23Z bilinear seed=0 epoch=29 batches=100/438 loss=5.48303
+2026-11-07T21:45:28Z bilinear seed=0 epoch=29 batches=150/438 loss=4.20310
+2026-11-07T21:45:33Z bilinear seed=0 epoch=29 batches=200/438 loss=2.65676
+2026-11-07T21:45:37Z bilinear seed=0 epoch=29 batches=250/438 loss=4.12260
+2026-11-07T21:45:42Z bilinear seed=0 epoch=29 batches=300/438 loss=4.22902
+2026-11-07T21:45:47Z bilinear seed=0 epoch=29 batches=350/438 loss=4.49565
+2026-11-07T21:45:52Z bilinear seed=0 epoch=29 batches=400/438 loss=4.99476
+2026-11-07T21:45:56Z bilinear seed=0 epoch=29 loss=4.21250
+2026-11-07T21:46:02Z bilinear seed=0 epoch=30 batches=50/438 loss=4.17228
+2026-11-07T21:46:07Z bilinear seed=0 epoch=30 batches=100/438 loss=3.87859
+2026-11-07T21:46:12Z bilinear seed=0 epoch=30 batches=150/438 loss=4.82874
+2026-11-07T21:46:17Z bilinear seed=0 epoch=30 batches=200/438 loss=5.22407
+2026-11-07T21:46:21Z bilinear seed=0 epoch=30 batches=250/438 loss=3.42289
+2026-11-07T21:46:26Z bilinear seed=0 epoch=30 batches=300/438 loss=3.68362
+2026-11-07T21:46:31Z bilinear seed=0 epoch=30 batches=350/438 loss=2.79794
+2026-11-07T21:46:35Z bilinear seed=0 epoch=30 batches=400/438 loss=5.19954
+2026-11-07T21:46:39Z bilinear seed=0 epoch=30 loss=4.24177 VAL R20=0.032083 N20=0.020722 best_epoch=18 patience=6/6
+2026-11-07T21:46:41Z pog bilinear_seed0 COMPLETE

@@ -1,0 +1,22 @@
+{
+ "note": "Training and inference time of CLHE and RaMen on POG, on CPU, with their own code (companion of run.py).\n\nRuns in the RaMen environment, from the model's repository:\ncd ../baselines/CLHE && ../RaMen_repo/.venv/bin/python ../../bundlefuse/experiments/timing/neural.py --model clhe --threads 4\ncd ../baselines/RaMen_repo && .venv/bin/python ../../bundlefuse/experiments/timing/neural.py --model ramen --threads 4\n\nSettings: CLHE with the POG preset of its run.sh and the pog block of config.yaml (as in ramen_retail/clhe_runner.py);\nRaMen with the pog block of its config.yaml and the settings of its timing_cpu.py (4 GAT layers, gamma 1). --epochs\ntraining epochs are timed, each with a validation pass as in our runners; the reported total multiplies by the epochs\nof our CLHE POG runs (fixed 50) and by RaMen's configured 200 (never trained on POG by us). Inference: propagate()\nplus scoring and ranking the whole catalogue for every test query, per query.\n",
+ "model": "clhe",
+ "threads": 4,
+ "setup_seconds": 0.23205224999999996,
+ "epochs_timed": [
+  {
+   "train": 98.850347125,
+   "with_validation": 99.87455525
+  },
+  {
+   "train": 103.44559145800001,
+   "with_validation": 104.434391333
+  }
+ ],
+ "seconds_per_epoch_with_validation": 102.1544732915,
+ "epochs_assumed": 50,
+ "fit_seconds": 5107.955716825,
+ "inference_ms_per_query": 0.5310705522500001,
+ "test_queries": 4000,
+ "parameters": 9483200
+}

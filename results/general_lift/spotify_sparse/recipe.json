@@ -1,0 +1,23 @@
+{
+  "weights": {
+    "simp": 1.0,
+    "homo": 1.5,
+    "audiostyle": 1.5
+  },
+  "prior_keys": [
+    "homo",
+    "audiostyle"
+  ],
+  "backoff": [
+    0.05,
+    1.1623643722388657
+  ],
+  "higher_order": [
+    0.0,
+    0.35
+  ],
+  "filtered_test": [
+    0.15396847400471853,
+    0.22160000508092825
+  ]
+}

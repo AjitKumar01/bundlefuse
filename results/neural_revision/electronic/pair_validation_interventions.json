@@ -1,0 +1,41 @@
+{
+  "scope": "Post-hoc validation-only scorer interventions, not new frozen test models.",
+  "statistics": {
+    "category_weights": {
+      "min": -6.995083808898926,
+      "max": 4.298489093780518,
+      "mean": -2.5783936977386475,
+      "fraction_negative": 0.8523367643356323
+    },
+    "pair_weights": {
+      "min": -1.1399585008621216,
+      "max": 6.7622809410095215,
+      "mean": 2.7866344451904297,
+      "fraction_negative": 0.002538439119234681
+    },
+    "mean_text_cosine_to_input": 0.587248682975769,
+    "text_scale": 9.885466575622559
+  },
+  "metrics": {
+    "learned_all": {
+      "recall20": 0.33554913294797684,
+      "ndcg20": 0.2294674371043428
+    },
+    "learned_no_category": {
+      "recall20": 0.41223506743737953,
+      "ndcg20": 0.29507683975092913
+    },
+    "raw_text_plus_pair": {
+      "recall20": 0.38603082851637766,
+      "ndcg20": 0.27247656859865976
+    },
+    "raw_text_plus_pair_category": {
+      "recall20": 0.34730250481695574,
+      "ndcg20": 0.22617944502457185
+    },
+    "learned_category_pair": {
+      "recall20": 0.2396917148362235,
+      "ndcg20": 0.16741331087035674
+    }
+  }
+}

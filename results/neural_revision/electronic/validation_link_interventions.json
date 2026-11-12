@@ -1,0 +1,77 @@
+{
+  "scope": "Post-hoc validation-only frozen-weight interventions. No test queries used; no checkpoint overwritten.",
+  "models": {
+    "pair_no_cold": {
+      "no_category": {
+        "recall20": 0.41223506743737953,
+        "ndcg20": 0.29507683975092913
+      },
+      "nonnegative_category": {
+        "recall20": 0.39152215799614637,
+        "ndcg20": 0.28109510002312804,
+        "seconds": 0.018859167001210153,
+        "full_catalogue": true
+      },
+      "nonnegative_all_links": {
+        "recall20": 0.39152215799614637,
+        "ndcg20": 0.28109510002312804,
+        "seconds": 0.017210541991516948,
+        "full_catalogue": true
+      }
+    },
+    "pair_cold": {
+      "no_category": {
+        "recall20": 0.38603082851637766,
+        "ndcg20": 0.2906459513179129
+      },
+      "nonnegative_category": {
+        "recall20": 0.3833333333333333,
+        "ndcg20": 0.28527030482530097,
+        "seconds": 0.01719762501306832,
+        "full_catalogue": true
+      },
+      "nonnegative_all_links": {
+        "recall20": 0.3833333333333333,
+        "ndcg20": 0.28527030482530097,
+        "seconds": 0.017276708007557318,
+        "full_catalogue": true
+      }
+    },
+    "joint_cold": {
+      "no_category": {
+        "recall20": 0.36820809248554914,
+        "ndcg20": 0.2693835130910329
+      },
+      "nonnegative_category": {
+        "recall20": 0.3745664739884393,
+        "ndcg20": 0.26517246628593233,
+        "seconds": 0.022007874998962507,
+        "full_catalogue": true
+      },
+      "nonnegative_all_links": {
+        "recall20": 0.3745664739884393,
+        "ndcg20": 0.26517246628593233,
+        "seconds": 0.02118120901286602,
+        "full_catalogue": true
+      }
+    },
+    "graph_joint_cold": {
+      "no_category": {
+        "recall20": 0.4264932562620424,
+        "ndcg20": 0.33688007068664577
+      },
+      "nonnegative_category": {
+        "recall20": 0.4261078998073218,
+        "ndcg20": 0.3242054461945894,
+        "seconds": 0.02583845899789594,
+        "full_catalogue": true
+      },
+      "nonnegative_all_links": {
+        "recall20": 0.4261078998073218,
+        "ndcg20": 0.32470824791336267,
+        "seconds": 0.024101250019157305,
+        "full_catalogue": true
+      }
+    }
+  }
+}

@@ -1,0 +1,365 @@
+{
+  "note": "Is DIALS just a fixed-weight ensemble of its terms? Replace the per-query gate by constant weights.\n\nThe trained model's unweighted terms (content, one label term per level, graph + prior) are kept; only the gate w(S)\nis replaced by one constant weight vector per dataset, the mean gate over the validation queries (no test data).\nNothing is retrained, so this measures what query-dependent weighting adds inside the trained model.\nClean test queries, 3 seeds, NDCG@20 and Recall@20; paired cluster bootstrap, Holm over all tests.\n\nPYTHONPATH=.:../dials .venv/bin/python -m experiments.story_checks.fixed_gate\n",
+  "datasets": {
+    "electronic": {
+      "gated": [
+        0.46910725754656407,
+        0.3345691324745834
+      ],
+      "fixed": [
+        0.4656390494540785,
+        0.3286049779588862
+      ],
+      "constant_weights": [
+        1.3258270819981892,
+        2.1552617947260537,
+        5.045101960500081
+      ]
+    },
+    "food": {
+      "gated": [
+        0.5861504564054141,
+        0.4388153766780888
+      ],
+      "fixed": [
+        0.5846868114573498,
+        0.4330980837210923
+      ],
+      "constant_weights": [
+        1.2101637919743855,
+        1.049415389696757,
+        4.6952188809712725
+      ]
+    },
+    "clothing": {
+      "gated": [
+        0.5337526205450736,
+        0.3876317520011579
+      ],
+      "fixed": [
+        0.5338274932614555,
+        0.38685587975335156
+      ],
+      "constant_weights": [
+        1.8799515167872112,
+        1.6035525004069011,
+        6.56682014465332
+      ]
+    },
+    "dunnhumby": {
+      "gated": [
+        0.14904273782405916,
+        0.10233123489951917
+      ],
+      "fixed": [
+        0.1462523281999363,
+        0.10000520605691862
+      ],
+      "constant_weights": [
+        1.913407564163208,
+        0.8396859169006348,
+        0.9241655071576437
+      ]
+    },
+    "pog_dense": {
+      "gated": [
+        0.37557839072171,
+        0.2802226827501821
+      ],
+      "fixed": [
+        0.37373555275123566,
+        0.27688764544962363
+      ],
+      "constant_weights": [
+        6.056681474049886,
+        15.269237836201986,
+        3.12739626566569
+      ]
+    },
+    "pog": {
+      "gated": [
+        0.05427617855652902,
+        0.03133739223379296
+      ],
+      "fixed": [
+        0.0533166458072591,
+        0.030786682081367422
+      ],
+      "constant_weights": [
+        4.199609676996867,
+        14.975345293680826,
+        3.732820431391398
+      ]
+    },
+    "spotify_sparse": {
+      "gated": [
+        0.18365124107479236,
+        0.2562208437519257
+      ],
+      "fixed": [
+        0.17228357504470843,
+        0.23983744765523826
+      ],
+      "constant_weights": [
+        3.0403926372528076,
+        1.2351282437642415,
+        1.2759913206100464,
+        0.8169032136599222
+      ]
+    }
+  },
+  "tests": [
+    {
+      "dataset": "electronic",
+      "metric": "recall20",
+      "delta": 0.0034682080924855483,
+      "ci95": [
+        -0.006937219010918433,
+        0.014130539499036606
+      ],
+      "p_value": 0.5512448755124487,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.023121387283236993,
+      "seed": 20261109,
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "dataset": "electronic",
+      "metric": "ndcg20",
+      "delta": 0.005964154515696947,
+      "ci95": [
+        0.001380465416758127,
+        0.011226660473157728
+      ],
+      "p_value": 0.0093990600939906,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.12716763005780346,
+      "seed": 20261109,
+      "p_holm": 0.08459154084591541,
+      "reject_05": false
+    },
+    {
+      "dataset": "food",
+      "metric": "recall20",
+      "delta": 0.001463644948064212,
+      "ci95": [
+        -0.0067201762669184765,
+        0.009285489455461126
+      ],
+      "p_value": 0.7524247575242475,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0226628895184136,
+      "seed": 20261109,
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "dataset": "food",
+      "metric": "ndcg20",
+      "delta": 0.005717292956996617,
+      "ci95": [
+        0.0010123615580089006,
+        0.010602996139855998
+      ],
+      "p_value": 0.016698330166983303,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.1954674220963173,
+      "seed": 20261109,
+      "p_holm": 0.11688831116888312,
+      "reject_05": false
+    },
+    {
+      "dataset": "clothing",
+      "metric": "recall20",
+      "delta": -7.487271638215023e-05,
+      "ci95": [
+        -0.003294399520814615,
+        0.0032943995208146153
+      ],
+      "p_value": 1.0,
+      "queries": 371,
+      "clusters": 371,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.008086253369272238,
+      "seed": 20261109,
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "dataset": "clothing",
+      "metric": "ndcg20",
+      "delta": 0.0007758722478063315,
+      "ci95": [
+        -0.0014198496853742419,
+        0.0029218838669614316
+      ],
+      "p_value": 0.49955004499550043,
+      "queries": 371,
+      "clusters": 371,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.07277628032345014,
+      "seed": 20261109,
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "dataset": "dunnhumby",
+      "metric": "recall20",
+      "delta": 0.002790409624122608,
+      "ci95": [
+        0.0010244241964059732,
+        0.004556436771698731
+      ],
+      "p_value": 0.000999900009999,
+      "queries": 5707,
+      "clusters": 5707,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.06413176800420536,
+      "seed": 20261109,
+      "p_holm": 0.00999900009999,
+      "reject_05": true
+    },
+    {
+      "dataset": "dunnhumby",
+      "metric": "ndcg20",
+      "delta": 0.0023260288426006238,
+      "ci95": [
+        0.001334779174319958,
+        0.003279069018537969
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5707,
+      "clusters": 5707,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.18836516558612232,
+      "seed": 20261109,
+      "p_holm": 0.0013998600139986002,
+      "reject_05": true
+    },
+    {
+      "dataset": "pog_dense",
+      "metric": "recall20",
+      "delta": 0.0018428379704745305,
+      "ci95": [
+        0.0004006747565481337,
+        0.0033710654273495884
+      ],
+      "p_value": 0.0110988901109889,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.015143320713899405,
+      "seed": 20261109,
+      "p_holm": 0.0887911208879112,
+      "reject_05": false
+    },
+    {
+      "dataset": "pog_dense",
+      "metric": "ndcg20",
+      "delta": 0.003335037300558114,
+      "ci95": [
+        0.0021934050136907563,
+        0.004465845500543612
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.12186767622138092,
+      "seed": 20261109,
+      "p_holm": 0.0013998600139986002,
+      "reject_05": true
+    },
+    {
+      "dataset": "pog",
+      "metric": "recall20",
+      "delta": 0.0009595327492699209,
+      "ci95": [
+        -0.000375908651602073,
+        0.0022522663464465717
+      ],
+      "p_value": 0.15958404159584041,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.019274092615769713,
+      "seed": 20261109,
+      "p_holm": 0.797920207979202,
+      "reject_05": false
+    },
+    {
+      "dataset": "pog",
+      "metric": "ndcg20",
+      "delta": 0.0005507101524255603,
+      "ci95": [
+        -7.448973872723559e-05,
+        0.0011376079417740432
+      ],
+      "p_value": 0.07879212078792121,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.05932415519399249,
+      "seed": 20261109,
+      "p_holm": 0.4727527247275273,
+      "reject_05": false
+    },
+    {
+      "dataset": "spotify_sparse",
+      "metric": "recall20",
+      "delta": 0.0113676660300841,
+      "ci95": [
+        0.009387485203833985,
+        0.01352992784982951
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 2497,
+      "clusters": 2496,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.31758109731678014,
+      "seed": 20261109,
+      "p_holm": 0.0013998600139986002,
+      "reject_05": true
+    },
+    {
+      "dataset": "spotify_sparse",
+      "metric": "ndcg20",
+      "delta": 0.016383396096687815,
+      "ci95": [
+        0.014297327912024397,
+        0.018444233412078254
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 2497,
+      "clusters": 2496,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.4761714056868242,
+      "seed": 20261109,
+      "p_holm": 0.0013998600139986002,
+      "reject_05": true
+    }
+  ]
+}

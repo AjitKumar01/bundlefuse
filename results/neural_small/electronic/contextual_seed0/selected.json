@@ -1,0 +1,39 @@
+{
+  "variant": "contextual",
+  "seed": 0,
+  "checkpoint": "checkpoints/neural_small/electronic/contextual_seed0/epoch_0032.pt",
+  "best_epoch": 32,
+  "validation": {
+    "recall20": 0.33670520231213874,
+    "ndcg20": 0.2662579886422845,
+    "seconds": 0.928151666012127,
+    "item_encoding_seconds": 0.0010105830151587725,
+    "full_catalogue": true,
+    "catalogue_size": 3499
+  },
+  "parameters": {
+    "total": 349505,
+    "item_identity": 224000,
+    "other": 125505,
+    "frozen_buffer_bytes": 1834000,
+    "config": {
+      "variant": "contextual",
+      "dim": 64,
+      "layers": 2,
+      "heads": 4,
+      "dropout": 0.1,
+      "identity_dropout": 0.1
+    }
+  },
+  "model_config": {
+    "variant": "contextual",
+    "dim": 64,
+    "layers": 2,
+    "heads": 4,
+    "dropout": 0.1,
+    "identity_dropout": 0.1
+  },
+  "elapsed_seconds": 215.2870428749884,
+  "epochs_run": 44,
+  "selection": "validation NDCG@20 only"
+}

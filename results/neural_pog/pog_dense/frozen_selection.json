@@ -1,0 +1,83 @@
+{
+  "graph_pair_no_category_seed0": {
+    "condition": {
+      "name": "graph_pair_no_category",
+      "variant": "graph_pair",
+      "cold_probability": 0.25,
+      "category_mode": "off",
+      "project_links": true
+    },
+    "seed": 0,
+    "checkpoint": "checkpoints/neural_pog/pog_dense/graph_pair_no_category_seed0/epoch_0012.pt",
+    "best_epoch": 12,
+    "epochs_run": 24,
+    "validation": {
+      "recall20": 0.3762915543575921,
+      "ndcg20": 0.27006947519944097,
+      "seconds": 1.862937709025573,
+      "full_catalogue": true
+    },
+    "parameters": {
+      "trainable_parameters": 177811,
+      "pair_parameters": 153074,
+      "joint_parameters": 0,
+      "category_parameters": 0,
+      "frozen_buffer_bytes": 18682091
+    },
+    "elapsed": 1138.929876166978
+  },
+  "graph_pair_no_category_seed1": {
+    "condition": {
+      "name": "graph_pair_no_category",
+      "variant": "graph_pair",
+      "cold_probability": 0.25,
+      "category_mode": "off",
+      "project_links": true
+    },
+    "seed": 1,
+    "checkpoint": "checkpoints/neural_pog/pog_dense/graph_pair_no_category_seed1/epoch_0030.pt",
+    "best_epoch": 30,
+    "epochs_run": 42,
+    "validation": {
+      "recall20": 0.3762353998203054,
+      "ndcg20": 0.2709669065842676,
+      "seconds": 1.8356009160052054,
+      "full_catalogue": true
+    },
+    "parameters": {
+      "trainable_parameters": 177811,
+      "pair_parameters": 153074,
+      "joint_parameters": 0,
+      "category_parameters": 0,
+      "frozen_buffer_bytes": 18682091
+    },
+    "elapsed": 1830.5444698750216
+  },
+  "graph_pair_no_category_seed2": {
+    "condition": {
+      "name": "graph_pair_no_category",
+      "variant": "graph_pair",
+      "cold_probability": 0.25,
+      "category_mode": "off",
+      "project_links": true
+    },
+    "seed": 2,
+    "checkpoint": "checkpoints/neural_pog/pog_dense/graph_pair_no_category_seed2/epoch_0034.pt",
+    "best_epoch": 34,
+    "epochs_run": 46,
+    "validation": {
+      "recall20": 0.381233153638814,
+      "ndcg20": 0.27260208097911615,
+      "seconds": 3.703200249990914,
+      "full_catalogue": true
+    },
+    "parameters": {
+      "trainable_parameters": 177811,
+      "pair_parameters": 153074,
+      "joint_parameters": 0,
+      "category_parameters": 0,
+      "frozen_buffer_bytes": 18682091
+    },
+    "elapsed": 2000.2562702079886
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "status": "selected",
+  "condition": {
+    "name": "attributes",
+    "variant": "attributes",
+    "cold_probability": 0.0
+  },
+  "seed": 0,
+  "checkpoint": "checkpoints/neural_revision/electronic/attributes_seed0/epoch_0004.pt",
+  "best_epoch": 4,
+  "epochs_run": 16,
+  "validation": {
+    "recall20": 0.22832369942196531,
+    "ndcg20": 0.11727545208431069,
+    "seconds": 0.025569749996066093,
+    "full_catalogue": true
+  },
+  "parameters": {
+    "trainable_parameters": 237794,
+    "pair_parameters": 0,
+    "joint_parameters": 0,
+    "category_parameters": 229441,
+    "frozen_buffer_bytes": 2040567
+  },
+  "elapsed": 4.030443625000771
+}

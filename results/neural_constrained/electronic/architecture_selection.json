@@ -1,0 +1,30 @@
+{
+  "selected_condition": {
+    "name": "graph_pair_no_category",
+    "variant": "graph_pair",
+    "cold_probability": 0.25,
+    "category_mode": "off",
+    "project_links": true
+  },
+  "criterion": "seed-0 validation NDCG only",
+  "candidates": {
+    "graph_pair_no_category_seed0": {
+      "recall20": 0.4322736030828516,
+      "ndcg20": 0.34079868279367465,
+      "seconds": 0.018765291024465114,
+      "full_catalogue": true
+    },
+    "graph_joint_no_category_seed0": {
+      "recall20": 0.43371868978805395,
+      "ndcg20": 0.3401256213806828,
+      "seconds": 0.02255070800310932,
+      "full_catalogue": true
+    },
+    "graph_joint_positive_category_seed0": {
+      "recall20": 0.3954720616570327,
+      "ndcg20": 0.3111414467815701,
+      "seconds": 0.025108000001637265,
+      "full_catalogue": true
+    }
+  }
+}

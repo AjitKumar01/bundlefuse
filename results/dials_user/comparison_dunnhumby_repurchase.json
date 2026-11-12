@@ -1,0 +1,371 @@
+{
+  "note": "Personalized Dunnhumby: DIALS + R (trained) against every method given the same repurchase signal.\n\nFamilies, each Holm-corrected over its own tests (Recall@20 and NDCG@20, paired cluster bootstrap and sign flips):\n  full histories:            DIALS + R vs best baseline + R (by validation), repurchase only, frozen DIALS + R at\n                             inference, and non-personalized DIALS;\n  time-restricted histories: the same comparisons, with histories from baskets bought before the query basket.\nAlso: the learned curve rho_R(log(1 + n), log(1 + B)) - rho_R(0, log(1 + B)) and the mean gate weights on test.\n\nPYTHONPATH=.:../dials .venv/bin/python -m experiments.dials_user.compare_repurchase\n",
+  "means": {
+    "full": {
+      "DIALS + R (trained)": [
+        0.209376700663716,
+        0.14815771247810058
+      ],
+      "best baseline + R (hybrid + R)": [
+        0.2057066509799992,
+        0.14836427643976763
+      ],
+      "repurchase only": [
+        0.16468233108324337,
+        0.12120482866327897
+      ],
+      "frozen DIALS + R at inference": [
+        0.20941026197290383,
+        0.1475287552660728
+      ]
+    },
+    "before": {
+      "DIALS + R (trained)": [
+        0.1847012579928298,
+        0.13045115529203125
+      ],
+      "best baseline + R (hybrid + R)": [
+        0.1841464533947456,
+        0.13338204803763937
+      ],
+      "repurchase only": [
+        0.13331956577970244,
+        0.09820989900559705
+      ],
+      "frozen DIALS + R at inference": [
+        0.18942202233773997,
+        0.13280105341014473
+      ]
+    }
+  },
+  "tests": {
+    "full": [
+      {
+        "comparison": "DIALS + R vs best baseline + R (hybrid + R)",
+        "metric": "recall20",
+        "delta": 0.003670049683717111,
+        "ci95": [
+          -0.0006077239220747177,
+          0.00815002380349761
+        ],
+        "p_value": 0.10208979102089791,
+        "queries": 5707,
+        "clusters": 5707,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.1263360785000876,
+        "seed": 20261109,
+        "p_holm": 0.40835916408359163,
+        "reject_05": false
+      },
+      {
+        "comparison": "DIALS + R vs best baseline + R (hybrid + R)",
+        "metric": "ndcg20",
+        "delta": -0.0002065639616669609,
+        "ci95": [
+          -0.0030924571324971568,
+          0.0026095401438886445
+        ],
+        "p_value": 0.879012098790121,
+        "queries": 5707,
+        "clusters": 5707,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.264587348869809,
+        "seed": 20261109,
+        "p_holm": 1.0,
+        "reject_05": false
+      },
+      {
+        "comparison": "DIALS + R vs repurchase only",
+        "metric": "recall20",
+        "delta": 0.04469436958047437,
+        "ci95": [
+          0.039162122099194986,
+          0.04994629669031719
+        ],
+        "p_value": 9.999000099990002e-05,
+        "queries": 5707,
+        "clusters": 5707,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.20991764499737164,
+        "seed": 20261109,
+        "p_holm": 0.0007999200079992001,
+        "reject_05": true
+      },
+      {
+        "comparison": "DIALS + R vs repurchase only",
+        "metric": "ndcg20",
+        "delta": 0.026952883814822182,
+        "ci95": [
+          0.02306791761236845,
+          0.030625989856420906
+        ],
+        "p_value": 9.999000099990002e-05,
+        "queries": 5707,
+        "clusters": 5707,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.3287191168740144,
+        "seed": 20261109,
+        "p_holm": 0.0007999200079992001,
+        "reject_05": true
+      },
+      {
+        "comparison": "DIALS + R vs frozen DIALS + R at inference",
+        "metric": "recall20",
+        "delta": -3.3561309187732863e-05,
+        "ci95": [
+          -0.002486482186083552,
+          0.0023704157986618062
+        ],
+        "p_value": 0.978002199780022,
+        "queries": 5707,
+        "clusters": 5707,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.09847555633432627,
+        "seed": 20261109,
+        "p_holm": 1.0,
+        "reject_05": false
+      },
+      {
+        "comparison": "DIALS + R vs frozen DIALS + R at inference",
+        "metric": "ndcg20",
+        "delta": 0.0006289572120280607,
+        "ci95": [
+          -0.0011069521467063825,
+          0.002466704493440206
+        ],
+        "p_value": 0.48065193480651935,
+        "queries": 5707,
+        "clusters": 5707,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.26160855090240054,
+        "seed": 20261109,
+        "p_holm": 1.0,
+        "reject_05": false
+      },
+      {
+        "comparison": "DIALS + R vs non-personalized DIALS",
+        "metric": "recall20",
+        "delta": 0.0603339628396576,
+        "ci95": [
+          0.0546142222537439,
+          0.06570030782302991
+        ],
+        "p_value": 9.999000099990002e-05,
+        "queries": 5707,
+        "clusters": 5707,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.2826353600841072,
+        "seed": 20261109,
+        "p_holm": 0.0007999200079992001,
+        "reject_05": true
+      },
+      {
+        "comparison": "DIALS + R vs non-personalized DIALS",
+        "metric": "ndcg20",
+        "delta": 0.045826477578581604,
+        "ci95": [
+          0.04190768022480169,
+          0.049679758516924306
+        ],
+        "p_value": 9.999000099990002e-05,
+        "queries": 5707,
+        "clusters": 5707,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.3698966181881899,
+        "seed": 20261109,
+        "p_holm": 0.0007999200079992001,
+        "reject_05": true
+      }
+    ],
+    "before": [
+      {
+        "comparison": "DIALS + R vs best baseline + R (hybrid + R)",
+        "metric": "recall20",
+        "delta": 0.0005548045980847815,
+        "ci95": [
+          -0.0037856276011173488,
+          0.005142019616677929
+        ],
+        "p_value": 0.8084191580841916,
+        "queries": 5707,
+        "clusters": 5707,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.11950236551603294,
+        "seed": 20261109,
+        "p_holm": 0.8084191580841916,
+        "reject_05": false
+      },
+      {
+        "comparison": "DIALS + R vs best baseline + R (hybrid + R)",
+        "metric": "ndcg20",
+        "delta": -0.0029308927456079418,
+        "ci95": [
+          -0.005629571387759435,
+          -5.5538471962778317e-05
+        ],
+        "p_value": 0.0443955604439556,
+        "queries": 5707,
+        "clusters": 5707,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.247240231294901,
+        "seed": 20261109,
+        "p_holm": 0.0887911208879112,
+        "reject_05": false
+      },
+      {
+        "comparison": "DIALS + R vs repurchase only",
+        "metric": "recall20",
+        "delta": 0.05138169221312729,
+        "ci95": [
+          0.045835849272637424,
+          0.05705564467381096
+        ],
+        "p_value": 9.999000099990002e-05,
+        "queries": 5707,
+        "clusters": 5707,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.22218328368670054,
+        "seed": 20261109,
+        "p_holm": 0.0005999400059994001,
+        "reject_05": true
+      },
+      {
+        "comparison": "DIALS + R vs repurchase only",
+        "metric": "ndcg20",
+        "delta": 0.032241256286434546,
+        "ci95": [
+          0.028438617233083864,
+          0.03606475808212847
+        ],
+        "p_value": 9.999000099990002e-05,
+        "queries": 5707,
+        "clusters": 5707,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.3250394252672157,
+        "seed": 20261109,
+        "p_holm": 0.0005999400059994001,
+        "reject_05": true
+      },
+      {
+        "comparison": "DIALS + R vs frozen DIALS + R at inference",
+        "metric": "recall20",
+        "delta": -0.0047207643449101305,
+        "ci95": [
+          -0.007057282757738339,
+          -0.0025268391968278074
+        ],
+        "p_value": 0.00019998000199980003,
+        "queries": 5707,
+        "clusters": 5707,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.0888382687927107,
+        "seed": 20261109,
+        "p_holm": 0.0007999200079992001,
+        "reject_05": true
+      },
+      {
+        "comparison": "DIALS + R vs frozen DIALS + R at inference",
+        "metric": "ndcg20",
+        "delta": -0.0023498981181133676,
+        "ci95": [
+          -0.0039033199725085526,
+          -0.0007817794361782701
+        ],
+        "p_value": 0.0022997700229977,
+        "queries": 5707,
+        "clusters": 5707,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.23637637988435256,
+        "seed": 20261109,
+        "p_holm": 0.0068993100689931,
+        "reject_05": true
+      }
+    ]
+  },
+  "curve": {
+    "points": [
+      {
+        "baskets": 4,
+        "count": 1
+      },
+      {
+        "baskets": 4,
+        "count": 2
+      },
+      {
+        "baskets": 4,
+        "count": 4
+      },
+      {
+        "baskets": 4,
+        "count": 8
+      },
+      {
+        "baskets": 16,
+        "count": 1
+      },
+      {
+        "baskets": 16,
+        "count": 2
+      },
+      {
+        "baskets": 16,
+        "count": 4
+      },
+      {
+        "baskets": 16,
+        "count": 8
+      },
+      {
+        "baskets": 64,
+        "count": 1
+      },
+      {
+        "baskets": 64,
+        "count": 2
+      },
+      {
+        "baskets": 64,
+        "count": 4
+      },
+      {
+        "baskets": 64,
+        "count": 8
+      }
+    ],
+    "value": [
+      2.103447914123535,
+      2.8722569147745767,
+      3.5936723550160727,
+      4.200849692026774,
+      1.9893293778101604,
+      2.6246000130971274,
+      3.2160983880360923,
+      3.845244884490967,
+      1.8835538228352864,
+      2.4576218922932944,
+      2.977371613184611,
+      3.5052526791890464
+    ]
+  },
+  "gate": [
+    1.179280201594035,
+    0.8111526171366373,
+    0.9245455265045166,
+    1.2707624038060505
+  ]
+}

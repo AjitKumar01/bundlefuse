@@ -1,0 +1,226 @@
+{
+  "scope": "Post-hoc diagnostic on the already evaluated test queries. Micro recall per target-frequency stratum; NOT the macro Recall@20 in the main table.",
+  "models": {
+    "bundlefuse_matched": {
+      "unseen": {
+        "hits": 49,
+        "targets": 245,
+        "micro_recall20": 0.2
+      },
+      "one_two": {
+        "hits": 160,
+        "targets": 256,
+        "micro_recall20": 0.625
+      },
+      "three_plus": {
+        "hits": 53,
+        "targets": 99,
+        "micro_recall20": 0.5353535353535354
+      }
+    },
+    "bundlefuse_original_auxiliary": {
+      "unseen": {
+        "hits": 66,
+        "targets": 245,
+        "micro_recall20": 0.2693877551020408
+      },
+      "one_two": {
+        "hits": 154,
+        "targets": 256,
+        "micro_recall20": 0.6015625
+      },
+      "three_plus": {
+        "hits": 53,
+        "targets": 99,
+        "micro_recall20": 0.5353535353535354
+      }
+    },
+    "itemknn": {
+      "unseen": {
+        "hits": 0,
+        "targets": 245,
+        "micro_recall20": 0.0
+      },
+      "one_two": {
+        "hits": 150,
+        "targets": 256,
+        "micro_recall20": 0.5859375
+      },
+      "three_plus": {
+        "hits": 49,
+        "targets": 99,
+        "micro_recall20": 0.494949494949495
+      }
+    },
+    "contentknn": {
+      "unseen": {
+        "hits": 36,
+        "targets": 245,
+        "micro_recall20": 0.1469387755102041
+      },
+      "one_two": {
+        "hits": 37,
+        "targets": 256,
+        "micro_recall20": 0.14453125
+      },
+      "three_plus": {
+        "hits": 20,
+        "targets": 99,
+        "micro_recall20": 0.20202020202020202
+      }
+    },
+    "relations_seed1": {
+      "unseen": {
+        "hits": 21,
+        "targets": 245,
+        "micro_recall20": 0.08571428571428572
+      },
+      "one_two": {
+        "hits": 141,
+        "targets": 256,
+        "micro_recall20": 0.55078125
+      },
+      "three_plus": {
+        "hits": 48,
+        "targets": 99,
+        "micro_recall20": 0.48484848484848486
+      }
+    },
+    "relations_seed0": {
+      "unseen": {
+        "hits": 23,
+        "targets": 245,
+        "micro_recall20": 0.09387755102040816
+      },
+      "one_two": {
+        "hits": 146,
+        "targets": 256,
+        "micro_recall20": 0.5703125
+      },
+      "three_plus": {
+        "hits": 46,
+        "targets": 99,
+        "micro_recall20": 0.46464646464646464
+      }
+    },
+    "dot_seed1": {
+      "unseen": {
+        "hits": 10,
+        "targets": 245,
+        "micro_recall20": 0.04081632653061224
+      },
+      "one_two": {
+        "hits": 125,
+        "targets": 256,
+        "micro_recall20": 0.48828125
+      },
+      "three_plus": {
+        "hits": 40,
+        "targets": 99,
+        "micro_recall20": 0.40404040404040403
+      }
+    },
+    "contextual_seed1": {
+      "unseen": {
+        "hits": 21,
+        "targets": 245,
+        "micro_recall20": 0.08571428571428572
+      },
+      "one_two": {
+        "hits": 131,
+        "targets": 256,
+        "micro_recall20": 0.51171875
+      },
+      "three_plus": {
+        "hits": 37,
+        "targets": 99,
+        "micro_recall20": 0.37373737373737376
+      }
+    },
+    "dot_seed0": {
+      "unseen": {
+        "hits": 9,
+        "targets": 245,
+        "micro_recall20": 0.036734693877551024
+      },
+      "one_two": {
+        "hits": 126,
+        "targets": 256,
+        "micro_recall20": 0.4921875
+      },
+      "three_plus": {
+        "hits": 33,
+        "targets": 99,
+        "micro_recall20": 0.3333333333333333
+      }
+    },
+    "contextual_seed0": {
+      "unseen": {
+        "hits": 30,
+        "targets": 245,
+        "micro_recall20": 0.12244897959183673
+      },
+      "one_two": {
+        "hits": 147,
+        "targets": 256,
+        "micro_recall20": 0.57421875
+      },
+      "three_plus": {
+        "hits": 47,
+        "targets": 99,
+        "micro_recall20": 0.47474747474747475
+      }
+    },
+    "relations_seed2": {
+      "unseen": {
+        "hits": 31,
+        "targets": 245,
+        "micro_recall20": 0.12653061224489795
+      },
+      "one_two": {
+        "hits": 142,
+        "targets": 256,
+        "micro_recall20": 0.5546875
+      },
+      "three_plus": {
+        "hits": 48,
+        "targets": 99,
+        "micro_recall20": 0.48484848484848486
+      }
+    },
+    "contextual_seed2": {
+      "unseen": {
+        "hits": 20,
+        "targets": 245,
+        "micro_recall20": 0.08163265306122448
+      },
+      "one_two": {
+        "hits": 148,
+        "targets": 256,
+        "micro_recall20": 0.578125
+      },
+      "three_plus": {
+        "hits": 44,
+        "targets": 99,
+        "micro_recall20": 0.4444444444444444
+      }
+    },
+    "dot_seed2": {
+      "unseen": {
+        "hits": 17,
+        "targets": 245,
+        "micro_recall20": 0.06938775510204082
+      },
+      "one_two": {
+        "hits": 129,
+        "targets": 256,
+        "micro_recall20": 0.50390625
+      },
+      "three_plus": {
+        "hits": 40,
+        "targets": 99,
+        "micro_recall20": 0.40404040404040403
+      }
+    }
+  }
+}

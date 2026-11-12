@@ -1,0 +1,339 @@
+{
+  "general": {
+    "config": {
+      "kind": "gate",
+      "weights": {
+        "lift0": 0.25,
+        "residual_content": 0.25,
+        "pair": 0.5
+      },
+      "prior_weights": {
+        "lift0": 0.25,
+        "residual_content": 0.25
+      },
+      "scale": 1.4731116599996237,
+      "kappa": 0.05
+    },
+    "tuning_metrics": [
+      0.4663690476190476,
+      0.36704580485845417
+    ],
+    "keys": [
+      "lift0",
+      "residual_content",
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 0.4502226670156233,
+    "fitting_candidates": 36
+  },
+  "raw": {
+    "config": {
+      "kind": "gate",
+      "weights": {
+        "raw_content": 0.5,
+        "pair": 0.25
+      },
+      "prior_weights": {
+        "raw_content": 0.5
+      },
+      "scale": 1.0903253487567548,
+      "kappa": 0.05
+    },
+    "tuning_metrics": [
+      0.4446428571428571,
+      0.36223574372359785
+    ],
+    "keys": [
+      "raw_content",
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 0.40756637501181103,
+    "fitting_candidates": 39
+  },
+  "base": {
+    "config": {
+      "kind": "weighted",
+      "weights": {
+        "pair": 0.25
+      }
+    },
+    "tuning_metrics": [
+      0.2550595238095238,
+      0.19226241453967055
+    ],
+    "keys": [
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 0.19865841598948464,
+    "fitting_candidates": 31
+  },
+  "shuf0": {
+    "config": {
+      "kind": "gate",
+      "weights": {
+        "residual_content": 1.0,
+        "pair": 1.0
+      },
+      "prior_weights": {
+        "residual_content": 1.0
+      },
+      "scale": 1.265348498153331,
+      "kappa": 0.05
+    },
+    "tuning_metrics": [
+      0.4416666666666667,
+      0.34542751803456906
+    ],
+    "keys": [
+      "shuf0_lift0",
+      "residual_content",
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 0.4730921250011306,
+    "fitting_candidates": 48
+  },
+  "shuf1": {
+    "config": {
+      "kind": "gate",
+      "weights": {
+        "residual_content": 1.5,
+        "pair": 1.5
+      },
+      "prior_weights": {
+        "residual_content": 1.5
+      },
+      "scale": 1.2653484978273402,
+      "kappa": 0.05
+    },
+    "tuning_metrics": [
+      0.4416666666666667,
+      0.34542751803456906
+    ],
+    "keys": [
+      "shuf1_lift0",
+      "residual_content",
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 0.554652624996379,
+    "fitting_candidates": 48
+  },
+  "shuf2": {
+    "config": {
+      "kind": "gate",
+      "weights": {
+        "shuf2_lift0": 0.5,
+        "residual_content": 1.5,
+        "pair": 1.0
+      },
+      "prior_weights": {
+        "shuf2_lift0": 0.5,
+        "residual_content": 1.5
+      },
+      "scale": 1.124187491219865,
+      "kappa": 0.05
+    },
+    "tuning_metrics": [
+      0.40148809523809526,
+      0.3377563095564022
+    ],
+    "keys": [
+      "shuf2_lift0",
+      "residual_content",
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 0.6327417920110747,
+    "fitting_candidates": 52
+  },
+  "lift_only": {
+    "config": {
+      "kind": "gate",
+      "weights": {
+        "lift0": 0.5,
+        "pair": 0.25
+      },
+      "prior_weights": {
+        "lift0": 0.5
+      },
+      "scale": 1.0825598133924395,
+      "kappa": 0.05
+    },
+    "tuning_metrics": [
+      0.3458333333333333,
+      0.24170726416877816
+    ],
+    "keys": [
+      "lift0",
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 0.5154106249974575,
+    "fitting_candidates": 39
+  },
+  "residual_only": {
+    "config": {
+      "kind": "gate",
+      "weights": {
+        "residual_content": 0.25,
+        "pair": 0.25
+      },
+      "prior_weights": {
+        "residual_content": 0.25
+      },
+      "scale": 1.2653484973571967,
+      "kappa": 0.05
+    },
+    "tuning_metrics": [
+      0.4416666666666667,
+      0.34542751803456906
+    ],
+    "keys": [
+      "residual_content",
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 0.3910445829969831,
+    "fitting_candidates": 28
+  },
+  "identity": {
+    "config": {
+      "kind": "gate",
+      "weights": {
+        "same0": 0.25,
+        "residual_content": 0.25,
+        "pair": 0.5
+      },
+      "prior_weights": {
+        "same0": 0.25,
+        "residual_content": 0.25
+      },
+      "scale": 1.485846727656024,
+      "kappa": 0.05
+    },
+    "tuning_metrics": [
+      0.4714285714285714,
+      0.38097476009639347
+    ],
+    "keys": [
+      "same0",
+      "residual_content",
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 0.3986252080067061,
+    "fitting_candidates": 36
+  },
+  "off_diagonal": {
+    "config": {
+      "kind": "gate",
+      "weights": {
+        "residual_content": 0.5,
+        "pair": 0.5
+      },
+      "prior_weights": {
+        "residual_content": 0.5
+      },
+      "scale": 1.2653484978879526,
+      "kappa": 0.05
+    },
+    "tuning_metrics": [
+      0.4416666666666667,
+      0.34542751803456906
+    ],
+    "keys": [
+      "off0",
+      "residual_content",
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 0.47539091599173844,
+    "fitting_candidates": 48
+  },
+  "general_no_history": {
+    "config": {
+      "kind": "weighted",
+      "weights": {
+        "lift0": 0.25,
+        "residual_content": 0.25
+      }
+    },
+    "tuning_metrics": [
+      0.2714285714285714,
+      0.18640749611517185
+    ],
+    "keys": [
+      "lift0",
+      "residual_content",
+      "pop"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 0.1544620409840718,
+    "fitting_candidates": 16
+  },
+  "raw_no_history": {
+    "config": {
+      "kind": "weighted",
+      "weights": {
+        "raw_content": 0.25
+      }
+    },
+    "tuning_metrics": [
+      0.23779761904761904,
+      0.15369212139200708
+    ],
+    "keys": [
+      "raw_content",
+      "pop"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 0.10942299998714589,
+    "fitting_candidates": 8
+  }
+}

@@ -1,0 +1,142 @@
+2026-11-07T19:15:31Z food: revised pilot train=1232 val=176 test=353
+2026-11-07T19:15:33Z graph_pair_no_category seed=0 parameters={'trainable_parameters': 38461, 'pair_parameters': 13724, 'joint_parameters': 0, 'category_parameters': 0, 'frozen_buffer_bytes': 2179260} start_epoch=1
+2026-11-07T19:15:33Z graph_pair_no_category seed=0 epoch=1 loss=6.72314
+2026-11-07T19:15:33Z graph_pair_no_category seed=0 epoch=2 loss=6.37316 VAL R20=0.302652 N20=0.198841 best_epoch=2 patience=0/6
+2026-11-07T19:15:34Z graph_pair_no_category seed=0 epoch=3 loss=6.02936
+2026-11-07T19:15:34Z graph_pair_no_category seed=0 epoch=4 loss=5.73254 VAL R20=0.357102 N20=0.236256 best_epoch=4 patience=0/6
+2026-11-07T19:15:34Z graph_pair_no_category seed=0 epoch=5 loss=5.26526
+2026-11-07T19:15:35Z graph_pair_no_category seed=0 epoch=6 loss=4.88952 VAL R20=0.417235 N20=0.276242 best_epoch=6 patience=0/6
+2026-11-07T19:15:35Z graph_pair_no_category seed=0 epoch=7 loss=4.58196
+2026-11-07T19:15:35Z graph_pair_no_category seed=0 epoch=8 loss=4.34795 VAL R20=0.457670 N20=0.305435 best_epoch=8 patience=0/6
+2026-11-07T19:15:36Z graph_pair_no_category seed=0 epoch=9 loss=4.00086
+2026-11-07T19:15:36Z graph_pair_no_category seed=0 epoch=10 loss=3.70508 VAL R20=0.479640 N20=0.339408 best_epoch=10 patience=0/6
+2026-11-07T19:15:36Z graph_pair_no_category seed=0 epoch=11 loss=3.76099
+2026-11-07T19:15:37Z graph_pair_no_category seed=0 epoch=12 loss=3.59086 VAL R20=0.493655 N20=0.362570 best_epoch=12 patience=0/6
+2026-11-07T19:15:37Z graph_pair_no_category seed=0 epoch=13 loss=3.45625
+2026-11-07T19:15:37Z graph_pair_no_category seed=0 epoch=14 loss=3.38087 VAL R20=0.504261 N20=0.369369 best_epoch=14 patience=0/6
+2026-11-07T19:15:38Z graph_pair_no_category seed=0 epoch=15 loss=3.24461
+2026-11-07T19:15:38Z graph_pair_no_category seed=0 epoch=16 loss=3.23108 VAL R20=0.509280 N20=0.365598 best_epoch=14 patience=1/6
+2026-11-07T19:15:38Z graph_pair_no_category seed=0 epoch=17 loss=3.24897
+2026-11-07T19:15:39Z graph_pair_no_category seed=0 epoch=18 loss=3.08187 VAL R20=0.519697 N20=0.369496 best_epoch=18 patience=0/6
+2026-11-07T19:15:39Z graph_pair_no_category seed=0 epoch=19 loss=3.06691
+2026-11-07T19:15:39Z graph_pair_no_category seed=0 epoch=20 loss=3.03096 VAL R20=0.525095 N20=0.370734 best_epoch=20 patience=0/6
+2026-11-07T19:15:40Z graph_pair_no_category seed=0 epoch=21 loss=3.07094
+2026-11-07T19:15:40Z graph_pair_no_category seed=0 epoch=22 loss=2.86888 VAL R20=0.530777 N20=0.377130 best_epoch=22 patience=0/6
+2026-11-07T19:15:40Z graph_pair_no_category seed=0 epoch=23 loss=3.01896
+2026-11-07T19:15:41Z graph_pair_no_category seed=0 epoch=24 loss=2.81560 VAL R20=0.529640 N20=0.377871 best_epoch=24 patience=0/6
+2026-11-07T19:15:41Z graph_pair_no_category seed=0 epoch=25 loss=2.76079
+2026-11-07T19:15:41Z graph_pair_no_category seed=0 epoch=26 loss=2.90839 VAL R20=0.531534 N20=0.381817 best_epoch=26 patience=0/6
+2026-11-07T19:15:42Z graph_pair_no_category seed=0 epoch=27 loss=2.74451
+2026-11-07T19:15:42Z graph_pair_no_category seed=0 epoch=28 loss=2.82733 VAL R20=0.525379 N20=0.378046 best_epoch=26 patience=1/6
+2026-11-07T19:15:42Z graph_pair_no_category seed=0 epoch=29 loss=2.68663
+2026-11-07T19:15:43Z graph_pair_no_category seed=0 epoch=30 loss=2.73817 VAL R20=0.525379 N20=0.380515 best_epoch=26 patience=2/6
+2026-11-07T19:15:43Z graph_pair_no_category seed=0 epoch=31 loss=2.69930
+2026-11-07T19:15:44Z graph_pair_no_category seed=0 epoch=32 loss=2.65080 VAL R20=0.532955 N20=0.378551 best_epoch=26 patience=3/6
+2026-11-07T19:15:44Z graph_pair_no_category seed=0 epoch=33 loss=2.59994
+2026-11-07T19:15:44Z graph_pair_no_category seed=0 epoch=34 loss=2.72544 VAL R20=0.534091 N20=0.376006 best_epoch=26 patience=4/6
+2026-11-07T19:15:45Z graph_pair_no_category seed=0 epoch=35 loss=2.60743
+2026-11-07T19:15:45Z graph_pair_no_category seed=0 epoch=36 loss=2.67825 VAL R20=0.530303 N20=0.369206 best_epoch=26 patience=5/6
+2026-11-07T19:15:45Z graph_pair_no_category seed=0 epoch=37 loss=2.67475
+2026-11-07T19:15:46Z graph_pair_no_category seed=0 epoch=38 loss=2.63416 VAL R20=0.545455 N20=0.371827 best_epoch=26 patience=6/6
+2026-11-07T19:15:46Z VALIDATION SELECTED graph_pair_no_category; repeat training seeds 1 and 2
+2026-11-07T19:15:46Z graph_pair_no_category seed=1 parameters={'trainable_parameters': 38461, 'pair_parameters': 13724, 'joint_parameters': 0, 'category_parameters': 0, 'frozen_buffer_bytes': 2179260} start_epoch=1
+2026-11-07T19:15:46Z graph_pair_no_category seed=1 epoch=1 loss=6.77906
+2026-11-07T19:15:46Z graph_pair_no_category seed=1 epoch=2 loss=6.38903 VAL R20=0.309280 N20=0.205205 best_epoch=2 patience=0/6
+2026-11-07T19:15:47Z graph_pair_no_category seed=1 epoch=3 loss=6.03086
+2026-11-07T19:15:47Z graph_pair_no_category seed=1 epoch=4 loss=5.64977 VAL R20=0.361364 N20=0.242827 best_epoch=4 patience=0/6
+2026-11-07T19:15:47Z graph_pair_no_category seed=1 epoch=5 loss=5.19829
+2026-11-07T19:15:48Z graph_pair_no_category seed=1 epoch=6 loss=4.85460 VAL R20=0.412973 N20=0.284378 best_epoch=6 patience=0/6
+2026-11-07T19:15:48Z graph_pair_no_category seed=1 epoch=7 loss=4.53603
+2026-11-07T19:15:48Z graph_pair_no_category seed=1 epoch=8 loss=4.35919 VAL R20=0.463826 N20=0.311143 best_epoch=8 patience=0/6
+2026-11-07T19:15:49Z graph_pair_no_category seed=1 epoch=9 loss=4.08464
+2026-11-07T19:15:49Z graph_pair_no_category seed=1 epoch=10 loss=3.93560 VAL R20=0.496496 N20=0.345125 best_epoch=10 patience=0/6
+2026-11-07T19:15:49Z graph_pair_no_category seed=1 epoch=11 loss=3.70176
+2026-11-07T19:15:50Z graph_pair_no_category seed=1 epoch=12 loss=3.57104 VAL R20=0.499337 N20=0.364831 best_epoch=12 patience=0/6
+2026-11-07T19:15:50Z graph_pair_no_category seed=1 epoch=13 loss=3.53315
+2026-11-07T19:15:50Z graph_pair_no_category seed=1 epoch=14 loss=3.31327 VAL R20=0.499337 N20=0.362560 best_epoch=12 patience=1/6
+2026-11-07T19:15:51Z graph_pair_no_category seed=1 epoch=15 loss=3.24632
+2026-11-07T19:15:51Z graph_pair_no_category seed=1 epoch=16 loss=3.26020 VAL R20=0.501705 N20=0.370016 best_epoch=16 patience=0/6
+2026-11-07T19:15:51Z graph_pair_no_category seed=1 epoch=17 loss=3.12984
+2026-11-07T19:15:52Z graph_pair_no_category seed=1 epoch=18 loss=3.04010 VAL R20=0.502652 N20=0.369230 best_epoch=16 patience=1/6
+2026-11-07T19:15:52Z graph_pair_no_category seed=1 epoch=19 loss=3.22105
+2026-11-07T19:15:52Z graph_pair_no_category seed=1 epoch=20 loss=2.94870 VAL R20=0.511174 N20=0.372663 best_epoch=20 patience=0/6
+2026-11-07T19:15:53Z graph_pair_no_category seed=1 epoch=21 loss=2.99595
+2026-11-07T19:15:53Z graph_pair_no_category seed=1 epoch=22 loss=2.90026 VAL R20=0.515436 N20=0.374155 best_epoch=22 patience=0/6
+2026-11-07T19:15:54Z graph_pair_no_category seed=1 epoch=23 loss=3.06446
+2026-11-07T19:15:54Z graph_pair_no_category seed=1 epoch=24 loss=2.88426 VAL R20=0.509754 N20=0.371975 best_epoch=22 patience=1/6
+2026-11-07T19:15:54Z graph_pair_no_category seed=1 epoch=25 loss=2.81416
+2026-11-07T19:15:55Z graph_pair_no_category seed=1 epoch=26 loss=2.86887 VAL R20=0.515436 N20=0.368021 best_epoch=22 patience=2/6
+2026-11-07T19:15:55Z graph_pair_no_category seed=1 epoch=27 loss=2.88906
+2026-11-07T19:15:55Z graph_pair_no_category seed=1 epoch=28 loss=2.74511 VAL R20=0.525379 N20=0.374583 best_epoch=28 patience=0/6
+2026-11-07T19:15:56Z graph_pair_no_category seed=1 epoch=29 loss=2.90625
+2026-11-07T19:15:56Z graph_pair_no_category seed=1 epoch=30 loss=2.77237 VAL R20=0.525379 N20=0.371960 best_epoch=28 patience=1/6
+2026-11-07T19:15:56Z graph_pair_no_category seed=1 epoch=31 loss=2.70115
+2026-11-07T19:15:57Z graph_pair_no_category seed=1 epoch=32 loss=2.65324 VAL R20=0.524905 N20=0.373468 best_epoch=28 patience=2/6
+2026-11-07T19:15:57Z graph_pair_no_category seed=1 epoch=33 loss=2.67559
+2026-11-07T19:15:57Z graph_pair_no_category seed=1 epoch=34 loss=2.73492 VAL R20=0.526799 N20=0.367267 best_epoch=28 patience=3/6
+2026-11-07T19:15:58Z graph_pair_no_category seed=1 epoch=35 loss=2.67104
+2026-11-07T19:15:58Z graph_pair_no_category seed=1 epoch=36 loss=2.60394 VAL R20=0.528220 N20=0.373663 best_epoch=28 patience=4/6
+2026-11-07T19:15:58Z graph_pair_no_category seed=1 epoch=37 loss=2.51630
+2026-11-07T19:15:59Z graph_pair_no_category seed=1 epoch=38 loss=2.68578 VAL R20=0.532481 N20=0.378348 best_epoch=38 patience=0/6
+2026-11-07T19:15:59Z graph_pair_no_category seed=1 epoch=39 loss=2.61455
+2026-11-07T19:15:59Z graph_pair_no_category seed=1 epoch=40 loss=2.57225 VAL R20=0.524905 N20=0.370865 best_epoch=38 patience=1/6
+2026-11-07T19:16:00Z graph_pair_no_category seed=1 epoch=41 loss=2.65795
+2026-11-07T19:16:00Z graph_pair_no_category seed=1 epoch=42 loss=2.55061 VAL R20=0.524905 N20=0.376013 best_epoch=38 patience=2/6
+2026-11-07T19:16:00Z graph_pair_no_category seed=1 epoch=43 loss=2.38553
+2026-11-07T19:16:01Z graph_pair_no_category seed=1 epoch=44 loss=2.58021 VAL R20=0.526042 N20=0.372847 best_epoch=38 patience=3/6
+2026-11-07T19:16:01Z graph_pair_no_category seed=1 epoch=45 loss=2.66252
+2026-11-07T19:16:01Z graph_pair_no_category seed=1 epoch=46 loss=2.51873 VAL R20=0.526799 N20=0.379453 best_epoch=46 patience=0/6
+2026-11-07T19:16:02Z graph_pair_no_category seed=1 epoch=47 loss=2.48586
+2026-11-07T19:16:02Z graph_pair_no_category seed=1 epoch=48 loss=2.48535 VAL R20=0.524905 N20=0.372323 best_epoch=46 patience=1/6
+2026-11-07T19:16:02Z graph_pair_no_category seed=1 epoch=49 loss=2.51401
+2026-11-07T19:16:03Z graph_pair_no_category seed=1 epoch=50 loss=2.52692 VAL R20=0.526799 N20=0.369692 best_epoch=46 patience=2/6
+2026-11-07T19:16:03Z graph_pair_no_category seed=1 epoch=51 loss=2.52462
+2026-11-07T19:16:03Z graph_pair_no_category seed=1 epoch=52 loss=2.51638 VAL R20=0.523485 N20=0.368390 best_epoch=46 patience=3/6
+2026-11-07T19:16:04Z graph_pair_no_category seed=1 epoch=53 loss=2.43010
+2026-11-07T19:16:04Z graph_pair_no_category seed=1 epoch=54 loss=2.49756 VAL R20=0.526799 N20=0.372920 best_epoch=46 patience=4/6
+2026-11-07T19:16:05Z graph_pair_no_category seed=1 epoch=55 loss=2.53700
+2026-11-07T19:16:05Z graph_pair_no_category seed=1 epoch=56 loss=2.52970 VAL R20=0.524905 N20=0.373192 best_epoch=46 patience=5/6
+2026-11-07T19:16:05Z graph_pair_no_category seed=1 epoch=57 loss=2.52619
+2026-11-07T19:16:06Z graph_pair_no_category seed=1 epoch=58 loss=2.42286 VAL R20=0.529640 N20=0.369917 best_epoch=46 patience=6/6
+2026-11-07T19:16:06Z graph_pair_no_category seed=2 parameters={'trainable_parameters': 38461, 'pair_parameters': 13724, 'joint_parameters': 0, 'category_parameters': 0, 'frozen_buffer_bytes': 2179260} start_epoch=1
+2026-11-07T19:16:06Z graph_pair_no_category seed=2 epoch=1 loss=6.75193
+2026-11-07T19:16:06Z graph_pair_no_category seed=2 epoch=2 loss=6.36647 VAL R20=0.316383 N20=0.201725 best_epoch=2 patience=0/6
+2026-11-07T19:16:07Z graph_pair_no_category seed=2 epoch=3 loss=6.05908
+2026-11-07T19:16:07Z graph_pair_no_category seed=2 epoch=4 loss=5.68344 VAL R20=0.360890 N20=0.238489 best_epoch=4 patience=0/6
+2026-11-07T19:16:07Z graph_pair_no_category seed=2 epoch=5 loss=5.27350
+2026-11-07T19:16:08Z graph_pair_no_category seed=2 epoch=6 loss=4.90590 VAL R20=0.434470 N20=0.287942 best_epoch=6 patience=0/6
+2026-11-07T19:16:08Z graph_pair_no_category seed=2 epoch=7 loss=4.58454
+2026-11-07T19:16:08Z graph_pair_no_category seed=2 epoch=8 loss=4.10714 VAL R20=0.459091 N20=0.314071 best_epoch=8 patience=0/6
+2026-11-07T19:16:09Z graph_pair_no_category seed=2 epoch=9 loss=4.08213
+2026-11-07T19:16:09Z graph_pair_no_category seed=2 epoch=10 loss=3.86996 VAL R20=0.484186 N20=0.335503 best_epoch=10 patience=0/6
+2026-11-07T19:16:09Z graph_pair_no_category seed=2 epoch=11 loss=3.68073
+2026-11-07T19:16:10Z graph_pair_no_category seed=2 epoch=12 loss=3.54855 VAL R20=0.491288 N20=0.352144 best_epoch=12 patience=0/6
+2026-11-07T19:16:10Z graph_pair_no_category seed=2 epoch=13 loss=3.52808
+2026-11-07T19:16:10Z graph_pair_no_category seed=2 epoch=14 loss=3.41060 VAL R20=0.518466 N20=0.363596 best_epoch=14 patience=0/6
+2026-11-07T19:16:11Z graph_pair_no_category seed=2 epoch=15 loss=3.50694
+2026-11-07T19:16:11Z graph_pair_no_category seed=2 epoch=16 loss=3.28682 VAL R20=0.514678 N20=0.365164 best_epoch=16 patience=0/6
+2026-11-07T19:16:12Z graph_pair_no_category seed=2 epoch=17 loss=3.27434
+2026-11-07T19:16:12Z graph_pair_no_category seed=2 epoch=18 loss=2.99403 VAL R20=0.537879 N20=0.374372 best_epoch=18 patience=0/6
+2026-11-07T19:16:12Z graph_pair_no_category seed=2 epoch=19 loss=3.04679
+2026-11-07T19:16:13Z graph_pair_no_category seed=2 epoch=20 loss=2.89642 VAL R20=0.528598 N20=0.368673 best_epoch=18 patience=1/6
+2026-11-07T19:16:13Z graph_pair_no_category seed=2 epoch=21 loss=2.81022
+2026-11-07T19:16:13Z graph_pair_no_category seed=2 epoch=22 loss=2.98966 VAL R20=0.539299 N20=0.374086 best_epoch=18 patience=2/6
+2026-11-07T19:16:14Z graph_pair_no_category seed=2 epoch=23 loss=3.04293
+2026-11-07T19:16:14Z graph_pair_no_category seed=2 epoch=24 loss=2.73824 VAL R20=0.550663 N20=0.378394 best_epoch=24 patience=0/6
+2026-11-07T19:16:14Z graph_pair_no_category seed=2 epoch=25 loss=2.81837
+2026-11-07T19:16:15Z graph_pair_no_category seed=2 epoch=26 loss=2.89516 VAL R20=0.531913 N20=0.370213 best_epoch=24 patience=1/6
+2026-11-07T19:16:15Z graph_pair_no_category seed=2 epoch=27 loss=2.84551
+2026-11-07T19:16:15Z graph_pair_no_category seed=2 epoch=28 loss=2.82273 VAL R20=0.540720 N20=0.375408 best_epoch=24 patience=2/6
+2026-11-07T19:16:16Z graph_pair_no_category seed=2 epoch=29 loss=2.63631
+2026-11-07T19:16:16Z graph_pair_no_category seed=2 epoch=30 loss=2.78565 VAL R20=0.533902 N20=0.372695 best_epoch=24 patience=3/6
+2026-11-07T19:16:16Z graph_pair_no_category seed=2 epoch=31 loss=2.71869
+2026-11-07T19:16:17Z graph_pair_no_category seed=2 epoch=32 loss=2.75613 VAL R20=0.536174 N20=0.369776 best_epoch=24 patience=4/6
+2026-11-07T19:16:17Z graph_pair_no_category seed=2 epoch=33 loss=2.60748
+2026-11-07T19:16:17Z graph_pair_no_category seed=2 epoch=34 loss=2.71643 VAL R20=0.536174 N20=0.377844 best_epoch=24 patience=5/6
+2026-11-07T19:16:18Z graph_pair_no_category seed=2 epoch=35 loss=2.71702
+2026-11-07T19:16:18Z graph_pair_no_category seed=2 epoch=36 loss=2.69395 VAL R20=0.536174 N20=0.374978 best_epoch=24 patience=6/6
+2026-11-07T19:16:18Z Diagnostic source probes for graph_pair_no_category_seed0
+2026-11-07T19:16:21Z graph_pair_no_category_seed0: TEST R20=0.569783 N20=0.443200
+2026-11-07T19:16:21Z graph_pair_no_category_seed1: TEST R20=0.567186 N20=0.445680
+2026-11-07T19:16:21Z graph_pair_no_category_seed2: TEST R20=0.554202 N20=0.433453
+2026-11-07T19:16:21Z food: COMPLETE

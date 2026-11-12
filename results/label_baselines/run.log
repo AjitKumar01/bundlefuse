@@ -1,0 +1,15 @@
+2026-11-11T18:11:06Z pog samelabel TEST filtered {'recall20': 0.011681268251981644, 'ndcg20': 0.005191362712583063}
+2026-11-11T18:11:22Z pog transition TEST filtered {'recall20': 0.02348769294952023, 'ndcg20': 0.011704219210280352}
+2026-11-11T18:11:38Z pog label_knn TEST filtered {'recall20': 0.03717146433041302, 'ndcg20': 0.02342802989025408}
+2026-11-11T18:11:52Z pog label_knn_content TEST filtered {'recall20': 0.036253650396328746, 'ndcg20': 0.02344972940861992}
+2026-11-11T18:11:52Z pog COMPLETE
+2026-11-11T18:13:59Z spotify_sparse samelabel TEST filtered {'recall20': 0.13166689060661488, 'ndcg20': 0.1927022000821119}
+2026-11-11T18:18:30Z spotify_sparse transition TEST filtered {'recall20': 0.09602605241456522, 'ndcg20': 0.1224160979921537}
+2026-11-11T18:19:36Z spotify_sparse label_knn TEST filtered {'recall20': 0.14430446242621234, 'ndcg20': 0.2033614255177098}
+2026-11-11T18:20:33Z spotify_sparse label_knn_content TEST filtered {'recall20': 0.14669818448174832, 'ndcg20': 0.20534430126409237}
+2026-11-11T18:20:33Z spotify_sparse COMPLETE
+2026-11-11T18:24:53Z spotify samelabel TEST filtered {'recall20': 0.1085273446850643, 'ndcg20': 0.19771281021288922}
+2026-11-11T18:33:39Z spotify transition TEST filtered {'recall20': 0.09519362698988815, 'ndcg20': 0.16118427145616437}
+2026-11-11T18:35:49Z spotify label_knn TEST filtered {'recall20': 0.14554675999148764, 'ndcg20': 0.24594506017394402}
+2026-11-11T18:37:44Z spotify label_knn_content TEST filtered {'recall20': 0.1466334089768116, 'ndcg20': 0.24689467832535475}
+2026-11-11T18:37:44Z spotify COMPLETE

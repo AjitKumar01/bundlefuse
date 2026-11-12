@@ -1,0 +1,25 @@
+{
+  "config": {
+    "kind": "weighted",
+    "weights": {
+      "residual_audio": 1.5,
+      "simp": 0.5,
+      "amp": 1.5
+    }
+  },
+  "tuning_metrics": [
+    0.13329751095345557,
+    0.22530909460104756
+  ],
+  "keys": [
+    "residual_audio",
+    "pop",
+    "pair",
+    "simp",
+    "amp"
+  ],
+  "history": "simp",
+  "alpha": 1.0,
+  "seconds": 151.0152240410098,
+  "fitting_candidates": 52
+}

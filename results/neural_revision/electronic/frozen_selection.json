@@ -1,0 +1,177 @@
+{
+  "attributes_seed0": {
+    "condition": {
+      "name": "attributes",
+      "variant": "attributes",
+      "cold_probability": 0.0
+    },
+    "seed": 0,
+    "checkpoint": "checkpoints/neural_revision/electronic/attributes_seed0/epoch_0004.pt",
+    "best_epoch": 4,
+    "epochs_run": 16,
+    "validation": {
+      "recall20": 0.22832369942196531,
+      "ndcg20": 0.11727545208431069,
+      "seconds": 0.025569749996066093,
+      "full_catalogue": true
+    },
+    "parameters": {
+      "trainable_parameters": 237794,
+      "pair_parameters": 0,
+      "joint_parameters": 0,
+      "category_parameters": 229441,
+      "frozen_buffer_bytes": 2040567
+    },
+    "elapsed": 4.030443625000771
+  },
+  "pair_no_cold_seed0": {
+    "condition": {
+      "name": "pair_no_cold",
+      "variant": "pair",
+      "cold_probability": 0.0
+    },
+    "seed": 0,
+    "checkpoint": "checkpoints/neural_revision/electronic/pair_no_cold_seed0/epoch_0052.pt",
+    "best_epoch": 52,
+    "epochs_run": 64,
+    "validation": {
+      "recall20": 0.33554913294797684,
+      "ndcg20": 0.2294674371043428,
+      "seconds": 0.02873841699329205,
+      "full_catalogue": true
+    },
+    "parameters": {
+      "trainable_parameters": 251582,
+      "pair_parameters": 13788,
+      "joint_parameters": 0,
+      "category_parameters": 229441,
+      "frozen_buffer_bytes": 2040567
+    },
+    "elapsed": 30.41812512499746
+  },
+  "pair_cold_seed0": {
+    "condition": {
+      "name": "pair_cold",
+      "variant": "pair",
+      "cold_probability": 0.25
+    },
+    "seed": 0,
+    "checkpoint": "checkpoints/neural_revision/electronic/pair_cold_seed0/epoch_0080.pt",
+    "best_epoch": 80,
+    "epochs_run": 92,
+    "validation": {
+      "recall20": 0.3336223506743738,
+      "ndcg20": 0.22212498302372533,
+      "seconds": 0.025161541998386383,
+      "full_catalogue": true
+    },
+    "parameters": {
+      "trainable_parameters": 251582,
+      "pair_parameters": 13788,
+      "joint_parameters": 0,
+      "category_parameters": 229441,
+      "frozen_buffer_bytes": 2040567
+    },
+    "elapsed": 41.650437707983656
+  },
+  "joint_cold_seed0": {
+    "condition": {
+      "name": "joint_cold",
+      "variant": "joint",
+      "cold_probability": 0.25
+    },
+    "seed": 0,
+    "checkpoint": "checkpoints/neural_revision/electronic/joint_cold_seed0/epoch_0040.pt",
+    "best_epoch": 40,
+    "epochs_run": 52,
+    "validation": {
+      "recall20": 0.30982658959537573,
+      "ndcg20": 0.2023099094246384,
+      "seconds": 0.02212275000056252,
+      "full_catalogue": true
+    },
+    "parameters": {
+      "trainable_parameters": 282839,
+      "pair_parameters": 13788,
+      "joint_parameters": 31257,
+      "category_parameters": 229441,
+      "frozen_buffer_bytes": 3040791
+    },
+    "elapsed": 34.73530825000489
+  },
+  "graph_joint_cold_seed0": {
+    "condition": {
+      "name": "graph_joint_cold",
+      "variant": "graph_joint",
+      "cold_probability": 0.25
+    },
+    "seed": 0,
+    "checkpoint": "checkpoints/neural_revision/electronic/graph_joint_cold_seed0/epoch_0038.pt",
+    "best_epoch": 38,
+    "epochs_run": 50,
+    "validation": {
+      "recall20": 0.3798651252408478,
+      "ndcg20": 0.2682349459231087,
+      "seconds": 0.024950458988314494,
+      "full_catalogue": true
+    },
+    "parameters": {
+      "trainable_parameters": 299223,
+      "pair_parameters": 13788,
+      "joint_parameters": 31257,
+      "category_parameters": 229441,
+      "frozen_buffer_bytes": 3040791
+    },
+    "elapsed": 33.40203495800961
+  },
+  "graph_joint_cold_seed1": {
+    "condition": {
+      "name": "graph_joint_cold",
+      "variant": "graph_joint",
+      "cold_probability": 0.25
+    },
+    "seed": 1,
+    "checkpoint": "checkpoints/neural_revision/electronic/graph_joint_cold_seed1/epoch_0042.pt",
+    "best_epoch": 42,
+    "epochs_run": 54,
+    "validation": {
+      "recall20": 0.3644508670520231,
+      "ndcg20": 0.2628162535184543,
+      "seconds": 0.032973207999020815,
+      "full_catalogue": true
+    },
+    "parameters": {
+      "trainable_parameters": 299223,
+      "pair_parameters": 13788,
+      "joint_parameters": 31257,
+      "category_parameters": 229441,
+      "frozen_buffer_bytes": 3040791
+    },
+    "elapsed": 37.83128383301664
+  },
+  "graph_joint_cold_seed2": {
+    "condition": {
+      "name": "graph_joint_cold",
+      "variant": "graph_joint",
+      "cold_probability": 0.25
+    },
+    "seed": 2,
+    "checkpoint": "checkpoints/neural_revision/electronic/graph_joint_cold_seed2/epoch_0042.pt",
+    "best_epoch": 42,
+    "epochs_run": 54,
+    "validation": {
+      "recall20": 0.3692678227360308,
+      "ndcg20": 0.2653334041160419,
+      "seconds": 0.03157975000794977,
+      "full_catalogue": true
+    },
+    "parameters": {
+      "trainable_parameters": 299223,
+      "pair_parameters": 13788,
+      "joint_parameters": 31257,
+      "category_parameters": 229441,
+      "frozen_buffer_bytes": 3040791
+    },
+    "elapsed": 37.347534250002354
+  }
+}

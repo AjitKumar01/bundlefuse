@@ -1,0 +1,36 @@
+{
+  "datasets": [
+    "pog",
+    "pog_dense",
+    "spotify",
+    "spotify_sparse",
+    "electronic",
+    "food",
+    "clothing",
+    "dunnhumby"
+  ],
+  "seed": 20261107,
+  "partition_seed": 20261119,
+  "shuffles": 3,
+  "pseudocount": 1.0,
+  "scope": "Exploratory. Filtered queries: complete bundles overlapping training are excluded, and test bundles overlapping validation. Splits were inspected earlier. Retail and Dunnhumby use one seed-0 resplit with few test queries.",
+  "estimator": "L_gh=log((O_gh+1)/(E_gh+1)), O ordered distinct-item pairs across bundles, E=P(F_g F_h-delta_gh sum_i_in_g f_i^2)/(F^2-sum_i f_i^2), P=sum_b d_b(d_b-1). Residual e_i=x_i-n_g/(n_g+1) mu_g on the coarsest level.",
+  "menu": "lift per group level, residual per modality, popularity, pair, incidence and amplified (power 2, top 100) history",
+  "primary": [
+    "general vs raw",
+    "general vs shuffled mean"
+  ],
+  "metrics": [
+    "ndcg20",
+    "recall20"
+  ],
+  "holm_family": 32,
+  "decision": {
+    "dataset": "Passes if general beats raw and beats the shuffled mean on NDCG with Holm p<.05, and beats every shuffled seed.",
+    "theory": "General only if every dataset passes. Any failure is reported as a counterexample.",
+    "cost": "The gap to the current dataset-specific recipe is reported and does not decide the pass."
+  },
+  "recipe_note": "Current recipes are refitted separately on this source with their own settings on all validation queries, not under this partition.",
+  "dataset": "electronic",
+  "smoke": false
+}

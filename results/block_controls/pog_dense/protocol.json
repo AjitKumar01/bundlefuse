@@ -1,0 +1,32 @@
+{
+  "seed": 20261107,
+  "shuffles": 5,
+  "base": {
+    "pog": [
+      "hist"
+    ],
+    "pog_dense": [
+      "pop",
+      "hist"
+    ]
+  },
+  "scope": "Exploratory: same filtered population as results/sufficiency, whose test split is already inspected.",
+  "primary": [
+    "cat_style vs content",
+    "cat_style vs per-query mean of shuffled arms"
+  ],
+  "metrics": [
+    "ndcg20",
+    "recall20"
+  ],
+  "holm_family": 8,
+  "null": "Curveball trades on training bundles: item frequencies and bundle sizes kept, co-occurrence destroyed. Only cat is rebuilt from them, including its slot penalty; hist stays real.",
+  "decision": {
+    "raw_description": "Supported on a dataset if cat_style beats content on NDCG with Holm p<.05.",
+    "shuffled_history": "Supported on a dataset if cat_style beats the shuffled mean on NDCG with Holm p<.05 and beats every seed. If not, the gain does not depend on real bundle lift and the claim fails there.",
+    "spotify": "Not tested: its selected recipes do not use cat, so these controls cannot speak to it."
+  },
+  "note": "style uses title features only, while content joins title, image and description, so the primary raw-description arm has more input. allstyle_cat and title are the same-input secondary arms.",
+  "dataset": "pog_dense",
+  "smoke": false
+}

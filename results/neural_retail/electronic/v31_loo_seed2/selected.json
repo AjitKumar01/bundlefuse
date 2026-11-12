@@ -1,0 +1,37 @@
+{
+  "arm": "loo",
+  "config": {
+    "epochs": 100,
+    "batch": 32,
+    "eval_every": 1,
+    "patience": 6,
+    "shared_lr": 0.001,
+    "group_lr": 0.01,
+    "weight_decay": 0.001,
+    "rank": 64,
+    "group_rank": 16,
+    "hidden": 32,
+    "use_album": true,
+    "graph_rank": 64,
+    "model": "relation_family_v3",
+    "label_mode": "spectral"
+  },
+  "seed": 2,
+  "checkpoint": "checkpoints/neural_retail/electronic/v31_loo_seed2/epoch_0011.pt",
+  "best_epoch": 11,
+  "epochs_run": 17,
+  "validation": {
+    "recall20": 0.48082851637764934,
+    "ndcg20": 0.3459794411964008,
+    "seconds": 0.026393917039968073
+  },
+  "parameters": {
+    "trainable_parameters": 41626,
+    "label_parameters": 256,
+    "label_mode": "spectral",
+    "observed_directed_pairs": 13788,
+    "levels": 1,
+    "frozen_buffer_bytes": 14965607
+  },
+  "elapsed": 8.546137582976371
+}

@@ -1,0 +1,130 @@
+{
+  "dataset": "spotify_sparse",
+  "queries": 1248,
+  "checkpoint": "checkpoints/neural_lowrank2/spotify_sparse/v2_loo_mask_seed0/epoch_0006.pt",
+  "structure": {
+    "targets": 27143,
+    "never_sold": 0.30777732748775005,
+    "same_artist": 0.45230814574660133,
+    "same_album": 0.2904984710606786,
+    "co_purchased": 0.539255056552334,
+    "seeds_per_query": 21.760416666666668
+  },
+  "single_signal_recall_ndcg": {
+    "popularity": [
+      0.006234171663816212,
+      0.005958592203150514
+    ],
+    "co_purchase_sum": [
+      0.10272993981343057,
+      0.1298978358268767
+    ],
+    "co_purchase_sum + popularity": [
+      0.10193718323721797,
+      0.12849319011091076
+    ],
+    "same_artist_count + popularity": [
+      0.09788570725351711,
+      0.1368343321757628
+    ],
+    "same_album_count + popularity": [
+      0.11970400368722126,
+      0.18181158461620603
+    ],
+    "ppmi_sum": [
+      0.06932497706404443,
+      0.09313811393790918
+    ],
+    "two_hop": [
+      0.08235613627890473,
+      0.10606539560619661
+    ],
+    "content_mean_cosine": [
+      0.009091775486017232,
+      0.01212510696986055
+    ],
+    "model": [
+      0.15090696308026672,
+      0.21450074359844448
+    ],
+    "model without content": [
+      0.13460699986325336,
+      0.20120443765601584
+    ],
+    "model without history": [
+      0.15139673215073532,
+      0.21866288455397268
+    ],
+    "model without group": [
+      0.1475927703008528,
+      0.21469294197563973
+    ],
+    "model without pair": [
+      0.148981093959567,
+      0.21374212159608943
+    ],
+    "model without match": [
+      0.05831902883820552,
+      0.06879367244042002
+    ],
+    "model without popularity": [
+      0.10826920798660829,
+      0.16042371980485617
+    ]
+  },
+  "model_recall_by_target_class": {
+    "never_sold": {
+      "targets": 8354,
+      "recall": 0.15357912377304286
+    },
+    "same_artist": {
+      "targets": 851,
+      "recall": 0.09283196239717979
+    },
+    "co_purchased": {
+      "targets": 14637,
+      "recall": 0.18425906948145113
+    },
+    "other": {
+      "targets": 3301,
+      "recall": 0.0018176310209027568
+    }
+  },
+  "overlap_with_model": {
+    "popularity": {
+      "hits": 115,
+      "hits_model_misses": 82
+    },
+    "co_purchase_sum": {
+      "hits": 2300,
+      "hits_model_misses": 1185
+    },
+    "co_purchase_sum + popularity": {
+      "hits": 2270,
+      "hits_model_misses": 1169
+    },
+    "same_artist_count + popularity": {
+      "hits": 2495,
+      "hits_model_misses": 839
+    },
+    "same_album_count + popularity": {
+      "hits": 3397,
+      "hits_model_misses": 904
+    },
+    "ppmi_sum": {
+      "hits": 1816,
+      "hits_model_misses": 977
+    },
+    "two_hop": {
+      "hits": 1931,
+      "hits_model_misses": 993
+    },
+    "content_mean_cosine": {
+      "hits": 250,
+      "hits_model_misses": 118
+    }
+  },
+  "learned_content_form": {
+    "symmetric_share": 0.9695703983306885
+  }
+}

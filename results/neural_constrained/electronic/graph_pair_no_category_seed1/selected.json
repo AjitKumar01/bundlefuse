@@ -1,0 +1,27 @@
+{
+  "condition": {
+    "name": "graph_pair_no_category",
+    "variant": "graph_pair",
+    "cold_probability": 0.25,
+    "category_mode": "off",
+    "project_links": true
+  },
+  "seed": 1,
+  "checkpoint": "checkpoints/neural_constrained/electronic/graph_pair_no_category_seed1/epoch_0044.pt",
+  "best_epoch": 44,
+  "epochs_run": 56,
+  "validation": {
+    "recall20": 0.4407514450867052,
+    "ndcg20": 0.3283322097500947,
+    "seconds": 0.019331542018335313,
+    "full_catalogue": true
+  },
+  "parameters": {
+    "trainable_parameters": 38525,
+    "pair_parameters": 13788,
+    "joint_parameters": 0,
+    "category_parameters": 0,
+    "frozen_buffer_bytes": 2040567
+  },
+  "elapsed": 17.5633188339998
+}

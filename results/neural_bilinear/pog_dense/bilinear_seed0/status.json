@@ -1,0 +1,29 @@
+{
+  "status": "selected",
+  "condition": {
+    "name": "bilinear",
+    "variant": "graph_pair",
+    "cold_probability": 0.25,
+    "project_links": true,
+    "category_mode": "off",
+    "bilinear": true
+  },
+  "seed": 0,
+  "checkpoint": "checkpoints/neural_bilinear/pog_dense/bilinear_seed0/epoch_0012.pt",
+  "best_epoch": 12,
+  "epochs_run": 24,
+  "validation": {
+    "recall20": 0.4042565139263253,
+    "ndcg20": 0.301542564597341,
+    "seconds": 3.0121439159847796,
+    "full_catalogue": true
+  },
+  "parameters": {
+    "trainable_parameters": 194195,
+    "pair_parameters": 153074,
+    "joint_parameters": 0,
+    "category_parameters": 0,
+    "frozen_buffer_bytes": 18682091
+  },
+  "elapsed": 1666.4567631659738
+}

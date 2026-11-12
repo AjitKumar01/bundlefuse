@@ -1,0 +1,587 @@
+{
+  "selected": "category",
+  "plan": {
+    "helps": "Selected beats baseline on NDCG with Holm p<.05 on both datasets.",
+    "versus_bundlefuse": "Ahead or behind only with Holm p<.05 on NDCG. Otherwise not separated, which is not equivalence."
+  },
+  "datasets": {
+    "pog_dense": {
+      "seeds": {
+        "selected": [
+          {
+            "full": [
+              0.400696081733468,
+              0.29863493843319405
+            ],
+            "filtered": {
+              "queries": 5547,
+              "recall20": 0.3664743705306171,
+              "ndcg20": 0.26709192625943146
+            },
+            "by_target_frequency": {
+              "unseen": {
+                "hits": 0,
+                "targets": 2127,
+                "micro_recall20": 0.0
+              },
+              "one_two": {
+                "hits": 133,
+                "targets": 1358,
+                "micro_recall20": 0.0979381443298969
+              },
+              "three_plus": {
+                "hits": 3377,
+                "targets": 5700,
+                "micro_recall20": 0.5924561403508772
+              }
+            }
+          },
+          {
+            "full": [
+              0.40195913326597055,
+              0.3010522708238409
+            ],
+            "filtered": {
+              "queries": 5547,
+              "recall20": 0.3665645093443904,
+              "ndcg20": 0.267985665526091
+            },
+            "by_target_frequency": {
+              "unseen": {
+                "hits": 0,
+                "targets": 2127,
+                "micro_recall20": 0.0
+              },
+              "one_two": {
+                "hits": 139,
+                "targets": 1358,
+                "micro_recall20": 0.10235640648011782
+              },
+              "three_plus": {
+                "hits": 3389,
+                "targets": 5700,
+                "micro_recall20": 0.594561403508772
+              }
+            }
+          },
+          {
+            "full": [
+              0.40061187829796785,
+              0.2979358973127905
+            ],
+            "filtered": {
+              "queries": 5547,
+              "recall20": 0.36587344510546244,
+              "ndcg20": 0.2657514166752253
+            },
+            "by_target_frequency": {
+              "unseen": {
+                "hits": 1,
+                "targets": 2127,
+                "micro_recall20": 0.0004701457451810061
+              },
+              "one_two": {
+                "hits": 135,
+                "targets": 1358,
+                "micro_recall20": 0.09941089837997054
+              },
+              "three_plus": {
+                "hits": 3394,
+                "targets": 5700,
+                "micro_recall20": 0.5954385964912281
+              }
+            }
+          }
+        ],
+        "baseline": [
+          {
+            "full": [
+              0.3716458964859099,
+              0.26819406648732713
+            ],
+            "filtered": {
+              "queries": 5547,
+              "recall20": 0.3373294874106123,
+              "ndcg20": 0.23573106997787374
+            },
+            "by_target_frequency": {
+              "unseen": {
+                "hits": 0,
+                "targets": 2127,
+                "micro_recall20": 0.0
+              },
+              "one_two": {
+                "hits": 126,
+                "targets": 1358,
+                "micro_recall20": 0.09278350515463918
+              },
+              "three_plus": {
+                "hits": 3144,
+                "targets": 5700,
+                "micro_recall20": 0.5515789473684211
+              }
+            }
+          },
+          {
+            "full": [
+              0.37321769394857984,
+              0.2683529211497989
+            ],
+            "filtered": {
+              "queries": 5547,
+              "recall20": 0.3378102277507361,
+              "ndcg20": 0.2345996224735589
+            },
+            "by_target_frequency": {
+              "unseen": {
+                "hits": 0,
+                "targets": 2127,
+                "micro_recall20": 0.0
+              },
+              "one_two": {
+                "hits": 128,
+                "targets": 1358,
+                "micro_recall20": 0.09425625920471281
+              },
+              "three_plus": {
+                "hits": 3162,
+                "targets": 5700,
+                "micro_recall20": 0.5547368421052632
+              }
+            }
+          },
+          {
+            "full": [
+              0.3756034579544178,
+              0.2683288789321521
+            ],
+            "filtered": {
+              "queries": 5547,
+              "recall20": 0.339192356228592,
+              "ndcg20": 0.23537798038037205
+            },
+            "by_target_frequency": {
+              "unseen": {
+                "hits": 1,
+                "targets": 2127,
+                "micro_recall20": 0.0004701457451810061
+              },
+              "one_two": {
+                "hits": 134,
+                "targets": 1358,
+                "micro_recall20": 0.09867452135493372
+              },
+              "three_plus": {
+                "hits": 3171,
+                "targets": 5700,
+                "micro_recall20": 0.5563157894736842
+              }
+            }
+          }
+        ]
+      },
+      "mean": {
+        "selected": {
+          "full": [
+            0.40108903109913513,
+            0.29920770218994175
+          ],
+          "filtered": [
+            0.36630410832682164,
+            0.2669430028202493
+          ]
+        },
+        "baseline": {
+          "full": [
+            0.37348901612963487,
+            0.26829195552309365
+          ],
+          "filtered": [
+            0.33811069046331205,
+            0.23523622427726884
+          ]
+        },
+        "bundlefuse": {
+          "full": [
+            0.3952228584259565,
+            0.287875807714288
+          ],
+          "filtered": [
+            0.3600144222102022,
+            0.25799964949625015
+          ]
+        }
+      }
+    },
+    "pog": {
+      "seeds": {
+        "selected": [
+          {
+            "full": [
+              0.04420833333333333,
+              0.028291636629446927
+            ],
+            "filtered": {
+              "queries": 3995,
+              "recall20": 0.04338756779307468,
+              "ndcg20": 0.02756653025716156
+            },
+            "by_target_frequency": {
+              "unseen": {
+                "hits": 103,
+                "targets": 4934,
+                "micro_recall20": 0.020875557357113904
+              },
+              "one_two": {
+                "hits": 120,
+                "targets": 1903,
+                "micro_recall20": 0.0630583289542827
+              },
+              "three_plus": {
+                "hits": 144,
+                "targets": 1574,
+                "micro_recall20": 0.09148665819567979
+              }
+            }
+          },
+          {
+            "full": [
+              0.043541666666666666,
+              0.02819943819430983
+            ],
+            "filtered": {
+              "queries": 3995,
+              "recall20": 0.042594910304547345,
+              "ndcg20": 0.027370923370832006
+            },
+            "by_target_frequency": {
+              "unseen": {
+                "hits": 105,
+                "targets": 4934,
+                "micro_recall20": 0.02128090798540738
+              },
+              "one_two": {
+                "hits": 123,
+                "targets": 1903,
+                "micro_recall20": 0.06463478717813978
+              },
+              "three_plus": {
+                "hits": 137,
+                "targets": 1574,
+                "micro_recall20": 0.08703939008894536
+              }
+            }
+          },
+          {
+            "full": [
+              0.045,
+              0.028313390807063327
+            ],
+            "filtered": {
+              "queries": 3995,
+              "recall20": 0.044180225281602,
+              "ndcg20": 0.027538514522023532
+            },
+            "by_target_frequency": {
+              "unseen": {
+                "hits": 105,
+                "targets": 4934,
+                "micro_recall20": 0.02128090798540738
+              },
+              "one_two": {
+                "hits": 122,
+                "targets": 1903,
+                "micro_recall20": 0.06410930110352075
+              },
+              "three_plus": {
+                "hits": 146,
+                "targets": 1574,
+                "micro_recall20": 0.09275730622617535
+              }
+            }
+          }
+        ],
+        "baseline": [
+          {
+            "full": [
+              0.03620833333333333,
+              0.022676126107276283
+            ],
+            "filtered": {
+              "queries": 3995,
+              "recall20": 0.035502711722987065,
+              "ndcg20": 0.02195356806736048
+            },
+            "by_target_frequency": {
+              "unseen": {
+                "hits": 83,
+                "targets": 4934,
+                "micro_recall20": 0.016822051074179164
+              },
+              "one_two": {
+                "hits": 98,
+                "targets": 1903,
+                "micro_recall20": 0.051497635312664214
+              },
+              "three_plus": {
+                "hits": 120,
+                "targets": 1574,
+                "micro_recall20": 0.07623888182973317
+              }
+            }
+          },
+          {
+            "full": [
+              0.036041666666666666,
+              0.02320118515020201
+            ],
+            "filtered": {
+              "queries": 3995,
+              "recall20": 0.03508552357113058,
+              "ndcg20": 0.022353810955060366
+            },
+            "by_target_frequency": {
+              "unseen": {
+                "hits": 90,
+                "targets": 4934,
+                "micro_recall20": 0.018240778273206325
+              },
+              "one_two": {
+                "hits": 99,
+                "targets": 1903,
+                "micro_recall20": 0.05202312138728324
+              },
+              "three_plus": {
+                "hits": 111,
+                "targets": 1574,
+                "micro_recall20": 0.07052096569250317
+              }
+            }
+          },
+          {
+            "full": [
+              0.03533333333333333,
+              0.02256844396419641
+            ],
+            "filtered": {
+              "queries": 3995,
+              "recall20": 0.034376303712974544,
+              "ndcg20": 0.021709638184639207
+            },
+            "by_target_frequency": {
+              "unseen": {
+                "hits": 81,
+                "targets": 4934,
+                "micro_recall20": 0.016416700445885692
+              },
+              "one_two": {
+                "hits": 100,
+                "targets": 1903,
+                "micro_recall20": 0.05254860746190226
+              },
+              "three_plus": {
+                "hits": 112,
+                "targets": 1574,
+                "micro_recall20": 0.07115628970775095
+              }
+            }
+          }
+        ]
+      },
+      "mean": {
+        "selected": {
+          "full": [
+            0.04424999999999999,
+            0.02826815521027333
+          ],
+          "filtered": [
+            0.04338756779307467,
+            0.027491989383339008
+          ]
+        },
+        "baseline": {
+          "full": [
+            0.03586111111111111,
+            0.022815251740558224
+          ],
+          "filtered": [
+            0.03498817966903073,
+            0.02200567240235334
+          ]
+        },
+        "bundlefuse": {
+          "full": [
+            0.05445833333333335,
+            0.03609231307391131
+          ],
+          "filtered": [
+            0.05352523988318734,
+            0.03524351033582756
+          ]
+        }
+      }
+    }
+  },
+  "primary": [
+    {
+      "delta": 0.03170677854298097,
+      "ci95": [
+        0.029201144927448745,
+        0.03424552160848115
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.3230575085631873,
+      "seed": 20261108,
+      "dataset": "pog_dense",
+      "metric": "ndcg20",
+      "first": "selected",
+      "second": "baseline",
+      "p_holm": 0.0007999200079992001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.02819341786350981,
+      "ci95": [
+        0.024537515645924445,
+        0.0321597760551249
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0964485307373355,
+      "seed": 20261108,
+      "dataset": "pog_dense",
+      "metric": "recall20",
+      "first": "selected",
+      "second": "baseline",
+      "p_holm": 0.0007999200079992001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.008943353323998468,
+      "ci95": [
+        0.00603958775195805,
+        0.011872045873969127
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.23454119343789437,
+      "seed": 20261108,
+      "dataset": "pog_dense",
+      "metric": "ndcg20",
+      "first": "selected",
+      "second": "bundlefuse",
+      "p_holm": 0.0007999200079992001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.0062896861166195925,
+      "ci95": [
+        0.00195915413449209,
+        0.010825369931665408
+      ],
+      "p_value": 0.004299570042995701,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.06273661438615467,
+      "seed": 20261108,
+      "dataset": "pog_dense",
+      "metric": "recall20",
+      "first": "selected",
+      "second": "bundlefuse",
+      "p_holm": 0.004299570042995701,
+      "reject_05": true
+    },
+    {
+      "delta": 0.005486316980985683,
+      "ci95": [
+        0.0043376302573182165,
+        0.006670880461558456
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.07709637046307885,
+      "seed": 20261108,
+      "dataset": "pog",
+      "metric": "ndcg20",
+      "first": "selected",
+      "second": "baseline",
+      "p_holm": 0.0007999200079992001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.008399388124043944,
+      "ci95": [
+        0.00642622571661964,
+        0.010613290272188646
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.04856070087609512,
+      "seed": 20261108,
+      "dataset": "pog",
+      "metric": "recall20",
+      "first": "selected",
+      "second": "baseline",
+      "p_holm": 0.0007999200079992001,
+      "reject_05": true
+    },
+    {
+      "delta": -0.007751520952488459,
+      "ci95": [
+        -0.010303757493051974,
+        -0.005368867036919862
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.06057571964956195,
+      "seed": 20261108,
+      "dataset": "pog",
+      "metric": "ndcg20",
+      "first": "selected",
+      "second": "bundlefuse",
+      "p_holm": 0.0007999200079992001,
+      "reject_05": true
+    },
+    {
+      "delta": -0.010137672090112642,
+      "ci95": [
+        -0.014035201129465023,
+        -0.006355982679669604
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.04055068836045057,
+      "seed": 20261108,
+      "dataset": "pog",
+      "metric": "recall20",
+      "first": "selected",
+      "second": "bundlefuse",
+      "p_holm": 0.0007999200079992001,
+      "reject_05": true
+    }
+  ]
+}

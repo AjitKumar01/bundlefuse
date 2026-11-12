@@ -1,0 +1,8 @@
+{
+  "original_checkpoint": "checkpoints/reorganized_162dd8c/clothing/seed_0/model.pt",
+  "sha256_before": "8bac15b6c7838f6a93b8732bb906929ecbcbfe07e01f369bef243f6fda520cac",
+  "sha256_after": "8bac15b6c7838f6a93b8732bb906929ecbcbfe07e01f369bef243f6fda520cac",
+  "matched_checkpoint": "checkpoints/neural_small/clothing/comparisons/bundlefuse_matched.pt",
+  "matched_sha256": "b41dca156c3b2b54d4e78d42d43e69f67f753a1e92c3d4df11316cbed1704327",
+  "note": "Classical baselines use repository default settings, not an exhaustive tuning search. p3alpha/rp3beta are local named implementations, not paper reproductions. Original BundleFuse additionally uses auxiliary/user histories."
+}

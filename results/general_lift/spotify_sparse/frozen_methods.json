@@ -1,0 +1,382 @@
+{
+  "general": {
+    "config": {
+      "kind": "gate",
+      "weights": {
+        "lift0": 1.5,
+        "lift1": 1.0,
+        "residual_audio": 1.5,
+        "pair": 0.25,
+        "amp": 0.25
+      },
+      "prior_weights": {
+        "lift0": 1.5,
+        "lift1": 1.0,
+        "residual_audio": 1.5
+      },
+      "scale": 1.0,
+      "kappa": 0.5
+    },
+    "tuning_metrics": [
+      0.10348498229118097,
+      0.13970586022019585
+    ],
+    "keys": [
+      "lift0",
+      "lift1",
+      "residual_audio",
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 332.082517584,
+    "fitting_candidates": 104
+  },
+  "raw": {
+    "config": {
+      "kind": "gate",
+      "weights": {
+        "raw_audio": 1.0,
+        "pair": 1.0,
+        "simp": 1.0
+      },
+      "prior_weights": {
+        "raw_audio": 1.0
+      },
+      "scale": 2.2677784779241845,
+      "kappa": 0.05
+    },
+    "tuning_metrics": [
+      0.10270030944392754,
+      0.1363694471293354
+    ],
+    "keys": [
+      "raw_audio",
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 88.58941174999927,
+    "fitting_candidates": 44
+  },
+  "base": {
+    "config": {
+      "kind": "weighted",
+      "weights": {
+        "pair": 1.0,
+        "simp": 1.0
+      }
+    },
+    "tuning_metrics": [
+      0.10023684381280579,
+      0.13417360473930123
+    ],
+    "keys": [
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 30.731863791996147,
+    "fitting_candidates": 32
+  },
+  "shuf0": {
+    "config": {
+      "kind": "gate",
+      "weights": {
+        "shuf0_lift0": 1.5,
+        "shuf0_lift1": 0.5,
+        "residual_audio": 1.5,
+        "pair": 1.0,
+        "simp": 0.5,
+        "amp": 0.25
+      },
+      "prior_weights": {
+        "shuf0_lift0": 1.5,
+        "shuf0_lift1": 0.5,
+        "residual_audio": 1.5
+      },
+      "scale": 1.2533797833256177,
+      "kappa": 0.05
+    },
+    "tuning_metrics": [
+      0.1044341785220422,
+      0.1379807055282414
+    ],
+    "keys": [
+      "shuf0_lift0",
+      "shuf0_lift1",
+      "residual_audio",
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 301.2323583329853,
+    "fitting_candidates": 92
+  },
+  "shuf1": {
+    "config": {
+      "kind": "gate",
+      "weights": {
+        "shuf1_lift0": 0.25,
+        "residual_audio": 0.5,
+        "pair": 1.5,
+        "simp": 1.5
+      },
+      "prior_weights": {
+        "shuf1_lift0": 0.25,
+        "residual_audio": 0.5
+      },
+      "scale": 5.213444972205295,
+      "kappa": 0.05
+    },
+    "tuning_metrics": [
+      0.10022057041707608,
+      0.1340873917644706
+    ],
+    "keys": [
+      "shuf1_lift0",
+      "shuf1_lift1",
+      "residual_audio",
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 133.45628591699642,
+    "fitting_candidates": 87
+  },
+  "shuf2": {
+    "config": {
+      "kind": "gate",
+      "weights": {
+        "shuf2_lift0": 1.5,
+        "shuf2_lift1": 1.0,
+        "residual_audio": 1.0,
+        "pop": 0.5,
+        "pair": 1.0,
+        "simp": 0.5,
+        "amp": 0.25
+      },
+      "prior_weights": {
+        "shuf2_lift0": 1.5,
+        "shuf2_lift1": 1.0,
+        "residual_audio": 1.0,
+        "pop": 0.5
+      },
+      "scale": 1.2871112198620858,
+      "kappa": 0.05
+    },
+    "tuning_metrics": [
+      0.10246961260723919,
+      0.13789544073231758
+    ],
+    "keys": [
+      "shuf2_lift0",
+      "shuf2_lift1",
+      "residual_audio",
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 182.11318554199534,
+    "fitting_candidates": 60
+  },
+  "lift_only": {
+    "config": {
+      "kind": "gate",
+      "weights": {
+        "lift0": 1.5,
+        "lift1": 1.0,
+        "pair": 0.25,
+        "amp": 0.25
+      },
+      "prior_weights": {
+        "lift0": 1.5,
+        "lift1": 1.0
+      },
+      "scale": 1.0,
+      "kappa": 0.05
+    },
+    "tuning_metrics": [
+      0.10371306146286012,
+      0.13933926843241753
+    ],
+    "keys": [
+      "lift0",
+      "lift1",
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 122.6151840829989,
+    "fitting_candidates": 87
+  },
+  "residual_only": {
+    "config": {
+      "kind": "gate",
+      "weights": {
+        "residual_audio": 1.5,
+        "pair": 0.5,
+        "simp": 0.25
+      },
+      "prior_weights": {
+        "residual_audio": 1.5
+      },
+      "scale": 1.120937988938566,
+      "kappa": 0.5
+    },
+    "tuning_metrics": [
+      0.10109210560820943,
+      0.1353878565453674
+    ],
+    "keys": [
+      "residual_audio",
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 98.02655716700247,
+    "fitting_candidates": 70
+  },
+  "identity": {
+    "config": {
+      "kind": "gate",
+      "weights": {
+        "same0": 0.25,
+        "same1": 0.25,
+        "residual_audio": 1.5,
+        "pop": 1.0,
+        "pair": 0.25
+      },
+      "prior_weights": {
+        "same0": 0.25,
+        "same1": 0.25,
+        "residual_audio": 1.5,
+        "pop": 1.0
+      },
+      "scale": 1.0325332480124456,
+      "kappa": 1.0
+    },
+    "tuning_metrics": [
+      0.1457561266844174,
+      0.21184689111238234
+    ],
+    "keys": [
+      "same0",
+      "same1",
+      "residual_audio",
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 122.89673720800783,
+    "fitting_candidates": 67
+  },
+  "off_diagonal": {
+    "config": {
+      "kind": "gate",
+      "weights": {
+        "off0": 0.25,
+        "residual_audio": 1.5,
+        "pair": 1.5,
+        "simp": 0.5,
+        "amp": 0.5
+      },
+      "prior_weights": {
+        "off0": 0.25,
+        "residual_audio": 1.5
+      },
+      "scale": 1.0,
+      "kappa": 0.05
+    },
+    "tuning_metrics": [
+      0.10364430637423953,
+      0.1357257973685092
+    ],
+    "keys": [
+      "off0",
+      "off1",
+      "residual_audio",
+      "pop",
+      "pair",
+      "simp",
+      "amp"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 351.7488809170027,
+    "fitting_candidates": 111
+  },
+  "general_no_history": {
+    "config": {
+      "kind": "weighted",
+      "weights": {
+        "lift0": 0.5,
+        "lift1": 0.25,
+        "residual_audio": 0.25,
+        "pop": 0.5
+      }
+    },
+    "tuning_metrics": [
+      0.07468614680020083,
+      0.10335671421316893
+    ],
+    "keys": [
+      "lift0",
+      "lift1",
+      "residual_audio",
+      "pop"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 47.64605583299999,
+    "fitting_candidates": 32
+  },
+  "raw_no_history": {
+    "config": {
+      "kind": "weighted",
+      "weights": {
+        "raw_audio": 1.5,
+        "pop": 0.25
+      }
+    },
+    "tuning_metrics": [
+      0.026255361967296494,
+      0.030347441416438442
+    ],
+    "keys": [
+      "raw_audio",
+      "pop"
+    ],
+    "history": "simp",
+    "alpha": 1.0,
+    "seconds": 27.286173333006445,
+    "fitting_candidates": 15
+  }
+}

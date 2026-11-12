@@ -1,0 +1,23 @@
+2026-11-08T11:40:34Z spotify_sparse: loading supplied splits and released item features
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/experiments/neural_relations/run.py", line 94, in <module>
+    args=p.parse_args();args.run(args)
+                        ~~~~~~~~^^^^^^
+  File "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/experiments/neural_relations/run.py", line 54, in train
+    ds,x,c,_,_=base.data(args.dataset)
+               ~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/experiments/neural_lowrank/run.py", line 50, in data
+    ds,x,c,f,_,audit=prepare(name,root,out,False)
+                     ~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/experiments/neural_revision/pog.py", line 45, in prepare
+    write_json(output/'overlap_audit.json',audit)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/bundlefuse/provenance.py", line 53, in write_json
+    temporary.replace(path)
+    ~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/ajit/.pyenv/versions/3.13.4/lib/python3.13/pathlib/_local.py", line 780, in replace
+    os.replace(self, target)
+    ~~~~~~~~~~^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'results/neural_lowrank/spotify_sparse/overlap_audit.json.tmp' -> 'results/neural_lowrank/spotify_sparse/overlap_audit.json'

@@ -1,0 +1,69 @@
+2026-11-12T18:03:22Z pog_dense pseudo popularity {} VAL N20=0.00121
+2026-11-12T18:03:26Z pog_dense pseudo popularity TEST clean {'recall20': 0.005228051198846223, 'ndcg20': 0.0015531754166990667}
+2026-11-12T18:03:29Z pog_dense pseudo cooccurrence {} VAL N20=0.00932
+2026-11-12T18:03:34Z pog_dense pseudo cooccurrence TEST clean {'recall20': 0.017336698515714198, 'ndcg20': 0.008277575534244248}
+2026-11-12T18:03:37Z pog_dense pseudo itemknn {'k': 50, 'shrink': 0} VAL N20=0.01407
+2026-11-12T18:03:41Z pog_dense pseudo itemknn {'k': 50, 'shrink': 10} VAL N20=0.01341
+2026-11-12T18:03:44Z pog_dense pseudo itemknn {'k': 50, 'shrink': 100} VAL N20=0.01163
+2026-11-12T18:03:47Z pog_dense pseudo itemknn {'k': 200, 'shrink': 0} VAL N20=0.01424
+2026-11-12T18:03:51Z pog_dense pseudo itemknn {'k': 200, 'shrink': 10} VAL N20=0.01355
+2026-11-12T18:03:54Z pog_dense pseudo itemknn {'k': 200, 'shrink': 100} VAL N20=0.01179
+2026-11-12T18:03:57Z pog_dense pseudo itemknn {'k': 1000, 'shrink': 0} VAL N20=0.01443
+2026-11-12T18:04:00Z pog_dense pseudo itemknn {'k': 1000, 'shrink': 10} VAL N20=0.01372
+2026-11-12T18:04:03Z pog_dense pseudo itemknn {'k': 1000, 'shrink': 100} VAL N20=0.01187
+2026-11-12T18:04:09Z pog_dense pseudo itemknn TEST clean {'recall20': 0.016855958175590408, 'ndcg20': 0.00926329925882584}
+2026-11-12T18:04:15Z pog_dense pseudo rp3beta {'alpha': 0.5, 'beta': 0.0} VAL N20=0.01247
+2026-11-12T18:04:20Z pog_dense pseudo rp3beta {'alpha': 0.5, 'beta': 0.25} VAL N20=0.01497
+2026-11-12T18:04:26Z pog_dense pseudo rp3beta {'alpha': 0.5, 'beta': 0.5} VAL N20=0.01459
+2026-11-12T18:04:32Z pog_dense pseudo rp3beta {'alpha': 0.5, 'beta': 0.75} VAL N20=0.01207
+2026-11-12T18:04:38Z pog_dense pseudo rp3beta {'alpha': 1.0, 'beta': 0.0} VAL N20=0.01594
+2026-11-12T18:04:43Z pog_dense pseudo rp3beta {'alpha': 1.0, 'beta': 0.25} VAL N20=0.01735
+2026-11-12T18:04:49Z pog_dense pseudo rp3beta {'alpha': 1.0, 'beta': 0.5} VAL N20=0.01589
+2026-11-12T18:04:55Z pog_dense pseudo rp3beta {'alpha': 1.0, 'beta': 0.75} VAL N20=0.01326
+2026-11-12T18:05:00Z pog_dense pseudo rp3beta TEST clean {'recall20': 0.01901928970614747, 'ndcg20': 0.011093238058943685}
+2026-11-12T18:07:59Z pog_dense pseudo ease {'l2': 50.0} VAL N20=0.01511
+2026-11-12T18:10:21Z pog_dense pseudo ease {'l2': 200.0} VAL N20=0.01242
+2026-11-12T18:13:17Z pog_dense pseudo ease {'l2': 500.0} VAL N20=0.01085
+2026-11-12T18:15:27Z pog_dense pseudo ease {'l2': 1000.0} VAL N20=0.01009
+2026-11-12T18:16:51Z pog_dense pseudo ease {'l2': 3000.0} VAL N20=0.00945
+2026-11-12T18:18:34Z pog_dense pseudo ease TEST clean {'recall20': 0.01916952106243615, 'ndcg20': 0.010644141107308111}
+2026-11-12T18:18:37Z pog_dense pseudo hybrid {'k': 1000, 'shrink': 0, 'content': 0.0} VAL N20=0.01443
+2026-11-12T18:18:39Z pog_dense pseudo hybrid {'k': 1000, 'shrink': 0, 'content': 0.1} VAL N20=0.01440
+2026-11-12T18:18:41Z pog_dense pseudo hybrid {'k': 1000, 'shrink': 0, 'content': 0.2} VAL N20=0.01429
+2026-11-12T18:18:43Z pog_dense pseudo hybrid {'k': 1000, 'shrink': 0, 'content': 0.3} VAL N20=0.01387
+2026-11-12T18:18:45Z pog_dense pseudo hybrid {'k': 1000, 'shrink': 0, 'content': 0.5} VAL N20=0.01274
+2026-11-12T18:18:47Z pog_dense pseudo hybrid {'k': 1000, 'shrink': 0, 'content': 0.7} VAL N20=0.01046
+2026-11-12T18:18:49Z pog_dense pseudo hybrid {'k': 1000, 'shrink': 0, 'content': 0.9} VAL N20=0.00015
+2026-11-12T18:18:51Z pog_dense pseudo hybrid {'k': 1000, 'shrink': 0, 'content': 1.0} VAL N20=0.00005
+2026-11-12T18:18:56Z pog_dense pseudo hybrid TEST clean {'recall20': 0.016855958175590408, 'ndcg20': 0.00926329925882584}
+2026-11-12T18:18:59Z pog_dense pseudo samelabel {'a': (1.0,), 'gamma': 0.0} VAL N20=0.00000
+2026-11-12T18:19:02Z pog_dense pseudo samelabel {'a': (1.0,), 'gamma': 0.1} VAL N20=0.00000
+2026-11-12T18:19:05Z pog_dense pseudo samelabel {'a': (1.0,), 'gamma': 0.3} VAL N20=0.00000
+2026-11-12T18:19:08Z pog_dense pseudo samelabel {'a': (1.0,), 'gamma': 1.0} VAL N20=0.00077
+2026-11-12T18:19:14Z pog_dense pseudo samelabel TEST clean {'recall20': 0.002674118141938585, 'ndcg20': 0.0007621878783287775}
+2026-11-12T18:19:16Z pog_dense pseudo transition {'a': (1.0,), 'gamma': 0.0, 'eps': 0.0001} VAL N20=0.00016
+2026-11-12T18:19:18Z pog_dense pseudo transition {'a': (1.0,), 'gamma': 0.0, 'eps': 0.01} VAL N20=0.00016
+2026-11-12T18:19:20Z pog_dense pseudo transition {'a': (1.0,), 'gamma': 0.5, 'eps': 0.0001} VAL N20=0.00072
+2026-11-12T18:19:23Z pog_dense pseudo transition {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01} VAL N20=0.00088
+2026-11-12T18:19:25Z pog_dense pseudo transition {'a': (1.0,), 'gamma': 1.0, 'eps': 0.0001} VAL N20=0.00315
+2026-11-12T18:19:28Z pog_dense pseudo transition {'a': (1.0,), 'gamma': 1.0, 'eps': 0.01} VAL N20=0.00117
+2026-11-12T18:19:31Z pog_dense pseudo transition {'a': (1.0,), 'gamma': 2.0, 'eps': 0.0001} VAL N20=0.00600
+2026-11-12T18:19:33Z pog_dense pseudo transition {'a': (1.0,), 'gamma': 2.0, 'eps': 0.01} VAL N20=0.00132
+2026-11-12T18:19:38Z pog_dense pseudo transition TEST clean {'recall20': 0.01099693528033171, 'ndcg20': 0.0048333658197456525}
+2026-11-12T18:19:41Z pog_dense pseudo label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 2.0, 'eps': 0.0001}, 'itemknn': {'k': 1000, 'shrink': 0}, 'w': 0.0} VAL N20=0.01443
+2026-11-12T18:19:44Z pog_dense pseudo label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 2.0, 'eps': 0.0001}, 'itemknn': {'k': 1000, 'shrink': 0}, 'w': 0.1} VAL N20=0.01461
+2026-11-12T18:19:47Z pog_dense pseudo label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 2.0, 'eps': 0.0001}, 'itemknn': {'k': 1000, 'shrink': 0}, 'w': 0.2} VAL N20=0.01533
+2026-11-12T18:19:49Z pog_dense pseudo label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 2.0, 'eps': 0.0001}, 'itemknn': {'k': 1000, 'shrink': 0}, 'w': 0.3} VAL N20=0.01604
+2026-11-12T18:19:52Z pog_dense pseudo label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 2.0, 'eps': 0.0001}, 'itemknn': {'k': 1000, 'shrink': 0}, 'w': 0.5} VAL N20=0.01636
+2026-11-12T18:19:54Z pog_dense pseudo label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 2.0, 'eps': 0.0001}, 'itemknn': {'k': 1000, 'shrink': 0}, 'w': 0.7} VAL N20=0.00970
+2026-11-12T18:19:57Z pog_dense pseudo label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 2.0, 'eps': 0.0001}, 'itemknn': {'k': 1000, 'shrink': 0}, 'w': 0.9} VAL N20=0.00637
+2026-11-12T18:20:00Z pog_dense pseudo label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 2.0, 'eps': 0.0001}, 'itemknn': {'k': 1000, 'shrink': 0}, 'w': 1.0} VAL N20=0.00600
+2026-11-12T18:20:05Z pog_dense pseudo label_knn TEST clean {'recall20': 0.022414518358271737, 'ndcg20': 0.010993965497280149}
+2026-11-12T18:20:08Z pog_dense pseudo label_knn_content {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 2.0, 'eps': 0.0001}, 'itemknn': {'k': 1000, 'shrink': 0}, 'w': 0.5, 'v': 0.0} VAL N20=0.01636
+2026-11-12T18:20:11Z pog_dense pseudo label_knn_content {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 2.0, 'eps': 0.0001}, 'itemknn': {'k': 1000, 'shrink': 0}, 'w': 0.5, 'v': 0.05} VAL N20=0.01610
+2026-11-12T18:20:14Z pog_dense pseudo label_knn_content {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 2.0, 'eps': 0.0001}, 'itemknn': {'k': 1000, 'shrink': 0}, 'w': 0.5, 'v': 0.1} VAL N20=0.01598
+2026-11-12T18:20:17Z pog_dense pseudo label_knn_content {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 2.0, 'eps': 0.0001}, 'itemknn': {'k': 1000, 'shrink': 0}, 'w': 0.5, 'v': 0.2} VAL N20=0.01512
+2026-11-12T18:20:20Z pog_dense pseudo label_knn_content {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 2.0, 'eps': 0.0001}, 'itemknn': {'k': 1000, 'shrink': 0}, 'w': 0.5, 'v': 0.3} VAL N20=0.01437
+2026-11-12T18:20:23Z pog_dense pseudo label_knn_content {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 2.0, 'eps': 0.0001}, 'itemknn': {'k': 1000, 'shrink': 0}, 'w': 0.5, 'v': 0.5} VAL N20=0.01268
+2026-11-12T18:20:29Z pog_dense pseudo label_knn_content TEST clean {'recall20': 0.022414518358271737, 'ndcg20': 0.010993965497280149}
+2026-11-12T18:20:29Z pog_dense pseudo baselines COMPLETE

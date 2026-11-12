@@ -1,0 +1,54 @@
+{
+  "{\"kind\": \"weighted\", \"weights\": {\"amp\": 1.5, \"residual_audio\": 1.5, \"simp\": 0.5}}": [
+    0.13329751095345557,
+    0.22530909460104756
+  ],
+  "{\"kappa\": 0.0, \"kind\": \"gate\", \"prior_weights\": {\"residual_audio\": 1.5}, \"scale\": 1.0, \"weights\": {\"amp\": 1.5, \"residual_audio\": 1.5, \"simp\": 0.5}}": [
+    0.13329751095345557,
+    0.22530909460104756
+  ],
+  "{\"kappa\": 0.05, \"kind\": \"gate\", \"prior_weights\": {\"residual_audio\": 1.5}, \"scale\": 1.0, \"weights\": {\"amp\": 1.5, \"residual_audio\": 1.5, \"simp\": 0.5}}": [
+    0.13328045988714105,
+    0.2251425349598613
+  ],
+  "{\"kappa\": 0.5, \"kind\": \"gate\", \"prior_weights\": {\"residual_audio\": 1.5}, \"scale\": 1.0, \"weights\": {\"amp\": 1.5, \"residual_audio\": 1.5, \"simp\": 0.5}}": [
+    0.1326917764508833,
+    0.2236537793985164
+  ],
+  "{\"kappa\": 1.0, \"kind\": \"gate\", \"prior_weights\": {\"residual_audio\": 1.5}, \"scale\": 1.0, \"weights\": {\"amp\": 1.5, \"residual_audio\": 1.5, \"simp\": 0.5}}": [
+    0.1320460222303186,
+    0.22257811904250555
+  ],
+  "{\"kappa\": 5.0, \"kind\": \"gate\", \"prior_weights\": {\"residual_audio\": 1.5}, \"scale\": 1.0, \"weights\": {\"amp\": 1.5, \"residual_audio\": 1.5, \"simp\": 0.5}}": [
+    0.12905559587190996,
+    0.21600920755509884
+  ],
+  "{\"kappa\": 20.0, \"kind\": \"gate\", \"prior_weights\": {\"residual_audio\": 1.5}, \"scale\": 1.0, \"weights\": {\"amp\": 1.5, \"residual_audio\": 1.5, \"simp\": 0.5}}": [
+    0.12414895895595339,
+    0.2064804208569506
+  ],
+  "{\"kappa\": 0.0, \"kind\": \"gate\", \"prior_weights\": {\"residual_audio\": 1.5}, \"scale\": 1.6586206519281368, \"weights\": {\"amp\": 1.5, \"residual_audio\": 1.5, \"simp\": 0.5}}": [
+    0.13329751095345557,
+    0.22530909460104756
+  ],
+  "{\"kappa\": 0.05, \"kind\": \"gate\", \"prior_weights\": {\"residual_audio\": 1.5}, \"scale\": 1.6586206519281368, \"weights\": {\"amp\": 1.5, \"residual_audio\": 1.5, \"simp\": 0.5}}": [
+    0.13330691491359606,
+    0.22519400941814946
+  ],
+  "{\"kappa\": 0.5, \"kind\": \"gate\", \"prior_weights\": {\"residual_audio\": 1.5}, \"scale\": 1.6586206519281368, \"weights\": {\"amp\": 1.5, \"residual_audio\": 1.5, \"simp\": 0.5}}": [
+    0.1327050039641108,
+    0.2236752168804765
+  ],
+  "{\"kappa\": 1.0, \"kind\": \"gate\", \"prior_weights\": {\"residual_audio\": 1.5}, \"scale\": 1.6586206519281368, \"weights\": {\"amp\": 1.5, \"residual_audio\": 1.5, \"simp\": 0.5}}": [
+    0.1320460222303186,
+    0.22253133590516602
+  ],
+  "{\"kappa\": 5.0, \"kind\": \"gate\", \"prior_weights\": {\"residual_audio\": 1.5}, \"scale\": 1.6586206519281368, \"weights\": {\"amp\": 1.5, \"residual_audio\": 1.5, \"simp\": 0.5}}": [
+    0.12934882863816904,
+    0.21625962309919183
+  ],
+  "{\"kappa\": 20.0, \"kind\": \"gate\", \"prior_weights\": {\"residual_audio\": 1.5}, \"scale\": 1.6586206519281368, \"weights\": {\"amp\": 1.5, \"residual_audio\": 1.5, \"simp\": 0.5}}": [
+    0.12425519562728991,
+    0.20699537614599944
+  ]
+}
