@@ -1,0 +1,1062 @@
+{
+  "note": "Main table of the DIALS paper: DIALS against the best simple baseline on the 7 bundle datasets.\n\nOne pool: the 9 baselines of experiments/simple_baselines (popularity, co-occurrence, ItemKNN, RP3beta, GF-CF, EASE,\ncontent+ItemKNN blend, iALS, SGFCF) plus the 4 label-aware ones of experiments/bundle_budget (same label, transition,\nlabel+ItemKNN, label+ItemKNN+content). The best one per dataset is chosen on validation NDCG@20 (a method present in\nboth pools keeps its higher-validation setting). Clean test queries, paired cluster bootstrap and sign flips,\nHolm over the 14 tests (7 datasets x NDCG@20, Recall@20).\n\nPYTHONPATH=.:../dials .venv/bin/python -m experiments.paper_tables.main_table\n",
+  "datasets": {
+    "electronic": {
+      "dials": [
+        0.46910725754656407,
+        0.3345691324745834
+      ],
+      "best": "hybrid",
+      "best_params": {
+        "k": 200,
+        "shrink": 0,
+        "content": 0.1
+      },
+      "best_source": "simple_baselines",
+      "pool": {
+        "popularity": {
+          "validation_ndcg20": 0.0207167491239972,
+          "test": [
+            0.059874759152215795,
+            0.025771939853047172
+          ]
+        },
+        "cooccurrence": {
+          "validation_ndcg20": 0.1853426662275894,
+          "test": [
+            0.3436416184971098,
+            0.23079293994055233
+          ]
+        },
+        "itemknn": {
+          "validation_ndcg20": 0.23293514991995715,
+          "test": [
+            0.3524566473988439,
+            0.2476732098345902
+          ]
+        },
+        "rp3beta": {
+          "validation_ndcg20": 0.23244300908078477,
+          "test": [
+            0.35573217726396916,
+            0.2554358113549917
+          ]
+        },
+        "gfcf": {
+          "validation_ndcg20": 0.2261480827999231,
+          "test": [
+            0.3551541425818882,
+            0.2542265782947785
+          ]
+        },
+        "ease": {
+          "validation_ndcg20": 0.23500915762590194,
+          "test": [
+            0.35351637764932564,
+            0.25383723898273697
+          ]
+        },
+        "hybrid": {
+          "validation_ndcg20": 0.31772709964868784,
+          "test": [
+            0.43203275529865137,
+            0.2985896793655201
+          ]
+        },
+        "ials": {
+          "validation_ndcg20": 0.19427506604058126,
+          "test": [
+            0.3563102119460501,
+            0.2356313968610253
+          ]
+        },
+        "sgfcf": {
+          "validation_ndcg20": 0.22709597610996982,
+          "test": [
+            0.3467726396917148,
+            0.2460097477365879
+          ]
+        },
+        "samelabel": {
+          "validation_ndcg20": 0.0535079006188244,
+          "test": [
+            0.09263005780346818,
+            0.05157053026195143
+          ]
+        },
+        "transition": {
+          "validation_ndcg20": 0.07029661906858459,
+          "test": [
+            0.1404142581888247,
+            0.0696164483613165
+          ]
+        },
+        "label_knn": {
+          "validation_ndcg20": 0.24931114210416883,
+          "test": [
+            0.35187861271676296,
+            0.24967149370447766
+          ]
+        },
+        "label_knn_content": {
+          "validation_ndcg20": 0.29333076391109203,
+          "test": [
+            0.42769749518304445,
+            0.3001444983876709
+          ]
+        }
+      },
+      "queries": 346
+    },
+    "food": {
+      "dials": [
+        0.5861504564054141,
+        0.4388153766780888
+      ],
+      "best": "label_knn_content",
+      "best_params": {
+        "label": "transition",
+        "label_params": {
+          "a": [
+            1.0
+          ],
+          "gamma": 0.5,
+          "eps": 0.01
+        },
+        "itemknn": {
+          "k": 50,
+          "shrink": 10
+        },
+        "w": 0.2,
+        "v": 0.5
+      },
+      "best_source": "results/bundle_budget_retail",
+      "pool": {
+        "popularity": {
+          "validation_ndcg20": 0.006889274563610687,
+          "test": [
+            0.03503305004721435,
+            0.01607712511704437
+          ]
+        },
+        "cooccurrence": {
+          "validation_ndcg20": 0.23284372867857908,
+          "test": [
+            0.34527856468366386,
+            0.24944642316421425
+          ]
+        },
+        "itemknn": {
+          "validation_ndcg20": 0.25939776942810533,
+          "test": [
+            0.3384324834749764,
+            0.2620955366861381
+          ]
+        },
+        "rp3beta": {
+          "validation_ndcg20": 0.2643051693073469,
+          "test": [
+            0.3393767705382436,
+            0.2743314941123544
+          ]
+        },
+        "gfcf": {
+          "validation_ndcg20": 0.2667545661017256,
+          "test": [
+            0.3404154863078376,
+            0.2684588349982255
+          ]
+        },
+        "ease": {
+          "validation_ndcg20": 0.2611706290955851,
+          "test": [
+            0.34164305949008494,
+            0.2671776349856445
+          ]
+        },
+        "hybrid": {
+          "validation_ndcg20": 0.37601337584968575,
+          "test": [
+            0.5442398489140698,
+            0.42523860057125484
+          ]
+        },
+        "ials": {
+          "validation_ndcg20": 0.2409864125888167,
+          "test": [
+            0.34655335221907463,
+            0.24965700863750828
+          ]
+        },
+        "sgfcf": {
+          "validation_ndcg20": 0.26648145261470124,
+          "test": [
+            0.3404154863078376,
+            0.2720413543654794
+          ]
+        },
+        "samelabel": {
+          "validation_ndcg20": 0.06541314498444385,
+          "test": [
+            0.1597733711048159,
+            0.07287248919071426
+          ]
+        },
+        "transition": {
+          "validation_ndcg20": 0.08764178617585788,
+          "test": [
+            0.2152030217186025,
+            0.11091387224090536
+          ]
+        },
+        "label_knn": {
+          "validation_ndcg20": 0.2688089259136517,
+          "test": [
+            0.3645420207743153,
+            0.2789734595755227
+          ]
+        },
+        "label_knn_content": {
+          "validation_ndcg20": 0.38100313600365027,
+          "test": [
+            0.5459867799811142,
+            0.41170726999752316
+          ]
+        }
+      },
+      "queries": 353
+    },
+    "clothing": {
+      "dials": [
+        0.5337526205450736,
+        0.3876317520011579
+      ],
+      "best": "label_knn_content",
+      "best_params": {
+        "label": "transition",
+        "label_params": {
+          "a": [
+            1.0
+          ],
+          "gamma": 0.5,
+          "eps": 0.0001
+        },
+        "itemknn": {
+          "k": 50,
+          "shrink": 0
+        },
+        "w": 0.1,
+        "v": 0.5
+      },
+      "best_source": "results/bundle_budget_retail",
+      "pool": {
+        "popularity": {
+          "validation_ndcg20": 0.0016661608499061369,
+          "test": [
+            0.008086253369272238,
+            0.0027702737874506058
+          ]
+        },
+        "cooccurrence": {
+          "validation_ndcg20": 0.24999545367656764,
+          "test": [
+            0.2349505840071878,
+            0.17721494611885172
+          ]
+        },
+        "itemknn": {
+          "validation_ndcg20": 0.2718310824700829,
+          "test": [
+            0.2349505840071878,
+            0.19273837159767754
+          ]
+        },
+        "rp3beta": {
+          "validation_ndcg20": 0.2721650093611399,
+          "test": [
+            0.2349505840071878,
+            0.1934905158702088
+          ]
+        },
+        "gfcf": {
+          "validation_ndcg20": 0.2757217607164854,
+          "test": [
+            0.2318957771787961,
+            0.1918797794490447
+          ]
+        },
+        "ease": {
+          "validation_ndcg20": 0.285196318029865,
+          "test": [
+            0.2349505840071878,
+            0.20089034507109932
+          ]
+        },
+        "hybrid": {
+          "validation_ndcg20": 0.3786783122119745,
+          "test": [
+            0.43292902066486977,
+            0.3302892883484926
+          ]
+        },
+        "ials": {
+          "validation_ndcg20": 0.25540696117474576,
+          "test": [
+            0.2318957771787961,
+            0.17498243290717874
+          ]
+        },
+        "sgfcf": {
+          "validation_ndcg20": 0.27613613146740495,
+          "test": [
+            0.2318957771787961,
+            0.19129465764174886
+          ]
+        },
+        "samelabel": {
+          "validation_ndcg20": 0.10735070939379855,
+          "test": [
+            0.12574123989218328,
+            0.06279760351791853
+          ]
+        },
+        "transition": {
+          "validation_ndcg20": 0.15401413672218447,
+          "test": [
+            0.21787960467205753,
+            0.11795643431055634
+          ]
+        },
+        "label_knn": {
+          "validation_ndcg20": 0.27629565847076487,
+          "test": [
+            0.27906558849955077,
+            0.2118997819068171
+          ]
+        },
+        "label_knn_content": {
+          "validation_ndcg20": 0.3842231182476517,
+          "test": [
+            0.4461814914645104,
+            0.3330991485979365
+          ]
+        }
+      },
+      "queries": 371
+    },
+    "pog_dense": {
+      "dials": [
+        0.37557839072171,
+        0.2802226827501821
+      ],
+      "best": "rp3beta",
+      "best_params": {
+        "alpha": 1.0,
+        "beta": 0.0
+      },
+      "best_source": "simple_baselines",
+      "pool": {
+        "popularity": {
+          "validation_ndcg20": 0.1515550044894675,
+          "test": [
+            0.29406285679946964,
+            0.15616860441957492
+          ]
+        },
+        "cooccurrence": {
+          "validation_ndcg20": 0.24705679890731416,
+          "test": [
+            0.3413857340304052,
+            0.2394952349978418
+          ]
+        },
+        "itemknn": {
+          "validation_ndcg20": 0.22390090932741846,
+          "test": [
+            0.31593654227510226,
+            0.20807082704753796
+          ]
+        },
+        "rp3beta": {
+          "validation_ndcg20": 0.27461433401217944,
+          "test": [
+            0.3447208701400142,
+            0.24071678151966885
+          ]
+        },
+        "gfcf": {
+          "validation_ndcg20": 0.2508156385141342,
+          "test": [
+            0.329307132984795,
+            0.2299646881225052
+          ]
+        },
+        "ease": {
+          "validation_ndcg20": 0.2573548933515952,
+          "test": [
+            0.32428940568475323,
+            0.22771051917856833
+          ]
+        },
+        "hybrid": {
+          "validation_ndcg20": 0.22390090932741846,
+          "test": [
+            0.31593654227510226,
+            0.20807082704753796
+          ]
+        },
+        "ials": {
+          "validation_ndcg20": 0.20850787677508295,
+          "test": [
+            0.27020611742082745,
+            0.19139081101093808
+          ]
+        },
+        "sgfcf": {
+          "validation_ndcg20": 0.26924352240498434,
+          "test": [
+            0.3211645934739485,
+            0.23657681664202487
+          ]
+        },
+        "samelabel": {
+          "validation_ndcg20": 0.1361179374773316,
+          "test": [
+            0.29021693407847937,
+            0.13962008711568086
+          ]
+        },
+        "transition": {
+          "validation_ndcg20": 0.19540094711532094,
+          "test": [
+            0.3010636380025224,
+            0.19694467398994986
+          ]
+        },
+        "label_knn": {
+          "validation_ndcg20": 0.25657216956594736,
+          "test": [
+            0.34198665945555984,
+            0.2490202370993495
+          ]
+        },
+        "label_knn_content": {
+          "validation_ndcg20": 0.25657216956594736,
+          "test": [
+            0.34198665945555984,
+            0.2490202370993495
+          ]
+        }
+      },
+      "queries": 5547
+    },
+    "pog": {
+      "dials": [
+        0.05427617855652902,
+        0.03133739223379296
+      ],
+      "best": "label_knn_content",
+      "best_params": {
+        "label": "transition",
+        "label_params": {
+          "a": [
+            1.0
+          ],
+          "gamma": 1.0,
+          "eps": 0.0001
+        },
+        "itemknn": {
+          "k": 200,
+          "shrink": 100
+        },
+        "w": 0.5,
+        "v": 0.2
+      },
+      "best_source": "results/bundle_budget",
+      "pool": {
+        "popularity": {
+          "validation_ndcg20": 0.007473912584844543,
+          "test": [
+            0.014434710054234464,
+            0.006816533116516509
+          ]
+        },
+        "cooccurrence": {
+          "validation_ndcg20": 0.020565406716531776,
+          "test": [
+            0.029954109303295784,
+            0.01954053139141486
+          ]
+        },
+        "itemknn": {
+          "validation_ndcg20": 0.01821521513624272,
+          "test": [
+            0.02649144764288694,
+            0.017440896586669523
+          ]
+        },
+        "rp3beta": {
+          "validation_ndcg20": 0.019849933106914824,
+          "test": [
+            0.02811848143512724,
+            0.019341911999482757
+          ]
+        },
+        "gfcf": {
+          "validation_ndcg20": 0.016177614735370504,
+          "test": [
+            0.026115978306216106,
+            0.016486069915811852
+          ]
+        },
+        "ease": {
+          "validation_ndcg20": 0.02072371081932007,
+          "test": [
+            0.029453483521067997,
+            0.019795451057974065
+          ]
+        },
+        "hybrid": {
+          "validation_ndcg20": 0.01821521513624272,
+          "test": [
+            0.02649144764288694,
+            0.017440896586669523
+          ]
+        },
+        "ials": {
+          "validation_ndcg20": 0.016888334174903832,
+          "test": [
+            0.02461410095953275,
+            0.015078368784926724
+          ]
+        },
+        "sgfcf": {
+          "validation_ndcg20": 0.019559437730154186,
+          "test": [
+            0.02665832290362954,
+            0.018329900643960093
+          ]
+        },
+        "samelabel": {
+          "validation_ndcg20": 0.005779578517776594,
+          "test": [
+            0.011681268251981645,
+            0.005191362712583062
+          ]
+        },
+        "transition": {
+          "validation_ndcg20": 0.012414093496701044,
+          "test": [
+            0.023487692949520227,
+            0.011704219210280356
+          ]
+        },
+        "label_knn": {
+          "validation_ndcg20": 0.02326498250096071,
+          "test": [
+            0.037171464330413,
+            0.02342802989025408
+          ]
+        },
+        "label_knn_content": {
+          "validation_ndcg20": 0.024278238777978713,
+          "test": [
+            0.03625365039632872,
+            0.023449729408619932
+          ]
+        }
+      },
+      "queries": 3995
+    },
+    "spotify_sparse": {
+      "dials": [
+        0.18365124107479236,
+        0.2562208437519258
+      ],
+      "best": "label_knn_content",
+      "best_params": {
+        "label": "samelabel",
+        "label_params": {
+          "a": [
+            1.0,
+            1.0
+          ],
+          "gamma": 0.3
+        },
+        "itemknn": {
+          "k": 1000,
+          "shrink": 10
+        },
+        "w": 0.7,
+        "v": 0.5
+      },
+      "best_source": "results/bundle_budget_retail",
+      "pool": {
+        "popularity": {
+          "validation_ndcg20": 0.005958592203150514,
+          "test": [
+            0.005671440084818473,
+            0.006132954668850835
+          ]
+        },
+        "cooccurrence": {
+          "validation_ndcg20": 0.12869075891708115,
+          "test": [
+            0.11004751919739729,
+            0.1386152863127909
+          ]
+        },
+        "itemknn": {
+          "validation_ndcg20": 0.13500032057411276,
+          "test": [
+            0.11373166109784805,
+            0.14764671179631833
+          ]
+        },
+        "rp3beta": {
+          "validation_ndcg20": 0.1379802373859138,
+          "test": [
+            0.11799062314506846,
+            0.14878802426548088
+          ]
+        },
+        "gfcf": {
+          "validation_ndcg20": 0.0914284832376118,
+          "test": [
+            0.07897839493249234,
+            0.09917534762247662
+          ]
+        },
+        "hybrid": {
+          "validation_ndcg20": 0.13944075213932344,
+          "test": [
+            0.1165948081077678,
+            0.15261855892235807
+          ]
+        },
+        "ials": {
+          "validation_ndcg20": 0.11320938109308312,
+          "test": [
+            0.10542594655333588,
+            0.12990220757330503
+          ]
+        },
+        "sgfcf": {
+          "validation_ndcg20": 0.12461196961483206,
+          "test": [
+            0.10710807055428612,
+            0.13778827572860614
+          ]
+        },
+        "samelabel": {
+          "validation_ndcg20": 0.18548809914528086,
+          "test": [
+            0.13166689060661477,
+            0.19270220008211228
+          ]
+        },
+        "transition": {
+          "validation_ndcg20": 0.10964550003537318,
+          "test": [
+            0.09602605241456548,
+            0.12241609799215362
+          ]
+        },
+        "label_knn": {
+          "validation_ndcg20": 0.19358741891731723,
+          "test": [
+            0.14430446242621212,
+            0.20336142551771047
+          ]
+        },
+        "label_knn_content": {
+          "validation_ndcg20": 0.196498467416166,
+          "test": [
+            0.14669818448174818,
+            0.20534430126409248
+          ]
+        }
+      },
+      "queries": 2497
+    },
+    "spotify": {
+      "dials": [
+        0.16742106928940578,
+        0.2824496478970466
+      ],
+      "best": "label_knn_content",
+      "best_params": {
+        "label": "samelabel",
+        "label_params": {
+          "a": [
+            1.0,
+            1.0
+          ],
+          "gamma": 0.3
+        },
+        "itemknn": {
+          "k": 1000,
+          "shrink": 10
+        },
+        "w": 0.5,
+        "v": 0.5
+      },
+      "best_source": "results/bundle_budget_retail",
+      "pool": {
+        "popularity": {
+          "validation_ndcg20": 0.02244452279040424,
+          "test": [
+            0.012750442627616102,
+            0.02201015285913921
+          ]
+        },
+        "cooccurrence": {
+          "validation_ndcg20": 0.15900565083605406,
+          "test": [
+            0.09510741387929794,
+            0.15956775777447468
+          ]
+        },
+        "itemknn": {
+          "validation_ndcg20": 0.2216436256270117,
+          "test": [
+            0.12986101644216327,
+            0.21919946496119144
+          ]
+        },
+        "rp3beta": {
+          "validation_ndcg20": 0.21273970996011657,
+          "test": [
+            0.12355450442425399,
+            0.20996405607192956
+          ]
+        },
+        "gfcf": {
+          "validation_ndcg20": 0.17651315688354496,
+          "test": [
+            0.10170867463933767,
+            0.17343528807811892
+          ]
+        },
+        "hybrid": {
+          "validation_ndcg20": 0.225996689224138,
+          "test": [
+            0.1323687217882459,
+            0.22281601396816073
+          ]
+        },
+        "ials": {
+          "validation_ndcg20": 0.20903860295678006,
+          "test": [
+            0.12463433870641207,
+            0.20974645211348183
+          ]
+        },
+        "sgfcf": {
+          "validation_ndcg20": 0.19637198547099838,
+          "test": [
+            0.11531559596517688,
+            0.1952299541974977
+          ]
+        },
+        "samelabel": {
+          "validation_ndcg20": 0.2097535711556209,
+          "test": [
+            0.10852734468506416,
+            0.19771281021288983
+          ]
+        },
+        "transition": {
+          "validation_ndcg20": 0.1606178512324064,
+          "test": [
+            0.09519362698988791,
+            0.16118427145616496
+          ]
+        },
+        "label_knn": {
+          "validation_ndcg20": 0.25340088999349636,
+          "test": [
+            0.1455467599914875,
+            0.24594506017394424
+          ]
+        },
+        "label_knn_content": {
+          "validation_ndcg20": 0.2561072068010246,
+          "test": [
+            0.14663340897681162,
+            0.2468946783253548
+          ]
+        }
+      },
+      "queries": 3995
+    }
+  },
+  "tests": [
+    {
+      "dataset": "electronic",
+      "metric": "recall20",
+      "comparison": "DIALS vs hybrid",
+      "delta": 0.03707450224791266,
+      "ci95": [
+        0.00712869299935774,
+        0.06671724470134875
+      ],
+      "p_value": 0.013398660133986601,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.11849710982658959,
+      "seed": 20261109,
+      "p_holm": 0.0231976802319768,
+      "reject_05": true
+    },
+    {
+      "dataset": "electronic",
+      "metric": "ndcg20",
+      "comparison": "DIALS vs hybrid",
+      "delta": 0.03597945310906308,
+      "ci95": [
+        0.015542571076150329,
+        0.05730780838877215
+      ],
+      "p_value": 0.00039996000399960006,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.2745664739884393,
+      "seed": 20261109,
+      "p_holm": 0.0015998400159984002,
+      "reject_05": true
+    },
+    {
+      "dataset": "food",
+      "metric": "recall20",
+      "comparison": "DIALS vs label_knn_content",
+      "delta": 0.04016367642429965,
+      "ci95": [
+        0.012320585457979222,
+        0.06967500786905885
+      ],
+      "p_value": 0.006899310068993101,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.12464589235127478,
+      "seed": 20261109,
+      "p_holm": 0.0206979302069793,
+      "reject_05": true
+    },
+    {
+      "dataset": "food",
+      "metric": "ndcg20",
+      "comparison": "DIALS vs label_knn_content",
+      "delta": 0.027108106680565475,
+      "ci95": [
+        0.007753295413723162,
+        0.048299567793649086
+      ],
+      "p_value": 0.0115988401159884,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.3031161473087819,
+      "seed": 20261109,
+      "p_holm": 0.0231976802319768,
+      "reject_05": true
+    },
+    {
+      "dataset": "clothing",
+      "metric": "recall20",
+      "comparison": "DIALS vs label_knn_content",
+      "delta": 0.08757112908056304,
+      "ci95": [
+        0.058050314465408794,
+        0.11826070679844261
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 371,
+      "clusters": 371,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.18598382749326145,
+      "seed": 20261109,
+      "p_holm": 0.0013998600139986002,
+      "reject_05": true
+    },
+    {
+      "dataset": "clothing",
+      "metric": "ndcg20",
+      "comparison": "DIALS vs label_knn_content",
+      "delta": 0.054532603403221275,
+      "ci95": [
+        0.033284932855523613,
+        0.07765171092310191
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 371,
+      "clusters": 371,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.32075471698113206,
+      "seed": 20261109,
+      "p_holm": 0.0013998600139986002,
+      "reject_05": true
+    },
+    {
+      "dataset": "pog_dense",
+      "metric": "recall20",
+      "comparison": "DIALS vs rp3beta",
+      "delta": 0.03085752058169581,
+      "ci95": [
+        0.026004616278138267,
+        0.036080010739366335
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.07860104561023977,
+      "seed": 20261109,
+      "p_holm": 0.0013998600139986002,
+      "reject_05": true
+    },
+    {
+      "dataset": "pog_dense",
+      "metric": "ndcg20",
+      "comparison": "DIALS vs rp3beta",
+      "delta": 0.039505901230511536,
+      "ci95": [
+        0.03590610843797117,
+        0.04317075642259719
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5519,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.2752839372633856,
+      "seed": 20261109,
+      "p_holm": 0.0013998600139986002,
+      "reject_05": true
+    },
+    {
+      "dataset": "pog",
+      "metric": "recall20",
+      "comparison": "DIALS vs label_knn_content",
+      "delta": 0.018022528160200252,
+      "ci95": [
+        0.014086793693530143,
+        0.021665971353080234
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.07709637046307885,
+      "seed": 20261109,
+      "p_holm": 0.0013998600139986002,
+      "reject_05": true
+    },
+    {
+      "dataset": "pog",
+      "metric": "ndcg20",
+      "comparison": "DIALS vs label_knn_content",
+      "delta": 0.007887662825173104,
+      "ci95": [
+        0.0056058274553393754,
+        0.010111470500278264
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3994,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.09586983729662078,
+      "seed": 20261109,
+      "p_holm": 0.0013998600139986002,
+      "reject_05": true
+    },
+    {
+      "dataset": "spotify_sparse",
+      "metric": "recall20",
+      "comparison": "DIALS vs label_knn_content",
+      "delta": 0.03695305659304451,
+      "ci95": [
+        0.033305181758022474,
+        0.04057991281175531
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 2497,
+      "clusters": 2496,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.4805766920304365,
+      "seed": 20261109,
+      "p_holm": 0.0013998600139986002,
+      "reject_05": true
+    },
+    {
+      "dataset": "spotify_sparse",
+      "metric": "ndcg20",
+      "comparison": "DIALS vs label_knn_content",
+      "delta": 0.050876542487833645,
+      "ci95": [
+        0.04635802964998701,
+        0.055508537584844315
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 2497,
+      "clusters": 2496,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.5706848217861433,
+      "seed": 20261109,
+      "p_holm": 0.0013998600139986002,
+      "reject_05": true
+    },
+    {
+      "dataset": "spotify",
+      "metric": "recall20",
+      "comparison": "DIALS vs label_knn_content",
+      "delta": 0.020787660312594658,
+      "ci95": [
+        0.0179849766758871,
+        0.023608042079436904
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3995,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.4282853566958698,
+      "seed": 20261109,
+      "p_holm": 0.0013998600139986002,
+      "reject_05": true
+    },
+    {
+      "dataset": "spotify",
+      "metric": "ndcg20",
+      "comparison": "DIALS vs label_knn_content",
+      "delta": 0.03555496957169167,
+      "ci95": [
+        0.031384974469129134,
+        0.039791867750605774
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3995,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.5073842302878598,
+      "seed": 20261109,
+      "p_holm": 0.0013998600139986002,
+      "reject_05": true
+    }
+  ]
+}

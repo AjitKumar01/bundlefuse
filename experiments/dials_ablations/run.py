@@ -14,7 +14,7 @@ untrained: the model at initialization with delta and rho set to zero, evaluated
 product of the first 64 feature coordinates plus log(1 + raw co-occurrence count), equal weights. Seed-independent.
 
 Test: clean test queries, three-seed per-query means, frozen DIALS minus ablation, NDCG@20 and Recall@20, paired
-cluster bootstrap and sign flips, Holm over the 16 tests (8 datasets x 2 metrics) of each ablation.
+cluster bootstrap and sign flips, Holm over the tests of each ablation (2 metrics x the datasets run).
 
 PYTHONPATH=.:../dials .venv/bin/python -m experiments.dials_ablations.run train --part diagonal --dataset food --seed 0
 PYTHONPATH=.:../dials .venv/bin/python -m experiments.dials_ablations.run untrained --dataset food
@@ -115,7 +115,7 @@ def test(_):
             for j,metric in ((1,'ndcg20'),(0,'recall20')):
                 records.append(dict(paired_comparison(full[keep,j],ablated[keep,j],clusters,bootstrap=2000,permutations=10000,seed=20261109),
                                     part=part,dataset=name,metric=metric))
-        if records:holm_adjust(records,2*len(data.DATASETS))
+        if records:holm_adjust(records,len(records))  # 2 metrics x the datasets that were run
         report['parts'][part]['primary']=records
         for r in records:print(part,r['dataset'],r['metric'],round(r['delta'],4),[round(x,4) for x in r['ci95']],round(r['p_holm'],4),flush=True)
     write_json(OUT/'summary.json',report)

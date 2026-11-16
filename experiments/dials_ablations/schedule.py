@@ -9,8 +9,8 @@ import time
 from pathlib import Path
 from .run import PARTS,OUT
 
-HEAVY=['spotify','spotify_sparse'];ORDER=['spotify','spotify_sparse','pog','pog_dense','clothing','electronic','food']
-TOTAL,HEAVY_MAX=12,6
+HEAVY=['spotify','spotify_sparse'];ORDER=['spotify_sparse','pog_dense','pog','clothing','electronic','food']  # paper set (2026-11-16): full Spotify and Dunnhumby left out
+TOTAL,HEAVY_MAX=13,6
 LOGS=OUT/'logs'
 
 
