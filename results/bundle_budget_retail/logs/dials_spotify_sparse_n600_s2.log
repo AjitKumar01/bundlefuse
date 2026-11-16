@@ -1,0 +1,18 @@
+2026-11-16T08:44:51Z spotify_sparse seed=2 parameters=41978 train_bundles=600 start_epoch=1
+2026-11-16T08:45:54Z spotify_sparse seed=2 epoch=1 loss=9.99754 VAL R20=0.114921 N20=0.160070 best_epoch=1 patience=0/6
+2026-11-16T08:47:35Z spotify_sparse seed=2 epoch=2 loss=9.27449 VAL R20=0.122001 N20=0.173911 best_epoch=2 patience=0/6
+2026-11-16T08:48:42Z spotify_sparse seed=2 epoch=3 loss=9.09005 VAL R20=0.130083 N20=0.189396 best_epoch=3 patience=0/6
+2026-11-16T08:49:50Z spotify_sparse seed=2 epoch=4 loss=8.94606 VAL R20=0.133512 N20=0.194943 best_epoch=4 patience=0/6
+2026-11-16T08:51:14Z spotify_sparse seed=2 epoch=5 loss=8.90532 VAL R20=0.134910 N20=0.197095 best_epoch=5 patience=0/6
+2026-11-16T08:52:22Z spotify_sparse seed=2 epoch=6 loss=8.91502 VAL R20=0.139442 N20=0.202254 best_epoch=6 patience=0/6
+2026-11-16T08:53:37Z spotify_sparse seed=2 epoch=7 loss=8.83818 VAL R20=0.139541 N20=0.202966 best_epoch=7 patience=0/6
+2026-11-16T08:55:00Z spotify_sparse seed=2 epoch=8 loss=8.83722 VAL R20=0.139313 N20=0.202012 best_epoch=7 patience=1/6
+2026-11-16T08:56:14Z spotify_sparse seed=2 epoch=9 loss=8.73675 VAL R20=0.139928 N20=0.203948 best_epoch=9 patience=0/6
+2026-11-16T08:57:19Z spotify_sparse seed=2 epoch=10 loss=8.83350 VAL R20=0.140453 N20=0.204149 best_epoch=10 patience=0/6
+2026-11-16T08:58:23Z spotify_sparse seed=2 epoch=11 loss=8.71019 VAL R20=0.139648 N20=0.202376 best_epoch=10 patience=1/6
+2026-11-16T08:59:13Z spotify_sparse seed=2 epoch=12 loss=8.78235 VAL R20=0.139789 N20=0.203714 best_epoch=10 patience=2/6
+2026-11-16T09:00:16Z spotify_sparse seed=2 epoch=13 loss=8.73031 VAL R20=0.138003 N20=0.202481 best_epoch=10 patience=3/6
+2026-11-16T09:01:23Z spotify_sparse seed=2 epoch=14 loss=8.69561 VAL R20=0.140722 N20=0.203822 best_epoch=10 patience=4/6
+2026-11-16T09:02:12Z spotify_sparse seed=2 epoch=15 loss=8.68246 VAL R20=0.137156 N20=0.200210 best_epoch=10 patience=5/6
+2026-11-16T09:03:13Z spotify_sparse seed=2 epoch=16 loss=8.69016 VAL R20=0.140785 N20=0.202862 best_epoch=10 patience=6/6
+2026-11-16T09:03:42Z spotify_sparse n600 seed 2 COMPLETE

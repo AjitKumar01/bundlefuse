@@ -1,0 +1,117 @@
+2026-11-16T09:32:00Z spotify n300 popularity {} VAL N20=0.01754
+2026-11-16T09:32:11Z spotify n300 popularity TEST clean {'recall20': 0.010207955408292729, 'ndcg20': 0.016592341417629667}
+2026-11-16T09:32:17Z spotify n300 cooccurrence {} VAL N20=0.09114
+2026-11-16T09:32:29Z spotify n300 cooccurrence TEST clean {'recall20': 0.04889003893987182, 'ndcg20': 0.08764524800863001}
+2026-11-16T09:32:35Z spotify n300 itemknn {'k': 50, 'shrink': 0} VAL N20=0.02939
+2026-11-16T09:32:41Z spotify n300 itemknn {'k': 50, 'shrink': 10} VAL N20=0.08029
+2026-11-16T09:32:47Z spotify n300 itemknn {'k': 50, 'shrink': 100} VAL N20=0.08101
+2026-11-16T09:32:53Z spotify n300 itemknn {'k': 200, 'shrink': 0} VAL N20=0.03941
+2026-11-16T09:32:59Z spotify n300 itemknn {'k': 200, 'shrink': 10} VAL N20=0.08838
+2026-11-16T09:33:05Z spotify n300 itemknn {'k': 200, 'shrink': 100} VAL N20=0.08874
+2026-11-16T09:33:11Z spotify n300 itemknn {'k': 1000, 'shrink': 0} VAL N20=0.06123
+2026-11-16T09:33:17Z spotify n300 itemknn {'k': 1000, 'shrink': 10} VAL N20=0.09313
+2026-11-16T09:33:23Z spotify n300 itemknn {'k': 1000, 'shrink': 100} VAL N20=0.09202
+2026-11-16T09:33:35Z spotify n300 itemknn TEST clean {'recall20': 0.049060288910691856, 'ndcg20': 0.08905328745557275}
+2026-11-16T09:33:41Z spotify n300 rp3beta {'alpha': 0.5, 'beta': 0.0} VAL N20=0.09597
+2026-11-16T09:33:47Z spotify n300 rp3beta {'alpha': 0.5, 'beta': 0.25} VAL N20=0.09171
+2026-11-16T09:33:53Z spotify n300 rp3beta {'alpha': 0.5, 'beta': 0.5} VAL N20=0.07020
+2026-11-16T09:33:59Z spotify n300 rp3beta {'alpha': 0.5, 'beta': 0.75} VAL N20=0.03468
+2026-11-16T09:34:04Z spotify n300 rp3beta {'alpha': 1.0, 'beta': 0.0} VAL N20=0.08484
+2026-11-16T09:34:10Z spotify n300 rp3beta {'alpha': 1.0, 'beta': 0.25} VAL N20=0.07145
+2026-11-16T09:34:16Z spotify n300 rp3beta {'alpha': 1.0, 'beta': 0.5} VAL N20=0.04735
+2026-11-16T09:34:22Z spotify n300 rp3beta {'alpha': 1.0, 'beta': 0.75} VAL N20=0.02715
+2026-11-16T09:34:35Z spotify n300 rp3beta TEST clean {'recall20': 0.05089312987615623, 'ndcg20': 0.0918487558469144}
+2026-11-16T09:35:09Z spotify n300 ease {'l2': 50.0} VAL N20=0.09576
+2026-11-16T09:35:37Z spotify n300 ease {'l2': 200.0} VAL N20=0.09684
+2026-11-16T09:36:05Z spotify n300 ease {'l2': 500.0} VAL N20=0.09533
+2026-11-16T09:36:32Z spotify n300 ease {'l2': 1000.0} VAL N20=0.09437
+2026-11-16T09:36:59Z spotify n300 ease {'l2': 3000.0} VAL N20=0.09338
+2026-11-16T09:37:32Z spotify n300 ease TEST clean {'recall20': 0.052157980448553604, 'ndcg20': 0.09396490800308113}
+2026-11-16T09:37:41Z spotify n300 hybrid {'k': 1000, 'shrink': 10, 'content': 0.0} VAL N20=0.09313
+2026-11-16T09:37:56Z spotify n300 hybrid {'k': 1000, 'shrink': 10, 'content': 0.1} VAL N20=0.10363
+2026-11-16T09:38:09Z spotify n300 hybrid {'k': 1000, 'shrink': 10, 'content': 0.2} VAL N20=0.10485
+2026-11-16T09:38:23Z spotify n300 hybrid {'k': 1000, 'shrink': 10, 'content': 0.3} VAL N20=0.10620
+2026-11-16T09:38:36Z spotify n300 hybrid {'k': 1000, 'shrink': 10, 'content': 0.5} VAL N20=0.10777
+2026-11-16T09:38:52Z spotify n300 hybrid {'k': 1000, 'shrink': 10, 'content': 0.7} VAL N20=0.10660
+2026-11-16T09:39:06Z spotify n300 hybrid {'k': 1000, 'shrink': 10, 'content': 0.9} VAL N20=0.07817
+2026-11-16T09:39:22Z spotify n300 hybrid {'k': 1000, 'shrink': 10, 'content': 1.0} VAL N20=0.02396
+2026-11-16T09:39:52Z spotify n300 hybrid TEST clean {'recall20': 0.05770313367291057, 'ndcg20': 0.10242112104146942}
+2026-11-16T09:40:05Z spotify n300 samelabel {'a': (1.0, 0.0), 'gamma': 0.0} VAL N20=0.12294
+2026-11-16T09:40:17Z spotify n300 samelabel {'a': (1.0, 0.0), 'gamma': 0.1} VAL N20=0.12357
+2026-11-16T09:40:29Z spotify n300 samelabel {'a': (1.0, 0.0), 'gamma': 0.3} VAL N20=0.13022
+2026-11-16T09:40:43Z spotify n300 samelabel {'a': (1.0, 0.0), 'gamma': 1.0} VAL N20=0.08787
+2026-11-16T09:40:56Z spotify n300 samelabel {'a': (0.0, 1.0), 'gamma': 0.0} VAL N20=0.18809
+2026-11-16T09:41:10Z spotify n300 samelabel {'a': (0.0, 1.0), 'gamma': 0.1} VAL N20=0.18813
+2026-11-16T09:41:21Z spotify n300 samelabel {'a': (0.0, 1.0), 'gamma': 0.3} VAL N20=0.19038
+2026-11-16T09:41:36Z spotify n300 samelabel {'a': (0.0, 1.0), 'gamma': 1.0} VAL N20=0.06861
+2026-11-16T09:41:55Z spotify n300 samelabel {'a': (1.0, 1.0), 'gamma': 0.0} VAL N20=0.18286
+2026-11-16T09:42:16Z spotify n300 samelabel {'a': (1.0, 1.0), 'gamma': 0.1} VAL N20=0.18413
+2026-11-16T09:42:37Z spotify n300 samelabel {'a': (1.0, 1.0), 'gamma': 0.3} VAL N20=0.19143
+2026-11-16T09:42:55Z spotify n300 samelabel {'a': (1.0, 1.0), 'gamma': 1.0} VAL N20=0.18527
+2026-11-16T09:43:14Z spotify n300 samelabel {'a': (1.0, 0.5), 'gamma': 0.0} VAL N20=0.17884
+2026-11-16T09:43:37Z spotify n300 samelabel {'a': (1.0, 0.5), 'gamma': 0.1} VAL N20=0.18147
+2026-11-16T09:43:56Z spotify n300 samelabel {'a': (1.0, 0.5), 'gamma': 0.3} VAL N20=0.19299
+2026-11-16T09:44:14Z spotify n300 samelabel {'a': (1.0, 0.5), 'gamma': 1.0} VAL N20=0.15164
+2026-11-16T09:44:33Z spotify n300 samelabel {'a': (0.5, 1.0), 'gamma': 0.0} VAL N20=0.18514
+2026-11-16T09:44:51Z spotify n300 samelabel {'a': (0.5, 1.0), 'gamma': 0.1} VAL N20=0.18783
+2026-11-16T09:45:07Z spotify n300 samelabel {'a': (0.5, 1.0), 'gamma': 0.3} VAL N20=0.19557
+2026-11-16T09:45:24Z spotify n300 samelabel {'a': (0.5, 1.0), 'gamma': 1.0} VAL N20=0.15207
+2026-11-16T09:45:59Z spotify n300 samelabel TEST clean {'recall20': 0.10195426547390204, 'ndcg20': 0.1843708552190392}
+2026-11-16T09:46:14Z spotify n300 transition {'a': (1.0, 0.0), 'gamma': 0.0, 'eps': 0.0001} VAL N20=0.03702
+2026-11-16T09:46:29Z spotify n300 transition {'a': (1.0, 0.0), 'gamma': 0.0, 'eps': 0.01} VAL N20=0.03705
+2026-11-16T09:46:46Z spotify n300 transition {'a': (1.0, 0.0), 'gamma': 0.5, 'eps': 0.0001} VAL N20=0.01281
+2026-11-16T09:47:02Z spotify n300 transition {'a': (1.0, 0.0), 'gamma': 0.5, 'eps': 0.01} VAL N20=0.01209
+2026-11-16T09:47:19Z spotify n300 transition {'a': (1.0, 0.0), 'gamma': 1.0, 'eps': 0.0001} VAL N20=0.01163
+2026-11-16T09:47:36Z spotify n300 transition {'a': (1.0, 0.0), 'gamma': 1.0, 'eps': 0.01} VAL N20=0.01112
+2026-11-16T09:47:52Z spotify n300 transition {'a': (1.0, 0.0), 'gamma': 2.0, 'eps': 0.0001} VAL N20=0.01096
+2026-11-16T09:48:08Z spotify n300 transition {'a': (1.0, 0.0), 'gamma': 2.0, 'eps': 0.01} VAL N20=0.01079
+2026-11-16T09:48:21Z spotify n300 transition {'a': (0.0, 1.0), 'gamma': 0.0, 'eps': 0.0001} VAL N20=0.03577
+2026-11-16T09:48:34Z spotify n300 transition {'a': (0.0, 1.0), 'gamma': 0.0, 'eps': 0.01} VAL N20=0.03579
+2026-11-16T09:48:52Z spotify n300 transition {'a': (0.0, 1.0), 'gamma': 0.5, 'eps': 0.0001} VAL N20=0.06608
+2026-11-16T09:49:08Z spotify n300 transition {'a': (0.0, 1.0), 'gamma': 0.5, 'eps': 0.01} VAL N20=0.04751
+2026-11-16T09:49:24Z spotify n300 transition {'a': (0.0, 1.0), 'gamma': 1.0, 'eps': 0.0001} VAL N20=0.07036
+2026-11-16T09:49:40Z spotify n300 transition {'a': (0.0, 1.0), 'gamma': 1.0, 'eps': 0.01} VAL N20=0.04000
+2026-11-16T09:49:57Z spotify n300 transition {'a': (0.0, 1.0), 'gamma': 2.0, 'eps': 0.0001} VAL N20=0.04512
+2026-11-16T09:50:12Z spotify n300 transition {'a': (0.0, 1.0), 'gamma': 2.0, 'eps': 0.01} VAL N20=0.03885
+2026-11-16T09:50:34Z spotify n300 transition {'a': (1.0, 1.0), 'gamma': 0.0, 'eps': 0.0001} VAL N20=0.03712
+2026-11-16T09:50:57Z spotify n300 transition {'a': (1.0, 1.0), 'gamma': 0.0, 'eps': 0.01} VAL N20=0.03723
+2026-11-16T09:51:22Z spotify n300 transition {'a': (1.0, 1.0), 'gamma': 0.5, 'eps': 0.0001} VAL N20=0.05523
+2026-11-16T09:51:44Z spotify n300 transition {'a': (1.0, 1.0), 'gamma': 0.5, 'eps': 0.01} VAL N20=0.02868
+2026-11-16T09:52:08Z spotify n300 transition {'a': (1.0, 1.0), 'gamma': 1.0, 'eps': 0.0001} VAL N20=0.06693
+2026-11-16T09:52:31Z spotify n300 transition {'a': (1.0, 1.0), 'gamma': 1.0, 'eps': 0.01} VAL N20=0.01693
+2026-11-16T09:52:54Z spotify n300 transition {'a': (1.0, 1.0), 'gamma': 2.0, 'eps': 0.0001} VAL N20=0.05188
+2026-11-16T09:53:19Z spotify n300 transition {'a': (1.0, 1.0), 'gamma': 2.0, 'eps': 0.01} VAL N20=0.01513
+2026-11-16T09:53:40Z spotify n300 transition {'a': (1.0, 0.5), 'gamma': 0.0, 'eps': 0.0001} VAL N20=0.03676
+2026-11-16T09:54:01Z spotify n300 transition {'a': (1.0, 0.5), 'gamma': 0.0, 'eps': 0.01} VAL N20=0.03499
+2026-11-16T09:54:26Z spotify n300 transition {'a': (1.0, 0.5), 'gamma': 0.5, 'eps': 0.0001} VAL N20=0.05831
+2026-11-16T09:54:48Z spotify n300 transition {'a': (1.0, 0.5), 'gamma': 0.5, 'eps': 0.01} VAL N20=0.01696
+2026-11-16T09:55:09Z spotify n300 transition {'a': (1.0, 0.5), 'gamma': 1.0, 'eps': 0.0001} VAL N20=0.04888
+2026-11-16T09:55:29Z spotify n300 transition {'a': (1.0, 0.5), 'gamma': 1.0, 'eps': 0.01} VAL N20=0.01368
+2026-11-16T09:55:49Z spotify n300 transition {'a': (1.0, 0.5), 'gamma': 2.0, 'eps': 0.0001} VAL N20=0.03237
+2026-11-16T09:56:06Z spotify n300 transition {'a': (1.0, 0.5), 'gamma': 2.0, 'eps': 0.01} VAL N20=0.01304
+2026-11-16T09:56:22Z spotify n300 transition {'a': (0.5, 1.0), 'gamma': 0.0, 'eps': 0.0001} VAL N20=0.03899
+2026-11-16T09:56:40Z spotify n300 transition {'a': (0.5, 1.0), 'gamma': 0.0, 'eps': 0.01} VAL N20=0.03863
+2026-11-16T09:56:58Z spotify n300 transition {'a': (0.5, 1.0), 'gamma': 0.5, 'eps': 0.0001} VAL N20=0.06153
+2026-11-16T09:57:16Z spotify n300 transition {'a': (0.5, 1.0), 'gamma': 0.5, 'eps': 0.01} VAL N20=0.03218
+2026-11-16T09:57:32Z spotify n300 transition {'a': (0.5, 1.0), 'gamma': 1.0, 'eps': 0.0001} VAL N20=0.07449
+2026-11-16T09:57:46Z spotify n300 transition {'a': (0.5, 1.0), 'gamma': 1.0, 'eps': 0.01} VAL N20=0.02135
+2026-11-16T09:58:00Z spotify n300 transition {'a': (0.5, 1.0), 'gamma': 2.0, 'eps': 0.0001} VAL N20=0.05197
+2026-11-16T09:58:15Z spotify n300 transition {'a': (0.5, 1.0), 'gamma': 2.0, 'eps': 0.01} VAL N20=0.01980
+2026-11-16T09:58:42Z spotify n300 transition TEST clean {'recall20': 0.03879373214526619, 'ndcg20': 0.07010691995378993}
+2026-11-16T09:58:53Z spotify n300 label_knn {'label': 'samelabel', 'label_params': {'a': (0.5, 1.0), 'gamma': 0.3}, 'itemknn': {'k': 1000, 'shrink': 10}, 'w': 0.0} VAL N20=0.09313
+2026-11-16T09:59:03Z spotify n300 label_knn {'label': 'samelabel', 'label_params': {'a': (0.5, 1.0), 'gamma': 0.3}, 'itemknn': {'k': 1000, 'shrink': 10}, 'w': 0.1} VAL N20=0.12977
+2026-11-16T09:59:14Z spotify n300 label_knn {'label': 'samelabel', 'label_params': {'a': (0.5, 1.0), 'gamma': 0.3}, 'itemknn': {'k': 1000, 'shrink': 10}, 'w': 0.2} VAL N20=0.13841
+2026-11-16T09:59:24Z spotify n300 label_knn {'label': 'samelabel', 'label_params': {'a': (0.5, 1.0), 'gamma': 0.3}, 'itemknn': {'k': 1000, 'shrink': 10}, 'w': 0.3} VAL N20=0.14819
+2026-11-16T09:59:35Z spotify n300 label_knn {'label': 'samelabel', 'label_params': {'a': (0.5, 1.0), 'gamma': 0.3}, 'itemknn': {'k': 1000, 'shrink': 10}, 'w': 0.5} VAL N20=0.18094
+2026-11-16T09:59:46Z spotify n300 label_knn {'label': 'samelabel', 'label_params': {'a': (0.5, 1.0), 'gamma': 0.3}, 'itemknn': {'k': 1000, 'shrink': 10}, 'w': 0.7} VAL N20=0.21150
+2026-11-16T09:59:56Z spotify n300 label_knn {'label': 'samelabel', 'label_params': {'a': (0.5, 1.0), 'gamma': 0.3}, 'itemknn': {'k': 1000, 'shrink': 10}, 'w': 0.9} VAL N20=0.20174
+2026-11-16T10:00:07Z spotify n300 label_knn {'label': 'samelabel', 'label_params': {'a': (0.5, 1.0), 'gamma': 0.3}, 'itemknn': {'k': 1000, 'shrink': 10}, 'w': 1.0} VAL N20=0.19557
+2026-11-16T10:00:28Z spotify n300 label_knn TEST clean {'recall20': 0.11131270158120758, 'ndcg20': 0.1999282673223885}
+2026-11-16T10:00:39Z spotify n300 label_knn_content {'label': 'samelabel', 'label_params': {'a': (0.5, 1.0), 'gamma': 0.3}, 'itemknn': {'k': 1000, 'shrink': 10}, 'w': 0.7, 'v': 0.0} VAL N20=0.21150
+2026-11-16T10:00:53Z spotify n300 label_knn_content {'label': 'samelabel', 'label_params': {'a': (0.5, 1.0), 'gamma': 0.3}, 'itemknn': {'k': 1000, 'shrink': 10}, 'w': 0.7, 'v': 0.05} VAL N20=0.21347
+2026-11-16T10:01:08Z spotify n300 label_knn_content {'label': 'samelabel', 'label_params': {'a': (0.5, 1.0), 'gamma': 0.3}, 'itemknn': {'k': 1000, 'shrink': 10}, 'w': 0.7, 'v': 0.1} VAL N20=0.21383
+2026-11-16T10:01:23Z spotify n300 label_knn_content {'label': 'samelabel', 'label_params': {'a': (0.5, 1.0), 'gamma': 0.3}, 'itemknn': {'k': 1000, 'shrink': 10}, 'w': 0.7, 'v': 0.2} VAL N20=0.21421
+2026-11-16T10:01:38Z spotify n300 label_knn_content {'label': 'samelabel', 'label_params': {'a': (0.5, 1.0), 'gamma': 0.3}, 'itemknn': {'k': 1000, 'shrink': 10}, 'w': 0.7, 'v': 0.3} VAL N20=0.21456
+2026-11-16T10:01:53Z spotify n300 label_knn_content {'label': 'samelabel', 'label_params': {'a': (0.5, 1.0), 'gamma': 0.3}, 'itemknn': {'k': 1000, 'shrink': 10}, 'w': 0.7, 'v': 0.5} VAL N20=0.21469
+2026-11-16T10:02:23Z spotify n300 label_knn_content TEST clean {'recall20': 0.11479791583169335, 'ndcg20': 0.20339088480143155}
+2026-11-16T10:02:23Z spotify n300 baselines COMPLETE

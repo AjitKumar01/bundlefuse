@@ -1,0 +1,11 @@
+2026-11-16T05:31:40Z food n100: 100 bundles repeated to 1232 rows per epoch
+2026-11-16T05:31:41Z food seed=2 parameters=41624 train_bundles=1232 start_epoch=1
+2026-11-16T05:31:42Z food seed=2 epoch=1 loss=6.54121 VAL R20=0.272822 N20=0.171113 best_epoch=1 patience=0/6
+2026-11-16T05:31:43Z food seed=2 epoch=2 loss=5.90479 VAL R20=0.280398 N20=0.180301 best_epoch=2 patience=0/6
+2026-11-16T05:31:44Z food seed=2 epoch=3 loss=4.94387 VAL R20=0.262595 N20=0.164058 best_epoch=2 patience=1/6
+2026-11-16T05:31:45Z food seed=2 epoch=4 loss=4.03323 VAL R20=0.282008 N20=0.158404 best_epoch=2 patience=2/6
+2026-11-16T05:31:46Z food seed=2 epoch=5 loss=3.34647 VAL R20=0.241856 N20=0.139526 best_epoch=2 patience=3/6
+2026-11-16T05:31:47Z food seed=2 epoch=6 loss=2.66034 VAL R20=0.228409 N20=0.132255 best_epoch=2 patience=4/6
+2026-11-16T05:31:48Z food seed=2 epoch=7 loss=2.23901 VAL R20=0.234280 N20=0.139710 best_epoch=2 patience=5/6
+2026-11-16T05:31:49Z food seed=2 epoch=8 loss=1.90210 VAL R20=0.232197 N20=0.141560 best_epoch=2 patience=6/6
+2026-11-16T05:31:49Z food n100 seed 2 steps COMPLETE

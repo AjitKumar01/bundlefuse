@@ -1,0 +1,218 @@
+{
+  "note": "Training sets for the fixed-count bundle-budget test: Electronic, Food and Clothing (family \"retail\"), Spotify_sparse\nand Spotify (family \"spotify\").\n\nThe e-commerce datasets have only about 1,200 training bundles, so the POG test's 10% and 1% would leave 120 and 12\nbundles. Fixed counts are used instead, which is also how a retailer would describe its data:\n  full            all training bundles (the split of the frozen runs)\n  n3000 ... n50   nested random subsets of that many training bundles (one fixed permutation per dataset, seed\n                  20261113): 600, 300, 100, 50 for every dataset, and also 3,000 and 1,000 for Spotify, whose full\n                  split is larger\nValidation and test queries are never changed; only the bundles the methods learn from are. Statistics (counts, label\nfactors, partner histories) and training rows are the same bundles.\n\nPYTHONPATH=.:../dials .venv/bin/python -m experiments.bundle_budget_retail.conditions\n",
+  "conditions": {
+    "electronic": {
+      "full": {
+        "bundles": 1211,
+        "mean_size": 3.519405450041288,
+        "catalogue": 0.8056587596456131,
+        "test_seeds": 0.5628834355828221,
+        "test_targets": 0.5916666666666667
+      },
+      "n600": {
+        "bundles": 600,
+        "mean_size": 3.5516666666666667,
+        "catalogue": 0.47670763075164335,
+        "test_seeds": 0.3941717791411043,
+        "test_targets": 0.41333333333333333
+      },
+      "n300": {
+        "bundles": 300,
+        "mean_size": 3.4766666666666666,
+        "catalogue": 0.26178908259502714,
+        "test_seeds": 0.25306748466257667,
+        "test_targets": 0.28
+      },
+      "n100": {
+        "bundles": 100,
+        "mean_size": 3.54,
+        "catalogue": 0.09659902829379823,
+        "test_seeds": 0.11809815950920245,
+        "test_targets": 0.11333333333333333
+      },
+      "n50": {
+        "bundles": 50,
+        "mean_size": 3.56,
+        "catalogue": 0.049156901971992,
+        "test_seeds": 0.04754601226993865,
+        "test_targets": 0.04833333333333333
+      }
+    },
+    "food": {
+      "full": {
+        "bundles": 1232,
+        "mean_size": 3.542207792207792,
+        "catalogue": 0.7908149721263605,
+        "test_seeds": 0.5208333333333334,
+        "test_targets": 0.537842190016103
+      },
+      "n600": {
+        "bundles": 600,
+        "mean_size": 3.555,
+        "catalogue": 0.4698699230156623,
+        "test_seeds": 0.30952380952380953,
+        "test_targets": 0.3397745571658615
+      },
+      "n300": {
+        "bundles": 300,
+        "mean_size": 3.45,
+        "catalogue": 0.24555349084151845,
+        "test_seeds": 0.16964285714285715,
+        "test_targets": 0.18679549114331723
+      },
+      "n100": {
+        "bundles": 100,
+        "mean_size": 3.5,
+        "catalogue": 0.0905229625696841,
+        "test_seeds": 0.07886904761904762,
+        "test_targets": 0.0853462157809984
+      },
+      "n50": {
+        "bundles": 50,
+        "mean_size": 3.36,
+        "catalogue": 0.04380143350146005,
+        "test_seeds": 0.023809523809523808,
+        "test_targets": 0.030595813204508857
+      }
+    },
+    "clothing": {
+      "full": {
+        "bundles": 1294,
+        "mean_size": 3.3075734157650696,
+        "catalogue": 0.7708936928905727,
+        "test_seeds": 0.3354632587859425,
+        "test_targets": 0.3333333333333333
+      },
+      "n600": {
+        "bundles": 600,
+        "mean_size": 3.3566666666666665,
+        "catalogue": 0.4047247604189882,
+        "test_seeds": 0.16932907348242812,
+        "test_targets": 0.1657754010695187
+      },
+      "n300": {
+        "bundles": 300,
+        "mean_size": 3.4166666666666665,
+        "catalogue": 0.21462001337196346,
+        "test_seeds": 0.08306709265175719,
+        "test_targets": 0.08021390374331551
+      },
+      "n100": {
+        "bundles": 100,
+        "mean_size": 3.66,
+        "catalogue": 0.07867171829730332,
+        "test_seeds": 0.02875399361022364,
+        "test_targets": 0.035650623885918005
+      },
+      "n50": {
+        "bundles": 50,
+        "mean_size": 3.78,
+        "catalogue": 0.0421216848673947,
+        "test_seeds": 0.009584664536741214,
+        "test_targets": 0.012477718360071301
+      }
+    },
+    "spotify_sparse": {
+      "full": {
+        "bundles": 8740,
+        "mean_size": 44.21521739130435,
+        "catalogue": 0.790015234970116,
+        "test_seeds": 0.7104978454203722,
+        "test_targets": 0.7105875455727974
+      },
+      "n3000": {
+        "bundles": 3000,
+        "mean_size": 43.88333333333333,
+        "catalogue": 0.3653439587483886,
+        "test_seeds": 0.5641697992115156,
+        "test_targets": 0.5636370298444571
+      },
+      "n1000": {
+        "bundles": 1000,
+        "mean_size": 43.128,
+        "catalogue": 0.1526590882456346,
+        "test_seeds": 0.3799211515540479,
+        "test_targets": 0.3790007877910705
+      },
+      "n600": {
+        "bundles": 600,
+        "mean_size": 44.983333333333334,
+        "catalogue": 0.10351341849290988,
+        "test_seeds": 0.30268634821674156,
+        "test_targets": 0.3040507117600718
+      },
+      "n300": {
+        "bundles": 300,
+        "mean_size": 47.84,
+        "catalogue": 0.059875776397515526,
+        "test_seeds": 0.20344732740441918,
+        "test_targets": 0.2049905648278768
+      },
+      "n100": {
+        "bundles": 100,
+        "mean_size": 42.18,
+        "catalogue": 0.01873198171803586,
+        "test_seeds": 0.08994223892912809,
+        "test_targets": 0.09114559478225821
+      },
+      "n50": {
+        "bundles": 50,
+        "mean_size": 40.84,
+        "catalogue": 0.009347240126567444,
+        "test_seeds": 0.05073805812780783,
+        "test_targets": 0.05157283403257425
+      }
+    },
+    "spotify": {
+      "full": {
+        "bundles": 14000,
+        "mean_size": 63.633857142857146,
+        "catalogue": 0.8043516751588597,
+        "test_seeds": 0.859468523837797,
+        "test_targets": 0.8584863942892339
+      },
+      "n3000": {
+        "bundles": 3000,
+        "mean_size": 64.04233333333333,
+        "catalogue": 0.29834943243296413,
+        "test_seeds": 0.7381051719434504,
+        "test_targets": 0.7378511979026833
+      },
+      "n1000": {
+        "bundles": 1000,
+        "mean_size": 65.405,
+        "catalogue": 0.13834471090476283,
+        "test_seeds": 0.6176725452123819,
+        "test_targets": 0.6168290718425748
+      },
+      "n600": {
+        "bundles": 600,
+        "mean_size": 66.81166666666667,
+        "catalogue": 0.09424563750467234,
+        "test_seeds": 0.5516632700547203,
+        "test_targets": 0.5507114768079091
+      },
+      "n300": {
+        "bundles": 300,
+        "mean_size": 66.27333333333333,
+        "catalogue": 0.05432905116956188,
+        "test_seeds": 0.4478071794213457,
+        "test_targets": 0.44729859915665127
+      },
+      "n100": {
+        "bundles": 100,
+        "mean_size": 72.16,
+        "catalogue": 0.023827978989199503,
+        "test_seeds": 0.2871527833496478,
+        "test_targets": 0.28811257284543346
+      },
+      "n50": {
+        "bundles": 50,
+        "mean_size": 75.36,
+        "catalogue": 0.013405205484841927,
+        "test_seeds": 0.19269220276970972,
+        "test_targets": 0.19271466700358503
+      }
+    }
+  }
+}
