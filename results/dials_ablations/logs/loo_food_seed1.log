@@ -1,0 +1,22 @@
+2026-11-16T21:48:12Z food seed=1 parameters=41624 train_bundles=1232 start_epoch=1
+2026-11-16T21:48:13Z food seed=1 epoch=1 loss=4.14656 VAL R20=0.389489 N20=0.253775 best_epoch=1 patience=0/6
+2026-11-16T21:48:14Z food seed=1 epoch=2 loss=1.45319 VAL R20=0.361080 N20=0.259579 best_epoch=2 patience=0/6
+2026-11-16T21:48:16Z food seed=1 epoch=3 loss=0.86239 VAL R20=0.337405 N20=0.257393 best_epoch=2 patience=1/6
+2026-11-16T21:48:17Z food seed=1 epoch=4 loss=0.65134 VAL R20=0.352746 N20=0.257922 best_epoch=2 patience=2/6
+2026-11-16T21:48:18Z food seed=1 epoch=5 loss=0.49826 VAL R20=0.352746 N20=0.267357 best_epoch=5 patience=0/6
+2026-11-16T21:48:19Z food seed=1 epoch=6 loss=0.42333 VAL R20=0.347538 N20=0.273079 best_epoch=6 patience=0/6
+2026-11-16T21:48:20Z food seed=1 epoch=7 loss=0.40005 VAL R20=0.347538 N20=0.265016 best_epoch=6 patience=1/6
+2026-11-16T21:48:22Z food seed=1 epoch=8 loss=0.39061 VAL R20=0.353220 N20=0.272184 best_epoch=6 patience=2/6
+2026-11-16T21:48:23Z food seed=1 epoch=9 loss=0.40231 VAL R20=0.353220 N20=0.273445 best_epoch=9 patience=0/6
+2026-11-16T21:48:24Z food seed=1 epoch=10 loss=0.39920 VAL R20=0.347538 N20=0.270416 best_epoch=9 patience=1/6
+2026-11-16T21:48:25Z food seed=1 epoch=11 loss=0.39215 VAL R20=0.347538 N20=0.271052 best_epoch=9 patience=2/6
+2026-11-16T21:48:26Z food seed=1 epoch=12 loss=0.34753 VAL R20=0.347538 N20=0.274176 best_epoch=12 patience=0/6
+2026-11-16T21:48:27Z food seed=1 epoch=13 loss=0.35709 VAL R20=0.347538 N20=0.270751 best_epoch=12 patience=1/6
+2026-11-16T21:48:28Z food seed=1 epoch=14 loss=0.32838 VAL R20=0.347538 N20=0.278155 best_epoch=14 patience=0/6
+2026-11-16T21:48:29Z food seed=1 epoch=15 loss=0.30669 VAL R20=0.347538 N20=0.274817 best_epoch=14 patience=1/6
+2026-11-16T21:48:30Z food seed=1 epoch=16 loss=0.35113 VAL R20=0.347538 N20=0.269983 best_epoch=14 patience=2/6
+2026-11-16T21:48:31Z food seed=1 epoch=17 loss=0.32592 VAL R20=0.347538 N20=0.267063 best_epoch=14 patience=3/6
+2026-11-16T21:48:33Z food seed=1 epoch=18 loss=0.30164 VAL R20=0.347538 N20=0.273010 best_epoch=14 patience=4/6
+2026-11-16T21:48:34Z food seed=1 epoch=19 loss=0.31636 VAL R20=0.341856 N20=0.265138 best_epoch=14 patience=5/6
+2026-11-16T21:48:35Z food seed=1 epoch=20 loss=0.28713 VAL R20=0.353220 N20=0.277344 best_epoch=14 patience=6/6
+2026-11-16T21:48:35Z loo food seed 1 COMPLETE

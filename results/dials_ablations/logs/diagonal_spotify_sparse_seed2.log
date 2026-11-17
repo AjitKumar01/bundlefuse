@@ -1,0 +1,35 @@
+2026-11-16T10:54:32Z spotify_sparse seed=2 parameters=41816 train_bundles=8739 start_epoch=1
+2026-11-16T11:23:55Z spotify_sparse seed=2 epoch=1 loss=8.92622 VAL R20=0.112017 N20=0.142170 best_epoch=1 patience=0/6
+2026-11-16T11:48:54Z spotify_sparse seed=2 epoch=2 loss=8.73248 VAL R20=0.115255 N20=0.148287 best_epoch=2 patience=0/6
+2026-11-16T12:13:33Z spotify_sparse seed=2 epoch=3 loss=8.67208 VAL R20=0.116815 N20=0.150107 best_epoch=3 patience=0/6
+2026-11-16T12:41:56Z spotify_sparse seed=2 epoch=4 loss=8.63592 VAL R20=0.116425 N20=0.149200 best_epoch=3 patience=1/6
+2026-11-16T13:12:20Z spotify_sparse seed=2 epoch=5 loss=8.62748 VAL R20=0.118329 N20=0.153775 best_epoch=5 patience=0/6
+2026-11-16T13:41:16Z spotify_sparse seed=2 epoch=6 loss=8.60161 VAL R20=0.119290 N20=0.153317 best_epoch=5 patience=1/6
+2026-11-16T14:08:38Z spotify_sparse seed=2 epoch=7 loss=8.60571 VAL R20=0.119753 N20=0.153690 best_epoch=5 patience=2/6
+2026-11-16T14:34:51Z spotify_sparse seed=2 epoch=8 loss=8.59309 VAL R20=0.118741 N20=0.152773 best_epoch=5 patience=3/6
+2026-11-16T15:00:15Z spotify_sparse seed=2 epoch=9 loss=8.56182 VAL R20=0.119958 N20=0.155796 best_epoch=9 patience=0/6
+2026-11-16T15:27:34Z spotify_sparse seed=2 epoch=10 loss=8.55020 VAL R20=0.117329 N20=0.152395 best_epoch=9 patience=1/6
+2026-11-16T15:54:49Z spotify_sparse seed=2 epoch=11 loss=8.55666 VAL R20=0.119003 N20=0.154274 best_epoch=9 patience=2/6
+2026-11-16T16:10:05Z spotify_sparse seed=2 epoch=12 loss=8.55518 VAL R20=0.119674 N20=0.155851 best_epoch=12 patience=0/6
+2026-11-16T16:22:00Z spotify_sparse seed=2 epoch=13 loss=8.53961 VAL R20=0.117405 N20=0.153170 best_epoch=12 patience=1/6
+2026-11-16T16:39:11Z spotify_sparse seed=2 epoch=14 loss=8.54151 VAL R20=0.120021 N20=0.155395 best_epoch=12 patience=2/6
+2026-11-16T16:55:46Z spotify_sparse seed=2 epoch=15 loss=8.53797 VAL R20=0.120173 N20=0.154543 best_epoch=12 patience=3/6
+2026-11-16T17:01:51Z spotify_sparse seed=2 epoch=16 loss=8.53051 VAL R20=0.118958 N20=0.154369 best_epoch=12 patience=4/6
+2026-11-16T17:07:33Z spotify_sparse seed=2 epoch=17 loss=8.51663 VAL R20=0.120357 N20=0.155096 best_epoch=12 patience=5/6
+2026-11-16T17:13:35Z spotify_sparse seed=2 epoch=18 loss=8.50816 VAL R20=0.121286 N20=0.156482 best_epoch=18 patience=0/6
+2026-11-16T17:19:37Z spotify_sparse seed=2 epoch=19 loss=8.51119 VAL R20=0.120088 N20=0.155077 best_epoch=18 patience=1/6
+2026-11-16T17:25:55Z spotify_sparse seed=2 epoch=20 loss=8.50029 VAL R20=0.121832 N20=0.154856 best_epoch=18 patience=2/6
+2026-11-16T17:33:03Z spotify_sparse seed=2 epoch=21 loss=8.50862 VAL R20=0.121885 N20=0.155036 best_epoch=18 patience=3/6
+2026-11-16T17:38:56Z spotify_sparse seed=2 epoch=22 loss=8.51521 VAL R20=0.120941 N20=0.156902 best_epoch=22 patience=0/6
+2026-11-16T17:43:27Z spotify_sparse seed=2 epoch=23 loss=8.48527 VAL R20=0.122394 N20=0.156834 best_epoch=22 patience=1/6
+2026-11-16T17:47:53Z spotify_sparse seed=2 epoch=24 loss=8.49995 VAL R20=0.122767 N20=0.157911 best_epoch=24 patience=0/6
+2026-11-16T17:52:14Z spotify_sparse seed=2 epoch=25 loss=8.49267 VAL R20=0.124656 N20=0.159116 best_epoch=25 patience=0/6
+2026-11-16T17:57:17Z spotify_sparse seed=2 epoch=26 loss=8.50353 VAL R20=0.121550 N20=0.155278 best_epoch=25 patience=1/6
+2026-11-16T18:01:35Z spotify_sparse seed=2 epoch=27 loss=8.48606 VAL R20=0.124046 N20=0.159844 best_epoch=27 patience=0/6
+2026-11-16T18:04:26Z spotify_sparse seed=2 epoch=28 loss=8.47870 VAL R20=0.121766 N20=0.156731 best_epoch=27 patience=1/6
+2026-11-16T18:07:04Z spotify_sparse seed=2 epoch=29 loss=8.49416 VAL R20=0.122762 N20=0.158095 best_epoch=27 patience=2/6
+2026-11-16T18:09:58Z spotify_sparse seed=2 epoch=30 loss=8.48696 VAL R20=0.123721 N20=0.159656 best_epoch=27 patience=3/6
+2026-11-16T18:12:18Z spotify_sparse seed=2 epoch=31 loss=8.46516 VAL R20=0.123166 N20=0.158061 best_epoch=27 patience=4/6
+2026-11-16T18:14:25Z spotify_sparse seed=2 epoch=32 loss=8.47552 VAL R20=0.123516 N20=0.158304 best_epoch=27 patience=5/6
+2026-11-16T18:16:29Z spotify_sparse seed=2 epoch=33 loss=8.46987 VAL R20=0.123477 N20=0.159494 best_epoch=27 patience=6/6
+2026-11-16T18:16:33Z diagonal spotify_sparse seed 2 COMPLETE

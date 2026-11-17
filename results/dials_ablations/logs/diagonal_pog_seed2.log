@@ -1,0 +1,38 @@
+2026-11-16T15:48:03Z pog seed=2 parameters=41543 train_bundles=14000 start_epoch=1
+2026-11-16T15:51:30Z pog seed=2 epoch=1 loss=9.43757 VAL R20=0.040083 N20=0.027396 best_epoch=1 patience=0/6
+2026-11-16T15:54:35Z pog seed=2 epoch=2 loss=9.04737 VAL R20=0.044750 N20=0.029999 best_epoch=2 patience=0/6
+2026-11-16T15:57:24Z pog seed=2 epoch=3 loss=8.99019 VAL R20=0.044667 N20=0.030648 best_epoch=3 patience=0/6
+2026-11-16T16:00:11Z pog seed=2 epoch=4 loss=8.93748 VAL R20=0.049833 N20=0.032369 best_epoch=4 patience=0/6
+2026-11-16T16:02:55Z pog seed=2 epoch=5 loss=8.92182 VAL R20=0.049917 N20=0.032694 best_epoch=5 patience=0/6
+2026-11-16T16:06:00Z pog seed=2 epoch=6 loss=8.89689 VAL R20=0.049500 N20=0.032341 best_epoch=5 patience=1/6
+2026-11-16T16:35:54Z pog seed=2 parameters=41543 train_bundles=14000 start_epoch=7
+2026-11-16T16:38:35Z pog seed=2 epoch=7 loss=8.87435 VAL R20=0.051833 N20=0.033171 best_epoch=7 patience=0/6
+2026-11-16T16:41:31Z pog seed=2 epoch=8 loss=8.86336 VAL R20=0.051417 N20=0.033831 best_epoch=8 patience=0/6
+2026-11-16T16:44:22Z pog seed=2 epoch=9 loss=8.84791 VAL R20=0.051083 N20=0.033338 best_epoch=8 patience=1/6
+2026-11-16T16:47:27Z pog seed=2 epoch=10 loss=8.82033 VAL R20=0.054583 N20=0.034836 best_epoch=10 patience=0/6
+2026-11-16T16:50:09Z pog seed=2 epoch=11 loss=8.82363 VAL R20=0.053083 N20=0.034454 best_epoch=10 patience=1/6
+2026-11-16T16:52:33Z pog seed=2 epoch=12 loss=8.81947 VAL R20=0.052667 N20=0.034271 best_epoch=10 patience=2/6
+2026-11-16T16:54:31Z pog seed=2 epoch=13 loss=8.80594 VAL R20=0.051333 N20=0.033164 best_epoch=10 patience=3/6
+2026-11-16T16:56:25Z pog seed=2 epoch=14 loss=8.79875 VAL R20=0.053583 N20=0.034877 best_epoch=14 patience=0/6
+2026-11-16T16:58:29Z pog seed=2 epoch=15 loss=8.79017 VAL R20=0.056250 N20=0.034468 best_epoch=14 patience=1/6
+2026-11-16T17:00:28Z pog seed=2 epoch=16 loss=8.78381 VAL R20=0.053250 N20=0.034369 best_epoch=14 patience=2/6
+2026-11-16T17:02:19Z pog seed=2 epoch=17 loss=8.77598 VAL R20=0.053833 N20=0.034906 best_epoch=17 patience=0/6
+2026-11-16T17:04:15Z pog seed=2 epoch=18 loss=8.76685 VAL R20=0.055917 N20=0.034928 best_epoch=18 patience=0/6
+2026-11-16T17:06:08Z pog seed=2 epoch=19 loss=8.74902 VAL R20=0.053500 N20=0.034870 best_epoch=18 patience=1/6
+2026-11-16T17:07:56Z pog seed=2 epoch=20 loss=8.74541 VAL R20=0.055333 N20=0.034429 best_epoch=18 patience=2/6
+2026-11-16T17:09:51Z pog seed=2 epoch=21 loss=8.74722 VAL R20=0.055167 N20=0.033919 best_epoch=18 patience=3/6
+2026-11-16T17:11:51Z pog seed=2 epoch=22 loss=8.73993 VAL R20=0.054833 N20=0.034416 best_epoch=18 patience=4/6
+2026-11-16T17:13:58Z pog seed=2 epoch=23 loss=8.73229 VAL R20=0.058167 N20=0.035866 best_epoch=23 patience=0/6
+2026-11-16T17:15:58Z pog seed=2 epoch=24 loss=8.71737 VAL R20=0.057667 N20=0.036262 best_epoch=24 patience=0/6
+2026-11-16T17:17:59Z pog seed=2 epoch=25 loss=8.71695 VAL R20=0.054667 N20=0.034768 best_epoch=24 patience=1/6
+2026-11-16T17:20:00Z pog seed=2 epoch=26 loss=8.70490 VAL R20=0.058417 N20=0.035332 best_epoch=24 patience=2/6
+2026-11-16T17:21:59Z pog seed=2 epoch=27 loss=8.72009 VAL R20=0.059083 N20=0.035860 best_epoch=24 patience=3/6
+2026-11-16T17:24:10Z pog seed=2 epoch=28 loss=8.70063 VAL R20=0.059500 N20=0.035614 best_epoch=24 patience=4/6
+2026-11-16T17:26:20Z pog seed=2 epoch=29 loss=8.68282 VAL R20=0.059083 N20=0.036992 best_epoch=29 patience=0/6
+2026-11-16T17:28:46Z pog seed=2 epoch=30 loss=8.67866 VAL R20=0.057083 N20=0.034752 best_epoch=29 patience=1/6
+2026-11-16T17:31:06Z pog seed=2 epoch=31 loss=8.68081 VAL R20=0.055250 N20=0.034595 best_epoch=29 patience=2/6
+2026-11-16T17:33:33Z pog seed=2 epoch=32 loss=8.65978 VAL R20=0.058417 N20=0.035541 best_epoch=29 patience=3/6
+2026-11-16T17:35:38Z pog seed=2 epoch=33 loss=8.67207 VAL R20=0.057167 N20=0.035346 best_epoch=29 patience=4/6
+2026-11-16T17:37:26Z pog seed=2 epoch=34 loss=8.66056 VAL R20=0.057083 N20=0.033717 best_epoch=29 patience=5/6
+2026-11-16T17:39:10Z pog seed=2 epoch=35 loss=8.67093 VAL R20=0.056083 N20=0.033337 best_epoch=29 patience=6/6
+2026-11-16T17:39:12Z diagonal pog seed 2 COMPLETE

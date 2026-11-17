@@ -1,0 +1,18 @@
+2026-11-16T10:54:44Z spotify_sparse seed=1 parameters=41978 train_bundles=8739 start_epoch=1
+2026-11-16T11:22:02Z spotify_sparse seed=1 epoch=1 loss=8.28459 VAL R20=0.172184 N20=0.246789 best_epoch=1 patience=0/6
+2026-11-16T11:42:35Z spotify_sparse seed=1 epoch=2 loss=8.07110 VAL R20=0.175854 N20=0.248978 best_epoch=2 patience=0/6
+2026-11-16T12:02:36Z spotify_sparse seed=1 epoch=3 loss=8.05102 VAL R20=0.176475 N20=0.250162 best_epoch=3 patience=0/6
+2026-11-16T12:22:26Z spotify_sparse seed=1 epoch=4 loss=8.00270 VAL R20=0.178651 N20=0.253112 best_epoch=4 patience=0/6
+2026-11-16T12:44:56Z spotify_sparse seed=1 epoch=5 loss=7.99243 VAL R20=0.178297 N20=0.252977 best_epoch=4 patience=1/6
+2026-11-16T13:07:22Z spotify_sparse seed=1 epoch=6 loss=8.00062 VAL R20=0.178604 N20=0.253354 best_epoch=6 patience=0/6
+2026-11-16T13:31:38Z spotify_sparse seed=1 epoch=7 loss=7.96289 VAL R20=0.176740 N20=0.249967 best_epoch=6 patience=1/6
+2026-11-16T13:53:41Z spotify_sparse seed=1 epoch=8 loss=7.95998 VAL R20=0.176435 N20=0.250157 best_epoch=6 patience=2/6
+2026-11-16T14:14:01Z spotify_sparse seed=1 epoch=9 loss=7.95127 VAL R20=0.179984 N20=0.254751 best_epoch=9 patience=0/6
+2026-11-16T14:34:44Z spotify_sparse seed=1 epoch=10 loss=7.94495 VAL R20=0.180986 N20=0.255602 best_epoch=10 patience=0/6
+2026-11-16T14:53:46Z spotify_sparse seed=1 epoch=11 loss=7.93442 VAL R20=0.178958 N20=0.253100 best_epoch=10 patience=1/6
+2026-11-16T15:14:20Z spotify_sparse seed=1 epoch=12 loss=7.93083 VAL R20=0.177365 N20=0.252654 best_epoch=10 patience=2/6
+2026-11-16T15:34:29Z spotify_sparse seed=1 epoch=13 loss=7.93001 VAL R20=0.178500 N20=0.252944 best_epoch=10 patience=3/6
+2026-11-16T15:56:52Z spotify_sparse seed=1 epoch=14 loss=7.92050 VAL R20=0.179648 N20=0.254091 best_epoch=10 patience=4/6
+2026-11-16T16:12:02Z spotify_sparse seed=1 epoch=15 loss=7.92467 VAL R20=0.176498 N20=0.251227 best_epoch=10 patience=5/6
+2026-11-16T16:22:37Z spotify_sparse seed=1 epoch=16 loss=7.90770 VAL R20=0.177935 N20=0.252741 best_epoch=10 patience=6/6
+2026-11-16T16:22:51Z lowrank spotify_sparse seed 1 COMPLETE

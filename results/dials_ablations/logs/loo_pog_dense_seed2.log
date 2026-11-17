@@ -1,0 +1,54 @@
+2026-11-16T13:04:05Z pog_dense seed=2 parameters=41624 train_bundles=20780 start_epoch=1
+2026-11-16T13:08:04Z pog_dense seed=2 epoch=1 loss=4.45704 VAL R20=0.280941 N20=0.204856 best_epoch=1 patience=0/6
+2026-11-16T13:12:11Z pog_dense seed=2 epoch=2 loss=4.08737 VAL R20=0.284254 N20=0.211831 best_epoch=2 patience=0/6
+2026-11-16T13:16:07Z pog_dense seed=2 epoch=3 loss=3.75727 VAL R20=0.279874 N20=0.213459 best_epoch=3 patience=0/6
+2026-11-16T13:19:52Z pog_dense seed=2 epoch=4 loss=3.11553 VAL R20=0.302729 N20=0.232347 best_epoch=4 patience=0/6
+2026-11-16T13:23:43Z pog_dense seed=2 epoch=5 loss=2.90269 VAL R20=0.297114 N20=0.229939 best_epoch=4 patience=1/6
+2026-11-16T13:27:37Z pog_dense seed=2 epoch=6 loss=2.77919 VAL R20=0.300820 N20=0.234831 best_epoch=6 patience=0/6
+2026-11-16T13:31:31Z pog_dense seed=2 epoch=7 loss=2.71474 VAL R20=0.302504 N20=0.233297 best_epoch=6 patience=1/6
+2026-11-16T13:35:19Z pog_dense seed=2 epoch=8 loss=2.67740 VAL R20=0.309131 N20=0.237678 best_epoch=8 patience=0/6
+2026-11-16T13:39:06Z pog_dense seed=2 epoch=9 loss=2.66655 VAL R20=0.299248 N20=0.231130 best_epoch=8 patience=1/6
+2026-11-16T13:43:02Z pog_dense seed=2 epoch=10 loss=2.61539 VAL R20=0.299191 N20=0.232668 best_epoch=8 patience=2/6
+2026-11-16T13:46:55Z pog_dense seed=2 epoch=11 loss=2.59744 VAL R20=0.299921 N20=0.234869 best_epoch=8 patience=3/6
+2026-11-16T13:50:38Z pog_dense seed=2 epoch=12 loss=2.55060 VAL R20=0.299641 N20=0.233204 best_epoch=8 patience=4/6
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/experiments/dials_ablations/run.py", line 130, in <module>
+    args=p.parse_args();args.run(args)
+                        ~~~~~~~~^^^^^^
+  File "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/experiments/dials_ablations/run.py", line 87, in train
+    T.fit(ds,args.seed,run,CACHE,dict(T.CONFIG,ablation=args.part))
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajit/Projects/Career_change/projects/bundle-dpo/dials/dials/train.py", line 201, in fit
+    raise RuntimeError('Nonfinite loss')
+RuntimeError: Nonfinite loss
+2026-11-16T16:35:18Z pog_dense seed=2 parameters=41624 train_bundles=20780 start_epoch=13
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/experiments/dials_ablations/run.py", line 130, in <module>
+    args=p.parse_args();args.run(args)
+                        ~~~~~~~~^^^^^^
+  File "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/experiments/dials_ablations/run.py", line 87, in train
+    T.fit(ds,args.seed,run,CACHE,dict(T.CONFIG,ablation=args.part))
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajit/Projects/Career_change/projects/bundle-dpo/dials/dials/train.py", line 201, in fit
+    raise RuntimeError('Nonfinite loss')
+RuntimeError: Nonfinite loss
+2026-11-16T17:10:33Z pog_dense seed=2 parameters=41624 train_bundles=20780 start_epoch=13
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/experiments/dials_ablations/run.py", line 130, in <module>
+    args=p.parse_args();args.run(args)
+                        ~~~~~~~~^^^^^^
+  File "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/experiments/dials_ablations/run.py", line 87, in train
+    T.fit(ds,args.seed,run,CACHE,dict(T.CONFIG,ablation=args.part))
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajit/Projects/Career_change/projects/bundle-dpo/dials/dials/train.py", line 201, in fit
+    raise RuntimeError('Nonfinite loss')
+RuntimeError: Nonfinite loss
+2026-11-16T17:34:10Z pog_dense seed=2 parameters=41624 train_bundles=20780 start_epoch=13
+2026-11-16T17:35:00Z pog_dense seed=2 parameters=41624 train_bundles=20780 start_epoch=13
+2026-11-16T17:35:04Z loo pog_dense seed 2 COMPLETE

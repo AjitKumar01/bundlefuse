@@ -84,7 +84,19 @@ T.build=build  # dials.train.fit and dials.train.load construct models through t
 def train(args):
     torch.set_num_threads(args.threads);torch.use_deterministic_algorithms(True)
     ds=data.load(args.dataset,CACHE);run=OUT/args.part/args.dataset/f'seed{args.seed}'
-    T.fit(ds,args.seed,run,CACHE,dict(T.CONFIG,ablation=args.part))
+    config=dict(T.CONFIG,ablation=args.part)
+    try:
+        T.fit(ds,args.seed,run,CACHE,config)
+    except RuntimeError as error:
+        # Without leave-one-out, a training target's own counts are in its score, the loss collapses and finally
+        # overflows. Treat that as early stopping: mark the saved state as out of patience, let fit finish from the
+        # best validation checkpoint (model.pt), and record where training broke down.
+        if 'Nonfinite loss' not in str(error):raise
+        last=torch.load(run/'last.pt',map_location='cpu',weights_only=False)
+        last['state']['stale']=config['patience'];torch.save(last,run/'last.pt')
+        T.fit(ds,args.seed,run,CACHE,config)
+        selected=json.loads((run/'selected.json').read_text())
+        T.write_json(run/'selected.json',dict(selected,diverged_at_epoch=last['state']['epoch']+1))
     T.log(f'{args.part} {args.dataset} seed {args.seed} COMPLETE')
 
 

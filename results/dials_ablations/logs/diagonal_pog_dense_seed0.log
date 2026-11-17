@@ -1,0 +1,37 @@
+2026-11-16T10:54:50Z pog_dense seed=0 parameters=41543 train_bundles=20780 start_epoch=1
+2026-11-16T10:57:00Z pog_dense seed=0 epoch=1 loss=7.01813 VAL R20=0.367868 N20=0.268006 best_epoch=1 patience=0/6
+2026-11-16T11:00:11Z pog_dense seed=0 epoch=2 loss=6.73421 VAL R20=0.372024 N20=0.273535 best_epoch=2 patience=0/6
+2026-11-16T11:03:44Z pog_dense seed=0 epoch=3 loss=6.69039 VAL R20=0.373989 N20=0.274275 best_epoch=3 patience=0/6
+2026-11-16T11:07:45Z pog_dense seed=0 epoch=4 loss=6.64407 VAL R20=0.395440 N20=0.290781 best_epoch=4 patience=0/6
+2026-11-16T11:11:44Z pog_dense seed=0 epoch=5 loss=6.52566 VAL R20=0.401673 N20=0.298257 best_epoch=5 patience=0/6
+2026-11-16T11:15:32Z pog_dense seed=0 epoch=6 loss=6.51377 VAL R20=0.399933 N20=0.300027 best_epoch=6 patience=0/6
+2026-11-16T11:19:25Z pog_dense seed=0 epoch=7 loss=6.50652 VAL R20=0.404257 N20=0.300855 best_epoch=7 patience=0/6
+2026-11-16T11:22:48Z pog_dense seed=0 epoch=8 loss=6.49307 VAL R20=0.403302 N20=0.299145 best_epoch=7 patience=1/6
+2026-11-16T11:26:11Z pog_dense seed=0 epoch=9 loss=6.52379 VAL R20=0.402965 N20=0.300405 best_epoch=7 patience=2/6
+2026-11-16T11:30:11Z pog_dense seed=0 epoch=10 loss=6.47625 VAL R20=0.404930 N20=0.301843 best_epoch=10 patience=0/6
+2026-11-16T11:34:12Z pog_dense seed=0 epoch=11 loss=6.47425 VAL R20=0.408019 N20=0.299813 best_epoch=10 patience=1/6
+2026-11-16T11:38:07Z pog_dense seed=0 epoch=12 loss=6.45715 VAL R20=0.405885 N20=0.299899 best_epoch=10 patience=2/6
+2026-11-16T11:41:38Z pog_dense seed=0 epoch=13 loss=6.45620 VAL R20=0.406053 N20=0.301773 best_epoch=10 patience=3/6
+2026-11-16T11:45:06Z pog_dense seed=0 epoch=14 loss=6.46475 VAL R20=0.406278 N20=0.298673 best_epoch=10 patience=4/6
+2026-11-16T11:48:05Z pog_dense seed=0 epoch=15 loss=6.46921 VAL R20=0.406053 N20=0.302520 best_epoch=15 patience=0/6
+2026-11-16T11:51:02Z pog_dense seed=0 epoch=16 loss=6.46208 VAL R20=0.405043 N20=0.301605 best_epoch=15 patience=1/6
+2026-11-16T11:53:58Z pog_dense seed=0 epoch=17 loss=6.44418 VAL R20=0.407345 N20=0.302934 best_epoch=17 patience=0/6
+2026-11-16T11:56:56Z pog_dense seed=0 epoch=18 loss=6.42888 VAL R20=0.405885 N20=0.301453 best_epoch=17 patience=1/6
+2026-11-16T11:59:55Z pog_dense seed=0 epoch=19 loss=6.44380 VAL R20=0.405773 N20=0.304152 best_epoch=19 patience=0/6
+2026-11-16T12:03:13Z pog_dense seed=0 epoch=20 loss=6.42345 VAL R20=0.409198 N20=0.305004 best_epoch=20 patience=0/6
+2026-11-16T12:06:36Z pog_dense seed=0 epoch=21 loss=6.44114 VAL R20=0.410434 N20=0.305733 best_epoch=21 patience=0/6
+2026-11-16T12:10:01Z pog_dense seed=0 epoch=22 loss=6.42851 VAL R20=0.408917 N20=0.304528 best_epoch=21 patience=1/6
+2026-11-16T12:13:34Z pog_dense seed=0 epoch=23 loss=6.42256 VAL R20=0.410377 N20=0.302122 best_epoch=21 patience=2/6
+2026-11-16T12:17:11Z pog_dense seed=0 epoch=24 loss=6.43894 VAL R20=0.409928 N20=0.304121 best_epoch=21 patience=3/6
+2026-11-16T12:20:24Z pog_dense seed=0 epoch=25 loss=6.40760 VAL R20=0.406952 N20=0.303489 best_epoch=21 patience=4/6
+2026-11-16T12:23:55Z pog_dense seed=0 epoch=26 loss=6.40233 VAL R20=0.411781 N20=0.306776 best_epoch=26 patience=0/6
+2026-11-16T12:27:33Z pog_dense seed=0 epoch=27 loss=6.42252 VAL R20=0.408131 N20=0.306252 best_epoch=26 patience=1/6
+2026-11-16T12:31:09Z pog_dense seed=0 epoch=28 loss=6.39694 VAL R20=0.405829 N20=0.303998 best_epoch=26 patience=2/6
+2026-11-16T12:34:44Z pog_dense seed=0 epoch=29 loss=6.42350 VAL R20=0.409198 N20=0.307134 best_epoch=29 patience=0/6
+2026-11-16T12:38:24Z pog_dense seed=0 epoch=30 loss=6.38980 VAL R20=0.409704 N20=0.305875 best_epoch=29 patience=1/6
+2026-11-16T12:42:08Z pog_dense seed=0 epoch=31 loss=6.39014 VAL R20=0.409872 N20=0.305743 best_epoch=29 patience=2/6
+2026-11-16T12:45:47Z pog_dense seed=0 epoch=32 loss=6.38401 VAL R20=0.409816 N20=0.306309 best_epoch=29 patience=3/6
+2026-11-16T12:49:26Z pog_dense seed=0 epoch=33 loss=6.39502 VAL R20=0.410602 N20=0.305171 best_epoch=29 patience=4/6
+2026-11-16T12:52:57Z pog_dense seed=0 epoch=34 loss=6.36981 VAL R20=0.410434 N20=0.305921 best_epoch=29 patience=5/6
+2026-11-16T12:56:34Z pog_dense seed=0 epoch=35 loss=6.38891 VAL R20=0.407682 N20=0.305675 best_epoch=29 patience=6/6
+2026-11-16T12:56:39Z diagonal pog_dense seed 0 COMPLETE

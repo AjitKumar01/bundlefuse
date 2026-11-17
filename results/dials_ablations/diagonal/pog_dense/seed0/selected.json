@@ -1,0 +1,24 @@
+{
+ "dataset": "pog_dense",
+ "seed": 0,
+ "config": {
+  "epochs": 100,
+  "batch": 32,
+  "patience": 6,
+  "shared_lr": 0.001,
+  "fast_lr": 0.01,
+  "weight_decay": 0.001,
+  "rank": 64,
+  "label_rank": 16,
+  "hidden": 32,
+  "ablation": "diagonal"
+ },
+ "best_epoch": 29,
+ "epochs_run": 35,
+ "validation": {
+  "recall20": 0.4091981132075472,
+  "ndcg20": 0.30713371386941507
+ },
+ "parameters": 41543,
+ "seconds": 7304.350123583994
+}
