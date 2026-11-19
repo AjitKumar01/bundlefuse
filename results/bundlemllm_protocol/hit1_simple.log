@@ -1,0 +1,38 @@
+pog_dense: TRIAD 0.7707  best simple rp3beta (lambda 0.0) 0.6168  without prior rp3beta 0.6168  Bundle-MLLM (published) 0.6675
+pog: TRIAD 0.6242  best simple label_knn_content (lambda 0.0) 0.3063  without prior label_knn_content 0.3063  Bundle-MLLM (published) 0.4131
+spotify_sparse seed 0 draw 0 {'triad': np.float64(0.8152), 'prior': np.float64(0.6385), 'no_prior': np.float64(0.6449)}
+spotify_sparse seed 0 draw 1 {'triad': np.float64(0.8196), 'prior': np.float64(0.6461), 'no_prior': np.float64(0.6523)}
+spotify_sparse seed 0 draw 2 {'triad': np.float64(0.8195), 'prior': np.float64(0.6416), 'no_prior': np.float64(0.6526)}
+spotify_sparse seed 0 draw 3 {'triad': np.float64(0.8132), 'prior': np.float64(0.6406), 'no_prior': np.float64(0.6511)}
+spotify_sparse seed 0 draw 4 {'triad': np.float64(0.8169), 'prior': np.float64(0.6423), 'no_prior': np.float64(0.6448)}
+spotify_sparse seed 1 draw 0 {'triad': np.float64(0.8109), 'prior': np.float64(0.6381), 'no_prior': np.float64(0.6425)}
+spotify_sparse seed 1 draw 1 {'triad': np.float64(0.8156), 'prior': np.float64(0.6444), 'no_prior': np.float64(0.6498)}
+spotify_sparse seed 1 draw 2 {'triad': np.float64(0.8114), 'prior': np.float64(0.6409), 'no_prior': np.float64(0.6456)}
+spotify_sparse seed 1 draw 3 {'triad': np.float64(0.8086), 'prior': np.float64(0.6466), 'no_prior': np.float64(0.6471)}
+spotify_sparse seed 1 draw 4 {'triad': np.float64(0.8175), 'prior': np.float64(0.6414), 'no_prior': np.float64(0.6495)}
+spotify_sparse seed 2 draw 0 {'triad': np.float64(0.8101), 'prior': np.float64(0.6334), 'no_prior': np.float64(0.6423)}
+spotify_sparse seed 2 draw 1 {'triad': np.float64(0.8094), 'prior': np.float64(0.6383), 'no_prior': np.float64(0.6431)}
+spotify_sparse seed 2 draw 2 {'triad': np.float64(0.8164), 'prior': np.float64(0.6454), 'no_prior': np.float64(0.6553)}
+spotify_sparse seed 2 draw 3 {'triad': np.float64(0.8121), 'prior': np.float64(0.6409), 'no_prior': np.float64(0.6534)}
+spotify_sparse seed 2 draw 4 {'triad': np.float64(0.8114), 'prior': np.float64(0.6392), 'no_prior': np.float64(0.6476)}
+spotify_sparse: TRIAD 0.8139  best simple label_knn_content (lambda 0.03) 0.6412  without prior label_knn_content 0.6481  Bundle-MLLM (published) 0.7959
+spotify seed 0 draw 0 {'triad': np.float64(0.8477), 'prior': np.float64(0.7645), 'no_prior': np.float64(0.7645)}
+spotify seed 0 draw 1 {'triad': np.float64(0.8448), 'prior': np.float64(0.7559), 'no_prior': np.float64(0.7559)}
+spotify seed 0 draw 2 {'triad': np.float64(0.8448), 'prior': np.float64(0.756), 'no_prior': np.float64(0.756)}
+spotify seed 0 draw 3 {'triad': np.float64(0.8441), 'prior': np.float64(0.7598), 'no_prior': np.float64(0.7598)}
+spotify seed 0 draw 4 {'triad': np.float64(0.8387), 'prior': np.float64(0.7607), 'no_prior': np.float64(0.7607)}
+spotify seed 1 draw 0 {'triad': np.float64(0.8407), 'prior': np.float64(0.7551), 'no_prior': np.float64(0.7551)}
+spotify seed 1 draw 1 {'triad': np.float64(0.8422), 'prior': np.float64(0.7617), 'no_prior': np.float64(0.7617)}
+spotify seed 1 draw 2 {'triad': np.float64(0.837), 'prior': np.float64(0.7573), 'no_prior': np.float64(0.7573)}
+spotify seed 1 draw 3 {'triad': np.float64(0.8409), 'prior': np.float64(0.761), 'no_prior': np.float64(0.761)}
+spotify seed 1 draw 4 {'triad': np.float64(0.837), 'prior': np.float64(0.7576), 'no_prior': np.float64(0.7576)}
+spotify seed 2 draw 0 {'triad': np.float64(0.8392), 'prior': np.float64(0.7581), 'no_prior': np.float64(0.7581)}
+spotify seed 2 draw 1 {'triad': np.float64(0.8405), 'prior': np.float64(0.7584), 'no_prior': np.float64(0.7584)}
+spotify seed 2 draw 2 {'triad': np.float64(0.8461), 'prior': np.float64(0.7623), 'no_prior': np.float64(0.7623)}
+spotify seed 2 draw 3 {'triad': np.float64(0.8387), 'prior': np.float64(0.7632), 'no_prior': np.float64(0.7632)}
+spotify seed 2 draw 4 {'triad': np.float64(0.8347), 'prior': np.float64(0.7574), 'no_prior': np.float64(0.7574)}
+spotify: TRIAD 0.8412  best simple label_knn_content (lambda 0.0) 0.7593  without prior label_knn_content 0.7593  Bundle-MLLM (published) 0.8242
+pog_dense       TRIAD - rp3beta: +0.1539 [+0.1472, +0.1600] p_holm 0.0004
+pog             TRIAD - label_knn_content: +0.3179 [+0.3082, +0.3275] p_holm 0.0004
+spotify_sparse  TRIAD - label_knn_content: +0.1727 [+0.1628, +0.1821] p_holm 0.0004
+spotify         TRIAD - label_knn_content: +0.0819 [+0.0750, +0.0884] p_holm 0.0004

@@ -1,0 +1,247 @@
+{
+  "note": "TRIAD and the best simple baseline on the same Bundle-MLLM HitRate@1 questions, with paired tests.\n\nThe questions are exactly those of hit1.py (POG, POG_DENSE: every (test bundle, held-out item) pair) and\nhit1_spotify.py (Spotify, Spotify_sparse: a fixed sample of 8,192 pairs, at most 5 input items drawn per question):\nfor model seed s in 0-2 and draw d in 0-4 the generator is default_rng(1000 s + d) and is consumed in the same order,\nso TRIAD's means reproduce hit1.json / hit1_spotify.json exactly (asserted). The simple baseline answers the same\n15 question sets (s, d). Hit: the true item scores strictly above all 9 negatives.\n\nSimple baseline: the best of the five main simple baselines on validation NDCG@20 with the frequency prior allowed\n(results/fair_prior/<name>.json; lambda chosen on validation, 0 allowed), the baseline of the main comparison; also the\nbest without the prior (lambda = 0, the setting chosen on validation before the prior). Per question, hits are averaged\nover the 15 sets; TRIAD - simple is tested with a paired cluster bootstrap and sign flips (clusters: identical bundles),\nHolm over the four datasets. Writes results/bundlemllm_protocol/hit1_simple.json.\n\ncd ../bundlefuse && PYTHONPATH=.:../dials nice -n 10 .venv/bin/python -m experiments.bundlemllm_protocol.hit1_simple\n",
+  "datasets": {
+    "pog_dense": {
+      "questions": 9185,
+      "bundle_mllm_published": 0.6675,
+      "triad": 0.7706840863727091,
+      "triad_seed_sd": 0.0014065019343340625,
+      "best_simple": {
+        "method": "rp3beta",
+        "lam": 0.0,
+        "params": {
+          "alpha": 1.0,
+          "beta": 0.0
+        },
+        "hit1": 0.6167664670658682
+      },
+      "best_simple_no_prior": {
+        "method": "rp3beta",
+        "params": {
+          "alpha": 1.0,
+          "beta": 0.0
+        },
+        "hit1": 0.6167664670658682
+      }
+    },
+    "pog": {
+      "questions": 8411,
+      "bundle_mllm_published": 0.4131,
+      "triad": 0.6241984702572029,
+      "triad_seed_sd": 0.0011515549081703494,
+      "best_simple": {
+        "method": "label_knn_content",
+        "lam": 0.0,
+        "params": {
+          "label": "transition",
+          "label_params": {
+            "a": [
+              1.0
+            ],
+            "gamma": 1.0,
+            "eps": 0.0001
+          },
+          "itemknn": {
+            "k": 200,
+            "shrink": 100
+          },
+          "w": 0.5,
+          "v": 0.2
+        },
+        "hit1": 0.30629730907938013
+      },
+      "best_simple_no_prior": {
+        "method": "label_knn_content",
+        "params": {
+          "label": "transition",
+          "label_params": {
+            "a": [
+              1.0
+            ],
+            "gamma": 1.0,
+            "eps": 0.0001
+          },
+          "itemknn": {
+            "k": 200,
+            "shrink": 100
+          },
+          "w": 0.5,
+          "v": 0.2
+        },
+        "hit1": 0.30629730907938013
+      }
+    },
+    "spotify_sparse": {
+      "questions": 8192,
+      "bundle_mllm_published": 0.7959,
+      "triad": 0.8138509114583333,
+      "triad_seed_sd": 0.0026534316126515314,
+      "best_simple": {
+        "method": "label_knn_content",
+        "lam": 0.03,
+        "params": {
+          "label": "samelabel",
+          "label_params": {
+            "a": [
+              1.0,
+              1.0
+            ],
+            "gamma": 0.3
+          },
+          "itemknn": {
+            "k": 1000,
+            "shrink": 10
+          },
+          "w": 0.7,
+          "v": 0.5
+        },
+        "hit1": 0.6411783854166666
+      },
+      "best_simple_no_prior": {
+        "method": "label_knn_content",
+        "params": {
+          "label": "samelabel",
+          "label_params": {
+            "a": [
+              1.0,
+              1.0
+            ],
+            "gamma": 0.3
+          },
+          "itemknn": {
+            "k": 1000,
+            "shrink": 10
+          },
+          "w": 0.7,
+          "v": 0.5
+        },
+        "hit1": 0.6481282552083333
+      }
+    },
+    "spotify": {
+      "questions": 8192,
+      "bundle_mllm_published": 0.8242,
+      "triad": 0.8411539713541667,
+      "triad_seed_sd": 0.002505545822748654,
+      "best_simple": {
+        "method": "label_knn_content",
+        "lam": 0.0,
+        "params": {
+          "label": "samelabel",
+          "label_params": {
+            "a": [
+              1.0,
+              1.0
+            ],
+            "gamma": 0.3
+          },
+          "itemknn": {
+            "k": 1000,
+            "shrink": 10
+          },
+          "w": 0.5,
+          "v": 0.5
+        },
+        "hit1": 0.7592692057291668
+      },
+      "best_simple_no_prior": {
+        "method": "label_knn_content",
+        "params": {
+          "label": "samelabel",
+          "label_params": {
+            "a": [
+              1.0,
+              1.0
+            ],
+            "gamma": 0.3
+          },
+          "itemknn": {
+            "k": 1000,
+            "shrink": 10
+          },
+          "w": 0.5,
+          "v": 0.5
+        },
+        "hit1": 0.7592692057291668
+      }
+    }
+  },
+  "tests": [
+    {
+      "delta": 0.15391761930684086,
+      "ci95": [
+        0.14721208464501348,
+        0.15998265882700152
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 9185,
+      "clusters": 5871,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.4050081654872074,
+      "seed": 20261119,
+      "dataset": "pog_dense",
+      "test": "triad_minus_best_simple",
+      "baseline": "rp3beta",
+      "p_holm": 0.00039996000399960006,
+      "reject_05": true
+    },
+    {
+      "delta": 0.3179011611778227,
+      "ci95": [
+        0.3081992712606045,
+        0.3274965667063223
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 8411,
+      "clusters": 3999,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.676851741766734,
+      "seed": 20261119,
+      "dataset": "pog",
+      "test": "triad_minus_best_simple",
+      "baseline": "label_knn_content",
+      "p_holm": 0.00039996000399960006,
+      "reject_05": true
+    },
+    {
+      "delta": 0.17267252604166666,
+      "ci95": [
+        0.1628213121741598,
+        0.18208341970706907
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 8192,
+      "clusters": 2156,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.5548095703125,
+      "seed": 20261119,
+      "dataset": "spotify_sparse",
+      "test": "triad_minus_best_simple",
+      "baseline": "label_knn_content",
+      "p_holm": 0.00039996000399960006,
+      "reject_05": true
+    },
+    {
+      "delta": 0.081884765625,
+      "ci95": [
+        0.0750140223201793,
+        0.08842561250232601
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 8192,
+      "clusters": 2957,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.3798828125,
+      "seed": 20261119,
+      "dataset": "spotify",
+      "test": "triad_minus_best_simple",
+      "baseline": "label_knn_content",
+      "p_holm": 0.00039996000399960006,
+      "reject_05": true
+    }
+  ]
+}
