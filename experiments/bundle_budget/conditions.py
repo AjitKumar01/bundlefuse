@@ -13,13 +13,13 @@ random sample of that size is the training rows, while counts, label factors and
 
 PYTHONPATH=.:../dials .venv/bin/python -m experiments.bundle_budget.conditions
 """
-import dials  # pins BLAS threads before numpy loads
+import triad  # pins BLAS threads before numpy loads
 import dataclasses
 import numpy as np
 from collections import defaultdict
 from functools import lru_cache
 from pathlib import Path
-from dials import data as dials_data
+from triad import data as dials_data
 from bundlefuse.paths import DATA_ROOT
 from bundlefuse.provenance import write_json
 from experiments.dials_frozen.compare import CACHE

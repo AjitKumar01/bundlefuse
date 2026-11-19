@@ -18,8 +18,8 @@ import numpy as np
 import torch
 from torch import nn
 from torch.nn import functional as F
-from dials.model import DIALS,curve
-from dials.evaluate import query_metrics
+from triad.model import TRIAD as DIALS,curve
+from triad.evaluate import query_metrics
 from experiments.dials_user.households import rebuild,households
 
 

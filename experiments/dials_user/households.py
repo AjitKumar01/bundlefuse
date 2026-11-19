@@ -9,7 +9,7 @@ household's history, so training scores need leave-one-out (model.DIALSUser, rep
 """
 import csv,random
 from dataclasses import dataclass
-from dials import data
+from triad import data
 
 
 @dataclass

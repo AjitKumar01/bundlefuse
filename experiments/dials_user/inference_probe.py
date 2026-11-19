@@ -6,12 +6,12 @@ Nothing is retrained, so this measures what U adds on top of the trained model, 
 
 PYTHONPATH=.:../dials .venv/bin/python -m experiments.dials_user.inference_probe
 """
-import dials
+import triad
 import numpy as np, scipy.sparse as sp, torch
 from pathlib import Path
-from dials import data as dials_data
-from dials.train import load as load_dials
-from dials.evaluate import query_metrics
+from triad import data as dials_data
+from triad.train import load as load_dials
+from triad.evaluate import query_metrics
 from bundlefuse.provenance import write_json
 from experiments.dials_frozen.compare import RUNS,CACHE,groups
 from experiments.mechanisms.statistics import paired_comparison,holm_adjust

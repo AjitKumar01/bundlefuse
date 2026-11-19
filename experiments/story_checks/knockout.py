@@ -8,12 +8,12 @@ Buckets as in run.py; clean test queries, 3 seeds, NDCG@20 and Recall@20.
 
 PYTHONPATH=.:../dials .venv/bin/python -m experiments.story_checks.knockout
 """
-import dials  # pins BLAS threads before numpy loads
+import triad  # pins BLAS threads before numpy loads
 import numpy as np
 import torch
-from dials import data as dials_data
-from dials.train import load as load_dials
-from dials.evaluate import query_metrics
+from triad import data as dials_data
+from triad.train import load as load_dials
+from triad.evaluate import query_metrics
 from bundlefuse.provenance import write_json
 from experiments.dials_frozen.compare import RUNS,CACHE
 from experiments.story_checks.run import evidence,buckets,OUT

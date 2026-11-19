@@ -5,7 +5,7 @@ DIALS full: the frozen runs; CLHE full: the three-seed Kaggle reruns; CLHE other
 
 PYTHONPATH=.:../dials .venv/bin/python -m experiments.bundle_budget.compare
 """
-import dials  # pins BLAS threads before numpy loads
+import triad  # pins BLAS threads before numpy loads
 import hashlib
 import json
 import numpy as np

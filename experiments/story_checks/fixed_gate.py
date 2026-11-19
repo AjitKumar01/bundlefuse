@@ -7,13 +7,13 @@ Clean test queries, 3 seeds, NDCG@20 and Recall@20; paired cluster bootstrap, Ho
 
 PYTHONPATH=.:../dials .venv/bin/python -m experiments.story_checks.fixed_gate
 """
-import dials  # pins BLAS threads before numpy loads
+import triad  # pins BLAS threads before numpy loads
 import numpy as np
 import torch
 from pathlib import Path
-from dials import data as dials_data
-from dials.train import load as load_dials
-from dials.evaluate import query_metrics
+from triad import data as dials_data
+from triad.train import load as load_dials
+from triad.evaluate import query_metrics
 from bundlefuse.provenance import write_json
 from experiments.dials_frozen.compare import RUNS,CACHE,groups
 from experiments.mechanisms.statistics import paired_comparison,holm_adjust

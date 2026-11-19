@@ -1,0 +1,22 @@
+{
+ "dataset": "food",
+ "seed": 1,
+ "config": {
+  "epochs": 100,
+  "batch": 32,
+  "patience": 6,
+  "shared_lr": 0.001,
+  "fast_lr": 0.01,
+  "weight_decay": 0.001,
+  "rank": 64,
+  "hidden": 32
+ },
+ "best_epoch": 5,
+ "epochs_run": 11,
+ "validation": {
+  "recall20": 0.4425189393939393,
+  "ndcg20": 0.3049808637381935
+ },
+ "parameters": 41368,
+ "seconds": 15.072911666939035
+}

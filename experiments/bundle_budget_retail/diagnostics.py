@@ -14,12 +14,12 @@ PYTHONPATH=.:../dials .venv/bin/python -m experiments.bundle_budget_retail.diagn
 PYTHONPATH=.:../dials .venv/bin/python -m experiments.bundle_budget_retail.diagnostics init --dataset food --condition n50
 """
 import argparse
-import dials  # pins BLAS threads before numpy loads
+import triad  # pins BLAS threads before numpy loads
 import math
 import torch
-from dials import train as dials_train
-from dials.evaluate import evaluate
-from dials.model import DIALS
+from triad import train as dials_train
+from triad.evaluate import evaluate
+from triad.model import TRIAD as DIALS
 from experiments.dials_frozen.compare import CACHE
 from .conditions import dataset,condition,with_train,CONDITIONS,DATASETS,OUT
 
@@ -27,7 +27,7 @@ from .conditions import dataset,condition,with_train,CONDITIONS,DATASETS,OUT
 def bind(stats):
     """Make dials.train.build use the condition's bundles for every statistic, whatever the training rows are."""
     def build(_ds,cache,config=dials_train.CONFIG):
-        return DIALS(stats.features,stats.levels,stats.train,dials_train.spectral(stats,cache,config),rank=config['rank'],hidden=config['hidden'])
+        return DIALS(stats.features,stats.levels,stats.train,rank=config["rank"],hidden=config["hidden"])
     dials_train.build=build
 
 

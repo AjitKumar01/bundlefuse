@@ -1,0 +1,23 @@
+{
+ "dataset": "spotify_sparse",
+ "seed": 0,
+ "config": {
+  "epochs": 100,
+  "batch": 32,
+  "patience": 6,
+  "shared_lr": 0.001,
+  "fast_lr": 0.01,
+  "weight_decay": 0.001,
+  "rank": 64,
+  "hidden": 32,
+  "ablation": "graph"
+ },
+ "best_epoch": 14,
+ "epochs_run": 20,
+ "validation": {
+  "recall20": 0.13818415481574614,
+  "ndcg20": 0.20617523993114736
+ },
+ "parameters": 41466,
+ "seconds": 42214.907400837015
+}

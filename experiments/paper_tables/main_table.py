@@ -8,7 +8,7 @@ Holm over the 14 tests (7 datasets x NDCG@20, Recall@20).
 
 PYTHONPATH=.:../dials .venv/bin/python -m experiments.paper_tables.main_table
 """
-import dials  # pins BLAS threads before numpy loads
+import triad  # pins BLAS threads before numpy loads
 import json
 from pathlib import Path
 import numpy as np

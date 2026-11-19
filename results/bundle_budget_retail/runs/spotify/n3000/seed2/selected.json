@@ -9,15 +9,14 @@
   "fast_lr": 0.01,
   "weight_decay": 0.001,
   "rank": 64,
-  "label_rank": 16,
   "hidden": 32
  },
  "best_epoch": 12,
  "epochs_run": 18,
  "validation": {
-  "recall20": 0.1611754264306,
-  "ndcg20": 0.2766532046259602
+  "recall20": 0.16117926794107376,
+  "ndcg20": 0.27666101519388475
  },
- "parameters": 41978,
- "seconds": 7511.162146122006
+ "parameters": 41466,
+ "seconds": 1862.0835527080926
 }

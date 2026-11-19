@@ -1,0 +1,150 @@
+experiments.bundle_budget_retail.train --dataset electronic --condition n50 --seed 0
+experiments.bundle_budget_retail.train --dataset electronic --condition n50 --seed 1
+experiments.bundle_budget_retail.train --dataset electronic --condition n50 --seed 2
+experiments.bundle_budget_retail.train --dataset electronic --condition n100 --seed 0
+experiments.bundle_budget_retail.train --dataset electronic --condition n100 --seed 1
+experiments.bundle_budget_retail.train --dataset electronic --condition n100 --seed 2
+experiments.bundle_budget_retail.train --dataset electronic --condition n300 --seed 0
+experiments.bundle_budget_retail.train --dataset electronic --condition n300 --seed 1
+experiments.bundle_budget_retail.train --dataset electronic --condition n300 --seed 2
+experiments.bundle_budget_retail.train --dataset electronic --condition n600 --seed 0
+experiments.bundle_budget_retail.train --dataset electronic --condition n600 --seed 1
+experiments.bundle_budget_retail.train --dataset electronic --condition n600 --seed 2
+experiments.bundle_budget_retail.train --dataset food --condition n50 --seed 0
+experiments.bundle_budget_retail.train --dataset food --condition n50 --seed 1
+experiments.bundle_budget_retail.train --dataset food --condition n50 --seed 2
+experiments.bundle_budget_retail.train --dataset food --condition n100 --seed 0
+experiments.bundle_budget_retail.train --dataset food --condition n100 --seed 1
+experiments.bundle_budget_retail.train --dataset food --condition n100 --seed 2
+experiments.bundle_budget_retail.train --dataset food --condition n300 --seed 0
+experiments.bundle_budget_retail.train --dataset food --condition n300 --seed 1
+experiments.bundle_budget_retail.train --dataset food --condition n300 --seed 2
+experiments.bundle_budget_retail.train --dataset food --condition n600 --seed 0
+experiments.bundle_budget_retail.train --dataset food --condition n600 --seed 1
+experiments.bundle_budget_retail.train --dataset food --condition n600 --seed 2
+experiments.bundle_budget_retail.train --dataset clothing --condition n50 --seed 0
+experiments.bundle_budget_retail.train --dataset clothing --condition n50 --seed 1
+experiments.bundle_budget_retail.train --dataset clothing --condition n50 --seed 2
+experiments.bundle_budget_retail.train --dataset clothing --condition n100 --seed 0
+experiments.bundle_budget_retail.train --dataset clothing --condition n100 --seed 1
+experiments.bundle_budget_retail.train --dataset clothing --condition n100 --seed 2
+experiments.bundle_budget_retail.train --dataset clothing --condition n300 --seed 0
+experiments.bundle_budget_retail.train --dataset clothing --condition n300 --seed 1
+experiments.bundle_budget_retail.train --dataset clothing --condition n300 --seed 2
+experiments.bundle_budget_retail.train --dataset clothing --condition n600 --seed 0
+experiments.bundle_budget_retail.train --dataset clothing --condition n600 --seed 1
+experiments.bundle_budget_retail.train --dataset clothing --condition n600 --seed 2
+experiments.bundle_budget_retail.diagnostics steps --dataset electronic --condition n50 --seed 0
+experiments.bundle_budget_retail.diagnostics steps --dataset electronic --condition n50 --seed 1
+experiments.bundle_budget_retail.diagnostics steps --dataset electronic --condition n50 --seed 2
+experiments.bundle_budget_retail.diagnostics steps --dataset electronic --condition n100 --seed 0
+experiments.bundle_budget_retail.diagnostics steps --dataset electronic --condition n100 --seed 1
+experiments.bundle_budget_retail.diagnostics steps --dataset electronic --condition n100 --seed 2
+experiments.bundle_budget_retail.diagnostics steps --dataset electronic --condition n300 --seed 0
+experiments.bundle_budget_retail.diagnostics steps --dataset electronic --condition n300 --seed 1
+experiments.bundle_budget_retail.diagnostics steps --dataset electronic --condition n300 --seed 2
+experiments.bundle_budget_retail.diagnostics steps --dataset food --condition n50 --seed 0
+experiments.bundle_budget_retail.diagnostics steps --dataset food --condition n50 --seed 1
+experiments.bundle_budget_retail.diagnostics steps --dataset food --condition n50 --seed 2
+experiments.bundle_budget_retail.diagnostics steps --dataset food --condition n100 --seed 0
+experiments.bundle_budget_retail.diagnostics steps --dataset food --condition n100 --seed 1
+experiments.bundle_budget_retail.diagnostics steps --dataset food --condition n100 --seed 2
+experiments.bundle_budget_retail.diagnostics steps --dataset food --condition n300 --seed 0
+experiments.bundle_budget_retail.diagnostics steps --dataset food --condition n300 --seed 1
+experiments.bundle_budget_retail.diagnostics steps --dataset food --condition n300 --seed 2
+experiments.bundle_budget_retail.diagnostics steps --dataset clothing --condition n50 --seed 0
+experiments.bundle_budget_retail.diagnostics steps --dataset clothing --condition n50 --seed 1
+experiments.bundle_budget_retail.diagnostics steps --dataset clothing --condition n50 --seed 2
+experiments.bundle_budget_retail.diagnostics steps --dataset clothing --condition n100 --seed 0
+experiments.bundle_budget_retail.diagnostics steps --dataset clothing --condition n100 --seed 1
+experiments.bundle_budget_retail.diagnostics steps --dataset clothing --condition n100 --seed 2
+experiments.bundle_budget_retail.diagnostics steps --dataset clothing --condition n300 --seed 0
+experiments.bundle_budget_retail.diagnostics steps --dataset clothing --condition n300 --seed 1
+experiments.bundle_budget_retail.diagnostics steps --dataset clothing --condition n300 --seed 2
+experiments.bundle_budget_retail.diagnostics init --dataset electronic --condition full
+experiments.bundle_budget_retail.diagnostics init --dataset electronic --condition n600
+experiments.bundle_budget_retail.diagnostics init --dataset electronic --condition n300
+experiments.bundle_budget_retail.diagnostics init --dataset electronic --condition n100
+experiments.bundle_budget_retail.diagnostics init --dataset electronic --condition n50
+experiments.bundle_budget_retail.diagnostics init --dataset food --condition full
+experiments.bundle_budget_retail.diagnostics init --dataset food --condition n600
+experiments.bundle_budget_retail.diagnostics init --dataset food --condition n300
+experiments.bundle_budget_retail.diagnostics init --dataset food --condition n100
+experiments.bundle_budget_retail.diagnostics init --dataset food --condition n50
+experiments.bundle_budget_retail.diagnostics init --dataset clothing --condition full
+experiments.bundle_budget_retail.diagnostics init --dataset clothing --condition n600
+experiments.bundle_budget_retail.diagnostics init --dataset clothing --condition n300
+experiments.bundle_budget_retail.diagnostics init --dataset clothing --condition n100
+experiments.bundle_budget_retail.diagnostics init --dataset clothing --condition n50
+experiments.bundle_budget.train --dataset pog_dense --condition frac1 --seed 0
+experiments.bundle_budget.train --dataset pog_dense --condition frac1 --seed 1
+experiments.bundle_budget.train --dataset pog_dense --condition frac1 --seed 2
+experiments.bundle_budget.train --dataset pog_dense --condition frac10 --seed 0
+experiments.bundle_budget.train --dataset pog_dense --condition frac10 --seed 1
+experiments.bundle_budget.train --dataset pog_dense --condition frac10 --seed 2
+experiments.bundle_budget.train --dataset pog_dense --condition pseudo --seed 0
+experiments.bundle_budget.train --dataset pog_dense --condition pseudo --seed 1
+experiments.bundle_budget.train --dataset pog_dense --condition pseudo --seed 2
+experiments.bundle_budget.train --dataset pog_dense --condition pseudo_clean --seed 0
+experiments.bundle_budget.train --dataset pog_dense --condition pseudo_clean --seed 1
+experiments.bundle_budget.train --dataset pog_dense --condition pseudo_clean --seed 2
+experiments.bundle_budget.train --dataset pog --condition frac1 --seed 0
+experiments.bundle_budget.train --dataset pog --condition frac1 --seed 1
+experiments.bundle_budget.train --dataset pog --condition frac1 --seed 2
+experiments.bundle_budget.train --dataset pog --condition frac10 --seed 0
+experiments.bundle_budget.train --dataset pog --condition frac10 --seed 1
+experiments.bundle_budget.train --dataset pog --condition frac10 --seed 2
+experiments.bundle_budget.train --dataset pog --condition pseudo --seed 0
+experiments.bundle_budget.train --dataset pog --condition pseudo --seed 1
+experiments.bundle_budget.train --dataset pog --condition pseudo --seed 2
+experiments.bundle_budget.train --dataset pog --condition pseudo_clean --seed 0
+experiments.bundle_budget.train --dataset pog --condition pseudo_clean --seed 1
+experiments.bundle_budget.train --dataset pog --condition pseudo_clean --seed 2
+experiments.triad_ablations.run train --part loo --dataset pog --seed 0
+experiments.triad_ablations.run train --part loo --dataset pog --seed 1
+experiments.triad_ablations.run train --part loo --dataset pog --seed 2
+experiments.triad_ablations.run train --part gate --dataset pog --seed 0
+experiments.triad_ablations.run train --part gate --dataset pog --seed 1
+experiments.triad_ablations.run train --part gate --dataset pog --seed 2
+experiments.triad_ablations.run train --part content --dataset pog --seed 0
+experiments.triad_ablations.run train --part content --dataset pog --seed 1
+experiments.triad_ablations.run train --part content --dataset pog --seed 2
+experiments.triad_ablations.run train --part graph --dataset pog --seed 0
+experiments.triad_ablations.run train --part graph --dataset pog --seed 1
+experiments.triad_ablations.run train --part graph --dataset pog --seed 2
+experiments.bundle_budget_retail.train --dataset spotify_sparse --condition n3000 --seed 0
+experiments.bundle_budget_retail.train --dataset spotify_sparse --condition n3000 --seed 1
+experiments.bundle_budget_retail.train --dataset spotify_sparse --condition n3000 --seed 2
+experiments.bundle_budget_retail.train --dataset spotify_sparse --condition n1000 --seed 0
+experiments.bundle_budget_retail.train --dataset spotify_sparse --condition n1000 --seed 1
+experiments.bundle_budget_retail.train --dataset spotify_sparse --condition n1000 --seed 2
+experiments.bundle_budget_retail.train --dataset spotify_sparse --condition n600 --seed 0
+experiments.bundle_budget_retail.train --dataset spotify_sparse --condition n600 --seed 1
+experiments.bundle_budget_retail.train --dataset spotify_sparse --condition n600 --seed 2
+experiments.bundle_budget_retail.train --dataset spotify_sparse --condition n300 --seed 0
+experiments.bundle_budget_retail.train --dataset spotify_sparse --condition n300 --seed 1
+experiments.bundle_budget_retail.train --dataset spotify_sparse --condition n300 --seed 2
+experiments.bundle_budget_retail.train --dataset spotify_sparse --condition n100 --seed 0
+experiments.bundle_budget_retail.train --dataset spotify_sparse --condition n100 --seed 1
+experiments.bundle_budget_retail.train --dataset spotify_sparse --condition n100 --seed 2
+experiments.bundle_budget_retail.train --dataset spotify_sparse --condition n50 --seed 0
+experiments.bundle_budget_retail.train --dataset spotify_sparse --condition n50 --seed 1
+experiments.bundle_budget_retail.train --dataset spotify_sparse --condition n50 --seed 2
+experiments.bundle_budget_retail.train --dataset spotify --condition n3000 --seed 0
+experiments.bundle_budget_retail.train --dataset spotify --condition n3000 --seed 1
+experiments.bundle_budget_retail.train --dataset spotify --condition n3000 --seed 2
+experiments.bundle_budget_retail.train --dataset spotify --condition n1000 --seed 0
+experiments.bundle_budget_retail.train --dataset spotify --condition n1000 --seed 1
+experiments.bundle_budget_retail.train --dataset spotify --condition n1000 --seed 2
+experiments.bundle_budget_retail.train --dataset spotify --condition n600 --seed 0
+experiments.bundle_budget_retail.train --dataset spotify --condition n600 --seed 1
+experiments.bundle_budget_retail.train --dataset spotify --condition n600 --seed 2
+experiments.bundle_budget_retail.train --dataset spotify --condition n300 --seed 0
+experiments.bundle_budget_retail.train --dataset spotify --condition n300 --seed 1
+experiments.bundle_budget_retail.train --dataset spotify --condition n300 --seed 2
+experiments.bundle_budget_retail.train --dataset spotify --condition n100 --seed 0
+experiments.bundle_budget_retail.train --dataset spotify --condition n100 --seed 1
+experiments.bundle_budget_retail.train --dataset spotify --condition n100 --seed 2
+experiments.bundle_budget_retail.train --dataset spotify --condition n50 --seed 0
+experiments.bundle_budget_retail.train --dataset spotify --condition n50 --seed 1
+experiments.bundle_budget_retail.train --dataset spotify --condition n50 --seed 2

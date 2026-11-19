@@ -1,0 +1,24 @@
+{
+ "dataset": "clothing",
+ "seed": 0,
+ "config": {
+  "epochs": 100,
+  "batch": 32,
+  "patience": 6,
+  "shared_lr": 0.001,
+  "fast_lr": 0.01,
+  "weight_decay": 0.001,
+  "rank": 64,
+  "label_rank": 16,
+  "hidden": 32,
+  "width": 64
+ },
+ "best_epoch": 5,
+ "epochs_run": 11,
+ "validation": {
+  "recall20": 0.651177536231884,
+  "ndcg20": 0.5093086608793344
+ },
+ "parameters": 42344,
+ "seconds": 11.81033016598667
+}

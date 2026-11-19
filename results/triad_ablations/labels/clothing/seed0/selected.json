@@ -1,0 +1,24 @@
+{
+ "dataset": "clothing",
+ "seed": 0,
+ "config": {
+  "epochs": 100,
+  "batch": 32,
+  "patience": 6,
+  "shared_lr": 0.001,
+  "fast_lr": 0.01,
+  "weight_decay": 0.001,
+  "rank": 64,
+  "hidden": 32,
+  "ablation": "labels"
+ },
+ "best_epoch": 7,
+ "epochs_run": 13,
+ "validation": {
+  "recall20": 0.6475543478260869,
+  "ndcg20": 0.4937522251379693
+ },
+ "parameters": 41368,
+ "seconds": 8.276278416975401,
+ "provenance": "the previous model's labels ablation (whole label term removed), bit-identical to TRIAD without labels"
+}

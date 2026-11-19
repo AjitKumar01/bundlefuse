@@ -1,0 +1,23 @@
+{
+ "dataset": "pog",
+ "seed": 0,
+ "config": {
+  "epochs": 100,
+  "batch": 32,
+  "patience": 6,
+  "shared_lr": 0.001,
+  "fast_lr": 0.01,
+  "weight_decay": 0.001,
+  "rank": 64,
+  "hidden": 32,
+  "ablation": "content"
+ },
+ "best_epoch": 16,
+ "epochs_run": 22,
+ "validation": {
+  "recall20": 0.03183333333333333,
+  "ndcg20": 0.022573343691813567
+ },
+ "parameters": 41368,
+ "seconds": 722.6494234990387
+}

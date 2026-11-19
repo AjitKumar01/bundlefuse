@@ -10,14 +10,14 @@ lam = 0 included, is scored by the same code.
 
 PYTHONPATH=.:../dials .venv/bin/python -m experiments.dials_user.baselines_repurchase
 """
-import dials  # pins BLAS threads before numpy loads
+import triad  # pins BLAS threads before numpy loads
 import json
 import numpy as np
 import torch
 from pathlib import Path
-from dials import data as dials_data
-from dials.train import load as load_dials
-from dials.evaluate import query_metrics
+from triad import data as dials_data
+from triad.train import load as load_dials
+from triad.evaluate import query_metrics
 from bundlefuse.provenance import write_json
 from experiments.dials_frozen.compare import RUNS,CACHE
 from experiments.simple_baselines.methods import Baselines

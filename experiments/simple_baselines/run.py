@@ -4,8 +4,8 @@ PYTHONPATH=. .venv/bin/python -m experiments.simple_baselines.run --dataset pog
 PYTHONPATH=. .venv/bin/python -m experiments.simple_baselines.run --dataset pog --extended
 
 --extended adds a second suite (content plus ItemKNN blend, iALS, SGFCF) to an existing summary.json. The blend uses the
-catalogue features DIALS uses (on POG and Spotify read through dials.data, i.e. only the released BLIP / CLAP
-features), and ItemKNN fixed at the setting the first suite chose on validation. --only restricts a suite to some methods.
+catalogue features TRIAD uses on every dataset (read through triad.data: the released BLIP / CLAP features on POG
+and Spotify, BLIP title vectors on e-commerce), and ItemKNN fixed at the setting the first suite chose on validation. --only restricts a suite to some methods.
 """
 import argparse
 import json
@@ -19,12 +19,12 @@ from experiments.neural_revision.run import log
 from .methods import Baselines
 
 RESULTS=Path('results/simple_baselines')
-POG=['pog_dense','pog','spotify_sparse','spotify'];RETAIL=['electronic','food','clothing'];BASKETS=['dunnhumby']  # BASKETS: split and features from dials.data
+POG=['pog_dense','pog','spotify_sparse','spotify'];RETAIL=['electronic','food','clothing'];BASKETS=['dunnhumby']  # BASKETS: split and features from triad.data
 
 
 def load(name):
     if name in BASKETS:
-        from dials import data
+        from triad import data
         ds=data.load(name);return ds,ds.clean_test
     if name in RETAIL:
         from experiments.neural.data import load_data
@@ -48,21 +48,18 @@ def mean(records,idx=None):
 
 
 def features(name,ds):
-    if name in BASKETS:return ds.features
-    if name in POG:  # the released features, through the same loader as DIALS
-        from dials import data
-        other=data.load(name,Path(DATA_ROOT)/'dials'/'cache')
-        if [sorted(set(b)) for b in other.train]!=[sorted(set(b)) for b in ds.train]:raise RuntimeError('Training split differs')
-        return other.features
-    if name in RETAIL:
-        from experiments.neural.data import load_data
-        _,x,*_=load_data(name)
-    else:
-        from experiments.neural_lowrank import run as base
-        other,x,*_=base.data(name)
-        if [sorted(set(b)) for b in other.train]!=[sorted(set(b)) for b in ds.train]:raise RuntimeError('Training split differs')
-    if len(x)!=ds.n_items:raise RuntimeError('Feature rows differ from the catalogue')
-    return x
+    """The item features of every content baseline: exactly TRIAD's (triad.data.load), on every dataset.
+
+    POG and Spotify: the released BLIP / CLAP modalities, each row-normalized, concatenated, rank-128 SVD, row-normalized.
+    Electronic, Food, Clothing: BLIP text [CLS] vectors of the titles, rank-128 SVD (an earlier version used TF-IDF here;
+    those runs are excluded from every comparison). Dunnhumby: TF-IDF of the product text. The training split must be
+    the one TRIAD uses. Checked by experiments/feature_audit/run.py.
+    """
+    from triad import data
+    other=data.load(name,Path(DATA_ROOT)/'dials'/'cache')
+    if [sorted(set(b)) for b in other.train]!=[sorted(set(b)) for b in ds.train]:raise RuntimeError('Training split differs')
+    if len(other.features)!=ds.n_items:raise RuntimeError('Feature rows differ from the catalogue')
+    return other.features
 
 
 def run(args):

@@ -11,16 +11,16 @@ CLHE and RaMen are timed with experiments/timing/neural.py in their own environm
 
 THREADS=4; VECLIB_MAXIMUM_THREADS=$THREADS OMP_NUM_THREADS=$THREADS PYTHONPATH=.:../dials .venv/bin/python -m experiments.timing.run --threads $THREADS
 """
-import dials  # pins BLAS threads before numpy loads (setdefault, so the environment above wins)
+import triad  # pins BLAS threads before numpy loads (setdefault, so the environment above wins)
 import argparse
 import json
 import tempfile
 import time
 from pathlib import Path
 import torch
-from dials import data
-from dials import train as T
-from dials.evaluate import evaluate as evaluate_dials
+from triad import data
+from triad import train as T
+from triad.evaluate import evaluate as evaluate_dials
 from bundlefuse.paths import DATA_ROOT
 from bundlefuse.provenance import write_json
 from experiments.simple_baselines.methods import Baselines

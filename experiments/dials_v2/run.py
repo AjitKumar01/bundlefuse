@@ -31,7 +31,7 @@ tests run.
 PYTHONPATH=.:../dials .venv/bin/python -m experiments.dials_v2.run train --variant prior_kappa --dataset pog --seed 0 --threads 4
 PYTHONPATH=.:../dials .venv/bin/python -m experiments.dials_v2.run compare --variant prior_kappa --datasets pog pog_dense
 """
-import dials  # pins BLAS threads before numpy loads
+import triad  # pins BLAS threads before numpy loads
 import argparse
 import json
 import math
@@ -40,10 +40,10 @@ import numpy as np
 import torch
 from torch import nn
 from torch.nn import functional as F
-from dials import data
-from dials import train as T
-from dials.evaluate import evaluate
-from dials.model import DIALS,curve
+from triad import data
+from triad import train as T
+from triad.evaluate import evaluate
+from triad.model import TRIAD as DIALS,curve
 from bundlefuse.paths import DATA_ROOT
 from bundlefuse.provenance import write_json
 from experiments.mechanisms.statistics import paired_comparison,holm_adjust

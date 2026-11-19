@@ -1,0 +1,207 @@
+2026-11-16T21:09:00Z electronic full popularity {} VAL N20=0.02072
+2026-11-16T21:09:00Z electronic full popularity TEST clean {'recall20': 0.059874759152215795, 'ndcg20': 0.02577193985304718}
+2026-11-16T21:09:00Z electronic full cooccurrence {} VAL N20=0.18534
+2026-11-16T21:09:00Z electronic full cooccurrence TEST clean {'recall20': 0.34364161849710984, 'ndcg20': 0.2307929399405525}
+2026-11-16T21:09:00Z electronic full itemknn {'k': 50, 'shrink': 0} VAL N20=0.23182
+2026-11-16T21:09:00Z electronic full itemknn {'k': 50, 'shrink': 10} VAL N20=0.22488
+2026-11-16T21:09:00Z electronic full itemknn {'k': 50, 'shrink': 100} VAL N20=0.22488
+2026-11-16T21:09:00Z electronic full itemknn {'k': 200, 'shrink': 0} VAL N20=0.23294
+2026-11-16T21:09:00Z electronic full itemknn {'k': 200, 'shrink': 10} VAL N20=0.22600
+2026-11-16T21:09:00Z electronic full itemknn {'k': 200, 'shrink': 100} VAL N20=0.22600
+2026-11-16T21:09:00Z electronic full itemknn {'k': 1000, 'shrink': 0} VAL N20=0.23294
+2026-11-16T21:09:00Z electronic full itemknn {'k': 1000, 'shrink': 10} VAL N20=0.22600
+2026-11-16T21:09:00Z electronic full itemknn {'k': 1000, 'shrink': 100} VAL N20=0.22600
+2026-11-16T21:09:01Z electronic full itemknn TEST clean {'recall20': 0.3524566473988439, 'ndcg20': 0.24767320983459046}
+2026-11-16T21:09:01Z electronic full rp3beta {'alpha': 0.5, 'beta': 0.0} VAL N20=0.20735
+2026-11-16T21:09:01Z electronic full rp3beta {'alpha': 0.5, 'beta': 0.25} VAL N20=0.23040
+2026-11-16T21:09:01Z electronic full rp3beta {'alpha': 0.5, 'beta': 0.5} VAL N20=0.23244
+2026-11-16T21:09:01Z electronic full rp3beta {'alpha': 0.5, 'beta': 0.75} VAL N20=0.23068
+2026-11-16T21:09:01Z electronic full rp3beta {'alpha': 1.0, 'beta': 0.0} VAL N20=0.20536
+2026-11-16T21:09:01Z electronic full rp3beta {'alpha': 1.0, 'beta': 0.25} VAL N20=0.22840
+2026-11-16T21:09:01Z electronic full rp3beta {'alpha': 1.0, 'beta': 0.5} VAL N20=0.22873
+2026-11-16T21:09:01Z electronic full rp3beta {'alpha': 1.0, 'beta': 0.75} VAL N20=0.22494
+2026-11-16T21:09:01Z electronic full rp3beta TEST clean {'recall20': 0.35573217726396916, 'ndcg20': 0.25543581135499194}
+2026-11-16T21:09:01Z electronic full ease {'l2': 50.0} VAL N20=0.23501
+2026-11-16T21:09:02Z electronic full ease {'l2': 200.0} VAL N20=0.22528
+2026-11-16T21:09:02Z electronic full ease {'l2': 500.0} VAL N20=0.21418
+2026-11-16T21:09:02Z electronic full ease {'l2': 1000.0} VAL N20=0.21482
+2026-11-16T21:09:03Z electronic full ease {'l2': 3000.0} VAL N20=0.20086
+2026-11-16T21:09:03Z electronic full ease TEST clean {'recall20': 0.35351637764932564, 'ndcg20': 0.25383723898273713}
+2026-11-16T21:09:03Z electronic full hybrid {'k': 200, 'shrink': 0, 'content': 0.0} VAL N20=0.23294
+2026-11-16T21:09:03Z electronic full hybrid {'k': 200, 'shrink': 0, 'content': 0.1} VAL N20=0.33108
+2026-11-16T21:09:03Z electronic full hybrid {'k': 200, 'shrink': 0, 'content': 0.2} VAL N20=0.33164
+2026-11-16T21:09:03Z electronic full hybrid {'k': 200, 'shrink': 0, 'content': 0.3} VAL N20=0.33167
+2026-11-16T21:09:03Z electronic full hybrid {'k': 200, 'shrink': 0, 'content': 0.5} VAL N20=0.32986
+2026-11-16T21:09:03Z electronic full hybrid {'k': 200, 'shrink': 0, 'content': 0.7} VAL N20=0.31270
+2026-11-16T21:09:03Z electronic full hybrid {'k': 200, 'shrink': 0, 'content': 0.9} VAL N20=0.18342
+2026-11-16T21:09:03Z electronic full hybrid {'k': 200, 'shrink': 0, 'content': 1.0} VAL N20=0.12586
+2026-11-16T21:09:04Z electronic full hybrid TEST clean {'recall20': 0.4160404624277456, 'ndcg20': 0.3023966041322359}
+2026-11-16T21:09:04Z electronic full samelabel {'a': (1.0,), 'gamma': 0.0} VAL N20=0.05351
+2026-11-16T21:09:04Z electronic full samelabel {'a': (1.0,), 'gamma': 0.1} VAL N20=0.05351
+2026-11-16T21:09:04Z electronic full samelabel {'a': (1.0,), 'gamma': 0.3} VAL N20=0.03815
+2026-11-16T21:09:04Z electronic full samelabel {'a': (1.0,), 'gamma': 1.0} VAL N20=0.02706
+2026-11-16T21:09:04Z electronic full samelabel TEST clean {'recall20': 0.0926300578034682, 'ndcg20': 0.05157053026195144}
+2026-11-16T21:09:04Z electronic full transition {'a': (1.0,), 'gamma': 0.0, 'eps': 0.0001} VAL N20=0.04870
+2026-11-16T21:09:04Z electronic full transition {'a': (1.0,), 'gamma': 0.0, 'eps': 0.01} VAL N20=0.04870
+2026-11-16T21:09:04Z electronic full transition {'a': (1.0,), 'gamma': 0.5, 'eps': 0.0001} VAL N20=0.06581
+2026-11-16T21:09:04Z electronic full transition {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01} VAL N20=0.06906
+2026-11-16T21:09:04Z electronic full transition {'a': (1.0,), 'gamma': 1.0, 'eps': 0.0001} VAL N20=0.07030
+2026-11-16T21:09:04Z electronic full transition {'a': (1.0,), 'gamma': 1.0, 'eps': 0.01} VAL N20=0.05267
+2026-11-16T21:09:04Z electronic full transition {'a': (1.0,), 'gamma': 2.0, 'eps': 0.0001} VAL N20=0.04604
+2026-11-16T21:09:04Z electronic full transition {'a': (1.0,), 'gamma': 2.0, 'eps': 0.01} VAL N20=0.02541
+2026-11-16T21:09:04Z electronic full transition TEST clean {'recall20': 0.14041425818882464, 'ndcg20': 0.06961644836131653}
+2026-11-16T21:09:04Z electronic full label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 1.0, 'eps': 0.0001}, 'itemknn': {'k': 200, 'shrink': 0}, 'w': 0.0} VAL N20=0.23294
+2026-11-16T21:09:04Z electronic full label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 1.0, 'eps': 0.0001}, 'itemknn': {'k': 200, 'shrink': 0}, 'w': 0.1} VAL N20=0.24863
+2026-11-16T21:09:04Z electronic full label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 1.0, 'eps': 0.0001}, 'itemknn': {'k': 200, 'shrink': 0}, 'w': 0.2} VAL N20=0.24927
+2026-11-16T21:09:04Z electronic full label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 1.0, 'eps': 0.0001}, 'itemknn': {'k': 200, 'shrink': 0}, 'w': 0.3} VAL N20=0.24931
+2026-11-16T21:09:04Z electronic full label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 1.0, 'eps': 0.0001}, 'itemknn': {'k': 200, 'shrink': 0}, 'w': 0.5} VAL N20=0.24605
+2026-11-16T21:09:04Z electronic full label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 1.0, 'eps': 0.0001}, 'itemknn': {'k': 200, 'shrink': 0}, 'w': 0.7} VAL N20=0.23257
+2026-11-16T21:09:04Z electronic full label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 1.0, 'eps': 0.0001}, 'itemknn': {'k': 200, 'shrink': 0}, 'w': 0.9} VAL N20=0.12658
+2026-11-16T21:09:04Z electronic full label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 1.0, 'eps': 0.0001}, 'itemknn': {'k': 200, 'shrink': 0}, 'w': 1.0} VAL N20=0.07030
+2026-11-16T21:09:04Z electronic full label_knn TEST clean {'recall20': 0.351878612716763, 'ndcg20': 0.24967149370447794}
+2026-11-16T21:09:04Z electronic full label_knn_content {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 1.0, 'eps': 0.0001}, 'itemknn': {'k': 200, 'shrink': 0}, 'w': 0.3, 'v': 0.0} VAL N20=0.24931
+2026-11-16T21:09:04Z electronic full label_knn_content {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 1.0, 'eps': 0.0001}, 'itemknn': {'k': 200, 'shrink': 0}, 'w': 0.3, 'v': 0.05} VAL N20=0.25423
+2026-11-16T21:09:05Z electronic full label_knn_content {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 1.0, 'eps': 0.0001}, 'itemknn': {'k': 200, 'shrink': 0}, 'w': 0.3, 'v': 0.1} VAL N20=0.26181
+2026-11-16T21:09:05Z electronic full label_knn_content {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 1.0, 'eps': 0.0001}, 'itemknn': {'k': 200, 'shrink': 0}, 'w': 0.3, 'v': 0.2} VAL N20=0.26613
+2026-11-16T21:09:05Z electronic full label_knn_content {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 1.0, 'eps': 0.0001}, 'itemknn': {'k': 200, 'shrink': 0}, 'w': 0.3, 'v': 0.3} VAL N20=0.27223
+2026-11-16T21:09:05Z electronic full label_knn_content {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 1.0, 'eps': 0.0001}, 'itemknn': {'k': 200, 'shrink': 0}, 'w': 0.3, 'v': 0.5} VAL N20=0.28447
+2026-11-16T21:09:05Z electronic full label_knn_content TEST clean {'recall20': 0.3971579961464355, 'ndcg20': 0.29068084479287293}
+2026-11-16T21:09:05Z electronic full baselines COMPLETE
+2026-11-16T21:09:05Z food full popularity {} VAL N20=0.00689
+2026-11-16T21:09:05Z food full popularity TEST clean {'recall20': 0.035033050047214354, 'ndcg20': 0.016077125117044365}
+2026-11-16T21:09:05Z food full cooccurrence {} VAL N20=0.23284
+2026-11-16T21:09:05Z food full cooccurrence TEST clean {'recall20': 0.3452785646836638, 'ndcg20': 0.24944642316421434}
+2026-11-16T21:09:05Z food full itemknn {'k': 50, 'shrink': 0} VAL N20=0.25645
+2026-11-16T21:09:05Z food full itemknn {'k': 50, 'shrink': 10} VAL N20=0.25940
+2026-11-16T21:09:05Z food full itemknn {'k': 50, 'shrink': 100} VAL N20=0.25940
+2026-11-16T21:09:05Z food full itemknn {'k': 200, 'shrink': 0} VAL N20=0.25645
+2026-11-16T21:09:05Z food full itemknn {'k': 200, 'shrink': 10} VAL N20=0.25940
+2026-11-16T21:09:05Z food full itemknn {'k': 200, 'shrink': 100} VAL N20=0.25940
+2026-11-16T21:09:05Z food full itemknn {'k': 1000, 'shrink': 0} VAL N20=0.25645
+2026-11-16T21:09:05Z food full itemknn {'k': 1000, 'shrink': 10} VAL N20=0.25940
+2026-11-16T21:09:05Z food full itemknn {'k': 1000, 'shrink': 100} VAL N20=0.25940
+2026-11-16T21:09:05Z food full itemknn TEST clean {'recall20': 0.3384324834749764, 'ndcg20': 0.2620955366861382}
+2026-11-16T21:09:05Z food full rp3beta {'alpha': 0.5, 'beta': 0.0} VAL N20=0.25470
+2026-11-16T21:09:05Z food full rp3beta {'alpha': 0.5, 'beta': 0.25} VAL N20=0.26431
+2026-11-16T21:09:05Z food full rp3beta {'alpha': 0.5, 'beta': 0.5} VAL N20=0.26300
+2026-11-16T21:09:05Z food full rp3beta {'alpha': 0.5, 'beta': 0.75} VAL N20=0.25960
+2026-11-16T21:09:05Z food full rp3beta {'alpha': 1.0, 'beta': 0.0} VAL N20=0.25309
+2026-11-16T21:09:05Z food full rp3beta {'alpha': 1.0, 'beta': 0.25} VAL N20=0.26181
+2026-11-16T21:09:05Z food full rp3beta {'alpha': 1.0, 'beta': 0.5} VAL N20=0.26353
+2026-11-16T21:09:05Z food full rp3beta {'alpha': 1.0, 'beta': 0.75} VAL N20=0.25967
+2026-11-16T21:09:06Z food full rp3beta TEST clean {'recall20': 0.3393767705382436, 'ndcg20': 0.2743314941123546}
+2026-11-16T21:09:06Z food full ease {'l2': 50.0} VAL N20=0.25952
+2026-11-16T21:09:07Z food full ease {'l2': 200.0} VAL N20=0.26046
+2026-11-16T21:09:07Z food full ease {'l2': 500.0} VAL N20=0.25765
+2026-11-16T21:09:08Z food full ease {'l2': 1000.0} VAL N20=0.26117
+2026-11-16T21:09:08Z food full ease {'l2': 3000.0} VAL N20=0.24331
+2026-11-16T21:09:09Z food full ease TEST clean {'recall20': 0.34164305949008494, 'ndcg20': 0.2671776349856446}
+2026-11-16T21:09:09Z food full hybrid {'k': 50, 'shrink': 10, 'content': 0.0} VAL N20=0.25940
+2026-11-16T21:09:09Z food full hybrid {'k': 50, 'shrink': 10, 'content': 0.1} VAL N20=0.40140
+2026-11-16T21:09:09Z food full hybrid {'k': 50, 'shrink': 10, 'content': 0.2} VAL N20=0.40485
+2026-11-16T21:09:09Z food full hybrid {'k': 50, 'shrink': 10, 'content': 0.3} VAL N20=0.41284
+2026-11-16T21:09:09Z food full hybrid {'k': 50, 'shrink': 10, 'content': 0.5} VAL N20=0.40864
+2026-11-16T21:09:09Z food full hybrid {'k': 50, 'shrink': 10, 'content': 0.7} VAL N20=0.40765
+2026-11-16T21:09:09Z food full hybrid {'k': 50, 'shrink': 10, 'content': 0.9} VAL N20=0.30983
+2026-11-16T21:09:09Z food full hybrid {'k': 50, 'shrink': 10, 'content': 1.0} VAL N20=0.22445
+2026-11-16T21:09:09Z food full hybrid TEST clean {'recall20': 0.5628423040604343, 'ndcg20': 0.4449694656425135}
+2026-11-16T21:09:09Z food full samelabel {'a': (1.0,), 'gamma': 0.0} VAL N20=0.06541
+2026-11-16T21:09:09Z food full samelabel {'a': (1.0,), 'gamma': 0.1} VAL N20=0.06541
+2026-11-16T21:09:09Z food full samelabel {'a': (1.0,), 'gamma': 0.3} VAL N20=0.05561
+2026-11-16T21:09:09Z food full samelabel {'a': (1.0,), 'gamma': 1.0} VAL N20=0.01779
+2026-11-16T21:09:09Z food full samelabel TEST clean {'recall20': 0.15977337110481585, 'ndcg20': 0.07287248919071426}
+2026-11-16T21:09:09Z food full transition {'a': (1.0,), 'gamma': 0.0, 'eps': 0.0001} VAL N20=0.05023
+2026-11-16T21:09:09Z food full transition {'a': (1.0,), 'gamma': 0.0, 'eps': 0.01} VAL N20=0.04954
+2026-11-16T21:09:09Z food full transition {'a': (1.0,), 'gamma': 0.5, 'eps': 0.0001} VAL N20=0.08683
+2026-11-16T21:09:09Z food full transition {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01} VAL N20=0.08764
+2026-11-16T21:09:09Z food full transition {'a': (1.0,), 'gamma': 1.0, 'eps': 0.0001} VAL N20=0.08287
+2026-11-16T21:09:09Z food full transition {'a': (1.0,), 'gamma': 1.0, 'eps': 0.01} VAL N20=0.06678
+2026-11-16T21:09:09Z food full transition {'a': (1.0,), 'gamma': 2.0, 'eps': 0.0001} VAL N20=0.06296
+2026-11-16T21:09:09Z food full transition {'a': (1.0,), 'gamma': 2.0, 'eps': 0.01} VAL N20=0.05567
+2026-11-16T21:09:09Z food full transition TEST clean {'recall20': 0.21520302171860245, 'ndcg20': 0.11091387224090536}
+2026-11-16T21:09:09Z food full label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01}, 'itemknn': {'k': 50, 'shrink': 10}, 'w': 0.0} VAL N20=0.25940
+2026-11-16T21:09:09Z food full label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01}, 'itemknn': {'k': 50, 'shrink': 10}, 'w': 0.1} VAL N20=0.26863
+2026-11-16T21:09:09Z food full label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01}, 'itemknn': {'k': 50, 'shrink': 10}, 'w': 0.2} VAL N20=0.26881
+2026-11-16T21:09:09Z food full label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01}, 'itemknn': {'k': 50, 'shrink': 10}, 'w': 0.3} VAL N20=0.26807
+2026-11-16T21:09:09Z food full label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01}, 'itemknn': {'k': 50, 'shrink': 10}, 'w': 0.5} VAL N20=0.26235
+2026-11-16T21:09:09Z food full label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01}, 'itemknn': {'k': 50, 'shrink': 10}, 'w': 0.7} VAL N20=0.23412
+2026-11-16T21:09:10Z food full label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01}, 'itemknn': {'k': 50, 'shrink': 10}, 'w': 0.9} VAL N20=0.14935
+2026-11-16T21:09:10Z food full label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01}, 'itemknn': {'k': 50, 'shrink': 10}, 'w': 1.0} VAL N20=0.08764
+2026-11-16T21:09:10Z food full label_knn TEST clean {'recall20': 0.3645420207743154, 'ndcg20': 0.2789734595755229}
+2026-11-16T21:09:10Z food full label_knn_content {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01}, 'itemknn': {'k': 50, 'shrink': 10}, 'w': 0.2, 'v': 0.0} VAL N20=0.26881
+2026-11-16T21:09:10Z food full label_knn_content {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01}, 'itemknn': {'k': 50, 'shrink': 10}, 'w': 0.2, 'v': 0.05} VAL N20=0.27117
+2026-11-16T21:09:10Z food full label_knn_content {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01}, 'itemknn': {'k': 50, 'shrink': 10}, 'w': 0.2, 'v': 0.1} VAL N20=0.29264
+2026-11-16T21:09:10Z food full label_knn_content {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01}, 'itemknn': {'k': 50, 'shrink': 10}, 'w': 0.2, 'v': 0.2} VAL N20=0.32966
+2026-11-16T21:09:10Z food full label_knn_content {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01}, 'itemknn': {'k': 50, 'shrink': 10}, 'w': 0.2, 'v': 0.3} VAL N20=0.35678
+2026-11-16T21:09:10Z food full label_knn_content {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01}, 'itemknn': {'k': 50, 'shrink': 10}, 'w': 0.2, 'v': 0.5} VAL N20=0.37936
+2026-11-16T21:09:10Z food full label_knn_content TEST clean {'recall20': 0.5186968838526912, 'ndcg20': 0.40561368329016684}
+2026-11-16T21:09:10Z food full baselines COMPLETE
+2026-11-16T21:09:10Z clothing full popularity {} VAL N20=0.00167
+2026-11-16T21:09:10Z clothing full popularity TEST clean {'recall20': 0.008086253369272238, 'ndcg20': 0.0027702737874506058}
+2026-11-16T21:09:10Z clothing full cooccurrence {} VAL N20=0.25000
+2026-11-16T21:09:10Z clothing full cooccurrence TEST clean {'recall20': 0.23495058400718777, 'ndcg20': 0.17721494611885164}
+2026-11-16T21:09:10Z clothing full itemknn {'k': 50, 'shrink': 0} VAL N20=0.27183
+2026-11-16T21:09:10Z clothing full itemknn {'k': 50, 'shrink': 10} VAL N20=0.26878
+2026-11-16T21:09:10Z clothing full itemknn {'k': 50, 'shrink': 100} VAL N20=0.26878
+2026-11-16T21:09:10Z clothing full itemknn {'k': 200, 'shrink': 0} VAL N20=0.27183
+2026-11-16T21:09:10Z clothing full itemknn {'k': 200, 'shrink': 10} VAL N20=0.26878
+2026-11-16T21:09:10Z clothing full itemknn {'k': 200, 'shrink': 100} VAL N20=0.26878
+2026-11-16T21:09:10Z clothing full itemknn {'k': 1000, 'shrink': 0} VAL N20=0.27183
+2026-11-16T21:09:10Z clothing full itemknn {'k': 1000, 'shrink': 10} VAL N20=0.26878
+2026-11-16T21:09:11Z clothing full itemknn {'k': 1000, 'shrink': 100} VAL N20=0.26878
+2026-11-16T21:09:11Z clothing full itemknn TEST clean {'recall20': 0.23495058400718777, 'ndcg20': 0.19273837159767754}
+2026-11-16T21:09:11Z clothing full rp3beta {'alpha': 0.5, 'beta': 0.0} VAL N20=0.25792
+2026-11-16T21:09:11Z clothing full rp3beta {'alpha': 0.5, 'beta': 0.25} VAL N20=0.27217
+2026-11-16T21:09:11Z clothing full rp3beta {'alpha': 0.5, 'beta': 0.5} VAL N20=0.27217
+2026-11-16T21:09:11Z clothing full rp3beta {'alpha': 0.5, 'beta': 0.75} VAL N20=0.27217
+2026-11-16T21:09:11Z clothing full rp3beta {'alpha': 1.0, 'beta': 0.0} VAL N20=0.25792
+2026-11-16T21:09:11Z clothing full rp3beta {'alpha': 1.0, 'beta': 0.25} VAL N20=0.27159
+2026-11-16T21:09:11Z clothing full rp3beta {'alpha': 1.0, 'beta': 0.5} VAL N20=0.27183
+2026-11-16T21:09:11Z clothing full rp3beta {'alpha': 1.0, 'beta': 0.75} VAL N20=0.27183
+2026-11-16T21:09:11Z clothing full rp3beta TEST clean {'recall20': 0.23495058400718777, 'ndcg20': 0.1934905158702088}
+2026-11-16T21:09:12Z clothing full ease {'l2': 50.0} VAL N20=0.27206
+2026-11-16T21:09:12Z clothing full ease {'l2': 200.0} VAL N20=0.26917
+2026-11-16T21:09:13Z clothing full ease {'l2': 500.0} VAL N20=0.27825
+2026-11-16T21:09:14Z clothing full ease {'l2': 1000.0} VAL N20=0.28520
+2026-11-16T21:09:15Z clothing full ease {'l2': 3000.0} VAL N20=0.25592
+2026-11-16T21:09:15Z clothing full ease TEST clean {'recall20': 0.23495058400718777, 'ndcg20': 0.20089034507109932}
+2026-11-16T21:09:15Z clothing full hybrid {'k': 50, 'shrink': 0, 'content': 0.0} VAL N20=0.27183
+2026-11-16T21:09:15Z clothing full hybrid {'k': 50, 'shrink': 0, 'content': 0.1} VAL N20=0.42205
+2026-11-16T21:09:15Z clothing full hybrid {'k': 50, 'shrink': 0, 'content': 0.2} VAL N20=0.42205
+2026-11-16T21:09:16Z clothing full hybrid {'k': 50, 'shrink': 0, 'content': 0.3} VAL N20=0.42229
+2026-11-16T21:09:16Z clothing full hybrid {'k': 50, 'shrink': 0, 'content': 0.5} VAL N20=0.42271
+2026-11-16T21:09:16Z clothing full hybrid {'k': 50, 'shrink': 0, 'content': 0.7} VAL N20=0.41902
+2026-11-16T21:09:16Z clothing full hybrid {'k': 50, 'shrink': 0, 'content': 0.9} VAL N20=0.29499
+2026-11-16T21:09:16Z clothing full hybrid {'k': 50, 'shrink': 0, 'content': 1.0} VAL N20=0.20783
+2026-11-16T21:09:16Z clothing full hybrid TEST clean {'recall20': 0.4912398921832884, 'ndcg20': 0.3593307602151486}
+2026-11-16T21:09:16Z clothing full samelabel {'a': (1.0,), 'gamma': 0.0} VAL N20=0.10735
+2026-11-16T21:09:16Z clothing full samelabel {'a': (1.0,), 'gamma': 0.1} VAL N20=0.10735
+2026-11-16T21:09:16Z clothing full samelabel {'a': (1.0,), 'gamma': 0.3} VAL N20=0.10735
+2026-11-16T21:09:16Z clothing full samelabel {'a': (1.0,), 'gamma': 1.0} VAL N20=0.01343
+2026-11-16T21:09:16Z clothing full samelabel TEST clean {'recall20': 0.1257412398921833, 'ndcg20': 0.06279760351791852}
+2026-11-16T21:09:16Z clothing full transition {'a': (1.0,), 'gamma': 0.0, 'eps': 0.0001} VAL N20=0.10078
+2026-11-16T21:09:16Z clothing full transition {'a': (1.0,), 'gamma': 0.0, 'eps': 0.01} VAL N20=0.10078
+2026-11-16T21:09:16Z clothing full transition {'a': (1.0,), 'gamma': 0.5, 'eps': 0.0001} VAL N20=0.15401
+2026-11-16T21:09:16Z clothing full transition {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01} VAL N20=0.15266
+2026-11-16T21:09:16Z clothing full transition {'a': (1.0,), 'gamma': 1.0, 'eps': 0.0001} VAL N20=0.14305
+2026-11-16T21:09:16Z clothing full transition {'a': (1.0,), 'gamma': 1.0, 'eps': 0.01} VAL N20=0.13366
+2026-11-16T21:09:16Z clothing full transition {'a': (1.0,), 'gamma': 2.0, 'eps': 0.0001} VAL N20=0.12186
+2026-11-16T21:09:16Z clothing full transition {'a': (1.0,), 'gamma': 2.0, 'eps': 0.01} VAL N20=0.10601
+2026-11-16T21:09:16Z clothing full transition TEST clean {'recall20': 0.2178796046720575, 'ndcg20': 0.1179564343105563}
+2026-11-16T21:09:16Z clothing full label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.0001}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.0} VAL N20=0.27183
+2026-11-16T21:09:16Z clothing full label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.0001}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1} VAL N20=0.27630
+2026-11-16T21:09:16Z clothing full label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.0001}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.2} VAL N20=0.27630
+2026-11-16T21:09:16Z clothing full label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.0001}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.3} VAL N20=0.27630
+2026-11-16T21:09:16Z clothing full label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.0001}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.5} VAL N20=0.27466
+2026-11-16T21:09:16Z clothing full label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.0001}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.7} VAL N20=0.27285
+2026-11-16T21:09:17Z clothing full label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.0001}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.9} VAL N20=0.23384
+2026-11-16T21:09:17Z clothing full label_knn {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.0001}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 1.0} VAL N20=0.15401
+2026-11-16T21:09:17Z clothing full label_knn TEST clean {'recall20': 0.27906558849955077, 'ndcg20': 0.2118997819068171}
+2026-11-16T21:09:17Z clothing full label_knn_content {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.0001}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1, 'v': 0.0} VAL N20=0.27630
+2026-11-16T21:09:17Z clothing full label_knn_content {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.0001}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1, 'v': 0.05} VAL N20=0.33336
+2026-11-16T21:09:17Z clothing full label_knn_content {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.0001}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1, 'v': 0.1} VAL N20=0.35502
+2026-11-16T21:09:17Z clothing full label_knn_content {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.0001}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1, 'v': 0.2} VAL N20=0.36788
+2026-11-16T21:09:17Z clothing full label_knn_content {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.0001}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1, 'v': 0.3} VAL N20=0.38478
+2026-11-16T21:09:17Z clothing full label_knn_content {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.0001}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1, 'v': 0.5} VAL N20=0.40374
+2026-11-16T21:09:17Z clothing full label_knn_content TEST clean {'recall20': 0.48751123090745735, 'ndcg20': 0.35163576891570536}
+2026-11-16T21:09:17Z clothing full baselines COMPLETE

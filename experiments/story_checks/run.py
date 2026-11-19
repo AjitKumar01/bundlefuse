@@ -10,14 +10,14 @@
 
 PYTHONPATH=.:../dials .venv/bin/python -m experiments.story_checks.run
 """
-import dials  # pins BLAS threads before numpy loads
+import triad  # pins BLAS threads before numpy loads
 import json
 from pathlib import Path
 import numpy as np
 import scipy.sparse as sp
 import torch
-from dials import data as dials_data
-from dials.train import load as load_dials
+from triad import data as dials_data
+from triad.train import load as load_dials
 from bundlefuse.provenance import write_json
 from experiments.dials_frozen.compare import per_query,clhe_aligned,RUNS,CACHE
 

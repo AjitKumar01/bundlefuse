@@ -1,0 +1,299 @@
+{
+  "note": "DDBC rerun (released checkpoints, Kaggle) against the frozen DIALS, paired, on DDBC's protocol and its queries.\n\nInputs:\n  DDBC   results/ddbc_rerun/<case>.npz from the Kaggle kernel (experiments/ddbc_rerun, ddbc_dump.py): for every query,\n         the CLHE-space features of the items DDBC generated, as DDBC's Evaluator.token2feat gives them, and the hits\n         of DDBC's own retrieval on its own random pools (to check the rerun against its published Table 1).\n  DIALS  the frozen seed-0, 1, 2 models (../dials/runs), scores averaged over the seeds' set predictions.\nPools: experiments.ddbc_protocol.run.score_sets draws (seeded per query and draw, 5 draws, targets + 99|targets|\nrandom items outside the window). The same pools for both methods.\n  DIALS: the top-|targets| pool items by score (as before).\n  DDBC: its own retrieval rule (Evaluator.retrive_item): for each generated item in turn, the pool item with the\n        highest cosine similarity in CLHE space, removed from the pool once picked.\nFull catalogue (no pool; our extension of DDBC's retrieval, not in its paper): the same rules over every item except\nthe seeds. Per query F1 = hits/|targets|, Jaccard = hits/(2|targets| - hits); paired cluster bootstrap and sign flips\non DIALS - DDBC (clusters: identical complete bundles), Holm over the pool tests of the cases present (2 per case:\nF1, Jaccard; 8 when all four cases have run).\n\nPYTHONPATH=.:../dials .venv/bin/python -m experiments.ddbc_rerun.compare\n",
+  "cases": {
+    "pog_dense_k4": {
+      "queries": 2521,
+      "ddbc_own_pools": {
+        "f1": 0.13744545815152717,
+        "jaccard": 0.09797699325664418
+      },
+      "published": [
+        0.139,
+        0.098
+      ],
+      "ddbc": {
+        "pool_f1": 0.1382784609282031,
+        "pool_jaccard": 0.09892899642998809,
+        "full_f1": 0.07060690202300675,
+        "full_jaccard": 0.047864603993124415
+      },
+      "dials": {
+        "pool_f1": 0.4824804971572128,
+        "pool_jaccard": 0.39107937767199963,
+        "full_f1": 0.18934285336506676,
+        "full_jaccard": 0.13394155758296972
+      },
+      "ddbc_clean": {
+        "pool_f1": 0.12886513157894736,
+        "pool_jaccard": 0.09065241228070174,
+        "full_f1": 0.06537828947368421,
+        "full_jaccard": 0.04399671052631579
+      },
+      "dials_clean": {
+        "pool_f1": 0.46654331140350874,
+        "pool_jaccard": 0.37262426900584794,
+        "full_f1": 0.1752330043859649,
+        "full_jaccard": 0.12047697368421052
+      },
+      "generated_codes_that_are_items": 0.3831812772709242,
+      "kaggle_seconds": 247.865704536438
+    },
+    "spotify_k30": {
+      "queries": 2744,
+      "ddbc_own_pools": {
+        "f1": 0.2776239067055393,
+        "jaccard": 0.1745629659332315
+      },
+      "published": [
+        0.282,
+        0.176
+      ],
+      "ddbc": {
+        "pool_f1": 0.2790038872691934,
+        "pool_jaccard": 0.17569597947081175,
+        "full_f1": 0.013678328474246843,
+        "full_jaccard": 0.007178553046653983
+      },
+      "dials": {
+        "pool_f1": 0.6253077421444768,
+        "pool_jaccard": 0.4819991943720902,
+        "full_f1": 0.10059118885649498,
+        "full_jaccard": 0.05713502432451958
+      },
+      "ddbc_clean": {
+        "pool_f1": 0.2787396593673966,
+        "pool_jaccard": 0.17547094780941913,
+        "full_f1": 0.013600973236009731,
+        "full_jaccard": 0.007137793967645466
+      },
+      "dials_clean": {
+        "pool_f1": 0.6248272506082725,
+        "pool_jaccard": 0.48136267537718475,
+        "full_f1": 0.10026763990267641,
+        "full_jaccard": 0.056926044120743834
+      },
+      "generated_codes_that_are_items": 0.25170068027210885,
+      "kaggle_seconds": 1028.7760038375854
+    },
+    "spotify_k60": {
+      "queries": 1582,
+      "ddbc_own_pools": {
+        "f1": 0.2824905183312263,
+        "jaccard": 0.17546861520528492
+      },
+      "published": [
+        0.285,
+        0.178
+      ],
+      "ddbc": {
+        "pool_f1": 0.2853350189633375,
+        "pool_jaccard": 0.17764359362091503,
+        "full_f1": 0.021807838179519597,
+        "full_jaccard": 0.011354025697785637
+      },
+      "dials": {
+        "pool_f1": 0.6427826941986234,
+        "pool_jaccard": 0.4947337154889487,
+        "full_f1": 0.15378564405113077,
+        "full_jaccard": 0.08958676754374024
+      },
+      "ddbc_clean": {
+        "pool_f1": 0.2851022559561459,
+        "pool_jaccard": 0.17744783541975448,
+        "full_f1": 0.02177946447396163,
+        "full_jaccard": 0.011339396518201258
+      },
+      "dials_clean": {
+        "pool_f1": 0.64258486190175,
+        "pool_jaccard": 0.4944676883762628,
+        "full_f1": 0.15339799002038093,
+        "full_jaccard": 0.08925024960947214
+      },
+      "generated_codes_that_are_items": 0.14587020648967552,
+      "kaggle_seconds": 1091.5223350524902
+    },
+    "spotify_k90": {
+      "queries": 969,
+      "ddbc_own_pools": {
+        "f1": 0.27678018575851393,
+        "jaccard": 0.16994165170328163
+      },
+      "published": [
+        0.287,
+        0.177
+      ],
+      "ddbc": {
+        "pool_f1": 0.27790849673202617,
+        "pool_jaccard": 0.17092313052612432,
+        "full_f1": 0.02884990253411306,
+        "full_jaccard": 0.015057465023543265
+      },
+      "dials": {
+        "pool_f1": 0.6509253525971792,
+        "pool_jaccard": 0.5013952200202448,
+        "full_f1": 0.19216450712838742,
+        "full_jaccard": 0.11366910236162676
+      },
+      "ddbc_clean": {
+        "pool_f1": 0.27790849673202617,
+        "pool_jaccard": 0.17092313052612432,
+        "full_f1": 0.02884990253411306,
+        "full_jaccard": 0.015057465023543265
+      },
+      "dials_clean": {
+        "pool_f1": 0.6509253525971792,
+        "pool_jaccard": 0.5013952200202448,
+        "full_f1": 0.19216450712838742,
+        "full_jaccard": 0.11366910236162676
+      },
+      "generated_codes_that_are_items": 0.16839811948171082,
+      "kaggle_seconds": 1186.3198268413544
+    }
+  },
+  "tests": [
+    {
+      "delta": 0.34420203622900963,
+      "ci95": [
+        0.3316127775330862,
+        0.35690154690075065
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 2521,
+      "clusters": 2506,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.7211424038080126,
+      "seed": 20261117,
+      "case": "pog_dense_k4",
+      "metric": "pool_f1",
+      "p_holm": 0.0007999200079992001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.2921503812420116,
+      "ci95": [
+        0.2801759732045674,
+        0.30399640242912795
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 2521,
+      "clusters": 2506,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.7211424038080126,
+      "seed": 20261117,
+      "case": "pog_dense_k4",
+      "metric": "pool_jaccard",
+      "p_holm": 0.0007999200079992001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.3463038548752834,
+      "ci95": [
+        0.34078551182377714,
+        0.3517210479429867
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 2744,
+      "clusters": 2744,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.9938046647230321,
+      "seed": 20261117,
+      "case": "spotify_k30",
+      "metric": "pool_f1",
+      "p_holm": 0.0007999200079992001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.30630321490127843,
+      "ci95": [
+        0.30082612160756655,
+        0.3117513511292622
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 2744,
+      "clusters": 2744,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.9938046647230321,
+      "seed": 20261117,
+      "case": "spotify_k30",
+      "metric": "pool_jaccard",
+      "p_holm": 0.0007999200079992001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.3574476752352858,
+      "ci95": [
+        0.3509726085124315,
+        0.3640048461862621
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 1582,
+      "clusters": 1582,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.9981036662452591,
+      "seed": 20261117,
+      "case": "spotify_k60",
+      "metric": "pool_f1",
+      "p_holm": 0.0007999200079992001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.31709012186803365,
+      "ci95": [
+        0.31032066666796304,
+        0.3238421959852608
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 1582,
+      "clusters": 1582,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.9981036662452591,
+      "seed": 20261117,
+      "case": "spotify_k60",
+      "metric": "pool_jaccard",
+      "p_holm": 0.0007999200079992001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.37301685586515304,
+      "ci95": [
+        0.36502377403203,
+        0.3807929136566907
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 969,
+      "clusters": 969,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.9989680082559339,
+      "seed": 20261117,
+      "case": "spotify_k90",
+      "metric": "pool_f1",
+      "p_holm": 0.0007999200079992001,
+      "reject_05": true
+    },
+    {
+      "delta": 0.33047208949412044,
+      "ci95": [
+        0.32232999492909487,
+        0.338820873637187
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 969,
+      "clusters": 969,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.9989680082559339,
+      "seed": 20261117,
+      "case": "spotify_k90",
+      "metric": "pool_jaccard",
+      "p_holm": 0.0007999200079992001,
+      "reject_05": true
+    }
+  ]
+}

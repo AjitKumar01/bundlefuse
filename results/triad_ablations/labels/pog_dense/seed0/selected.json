@@ -1,0 +1,24 @@
+{
+ "dataset": "pog_dense",
+ "seed": 0,
+ "config": {
+  "epochs": 100,
+  "batch": 32,
+  "patience": 6,
+  "shared_lr": 0.001,
+  "fast_lr": 0.01,
+  "weight_decay": 0.001,
+  "rank": 64,
+  "hidden": 32,
+  "ablation": "labels"
+ },
+ "best_epoch": 21,
+ "epochs_run": 27,
+ "validation": {
+  "recall20": 0.40431266846361186,
+  "ndcg20": 0.3005872957577612
+ },
+ "parameters": 41368,
+ "seconds": 4848.418482460009,
+ "provenance": "the previous model's labels ablation (whole label term removed), bit-identical to TRIAD without labels"
+}

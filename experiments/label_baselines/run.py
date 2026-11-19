@@ -1,7 +1,7 @@
 """Simple baselines that use the item labels DIALS uses (POG: category; Spotify: artist and album), tuned on
 validation NDCG@20 like experiments/simple_baselines; test scored once with the chosen setting.
 
-Labels g_l(c) come from dials.data (the same arrays DIALS reads). With t_l(S) the seeds' label counts:
+Labels g_l(c) come from triad.data (the same arrays DIALS reads). With t_l(S) the seeds' label counts:
   samelabel   sum_l a_l log(1 + m_l(S,c)) + gamma log(1 + f_c), m_l = number of seeds sharing c's label at level l.
   transition  sum_l a_l log(eps + t_l(S)/|S| T_l[:, g_l(c)]) + gamma log P(c | g(c)), where T_l is the row-normalized
               label-by-label co-occurrence of training bundles (pairs of distinct items, diagonal kept), and
@@ -78,7 +78,7 @@ class LabelBaselines(Baselines):
 
 
 def run(args):
-    from dials import data
+    from triad import data
     out=RESULTS/args.dataset;out.mkdir(parents=True,exist_ok=True)
     ds,keep=load(args.dataset);other=data.load(args.dataset,Path(DATA_ROOT)/'dials'/'cache')
     if [sorted(set(b)) for b in other.train]!=[sorted(set(b)) for b in ds.train]:raise RuntimeError('Training split differs')

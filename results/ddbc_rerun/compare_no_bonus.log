@@ -1,0 +1,12 @@
+pog_dense_k4: DDBC own pools F1 0.137 (published 0.139) | our pools DDBC F1 0.138 Jacc 0.099, DIALS F1 0.482 Jacc 0.391 | full catalogue DDBC 0.071 DIALS 0.189
+spotify_k30: DDBC own pools F1 0.278 (published 0.282) | our pools DDBC F1 0.279 Jacc 0.176, DIALS F1 0.625 Jacc 0.482 | full catalogue DDBC 0.014 DIALS 0.101
+spotify_k60: DDBC own pools F1 0.282 (published 0.285) | our pools DDBC F1 0.285 Jacc 0.178, DIALS F1 0.643 Jacc 0.495 | full catalogue DDBC 0.022 DIALS 0.154
+spotify_k90: DDBC own pools F1 0.277 (published 0.287) | our pools DDBC F1 0.278 Jacc 0.171, DIALS F1 0.651 Jacc 0.501 | full catalogue DDBC 0.029 DIALS 0.192
+pog_dense_k4 pool_f1 DIALS - DDBC +0.3442 [+0.3316, +0.3569] p_holm 0.0008
+pog_dense_k4 pool_jaccard DIALS - DDBC +0.2922 [+0.2802, +0.3040] p_holm 0.0008
+spotify_k30 pool_f1 DIALS - DDBC +0.3463 [+0.3408, +0.3517] p_holm 0.0008
+spotify_k30 pool_jaccard DIALS - DDBC +0.3063 [+0.3008, +0.3118] p_holm 0.0008
+spotify_k60 pool_f1 DIALS - DDBC +0.3574 [+0.3510, +0.3640] p_holm 0.0008
+spotify_k60 pool_jaccard DIALS - DDBC +0.3171 [+0.3103, +0.3238] p_holm 0.0008
+spotify_k90 pool_f1 DIALS - DDBC +0.3730 [+0.3650, +0.3808] p_holm 0.0008
+spotify_k90 pool_jaccard DIALS - DDBC +0.3305 [+0.3223, +0.3388] p_holm 0.0008

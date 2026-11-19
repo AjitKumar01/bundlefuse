@@ -1,14 +1,10 @@
-2026-11-16T05:31:22Z electronic n300: 300 bundles repeated to 1211 rows per epoch
-2026-11-16T05:31:24Z electronic seed=0 parameters=41624 train_bundles=1211 start_epoch=1
-2026-11-16T05:31:25Z electronic seed=0 epoch=1 loss=7.27569 VAL R20=0.217245 N20=0.120638 best_epoch=1 patience=0/6
-2026-11-16T05:31:26Z electronic seed=0 epoch=2 loss=6.89996 VAL R20=0.207611 N20=0.107485 best_epoch=1 patience=1/6
-2026-11-16T05:31:28Z electronic seed=0 epoch=3 loss=6.60007 VAL R20=0.238921 N20=0.127617 best_epoch=3 patience=0/6
-2026-11-16T05:31:29Z electronic seed=0 epoch=4 loss=6.19434 VAL R20=0.239884 N20=0.123399 best_epoch=3 patience=1/6
-2026-11-16T05:31:30Z electronic seed=0 epoch=5 loss=5.89638 VAL R20=0.238921 N20=0.129600 best_epoch=5 patience=0/6
-2026-11-16T05:31:31Z electronic seed=0 epoch=6 loss=5.61115 VAL R20=0.227360 N20=0.122599 best_epoch=5 patience=1/6
-2026-11-16T05:31:32Z electronic seed=0 epoch=7 loss=5.29678 VAL R20=0.216281 N20=0.113803 best_epoch=5 patience=2/6
-2026-11-16T05:31:33Z electronic seed=0 epoch=8 loss=5.13437 VAL R20=0.216474 N20=0.114123 best_epoch=5 patience=3/6
-2026-11-16T05:31:34Z electronic seed=0 epoch=9 loss=4.96396 VAL R20=0.200578 N20=0.105942 best_epoch=5 patience=4/6
-2026-11-16T05:31:35Z electronic seed=0 epoch=10 loss=4.71874 VAL R20=0.204432 N20=0.113405 best_epoch=5 patience=5/6
-2026-11-16T05:31:36Z electronic seed=0 epoch=11 loss=4.45907 VAL R20=0.196532 N20=0.109188 best_epoch=5 patience=6/6
-2026-11-16T05:31:37Z electronic n300 seed 0 steps COMPLETE
+2026-11-17T08:16:55Z electronic n300: 300 bundles repeated to 1211 rows per epoch
+2026-11-17T08:16:56Z electronic seed=0 parameters=41624 train_bundles=1211 start_epoch=1
+2026-11-17T08:16:56Z electronic seed=0 epoch=1 loss=7.02339 VAL R20=0.272832 N20=0.161841 best_epoch=1 patience=0/6
+2026-11-17T08:16:57Z electronic seed=0 epoch=2 loss=6.65021 VAL R20=0.240077 N20=0.154464 best_epoch=1 patience=1/6
+2026-11-17T08:16:58Z electronic seed=0 epoch=3 loss=6.35008 VAL R20=0.238921 N20=0.153263 best_epoch=1 patience=2/6
+2026-11-17T08:16:59Z electronic seed=0 epoch=4 loss=5.98613 VAL R20=0.254335 N20=0.151733 best_epoch=1 patience=3/6
+2026-11-17T08:17:00Z electronic seed=0 epoch=5 loss=5.72732 VAL R20=0.268786 N20=0.152662 best_epoch=1 patience=4/6
+2026-11-17T08:17:01Z electronic seed=0 epoch=6 loss=5.42856 VAL R20=0.281021 N20=0.156296 best_epoch=1 patience=5/6
+2026-11-17T08:17:01Z electronic seed=0 epoch=7 loss=5.10407 VAL R20=0.268304 N20=0.151314 best_epoch=1 patience=6/6
+2026-11-17T08:17:01Z electronic n300 seed 0 steps COMPLETE

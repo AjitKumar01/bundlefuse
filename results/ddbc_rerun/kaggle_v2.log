@@ -1,0 +1,122 @@
+[{"stream_name":"stdout","time":1.7095241479999999,"data":"$ pip -q install lightning==2.2.1 hydra-core==1.3.2 omegaconf==2.3.0 einops timm datasets faiss-cpu rich torchmetrics wandb 2\u003e\u00261 | tail -2 || true\n"}
+,{"stream_name":"stdout","time":14.883993728,"data":"gcsfs 2025.12.0 requires fsspec==2025.12.0, but you have fsspec 2024.12.0 which is incompatible.\n"}
+,{"stream_name":"stdout","time":14.884032846,"data":"gradio 6.30.0 requires pillow\u003c13.0,\u003e=8.0, but you have pillow 13.0.0 which is incompatible.\n"}
+,{"stream_name":"stdout","time":14.884432878,"data":"$ git clone -q https://github.com/LiAi16/DDBC.git /tmp/ddbc \u0026\u0026 cd /tmp/ddbc \u0026\u0026 git checkout -q e1f4afc \u0026\u0026 git log -1 --format=%H\n"}
+,{"stream_name":"stdout","time":15.639974628000001,"data":"e1f4afc59121662e626ffefde79316a5e0dde044\n"}
+,{"stream_name":"stdout","time":15.640852792,"data":"$ cp -r /tmp/ddbc/. /workspace/ \u0026\u0026 cp /kaggle/input/datasets/ajit1729/ddbc-rerun-inputs/ddbc_dump.py /workspace/\n"}
+,{"stream_name":"stdout","time":16.060872975,"data":"$ cd /tmp \u0026\u0026 unzip -o -q /kaggle/input/datasets/ajit1729/ddbc-rerun-inputs/ddbc.bin \"datasets/*\" -x \"__MACOSX/*\" \u0026\u0026 cp -r /tmp/datasets/pog_dense /tmp/datasets/spotify /workspace/\n"}
+,{"stream_name":"stderr","time":19.694489201,"data":"caution: excluded filename not matched:  __MACOSX/*\n"}
+,{"stream_name":"stderr","time":20.861819958,"data":"Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n"}
+,{"stream_name":"stdout","time":27.231927106,"data":"$ nvidia-smi --query-gpu=name,memory.total --format=csv,noheader\n"}
+,{"stream_name":"stdout","time":27.263600577,"data":"Tesla T4, 15360 MiB\n"}
+,{"stream_name":"stdout","time":27.263624231,"data":"Tesla T4, 15360 MiB\n"}
+,{"stream_name":"stdout","time":102.517532435,"data":"config: steps 256 length 12 seq_len 4 ckpt /workspace/pog_dense.ckpt\n"}
+,{"stream_name":"stdout","time":102.517572279,"data":"\n"}
+,{"stream_name":"stdout","time":102.517578433,"data":"FAILED pog_dense_k4 atest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools\u003c81.\n"}
+,{"stream_name":"stdout","time":102.517584045,"data":"/workspace/noise_schedule.py:55: SyntaxWarning: invalid escape sequence '\\i'\n"}
+,{"stream_name":"stdout","time":102.517588623,"data":"  Total noise ie \\int_0^t g(t) dt + g(0)\n"}
+,{"stream_name":"stdout","time":102.517593171,"data":"Seed set to 1\n"}
+,{"stream_name":"stdout","time":102.51759786,"data":"\n"}
+,{"stream_name":"stdout","time":102.517601931,"data":"Filter:   0%|          | 0/11654 [00:00\u003c?, ? examples/s]\n"}
+,{"stream_name":"stdout","time":102.517606668,"data":"Filter:  51%|█████▏    | 6000/11654 [00:00\u003c00:00, 53290.21 examples/s]\n"}
+,{"stream_name":"stdout","time":102.517612697,"data":"Filter: 100%|██████████| 11654/11654 [00:00\u003c00:00, 57500.83 examples/s]\n"}
+,{"stream_name":"stdout","time":102.517617603,"data":"\n"}
+,{"stream_name":"stdout","time":102.517622569,"data":"Filter:   0%|          | 0/2968 [00:00\u003c?, ? examples/s]\n"}
+,{"stream_name":"stdout","time":102.517627892,"data":"Filter: 100%|██████████| 2968/2968 [00:00\u003c00:00, 65337.53 examples/s]\n"}
+,{"stream_name":"stdout","time":102.517633422,"data":"\n"}
+,{"stream_name":"stdout","time":102.517638167,"data":"Filter:   0%|          | 0/2521 [00:00\u003c?, ? examples/s]\n"}
+,{"stream_name":"stdout","time":102.517642336,"data":"Filter: 100%|██████████| 2521/2521 [00:00\u003c00:00, 65303.27 examples/s]\n"}
+,{"stream_name":"stdout","time":102.517646743,"data":"\n"}
+,{"stream_name":"stdout","time":102.517663352,"data":"Tokenizing train set:  (num_proc=1):   0%|          | 0/11654 [00:00\u003c?, ? examples/s]\n"}
+,{"stream_name":"stdout","time":102.517667061,"data":"Tokenizing train set:  (num_proc=1):   5%|▍         | 531/11654 [00:01\u003c00:25, 432.60 examples/s]\n"}
+,{"stream_name":"stdout","time":102.517670613,"data":"Tokenizing train set:  (num_proc=1):  19%|█▉        | 2258/11654 [00:01\u003c00:04, 2081.54 examples/s]\n"}
+,{"stream_name":"stdout","time":102.517673867,"data":"Tokenizing train set:  (num_proc=1):  29%|██▉       | 3392/11654 [00:01\u003c00:02, 3230.40 examples/s]\n"}
+,{"stream_name":"stdout","time":102.517677193,"data":"Tokenizing train set:  (num_proc=1):  39%|███▉      | 4526/11654 [00:01\u003c00:01, 4450.15 examples/s]\n"}
+,{"stream_name":"stdout","time":102.517680584,"data":"Tokenizing train set:  (num_proc=1):  49%|████▉     | 5686/11654 [00:01\u003c00:01, 5714.16 examples/s]\n"}
+,{"stream_name":"stdout","time":102.517684451,"data":"Tokenizing train set:  (num_proc=1):  59%|█████▊    | 6833/11654 [00:01\u003c00:00, 6874.61 examples/s]\n"}
+,{"stream_name":"stdout","time":102.517688569,"data":"Tokenizing train set:  (num_proc=1):  69%|██████▊   | 7988/11654 [00:01\u003c00:00, 7919.70 examples/s]\n"}
+,{"stream_name":"stdout","time":102.517692967,"data":"Tokenizing train set:  (num_proc=1):  78%|███████▊  | 9110/11654 [00:01\u003c00:00, 8716.86 examples/s]\n"}
+,{"stream_name":"stdout","time":102.517696543,"data":"Tokenizing train set:  (num_proc=1):  88%|████████▊ | 10245/11654 [00:02\u003c00:00, 9390.17 examples/s]\n"}
+,{"stream_name":"stdout","time":102.517702867,"data":"Tokenizing train set:  (num_proc=1):  98%|█████████▊| 11384/11654 [00:02\u003c00:00, 9924.39 examples/s]\n"}
+,{"stream_name":"stdout","time":102.517707171,"data":"Tokenizing train set:  (num_proc=1): 100%|██████████| 11654/11654 [00:02\u003c00:00, 4982.13 examples/s]\n"}
+,{"stream_name":"stdout","time":102.517710987,"data":"\n"}
+,{"stream_name":"stdout","time":102.517714267,"data":"Tokenizing valid set:  (num_proc=1):   0%|          | 0/1303 [00:00\u003c?, ? examples/s]\n"}
+,{"stream_name":"stdout","time":102.517717922,"data":"Tokenizing valid set:  (num_proc=1):  43%|████▎     | 564/1303 [00:00\u003c00:00, 795.74 examples/s]\n"}
+,{"stream_name":"stdout","time":102.5177216,"data":"Tokenizing valid set:  (num_proc=1): 100%|██████████| 1303/1303 [00:00\u003c00:00, 1483.46 examples/s]\n"}
+,{"stream_name":"stdout","time":102.51772711,"data":"\n"}
+,{"stream_name":"stdout","time":102.517730336,"data":"Tokenizing test set:  (num_proc=1):   0%|          | 0/2521 [00:00\u003c?, ? examples/s]\n"}
+,{"stream_name":"stdout","time":102.517735943,"data":"Tokenizing test set:  (num_proc=1):   2%|▏         | 61/2521 [00:00\u003c00:25, 94.64 examples/s]\n"}
+,{"stream_name":"stdout","time":102.517739376,"data":"Tokenizing test set:  (num_proc=1):  11%|█▏        | 289/2521 [00:00\u003c00:04, 450.60 examples/s]\n"}
+,{"stream_name":"stdout","time":102.517743006,"data":"Tokenizing test set:  (num_proc=1):  18%|█▊        | 445/2521 [00:00\u003c00:03, 662.53 examples/s]\n"}
+,{"stream_name":"stdout","time":102.517747324,"data":"Tokenizing test set:  (num_proc=1):  24%|██▍       | 602/2521 [00:00\u003c00:02, 855.03 examples/s]\n"}
+,{"stream_name":"stdout","time":102.517751668,"data":"Tokenizing test set:  (num_proc=1):  30%|███       | 758/2521 [00:01\u003c00:01, 1019.71 examples/s]\n"}
+,{"stream_name":"stdout","time":102.517755622,"data":"Tokenizing test set:  (num_proc=1):  36%|███▋      | 914/2521 [00:01\u003c00:01, 1152.04 examples/s]\n"}
+,{"stream_name":"stdout","time":102.517765451,"data":"Tokenizing test set:  (num_proc=1):  42%|████▏     | 1066/2521 [00:01\u003c00:01, 1246.84 examples/s]\n"}
+,{"stream_name":"stdout","time":102.517769782,"data":"Tokenizing test set:  (num_proc=1):  48%|████▊     | 1221/2521 [00:01\u003c00:00, 1327.84 examples/s]\n"}
+,{"stream_name":"stdout","time":102.517774238,"data":"Tokenizing test set:  (num_proc=1):  55%|█████▍    | 1377/2521 [00:01\u003c00:00, 1390.20 examples/s]\n"}
+,{"stream_name":"stdout","time":102.517778574,"data":"Tokenizing test set:  (num_proc=1):  61%|██████    | 1535/2521 [00:01\u003c00:00, 1440.56 examples/s]\n"}
+,{"stream_name":"stdout","time":102.517783538,"data":"Tokenizing test set:  (num_proc=1):  67%|██████▋   | 1691/2521 [00:01\u003c00:00, 1469.97 examples/s]\n"}
+,{"stream_name":"stdout","time":102.517786888,"data":"Tokenizing test set:  (num_proc=1):  76%|███████▌  | 1914/2521 [00:01\u003c00:00, 1476.44 examples/s]\n"}
+,{"stream_name":"stdout","time":102.517791119,"data":"Tokenizing test set:  (num_proc=1):  82%|████████▏ | 2070/2521 [00:01\u003c00:00, 1496.77 examples/s]\n"}
+,{"stream_name":"stdout","time":102.517795667,"data":"Tokenizing test set:  (num_proc=1):  88%|████████▊ | 2227/2521 [00:02\u003c00:00, 1513.27 examples/s]\n"}
+,{"stream_name":"stdout","time":102.517799794,"data":"Tokenizing test set:  (num_proc=1):  95%|█████████▍| 2385/2521 [00:02\u003c00:00, 1529.58 examples/s]\n"}
+,{"stream_name":"stdout","time":102.517803604,"data":"Tokenizing test set:  (num_proc=1): 100%|██████████| 2521/2521 [00:13\u003c00:00, 188.91 examples/s] \n"}
+,{"stream_name":"stdout","time":102.517807238,"data":"Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n"}
+,{"stream_name":"stdout","time":102.517811181,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stdout","time":102.517814887,"data":"  File \"/workspace/ddbc_dump.py\", line 23, in \u003cmodule\u003e\n"}
+,{"stream_name":"stdout","time":102.517819451,"data":"    model = M._load_from_checkpoint(config=cfg, tokenizer=tok); model.eval()\n"}
+,{"stream_name":"stdout","time":102.517823575,"data":"  File \"/workspace/main.py\", line 47, in _load_from_checkpoint\n"}
+,{"stream_name":"stdout","time":102.517828118,"data":"    return diffusion.Diffusion.load_from_checkpoint(\n"}
+,{"stream_name":"stdout","time":102.517836516,"data":"           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n"}
+,{"stream_name":"stdout","time":102.51784051,"data":"      config.eval.checkpoint_path,\n"}
+,{"stream_name":"stdout","time":102.517844483,"data":"      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stdout","time":102.517847799,"data":"      tokenizer=tokenizer,\n"}
+,{"stream_name":"stdout","time":102.517851418,"data":"      ^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stdout","time":102.517855347,"data":"      config=config)\n"}
+,{"stream_name":"stdout","time":102.517858977,"data":"      ^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stdout","time":102.517862408,"data":"  File \"/usr/local/lib/python3.13/dist-packages/lightning/pytorch/utilities/model_helpers.py\", line 125, in wrapper\n"}
+,{"stream_name":"stdout","time":102.517866514,"data":"    return self.method(cls, *args, **kwargs)\n"}
+,{"stream_name":"stdout","time":102.517870935,"data":"           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stdout","time":102.517875162,"data":"  File \"/usr/local/lib/python3.13/dist-packages/lightning/pytorch/core/module.py\", line 1581, in load_from_checkpoint\n"}
+,{"stream_name":"stdout","time":102.517879043,"data":"    loaded = _load_from_checkpoint(\n"}
+,{"stream_name":"stdout","time":102.51788774,"data":"        cls,  # type: ignore[arg-type]\n"}
+,{"stream_name":"stdout","time":102.517891978,"data":"    ...\u003c4 lines\u003e...\n"}
+,{"stream_name":"stdout","time":102.517896081,"data":"        **kwargs,\n"}
+,{"stream_name":"stdout","time":102.517899452,"data":"    )\n"}
+,{"stream_name":"stdout","time":102.517902887,"data":"  File \"/usr/local/lib/python3.13/dist-packages/lightning/pytorch/core/saving.py\", line 91, in _load_from_checkpoint\n"}
+,{"stream_name":"stdout","time":102.517906798,"data":"    model = _load_state(cls, checkpoint, strict=strict, **kwargs)\n"}
+,{"stream_name":"stdout","time":102.517910424,"data":"  File \"/usr/local/lib/python3.13/dist-packages/lightning/pytorch/core/saving.py\", line 180, in _load_state\n"}
+,{"stream_name":"stdout","time":102.517914864,"data":"    keys = obj.load_state_dict(checkpoint[\"state_dict\"], strict=strict)\n"}
+,{"stream_name":"stdout","time":102.517919512,"data":"  File \"/usr/local/lib/python3.13/dist-packages/torch/nn/modules/module.py\", line 2639, in load_state_dict\n"}
+,{"stream_name":"stdout","time":102.517932534,"data":"    raise RuntimeError(\n"}
+,{"stream_name":"stdout","time":102.517936075,"data":"    ...\u003c3 lines\u003e...\n"}
+,{"stream_name":"stdout","time":102.517939524,"data":"    )\n"}
+,{"stream_name":"stdout","time":102.517942814,"data":"RuntimeError: Error(s) in loading state_dict for Diffusion:\n"}
+,{"stream_name":"stdout","time":102.517947176,"data":"\tsize mismatch for backbone.vocab_embed.embedding: copying a param with shape torch.Size([516, 64]) from checkpoint, the shape in current model is torch.Size([1028, 64]).\n"}
+,{"stream_name":"stdout","time":102.517951285,"data":"\tsize mismatch for backbone.output_layer.linear.weight: copying a param with shape torch.Size([516, 64]) from checkpoint, the shape in current model is torch.Size([1028, 64]).\n"}
+,{"stream_name":"stdout","time":102.517955401,"data":"\tsize mismatch for backbone.output_layer.linear.bias: copying a param with shape torch.Size([516]) from checkpoint, the shape in current model is torch.Size([1028]).\n"}
+,{"stream_name":"stdout","time":102.517960841,"data":"\n"}
+,{"stream_name":"stdout","time":1261.420365044,"data":"config: steps 256 length 77 seq_len 30 ckpt /workspace/spotify30.ckpt\n"}
+,{"stream_name":"stdout","time":1261.420429175,"data":"spotify_k30: 2744 queries, own-pool F1 0.2776 Jaccard 0.1746, generated codes that are real items 25.17%, 1029s\n"}
+,{"stream_name":"stdout","time":1261.420436541,"data":"\n"}
+,{"stream_name":"stdout","time":2482.389279183,"data":"config: steps 256 length 152 seq_len 60 ckpt /workspace/spotify60.ckpt\n"}
+,{"stream_name":"stdout","time":2482.389344315,"data":"spotify_k60: 1582 queries, own-pool F1 0.2825 Jaccard 0.1755, generated codes that are real items 14.59%, 1092s\n"}
+,{"stream_name":"stdout","time":2482.389352185,"data":"\n"}
+,{"stream_name":"stdout","time":3795.913051814,"data":"config: steps 256 length 227 seq_len 90 ckpt /workspace/spotify90.ckpt\n"}
+,{"stream_name":"stdout","time":3795.913131571,"data":"spotify_k90: 969 queries, own-pool F1 0.2768 Jaccard 0.1699, generated codes that are real items 16.84%, 1186s\n"}
+,{"stream_name":"stdout","time":3795.913141279,"data":"\n"}
+,{"stream_name":"stdout","time":3795.913146867,"data":"$ cd /kaggle/working \u0026\u0026 ls -la ddbc_out \u0026\u0026 echo ALL DONE\n"}
+,{"stream_name":"stdout","time":3795.920403053,"data":"total 35180\n"}
+,{"stream_name":"stdout","time":3795.920427767,"data":"drwxr-xr-x 2 root root     4096 Nov 17 00:38 .\n"}
+,{"stream_name":"stdout","time":3795.920434858,"data":"drwxr-xr-x 3 root root     4096 Nov 16 23:36 ..\n"}
+,{"stream_name":"stdout","time":3795.92045617,"data":"-rw-r--r-- 1 root root 11218738 Nov 16 23:56 spotify_k30.npz\n"}
+,{"stream_name":"stdout","time":3795.920460818,"data":"-rw-r--r-- 1 root root 12923042 Nov 17 00:16 spotify_k60.npz\n"}
+,{"stream_name":"stdout","time":3795.920465362,"data":"-rw-r--r-- 1 root root 11869578 Nov 17 00:38 spotify_k90.npz\n"}
+,{"stream_name":"stdout","time":3795.920608238,"data":"ALL DONE\n"}
+,{"stream_name":"stderr","time":3798.250717366,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":3798.250762608,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":3798.562811178,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":3798.562837666,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":3799.441130151,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":3800.535228549,"data":"[NbConvertApp] Writing 285309 bytes to __results__.html\n"}
+]

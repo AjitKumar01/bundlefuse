@@ -20,17 +20,17 @@ PYTHONPATH=.:../dials .venv/bin/python -m experiments.dials_ablations.run train 
 PYTHONPATH=.:../dials .venv/bin/python -m experiments.dials_ablations.run untrained --dataset food
 PYTHONPATH=.:../dials .venv/bin/python -m experiments.dials_ablations.run test
 """
-import dials  # pins BLAS threads before numpy loads
+import triad  # pins BLAS threads before numpy loads
 import argparse
 import json
 from pathlib import Path
 import numpy as np
 import torch
 from torch import nn
-from dials import data
-from dials import train as T
-from dials.evaluate import evaluate
-from dials.model import DIALS
+from triad import data
+from triad import train as T
+from triad.evaluate import evaluate
+from triad.model import TRIAD as DIALS
 from bundlefuse.paths import DATA_ROOT
 from bundlefuse.provenance import write_json
 from experiments.mechanisms.statistics import paired_comparison,holm_adjust

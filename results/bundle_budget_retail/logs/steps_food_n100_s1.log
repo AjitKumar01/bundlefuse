@@ -1,11 +1,10 @@
-2026-11-16T05:31:37Z food n100: 100 bundles repeated to 1232 rows per epoch
-2026-11-16T05:31:38Z food seed=1 parameters=41624 train_bundles=1232 start_epoch=1
-2026-11-16T05:31:39Z food seed=1 epoch=1 loss=6.54298 VAL R20=0.271875 N20=0.170353 best_epoch=1 patience=0/6
-2026-11-16T05:31:40Z food seed=1 epoch=2 loss=5.81088 VAL R20=0.276136 N20=0.173380 best_epoch=2 patience=0/6
-2026-11-16T05:31:41Z food seed=1 epoch=3 loss=4.96998 VAL R20=0.263542 N20=0.153724 best_epoch=2 patience=1/6
-2026-11-16T05:31:42Z food seed=1 epoch=4 loss=4.07627 VAL R20=0.266856 N20=0.155176 best_epoch=2 patience=2/6
-2026-11-16T05:31:43Z food seed=1 epoch=5 loss=3.40225 VAL R20=0.244602 N20=0.151868 best_epoch=2 patience=3/6
-2026-11-16T05:31:44Z food seed=1 epoch=6 loss=2.83020 VAL R20=0.226894 N20=0.142747 best_epoch=2 patience=4/6
-2026-11-16T05:31:45Z food seed=1 epoch=7 loss=2.41106 VAL R20=0.217045 N20=0.134205 best_epoch=2 patience=5/6
-2026-11-16T05:31:46Z food seed=1 epoch=8 loss=2.04098 VAL R20=0.220833 N20=0.136916 best_epoch=2 patience=6/6
-2026-11-16T05:31:46Z food n100 seed 1 steps COMPLETE
+2026-11-17T08:17:14Z food n100: 100 bundles repeated to 1232 rows per epoch
+2026-11-17T08:17:15Z food seed=1 parameters=41624 train_bundles=1232 start_epoch=1
+2026-11-17T08:17:16Z food seed=1 epoch=1 loss=6.15656 VAL R20=0.338352 N20=0.221395 best_epoch=1 patience=0/6
+2026-11-17T08:17:16Z food seed=1 epoch=2 loss=5.12560 VAL R20=0.331723 N20=0.219471 best_epoch=1 patience=1/6
+2026-11-17T08:17:17Z food seed=1 epoch=3 loss=4.20457 VAL R20=0.309943 N20=0.202250 best_epoch=1 patience=2/6
+2026-11-17T08:17:18Z food seed=1 epoch=4 loss=3.23725 VAL R20=0.297159 N20=0.186584 best_epoch=1 patience=3/6
+2026-11-17T08:17:19Z food seed=1 epoch=5 loss=2.43313 VAL R20=0.275379 N20=0.177680 best_epoch=1 patience=4/6
+2026-11-17T08:17:20Z food seed=1 epoch=6 loss=1.84151 VAL R20=0.247917 N20=0.151233 best_epoch=1 patience=5/6
+2026-11-17T08:17:21Z food seed=1 epoch=7 loss=1.40209 VAL R20=0.233239 N20=0.163314 best_epoch=1 patience=6/6
+2026-11-17T08:17:21Z food n100 seed 1 steps COMPLETE

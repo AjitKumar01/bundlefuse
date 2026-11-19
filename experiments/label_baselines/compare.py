@@ -4,11 +4,11 @@ flips, Holm over the 8 tests (4 datasets x NDCG@20, Recall@20).
 
 PYTHONPATH=.:../dials .venv/bin/python -m experiments.label_baselines.compare
 """
-import dials
+import triad
 import json
 from pathlib import Path
 import numpy as np
-from dials import data as dials_data
+from triad import data as dials_data
 from bundlefuse.provenance import write_json
 from experiments.mechanisms.statistics import holm_adjust
 from experiments.dials_frozen.compare import per_query,groups,compare,CACHE

@@ -1,0 +1,37 @@
+[{"stream_name":"stdout","time":0.941504882,"data":"$ git clone -q https://github.com/Xiaohao-Liu/CLHE.git /kaggle/working/CLHE \u0026\u0026 cd /kaggle/working/CLHE \u0026\u0026 git checkout -q 74eb236 \u0026\u0026 git log -1 --format=%H\n"}
+,{"stream_name":"stdout","time":2.384413299,"data":"74eb236986721d6c390e4a2ca5f2ac861b8e876c\n"}
+,{"stream_name":"stdout","time":2.761111782,"data":"$ tar xzf /kaggle/input/datasets/ajit1729/retail-pretrain-graph/data.tgz -C /kaggle/working/CLHE/datasets --strip-components=1\n"}
+,{"stream_name":"stdout","time":4.65952671,"data":"$ ls /kaggle/working/CLHE/datasets \u0026\u0026 nvidia-smi --query-gpu=name --format=csv,noheader\n"}
+,{"stream_name":"stdout","time":4.66409427,"data":"clothing_pretrain_blip\n"}
+,{"stream_name":"stdout","time":4.664115271,"data":"electronic_pretrain_blip\n"}
+,{"stream_name":"stdout","time":4.664119978,"data":"food_pretrain_blip\n"}
+,{"stream_name":"stdout","time":4.693321937,"data":"Tesla T4\n"}
+,{"stream_name":"stdout","time":4.693352467,"data":"Tesla T4\n"}
+,{"stream_name":"stdout","time":197.66749889,"data":"electronic_pretrain_blip/pog_dense_seed2023 epoch 41 val R20 0.2976 N20 0.2425 test R20 0.3527 N20 0.2518\n"}
+,{"stream_name":"stdout","time":197.840021613,"data":"electronic_pretrain_blip/pog_seed2023 epoch 103 val R20 0.3030 N20 0.2282 test R20 0.3401 N20 0.2453\n"}
+,{"stream_name":"stdout","time":197.915184094,"data":"electronic_pretrain_blip/spotify_seed2023 epoch 39 val R20 0.2923 N20 0.2436 test R20 0.3456 N20 0.2439\n"}
+,{"stream_name":"stdout","time":384.070991099,"data":"food_pretrain_blip/pog_seed2023 epoch 59 val R20 0.3524 N20 0.2481 test R20 0.3398 N20 0.2703\n"}
+,{"stream_name":"stdout","time":386.173332439,"data":"food_pretrain_blip/pog_dense_seed2023 epoch 35 val R20 0.3644 N20 0.2579 test R20 0.3568 N20 0.2837\n"}
+,{"stream_name":"stdout","time":387.34621994,"data":"electronic_pretrain_blip/spotify_sparse_seed2023 epoch 40 val R20 0.3010 N20 0.2397 test R20 0.3512 N20 0.2478\n"}
+,{"stream_name":"stdout","time":586.143825353,"data":"food_pretrain_blip/spotify_seed2023 epoch 48 val R20 0.3644 N20 0.2674 test R20 0.3546 N20 0.2774\n"}
+,{"stream_name":"stdout","time":589.936921915,"data":"food_pretrain_blip/spotify_sparse_seed2023 epoch 29 val R20 0.3647 N20 0.2684 test R20 0.3595 N20 0.2688\n"}
+,{"stream_name":"stdout","time":600.268180696,"data":"clothing_pretrain_blip/pog_dense_seed2023 epoch 35 val R20 0.3236 N20 0.2744 test R20 0.2400 N20 0.1993\n"}
+,{"stream_name":"stdout","time":832.83956289,"data":"clothing_pretrain_blip/pog_seed2023 epoch 65 val R20 0.3247 N20 0.2637 test R20 0.2368 N20 0.1979\n"}
+,{"stream_name":"stdout","time":836.218258387,"data":"clothing_pretrain_blip/spotify_seed2023 epoch 36 val R20 0.3289 N20 0.2641 test R20 0.2382 N20 0.1813\n"}
+,{"stream_name":"stdout","time":841.75567005,"data":"clothing_pretrain_blip/spotify_sparse_seed2023 epoch 65 val R20 0.3309 N20 0.2679 test R20 0.2391 N20 0.1856\n"}
+,{"stream_name":"stdout","time":841.766447184,"data":"chosen {'electronic_pretrain_blip': 'spotify', 'food_pretrain_blip': 'spotify_sparse', 'clothing_pretrain_blip': 'pog_dense'}\n"}
+,{"stream_name":"stdout","time":1029.878799608,"data":"electronic_pretrain_blip/spotify_seed1 epoch 186 val R20 0.2961 N20 0.2258 test R20 0.3554 N20 0.2481\n"}
+,{"stream_name":"stdout","time":1030.235671,"data":"food_pretrain_blip/spotify_sparse_seed0 epoch 32 val R20 0.3743 N20 0.2654 test R20 0.3587 N20 0.2638\n"}
+,{"stream_name":"stdout","time":1031.636432776,"data":"electronic_pretrain_blip/spotify_seed0 epoch 78 val R20 0.2961 N20 0.2335 test R20 0.3449 N20 0.2500\n"}
+,{"stream_name":"stdout","time":1260.989306072,"data":"clothing_pretrain_blip/pog_dense_seed0 epoch 34 val R20 0.3236 N20 0.2811 test R20 0.2422 N20 0.1929\n"}
+,{"stream_name":"stdout","time":1261.228280502,"data":"food_pretrain_blip/spotify_sparse_seed1 epoch 26 val R20 0.3587 N20 0.2598 test R20 0.3615 N20 0.2766\n"}
+,{"stream_name":"stdout","time":1261.754080241,"data":"clothing_pretrain_blip/pog_dense_seed1 epoch 57 val R20 0.3300 N20 0.2869 test R20 0.2296 N20 0.1898\n"}
+,{"stream_name":"stdout","time":1261.754650865,"data":"$ cd /kaggle/working \u0026\u0026 tar czf clhe_pretrain.tgz clhe_pretrain \u0026\u0026 rm -rf CLHE \u0026\u0026 echo ALL DONE\n"}
+,{"stream_name":"stdout","time":1261.790750026,"data":"ALL DONE\n"}
+,{"stream_name":"stderr","time":1264.079232185,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":1264.07932078,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":1264.386382246,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":1264.386424922,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":1265.261721286,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":1266.316004205,"data":"[NbConvertApp] Writing 289474 bytes to __results__.html\n"}
+]

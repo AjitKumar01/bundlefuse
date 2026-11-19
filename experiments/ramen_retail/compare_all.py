@@ -16,8 +16,8 @@ from experiments.neural_retail.run import DATASETS,data
 from .compare import ramen
 
 
-def clhe(name,variant):
-    runs=[json.loads(Path(f).read_text()) for f in glob.glob(f'results/clhe_retail/{name}_{variant}/*/result.json')]
+def clhe(name,variant,root='results/clhe_retail'):
+    runs=[json.loads(Path(f).read_text()) for f in glob.glob(f'{root}/{name}_{variant}/*/result.json')]
     best=max([r for r in runs if r['seed']==2023],key=lambda r:r['validation'][1])
     chosen=[r for r in runs if r['preset']==best['preset']]
     if sorted(r['seed'] for r in chosen)!=[0,1,2023]:raise RuntimeError(f'{name} {variant}: missing seeds')

@@ -7,7 +7,7 @@ and label + ItemKNN + content. Writes results/bundle_budget/baselines/<dataset>/
 PYTHONPATH=.:../dials .venv/bin/python -m experiments.bundle_budget.baselines --dataset pog --condition frac10
 """
 import argparse
-import dials  # pins BLAS threads before numpy loads
+import triad  # pins BLAS threads before numpy loads
 import time
 from bundlefuse.provenance import write_json
 from experiments.label_baselines.run import LabelBaselines

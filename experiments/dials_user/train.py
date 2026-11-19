@@ -4,12 +4,12 @@ PYTHONPATH=.:../dials .venv/bin/python -m experiments.dials_user.train --seed 0
 Runs go to results/dials_user/runs/<dataset>/seed<s>/ (model.pt, selected.json, test.json).
 """
 import argparse
-import dials  # pins BLAS threads before numpy loads
+import triad  # pins BLAS threads before numpy loads
 import torch
 from pathlib import Path
-from dials import data as dials_data
-from dials import train as dials_train
-from dials.evaluate import evaluate
+from triad import data as dials_data
+from triad import train as dials_train
+from triad.evaluate import evaluate
 from experiments.dials_frozen.compare import CACHE
 from experiments.dials_user.model import DIALSUser,user_households,history_matrix
 

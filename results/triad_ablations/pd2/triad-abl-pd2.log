@@ -1,0 +1,26 @@
+[{"stream_name":"stdout","time":1.571503677,"data":"input /kaggle/input/triad-ablation-inputs\n"}
+,{"stream_name":"stdout","time":1.576427899,"data":"4\n"}
+,{"stream_name":"stdout","time":1.609280809,"data":"               total        used        free      shared  buff/cache   available\n"}
+,{"stream_name":"stdout","time":1.6093164290000002,"data":"Mem:              31           0          26           0           4          30\n"}
+,{"stream_name":"stdout","time":1.609322359,"data":"Swap:              0           0           0\n"}
+,{"stream_name":"stdout","time":1.7745226870000002,"data":"loo:pog_dense:2 started\n"}
+,{"stream_name":"stdout","time":1.7751888770000002,"data":"gate:pog_dense:2 started\n"}
+,{"stream_name":"stdout","time":1.778481676,"data":"content:pog_dense:2 started\n"}
+,{"stream_name":"stdout","time":1.778510748,"data":"graph:pog_dense:2 started\n"}
+,{"stream_name":"stdout","time":2131.795078611,"data":"content:pog_dense:2 exit 0\n"}
+,{"stream_name":"stdout","time":6691.838970873,"data":"loo:pog_dense:2 exit 0\n"}
+,{"stream_name":"stdout","time":12481.878749733,"data":"gate:pog_dense:2 exit 0\n"}
+,{"stream_name":"stdout","time":29881.99520987,"data":"graph:pog_dense:2 exit 0\n"}
+,{"stream_name":"stdout","time":29911.996038015,"data":"{\n"}
+,{"stream_name":"stdout","time":29911.996071945,"data":" \"loo:pog_dense:2\": true,\n"}
+,{"stream_name":"stdout","time":29911.996079273,"data":" \"gate:pog_dense:2\": true,\n"}
+,{"stream_name":"stdout","time":29911.996085767,"data":" \"content:pog_dense:2\": true,\n"}
+,{"stream_name":"stdout","time":29911.996091815,"data":" \"graph:pog_dense:2\": true\n"}
+,{"stream_name":"stdout","time":29911.996098074,"data":"}\n"}
+,{"stream_name":"stderr","time":29915.194921585,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":29915.194960864,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":29915.625110465,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":29915.625230401,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":29916.730815971,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":29918.17452645,"data":"[NbConvertApp] Writing 274930 bytes to __results__.html\n"}
+]

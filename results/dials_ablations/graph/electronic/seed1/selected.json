@@ -13,12 +13,12 @@
   "hidden": 32,
   "ablation": "graph"
  },
- "best_epoch": 31,
- "epochs_run": 37,
+ "best_epoch": 24,
+ "epochs_run": 30,
  "validation": {
-  "recall20": 0.33285163776493254,
-  "ndcg20": 0.19343382590909447
+  "recall20": 0.33670520231213874,
+  "ndcg20": 0.2288018120229046
  },
  "parameters": 41624,
- "seconds": 42.53515241504647
+ "seconds": 15.843265585004701
 }

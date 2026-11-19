@@ -2,23 +2,26 @@
 
 Families, each Holm-corrected on its own, NDCG@20 and Recall@20, paired cluster bootstrap and sign flips (clusters:
 identical complete bundles), clean test queries:
-  simple   the best simple baseline per dataset, chosen on validation NDCG@20 (results/simple_baselines); 16 tests.
-  neural   RaMen and CLHE rerun on identical splits: RaMen-clean and CLHE-clean on Electronic/Food/Clothing
-           (results/ramen_retail, results/clhe_retail), CLHE three seeds on POG_DENSE/POG/Spotify_sparse/Spotify
+  simple   the best simple baseline per dataset, chosen on validation NDCG@20 (results/simple_baselines; on
+           Electronic/Food/Clothing the pool of experiments.dials_blip.compare.simple_q, whose content methods use the
+           BLIP title features DIALS uses); 16 tests.
+  neural   RaMen and CLHE rerun on identical splits: on Electronic/Food/Clothing with BLIP title features, RaMen-clean
+           (official code, results/ramen_retail/<d>_clean_blip; the published-graph variant <d>_published_blip is
+           reported, not tested) and CLHE-clean (results/clhe_blip); CLHE three seeds on POG_DENSE/POG/Spotify_sparse/Spotify
            (Kaggle, clhe_seeds_out); 20 planned tests, Spotify CLHE counted even while missing.
 DDBC protocol (its own queries, pool F1/Jaccard, 5 pool draws as in results/ddbc_protocol) is rescored with the
 frozen model; the simple-baseline scores there are reused.
 
 PYTHONPATH=.:../dials .venv/bin/python -m experiments.dials_frozen.compare [--skip-ddbc]
 """
-import dials  # pins BLAS threads before numpy loads
+import triad  # pins BLAS threads before numpy loads
 import argparse
 import json
 from pathlib import Path
 import numpy as np
 import torch
-from dials import data as dials_data
-from dials.train import load as load_dials
+from triad import data as dials_data
+from triad.train import load as load_dials
 from bundlefuse.paths import DATA_ROOT
 from bundlefuse.provenance import write_json
 from experiments.mechanisms.statistics import paired_comparison,holm_adjust
@@ -26,6 +29,7 @@ from experiments.ramen_retail.compare import ramen
 from experiments.ramen_retail.compare_all import clhe as clhe_retail
 from experiments.simple_baselines.compare_clhe import clhe as clhe_seeds
 from experiments.ddbc_protocol import run as ddbc
+from experiments.dials_blip.compare import simple_q
 
 RUNS=Path(DATA_ROOT)/'dials'/'runs';CACHE=Path(DATA_ROOT)/'dials'/'cache';OUT=Path('results/dials_frozen')
 RETAIL=['electronic','food','clothing'];OTHERS=['pog_dense','pog','spotify_sparse','spotify'];BASKETS=['dunnhumby']  # no neural rerun on BASKETS
@@ -85,15 +89,18 @@ def main(args):
         ds=dials_data.load(name,CACHE);keep=ds.clean_test;clusters=[groups(ds.test_pairs)[i] for i in keep]
         mine=per_query(name);entry=report['datasets'][name]=dict(dials=mine[keep].mean(0).tolist(),dials_all=mine.mean(0).tolist(),
                                                                 clean_queries=len(keep),queries=len(ds.test_pairs))
-        simple=json.loads(Path(f'results/simple_baselines/{name}/summary.json').read_text())['test']
-        best=max(simple,key=lambda m:simple[m]['validation_ndcg20']);other=np.asarray(simple[best]['queries'])
-        entry['simple']=dict(method=best,params=simple[best]['params'],test=other[keep].mean(0).tolist())
+        if name in RETAIL:other,best,params=simple_q(name);other=np.asarray(other)
+        else:
+            simple=json.loads(Path(f'results/simple_baselines/{name}/summary.json').read_text())['test']
+            best=max(simple,key=lambda m:simple[m]['validation_ndcg20']);other=np.asarray(simple[best]['queries']);params=simple[best]['params']
+        entry['simple']=dict(method=best,params=params,test=other[keep].mean(0).tolist())
         compare(records,'simple',name,mine[keep],other[keep],clusters,f'simple:{best}')
         if name in RETAIL:
-            for method,fn in (('ramen',ramen),('clhe',clhe_retail)):
-                for variant in ('clean','published'):
-                    r=fn(name,variant);entry[f'{method}_{variant}']=dict(test=r['queries'].mean(0).tolist(),**{k:v for k,v in r.items() if k in ('parameters','preset','gamma','n_layer_gat')})
-                compare(records,'neural',name,mine,fn(name,'clean')['queries'],clusters,f'{method}_clean')
+            neural=dict(ramen_clean=ramen(name,'clean_blip'),ramen_published=ramen(name,'published_blip'),
+                        clhe_clean=clhe_retail(name,'clean_blip',root='results/clhe_blip'))
+            for label,r in neural.items():
+                entry[label]=dict(test=r['queries'].mean(0).tolist(),**{k:v for k,v in r.items() if k in ('parameters','preset','gamma','n_layer_gat')})
+            for label in ('ramen_clean','clhe_clean'):compare(records,'neural',name,mine,neural[label]['queries'],clusters,label)
         elif name in OTHERS:
             r=clhe_aligned(name)
             if r is not None:

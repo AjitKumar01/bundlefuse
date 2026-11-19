@@ -1,4 +1,4 @@
-"""DIALS HitRate@1 under the Bundle-MLLM protocol (KDD'25, utils.BundleTestDataset): one question per (test bundle,
+"""TRIAD HitRate@1 under the Bundle-MLLM protocol (KDD'25, utils.BundleTestDataset): one question per (test bundle,
 held-out item); candidates = that item + 9 items drawn uniformly (with replacement, as np.random.randint does) from
 items in neither the seeds nor the held-out set; hit if the true item has the highest score. 3 model seeds x 5 draws.
 Checked against the paper (section 4.1.2), their code (github.com/Xiaohao-Liu/Bundle-MLLM, commit 7818c05) and their
@@ -15,13 +15,17 @@ data release (huggingface.co/datasets/xhLiu/BundleConstruction), 2026-11-11:
   huggingface.co/xhLiu/Bundle-MLLM, so it can be rerun for inference.
 Published comparison (Table 2, arXiv 2407.11712): CLHE .3477 / .6367, Bundle-MLLM .4131 / .6675 on POG / POG_dense.
 
-cd ../dials && PYTHONPATH=. ../bundlefuse/.venv/bin/python ../bundlefuse/experiments/bundlemllm_protocol/hit1.py
+cd ../dials && [TRIAD_NO_BONUS=1] PYTHONPATH=. ../bundlefuse/.venv/bin/python ../bundlefuse/experiments/bundlemllm_protocol/hit1.py
 """
-import dials,json,numpy as np,torch
+import triad,json,numpy as np,torch
 from pathlib import Path
-from dials import data
-from dials.train import load
-from dials.evaluate import score_batches
+from triad import data
+from triad.train import load
+from triad.evaluate import score_batches
+import os,sys
+NO_BONUS=os.environ.get('TRIAD_NO_BONUS')=='1'  # TRIAD without the unseen-item bonus (experiments/fair_prior/no_bonus.py)
+if NO_BONUS:
+    sys.path.insert(0,'../bundlefuse');from experiments.fair_prior.no_bonus import wrap;load=wrap(load)
 torch.set_num_threads(4);torch.use_deterministic_algorithms(True)
 out={}
 for name in ('pog_dense','pog'):
@@ -52,4 +56,4 @@ for name in ('pog_dense','pog'):
     out[name]=res
     a=np.array(res['all']);c=np.array(res['clean'])
     print(f"{name}: HitRate@1 (10 candidates) all {a.mean():.4f} (seed sd {a.mean(1).std(ddof=1):.4f}, draw sd {a.std(1,ddof=1).mean():.4f}); clean {c.mean():.4f}; full-catalogue Hit@1 all {np.mean(res['full_hit1_all']):.4f} clean {np.mean(res['full_hit1_clean']):.4f}; questions {res['questions']}")
-json.dump(out,open('../bundlefuse/results/bundlemllm_protocol/hit1.json','w'),indent=1)
+json.dump(out,open('../bundlefuse/results/bundlemllm_protocol/'+('hit1_no_bonus.json' if NO_BONUS else 'hit1.json'),'w'),indent=1)

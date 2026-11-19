@@ -24,6 +24,7 @@ import models
 from train import setup_seed
 from utility import Datasets
 
+DEVICE=torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 DEFAULTS=dict(gpu='0',model='CLHE',info='',reg=1e-5,dropout_rate=.2,noise_weight=.02,attention='',trans_layer=1,num_token=200,epoch=-1)
 PRESETS={  # from CLHE's run.sh
     'pog_dense':dict(item_augment='MD',bundle_augment='ID',bundle_ratio=.5,bundle_cl_temp=.05,bundle_cl_alpha=2,cl_temp=.5,cl_alpha=.1),
@@ -36,9 +37,10 @@ def per_query(model,loader,k=20):
     model.eval();out=[];rs=model.propagate()
     with torch.no_grad():
         for index,b_i_input,seq,gt in loader:
+            index,b_i_input,seq,gt=(x.to(DEVICE) for x in (index,b_i_input,seq,gt))
             pred=model.evaluate(rs,(index,b_i_input,seq))-1e8*b_i_input
             top=pred.topk(k).indices;hit=gt.gather(1,top)
-            pos=gt.sum(1);disc=1/torch.log2(torch.arange(2,k+2,dtype=torch.float))
+            pos=gt.sum(1);disc=1/torch.log2(torch.arange(2,k+2,dtype=torch.float,device=DEVICE))
             idcg=torch.stack([disc[:int(min(p,k))].sum() for p in pos])
             out+=torch.stack([hit.sum(1)/pos,(hit*disc).sum(1)/idcg],1).tolist()
     return np.asarray(out)
@@ -51,17 +53,17 @@ def main():
     p.add_argument('--threads',type=int,default=2);p.add_argument('--out',required=True)
     a=p.parse_args();torch.set_num_threads(a.threads)
     conf=yaml.safe_load(open('config.yaml'))['pog']
-    conf.update(DEFAULTS,**PRESETS[a.preset],dataset=a.dataset,lr=conf['lrs'][0],seed=a.seed,device=torch.device('cpu'))
+    conf.update(DEFAULTS,**PRESETS[a.preset],dataset=a.dataset,lr=conf['lrs'][0],seed=a.seed,device=DEVICE)
     setup_seed(a.seed);ds=Datasets(conf)
     conf.update(num_users=ds.num_users,num_bundles=ds.num_bundles,num_items=ds.num_items,l2_reg=conf['l2_regs'][0],
                 embedding_size=64,num_layers=conf['num_layerss'][0])
-    model=models.CLHE(conf,ds.graphs,ds.features)
+    model=models.CLHE(conf,ds.graphs,ds.features).to(DEVICE)
     optimizer=torch.optim.Adam(model.parameters(),lr=conf['lr'],weight_decay=conf['l2_reg'])
     setup_seed(a.seed);best=(0,0);state=None;history=[];start=time.time()
     for epoch in range(a.epochs):
         model.train(True)
         for batch in ds.train_loader:
-            optimizer.zero_grad();model(batch)['loss'].backward();optimizer.step()
+            optimizer.zero_grad();model([x.to(DEVICE) for x in batch])['loss'].backward();optimizer.step()
         val=per_query(model,ds.val_loader).mean(0);history.append(val.tolist())
         if val[0]>best[0] and val[1]>best[1]:best=(val[0],val[1]);state=copy.deepcopy(model.state_dict());chosen=epoch
     model.load_state_dict(state);test=per_query(model,ds.test_loader)

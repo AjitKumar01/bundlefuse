@@ -8,13 +8,13 @@ Also: the learned curve rho_R(log(1 + n), log(1 + B)) - rho_R(0, log(1 + B)) and
 
 PYTHONPATH=.:../dials .venv/bin/python -m experiments.dials_user.compare_repurchase
 """
-import dials  # pins BLAS threads before numpy loads
+import triad  # pins BLAS threads before numpy loads
 import json
 import numpy as np
 import torch
 from pathlib import Path
-from dials import data as dials_data
-from dials import train as dials_train
+from triad import data as dials_data
+from triad import train as dials_train
 from bundlefuse.provenance import write_json
 from experiments.dials_frozen.compare import RUNS,CACHE,groups
 from experiments.mechanisms.statistics import paired_comparison,holm_adjust

@@ -13,12 +13,12 @@
   "hidden": 32,
   "ablation": "crossfit"
  },
- "best_epoch": 12,
- "epochs_run": 18,
+ "best_epoch": 7,
+ "epochs_run": 13,
  "validation": {
-  "recall20": 0.5979166666666665,
-  "ndcg20": 0.459707043370415
+  "recall20": 0.6523550724637681,
+  "ndcg20": 0.5088452776631598
  },
  "parameters": 41624,
- "seconds": 33.42589887297072
+ "seconds": 7.485039791994495
 }

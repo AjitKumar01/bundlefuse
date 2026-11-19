@@ -1,0 +1,243 @@
+2026-11-17T09:25:58Z exit 0 experiments.bundle_budget_retail.train --dataset electronic --condition n50 --seed 1
+2026-11-17T09:25:58Z exit 0 experiments.bundle_budget_retail.train --dataset electronic --condition n50 --seed 2
+2026-11-17T09:25:58Z exit 0 experiments.bundle_budget_retail.train --dataset electronic --condition n50 --seed 0
+2026-11-17T09:26:11Z exit 0 experiments.bundle_budget_retail.train --dataset electronic --condition n100 --seed 0
+2026-11-17T09:26:11Z exit 0 experiments.bundle_budget_retail.train --dataset electronic --condition n100 --seed 2
+2026-11-17T09:26:12Z exit 0 experiments.bundle_budget_retail.train --dataset electronic --condition n100 --seed 1
+2026-11-17T09:26:25Z exit 0 experiments.bundle_budget_retail.train --dataset electronic --condition n300 --seed 2
+2026-11-17T09:26:25Z exit 0 experiments.bundle_budget_retail.train --dataset electronic --condition n300 --seed 0
+2026-11-17T09:26:26Z exit 0 experiments.bundle_budget_retail.train --dataset electronic --condition n300 --seed 1
+2026-11-17T09:26:45Z exit 0 experiments.bundle_budget_retail.train --dataset electronic --condition n600 --seed 0
+2026-11-17T09:26:47Z exit 0 experiments.bundle_budget_retail.train --dataset electronic --condition n600 --seed 1
+2026-11-17T09:26:48Z exit 0 experiments.bundle_budget_retail.train --dataset electronic --condition n600 --seed 2
+2026-11-17T09:26:53Z exit 0 experiments.bundle_budget_retail.train --dataset food --condition n50 --seed 0
+2026-11-17T09:26:54Z exit 0 experiments.bundle_budget_retail.train --dataset food --condition n50 --seed 1
+2026-11-17T09:26:56Z exit 0 experiments.bundle_budget_retail.train --dataset food --condition n50 --seed 2
+2026-11-17T09:27:02Z exit 0 experiments.bundle_budget_retail.train --dataset food --condition n100 --seed 0
+2026-11-17T09:27:04Z exit 0 experiments.bundle_budget_retail.train --dataset food --condition n100 --seed 1
+2026-11-17T09:27:06Z exit 0 experiments.bundle_budget_retail.train --dataset food --condition n100 --seed 2
+2026-11-17T09:27:15Z exit 0 experiments.bundle_budget_retail.train --dataset food --condition n300 --seed 0
+2026-11-17T09:27:20Z exit 0 experiments.bundle_budget_retail.train --dataset food --condition n300 --seed 1
+2026-11-17T09:27:21Z exit 0 experiments.bundle_budget_retail.train --dataset food --condition n300 --seed 2
+2026-11-17T09:27:34Z exit 0 experiments.bundle_budget_retail.train --dataset food --condition n600 --seed 0
+2026-11-17T09:27:40Z exit 0 experiments.bundle_budget_retail.train --dataset food --condition n600 --seed 1
+2026-11-17T09:27:44Z exit 0 experiments.bundle_budget_retail.train --dataset food --condition n600 --seed 2
+2026-11-17T09:27:45Z exit 0 experiments.bundle_budget_retail.train --dataset clothing --condition n50 --seed 0
+2026-11-17T09:27:49Z exit 0 experiments.bundle_budget_retail.train --dataset clothing --condition n50 --seed 1
+2026-11-17T09:27:52Z exit 0 experiments.bundle_budget_retail.train --dataset clothing --condition n50 --seed 2
+2026-11-17T09:27:56Z exit 0 experiments.bundle_budget_retail.train --dataset clothing --condition n100 --seed 0
+2026-11-17T09:28:00Z exit 0 experiments.bundle_budget_retail.train --dataset clothing --condition n100 --seed 1
+2026-11-17T09:28:04Z exit 0 experiments.bundle_budget_retail.train --dataset clothing --condition n100 --seed 2
+2026-11-17T09:28:15Z exit 0 experiments.bundle_budget_retail.train --dataset clothing --condition n300 --seed 0
+2026-11-17T09:28:18Z exit 0 experiments.bundle_budget_retail.train --dataset clothing --condition n300 --seed 1
+2026-11-17T09:28:22Z exit 0 experiments.bundle_budget_retail.train --dataset clothing --condition n300 --seed 2
+2026-11-17T09:28:40Z exit 0 experiments.bundle_budget_retail.train --dataset clothing --condition n600 --seed 0
+2026-11-17T09:28:47Z exit 0 experiments.bundle_budget_retail.train --dataset clothing --condition n600 --seed 1
+2026-11-17T09:28:49Z exit 0 experiments.bundle_budget_retail.train --dataset clothing --condition n600 --seed 2
+2026-11-17T09:29:03Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset electronic --condition n50 --seed 0
+2026-11-17T09:29:06Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset electronic --condition n50 --seed 1
+2026-11-17T09:29:08Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset electronic --condition n50 --seed 2
+2026-11-17T09:29:22Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset electronic --condition n100 --seed 0
+2026-11-17T09:29:23Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset electronic --condition n100 --seed 1
+2026-11-17T09:29:26Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset electronic --condition n100 --seed 2
+2026-11-17T09:29:39Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset electronic --condition n300 --seed 0
+2026-11-17T09:29:43Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset electronic --condition n300 --seed 1
+2026-11-17T09:29:46Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset electronic --condition n300 --seed 2
+2026-11-17T09:29:58Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset food --condition n50 --seed 0
+2026-11-17T09:30:01Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset food --condition n50 --seed 1
+2026-11-17T09:30:04Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset food --condition n50 --seed 2
+2026-11-17T09:30:17Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset food --condition n100 --seed 0
+2026-11-17T09:30:21Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset food --condition n100 --seed 1
+2026-11-17T09:30:22Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset food --condition n100 --seed 2
+2026-11-17T09:30:37Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset food --condition n300 --seed 0
+2026-11-17T09:30:40Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset food --condition n300 --seed 1
+2026-11-17T09:30:43Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset food --condition n300 --seed 2
+2026-11-17T09:30:57Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset clothing --condition n50 --seed 0
+2026-11-17T09:31:02Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset clothing --condition n50 --seed 2
+2026-11-17T09:31:04Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset clothing --condition n50 --seed 1
+2026-11-17T09:31:17Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset clothing --condition n100 --seed 0
+2026-11-17T09:31:21Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset clothing --condition n100 --seed 1
+2026-11-17T09:31:22Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset clothing --condition n100 --seed 2
+2026-11-17T09:31:41Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset clothing --condition n300 --seed 0
+2026-11-17T09:31:46Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset clothing --condition n300 --seed 2
+2026-11-17T09:31:47Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset clothing --condition n300 --seed 1
+2026-11-17T09:31:47Z exit 0 experiments.bundle_budget_retail.diagnostics init --dataset electronic --condition full
+2026-11-17T09:31:51Z exit 0 experiments.bundle_budget_retail.diagnostics init --dataset electronic --condition n600
+2026-11-17T09:31:52Z exit 0 experiments.bundle_budget_retail.diagnostics init --dataset electronic --condition n300
+2026-11-17T09:31:52Z exit 0 experiments.bundle_budget_retail.diagnostics init --dataset electronic --condition n100
+2026-11-17T09:31:56Z exit 0 experiments.bundle_budget_retail.diagnostics init --dataset electronic --condition n50
+2026-11-17T09:31:57Z exit 0 experiments.bundle_budget_retail.diagnostics init --dataset food --condition full
+2026-11-17T09:31:57Z exit 0 experiments.bundle_budget_retail.diagnostics init --dataset food --condition n600
+2026-11-17T09:32:01Z exit 0 experiments.bundle_budget_retail.diagnostics init --dataset food --condition n300
+2026-11-17T09:32:02Z exit 0 experiments.bundle_budget_retail.diagnostics init --dataset food --condition n100
+2026-11-17T09:32:02Z exit 0 experiments.bundle_budget_retail.diagnostics init --dataset food --condition n50
+2026-11-17T09:32:06Z exit 0 experiments.bundle_budget_retail.diagnostics init --dataset clothing --condition full
+2026-11-17T09:32:07Z exit 0 experiments.bundle_budget_retail.diagnostics init --dataset clothing --condition n600
+2026-11-17T09:32:07Z exit 0 experiments.bundle_budget_retail.diagnostics init --dataset clothing --condition n300
+2026-11-17T09:32:11Z exit 0 experiments.bundle_budget_retail.diagnostics init --dataset clothing --condition n100
+2026-11-17T09:32:12Z exit 0 experiments.bundle_budget_retail.diagnostics init --dataset clothing --condition n50
+2026-11-17T09:35:33Z exit 0 experiments.bundle_budget.train --dataset pog_dense --condition frac1 --seed 1
+2026-11-17T09:35:47Z exit 0 experiments.bundle_budget.train --dataset pog_dense --condition frac1 --seed 0
+2026-11-17T09:35:48Z exit 0 experiments.bundle_budget.train --dataset pog_dense --condition frac1 --seed 2
+2026-11-17T09:42:09Z exit 0 experiments.bundle_budget.train --dataset pog_dense --condition frac10 --seed 0
+2026-11-17T12:35:13Z exit 0 experiments.bundle_budget.train --dataset pog_dense --condition frac10 --seed 2
+2026-11-17T12:35:23Z exit 0 experiments.bundle_budget.train --dataset pog_dense --condition frac10 --seed 1
+2026-11-17T12:45:34Z exit 0 experiments.bundle_budget.train --dataset pog_dense --condition pseudo --seed 1
+2026-11-17T12:47:15Z exit 0 experiments.bundle_budget.train --dataset pog_dense --condition pseudo --seed 0
+2026-11-17T12:48:23Z exit 0 experiments.bundle_budget.train --dataset pog_dense --condition pseudo --seed 2
+2026-11-17T12:56:50Z exit 0 experiments.bundle_budget.train --dataset pog_dense --condition pseudo_clean --seed 0
+2026-11-17T12:57:34Z exit 0 experiments.bundle_budget.train --dataset pog --condition frac1 --seed 0
+2026-11-17T12:58:31Z exit 0 experiments.bundle_budget.train --dataset pog --condition frac1 --seed 1
+2026-11-17T12:59:18Z exit 0 experiments.bundle_budget.train --dataset pog --condition frac1 --seed 2
+2026-11-17T13:00:42Z exit 0 experiments.bundle_budget.train --dataset pog_dense --condition pseudo_clean --seed 1
+2026-11-17T13:01:36Z exit 0 experiments.bundle_budget_retail.train --dataset electronic --condition n50 --seed 2
+2026-11-17T13:01:36Z exit 0 experiments.bundle_budget_retail.train --dataset electronic --condition n50 --seed 0
+2026-11-17T13:01:36Z exit 0 experiments.bundle_budget_retail.train --dataset electronic --condition n100 --seed 1
+2026-11-17T13:01:36Z exit 0 experiments.bundle_budget_retail.train --dataset electronic --condition n50 --seed 1
+2026-11-17T13:01:36Z exit 0 experiments.bundle_budget_retail.train --dataset electronic --condition n100 --seed 0
+2026-11-17T13:01:39Z exit 0 experiments.bundle_budget_retail.train --dataset electronic --condition n300 --seed 1
+2026-11-17T13:01:39Z exit 0 experiments.bundle_budget_retail.train --dataset electronic --condition n300 --seed 0
+2026-11-17T13:01:39Z exit 0 experiments.bundle_budget_retail.train --dataset electronic --condition n100 --seed 2
+2026-11-17T13:01:39Z exit 0 experiments.bundle_budget_retail.train --dataset electronic --condition n300 --seed 2
+2026-11-17T13:01:39Z exit 0 experiments.bundle_budget_retail.train --dataset electronic --condition n600 --seed 0
+2026-11-17T13:01:42Z exit 0 experiments.bundle_budget_retail.train --dataset electronic --condition n600 --seed 1
+2026-11-17T13:01:42Z exit 0 experiments.bundle_budget_retail.train --dataset electronic --condition n600 --seed 2
+2026-11-17T13:01:42Z exit 0 experiments.bundle_budget_retail.train --dataset food --condition n50 --seed 1
+2026-11-17T13:01:42Z exit 0 experiments.bundle_budget_retail.train --dataset food --condition n50 --seed 2
+2026-11-17T13:01:42Z exit 0 experiments.bundle_budget_retail.train --dataset food --condition n50 --seed 0
+2026-11-17T13:01:45Z exit 0 experiments.bundle_budget_retail.train --dataset food --condition n100 --seed 0
+2026-11-17T13:01:45Z exit 0 experiments.bundle_budget_retail.train --dataset food --condition n300 --seed 1
+2026-11-17T13:01:45Z exit 0 experiments.bundle_budget_retail.train --dataset food --condition n100 --seed 1
+2026-11-17T13:01:45Z exit 0 experiments.bundle_budget_retail.train --dataset food --condition n100 --seed 2
+2026-11-17T13:01:46Z exit 0 experiments.bundle_budget_retail.train --dataset food --condition n300 --seed 0
+2026-11-17T13:01:49Z exit 0 experiments.bundle_budget_retail.train --dataset food --condition n600 --seed 2
+2026-11-17T13:01:49Z exit 0 experiments.bundle_budget_retail.train --dataset food --condition n600 --seed 0
+2026-11-17T13:01:49Z exit 0 experiments.bundle_budget_retail.train --dataset food --condition n300 --seed 2
+2026-11-17T13:01:49Z exit 0 experiments.bundle_budget_retail.train --dataset food --condition n600 --seed 1
+2026-11-17T13:01:49Z exit 0 experiments.bundle_budget_retail.train --dataset clothing --condition n50 --seed 0
+2026-11-17T13:01:52Z exit 0 experiments.bundle_budget_retail.train --dataset clothing --condition n100 --seed 0
+2026-11-17T13:01:52Z exit 0 experiments.bundle_budget_retail.train --dataset clothing --condition n50 --seed 2
+2026-11-17T13:01:52Z exit 0 experiments.bundle_budget_retail.train --dataset clothing --condition n50 --seed 1
+2026-11-17T13:01:52Z exit 0 experiments.bundle_budget_retail.train --dataset clothing --condition n100 --seed 1
+2026-11-17T13:01:52Z exit 0 experiments.bundle_budget_retail.train --dataset clothing --condition n100 --seed 2
+2026-11-17T13:01:56Z exit 0 experiments.bundle_budget_retail.train --dataset clothing --condition n300 --seed 0
+2026-11-17T13:01:56Z exit 0 experiments.bundle_budget_retail.train --dataset clothing --condition n600 --seed 1
+2026-11-17T13:01:56Z exit 0 experiments.bundle_budget_retail.train --dataset clothing --condition n600 --seed 0
+2026-11-17T13:01:56Z exit 0 experiments.bundle_budget_retail.train --dataset clothing --condition n300 --seed 1
+2026-11-17T13:01:56Z exit 0 experiments.bundle_budget_retail.train --dataset clothing --condition n300 --seed 2
+2026-11-17T13:01:59Z exit 0 experiments.bundle_budget_retail.train --dataset clothing --condition n600 --seed 2
+2026-11-17T13:01:59Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset electronic --condition n50 --seed 0
+2026-11-17T13:01:59Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset electronic --condition n50 --seed 1
+2026-11-17T13:01:59Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset electronic --condition n50 --seed 2
+2026-11-17T13:01:59Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset electronic --condition n100 --seed 0
+2026-11-17T13:02:02Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset electronic --condition n100 --seed 1
+2026-11-17T13:02:02Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset electronic --condition n100 --seed 2
+2026-11-17T13:02:02Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset electronic --condition n300 --seed 1
+2026-11-17T13:02:02Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset electronic --condition n300 --seed 2
+2026-11-17T13:02:02Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset electronic --condition n300 --seed 0
+2026-11-17T13:02:05Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset food --condition n50 --seed 0
+2026-11-17T13:02:05Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset food --condition n50 --seed 2
+2026-11-17T13:02:05Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset food --condition n100 --seed 0
+2026-11-17T13:02:05Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset food --condition n100 --seed 1
+2026-11-17T13:02:05Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset food --condition n50 --seed 1
+2026-11-17T13:02:08Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset food --condition n100 --seed 2
+2026-11-17T13:02:08Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset food --condition n300 --seed 0
+2026-11-17T13:02:08Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset food --condition n300 --seed 1
+2026-11-17T13:02:08Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset food --condition n300 --seed 2
+2026-11-17T13:02:08Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset clothing --condition n50 --seed 0
+2026-11-17T13:02:11Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset clothing --condition n50 --seed 1
+2026-11-17T13:02:11Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset clothing --condition n100 --seed 1
+2026-11-17T13:02:11Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset clothing --condition n100 --seed 2
+2026-11-17T13:02:11Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset clothing --condition n50 --seed 2
+2026-11-17T13:02:11Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset clothing --condition n100 --seed 0
+2026-11-17T13:02:14Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset clothing --condition n300 --seed 0
+2026-11-17T13:02:14Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset clothing --condition n300 --seed 2
+2026-11-17T13:02:14Z exit 0 experiments.bundle_budget_retail.diagnostics steps --dataset clothing --condition n300 --seed 1
+2026-11-17T13:02:14Z exit 0 experiments.bundle_budget_retail.diagnostics init --dataset electronic --condition n600
+2026-11-17T13:02:14Z exit 0 experiments.bundle_budget_retail.diagnostics init --dataset electronic --condition full
+2026-11-17T13:02:17Z exit 0 experiments.bundle_budget_retail.diagnostics init --dataset electronic --condition n300
+2026-11-17T13:02:17Z exit 0 experiments.bundle_budget_retail.diagnostics init --dataset electronic --condition n100
+2026-11-17T13:02:17Z exit 0 experiments.bundle_budget_retail.diagnostics init --dataset electronic --condition n50
+2026-11-17T13:02:17Z exit 0 experiments.bundle_budget_retail.diagnostics init --dataset food --condition n600
+2026-11-17T13:02:17Z exit 0 experiments.bundle_budget_retail.diagnostics init --dataset food --condition full
+2026-11-17T13:02:20Z exit 0 experiments.bundle_budget_retail.diagnostics init --dataset food --condition n300
+2026-11-17T13:02:20Z exit 0 experiments.bundle_budget_retail.diagnostics init --dataset food --condition n100
+2026-11-17T13:02:20Z exit 0 experiments.bundle_budget_retail.diagnostics init --dataset food --condition n50
+2026-11-17T13:02:21Z exit 0 experiments.bundle_budget_retail.diagnostics init --dataset clothing --condition n600
+2026-11-17T13:02:21Z exit 0 experiments.bundle_budget_retail.diagnostics init --dataset clothing --condition full
+2026-11-17T13:02:24Z exit 0 experiments.bundle_budget_retail.diagnostics init --dataset clothing --condition n300
+2026-11-17T13:02:24Z exit 0 experiments.bundle_budget_retail.diagnostics init --dataset clothing --condition n100
+2026-11-17T13:02:24Z exit 0 experiments.bundle_budget_retail.diagnostics init --dataset clothing --condition n50
+2026-11-17T13:02:24Z exit 0 experiments.bundle_budget.train --dataset pog_dense --condition frac1 --seed 1
+2026-11-17T13:02:24Z exit 0 experiments.bundle_budget.train --dataset pog_dense --condition frac1 --seed 0
+2026-11-17T13:02:27Z exit 0 experiments.bundle_budget.train --dataset pog_dense --condition frac1 --seed 2
+2026-11-17T13:02:27Z exit 0 experiments.bundle_budget.train --dataset pog_dense --condition frac10 --seed 1
+2026-11-17T13:02:27Z exit 0 experiments.bundle_budget.train --dataset pog_dense --condition frac10 --seed 0
+2026-11-17T13:02:27Z exit 0 experiments.bundle_budget.train --dataset pog_dense --condition frac10 --seed 2
+2026-11-17T13:02:32Z exit 0 experiments.bundle_budget.train --dataset pog_dense --condition pseudo --seed 0
+2026-11-17T13:02:34Z exit 0 experiments.bundle_budget.train --dataset pog_dense --condition pseudo --seed 1
+2026-11-17T13:02:34Z exit 0 experiments.bundle_budget.train --dataset pog_dense --condition pseudo --seed 2
+2026-11-17T13:02:36Z exit 0 experiments.bundle_budget.train --dataset pog_dense --condition pseudo_clean --seed 0
+2026-11-17T13:02:36Z exit 0 experiments.bundle_budget.train --dataset pog_dense --condition pseudo_clean --seed 1
+2026-11-17T13:02:37Z exit 0 experiments.bundle_budget.train --dataset pog --condition frac1 --seed 0
+2026-11-17T13:02:37Z exit 0 experiments.bundle_budget.train --dataset pog --condition frac1 --seed 1
+2026-11-17T13:02:39Z exit 0 experiments.bundle_budget.train --dataset pog --condition frac1 --seed 2
+2026-11-17T13:04:39Z exit 0 experiments.bundle_budget.train --dataset pog --condition frac10 --seed 0
+2026-11-17T13:04:40Z exit 0 experiments.bundle_budget.train --dataset pog --condition frac10 --seed 1
+2026-11-17T13:06:12Z exit 0 experiments.bundle_budget.train --dataset pog --condition frac10 --seed 2
+2026-11-17T13:20:42Z exit 0 experiments.bundle_budget.train --dataset pog_dense --condition pseudo_clean --seed 2
+2026-11-17T13:26:51Z exit 0 experiments.bundle_budget.train --dataset pog --condition pseudo_clean --seed 0
+2026-11-17T13:33:40Z exit 0 experiments.bundle_budget.train --dataset pog --condition pseudo --seed 0
+2026-11-17T13:38:47Z exit 0 experiments.bundle_budget.train --dataset pog --condition pseudo --seed 1
+2026-11-17T13:42:37Z exit 0 experiments.bundle_budget.train --dataset pog --condition pseudo --seed 2
+2026-11-17T13:43:58Z exit 0 experiments.triad_ablations.run train --part loo --dataset pog --seed 0
+2026-11-17T13:50:28Z exit 0 experiments.triad_ablations.run train --part loo --dataset pog --seed 1
+2026-11-17T13:51:28Z exit 0 experiments.bundle_budget.train --dataset pog --condition pseudo_clean --seed 1
+2026-11-17T13:52:21Z exit 0 experiments.bundle_budget.train --dataset pog --condition pseudo_clean --seed 2
+2026-11-17T14:00:14Z exit 0 experiments.triad_ablations.run train --part loo --dataset pog --seed 2
+2026-11-17T14:04:30Z exit 0 experiments.triad_ablations.run train --part content --dataset pog --seed 0
+2026-11-17T14:08:26Z exit 0 experiments.triad_ablations.run train --part content --dataset pog --seed 1
+2026-11-17T14:13:58Z exit 0 experiments.triad_ablations.run train --part content --dataset pog --seed 2
+2026-11-17T14:15:10Z exit 0 experiments.triad_ablations.run train --part gate --dataset pog --seed 1
+2026-11-17T14:27:09Z exit 0 experiments.triad_ablations.run train --part gate --dataset pog --seed 2
+2026-11-17T14:41:20Z exit 0 experiments.triad_ablations.run train --part gate --dataset pog --seed 0
+2026-11-17T14:45:20Z exit 0 experiments.triad_ablations.run train --part graph --dataset pog --seed 0
+2026-11-17T14:48:13Z exit 0 experiments.bundle_budget_retail.train --dataset spotify_sparse --condition n3000 --seed 0
+2026-11-17T14:55:02Z exit 0 experiments.bundle_budget_retail.train --dataset spotify_sparse --condition n1000 --seed 0
+2026-11-17T15:05:23Z exit 0 experiments.triad_ablations.run train --part graph --dataset pog --seed 2
+2026-11-17T15:11:57Z exit 0 experiments.bundle_budget_retail.train --dataset spotify_sparse --condition n3000 --seed 1
+2026-11-17T15:12:38Z exit 0 experiments.triad_ablations.run train --part graph --dataset pog --seed 1
+2026-11-17T15:13:04Z exit 0 experiments.bundle_budget_retail.train --dataset spotify_sparse --condition n1000 --seed 1
+2026-11-17T15:15:45Z exit 0 experiments.bundle_budget_retail.train --dataset spotify_sparse --condition n3000 --seed 2
+2026-11-17T15:16:51Z exit 0 experiments.bundle_budget_retail.train --dataset spotify_sparse --condition n600 --seed 0
+2026-11-17T15:17:10Z exit 0 experiments.bundle_budget_retail.train --dataset spotify_sparse --condition n1000 --seed 2
+2026-11-17T15:18:50Z exit 0 experiments.bundle_budget_retail.train --dataset spotify_sparse --condition n600 --seed 2
+2026-11-17T15:19:23Z exit 0 experiments.bundle_budget_retail.train --dataset spotify_sparse --condition n600 --seed 1
+2026-11-17T15:21:36Z exit 0 experiments.bundle_budget_retail.train --dataset spotify_sparse --condition n300 --seed 0
+2026-11-17T15:22:00Z exit 0 experiments.bundle_budget_retail.train --dataset spotify_sparse --condition n300 --seed 1
+2026-11-17T15:24:17Z exit 0 experiments.bundle_budget_retail.train --dataset spotify_sparse --condition n100 --seed 0
+2026-11-17T15:25:52Z exit 0 experiments.bundle_budget_retail.train --dataset spotify_sparse --condition n100 --seed 2
+2026-11-17T15:26:12Z exit 0 experiments.bundle_budget_retail.train --dataset spotify_sparse --condition n100 --seed 1
+2026-11-17T15:26:45Z exit 0 experiments.bundle_budget_retail.train --dataset spotify_sparse --condition n300 --seed 2
+2026-11-17T15:28:52Z exit 0 experiments.bundle_budget_retail.train --dataset spotify_sparse --condition n50 --seed 0
+2026-11-17T15:32:21Z exit 0 experiments.bundle_budget_retail.train --dataset spotify_sparse --condition n50 --seed 1
+2026-11-17T15:32:24Z exit 0 experiments.bundle_budget_retail.train --dataset spotify_sparse --condition n50 --seed 2
+2026-11-17T15:49:08Z exit 0 experiments.bundle_budget_retail.train --dataset spotify --condition n3000 --seed 0
+2026-11-17T15:54:54Z exit 0 experiments.bundle_budget_retail.train --dataset spotify --condition n1000 --seed 0
+2026-11-17T15:59:51Z exit 0 experiments.bundle_budget_retail.train --dataset spotify --condition n1000 --seed 1
+2026-11-17T16:00:44Z exit 0 experiments.bundle_budget_retail.train --dataset spotify --condition n3000 --seed 2
+2026-11-17T16:03:15Z exit 0 experiments.bundle_budget_retail.train --dataset spotify --condition n3000 --seed 1
+2026-11-17T16:08:01Z exit 0 experiments.bundle_budget_retail.train --dataset spotify --condition n600 --seed 0
+2026-11-17T16:08:58Z exit 0 experiments.bundle_budget_retail.train --dataset spotify --condition n1000 --seed 2
+2026-11-17T16:16:57Z exit 0 experiments.bundle_budget_retail.train --dataset spotify --condition n300 --seed 0
+2026-11-17T16:19:43Z exit 0 experiments.bundle_budget_retail.train --dataset spotify --condition n300 --seed 1
+2026-11-17T16:20:27Z exit 0 experiments.bundle_budget_retail.train --dataset spotify --condition n600 --seed 2
+2026-11-17T16:20:55Z exit 0 experiments.bundle_budget_retail.train --dataset spotify --condition n300 --seed 2
+2026-11-17T16:21:49Z exit 0 experiments.bundle_budget_retail.train --dataset spotify --condition n600 --seed 1
+2026-11-17T16:28:26Z exit 0 experiments.bundle_budget_retail.train --dataset spotify --condition n100 --seed 0
+2026-11-17T16:28:36Z exit 0 experiments.bundle_budget_retail.train --dataset spotify --condition n100 --seed 2
+2026-11-17T16:29:45Z exit 0 experiments.bundle_budget_retail.train --dataset spotify --condition n100 --seed 1
+2026-11-17T16:31:05Z exit 0 experiments.bundle_budget_retail.train --dataset spotify --condition n50 --seed 1
+2026-11-17T16:32:09Z exit 0 experiments.bundle_budget_retail.train --dataset spotify --condition n50 --seed 0
+2026-11-17T16:34:38Z exit 0 experiments.bundle_budget_retail.train --dataset spotify --condition n50 --seed 2
+QUEUE DONE

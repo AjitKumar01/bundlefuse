@@ -28,8 +28,8 @@
             "ndcg20": 0.25383723898273713
           },
           "hybrid": {
-            "recall20": 0.4320327552986512,
-            "ndcg20": 0.2985896793655204
+            "recall20": 0.4160404624277456,
+            "ndcg20": 0.3023966041322359
           },
           "samelabel": {
             "recall20": 0.0926300578034682,
@@ -44,24 +44,24 @@
             "ndcg20": 0.24967149370447794
           },
           "label_knn_content": {
-            "recall20": 0.42769749518304434,
-            "ndcg20": 0.30014449838767127
+            "recall20": 0.3971579961464355,
+            "ndcg20": 0.29068084479287293
           }
         },
         "means": {
           "DIALS": [
-            0.46910725754656407,
-            0.3345691324745834
+            0.4669075144508671,
+            0.334522806101869
           ],
           "best simple (hybrid)": [
-            0.43203275529865137,
-            0.2985896793655201
+            0.4160404624277456,
+            0.30239660413223557
           ]
         }
       },
       "n600": {
         "bundles": 600,
-        "best_simple": "label_knn_content",
+        "best_simple": "hybrid",
         "all_simple": {
           "popularity": {
             "recall20": 0.0430635838150289,
@@ -84,8 +84,8 @@
             "ndcg20": 0.14367428331443846
           },
           "hybrid": {
-            "recall20": 0.32090558766859345,
-            "ndcg20": 0.21202016247231933
+            "recall20": 0.29682080924855486,
+            "ndcg20": 0.21083085415036493
           },
           "samelabel": {
             "recall20": 0.09947013487475917,
@@ -100,22 +100,18 @@
             "ndcg20": 0.16653375506993706
           },
           "label_knn_content": {
-            "recall20": 0.315028901734104,
-            "ndcg20": 0.21458248978476135
+            "recall20": 0.3041907514450867,
+            "ndcg20": 0.20914261869108086
           }
         },
         "means": {
           "DIALS": [
-            0.3057803468208092,
-            0.20074869063350226
+            0.31848105330764287,
+            0.21015867918100375
           ],
-          "best simple (label_knn_content)": [
-            0.31502890173410397,
-            0.21458248978476135
-          ],
-          "best label-free (hybrid)": [
-            0.32090558766859334,
-            0.21202016247231928
+          "best simple (hybrid)": [
+            0.29682080924855486,
+            0.21083085415036487
           ]
         }
       },
@@ -144,8 +140,8 @@
             "ndcg20": 0.09389230358185556
           },
           "hybrid": {
-            "recall20": 0.2697495183044316,
-            "ndcg20": 0.1711647258611995
+            "recall20": 0.23805394990366086,
+            "ndcg20": 0.1662863420895558
           },
           "samelabel": {
             "recall20": 0.10279383429672447,
@@ -160,24 +156,24 @@
             "ndcg20": 0.12151786065276475
           },
           "label_knn_content": {
-            "recall20": 0.26348747591522154,
-            "ndcg20": 0.17431171814050517
+            "recall20": 0.2555394990366089,
+            "ndcg20": 0.16649610316277794
           }
         },
         "means": {
           "DIALS": [
-            0.23640012845215158,
-            0.14355245045565868
+            0.23079640333975593,
+            0.15396531200667427
           ],
           "best simple (hybrid)": [
-            0.26974951830443156,
-            0.17116472586119952
+            0.2380539499036609,
+            0.1662863420895558
           ]
         }
       },
       "n100": {
         "bundles": 100,
-        "best_simple": "label_knn_content",
+        "best_simple": "hybrid",
         "all_simple": {
           "popularity": {
             "recall20": 0.01729287090558767,
@@ -200,8 +196,8 @@
             "ndcg20": 0.04020268210484482
           },
           "hybrid": {
-            "recall20": 0.21979768786127166,
-            "ndcg20": 0.12089291223606298
+            "recall20": 0.197495183044316,
+            "ndcg20": 0.11614931291840955
           },
           "samelabel": {
             "recall20": 0.08559730250481695,
@@ -216,28 +212,24 @@
             "ndcg20": 0.06948208075325382
           },
           "label_knn_content": {
-            "recall20": 0.21353564547206164,
-            "ndcg20": 0.12258202292293113
+            "recall20": 0.21281310211946047,
+            "ndcg20": 0.11412854716658766
           }
         },
         "means": {
           "DIALS": [
-            0.18428066795118817,
-            0.09027874429726364
+            0.19206807964033407,
+            0.10606747350638526
           ],
-          "best simple (label_knn_content)": [
-            0.21353564547206158,
-            0.12258202292293115
-          ],
-          "best label-free (hybrid)": [
-            0.21979768786127166,
-            0.12089291223606302
+          "best simple (hybrid)": [
+            0.19749518304431607,
+            0.11614931291840952
           ]
         }
       },
       "n50": {
         "bundles": 50,
-        "best_simple": "label_knn_content",
+        "best_simple": "hybrid",
         "all_simple": {
           "popularity": {
             "recall20": 0.01878612716763006,
@@ -260,8 +252,8 @@
             "ndcg20": 0.018470549489277503
           },
           "hybrid": {
-            "recall20": 0.20399807321772642,
-            "ndcg20": 0.09941810158955876
+            "recall20": 0.17894990366088628,
+            "ndcg20": 0.09358677849473632
           },
           "samelabel": {
             "recall20": 0.08559730250481695,
@@ -276,22 +268,18 @@
             "ndcg20": 0.046024779140314255
           },
           "label_knn_content": {
-            "recall20": 0.19465317919075142,
-            "ndcg20": 0.10017694640209786
+            "recall20": 0.18718689788053947,
+            "ndcg20": 0.0916420577751742
           }
         },
         "means": {
           "DIALS": [
-            0.15772318561335907,
-            0.07320440504133761
+            0.17580282594733468,
+            0.08886661962228963
           ],
-          "best simple (label_knn_content)": [
-            0.19465317919075148,
-            0.10017694640209786
-          ],
-          "best label-free (hybrid)": [
-            0.20399807321772642,
-            0.09941810158955877
+          "best simple (hybrid)": [
+            0.17894990366088637,
+            0.09358677849473629
           ]
         }
       }
@@ -299,7 +287,7 @@
     "food": {
       "full": {
         "bundles": 1232,
-        "best_simple": "label_knn_content",
+        "best_simple": "hybrid",
         "all_simple": {
           "popularity": {
             "recall20": 0.035033050047214354,
@@ -322,8 +310,8 @@
             "ndcg20": 0.2671776349856446
           },
           "hybrid": {
-            "recall20": 0.5442398489140698,
-            "ndcg20": 0.42523860057125507
+            "recall20": 0.5628423040604343,
+            "ndcg20": 0.4449694656425135
           },
           "samelabel": {
             "recall20": 0.15977337110481585,
@@ -338,28 +326,24 @@
             "ndcg20": 0.2789734595755229
           },
           "label_knn_content": {
-            "recall20": 0.5459867799811142,
-            "ndcg20": 0.41170726999752333
+            "recall20": 0.5186968838526912,
+            "ndcg20": 0.40561368329016684
           }
         },
         "means": {
           "DIALS": [
-            0.5861504564054141,
-            0.4388153766780888
+            0.617784073024866,
+            0.4738321448439196
           ],
-          "best simple (label_knn_content)": [
-            0.5459867799811142,
-            0.41170726999752316
-          ],
-          "best label-free (hybrid)": [
-            0.5442398489140698,
-            0.42523860057125484
+          "best simple (hybrid)": [
+            0.5628423040604343,
+            0.44496946564251305
           ]
         }
       },
       "n600": {
         "bundles": 600,
-        "best_simple": "label_knn_content",
+        "best_simple": "hybrid",
         "all_simple": {
           "popularity": {
             "recall20": 0.024787535410764873,
@@ -382,8 +366,8 @@
             "ndcg20": 0.131578014463001
           },
           "hybrid": {
-            "recall20": 0.437865911237016,
-            "ndcg20": 0.32540376833901485
+            "recall20": 0.46383380547686504,
+            "ndcg20": 0.3461891273438614
           },
           "samelabel": {
             "recall20": 0.14499527856468367,
@@ -398,28 +382,24 @@
             "ndcg20": 0.17325743760799453
           },
           "label_knn_content": {
-            "recall20": 0.4121813031161473,
-            "ndcg20": 0.3015996117911584
+            "recall20": 0.4329556185080264,
+            "ndcg20": 0.3041611719663551
           }
         },
         "means": {
           "DIALS": [
-            0.4293830657853319,
-            0.2978233350708042
+            0.4948221592697514,
+            0.35794665522085506
           ],
-          "best simple (label_knn_content)": [
-            0.4121813031161472,
-            0.3015996117911583
-          ],
-          "best label-free (hybrid)": [
-            0.43786591123701596,
-            0.3254037683390147
+          "best simple (hybrid)": [
+            0.4638338054768649,
+            0.3461891273438611
           ]
         }
       },
       "n300": {
         "bundles": 300,
-        "best_simple": "label_knn_content",
+        "best_simple": "hybrid",
         "all_simple": {
           "popularity": {
             "recall20": 0.007790368271954674,
@@ -442,8 +422,8 @@
             "ndcg20": 0.06417057096949831
           },
           "hybrid": {
-            "recall20": 0.3770538243626062,
-            "ndcg20": 0.27650546558301714
+            "recall20": 0.4103871576959396,
+            "ndcg20": 0.29836666937571676
           },
           "samelabel": {
             "recall20": 0.1524551463644948,
@@ -458,28 +438,24 @@
             "ndcg20": 0.12263304477077831
           },
           "label_knn_content": {
-            "recall20": 0.35528800755429646,
-            "ndcg20": 0.25180690809270023
+            "recall20": 0.40203021718602455,
+            "ndcg20": 0.27942850774919403
           }
         },
         "means": {
           "DIALS": [
-            0.33964431853950267,
-            0.2257573529091701
+            0.4269593956562795,
+            0.300083377193497
           ],
-          "best simple (label_knn_content)": [
-            0.3552880075542964,
-            0.2518069080927002
-          ],
-          "best label-free (hybrid)": [
-            0.3770538243626062,
-            0.27650546558301714
+          "best simple (hybrid)": [
+            0.41038715769593953,
+            0.2983666693757166
           ]
         }
       },
       "n100": {
         "bundles": 100,
-        "best_simple": "label_knn_content",
+        "best_simple": "hybrid",
         "all_simple": {
           "popularity": {
             "recall20": 0.012039660056657223,
@@ -502,8 +478,8 @@
             "ndcg20": 0.02785030093039104
           },
           "hybrid": {
-            "recall20": 0.35750708215297455,
-            "ndcg20": 0.2579038388582083
+            "recall20": 0.3968366383380547,
+            "ndcg20": 0.28072509418690167
           },
           "samelabel": {
             "recall20": 0.16222851746931063,
@@ -518,28 +494,24 @@
             "ndcg20": 0.09678527022088379
           },
           "label_knn_content": {
-            "recall20": 0.3596317280453258,
-            "ndcg20": 0.25343117121914355
+            "recall20": 0.38083097261567517,
+            "ndcg20": 0.2521187767583003
           }
         },
         "means": {
           "DIALS": [
-            0.27686496694995283,
-            0.16144479705314896
+            0.38748819641170906,
+            0.24964388900416606
           ],
-          "best simple (label_knn_content)": [
-            0.35963172804532567,
-            0.25343117121914344
-          ],
-          "best label-free (hybrid)": [
-            0.35750708215297444,
-            0.2579038388582083
+          "best simple (hybrid)": [
+            0.3968366383380547,
+            0.2807250941869015
           ]
         }
       },
       "n50": {
         "bundles": 50,
-        "best_simple": "label_knn_content",
+        "best_simple": "hybrid",
         "all_simple": {
           "popularity": {
             "recall20": 0.009206798866855524,
@@ -562,8 +534,8 @@
             "ndcg20": 0.007062279597626368
           },
           "hybrid": {
-            "recall20": 0.34230406043437206,
-            "ndcg20": 0.23694374931726903
+            "recall20": 0.37620396600566575,
+            "ndcg20": 0.25744838436013623
           },
           "samelabel": {
             "recall20": 0.1525495750708215,
@@ -578,22 +550,18 @@
             "ndcg20": 0.07884936669165815
           },
           "label_knn_content": {
-            "recall20": 0.34560906515580736,
-            "ndcg20": 0.2313993076845076
+            "recall20": 0.36114258734655336,
+            "ndcg20": 0.2277700493196206
           }
         },
         "means": {
           "DIALS": [
-            0.2675952156122127,
-            0.1514569309416603
+            0.36885426502990243,
+            0.23520683664949035
           ],
-          "best simple (label_knn_content)": [
-            0.34560906515580725,
-            0.23139930768450742
-          ],
-          "best label-free (hybrid)": [
-            0.342304060434372,
-            0.23694374931726908
+          "best simple (hybrid)": [
+            0.37620396600566575,
+            0.25744838436013606
           ]
         }
       }
@@ -601,7 +569,7 @@
     "clothing": {
       "full": {
         "bundles": 1294,
-        "best_simple": "label_knn_content",
+        "best_simple": "hybrid",
         "all_simple": {
           "popularity": {
             "recall20": 0.008086253369272238,
@@ -624,8 +592,8 @@
             "ndcg20": 0.20089034507109932
           },
           "hybrid": {
-            "recall20": 0.43292902066486977,
-            "ndcg20": 0.3302892883484929
+            "recall20": 0.4912398921832884,
+            "ndcg20": 0.3593307602151486
           },
           "samelabel": {
             "recall20": 0.1257412398921833,
@@ -640,22 +608,18 @@
             "ndcg20": 0.2118997819068171
           },
           "label_knn_content": {
-            "recall20": 0.4461814914645103,
-            "ndcg20": 0.33309914859793677
+            "recall20": 0.48751123090745735,
+            "ndcg20": 0.35163576891570536
           }
         },
         "means": {
           "DIALS": [
-            0.5337526205450736,
-            0.3876317520011579
+            0.5926624737945492,
+            0.43875777835829344
           ],
-          "best simple (label_knn_content)": [
-            0.4461814914645104,
-            0.3330991485979365
-          ],
-          "best label-free (hybrid)": [
-            0.43292902066486977,
-            0.3302892883484926
+          "best simple (hybrid)": [
+            0.4912398921832885,
+            0.35933076021514837
           ]
         }
       },
@@ -684,8 +648,8 @@
             "ndcg20": 0.09361205071902913
           },
           "hybrid": {
-            "recall20": 0.3665768194070081,
-            "ndcg20": 0.2541642025161988
+            "recall20": 0.42982929020664873,
+            "ndcg20": 0.29141997122403634
           },
           "samelabel": {
             "recall20": 0.1394429469901168,
@@ -700,22 +664,22 @@
             "ndcg20": 0.14685249492566488
           },
           "label_knn_content": {
-            "recall20": 0.3852201257861635,
-            "ndcg20": 0.26511181183018606
+            "recall20": 0.4147349505840072,
+            "ndcg20": 0.2703689642066502
           }
         },
         "means": {
           "DIALS": [
-            0.374722970949386,
-            0.2572984289223907
+            0.4776879305181193,
+            0.32462478996683386
           ],
           "best simple (label_knn_content)": [
-            0.3852201257861635,
-            0.26511181183018595
+            0.4147349505840074,
+            0.27036896420665
           ],
           "best label-free (hybrid)": [
-            0.3665768194070081,
-            0.25416420251619876
+            0.42982929020664873,
+            0.29141997122403607
           ]
         }
       },
@@ -744,8 +708,8 @@
             "ndcg20": 0.042656266339673586
           },
           "hybrid": {
-            "recall20": 0.3175202156334232,
-            "ndcg20": 0.20451126734588956
+            "recall20": 0.3864779874213836,
+            "ndcg20": 0.245848132566181
           },
           "samelabel": {
             "recall20": 0.13539982030548067,
@@ -760,22 +724,22 @@
             "ndcg20": 0.09890322786912623
           },
           "label_knn_content": {
-            "recall20": 0.3361635220125786,
-            "ndcg20": 0.214727916673971
+            "recall20": 0.376460017969452,
+            "ndcg20": 0.22473612968286452
           }
         },
         "means": {
           "DIALS": [
-            0.30146750524109006,
-            0.1858435494730989
+            0.40970350404312667,
+            0.2500386398207478
           ],
           "best simple (label_knn_content)": [
-            0.3361635220125786,
-            0.21472791667397093
+            0.376460017969452,
+            0.22473612968286433
           ],
           "best label-free (hybrid)": [
-            0.3175202156334232,
-            0.20451126734588956
+            0.38647798742138373,
+            0.2458481325661808
           ]
         }
       },
@@ -804,8 +768,8 @@
             "ndcg20": 0.015447274182181798
           },
           "hybrid": {
-            "recall20": 0.2971248876909254,
-            "ndcg20": 0.17863320933996504
+            "recall20": 0.36886792452830186,
+            "ndcg20": 0.22722246332929863
           },
           "samelabel": {
             "recall20": 0.1372866127583109,
@@ -820,22 +784,22 @@
             "ndcg20": 0.07814704594593244
           },
           "label_knn_content": {
-            "recall20": 0.3208894878706199,
-            "ndcg20": 0.19192993835275327
+            "recall20": 0.3828391734052111,
+            "ndcg20": 0.2310705720944167
           }
         },
         "means": {
           "DIALS": [
-            0.2526954177897574,
-            0.14659561226692958
+            0.3681191973644804,
+            0.21508130912653173
           ],
           "best simple (label_knn_content)": [
-            0.3208894878706199,
-            0.19192993835275318
+            0.38283917340521123,
+            0.23107057209441653
           ],
           "best label-free (hybrid)": [
-            0.29712488769092543,
-            0.17863320933996507
+            0.36886792452830186,
+            0.22722246332929846
           ]
         }
       },
@@ -864,8 +828,8 @@
             "ndcg20": 0.00655168883577734
           },
           "hybrid": {
-            "recall20": 0.2929919137466307,
-            "ndcg20": 0.17545886194641952
+            "recall20": 0.3681042228212039,
+            "ndcg20": 0.22229464745059518
           },
           "samelabel": {
             "recall20": 0.1399820305480683,
@@ -880,22 +844,22 @@
             "ndcg20": 0.07705781758622392
           },
           "label_knn_content": {
-            "recall20": 0.317654986522911,
-            "ndcg20": 0.1899489861363842
+            "recall20": 0.38027852650494154,
+            "ndcg20": 0.22663897127739557
           }
         },
         "means": {
           "DIALS": [
-            0.23161126085654385,
-            0.12302258645551611
+            0.3736897274633124,
+            0.206062196538356
           ],
           "best simple (label_knn_content)": [
-            0.317654986522911,
-            0.18994898613638417
+            0.38027852650494165,
+            0.22663897127739543
           ],
           "best label-free (hybrid)": [
-            0.2929919137466307,
-            0.17545886194641952
+            0.3681042228212039,
+            0.22229464745059502
           ]
         }
       }
@@ -907,19 +871,19 @@
       "condition": "full",
       "comparison": "DIALS vs best simple (hybrid)",
       "metric": "recall20",
-      "delta": 0.03707450224791266,
+      "delta": 0.05086705202312139,
       "ci95": [
-        0.00712869299935774,
-        0.06671724470134875
+        0.017596339113680148,
+        0.08420359666024403
       ],
-      "p_value": 0.013398660133986601,
+      "p_value": 0.0030996900309969004,
       "queries": 346,
       "clusters": 346,
       "bootstrap": 2000,
       "permutations": 10000,
-      "query_win_fraction": 0.11849710982658959,
+      "query_win_fraction": 0.14739884393063585,
       "seed": 20261109,
-      "p_holm": 0.133986601339866,
+      "p_holm": 0.065993400659934,
       "reject_05": false
     },
     {
@@ -927,377 +891,377 @@
       "condition": "full",
       "comparison": "DIALS vs best simple (hybrid)",
       "metric": "ndcg20",
-      "delta": 0.03597945310906308,
+      "delta": 0.03212620196963337,
       "ci95": [
-        0.015542571076150329,
-        0.05730780838877215
+        0.012838845169318724,
+        0.05342198253959978
       ],
-      "p_value": 0.00039996000399960006,
+      "p_value": 0.0029997000299970002,
       "queries": 346,
       "clusters": 346,
       "bootstrap": 2000,
       "permutations": 10000,
-      "query_win_fraction": 0.2745664739884393,
+      "query_win_fraction": 0.2630057803468208,
       "seed": 20261109,
-      "p_holm": 0.007199280071992801,
-      "reject_05": true
-    },
-    {
-      "dataset": "electronic",
-      "condition": "n600",
-      "comparison": "DIALS vs best simple (label_knn_content)",
-      "metric": "recall20",
-      "delta": -0.0092485549132948,
-      "ci95": [
-        -0.03838551701991009,
-        0.02055314707771354
-      ],
-      "p_value": 0.536046395360464,
-      "queries": 346,
-      "clusters": 346,
-      "bootstrap": 2000,
-      "permutations": 10000,
-      "query_win_fraction": 0.07803468208092486,
-      "seed": 20261109,
-      "p_holm": 1.0,
+      "p_holm": 0.065993400659934,
       "reject_05": false
     },
     {
       "dataset": "electronic",
       "condition": "n600",
-      "comparison": "DIALS vs best simple (label_knn_content)",
-      "metric": "ndcg20",
-      "delta": -0.01383379915125915,
-      "ci95": [
-        -0.03213558621391457,
-        0.005007549531524058
-      ],
-      "p_value": 0.1317868213178682,
-      "queries": 346,
-      "clusters": 346,
-      "bootstrap": 2000,
-      "permutations": 10000,
-      "query_win_fraction": 0.15606936416184972,
-      "seed": 20261109,
-      "p_holm": 0.9225077492250774,
-      "reject_05": false
-    },
-    {
-      "dataset": "electronic",
-      "condition": "n300",
       "comparison": "DIALS vs best simple (hybrid)",
       "metric": "recall20",
-      "delta": -0.03334938985228003,
+      "delta": 0.021660244059087983,
       "ci95": [
-        -0.05990847784200386,
-        -0.0072567437379576225
+        -0.007726798330122033,
+        0.05154423570969812
       ],
-      "p_value": 0.008599140085991401,
-      "queries": 346,
-      "clusters": 346,
-      "bootstrap": 2000,
-      "permutations": 10000,
-      "query_win_fraction": 0.06069364161849711,
-      "seed": 20261109,
-      "p_holm": 0.10318968103189682,
-      "reject_05": false
-    },
-    {
-      "dataset": "electronic",
-      "condition": "n300",
-      "comparison": "DIALS vs best simple (hybrid)",
-      "metric": "ndcg20",
-      "delta": -0.027612275405540836,
-      "ci95": [
-        -0.04571459576965653,
-        -0.00873885398686278
-      ],
-      "p_value": 0.0034996500349965005,
-      "queries": 346,
-      "clusters": 346,
-      "bootstrap": 2000,
-      "permutations": 10000,
-      "query_win_fraction": 0.12138728323699421,
-      "seed": 20261109,
-      "p_holm": 0.05599440055994401,
-      "reject_05": false
-    },
-    {
-      "dataset": "electronic",
-      "condition": "n100",
-      "comparison": "DIALS vs best simple (label_knn_content)",
-      "metric": "recall20",
-      "delta": -0.029254977520873474,
-      "ci95": [
-        -0.06069444444444444,
-        0.0026035645472061494
-      ],
-      "p_value": 0.0663933606639336,
-      "queries": 346,
-      "clusters": 346,
-      "bootstrap": 2000,
-      "permutations": 10000,
-      "query_win_fraction": 0.06936416184971098,
-      "seed": 20261109,
-      "p_holm": 0.5311468853114688,
-      "reject_05": false
-    },
-    {
-      "dataset": "electronic",
-      "condition": "n100",
-      "comparison": "DIALS vs best simple (label_knn_content)",
-      "metric": "ndcg20",
-      "delta": -0.03230327862566748,
-      "ci95": [
-        -0.05104187371752527,
-        -0.015188885512129985
-      ],
-      "p_value": 0.00019998000199980003,
-      "queries": 346,
-      "clusters": 346,
-      "bootstrap": 2000,
-      "permutations": 10000,
-      "query_win_fraction": 0.12427745664739884,
-      "seed": 20261109,
-      "p_holm": 0.003999600039996,
-      "reject_05": true
-    },
-    {
-      "dataset": "electronic",
-      "condition": "n50",
-      "comparison": "DIALS vs best simple (label_knn_content)",
-      "metric": "recall20",
-      "delta": -0.03692999357739243,
-      "ci95": [
-        -0.0698217726396917,
-        -0.004590558766859354
-      ],
-      "p_value": 0.019698030196980302,
-      "queries": 346,
-      "clusters": 346,
-      "bootstrap": 2000,
-      "permutations": 10000,
-      "query_win_fraction": 0.057803468208092484,
-      "seed": 20261109,
-      "p_holm": 0.1772822717728227,
-      "reject_05": false
-    },
-    {
-      "dataset": "electronic",
-      "condition": "n50",
-      "comparison": "DIALS vs best simple (label_knn_content)",
-      "metric": "ndcg20",
-      "delta": -0.026972541360760226,
-      "ci95": [
-        -0.043772974915751287,
-        -0.01165165591756433
-      ],
-      "p_value": 0.0004999500049995,
+      "p_value": 0.1513848615138486,
       "queries": 346,
       "clusters": 346,
       "bootstrap": 2000,
       "permutations": 10000,
       "query_win_fraction": 0.12716763005780346,
       "seed": 20261109,
-      "p_holm": 0.0084991500849915,
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "dataset": "electronic",
+      "condition": "n600",
+      "comparison": "DIALS vs best simple (hybrid)",
+      "metric": "ndcg20",
+      "delta": -0.0006721749693612445,
+      "ci95": [
+        -0.017163440408312677,
+        0.015771677145795356
+      ],
+      "p_value": 0.9358064193580642,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.2138728323699422,
+      "seed": 20261109,
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "dataset": "electronic",
+      "condition": "n300",
+      "comparison": "DIALS vs best simple (hybrid)",
+      "metric": "recall20",
+      "delta": -0.007257546563904946,
+      "ci95": [
+        -0.026204238921001925,
+        0.010020070648683356
+      ],
+      "p_value": 0.44985501449855014,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.06647398843930635,
+      "seed": 20261109,
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "dataset": "electronic",
+      "condition": "n300",
+      "comparison": "DIALS vs best simple (hybrid)",
+      "metric": "ndcg20",
+      "delta": -0.012321030082881539,
+      "ci95": [
+        -0.025064501005743856,
+        0.00025507467953652627
+      ],
+      "p_value": 0.0570942905709429,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.13872832369942195,
+      "seed": 20261109,
+      "p_holm": 0.8564143585641435,
+      "reject_05": false
+    },
+    {
+      "dataset": "electronic",
+      "condition": "n100",
+      "comparison": "DIALS vs best simple (hybrid)",
+      "metric": "recall20",
+      "delta": -0.005427103403982017,
+      "ci95": [
+        -0.024214836223506744,
+        0.013745183044315988
+      ],
+      "p_value": 0.5760423957604239,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.04046242774566474,
+      "seed": 20261109,
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "dataset": "electronic",
+      "condition": "n100",
+      "comparison": "DIALS vs best simple (hybrid)",
+      "metric": "ndcg20",
+      "delta": -0.010081839412024283,
+      "ci95": [
+        -0.020892942716121753,
+        -0.0008010912580434212
+      ],
+      "p_value": 0.0484951504849515,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.11271676300578035,
+      "seed": 20261109,
+      "p_holm": 0.775922407759224,
+      "reject_05": false
+    },
+    {
+      "dataset": "electronic",
+      "condition": "n50",
+      "comparison": "DIALS vs best simple (hybrid)",
+      "metric": "recall20",
+      "delta": -0.0031470777135517037,
+      "ci95": [
+        -0.023057964033397563,
+        0.01669958253050738
+      ],
+      "p_value": 0.7748225177482252,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.04046242774566474,
+      "seed": 20261109,
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "dataset": "electronic",
+      "condition": "n50",
+      "comparison": "DIALS vs best simple (hybrid)",
+      "metric": "ndcg20",
+      "delta": -0.004720158872446684,
+      "ci95": [
+        -0.013648935257594854,
+        0.003435114401947091
+      ],
+      "p_value": 0.28377162283771623,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.11271676300578035,
+      "seed": 20261109,
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "dataset": "food",
+      "condition": "full",
+      "comparison": "DIALS vs best simple (hybrid)",
+      "metric": "recall20",
+      "delta": 0.054941768964431856,
+      "ci95": [
+        0.02796152030217186,
+        0.08223205854579792
+      ],
+      "p_value": 0.00029997000299970003,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.13314447592067988,
+      "seed": 20261109,
+      "p_holm": 0.007499250074992501,
       "reject_05": true
     },
     {
       "dataset": "food",
       "condition": "full",
-      "comparison": "DIALS vs best simple (label_knn_content)",
-      "metric": "recall20",
-      "delta": 0.04016367642429965,
+      "comparison": "DIALS vs best simple (hybrid)",
+      "metric": "ndcg20",
+      "delta": 0.02886267920140638,
       "ci95": [
-        0.012320585457979222,
-        0.06967500786905885
+        0.009341152500827536,
+        0.04704975445860845
       ],
-      "p_value": 0.006899310068993101,
+      "p_value": 0.0025997400259974,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.31444759206798867,
+      "seed": 20261109,
+      "p_holm": 0.0597940205979402,
+      "reject_05": false
+    },
+    {
+      "dataset": "food",
+      "condition": "n600",
+      "comparison": "DIALS vs best simple (hybrid)",
+      "metric": "recall20",
+      "delta": 0.030988353792886367,
+      "ci95": [
+        0.008164935473717343,
+        0.054611268492288326
+      ],
+      "p_value": 0.0108989101089891,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.09631728045325778,
+      "seed": 20261109,
+      "p_holm": 0.2070792920707929,
+      "reject_05": false
+    },
+    {
+      "dataset": "food",
+      "condition": "n600",
+      "comparison": "DIALS vs best simple (hybrid)",
+      "metric": "ndcg20",
+      "delta": 0.011757527876993698,
+      "ci95": [
+        -0.004957227480003788,
+        0.027978121367679205
+      ],
+      "p_value": 0.16008399160083991,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.24362606232294617,
+      "seed": 20261109,
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "dataset": "food",
+      "condition": "n300",
+      "comparison": "DIALS vs best simple (hybrid)",
+      "metric": "recall20",
+      "delta": 0.016572237960339943,
+      "ci95": [
+        -0.001133931381806737,
+        0.03525338369531004
+      ],
+      "p_value": 0.07229277072292771,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0679886685552408,
+      "seed": 20261109,
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "dataset": "food",
+      "condition": "n300",
+      "comparison": "DIALS vs best simple (hybrid)",
+      "metric": "ndcg20",
+      "delta": 0.0017167078177804183,
+      "ci95": [
+        -0.011315375689725857,
+        0.014984765322450659
+      ],
+      "p_value": 0.7905209479052094,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.18980169971671387,
+      "seed": 20261109,
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "dataset": "food",
+      "condition": "n100",
+      "comparison": "DIALS vs best simple (hybrid)",
+      "metric": "recall20",
+      "delta": -0.00934844192634561,
+      "ci95": [
+        -0.02935473717343406,
+        0.010247088448221583
+      ],
+      "p_value": 0.3728627137286271,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.036827195467422094,
+      "seed": 20261109,
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "dataset": "food",
+      "condition": "n100",
+      "comparison": "DIALS vs best simple (hybrid)",
+      "metric": "ndcg20",
+      "delta": -0.031081205182735508,
+      "ci95": [
+        -0.04683861458753799,
+        -0.01663785213737768
+      ],
+      "p_value": 9.999000099990002e-05,
       "queries": 353,
       "clusters": 353,
       "bootstrap": 2000,
       "permutations": 10000,
       "query_win_fraction": 0.12464589235127478,
       "seed": 20261109,
-      "p_holm": 0.101989801019898,
-      "reject_05": false
-    },
-    {
-      "dataset": "food",
-      "condition": "full",
-      "comparison": "DIALS vs best simple (label_knn_content)",
-      "metric": "ndcg20",
-      "delta": 0.027108106680565475,
-      "ci95": [
-        0.007753295413723162,
-        0.048299567793649086
-      ],
-      "p_value": 0.0115988401159884,
-      "queries": 353,
-      "clusters": 353,
-      "bootstrap": 2000,
-      "permutations": 10000,
-      "query_win_fraction": 0.3031161473087819,
-      "seed": 20261109,
-      "p_holm": 0.1275872412758724,
-      "reject_05": false
-    },
-    {
-      "dataset": "food",
-      "condition": "n600",
-      "comparison": "DIALS vs best simple (label_knn_content)",
-      "metric": "recall20",
-      "delta": 0.017201762669184766,
-      "ci95": [
-        -0.01524000629524709,
-        0.0485843563109852
-      ],
-      "p_value": 0.3047695230476952,
-      "queries": 353,
-      "clusters": 353,
-      "bootstrap": 2000,
-      "permutations": 10000,
-      "query_win_fraction": 0.11331444759206799,
-      "seed": 20261109,
-      "p_holm": 1.0,
-      "reject_05": false
-    },
-    {
-      "dataset": "food",
-      "condition": "n600",
-      "comparison": "DIALS vs best simple (label_knn_content)",
-      "metric": "ndcg20",
-      "delta": -0.0037762767203541937,
-      "ci95": [
-        -0.024158538497315307,
-        0.016284300066748414
-      ],
-      "p_value": 0.7017298270172982,
-      "queries": 353,
-      "clusters": 353,
-      "bootstrap": 2000,
-      "permutations": 10000,
-      "query_win_fraction": 0.2237960339943343,
-      "seed": 20261109,
-      "p_holm": 1.0,
-      "reject_05": false
-    },
-    {
-      "dataset": "food",
-      "condition": "n300",
-      "comparison": "DIALS vs best simple (label_knn_content)",
-      "metric": "recall20",
-      "delta": -0.01564368901479383,
-      "ci95": [
-        -0.04519948064211521,
-        0.012324913440352522
-      ],
-      "p_value": 0.3006699330066993,
-      "queries": 353,
-      "clusters": 353,
-      "bootstrap": 2000,
-      "permutations": 10000,
-      "query_win_fraction": 0.0708215297450425,
-      "seed": 20261109,
-      "p_holm": 1.0,
-      "reject_05": false
-    },
-    {
-      "dataset": "food",
-      "condition": "n300",
-      "comparison": "DIALS vs best simple (label_knn_content)",
-      "metric": "ndcg20",
-      "delta": -0.026049555183530086,
-      "ci95": [
-        -0.04527799073312724,
-        -0.007566780366020258
-      ],
-      "p_value": 0.006799320067993201,
-      "queries": 353,
-      "clusters": 353,
-      "bootstrap": 2000,
-      "permutations": 10000,
-      "query_win_fraction": 0.1643059490084986,
-      "seed": 20261109,
-      "p_holm": 0.101989801019898,
-      "reject_05": false
-    },
-    {
-      "dataset": "food",
-      "condition": "n100",
-      "comparison": "DIALS vs best simple (label_knn_content)",
-      "metric": "recall20",
-      "delta": -0.082766761095373,
-      "ci95": [
-        -0.11092304060434371,
-        -0.05536473087818699
-      ],
-      "p_value": 9.999000099990002e-05,
-      "queries": 353,
-      "clusters": 353,
-      "bootstrap": 2000,
-      "permutations": 10000,
-      "query_win_fraction": 0.028328611898016998,
-      "seed": 20261109,
-      "p_holm": 0.0029997000299970007,
-      "reject_05": true
-    },
-    {
-      "dataset": "food",
-      "condition": "n100",
-      "comparison": "DIALS vs best simple (label_knn_content)",
-      "metric": "ndcg20",
-      "delta": -0.09198637416599473,
-      "ci95": [
-        -0.11595746296551354,
-        -0.0684152411618989
-      ],
-      "p_value": 9.999000099990002e-05,
-      "queries": 353,
-      "clusters": 353,
-      "bootstrap": 2000,
-      "permutations": 10000,
-      "query_win_fraction": 0.1048158640226629,
-      "seed": 20261109,
       "p_holm": 0.0029997000299970007,
       "reject_05": true
     },
     {
       "dataset": "food",
       "condition": "n50",
-      "comparison": "DIALS vs best simple (label_knn_content)",
+      "comparison": "DIALS vs best simple (hybrid)",
       "metric": "recall20",
-      "delta": -0.0780138495435946,
+      "delta": -0.007349700975763298,
       "ci95": [
-        -0.10502400062952472,
-        -0.0507215926975134
+        -0.0266938149197356,
+        0.011733947119924409
       ],
-      "p_value": 9.999000099990002e-05,
+      "p_value": 0.47125287471252875,
       "queries": 353,
       "clusters": 353,
       "bootstrap": 2000,
       "permutations": 10000,
-      "query_win_fraction": 0.0339943342776204,
+      "query_win_fraction": 0.05099150141643059,
       "seed": 20261109,
-      "p_holm": 0.0029997000299970007,
-      "reject_05": true
+      "p_holm": 1.0,
+      "reject_05": false
     },
     {
       "dataset": "food",
       "condition": "n50",
-      "comparison": "DIALS vs best simple (label_knn_content)",
+      "comparison": "DIALS vs best simple (hybrid)",
       "metric": "ndcg20",
-      "delta": -0.0799423767428473,
+      "delta": -0.022241547710645827,
       "ci95": [
-        -0.10234396194405537,
-        -0.05851702660932889
+        -0.03236022996241919,
+        -0.01199434350263548
       ],
       "p_value": 9.999000099990002e-05,
       "queries": 353,
       "clusters": 353,
       "bootstrap": 2000,
       "permutations": 10000,
-      "query_win_fraction": 0.1048158640226629,
+      "query_win_fraction": 0.11614730878186968,
       "seed": 20261109,
       "p_holm": 0.0029997000299970007,
       "reject_05": true
@@ -1305,19 +1269,19 @@
     {
       "dataset": "clothing",
       "condition": "full",
-      "comparison": "DIALS vs best simple (label_knn_content)",
+      "comparison": "DIALS vs best simple (hybrid)",
       "metric": "recall20",
-      "delta": 0.08757112908056304,
+      "delta": 0.10142258161126086,
       "ci95": [
-        0.058050314465408794,
-        0.11826070679844261
+        0.06826856843366276,
+        0.13615303983228508
       ],
       "p_value": 9.999000099990002e-05,
       "queries": 371,
       "clusters": 371,
       "bootstrap": 2000,
       "permutations": 10000,
-      "query_win_fraction": 0.18598382749326145,
+      "query_win_fraction": 0.18867924528301888,
       "seed": 20261109,
       "p_holm": 0.0029997000299970007,
       "reject_05": true
@@ -1325,19 +1289,19 @@
     {
       "dataset": "clothing",
       "condition": "full",
-      "comparison": "DIALS vs best simple (label_knn_content)",
+      "comparison": "DIALS vs best simple (hybrid)",
       "metric": "ndcg20",
-      "delta": 0.054532603403221275,
+      "delta": 0.07942701814314515,
       "ci95": [
-        0.033284932855523613,
-        0.07765171092310191
+        0.058782104642907354,
+        0.1002198160909077
       ],
       "p_value": 9.999000099990002e-05,
       "queries": 371,
       "clusters": 371,
       "bootstrap": 2000,
       "permutations": 10000,
-      "query_win_fraction": 0.32075471698113206,
+      "query_win_fraction": 0.37735849056603776,
       "seed": 20261109,
       "p_holm": 0.0029997000299970007,
       "reject_05": true
@@ -1347,32 +1311,112 @@
       "condition": "n600",
       "comparison": "DIALS vs best simple (label_knn_content)",
       "metric": "recall20",
-      "delta": -0.010497154836777486,
+      "delta": 0.062952979934112,
       "ci95": [
-        -0.03656895777178796,
-        0.014605420784666036
+        0.030920934411500445,
+        0.09402777777777774
       ],
-      "p_value": 0.4263573642635736,
+      "p_value": 0.00039996000399960006,
       "queries": 371,
       "clusters": 371,
       "bootstrap": 2000,
       "permutations": 10000,
-      "query_win_fraction": 0.08086253369272237,
+      "query_win_fraction": 0.15363881401617252,
+      "seed": 20261109,
+      "p_holm": 0.009599040095990401,
+      "reject_05": true
+    },
+    {
+      "dataset": "clothing",
+      "condition": "n600",
+      "comparison": "DIALS vs best simple (label_knn_content)",
+      "metric": "ndcg20",
+      "delta": 0.054255825760183986,
+      "ci95": [
+        0.03439778076530811,
+        0.07440494918676455
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 371,
+      "clusters": 371,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.33423180592991913,
+      "seed": 20261109,
+      "p_holm": 0.0029997000299970007,
+      "reject_05": true
+    },
+    {
+      "dataset": "clothing",
+      "condition": "n300",
+      "comparison": "DIALS vs best simple (label_knn_content)",
+      "metric": "recall20",
+      "delta": 0.03324348607367474,
+      "ci95": [
+        0.0043122941000299465,
+        0.06320717280622933
+      ],
+      "p_value": 0.03469653034696531,
+      "queries": 371,
+      "clusters": 371,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.11320754716981132,
+      "seed": 20261109,
+      "p_holm": 0.5898410158984102,
+      "reject_05": false
+    },
+    {
+      "dataset": "clothing",
+      "condition": "n300",
+      "comparison": "DIALS vs best simple (label_knn_content)",
+      "metric": "ndcg20",
+      "delta": 0.02530251013788327,
+      "ci95": [
+        0.005163352650701895,
+        0.04484776797439019
+      ],
+      "p_value": 0.013098690130986902,
+      "queries": 371,
+      "clusters": 371,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.2641509433962264,
+      "seed": 20261109,
+      "p_holm": 0.23577642235776422,
+      "reject_05": false
+    },
+    {
+      "dataset": "clothing",
+      "condition": "n100",
+      "comparison": "DIALS vs best simple (label_knn_content)",
+      "metric": "recall20",
+      "delta": -0.01471997604073076,
+      "ci95": [
+        -0.04275344414495357,
+        0.010559673554956557
+      ],
+      "p_value": 0.28087191280871915,
+      "queries": 371,
+      "clusters": 371,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0646900269541779,
       "seed": 20261109,
       "p_holm": 1.0,
       "reject_05": false
     },
     {
       "dataset": "clothing",
-      "condition": "n600",
+      "condition": "n100",
       "comparison": "DIALS vs best simple (label_knn_content)",
       "metric": "ndcg20",
-      "delta": -0.007813382907795234,
+      "delta": -0.01598926296788478,
       "ci95": [
-        -0.024796438270361786,
-        0.008872617017766602
+        -0.03388626332498887,
+        0.0001026044169954599
       ],
-      "p_value": 0.3608639136086391,
+      "p_value": 0.0731926807319268,
       "queries": 371,
       "clusters": 371,
       "bootstrap": 2000,
@@ -1384,123 +1428,43 @@
     },
     {
       "dataset": "clothing",
-      "condition": "n300",
+      "condition": "n50",
       "comparison": "DIALS vs best simple (label_knn_content)",
       "metric": "recall20",
-      "delta": -0.03469601677148847,
+      "delta": -0.006588799041629233,
       "ci95": [
-        -0.060738244983528006,
-        -0.009730832584606186
+        -0.02815588499550764,
+        0.013334830787660934
       ],
-      "p_value": 0.007599240075992401,
+      "p_value": 0.5502449755024498,
       "queries": 371,
       "clusters": 371,
       "bootstrap": 2000,
       "permutations": 10000,
-      "query_win_fraction": 0.04582210242587601,
+      "query_win_fraction": 0.03234501347708895,
       "seed": 20261109,
-      "p_holm": 0.101989801019898,
+      "p_holm": 1.0,
       "reject_05": false
     },
     {
       "dataset": "clothing",
-      "condition": "n300",
-      "comparison": "DIALS vs best simple (label_knn_content)",
-      "metric": "ndcg20",
-      "delta": -0.028884367200872115,
-      "ci95": [
-        -0.04401397372424653,
-        -0.013593286120206756
-      ],
-      "p_value": 0.00029997000299970003,
-      "queries": 371,
-      "clusters": 371,
-      "bootstrap": 2000,
-      "permutations": 10000,
-      "query_win_fraction": 0.1320754716981132,
-      "seed": 20261109,
-      "p_holm": 0.005699430056994301,
-      "reject_05": true
-    },
-    {
-      "dataset": "clothing",
-      "condition": "n100",
-      "comparison": "DIALS vs best simple (label_knn_content)",
-      "metric": "recall20",
-      "delta": -0.06819407008086255,
-      "ci95": [
-        -0.09504604672057503,
-        -0.04180855046421084
-      ],
-      "p_value": 9.999000099990002e-05,
-      "queries": 371,
-      "clusters": 371,
-      "bootstrap": 2000,
-      "permutations": 10000,
-      "query_win_fraction": 0.03773584905660377,
-      "seed": 20261109,
-      "p_holm": 0.0029997000299970007,
-      "reject_05": true
-    },
-    {
-      "dataset": "clothing",
-      "condition": "n100",
-      "comparison": "DIALS vs best simple (label_knn_content)",
-      "metric": "ndcg20",
-      "delta": -0.04533432608582368,
-      "ci95": [
-        -0.06214330156102427,
-        -0.029386322470395385
-      ],
-      "p_value": 9.999000099990002e-05,
-      "queries": 371,
-      "clusters": 371,
-      "bootstrap": 2000,
-      "permutations": 10000,
-      "query_win_fraction": 0.09703504043126684,
-      "seed": 20261109,
-      "p_holm": 0.0029997000299970007,
-      "reject_05": true
-    },
-    {
-      "dataset": "clothing",
-      "condition": "n50",
-      "comparison": "DIALS vs best simple (label_knn_content)",
-      "metric": "recall20",
-      "delta": -0.08604372566636719,
-      "ci95": [
-        -0.11425613956274333,
-        -0.05897723869421987
-      ],
-      "p_value": 9.999000099990002e-05,
-      "queries": 371,
-      "clusters": 371,
-      "bootstrap": 2000,
-      "permutations": 10000,
-      "query_win_fraction": 0.018867924528301886,
-      "seed": 20261109,
-      "p_holm": 0.0029997000299970007,
-      "reject_05": true
-    },
-    {
-      "dataset": "clothing",
       "condition": "n50",
       "comparison": "DIALS vs best simple (label_knn_content)",
       "metric": "ndcg20",
-      "delta": -0.06692639968086804,
+      "delta": -0.020576774739039457,
       "ci95": [
-        -0.0871635618565462,
-        -0.04801997741648639
+        -0.03500554815095727,
+        -0.007070123701257708
       ],
-      "p_value": 9.999000099990002e-05,
+      "p_value": 0.005099490050994901,
       "queries": 371,
       "clusters": 371,
       "bootstrap": 2000,
       "permutations": 10000,
-      "query_win_fraction": 0.09433962264150944,
+      "query_win_fraction": 0.15633423180592992,
       "seed": 20261109,
-      "p_holm": 0.0029997000299970007,
-      "reject_05": true
+      "p_holm": 0.10198980101989802,
+      "reject_05": false
     }
   ]
 }

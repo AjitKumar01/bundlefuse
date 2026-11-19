@@ -1,0 +1,24 @@
+{
+ "dataset": "food",
+ "seed": 1,
+ "config": {
+  "epochs": 100,
+  "batch": 32,
+  "patience": 6,
+  "shared_lr": 0.001,
+  "fast_lr": 0.01,
+  "weight_decay": 0.001,
+  "rank": 64,
+  "hidden": 32,
+  "ablation": "labels"
+ },
+ "best_epoch": 7,
+ "epochs_run": 13,
+ "validation": {
+  "recall20": 0.590719696969697,
+  "ndcg20": 0.42115637012808343
+ },
+ "parameters": 41368,
+ "seconds": 7.0815271659666905,
+ "provenance": "the previous model's labels ablation (whole label term removed), bit-identical to TRIAD without labels"
+}

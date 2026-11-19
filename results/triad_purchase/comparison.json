@@ -1,0 +1,332 @@
+{
+ "note": "TRIAD plus a purchase-log term, on Electronic, Food and Clothing.\n\nQuestion: does a user-item signal from outside the bundles help TRIAD, used in addition to the training bundles?\n\nThe purchase log is BundleRec's user_item_pretrain.csv, a separate log that shares only 2-3 (user, item) pairs with the\nbundles and contains no validation or test bundle (results/ramen_retail/export_pretrain.json). BundleRec's\nuser_item.csv is NOT used: it holds the items of every bundle, test bundles included.\n\nWith X the user x item 0/1 matrix of the log (catalogue items only, repeated rows once), P = X^T X off the diagonal:\nP_sc is the number of users who bought both s and c. The added term mirrors the bundle graph term:\n\n    U(S, c) = theta_U log(1 + sum_{s in S} P_sc deg_s^-alpha_U deg_c^-beta_U),   deg = P 1\n\nand the gate gets one more output, w_U. Everything else is TRIAD unchanged (same split, features, configuration,\ntraining, early stopping). The log contains no training bundle, so U needs no leave-one-out correction.\nInitialization: alpha_U = beta_U = 0, theta_U = 1, w_U = 1 (the new gate row starts at zero weight, bias log(e-1),\nlike the others). New parameters: alpha_U, beta_U, theta_U and one gate output (16 + 1), 20 in all.\n\n    PYTHONPATH=.:../dials .venv/bin/python -m experiments.triad_purchase.run train [datasets] [seeds]   # default: e-commerce, 0 1 2\n    PYTHONPATH=.:../dials .venv/bin/python -m experiments.triad_purchase.run test [datasets]   # paired vs ../dials/runs, clean queries\n\nOn POG and POG_DENSE the log is the released ui_full.txt (users' interaction histories, the file CLHE's user-item graph\nuses), split into pieces of at most 30 items as for the pseudo-bundles.\n\nWrites results/triad_purchase/runs/<dataset>/seed<s>/ and results/triad_purchase/comparison.json.\n",
+ "datasets": {
+  "electronic": {
+   "learned": [
+    {
+     "alpha_U": 0.0029677595011889935,
+     "beta_U": -0.042636651545763016,
+     "theta_U": 0.9856722950935364,
+     "gate_mean": [
+      1.7416903972625732,
+      0.15168897807598114,
+      5.286715507507324,
+      0.6657674312591553
+     ],
+     "parameters": 41388,
+     "best_epoch": 7
+    },
+    {
+     "alpha_U": 0.04875042662024498,
+     "beta_U": -0.08987922221422195,
+     "theta_U": 0.9702669978141785,
+     "gate_mean": [
+      2.1739892959594727,
+      0.7634832262992859,
+      4.194198131561279,
+      0.8108675479888916
+     ],
+     "parameters": 41388,
+     "best_epoch": 10
+    },
+    {
+     "alpha_U": -0.04544980451464653,
+     "beta_U": -0.09315761923789978,
+     "theta_U": 1.0592087507247925,
+     "gate_mean": [
+      1.4233832359313965,
+      0.5641865134239197,
+      4.168026924133301,
+      0.5641191005706787
+     ],
+     "parameters": 41388,
+     "best_epoch": 4
+    }
+   ],
+   "ndcg20": {
+    "triad_purchase": 0.3538612023952249,
+    "triad": 0.33452280610186924,
+    "delta": 0.019338396293355646,
+    "ci": [
+     0.008022188246356452,
+     0.03158269356086633
+    ],
+    "p": 0.0014998500149985001,
+    "p_holm": 0.0044995500449955
+   },
+   "recall20": {
+    "triad_purchase": 0.5015093127809891,
+    "triad": 0.4669075144508671,
+    "delta": 0.03460179833012203,
+    "ci": [
+     0.014113278741168914,
+     0.05677625240847783
+    ],
+    "p": 0.0011998800119988001
+   },
+   "test_targets_linked_by_purchase": 0.44333333333333336
+  },
+  "food": {
+   "learned": [
+    {
+     "alpha_U": 0.0019567206036299467,
+     "beta_U": -0.07418827712535858,
+     "theta_U": 0.9361560344696045,
+     "gate_mean": [
+      2.2429213523864746,
+      0.5855198502540588,
+      4.183772087097168,
+      0.5697174668312073
+     ],
+     "parameters": 41388,
+     "best_epoch": 7
+    },
+    {
+     "alpha_U": -0.016756657510995865,
+     "beta_U": -0.11541418731212616,
+     "theta_U": 0.9042585492134094,
+     "gate_mean": [
+      2.306192636489868,
+      0.8933344483375549,
+      3.7024946212768555,
+      0.7625371813774109
+     ],
+     "parameters": 41388,
+     "best_epoch": 7
+    },
+    {
+     "alpha_U": -0.04276910796761513,
+     "beta_U": -0.16861560940742493,
+     "theta_U": 1.0141772031784058,
+     "gate_mean": [
+      2.1646153926849365,
+      0.6471030116081238,
+      4.363942623138428,
+      0.5077342391014099
+     ],
+     "parameters": 41388,
+     "best_epoch": 6
+    }
+   ],
+   "ndcg20": {
+    "triad_purchase": 0.4857894481818783,
+    "triad": 0.4738321448439198,
+    "delta": 0.011957303337958539,
+    "ci": [
+     0.00281787194154463,
+     0.02141127285377856
+    ],
+    "p": 0.010698930106989302,
+    "p_holm": 0.021397860213978603
+   },
+   "recall20": {
+    "triad_purchase": 0.6288951841359773,
+    "triad": 0.6177840730248663,
+    "delta": 0.011111111111111113,
+    "ci": [
+     -0.002124645892351274,
+     0.025213251495121176
+    ],
+    "p": 0.10988901109889011
+   },
+   "test_targets_linked_by_purchase": 0.3059581320450886
+  },
+  "clothing": {
+   "learned": [
+    {
+     "alpha_U": 0.0498175248503685,
+     "beta_U": -0.02191832661628723,
+     "theta_U": 0.9864456653594971,
+     "gate_mean": [
+      2.4128570556640625,
+      0.8110199570655823,
+      5.964474678039551,
+      1.07157301902771
+     ],
+     "parameters": 41388,
+     "best_epoch": 5
+    },
+    {
+     "alpha_U": 0.174029141664505,
+     "beta_U": 0.0879533588886261,
+     "theta_U": 1.0010509490966797,
+     "gate_mean": [
+      2.879167079925537,
+      1.0324703454971313,
+      5.470340728759766,
+      1.6060634851455688
+     ],
+     "parameters": 41388,
+     "best_epoch": 10
+    },
+    {
+     "alpha_U": 0.09653932601213455,
+     "beta_U": 0.030345575883984566,
+     "theta_U": 0.9896904230117798,
+     "gate_mean": [
+      2.6462581157684326,
+      1.2601388692855835,
+      5.686168670654297,
+      1.0715758800506592
+     ],
+     "parameters": 41388,
+     "best_epoch": 8
+    }
+   ],
+   "ndcg20": {
+    "triad_purchase": 0.4428616200730609,
+    "triad": 0.4387577783582936,
+    "delta": 0.004103841714767216,
+    "ci": [
+     -0.000677898055826862,
+     0.008976716589470243
+    ],
+    "p": 0.100989901009899,
+    "p_holm": 0.100989901009899
+   },
+   "recall20": {
+    "triad_purchase": 0.5945193171608266,
+    "triad": 0.5926624737945493,
+    "delta": 0.0018568433662773285,
+    "ci": [
+     -0.004043126684636119,
+     0.008056678646301284
+    ],
+    "p": 0.5625437456254374
+   },
+   "test_targets_linked_by_purchase": 0.1319073083778966
+  },
+  "pog_dense": {
+   "learned": [
+    {
+     "alpha_U": -0.15055710077285767,
+     "beta_U": 0.2770548462867737,
+     "theta_U": 0.8287063837051392,
+     "gate_mean": [
+      5.729881763458252,
+      1.6062307357788086,
+      2.6693854331970215,
+      0.8579906225204468
+     ],
+     "parameters": 41388,
+     "best_epoch": 29
+    },
+    {
+     "alpha_U": -0.16490581631660461,
+     "beta_U": 0.33504605293273926,
+     "theta_U": 0.7960269451141357,
+     "gate_mean": [
+      5.489688873291016,
+      0.8389450311660767,
+      2.8425400257110596,
+      0.9240175485610962
+     ],
+     "parameters": 41388,
+     "best_epoch": 27
+    },
+    {
+     "alpha_U": -0.19548112154006958,
+     "beta_U": 0.3241523802280426,
+     "theta_U": 0.878499448299408,
+     "gate_mean": [
+      5.078555107116699,
+      0.7933117747306824,
+      2.9974241256713867,
+      0.9234983325004578
+     ],
+     "parameters": 41388,
+     "best_epoch": 19
+    }
+   ],
+   "test_queries": 5547,
+   "ndcg20": {
+    "triad_purchase": 0.27910017759796574,
+    "triad": 0.2781326469188584,
+    "delta": 0.0009675306791073787,
+    "ci": [
+     -0.00023192057033272784,
+     0.0022028018669971584
+    ],
+    "p": 0.11208879112088792,
+    "p_holm": 0.11208879112088792
+   },
+   "recall20": {
+    "triad_purchase": 0.37435650902389683,
+    "triad": 0.3741562005488452,
+    "delta": 0.0002003084750515794,
+    "ci": [
+     -0.0017627145804538988,
+     0.002163581916150869
+    ],
+    "p": 0.8412158784121588
+   },
+   "test_targets_linked_by_purchase": 0.23081110506260208
+  },
+  "pog": {
+   "learned": [
+    {
+     "alpha_U": 0.1188473105430603,
+     "beta_U": 0.19711579382419586,
+     "theta_U": 1.8636527061462402,
+     "gate_mean": [
+      4.48924446105957,
+      0.6935691237449646,
+      2.1000208854675293,
+      3.6861343383789062
+     ],
+     "parameters": 41388,
+     "best_epoch": 41
+    },
+    {
+     "alpha_U": 0.09033402800559998,
+     "beta_U": 0.15948955714702606,
+     "theta_U": 1.6996341943740845,
+     "gate_mean": [
+      3.3435449600219727,
+      1.017337441444397,
+      3.5528621673583984,
+      4.2467427253723145
+     ],
+     "parameters": 41388,
+     "best_epoch": 11
+    },
+    {
+     "alpha_U": 0.10530878603458405,
+     "beta_U": 0.18446822464466095,
+     "theta_U": 1.9014760255813599,
+     "gate_mean": [
+      4.162493705749512,
+      0.6596706509590149,
+      2.63460636138916,
+      3.6758456230163574
+     ],
+     "parameters": 41388,
+     "best_epoch": 29
+    }
+   ],
+   "test_queries": 3995,
+   "ndcg20": {
+    "triad_purchase": 0.03185989703326693,
+    "triad": 0.030612740591310802,
+    "delta": 0.0012471564419561279,
+    "ci": [
+     -2.181673466286591e-05,
+     0.0025722708764313886
+    ],
+    "p": 0.05549445055494451,
+    "p_holm": 0.11098890110988902
+   },
+   "recall20": {
+    "triad_purchase": 0.052204144068975104,
+    "triad": 0.05235711305798915,
+    "delta": -0.00015296898901404535,
+    "ci": [
+     -0.001933319427061605,
+     0.0016687526074259489
+    ],
+    "p": 0.8728127187281272
+   },
+   "test_targets_linked_by_purchase": 0.008203542979431697
+  }
+ }
+}

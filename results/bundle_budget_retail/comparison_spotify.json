@@ -46,8 +46,8 @@
         },
         "means": {
           "DIALS": [
-            0.18365124107479236,
-            0.2562208437519258
+            0.18369877005375776,
+            0.2562473799414571
           ],
           "best simple (label_knn_content)": [
             0.14669818448174818,
@@ -102,8 +102,8 @@
         },
         "means": {
           "DIALS": [
-            0.16551858699762453,
-            0.23215119820649602
+            0.16551102941082066,
+            0.23216919721646495
           ],
           "best simple (label_knn_content)": [
             0.14330620403623154,
@@ -162,8 +162,8 @@
         },
         "means": {
           "DIALS": [
-            0.1497191994320742,
-            0.21542773097902887
+            0.14966474286135867,
+            0.21541771417084818
           ],
           "best simple (label_knn_content)": [
             0.12984578342856454,
@@ -222,8 +222,8 @@
         },
         "means": {
           "DIALS": [
-            0.1448187495453396,
-            0.20742589863696473
+            0.1448224812958445,
+            0.20742007780381394
           ],
           "best simple (label_knn_content)": [
             0.1269862221221587,
@@ -282,8 +282,8 @@
         },
         "means": {
           "DIALS": [
-            0.13627333404179234,
-            0.19990266958432187
+            0.13643260010011649,
+            0.19994175800759026
           ],
           "best simple (label_knn_content)": [
             0.12355805453930375,
@@ -342,8 +342,8 @@
         },
         "means": {
           "DIALS": [
-            0.12843267399041103,
-            0.18838171497511452
+            0.1284242089137774,
+            0.18834531031488186
           ],
           "best simple (label_knn_content)": [
             0.12204966957124094,
@@ -402,8 +402,8 @@
         },
         "means": {
           "DIALS": [
-            0.12354686880474709,
-            0.18034300002025822
+            0.12355602405883788,
+            0.18035396687248645
           ],
           "best simple (label_knn_content)": [
             0.12099223779072142,
@@ -460,8 +460,8 @@
         },
         "means": {
           "DIALS": [
-            0.16742106928940578,
-            0.2824496478970466
+            0.16739953511294225,
+            0.28231368372856086
           ],
           "best simple (label_knn_content)": [
             0.14663340897681162,
@@ -516,8 +516,8 @@
         },
         "means": {
           "DIALS": [
-            0.15279877683191737,
-            0.2596216595248658
+            0.1527983257434933,
+            0.2595834525161977
           ],
           "best simple (label_knn_content)": [
             0.13350521541102361,
@@ -576,8 +576,8 @@
         },
         "means": {
           "DIALS": [
-            0.14185236441260546,
-            0.244736483496022
+            0.14184444956294426,
+            0.24474843437685992
           ],
           "best simple (label_knn_content)": [
             0.12488713860754669,
@@ -636,8 +636,8 @@
         },
         "means": {
           "DIALS": [
-            0.13633695308053873,
-            0.23617738184668982
+            0.13635473553484034,
+            0.23618746821279868
           ],
           "best simple (label_knn_content)": [
             0.12149633337668439,
@@ -696,8 +696,8 @@
         },
         "means": {
           "DIALS": [
-            0.12701658515798253,
-            0.22219284013703572
+            0.12703788599609978,
+            0.2221744626400892
           ],
           "best simple (label_knn_content)": [
             0.11479791583169308,
@@ -756,8 +756,8 @@
         },
         "means": {
           "DIALS": [
-            0.11589569917389196,
-            0.20296452263448186
+            0.11590004003473314,
+            0.2029570990240325
           ],
           "best simple (label_knn_content)": [
             0.1003607312832124,
@@ -816,8 +816,8 @@
         },
         "means": {
           "DIALS": [
-            0.10805811974121919,
-            0.1891597211481459
+            0.1080302115077744,
+            0.18913440561922193
           ],
           "best simple (label_knn_content)": [
             0.09930793342341805,
@@ -837,10 +837,10 @@
       "condition": "full",
       "comparison": "DIALS vs best simple (label_knn_content)",
       "metric": "recall20",
-      "delta": 0.03695305659304451,
+      "delta": 0.03700058557200988,
       "ci95": [
-        0.033305181758022474,
-        0.04057991281175531
+        0.033340782438851205,
+        0.04059660072263203
       ],
       "p_value": 9.999000099990002e-05,
       "queries": 2497,
@@ -857,10 +857,10 @@
       "condition": "full",
       "comparison": "DIALS vs best simple (label_knn_content)",
       "metric": "ndcg20",
-      "delta": 0.050876542487833645,
+      "delta": 0.050903078677364794,
       "ci95": [
-        0.04635802964998701,
-        0.055508537584844315
+        0.0463506030368017,
+        0.055545661758323234
       ],
       "p_value": 9.999000099990002e-05,
       "queries": 2497,
@@ -877,10 +877,10 @@
       "condition": "n3000",
       "comparison": "DIALS vs best simple (label_knn_content)",
       "metric": "recall20",
-      "delta": 0.022212382961393086,
+      "delta": 0.022204825374589194,
       "ci95": [
-        0.01895220868024068,
-        0.02539994712990681
+        0.018957304933120183,
+        0.02536174030532405
       ],
       "p_value": 9.999000099990002e-05,
       "queries": 2497,
@@ -897,17 +897,17 @@
       "condition": "n3000",
       "comparison": "DIALS vs best simple (label_knn_content)",
       "metric": "ndcg20",
-      "delta": 0.029523945528125227,
+      "delta": 0.029541944538093654,
       "ci95": [
-        0.025745661240148005,
-        0.03325821735379072
+        0.025748277488712994,
+        0.03328918122296254
       ],
       "p_value": 9.999000099990002e-05,
       "queries": 2497,
       "clusters": 2496,
       "bootstrap": 2000,
       "permutations": 10000,
-      "query_win_fraction": 0.4933920704845815,
+      "query_win_fraction": 0.4929915899078895,
       "seed": 20261109,
       "p_holm": 0.0027997200279972004,
       "reject_05": true
@@ -917,17 +917,17 @@
       "condition": "n1000",
       "comparison": "DIALS vs best simple (label_knn_content)",
       "metric": "recall20",
-      "delta": 0.019873416003510367,
+      "delta": 0.019818959432794842,
       "ci95": [
-        0.01649273287594124,
-        0.022951439036234707
+        0.016464677251730224,
+        0.02290807261896517
       ],
       "p_value": 9.999000099990002e-05,
       "queries": 2497,
       "clusters": 2496,
       "bootstrap": 2000,
       "permutations": 10000,
-      "query_win_fraction": 0.4144973968762515,
+      "query_win_fraction": 0.41489787745294354,
       "seed": 20261109,
       "p_holm": 0.0027997200279972004,
       "reject_05": true
@@ -937,17 +937,17 @@
       "condition": "n1000",
       "comparison": "DIALS vs best simple (label_knn_content)",
       "metric": "ndcg20",
-      "delta": 0.025386736147141306,
+      "delta": 0.02537671933896044,
       "ci95": [
-        0.022118456256763664,
-        0.028883948646411348
+        0.022098613647314403,
+        0.02886675644558423
       ],
       "p_value": 9.999000099990002e-05,
       "queries": 2497,
       "clusters": 2496,
       "bootstrap": 2000,
       "permutations": 10000,
-      "query_win_fraction": 0.4809771726071286,
+      "query_win_fraction": 0.4805766920304365,
       "seed": 20261109,
       "p_holm": 0.0027997200279972004,
       "reject_05": true
@@ -957,17 +957,17 @@
       "condition": "n600",
       "comparison": "DIALS vs best simple (label_knn_content)",
       "metric": "recall20",
-      "delta": 0.017832527423181477,
+      "delta": 0.01783625917368635,
       "ci95": [
-        0.01505529604071175,
-        0.02063279737956613
+        0.015052709418132942,
+        0.020622239173344683
       ],
       "p_value": 9.999000099990002e-05,
       "queries": 2497,
       "clusters": 2496,
       "bootstrap": 2000,
       "permutations": 10000,
-      "query_win_fraction": 0.37204645574689627,
+      "query_win_fraction": 0.37244693632358833,
       "seed": 20261109,
       "p_holm": 0.0027997200279972004,
       "reject_05": true
@@ -977,10 +977,10 @@
       "condition": "n600",
       "comparison": "DIALS vs best simple (label_knn_content)",
       "metric": "ndcg20",
-      "delta": 0.021346798519285608,
+      "delta": 0.021340977686134764,
       "ci95": [
-        0.018254728075475245,
-        0.024577676718822487
+        0.018254023431362773,
+        0.02456163747153104
       ],
       "p_value": 9.999000099990002e-05,
       "queries": 2497,
@@ -997,17 +997,17 @@
       "condition": "n300",
       "comparison": "DIALS vs best simple (label_knn_content)",
       "metric": "recall20",
-      "delta": 0.012715279502488639,
+      "delta": 0.012874545560812746,
       "ci95": [
-        0.009753681676341422,
-        0.015726418985771026
+        0.009945545792903066,
+        0.01580186106443978
       ],
       "p_value": 9.999000099990002e-05,
       "queries": 2497,
       "clusters": 2496,
       "bootstrap": 2000,
       "permutations": 10000,
-      "query_win_fraction": 0.34321185422507006,
+      "query_win_fraction": 0.35082098518221866,
       "seed": 20261109,
       "p_holm": 0.0027997200279972004,
       "reject_05": true
@@ -1017,17 +1017,17 @@
       "condition": "n300",
       "comparison": "DIALS vs best simple (label_knn_content)",
       "metric": "ndcg20",
-      "delta": 0.017654343781561686,
+      "delta": 0.017693432204830144,
       "ci95": [
-        0.014421649398305036,
-        0.020981972256146456
+        0.014449145291549361,
+        0.020968865934802995
       ],
       "p_value": 9.999000099990002e-05,
       "queries": 2497,
       "clusters": 2496,
       "bootstrap": 2000,
       "permutations": 10000,
-      "query_win_fraction": 0.42170604725670807,
+      "query_win_fraction": 0.4301161393672407,
       "seed": 20261109,
       "p_holm": 0.0027997200279972004,
       "reject_05": true
@@ -1037,17 +1037,17 @@
       "condition": "n100",
       "comparison": "DIALS vs best simple (label_knn_content)",
       "metric": "recall20",
-      "delta": 0.006383004419170195,
+      "delta": 0.006374539342536533,
       "ci95": [
-        0.004082502599265927,
-        0.008777669540148796
+        0.004051741709282337,
+        0.008760194494526188
       ],
       "p_value": 9.999000099990002e-05,
       "queries": 2497,
       "clusters": 2496,
       "bootstrap": 2000,
       "permutations": 10000,
-      "query_win_fraction": 0.29034841810172207,
+      "query_win_fraction": 0.28994793752503,
       "seed": 20261109,
       "p_holm": 0.0027997200279972004,
       "reject_05": true
@@ -1057,17 +1057,17 @@
       "condition": "n100",
       "comparison": "DIALS vs best simple (label_knn_content)",
       "metric": "ndcg20",
-      "delta": 0.009782563862278744,
+      "delta": 0.009746159202046047,
       "ci95": [
-        0.0071066789651809065,
-        0.012437276325253906
+        0.007056872243471013,
+        0.012397845390321075
       ],
       "p_value": 9.999000099990002e-05,
       "queries": 2497,
       "clusters": 2496,
       "bootstrap": 2000,
       "permutations": 10000,
-      "query_win_fraction": 0.3856627953544253,
+      "query_win_fraction": 0.38526231477773326,
       "seed": 20261109,
       "p_holm": 0.0027997200279972004,
       "reject_05": true
@@ -1077,19 +1077,19 @@
       "condition": "n50",
       "comparison": "DIALS vs best simple (label_knn_content)",
       "metric": "recall20",
-      "delta": 0.0025546310140255445,
+      "delta": 0.002563786268116331,
       "ci95": [
-        0.0005492929175842951,
-        0.004676238861414843
+        0.0005568244985978421,
+        0.00468823674537075
       ],
-      "p_value": 0.0164983501649835,
+      "p_value": 0.0160983901609839,
       "queries": 2497,
       "clusters": 2496,
       "bootstrap": 2000,
       "permutations": 10000,
-      "query_win_fraction": 0.250300360432519,
+      "query_win_fraction": 0.25070084100921103,
       "seed": 20261109,
-      "p_holm": 0.0164983501649835,
+      "p_holm": 0.0160983901609839,
       "reject_05": true
     },
     {
@@ -1097,17 +1097,17 @@
       "condition": "n50",
       "comparison": "DIALS vs best simple (label_knn_content)",
       "metric": "ndcg20",
-      "delta": 0.0040165369363739725,
+      "delta": 0.004027503788602273,
       "ci95": [
-        0.0016648047396949613,
-        0.00642980757333338
+        0.001669689209994984,
+        0.006430231232695958
       ],
-      "p_value": 0.0011998800119988001,
+      "p_value": 0.0010998900109989002,
       "queries": 2497,
       "clusters": 2496,
       "bootstrap": 2000,
       "permutations": 10000,
-      "query_win_fraction": 0.3536243492190629,
+      "query_win_fraction": 0.3532238686423708,
       "seed": 20261109,
       "p_holm": 0.0027997200279972004,
       "reject_05": true
@@ -1117,17 +1117,17 @@
       "condition": "full",
       "comparison": "DIALS vs best simple (label_knn_content)",
       "metric": "recall20",
-      "delta": 0.020787660312594658,
+      "delta": 0.02076612613613098,
       "ci95": [
-        0.0179849766758871,
-        0.023608042079436904
+        0.01795000456708909,
+        0.02356159859181207
       ],
       "p_value": 9.999000099990002e-05,
       "queries": 3995,
       "clusters": 3995,
       "bootstrap": 2000,
       "permutations": 10000,
-      "query_win_fraction": 0.4282853566958698,
+      "query_win_fraction": 0.42803504380475593,
       "seed": 20261109,
       "p_holm": 0.0027997200279972004,
       "reject_05": true
@@ -1137,10 +1137,10 @@
       "condition": "full",
       "comparison": "DIALS vs best simple (label_knn_content)",
       "metric": "ndcg20",
-      "delta": 0.03555496957169167,
+      "delta": 0.035419005403206215,
       "ci95": [
-        0.031384974469129134,
-        0.039791867750605774
+        0.031258461941687105,
+        0.03962574346137815
       ],
       "p_value": 9.999000099990002e-05,
       "queries": 3995,
@@ -1157,17 +1157,17 @@
       "condition": "n3000",
       "comparison": "DIALS vs best simple (label_knn_content)",
       "metric": "recall20",
-      "delta": 0.019293561420893772,
+      "delta": 0.019293110332469828,
       "ci95": [
-        0.01704562453902383,
-        0.021664734725323268
+        0.01704083278406271,
+        0.0216918407274931
       ],
       "p_value": 9.999000099990002e-05,
       "queries": 3995,
       "clusters": 3995,
       "bootstrap": 2000,
       "permutations": 10000,
-      "query_win_fraction": 0.4550688360450563,
+      "query_win_fraction": 0.45481852315394244,
       "seed": 20261109,
       "p_holm": 0.0027997200279972004,
       "reject_05": true
@@ -1177,17 +1177,17 @@
       "condition": "n3000",
       "comparison": "DIALS vs best simple (label_knn_content)",
       "metric": "ndcg20",
-      "delta": 0.029766581409570496,
+      "delta": 0.029728374400902185,
       "ci95": [
-        0.026820547081458267,
-        0.03290225542259198
+        0.026781412815116697,
+        0.032849042756502585
       ],
       "p_value": 9.999000099990002e-05,
       "queries": 3995,
       "clusters": 3995,
       "bootstrap": 2000,
       "permutations": 10000,
-      "query_win_fraction": 0.546683354192741,
+      "query_win_fraction": 0.5469336670838548,
       "seed": 20261109,
       "p_holm": 0.0027997200279972004,
       "reject_05": true
@@ -1197,17 +1197,17 @@
       "condition": "n1000",
       "comparison": "DIALS vs best simple (label_knn_content)",
       "metric": "recall20",
-      "delta": 0.016965225805058312,
+      "delta": 0.016957310955397077,
       "ci95": [
-        0.014921028860777496,
-        0.019105188824647984
+        0.014922409546984072,
+        0.0190963010241326
       ],
       "p_value": 9.999000099990002e-05,
       "queries": 3995,
       "clusters": 3995,
       "bootstrap": 2000,
       "permutations": 10000,
-      "query_win_fraction": 0.4545682102628285,
+      "query_win_fraction": 0.45481852315394244,
       "seed": 20261109,
       "p_holm": 0.0027997200279972004,
       "reject_05": true
@@ -1217,10 +1217,10 @@
       "condition": "n1000",
       "comparison": "DIALS vs best simple (label_knn_content)",
       "metric": "ndcg20",
-      "delta": 0.025436743827982652,
+      "delta": 0.025448694708820704,
       "ci95": [
-        0.022772810810941593,
-        0.028290368665528837
+        0.022790263917973553,
+        0.028292752354213663
       ],
       "p_value": 9.999000099990002e-05,
       "queries": 3995,
@@ -1237,10 +1237,10 @@
       "condition": "n600",
       "comparison": "DIALS vs best simple (label_knn_content)",
       "metric": "recall20",
-      "delta": 0.014840619703854425,
+      "delta": 0.014858402158156012,
       "ci95": [
-        0.012805845588088192,
-        0.016930338000200922
+        0.012820600394663432,
+        0.016990198195755077
       ],
       "p_value": 9.999000099990002e-05,
       "queries": 3995,
@@ -1257,17 +1257,17 @@
       "condition": "n600",
       "comparison": "DIALS vs best simple (label_knn_content)",
       "metric": "ndcg20",
-      "delta": 0.02167361679255506,
+      "delta": 0.021683703158663855,
       "ci95": [
-        0.019149562796663862,
-        0.024373862251334963
+        0.01916432934542365,
+        0.024375573177487966
       ],
       "p_value": 9.999000099990002e-05,
       "queries": 3995,
       "clusters": 3995,
       "bootstrap": 2000,
       "permutations": 10000,
-      "query_win_fraction": 0.5121401752190238,
+      "query_win_fraction": 0.5123904881101377,
       "seed": 20261109,
       "p_holm": 0.0027997200279972004,
       "reject_05": true
@@ -1277,17 +1277,17 @@
       "condition": "n300",
       "comparison": "DIALS vs best simple (label_knn_content)",
       "metric": "recall20",
-      "delta": 0.012218669326289315,
+      "delta": 0.012239970164406547,
       "ci95": [
-        0.010191303773342174,
-        0.014236389362197387
+        0.010195283795309658,
+        0.014279357171525488
       ],
       "p_value": 9.999000099990002e-05,
       "queries": 3995,
       "clusters": 3995,
       "bootstrap": 2000,
       "permutations": 10000,
-      "query_win_fraction": 0.41451814768460576,
+      "query_win_fraction": 0.4142678347934919,
       "seed": 20261109,
       "p_holm": 0.0027997200279972004,
       "reject_05": true
@@ -1297,17 +1297,17 @@
       "condition": "n300",
       "comparison": "DIALS vs best simple (label_knn_content)",
       "metric": "ndcg20",
-      "delta": 0.018801955335604328,
+      "delta": 0.0187835778386579,
       "ci95": [
-        0.01631832009322055,
-        0.021473592469659453
+        0.016324276791690958,
+        0.021456621569327945
       ],
       "p_value": 9.999000099990002e-05,
       "queries": 3995,
       "clusters": 3995,
       "bootstrap": 2000,
       "permutations": 10000,
-      "query_win_fraction": 0.4923654568210263,
+      "query_win_fraction": 0.4921151439299124,
       "seed": 20261109,
       "p_holm": 0.0027997200279972004,
       "reject_05": true
@@ -1317,17 +1317,17 @@
       "condition": "n100",
       "comparison": "DIALS vs best simple (label_knn_content)",
       "metric": "recall20",
-      "delta": 0.01553496789068008,
+      "delta": 0.01553930875152124,
       "ci95": [
-        0.013536258392885532,
-        0.01751703374981196
+        0.013535967365441229,
+        0.01752367837192821
       ],
       "p_value": 9.999000099990002e-05,
       "queries": 3995,
       "clusters": 3995,
       "bootstrap": 2000,
       "permutations": 10000,
-      "query_win_fraction": 0.3979974968710889,
+      "query_win_fraction": 0.39824780976220275,
       "seed": 20261109,
       "p_holm": 0.0027997200279972004,
       "reject_05": true
@@ -1337,17 +1337,17 @@
       "condition": "n100",
       "comparison": "DIALS vs best simple (label_knn_content)",
       "metric": "ndcg20",
-      "delta": 0.01941069211606755,
+      "delta": 0.01940326850561843,
       "ci95": [
-        0.01692687392390907,
-        0.022030223858396192
+        0.016912987527447364,
+        0.022031011523509253
       ],
       "p_value": 9.999000099990002e-05,
       "queries": 3995,
       "clusters": 3995,
       "bootstrap": 2000,
       "permutations": 10000,
-      "query_win_fraction": 0.4818523153942428,
+      "query_win_fraction": 0.4823529411764706,
       "seed": 20261109,
       "p_holm": 0.0027997200279972004,
       "reject_05": true
@@ -1357,17 +1357,17 @@
       "condition": "n50",
       "comparison": "DIALS vs best simple (label_knn_content)",
       "metric": "recall20",
-      "delta": 0.008750186317801304,
+      "delta": 0.00872227808435647,
       "ci95": [
-        0.007294766122482851,
-        0.010331923228873207
+        0.007262202083030368,
+        0.010304407142858915
       ],
       "p_value": 9.999000099990002e-05,
       "queries": 3995,
       "clusters": 3995,
       "bootstrap": 2000,
       "permutations": 10000,
-      "query_win_fraction": 0.35068836045056323,
+      "query_win_fraction": 0.35143929912390487,
       "seed": 20261109,
       "p_holm": 0.0027997200279972004,
       "reject_05": true
@@ -1377,17 +1377,17 @@
       "condition": "n50",
       "comparison": "DIALS vs best simple (label_knn_content)",
       "metric": "ndcg20",
-      "delta": 0.012211196152667494,
+      "delta": 0.012185880623743565,
       "ci95": [
-        0.010179589197619502,
-        0.014358552465106986
+        0.010141500540086263,
+        0.014334919259384137
       ],
       "p_value": 9.999000099990002e-05,
       "queries": 3995,
       "clusters": 3995,
       "bootstrap": 2000,
       "permutations": 10000,
-      "query_win_fraction": 0.43854818523153943,
+      "query_win_fraction": 0.4390488110137672,
       "seed": 20261109,
       "p_holm": 0.0027997200279972004,
       "reject_05": true

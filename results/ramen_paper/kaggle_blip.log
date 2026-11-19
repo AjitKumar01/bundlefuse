@@ -1,0 +1,107 @@
+[{"stream_name":"stdout","time":0.559582654,"data":"$ pip -q install torch_geometric 2\u003e\u00261 | tail -1 || true\n"}
+,{"stream_name":"stdout","time":5.694880687,"data":"$ git clone -q https://github.com/Rec4Fun/RaMen.git /kaggle/working/RaMen \u0026\u0026 cd /kaggle/working/RaMen \u0026\u0026 git checkout -q b96038b \u0026\u0026 git log -1 --format=%H\n"}
+,{"stream_name":"stdout","time":6.76317443,"data":"b96038b7f82e8ca1a5c73aee63d6e2738bc9092b\n"}
+,{"stream_name":"stdout","time":7.240306572,"data":"$ tar xzf /kaggle/input/datasets/ajit1729/clhe-retail-blip/data.tgz -C /kaggle/working/RaMen/datasets --strip-components=1\n"}
+,{"stream_name":"stdout","time":8.210383876,"data":"$ ls /kaggle/working/RaMen/datasets\n"}
+,{"stream_name":"stdout","time":8.214636326,"data":"clothing_clean_blip\n"}
+,{"stream_name":"stdout","time":8.214658309,"data":"electronic_clean_blip\n"}
+,{"stream_name":"stdout","time":8.214663906,"data":"food_clean_blip\n"}
+,{"stream_name":"stdout","time":8.555225658,"data":"$ nvidia-smi --query-gpu=name,memory.total --format=csv\n"}
+,{"stream_name":"stdout","time":8.584686801,"data":"name, memory.total [MiB]\n"}
+,{"stream_name":"stdout","time":8.584709796,"data":"Tesla T4, 15360 MiB\n"}
+,{"stream_name":"stdout","time":8.584730906,"data":"Tesla T4, 15360 MiB\n"}
+,{"stream_name":"stdout","time":8.590944135,"data":"$ cd /kaggle/working/RaMen \u0026\u0026 python /kaggle/working/code/ramen_paper_runner.py --dataset electronic_clean_blip --L1 2 --L2 2 --N 2 --Z 2 --H 8 --beta .5 --gamma .5 --lambda1 .5 --check 2\u003e\u00261 | tail -1\n"}
+,{"stream_name":"stdout","time":35.067915538,"data":"parameters 4,230,016 | without gradient: none | test scores identical: False (max difference 1.19e-07, scores up to 0.85)\n"}
+,{"stream_name":"stdout","time":35.213284637,"data":"$ cd /kaggle/working/RaMen \u0026\u0026 python /kaggle/working/code/ramen_paper_runner.py --dataset food_clean_blip --L1 2 --L2 2 --N 2 --Z 2 --H 8 --beta .5 --gamma .5 --lambda1 .5 --check 2\u003e\u00261 | tail -1\n"}
+,{"stream_name":"stdout","time":44.256638215,"data":"parameters 4,298,624 | without gradient: none | test scores identical: False (max difference 1.19e-07, scores up to 0.82)\n"}
+,{"stream_name":"stdout","time":44.39547048,"data":"$ cd /kaggle/working/RaMen \u0026\u0026 python /kaggle/working/code/ramen_paper_runner.py --dataset clothing_clean_blip --L1 2 --L2 2 --N 2 --Z 2 --H 8 --beta .5 --gamma .5 --lambda1 .5 --check 2\u003e\u00261 | tail -1\n"}
+,{"stream_name":"stdout","time":53.424150127,"data":"parameters 4,482,944 | without gradient: none | test scores identical: False (max difference 1.79e-07, scores up to 0.83)\n"}
+,{"stream_name":"stdout","time":130.038386383,"data":"food_clean_blip/L12_L21_N5_Z3_H64_b0.3_g0.6_l0.4_seed2306 epoch 28/89 val R20 0.2967 N20 0.1888 test R20 0.2975 N20 0.1939 (66s)\n"}
+,{"stream_name":"stdout","time":163.042928084,"data":"clothing_clean_blip/L12_L21_N5_Z3_H64_b0.3_g0.6_l0.4_seed2306 epoch 65/126 val R20 0.2600 N20 0.1979 test R20 0.1790 N20 0.1205 (98s)\n"}
+,{"stream_name":"stdout","time":180.269267978,"data":"electronic_clean_blip/L12_L21_N5_Z3_H64_b0.3_g0.6_l0.4_seed2306 epoch 116/177 val R20 0.2215 N20 0.1434 test R20 0.2390 N20 0.1606 (114s)\n"}
+,{"stream_name":"stdout","time":292.92479364,"data":"electronic_clean_blip/L14_L22_N1_Z1_H16_b0.8_g0.3_l0.3_seed2306 epoch 167/228 val R20 0.2805 N20 0.1802 test R20 0.3407 N20 0.2229 (151s)\n"}
+,{"stream_name":"stdout","time":294.062840372,"data":"clothing_clean_blip/L14_L22_N1_Z1_H16_b0.8_g0.3_l0.3_seed2306 epoch 95/156 val R20 0.3409 N20 0.2434 test R20 0.2355 N20 0.1674 (104s)\n"}
+,{"stream_name":"stdout","time":316.571580377,"data":"food_clean_blip/L14_L22_N1_Z1_H16_b0.8_g0.3_l0.3_seed2306 epoch 161/222 val R20 0.3352 N20 0.2392 test R20 0.3481 N20 0.2450 (141s)\n"}
+,{"stream_name":"stdout","time":368.242834861,"data":"food_clean_blip/L12_L21_N1_Z3_H8_b0.2_g0.7_l0.2_seed2306 epoch 43/104 val R20 0.3156 N20 0.2282 test R20 0.2842 N20 0.2038 (65s)\n"}
+,{"stream_name":"stdout","time":394.956766843,"data":"clothing_clean_blip/L12_L21_N1_Z3_H8_b0.2_g0.7_l0.2_seed2306 epoch 39/100 val R20 0.3005 N20 0.2372 test R20 0.2155 N20 0.1671 (66s)\n"}
+,{"stream_name":"stdout","time":413.214102544,"data":"electronic_clean_blip/L12_L21_N1_Z3_H8_b0.2_g0.7_l0.2_seed2306 epoch 113/174 val R20 0.2961 N20 0.2113 test R20 0.2843 N20 0.1848 (107s)\n"}
+,{"stream_name":"stdout","time":517.940711567,"data":"clothing_clean_blip/L13_L22_N5_Z5_H16_b0.8_g0.7_l0.9_seed2306 epoch 61/122 val R20 0.3092 N20 0.2311 test R20 0.2101 N20 0.1539 (93s)\n"}
+,{"stream_name":"stdout","time":523.285151738,"data":"food_clean_blip/L13_L22_N5_Z5_H16_b0.8_g0.7_l0.9_seed2306 epoch 87/148 val R20 0.3467 N20 0.2391 test R20 0.3208 N20 0.2318 (117s)\n"}
+,{"stream_name":"stdout","time":553.879597436,"data":"electronic_clean_blip/L13_L22_N5_Z5_H16_b0.8_g0.7_l0.9_seed2306 epoch 184/245 val R20 0.2601 N20 0.1737 test R20 0.2875 N20 0.2106 (174s)\n"}
+,{"stream_name":"stdout","time":646.486292175,"data":"clothing_clean_blip/L11_L25_N5_Z3_H4_b0.1_g0.4_l0.7_seed2306 epoch 37/98 val R20 0.1779 N20 0.1030 test R20 0.1060 N20 0.0586 (81s)\n"}
+,{"stream_name":"stdout","time":744.316715953,"data":"food_clean_blip/L11_L25_N5_Z3_H4_b0.1_g0.4_l0.7_seed2306 epoch 222/283 val R20 0.2707 N20 0.1702 test R20 0.2445 N20 0.1607 (208s)\n"}
+,{"stream_name":"stdout","time":745.051912478,"data":"electronic_clean_blip/L11_L25_N5_Z3_H4_b0.1_g0.4_l0.7_seed2306 epoch 243/304 val R20 0.2443 N20 0.1456 test R20 0.2377 N20 0.1537 (214s)\n"}
+,{"stream_name":"stdout","time":799.469644301,"data":"electronic_clean_blip/L13_L22_N1_Z1_H16_b0.9_g0.5_l0.9_seed2306 epoch 159/220 val R20 0.2889 N20 0.1994 test R20 0.3408 N20 0.2325 (142s)\n"}
+,{"stream_name":"stdout","time":877.736553183,"data":"clothing_clean_blip/L13_L22_N1_Z1_H16_b0.9_g0.5_l0.9_seed2306 epoch 122/183 val R20 0.3390 N20 0.2720 test R20 0.2378 N20 0.1839 (123s)\n"}
+,{"stream_name":"stdout","time":887.794586547,"data":"food_clean_blip/L13_L22_N1_Z1_H16_b0.9_g0.5_l0.9_seed2306 epoch 134/195 val R20 0.3379 N20 0.2330 test R20 0.3555 N20 0.2627 (131s)\n"}
+,{"stream_name":"stdout","time":973.728915448,"data":"electronic_clean_blip/L13_L25_N2_Z4_H64_b0.6_g0.5_l0.8_seed2306 epoch 193/254 val R20 0.2571 N20 0.1911 test R20 0.2725 N20 0.1741 (163s)\n"}
+,{"stream_name":"stdout","time":1043.793874189,"data":"food_clean_blip/L13_L25_N2_Z4_H64_b0.6_g0.5_l0.8_seed2306 epoch 175/236 val R20 0.3365 N20 0.2341 test R20 0.3093 N20 0.2266 (156s)\n"}
+,{"stream_name":"stdout","time":1101.013994726,"data":"electronic_clean_blip/L14_L22_N3_Z4_H16_b0.1_g0.9_l0.3_seed2306 epoch 104/165 val R20 0.2887 N20 0.2180 test R20 0.3425 N20 0.2375 (116s)\n"}
+,{"stream_name":"stdout","time":1105.270438775,"data":"clothing_clean_blip/L13_L25_N2_Z4_H64_b0.6_g0.5_l0.8_seed2306 epoch 223/284 val R20 0.3327 N20 0.2776 test R20 0.2380 N20 0.1877 (206s)\n"}
+,{"stream_name":"stdout","time":1151.60178278,"data":"food_clean_blip/L14_L22_N3_Z4_H16_b0.1_g0.9_l0.3_seed2306 epoch 67/128 val R20 0.3521 N20 0.2561 test R20 0.3278 N20 0.2609 (96s)\n"}
+,{"stream_name":"stdout","time":1183.931591077,"data":"electronic_clean_blip/L11_L23_N4_Z5_H4_b0.1_g0.3_l0.1_seed2306 epoch 29/90 val R20 0.1648 N20 0.0980 test R20 0.1637 N20 0.1044 (67s)\n"}
+,{"stream_name":"stdout","time":1207.696415377,"data":"clothing_clean_blip/L14_L22_N3_Z4_H16_b0.1_g0.9_l0.3_seed2306 epoch 78/139 val R20 0.3173 N20 0.2757 test R20 0.2413 N20 0.2037 (96s)\n"}
+,{"stream_name":"stdout","time":1223.609376647,"data":"food_clean_blip/L11_L23_N4_Z5_H4_b0.1_g0.3_l0.1_seed2306 epoch 26/87 val R20 0.2113 N20 0.1120 test R20 0.2223 N20 0.1390 (59s)\n"}
+,{"stream_name":"stdout","time":1254.835311073,"data":"clothing_clean_blip/L11_L23_N4_Z5_H4_b0.1_g0.3_l0.1_seed2306 epoch 24/85 val R20 0.1935 N20 0.1410 test R20 0.1503 N20 0.0994 (59s)\n"}
+,{"stream_name":"stdout","time":1294.347675971,"data":"electronic_clean_blip/L13_L22_N4_Z3_H4_b0.7_g0.2_l0.7_seed2306 epoch 44/105 val R20 0.1019 N20 0.0683 test R20 0.1004 N20 0.0490 (75s)\n"}
+,{"stream_name":"stdout","time":1361.562080535,"data":"electronic_clean_blip/L14_L25_N1_Z5_H8_b0.1_g0.2_l0.7_seed2306 epoch 18/79 val R20 0.0539 N20 0.0367 test R20 0.0791 N20 0.0358 (56s)\n"}
+,{"stream_name":"stdout","time":1412.687213709,"data":"food_clean_blip/L13_L22_N4_Z3_H4_b0.7_g0.2_l0.7_seed2306 epoch 188/249 val R20 0.2982 N20 0.1835 test R20 0.3043 N20 0.1979 (177s)\n"}
+,{"stream_name":"stdout","time":1430.882845076,"data":"food_clean_blip/L14_L25_N1_Z5_H8_b0.1_g0.2_l0.7_seed2306 epoch 21/82 val R20 0.0703 N20 0.0377 test R20 0.0643 N20 0.0334 (57s)\n"}
+,{"stream_name":"stdout","time":1465.295460626,"data":"clothing_clean_blip/L13_L22_N4_Z3_H4_b0.7_g0.2_l0.7_seed2306 epoch 212/273 val R20 0.3279 N20 0.2327 test R20 0.2231 N20 0.1402 (200s)\n"}
+,{"stream_name":"stdout","time":1482.801922741,"data":"clothing_clean_blip/L14_L25_N1_Z5_H8_b0.1_g0.2_l0.7_seed2306 epoch 16/77 val R20 0.0577 N20 0.0272 test R20 0.0293 N20 0.0174 (58s)\n"}
+,{"stream_name":"stdout","time":1550.883816307,"data":"clothing_clean_blip/L14_L21_N5_Z5_H32_b0.7_g0.2_l0.4_seed2306 epoch 14/75 val R20 0.0571 N20 0.0187 test R20 0.0314 N20 0.0119 (58s)\n"}
+,{"stream_name":"stdout","time":1555.510770905,"data":"electronic_clean_blip/L14_L21_N5_Z5_H32_b0.7_g0.2_l0.4_seed2306 epoch 92/153 val R20 0.1038 N20 0.0620 test R20 0.0871 N20 0.0345 (114s)\n"}
+,{"stream_name":"stdout","time":1664.920803222,"data":"electronic_clean_blip/L12_L21_N2_Z1_H8_b0.9_g0.9_l0.6_seed2306 epoch 83/144 val R20 0.2647 N20 0.1880 test R20 0.3150 N20 0.2139 (102s)\n"}
+,{"stream_name":"stdout","time":1677.800941123,"data":"food_clean_blip/L12_L21_N2_Z1_H8_b0.9_g0.9_l0.6_seed2306 epoch 104/165 val R20 0.3289 N20 0.2383 test R20 0.3109 N20 0.2243 (112s)\n"}
+,{"stream_name":"stdout","time":1713.806414159,"data":"food_clean_blip/L14_L21_N5_Z5_H32_b0.7_g0.2_l0.4_seed2306 epoch 269/330 val R20 0.2057 N20 0.0891 test R20 0.1420 N20 0.0828 (239s)\n"}
+,{"stream_name":"stdout","time":1746.782120457,"data":"clothing_clean_blip/L12_L21_N2_Z1_H8_b0.9_g0.9_l0.6_seed2306 epoch 35/96 val R20 0.3022 N20 0.2449 test R20 0.2288 N20 0.1755 (70s)\n"}
+,{"stream_name":"stdout","time":1794.704373629,"data":"electronic_clean_blip/L14_L21_N3_Z1_H32_b0.9_g0.7_l0.1_seed2306 epoch 96/157 val R20 0.2298 N20 0.1604 test R20 0.2879 N20 0.1898 (105s)\n"}
+,{"stream_name":"stdout","time":1806.402726316,"data":"food_clean_blip/L14_L21_N3_Z1_H32_b0.9_g0.7_l0.1_seed2306 epoch 62/123 val R20 0.2859 N20 0.2067 test R20 0.2801 N20 0.2001 (81s)\n"}
+,{"stream_name":"stdout","time":1828.892988555,"data":"clothing_clean_blip/L14_L21_N3_Z1_H32_b0.9_g0.7_l0.1_seed2306 epoch 40/101 val R20 0.2821 N20 0.2107 test R20 0.2125 N20 0.1644 (70s)\n"}
+,{"stream_name":"stdout","time":1880.624925991,"data":"electronic_clean_blip/L12_L25_N3_Z1_H4_b0.9_g0.9_l0.4_seed2306 epoch 47/108 val R20 0.2536 N20 0.1848 test R20 0.3165 N20 0.2199 (75s)\n"}
+,{"stream_name":"stdout","time":1921.448764078,"data":"food_clean_blip/L12_L25_N3_Z1_H4_b0.9_g0.9_l0.4_seed2306 epoch 90/151 val R20 0.3436 N20 0.2564 test R20 0.3180 N20 0.2545 (103s)\n"}
+,{"stream_name":"stdout","time":1932.78819905,"data":"clothing_clean_blip/L12_L25_N3_Z1_H4_b0.9_g0.9_l0.4_seed2306 epoch 71/132 val R20 0.3253 N20 0.2759 test R20 0.2238 N20 0.1949 (94s)\n"}
+,{"stream_name":"stdout","time":2011.567919245,"data":"food_clean_blip/L12_L23_N2_Z3_H4_b0.4_g0.6_l0.9_seed2306 epoch 47/108 val R20 0.2965 N20 0.1981 test R20 0.2776 N20 0.2099 (78s)\n"}
+,{"stream_name":"stdout","time":2092.709009256,"data":"clothing_clean_blip/L12_L23_N2_Z3_H4_b0.4_g0.6_l0.9_seed2306 epoch 161/222 val R20 0.3288 N20 0.2656 test R20 0.2324 N20 0.1760 (150s)\n"}
+,{"stream_name":"stdout","time":2112.586184791,"data":"electronic_clean_blip/L12_L23_N2_Z3_H4_b0.4_g0.6_l0.9_seed2306 epoch 261/322 val R20 0.2783 N20 0.2047 test R20 0.3113 N20 0.2309 (221s)\n"}
+,{"stream_name":"stdout","time":2134.203707816,"data":"electronic_clean_blip/L14_L21_N1_Z2_H8_b0.4_g0.6_l0.8_seed2306 epoch 111/172 val R20 0.2567 N20 0.1833 test R20 0.2303 N20 0.1467 (112s)\n"}
+,{"stream_name":"stdout","time":2178.293174582,"data":"food_clean_blip/L14_L21_N1_Z2_H8_b0.4_g0.6_l0.8_seed2306 epoch 47/108 val R20 0.2915 N20 0.2296 test R20 0.2531 N20 0.1857 (73s)\n"}
+,{"stream_name":"stdout","time":2191.281965973,"data":"clothing_clean_blip/L14_L21_N1_Z2_H8_b0.4_g0.6_l0.8_seed2306 epoch 38/99 val R20 0.2978 N20 0.2303 test R20 0.2114 N20 0.1634 (69s)\n"}
+,{"stream_name":"stdout","time":2208.628005126,"data":"electronic_clean_blip/L14_L23_N5_Z1_H16_b0.9_g0.1_l0.8_seed2306 epoch 27/88 val R20 0.0487 N20 0.0221 test R20 0.0553 N20 0.0211 (65s)\n"}
+,{"stream_name":"stdout","time":2329.471796369,"data":"electronic_clean_blip/L13_L21_N3_Z2_H4_b0.2_g0.5_l0.6_seed2306 epoch 95/156 val R20 0.2125 N20 0.1417 test R20 0.1964 N20 0.1269 (110s)\n"}
+,{"stream_name":"stdout","time":2415.679855733,"data":"food_clean_blip/L13_L21_N3_Z2_H4_b0.2_g0.5_l0.6_seed2306 epoch 39/100 val R20 0.2242 N20 0.1673 test R20 0.2606 N20 0.1758 (75s)\n"}
+,{"stream_name":"stdout","time":2476.089897214,"data":"clothing_clean_blip/L14_L23_N5_Z1_H16_b0.9_g0.1_l0.8_seed2306 epoch 296/357 val R20 0.2318 N20 0.1089 test R20 0.1108 N20 0.0474 (275s)\n"}
+,{"stream_name":"stdout","time":2506.501053374,"data":"clothing_clean_blip/L13_L21_N3_Z2_H4_b0.2_g0.5_l0.6_seed2306 epoch 50/111 val R20 0.2223 N20 0.1779 test R20 0.1710 N20 0.1251 (81s)\n"}
+,{"stream_name":"stdout","time":2589.754502191,"data":"food_clean_blip/L14_L23_N5_Z1_H16_b0.9_g0.1_l0.8_seed2306 epoch 487/548 val R20 0.2270 N20 0.1164 test R20 0.2320 N20 0.1336 (401s)\n"}
+,{"stream_name":"stdout","time":2595.85203069,"data":"food_clean_blip/L12_L21_N1_Z4_H32_b0.2_g0.9_l0.3_seed2306 epoch 55/116 val R20 0.3225 N20 0.2299 test R20 0.3234 N20 0.2462 (79s)\n"}
+,{"stream_name":"stdout","time":2598.195512447,"data":"electronic_clean_blip/L12_L21_N1_Z4_H32_b0.2_g0.9_l0.3_seed2306 epoch 114/175 val R20 0.2413 N20 0.1837 test R20 0.2866 N20 0.1963 (111s)\n"}
+,{"stream_name":"stdout","time":2664.13567618,"data":"electronic_clean_blip/L13_L24_N4_Z5_H32_b0.3_g0.2_l0.8_seed2306 epoch 26/87 val R20 0.0530 N20 0.0241 test R20 0.0784 N20 0.0303 (57s)\n"}
+,{"stream_name":"stdout","time":2671.181680512,"data":"clothing_clean_blip/L12_L21_N1_Z4_H32_b0.2_g0.9_l0.3_seed2306 epoch 33/94 val R20 0.3073 N20 0.2481 test R20 0.2356 N20 0.1853 (71s)\n"}
+,{"stream_name":"stdout","time":2675.329437214,"data":"food_clean_blip/L13_L24_N4_Z5_H32_b0.3_g0.2_l0.8_seed2306 epoch 34/95 val R20 0.0603 N20 0.0207 test R20 0.0798 N20 0.0427 (67s)\n"}
+,{"stream_name":"stdout","time":2743.372581458,"data":"clothing_clean_blip/L13_L24_N4_Z5_H32_b0.3_g0.2_l0.8_seed2306 epoch 27/88 val R20 0.0579 N20 0.0335 test R20 0.0328 N20 0.0167 (67s)\n"}
+,{"stream_name":"stdout","time":2751.68999343,"data":"electronic_clean_blip/L13_L22_N3_Z2_H32_b0.1_g0.2_l0.1_seed2306 epoch 39/100 val R20 0.1145 N20 0.0629 test R20 0.1037 N20 0.0648 (68s)\n"}
+,{"stream_name":"stdout","time":2753.266781725,"data":"food_clean_blip/L13_L22_N3_Z2_H32_b0.1_g0.2_l0.1_seed2306 epoch 35/96 val R20 0.1754 N20 0.0910 test R20 0.1799 N20 0.1006 (69s)\n"}
+,{"stream_name":"stdout","time":2831.137111367,"data":"clothing_clean_blip/L13_L22_N3_Z2_H32_b0.1_g0.2_l0.1_seed2306 epoch 33/94 val R20 0.1668 N20 0.0890 test R20 0.1007 N20 0.0592 (76s)\n"}
+,{"stream_name":"stdout","time":2850.703905928,"data":"food_clean_blip/L14_L25_N2_Z5_H64_b0.6_g0.9_l0.6_seed2306 epoch 69/130 val R20 0.3545 N20 0.2420 test R20 0.3422 N20 0.2503 (88s)\n"}
+,{"stream_name":"stdout","time":2948.137792772,"data":"electronic_clean_blip/L12_L24_N3_Z3_H16_b0.2_g0.8_l0.8_seed2306 epoch 63/124 val R20 0.2618 N20 0.1983 test R20 0.3023 N20 0.2088 (88s)\n"}
+,{"stream_name":"stdout","time":2949.988965625,"data":"clothing_clean_blip/L14_L25_N2_Z5_H64_b0.6_g0.9_l0.6_seed2306 epoch 88/149 val R20 0.3182 N20 0.2637 test R20 0.2458 N20 0.2043 (109s)\n"}
+,{"stream_name":"stdout","time":3030.687331496,"data":"electronic_clean_blip/L14_L25_N2_Z5_H64_b0.6_g0.9_l0.6_seed2306 epoch 337/398 val R20 0.3171 N20 0.2268 test R20 0.3544 N20 0.2491 (266s)\n"}
+,{"stream_name":"stdout","time":3035.339867656,"data":"food_clean_blip/L12_L24_N3_Z3_H16_b0.2_g0.8_l0.8_seed2306 epoch 49/110 val R20 0.3346 N20 0.2313 test R20 0.3162 N20 0.2367 (75s)\n"}
+,{"stream_name":"stdout","time":3049.502411749,"data":"clothing_clean_blip/L12_L24_N3_Z3_H16_b0.2_g0.8_l0.8_seed2306 epoch 66/127 val R20 0.3193 N20 0.2556 test R20 0.2332 N20 0.1919 (87s)\n"}
+,{"stream_name":"stdout","time":3049.533802706,"data":"chosen {'electronic': {'L1': 4, 'L2': 5, 'N': 2, 'Z': 5, 'H': 64, 'beta': 0.6, 'gamma': 0.9, 'lambda1': 0.6}, 'food': {'L1': 2, 'L2': 5, 'N': 3, 'Z': 1, 'H': 4, 'beta': 0.9, 'gamma': 0.9, 'lambda1': 0.4}, 'clothing': {'L1': 3, 'L2': 5, 'N': 2, 'Z': 4, 'H': 64, 'beta': 0.6, 'gamma': 0.5, 'lambda1': 0.8}}\n"}
+,{"stream_name":"stdout","time":3148.046520399,"data":"food_clean_blip/L12_L25_N3_Z1_H4_b0.9_g0.9_l0.4_seed0 epoch 69/130 val R20 0.3434 N20 0.2292 test R20 0.3311 N20 0.2454 (89s)\n"}
+,{"stream_name":"stdout","time":3176.533823498,"data":"electronic_clean_blip/L14_L25_N2_Z5_H64_b0.6_g0.9_l0.6_seed0 epoch 110/171 val R20 0.2682 N20 0.2069 test R20 0.3257 N20 0.2256 (114s)\n"}
+,{"stream_name":"stdout","time":3179.961046491,"data":"electronic_clean_blip/L14_L25_N2_Z5_H64_b0.6_g0.9_l0.6_seed1 epoch 104/165 val R20 0.2827 N20 0.2054 test R20 0.3408 N20 0.2221 (117s)\n"}
+,{"stream_name":"stdout","time":3288.262392456,"data":"food_clean_blip/L12_L25_N3_Z1_H4_b0.9_g0.9_l0.4_seed1 epoch 113/174 val R20 0.3361 N20 0.2471 test R20 0.3339 N20 0.2502 (128s)\n"}
+,{"stream_name":"stdout","time":3313.18184843,"data":"clothing_clean_blip/L13_L25_N2_Z4_H64_b0.6_g0.5_l0.8_seed1 epoch 117/178 val R20 0.3304 N20 0.2462 test R20 0.2207 N20 0.1598 (124s)\n"}
+,{"stream_name":"stdout","time":3367.362001499,"data":"clothing_clean_blip/L13_L25_N2_Z4_H64_b0.6_g0.5_l0.8_seed0 epoch 242/303 val R20 0.3334 N20 0.2625 test R20 0.2314 N20 0.1827 (179s)\n"}
+,{"stream_name":"stdout","time":3367.362365323,"data":"ALL DONE\n"}
+,{"stream_name":"stdout","time":3367.385347516,"data":"$ cd /kaggle/working \u0026\u0026 tar czf ramen_paper.tgz ramen_paper \u0026\u0026 rm -rf RaMen \u0026\u0026 echo ALL DONE\n"}
+,{"stream_name":"stdout","time":3367.44889713,"data":"ALL DONE\n"}
+,{"stream_name":"stderr","time":3369.333552335,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":3369.333581877,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":3369.535467178,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":3369.535495304,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":3370.284234644,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":3371.111278964,"data":"[NbConvertApp] Writing 286156 bytes to __results__.html\n"}
+]

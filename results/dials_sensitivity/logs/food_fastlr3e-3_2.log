@@ -1,0 +1,19 @@
+2026-11-17T08:49:50Z food seed=2 parameters=41624 train_bundles=1232 start_epoch=1
+2026-11-17T08:49:51Z food seed=2 epoch=1 loss=6.33425 VAL R20=0.438920 N20=0.315623 best_epoch=1 patience=0/6
+2026-11-17T08:49:53Z food seed=2 epoch=2 loss=5.50920 VAL R20=0.560606 N20=0.392103 best_epoch=2 patience=0/6
+2026-11-17T08:49:54Z food seed=2 epoch=3 loss=5.19407 VAL R20=0.565341 N20=0.398770 best_epoch=3 patience=0/6
+2026-11-17T08:49:56Z food seed=2 epoch=4 loss=5.08998 VAL R20=0.563258 N20=0.394966 best_epoch=3 patience=1/6
+2026-11-17T08:49:57Z food seed=2 epoch=5 loss=4.92057 VAL R20=0.561837 N20=0.403306 best_epoch=5 patience=0/6
+2026-11-17T08:49:59Z food seed=2 epoch=6 loss=4.84974 VAL R20=0.585227 N20=0.406063 best_epoch=6 patience=0/6
+2026-11-17T08:50:00Z food seed=2 epoch=7 loss=4.81704 VAL R20=0.590436 N20=0.407284 best_epoch=7 patience=0/6
+2026-11-17T08:50:01Z food seed=2 epoch=8 loss=4.58281 VAL R20=0.588068 N20=0.405377 best_epoch=7 patience=1/6
+2026-11-17T08:50:03Z food seed=2 epoch=9 loss=4.48908 VAL R20=0.585038 N20=0.403520 best_epoch=7 patience=2/6
+2026-11-17T08:50:04Z food seed=2 epoch=10 loss=4.50664 VAL R20=0.582670 N20=0.406634 best_epoch=7 patience=3/6
+2026-11-17T08:50:06Z food seed=2 epoch=11 loss=4.40757 VAL R20=0.582197 N20=0.415209 best_epoch=11 patience=0/6
+2026-11-17T08:50:07Z food seed=2 epoch=12 loss=4.35217 VAL R20=0.583807 N20=0.409815 best_epoch=11 patience=1/6
+2026-11-17T08:50:08Z food seed=2 epoch=13 loss=4.26924 VAL R20=0.584564 N20=0.406971 best_epoch=11 patience=2/6
+2026-11-17T08:50:10Z food seed=2 epoch=14 loss=4.18365 VAL R20=0.576515 N20=0.396651 best_epoch=11 patience=3/6
+2026-11-17T08:50:11Z food seed=2 epoch=15 loss=4.15561 VAL R20=0.564205 N20=0.395423 best_epoch=11 patience=4/6
+2026-11-17T08:50:12Z food seed=2 epoch=16 loss=4.08428 VAL R20=0.564205 N20=0.393204 best_epoch=11 patience=5/6
+2026-11-17T08:50:14Z food seed=2 epoch=17 loss=4.04596 VAL R20=0.560890 N20=0.389272 best_epoch=11 patience=6/6
+2026-11-17T08:50:14Z food:fastlr3e-3:2 COMPLETE

@@ -1,69 +1,69 @@
-2026-11-16T05:27:46Z food n100 popularity {} VAL N20=0.00381
-2026-11-16T05:27:46Z food n100 popularity TEST clean {'recall20': 0.012039660056657223, 'ndcg20': 0.003610900783770063}
-2026-11-16T05:27:46Z food n100 cooccurrence {} VAL N20=0.02579
-2026-11-16T05:27:46Z food n100 cooccurrence TEST clean {'recall20': 0.0421152030217186, 'ndcg20': 0.027012168558392554}
-2026-11-16T05:27:46Z food n100 itemknn {'k': 50, 'shrink': 0} VAL N20=0.02579
-2026-11-16T05:27:46Z food n100 itemknn {'k': 50, 'shrink': 10} VAL N20=0.02579
-2026-11-16T05:27:46Z food n100 itemknn {'k': 50, 'shrink': 100} VAL N20=0.02579
-2026-11-16T05:27:46Z food n100 itemknn {'k': 200, 'shrink': 0} VAL N20=0.02579
-2026-11-16T05:27:46Z food n100 itemknn {'k': 200, 'shrink': 10} VAL N20=0.02579
-2026-11-16T05:27:46Z food n100 itemknn {'k': 200, 'shrink': 100} VAL N20=0.02579
-2026-11-16T05:27:46Z food n100 itemknn {'k': 1000, 'shrink': 0} VAL N20=0.02579
-2026-11-16T05:27:46Z food n100 itemknn {'k': 1000, 'shrink': 10} VAL N20=0.02579
-2026-11-16T05:27:46Z food n100 itemknn {'k': 1000, 'shrink': 100} VAL N20=0.02579
-2026-11-16T05:27:46Z food n100 itemknn TEST clean {'recall20': 0.0421152030217186, 'ndcg20': 0.0283253347056665}
-2026-11-16T05:27:46Z food n100 rp3beta {'alpha': 0.5, 'beta': 0.0} VAL N20=0.02579
-2026-11-16T05:27:46Z food n100 rp3beta {'alpha': 0.5, 'beta': 0.25} VAL N20=0.02579
-2026-11-16T05:27:46Z food n100 rp3beta {'alpha': 0.5, 'beta': 0.5} VAL N20=0.02579
-2026-11-16T05:27:46Z food n100 rp3beta {'alpha': 0.5, 'beta': 0.75} VAL N20=0.02579
-2026-11-16T05:27:46Z food n100 rp3beta {'alpha': 1.0, 'beta': 0.0} VAL N20=0.02579
-2026-11-16T05:27:46Z food n100 rp3beta {'alpha': 1.0, 'beta': 0.25} VAL N20=0.02579
-2026-11-16T05:27:46Z food n100 rp3beta {'alpha': 1.0, 'beta': 0.5} VAL N20=0.02579
-2026-11-16T05:27:46Z food n100 rp3beta {'alpha': 1.0, 'beta': 0.75} VAL N20=0.02579
-2026-11-16T05:27:47Z food n100 rp3beta TEST clean {'recall20': 0.0421152030217186, 'ndcg20': 0.027565114804840293}
-2026-11-16T05:27:47Z food n100 ease {'l2': 50.0} VAL N20=0.02484
-2026-11-16T05:27:47Z food n100 ease {'l2': 200.0} VAL N20=0.02305
-2026-11-16T05:27:47Z food n100 ease {'l2': 500.0} VAL N20=0.02579
-2026-11-16T05:27:47Z food n100 ease {'l2': 1000.0} VAL N20=0.02423
-2026-11-16T05:27:47Z food n100 ease {'l2': 3000.0} VAL N20=0.02579
-2026-11-16T05:27:47Z food n100 ease TEST clean {'recall20': 0.04140698772426818, 'ndcg20': 0.02785030093039104}
-2026-11-16T05:27:47Z food n100 hybrid {'k': 50, 'shrink': 0, 'content': 0.0} VAL N20=0.02579
-2026-11-16T05:27:47Z food n100 hybrid {'k': 50, 'shrink': 0, 'content': 0.1} VAL N20=0.19891
-2026-11-16T05:27:47Z food n100 hybrid {'k': 50, 'shrink': 0, 'content': 0.2} VAL N20=0.19891
-2026-11-16T05:27:47Z food n100 hybrid {'k': 50, 'shrink': 0, 'content': 0.3} VAL N20=0.19891
-2026-11-16T05:27:47Z food n100 hybrid {'k': 50, 'shrink': 0, 'content': 0.5} VAL N20=0.19891
-2026-11-16T05:27:47Z food n100 hybrid {'k': 50, 'shrink': 0, 'content': 0.7} VAL N20=0.19215
-2026-11-16T05:27:47Z food n100 hybrid {'k': 50, 'shrink': 0, 'content': 0.9} VAL N20=0.18995
-2026-11-16T05:27:47Z food n100 hybrid {'k': 50, 'shrink': 0, 'content': 1.0} VAL N20=0.18459
-2026-11-16T05:27:47Z food n100 hybrid TEST clean {'recall20': 0.35750708215297455, 'ndcg20': 0.2579038388582083}
-2026-11-16T05:27:47Z food n100 samelabel {'a': (1.0,), 'gamma': 0.0} VAL N20=0.07428
-2026-11-16T05:27:47Z food n100 samelabel {'a': (1.0,), 'gamma': 0.1} VAL N20=0.07428
-2026-11-16T05:27:47Z food n100 samelabel {'a': (1.0,), 'gamma': 0.3} VAL N20=0.07428
-2026-11-16T05:27:47Z food n100 samelabel {'a': (1.0,), 'gamma': 1.0} VAL N20=0.01552
-2026-11-16T05:27:47Z food n100 samelabel TEST clean {'recall20': 0.16222851746931063, 'ndcg20': 0.07700212862660347}
-2026-11-16T05:27:47Z food n100 transition {'a': (1.0,), 'gamma': 0.0, 'eps': 0.0001} VAL N20=0.02377
-2026-11-16T05:27:47Z food n100 transition {'a': (1.0,), 'gamma': 0.0, 'eps': 0.01} VAL N20=0.02139
-2026-11-16T05:27:47Z food n100 transition {'a': (1.0,), 'gamma': 0.5, 'eps': 0.0001} VAL N20=0.02803
-2026-11-16T05:27:47Z food n100 transition {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01} VAL N20=0.02793
-2026-11-16T05:27:47Z food n100 transition {'a': (1.0,), 'gamma': 1.0, 'eps': 0.0001} VAL N20=0.02622
-2026-11-16T05:27:47Z food n100 transition {'a': (1.0,), 'gamma': 1.0, 'eps': 0.01} VAL N20=0.02397
-2026-11-16T05:27:47Z food n100 transition {'a': (1.0,), 'gamma': 2.0, 'eps': 0.0001} VAL N20=0.02427
-2026-11-16T05:27:47Z food n100 transition {'a': (1.0,), 'gamma': 2.0, 'eps': 0.01} VAL N20=0.01822
-2026-11-16T05:27:47Z food n100 transition TEST clean {'recall20': 0.08135033050047213, 'ndcg20': 0.04363103492855133}
-2026-11-16T05:27:47Z food n100 label_knn {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.0} VAL N20=0.02579
-2026-11-16T05:27:47Z food n100 label_knn {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1} VAL N20=0.09621
-2026-11-16T05:27:47Z food n100 label_knn {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.2} VAL N20=0.09621
-2026-11-16T05:27:47Z food n100 label_knn {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.3} VAL N20=0.09621
-2026-11-16T05:27:47Z food n100 label_knn {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.5} VAL N20=0.09621
-2026-11-16T05:27:47Z food n100 label_knn {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.7} VAL N20=0.08282
-2026-11-16T05:27:47Z food n100 label_knn {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.9} VAL N20=0.08282
-2026-11-16T05:27:47Z food n100 label_knn {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 1.0} VAL N20=0.07428
-2026-11-16T05:27:47Z food n100 label_knn TEST clean {'recall20': 0.18097261567516523, 'ndcg20': 0.09678527022088379}
-2026-11-16T05:27:47Z food n100 label_knn_content {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1, 'v': 0.0} VAL N20=0.09621
-2026-11-16T05:27:47Z food n100 label_knn_content {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1, 'v': 0.05} VAL N20=0.21017
-2026-11-16T05:27:47Z food n100 label_knn_content {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1, 'v': 0.1} VAL N20=0.20802
-2026-11-16T05:27:47Z food n100 label_knn_content {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1, 'v': 0.2} VAL N20=0.20797
-2026-11-16T05:27:47Z food n100 label_knn_content {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1, 'v': 0.3} VAL N20=0.21439
-2026-11-16T05:27:47Z food n100 label_knn_content {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1, 'v': 0.5} VAL N20=0.21259
-2026-11-16T05:27:47Z food n100 label_knn_content TEST clean {'recall20': 0.3596317280453258, 'ndcg20': 0.25343117121914355}
-2026-11-16T05:27:47Z food n100 baselines COMPLETE
+2026-11-17T08:15:29Z food n100 popularity {} VAL N20=0.00381
+2026-11-17T08:15:29Z food n100 popularity TEST clean {'recall20': 0.012039660056657223, 'ndcg20': 0.003610900783770063}
+2026-11-17T08:15:29Z food n100 cooccurrence {} VAL N20=0.02579
+2026-11-17T08:15:29Z food n100 cooccurrence TEST clean {'recall20': 0.0421152030217186, 'ndcg20': 0.027012168558392554}
+2026-11-17T08:15:29Z food n100 itemknn {'k': 50, 'shrink': 0} VAL N20=0.02579
+2026-11-17T08:15:29Z food n100 itemknn {'k': 50, 'shrink': 10} VAL N20=0.02579
+2026-11-17T08:15:29Z food n100 itemknn {'k': 50, 'shrink': 100} VAL N20=0.02579
+2026-11-17T08:15:29Z food n100 itemknn {'k': 200, 'shrink': 0} VAL N20=0.02579
+2026-11-17T08:15:29Z food n100 itemknn {'k': 200, 'shrink': 10} VAL N20=0.02579
+2026-11-17T08:15:29Z food n100 itemknn {'k': 200, 'shrink': 100} VAL N20=0.02579
+2026-11-17T08:15:29Z food n100 itemknn {'k': 1000, 'shrink': 0} VAL N20=0.02579
+2026-11-17T08:15:29Z food n100 itemknn {'k': 1000, 'shrink': 10} VAL N20=0.02579
+2026-11-17T08:15:29Z food n100 itemknn {'k': 1000, 'shrink': 100} VAL N20=0.02579
+2026-11-17T08:15:29Z food n100 itemknn TEST clean {'recall20': 0.0421152030217186, 'ndcg20': 0.0283253347056665}
+2026-11-17T08:15:29Z food n100 rp3beta {'alpha': 0.5, 'beta': 0.0} VAL N20=0.02579
+2026-11-17T08:15:29Z food n100 rp3beta {'alpha': 0.5, 'beta': 0.25} VAL N20=0.02579
+2026-11-17T08:15:29Z food n100 rp3beta {'alpha': 0.5, 'beta': 0.5} VAL N20=0.02579
+2026-11-17T08:15:29Z food n100 rp3beta {'alpha': 0.5, 'beta': 0.75} VAL N20=0.02579
+2026-11-17T08:15:29Z food n100 rp3beta {'alpha': 1.0, 'beta': 0.0} VAL N20=0.02579
+2026-11-17T08:15:29Z food n100 rp3beta {'alpha': 1.0, 'beta': 0.25} VAL N20=0.02579
+2026-11-17T08:15:29Z food n100 rp3beta {'alpha': 1.0, 'beta': 0.5} VAL N20=0.02579
+2026-11-17T08:15:29Z food n100 rp3beta {'alpha': 1.0, 'beta': 0.75} VAL N20=0.02579
+2026-11-17T08:15:29Z food n100 rp3beta TEST clean {'recall20': 0.0421152030217186, 'ndcg20': 0.027565114804840293}
+2026-11-17T08:15:29Z food n100 ease {'l2': 50.0} VAL N20=0.02484
+2026-11-17T08:15:29Z food n100 ease {'l2': 200.0} VAL N20=0.02305
+2026-11-17T08:15:29Z food n100 ease {'l2': 500.0} VAL N20=0.02579
+2026-11-17T08:15:29Z food n100 ease {'l2': 1000.0} VAL N20=0.02423
+2026-11-17T08:15:29Z food n100 ease {'l2': 3000.0} VAL N20=0.02579
+2026-11-17T08:15:29Z food n100 ease TEST clean {'recall20': 0.04140698772426818, 'ndcg20': 0.02785030093039104}
+2026-11-17T08:15:29Z food n100 hybrid {'k': 50, 'shrink': 0, 'content': 0.0} VAL N20=0.02579
+2026-11-17T08:15:29Z food n100 hybrid {'k': 50, 'shrink': 0, 'content': 0.1} VAL N20=0.24163
+2026-11-17T08:15:29Z food n100 hybrid {'k': 50, 'shrink': 0, 'content': 0.2} VAL N20=0.24163
+2026-11-17T08:15:29Z food n100 hybrid {'k': 50, 'shrink': 0, 'content': 0.3} VAL N20=0.24163
+2026-11-17T08:15:29Z food n100 hybrid {'k': 50, 'shrink': 0, 'content': 0.5} VAL N20=0.24163
+2026-11-17T08:15:29Z food n100 hybrid {'k': 50, 'shrink': 0, 'content': 0.7} VAL N20=0.23768
+2026-11-17T08:15:29Z food n100 hybrid {'k': 50, 'shrink': 0, 'content': 0.9} VAL N20=0.23579
+2026-11-17T08:15:29Z food n100 hybrid {'k': 50, 'shrink': 0, 'content': 1.0} VAL N20=0.22445
+2026-11-17T08:15:29Z food n100 hybrid TEST clean {'recall20': 0.3968366383380547, 'ndcg20': 0.28072509418690167}
+2026-11-17T08:15:29Z food n100 samelabel {'a': (1.0,), 'gamma': 0.0} VAL N20=0.07428
+2026-11-17T08:15:29Z food n100 samelabel {'a': (1.0,), 'gamma': 0.1} VAL N20=0.07428
+2026-11-17T08:15:29Z food n100 samelabel {'a': (1.0,), 'gamma': 0.3} VAL N20=0.07428
+2026-11-17T08:15:29Z food n100 samelabel {'a': (1.0,), 'gamma': 1.0} VAL N20=0.01552
+2026-11-17T08:15:29Z food n100 samelabel TEST clean {'recall20': 0.16222851746931063, 'ndcg20': 0.07700212862660347}
+2026-11-17T08:15:29Z food n100 transition {'a': (1.0,), 'gamma': 0.0, 'eps': 0.0001} VAL N20=0.02377
+2026-11-17T08:15:29Z food n100 transition {'a': (1.0,), 'gamma': 0.0, 'eps': 0.01} VAL N20=0.02139
+2026-11-17T08:15:29Z food n100 transition {'a': (1.0,), 'gamma': 0.5, 'eps': 0.0001} VAL N20=0.02803
+2026-11-17T08:15:29Z food n100 transition {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01} VAL N20=0.02793
+2026-11-17T08:15:29Z food n100 transition {'a': (1.0,), 'gamma': 1.0, 'eps': 0.0001} VAL N20=0.02622
+2026-11-17T08:15:29Z food n100 transition {'a': (1.0,), 'gamma': 1.0, 'eps': 0.01} VAL N20=0.02397
+2026-11-17T08:15:30Z food n100 transition {'a': (1.0,), 'gamma': 2.0, 'eps': 0.0001} VAL N20=0.02427
+2026-11-17T08:15:30Z food n100 transition {'a': (1.0,), 'gamma': 2.0, 'eps': 0.01} VAL N20=0.01822
+2026-11-17T08:15:30Z food n100 transition TEST clean {'recall20': 0.08135033050047213, 'ndcg20': 0.04363103492855133}
+2026-11-17T08:15:30Z food n100 label_knn {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.0} VAL N20=0.02579
+2026-11-17T08:15:30Z food n100 label_knn {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1} VAL N20=0.09621
+2026-11-17T08:15:30Z food n100 label_knn {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.2} VAL N20=0.09621
+2026-11-17T08:15:30Z food n100 label_knn {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.3} VAL N20=0.09621
+2026-11-17T08:15:30Z food n100 label_knn {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.5} VAL N20=0.09621
+2026-11-17T08:15:30Z food n100 label_knn {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.7} VAL N20=0.08282
+2026-11-17T08:15:30Z food n100 label_knn {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.9} VAL N20=0.08282
+2026-11-17T08:15:30Z food n100 label_knn {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 1.0} VAL N20=0.07428
+2026-11-17T08:15:30Z food n100 label_knn TEST clean {'recall20': 0.18097261567516523, 'ndcg20': 0.09678527022088379}
+2026-11-17T08:15:30Z food n100 label_knn_content {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1, 'v': 0.0} VAL N20=0.09621
+2026-11-17T08:15:30Z food n100 label_knn_content {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1, 'v': 0.05} VAL N20=0.21636
+2026-11-17T08:15:30Z food n100 label_knn_content {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1, 'v': 0.1} VAL N20=0.21636
+2026-11-17T08:15:30Z food n100 label_knn_content {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1, 'v': 0.2} VAL N20=0.21636
+2026-11-17T08:15:30Z food n100 label_knn_content {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1, 'v': 0.3} VAL N20=0.21797
+2026-11-17T08:15:30Z food n100 label_knn_content {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1, 'v': 0.5} VAL N20=0.23051
+2026-11-17T08:15:30Z food n100 label_knn_content TEST clean {'recall20': 0.38083097261567517, 'ndcg20': 0.2521187767583003}
+2026-11-17T08:15:30Z food n100 baselines COMPLETE

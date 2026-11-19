@@ -5,11 +5,11 @@ PYTHONPATH=.:../dials .venv/bin/python -m experiments.dials_user.train_repurchas
 Runs go to results/dials_user/runs/dunnhumby_repurchase/seed<s>/.
 """
 import argparse
-import dials  # pins BLAS threads before numpy loads
+import triad  # pins BLAS threads before numpy loads
 import torch
 from pathlib import Path
-from dials import data as dials_data
-from dials import train as dials_train
+from triad import data as dials_data
+from triad import train as dials_train
 from experiments.dials_frozen.compare import CACHE
 from experiments.dials_user.repurchase import DIALSRepurchase,History,evaluate
 

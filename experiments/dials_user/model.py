@@ -18,7 +18,7 @@ import scipy.sparse as sp
 import torch
 from torch import nn
 from torch.nn import functional as F
-from dials.model import DIALS
+from triad.model import TRIAD as DIALS
 from experiments.dials_user.audit import histories
 
 

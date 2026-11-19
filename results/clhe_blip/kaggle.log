@@ -1,0 +1,37 @@
+[{"stream_name":"stdout","time":0.632557414,"data":"$ git clone -q https://github.com/Xiaohao-Liu/CLHE.git /kaggle/working/CLHE \u0026\u0026 cd /kaggle/working/CLHE \u0026\u0026 git checkout -q 74eb236 \u0026\u0026 git log -1 --format=%H\n"}
+,{"stream_name":"stdout","time":1.5906150110000001,"data":"74eb236986721d6c390e4a2ca5f2ac861b8e876c\n"}
+,{"stream_name":"stdout","time":1.9146575160000001,"data":"$ tar xzf /kaggle/input/datasets/ajit1729/clhe-retail-blip/data.tgz -C /kaggle/working/CLHE/datasets --strip-components=1\n"}
+,{"stream_name":"stdout","time":3.033757849,"data":"$ ls /kaggle/working/CLHE/datasets \u0026\u0026 nvidia-smi --query-gpu=name --format=csv,noheader\n"}
+,{"stream_name":"stdout","time":3.037956062,"data":"clothing_clean_blip\n"}
+,{"stream_name":"stdout","time":3.037977918,"data":"electronic_clean_blip\n"}
+,{"stream_name":"stdout","time":3.037981982,"data":"food_clean_blip\n"}
+,{"stream_name":"stdout","time":3.06719826,"data":"Tesla T4\n"}
+,{"stream_name":"stdout","time":3.067220528,"data":"Tesla T4\n"}
+,{"stream_name":"stdout","time":178.862177123,"data":"electronic_clean_blip/pog_seed2023 epoch 34 val R20 0.3092 N20 0.2237 test R20 0.3663 N20 0.2545\n"}
+,{"stream_name":"stdout","time":178.915545078,"data":"electronic_clean_blip/pog_dense_seed2023 epoch 35 val R20 0.3053 N20 0.2367 test R20 0.3627 N20 0.2589\n"}
+,{"stream_name":"stdout","time":179.388875593,"data":"electronic_clean_blip/spotify_seed2023 epoch 5 val R20 0.3276 N20 0.2053 test R20 0.3305 N20 0.2058\n"}
+,{"stream_name":"stdout","time":349.842248425,"data":"electronic_clean_blip/spotify_sparse_seed2023 epoch 7 val R20 0.3429 N20 0.2360 test R20 0.3633 N20 0.2363\n"}
+,{"stream_name":"stdout","time":350.797498394,"data":"food_clean_blip/pog_seed2023 epoch 31 val R20 0.3584 N20 0.2638 test R20 0.3604 N20 0.2652\n"}
+,{"stream_name":"stdout","time":353.092966072,"data":"food_clean_blip/pog_dense_seed2023 epoch 80 val R20 0.3665 N20 0.2738 test R20 0.3669 N20 0.2888\n"}
+,{"stream_name":"stdout","time":538.76215557,"data":"food_clean_blip/spotify_seed2023 epoch 6 val R20 0.4229 N20 0.2626 test R20 0.4523 N20 0.2834\n"}
+,{"stream_name":"stdout","time":539.205059911,"data":"food_clean_blip/spotify_sparse_seed2023 epoch 8 val R20 0.3940 N20 0.2790 test R20 0.4297 N20 0.2843\n"}
+,{"stream_name":"stdout","time":551.692867878,"data":"clothing_clean_blip/pog_dense_seed2023 epoch 4 val R20 0.3738 N20 0.2292 test R20 0.2540 N20 0.1483\n"}
+,{"stream_name":"stdout","time":766.26681676,"data":"clothing_clean_blip/spotify_seed2023 epoch 5 val R20 0.4454 N20 0.2918 test R20 0.3621 N20 0.2126\n"}
+,{"stream_name":"stdout","time":766.395907284,"data":"clothing_clean_blip/pog_seed2023 epoch 27 val R20 0.3390 N20 0.2810 test R20 0.2373 N20 0.1843\n"}
+,{"stream_name":"stdout","time":773.040327241,"data":"clothing_clean_blip/spotify_sparse_seed2023 epoch 4 val R20 0.4313 N20 0.2582 test R20 0.3084 N20 0.1857\n"}
+,{"stream_name":"stdout","time":773.051148279,"data":"chosen {'electronic_clean_blip': 'pog_dense', 'food_clean_blip': 'spotify_sparse', 'clothing_clean_blip': 'spotify'}\n"}
+,{"stream_name":"stdout","time":942.486271424,"data":"electronic_clean_blip/pog_dense_seed1 epoch 40 val R20 0.3188 N20 0.2434 test R20 0.3628 N20 0.2628\n"}
+,{"stream_name":"stdout","time":943.493567168,"data":"electronic_clean_blip/pog_dense_seed0 epoch 33 val R20 0.3176 N20 0.2319 test R20 0.3601 N20 0.2545\n"}
+,{"stream_name":"stdout","time":945.823510958,"data":"food_clean_blip/spotify_sparse_seed0 epoch 6 val R20 0.3931 N20 0.2574 test R20 0.4152 N20 0.2664\n"}
+,{"stream_name":"stdout","time":1151.868226762,"data":"food_clean_blip/spotify_sparse_seed1 epoch 5 val R20 0.4003 N20 0.2450 test R20 0.4132 N20 0.2632\n"}
+,{"stream_name":"stdout","time":1154.87067669,"data":"clothing_clean_blip/spotify_seed0 epoch 5 val R20 0.4447 N20 0.2825 test R20 0.3353 N20 0.2145\n"}
+,{"stream_name":"stdout","time":1155.406340875,"data":"clothing_clean_blip/spotify_seed1 epoch 4 val R20 0.4056 N20 0.2523 test R20 0.2763 N20 0.1618\n"}
+,{"stream_name":"stdout","time":1155.406950574,"data":"$ cd /kaggle/working \u0026\u0026 tar czf clhe_blip.tgz clhe_blip \u0026\u0026 rm -rf CLHE \u0026\u0026 echo ALL DONE\n"}
+,{"stream_name":"stdout","time":1155.437389989,"data":"ALL DONE\n"}
+,{"stream_name":"stderr","time":1157.439437398,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":1157.439484346,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":1157.66531883,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":1157.665348988,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":1158.413536932,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":1159.275235936,"data":"[NbConvertApp] Writing 289415 bytes to __results__.html\n"}
+]

@@ -1,69 +1,69 @@
-2026-11-16T05:27:54Z clothing n50 popularity {} VAL N20=0.00077
-2026-11-16T05:27:54Z clothing n50 popularity TEST clean {'recall20': 0.0, 'ndcg20': 0.0}
-2026-11-16T05:27:54Z clothing n50 cooccurrence {} VAL N20=0.00707
-2026-11-16T05:27:54Z clothing n50 cooccurrence TEST clean {'recall20': 0.01078167115902965, 'ndcg20': 0.007698671663363941}
-2026-11-16T05:27:54Z clothing n50 itemknn {'k': 50, 'shrink': 0} VAL N20=0.00707
-2026-11-16T05:27:54Z clothing n50 itemknn {'k': 50, 'shrink': 10} VAL N20=0.00707
-2026-11-16T05:27:54Z clothing n50 itemknn {'k': 50, 'shrink': 100} VAL N20=0.00707
-2026-11-16T05:27:54Z clothing n50 itemknn {'k': 200, 'shrink': 0} VAL N20=0.00707
-2026-11-16T05:27:55Z clothing n50 itemknn {'k': 200, 'shrink': 10} VAL N20=0.00707
-2026-11-16T05:27:55Z clothing n50 itemknn {'k': 200, 'shrink': 100} VAL N20=0.00707
-2026-11-16T05:27:55Z clothing n50 itemknn {'k': 1000, 'shrink': 0} VAL N20=0.00707
-2026-11-16T05:27:55Z clothing n50 itemknn {'k': 1000, 'shrink': 10} VAL N20=0.00707
-2026-11-16T05:27:55Z clothing n50 itemknn {'k': 1000, 'shrink': 100} VAL N20=0.00707
-2026-11-16T05:27:55Z clothing n50 itemknn TEST clean {'recall20': 0.01078167115902965, 'ndcg20': 0.007698671663363941}
-2026-11-16T05:27:55Z clothing n50 rp3beta {'alpha': 0.5, 'beta': 0.0} VAL N20=0.00707
-2026-11-16T05:27:55Z clothing n50 rp3beta {'alpha': 0.5, 'beta': 0.25} VAL N20=0.00707
-2026-11-16T05:27:55Z clothing n50 rp3beta {'alpha': 0.5, 'beta': 0.5} VAL N20=0.00707
-2026-11-16T05:27:55Z clothing n50 rp3beta {'alpha': 0.5, 'beta': 0.75} VAL N20=0.00707
-2026-11-16T05:27:55Z clothing n50 rp3beta {'alpha': 1.0, 'beta': 0.0} VAL N20=0.00707
-2026-11-16T05:27:55Z clothing n50 rp3beta {'alpha': 1.0, 'beta': 0.25} VAL N20=0.00707
-2026-11-16T05:27:55Z clothing n50 rp3beta {'alpha': 1.0, 'beta': 0.5} VAL N20=0.00707
-2026-11-16T05:27:55Z clothing n50 rp3beta {'alpha': 1.0, 'beta': 0.75} VAL N20=0.00707
-2026-11-16T05:27:55Z clothing n50 rp3beta TEST clean {'recall20': 0.01078167115902965, 'ndcg20': 0.007698671663363941}
-2026-11-16T05:27:55Z clothing n50 ease {'l2': 50.0} VAL N20=0.00707
-2026-11-16T05:27:55Z clothing n50 ease {'l2': 200.0} VAL N20=0.00707
-2026-11-16T05:27:55Z clothing n50 ease {'l2': 500.0} VAL N20=0.00707
-2026-11-16T05:27:55Z clothing n50 ease {'l2': 1000.0} VAL N20=0.00707
-2026-11-16T05:27:55Z clothing n50 ease {'l2': 3000.0} VAL N20=0.00707
-2026-11-16T05:27:55Z clothing n50 ease TEST clean {'recall20': 0.01078167115902965, 'ndcg20': 0.00655168883577734}
-2026-11-16T05:27:55Z clothing n50 hybrid {'k': 50, 'shrink': 0, 'content': 0.0} VAL N20=0.00707
-2026-11-16T05:27:55Z clothing n50 hybrid {'k': 50, 'shrink': 0, 'content': 0.1} VAL N20=0.18620
-2026-11-16T05:27:55Z clothing n50 hybrid {'k': 50, 'shrink': 0, 'content': 0.2} VAL N20=0.18620
-2026-11-16T05:27:55Z clothing n50 hybrid {'k': 50, 'shrink': 0, 'content': 0.3} VAL N20=0.18620
-2026-11-16T05:27:55Z clothing n50 hybrid {'k': 50, 'shrink': 0, 'content': 0.5} VAL N20=0.18620
-2026-11-16T05:27:55Z clothing n50 hybrid {'k': 50, 'shrink': 0, 'content': 0.7} VAL N20=0.18514
-2026-11-16T05:27:55Z clothing n50 hybrid {'k': 50, 'shrink': 0, 'content': 0.9} VAL N20=0.18380
-2026-11-16T05:27:55Z clothing n50 hybrid {'k': 50, 'shrink': 0, 'content': 1.0} VAL N20=0.18089
-2026-11-16T05:27:55Z clothing n50 hybrid TEST clean {'recall20': 0.2929919137466307, 'ndcg20': 0.17545886194641952}
-2026-11-16T05:27:55Z clothing n50 samelabel {'a': (1.0,), 'gamma': 0.0} VAL N20=0.12185
-2026-11-16T05:27:55Z clothing n50 samelabel {'a': (1.0,), 'gamma': 0.1} VAL N20=0.12185
-2026-11-16T05:27:55Z clothing n50 samelabel {'a': (1.0,), 'gamma': 0.3} VAL N20=0.12185
-2026-11-16T05:27:55Z clothing n50 samelabel {'a': (1.0,), 'gamma': 1.0} VAL N20=0.01897
-2026-11-16T05:27:55Z clothing n50 samelabel TEST clean {'recall20': 0.1399820305480683, 'ndcg20': 0.07205456371261738}
-2026-11-16T05:27:55Z clothing n50 transition {'a': (1.0,), 'gamma': 0.0, 'eps': 0.0001} VAL N20=0.00843
-2026-11-16T05:27:55Z clothing n50 transition {'a': (1.0,), 'gamma': 0.0, 'eps': 0.01} VAL N20=0.00843
-2026-11-16T05:27:55Z clothing n50 transition {'a': (1.0,), 'gamma': 0.5, 'eps': 0.0001} VAL N20=0.00977
-2026-11-16T05:27:55Z clothing n50 transition {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01} VAL N20=0.00869
-2026-11-16T05:27:55Z clothing n50 transition {'a': (1.0,), 'gamma': 1.0, 'eps': 0.0001} VAL N20=0.00667
-2026-11-16T05:27:55Z clothing n50 transition {'a': (1.0,), 'gamma': 1.0, 'eps': 0.01} VAL N20=0.00666
-2026-11-16T05:27:55Z clothing n50 transition {'a': (1.0,), 'gamma': 2.0, 'eps': 0.0001} VAL N20=0.00520
-2026-11-16T05:27:55Z clothing n50 transition {'a': (1.0,), 'gamma': 2.0, 'eps': 0.01} VAL N20=0.00294
-2026-11-16T05:27:55Z clothing n50 transition TEST clean {'recall20': 0.033423180592991916, 'ndcg20': 0.012004989793338722}
-2026-11-16T05:27:55Z clothing n50 label_knn {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.0} VAL N20=0.00707
-2026-11-16T05:27:55Z clothing n50 label_knn {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1} VAL N20=0.12531
-2026-11-16T05:27:55Z clothing n50 label_knn {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.2} VAL N20=0.12531
-2026-11-16T05:27:55Z clothing n50 label_knn {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.3} VAL N20=0.12531
-2026-11-16T05:27:55Z clothing n50 label_knn {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.5} VAL N20=0.12531
-2026-11-16T05:27:55Z clothing n50 label_knn {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.7} VAL N20=0.12292
-2026-11-16T05:27:55Z clothing n50 label_knn {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.9} VAL N20=0.12292
-2026-11-16T05:27:55Z clothing n50 label_knn {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 1.0} VAL N20=0.12185
-2026-11-16T05:27:55Z clothing n50 label_knn TEST clean {'recall20': 0.14806828391734053, 'ndcg20': 0.07705781758622392}
-2026-11-16T05:27:55Z clothing n50 label_knn_content {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1, 'v': 0.0} VAL N20=0.12531
-2026-11-16T05:27:55Z clothing n50 label_knn_content {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1, 'v': 0.05} VAL N20=0.21776
-2026-11-16T05:27:55Z clothing n50 label_knn_content {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1, 'v': 0.1} VAL N20=0.21834
-2026-11-16T05:27:55Z clothing n50 label_knn_content {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1, 'v': 0.2} VAL N20=0.23161
-2026-11-16T05:27:56Z clothing n50 label_knn_content {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1, 'v': 0.3} VAL N20=0.22627
-2026-11-16T05:27:56Z clothing n50 label_knn_content {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1, 'v': 0.5} VAL N20=0.21297
-2026-11-16T05:27:56Z clothing n50 label_knn_content TEST clean {'recall20': 0.317654986522911, 'ndcg20': 0.1899489861363842}
-2026-11-16T05:27:56Z clothing n50 baselines COMPLETE
+2026-11-17T08:15:43Z clothing n50 popularity {} VAL N20=0.00077
+2026-11-17T08:15:43Z clothing n50 popularity TEST clean {'recall20': 0.0, 'ndcg20': 0.0}
+2026-11-17T08:15:43Z clothing n50 cooccurrence {} VAL N20=0.00707
+2026-11-17T08:15:43Z clothing n50 cooccurrence TEST clean {'recall20': 0.01078167115902965, 'ndcg20': 0.007698671663363941}
+2026-11-17T08:15:43Z clothing n50 itemknn {'k': 50, 'shrink': 0} VAL N20=0.00707
+2026-11-17T08:15:43Z clothing n50 itemknn {'k': 50, 'shrink': 10} VAL N20=0.00707
+2026-11-17T08:15:43Z clothing n50 itemknn {'k': 50, 'shrink': 100} VAL N20=0.00707
+2026-11-17T08:15:43Z clothing n50 itemknn {'k': 200, 'shrink': 0} VAL N20=0.00707
+2026-11-17T08:15:43Z clothing n50 itemknn {'k': 200, 'shrink': 10} VAL N20=0.00707
+2026-11-17T08:15:43Z clothing n50 itemknn {'k': 200, 'shrink': 100} VAL N20=0.00707
+2026-11-17T08:15:43Z clothing n50 itemknn {'k': 1000, 'shrink': 0} VAL N20=0.00707
+2026-11-17T08:15:43Z clothing n50 itemknn {'k': 1000, 'shrink': 10} VAL N20=0.00707
+2026-11-17T08:15:43Z clothing n50 itemknn {'k': 1000, 'shrink': 100} VAL N20=0.00707
+2026-11-17T08:15:43Z clothing n50 itemknn TEST clean {'recall20': 0.01078167115902965, 'ndcg20': 0.007698671663363941}
+2026-11-17T08:15:43Z clothing n50 rp3beta {'alpha': 0.5, 'beta': 0.0} VAL N20=0.00707
+2026-11-17T08:15:43Z clothing n50 rp3beta {'alpha': 0.5, 'beta': 0.25} VAL N20=0.00707
+2026-11-17T08:15:43Z clothing n50 rp3beta {'alpha': 0.5, 'beta': 0.5} VAL N20=0.00707
+2026-11-17T08:15:43Z clothing n50 rp3beta {'alpha': 0.5, 'beta': 0.75} VAL N20=0.00707
+2026-11-17T08:15:43Z clothing n50 rp3beta {'alpha': 1.0, 'beta': 0.0} VAL N20=0.00707
+2026-11-17T08:15:43Z clothing n50 rp3beta {'alpha': 1.0, 'beta': 0.25} VAL N20=0.00707
+2026-11-17T08:15:43Z clothing n50 rp3beta {'alpha': 1.0, 'beta': 0.5} VAL N20=0.00707
+2026-11-17T08:15:43Z clothing n50 rp3beta {'alpha': 1.0, 'beta': 0.75} VAL N20=0.00707
+2026-11-17T08:15:43Z clothing n50 rp3beta TEST clean {'recall20': 0.01078167115902965, 'ndcg20': 0.007698671663363941}
+2026-11-17T08:15:43Z clothing n50 ease {'l2': 50.0} VAL N20=0.00707
+2026-11-17T08:15:43Z clothing n50 ease {'l2': 200.0} VAL N20=0.00707
+2026-11-17T08:15:43Z clothing n50 ease {'l2': 500.0} VAL N20=0.00707
+2026-11-17T08:15:43Z clothing n50 ease {'l2': 1000.0} VAL N20=0.00707
+2026-11-17T08:15:43Z clothing n50 ease {'l2': 3000.0} VAL N20=0.00707
+2026-11-17T08:15:43Z clothing n50 ease TEST clean {'recall20': 0.01078167115902965, 'ndcg20': 0.00655168883577734}
+2026-11-17T08:15:43Z clothing n50 hybrid {'k': 50, 'shrink': 0, 'content': 0.0} VAL N20=0.00707
+2026-11-17T08:15:43Z clothing n50 hybrid {'k': 50, 'shrink': 0, 'content': 0.1} VAL N20=0.21235
+2026-11-17T08:15:43Z clothing n50 hybrid {'k': 50, 'shrink': 0, 'content': 0.2} VAL N20=0.21235
+2026-11-17T08:15:43Z clothing n50 hybrid {'k': 50, 'shrink': 0, 'content': 0.3} VAL N20=0.21235
+2026-11-17T08:15:43Z clothing n50 hybrid {'k': 50, 'shrink': 0, 'content': 0.5} VAL N20=0.21235
+2026-11-17T08:15:43Z clothing n50 hybrid {'k': 50, 'shrink': 0, 'content': 0.7} VAL N20=0.21235
+2026-11-17T08:15:43Z clothing n50 hybrid {'k': 50, 'shrink': 0, 'content': 0.9} VAL N20=0.20974
+2026-11-17T08:15:43Z clothing n50 hybrid {'k': 50, 'shrink': 0, 'content': 1.0} VAL N20=0.20783
+2026-11-17T08:15:43Z clothing n50 hybrid TEST clean {'recall20': 0.3681042228212039, 'ndcg20': 0.22229464745059518}
+2026-11-17T08:15:43Z clothing n50 samelabel {'a': (1.0,), 'gamma': 0.0} VAL N20=0.12185
+2026-11-17T08:15:43Z clothing n50 samelabel {'a': (1.0,), 'gamma': 0.1} VAL N20=0.12185
+2026-11-17T08:15:43Z clothing n50 samelabel {'a': (1.0,), 'gamma': 0.3} VAL N20=0.12185
+2026-11-17T08:15:43Z clothing n50 samelabel {'a': (1.0,), 'gamma': 1.0} VAL N20=0.01897
+2026-11-17T08:15:43Z clothing n50 samelabel TEST clean {'recall20': 0.1399820305480683, 'ndcg20': 0.07205456371261738}
+2026-11-17T08:15:43Z clothing n50 transition {'a': (1.0,), 'gamma': 0.0, 'eps': 0.0001} VAL N20=0.00843
+2026-11-17T08:15:43Z clothing n50 transition {'a': (1.0,), 'gamma': 0.0, 'eps': 0.01} VAL N20=0.00843
+2026-11-17T08:15:43Z clothing n50 transition {'a': (1.0,), 'gamma': 0.5, 'eps': 0.0001} VAL N20=0.00977
+2026-11-17T08:15:43Z clothing n50 transition {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01} VAL N20=0.00869
+2026-11-17T08:15:43Z clothing n50 transition {'a': (1.0,), 'gamma': 1.0, 'eps': 0.0001} VAL N20=0.00667
+2026-11-17T08:15:43Z clothing n50 transition {'a': (1.0,), 'gamma': 1.0, 'eps': 0.01} VAL N20=0.00666
+2026-11-17T08:15:43Z clothing n50 transition {'a': (1.0,), 'gamma': 2.0, 'eps': 0.0001} VAL N20=0.00520
+2026-11-17T08:15:43Z clothing n50 transition {'a': (1.0,), 'gamma': 2.0, 'eps': 0.01} VAL N20=0.00294
+2026-11-17T08:15:43Z clothing n50 transition TEST clean {'recall20': 0.033423180592991916, 'ndcg20': 0.012004989793338722}
+2026-11-17T08:15:44Z clothing n50 label_knn {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.0} VAL N20=0.00707
+2026-11-17T08:15:44Z clothing n50 label_knn {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1} VAL N20=0.12531
+2026-11-17T08:15:44Z clothing n50 label_knn {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.2} VAL N20=0.12531
+2026-11-17T08:15:44Z clothing n50 label_knn {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.3} VAL N20=0.12531
+2026-11-17T08:15:44Z clothing n50 label_knn {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.5} VAL N20=0.12531
+2026-11-17T08:15:44Z clothing n50 label_knn {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.7} VAL N20=0.12292
+2026-11-17T08:15:44Z clothing n50 label_knn {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.9} VAL N20=0.12292
+2026-11-17T08:15:44Z clothing n50 label_knn {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 1.0} VAL N20=0.12185
+2026-11-17T08:15:44Z clothing n50 label_knn TEST clean {'recall20': 0.14806828391734053, 'ndcg20': 0.07705781758622392}
+2026-11-17T08:15:44Z clothing n50 label_knn_content {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1, 'v': 0.0} VAL N20=0.12531
+2026-11-17T08:15:44Z clothing n50 label_knn_content {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1, 'v': 0.05} VAL N20=0.22094
+2026-11-17T08:15:44Z clothing n50 label_knn_content {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1, 'v': 0.1} VAL N20=0.22094
+2026-11-17T08:15:44Z clothing n50 label_knn_content {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1, 'v': 0.2} VAL N20=0.22123
+2026-11-17T08:15:44Z clothing n50 label_knn_content {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1, 'v': 0.3} VAL N20=0.22711
+2026-11-17T08:15:44Z clothing n50 label_knn_content {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1, 'v': 0.5} VAL N20=0.22985
+2026-11-17T08:15:44Z clothing n50 label_knn_content TEST clean {'recall20': 0.38027852650494154, 'ndcg20': 0.22663897127739557}
+2026-11-17T08:15:44Z clothing n50 baselines COMPLETE

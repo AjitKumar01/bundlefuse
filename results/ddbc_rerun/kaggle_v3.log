@@ -1,0 +1,28 @@
+[{"stream_name":"stdout","time":5.969922787,"data":"$ pip -q install lightning==2.2.1 hydra-core==1.3.2 omegaconf==2.3.0 einops timm datasets faiss-cpu rich torchmetrics wandb 2\u003e\u00261 | tail -2 || true\n"}
+,{"stream_name":"stdout","time":18.707793262,"data":"gcsfs 2025.12.0 requires fsspec==2025.12.0, but you have fsspec 2024.12.0 which is incompatible.\n"}
+,{"stream_name":"stdout","time":18.707827074,"data":"gradio 6.30.0 requires pillow\u003c13.0,\u003e=8.0, but you have pillow 13.0.0 which is incompatible.\n"}
+,{"stream_name":"stdout","time":18.708288137,"data":"$ git clone -q https://github.com/LiAi16/DDBC.git /tmp/ddbc \u0026\u0026 cd /tmp/ddbc \u0026\u0026 git checkout -q e1f4afc \u0026\u0026 git log -1 --format=%H\n"}
+,{"stream_name":"stdout","time":19.470831818,"data":"e1f4afc59121662e626ffefde79316a5e0dde044\n"}
+,{"stream_name":"stdout","time":19.471555828,"data":"$ cp -r /tmp/ddbc/. /workspace/ \u0026\u0026 cp /kaggle/input/datasets/ajit1729/ddbc-rerun-inputs/ddbc_dump.py /workspace/\n"}
+,{"stream_name":"stdout","time":22.255453543,"data":"$ cd /tmp \u0026\u0026 unzip -o -q /kaggle/input/datasets/ajit1729/ddbc-rerun-inputs/ddbc.bin \"datasets/*\" -x \"__MACOSX/*\" \u0026\u0026 cp -r /tmp/datasets/pog_dense /tmp/datasets/spotify /workspace/\n"}
+,{"stream_name":"stderr","time":26.912078474,"data":"caution: excluded filename not matched:  __MACOSX/*\n"}
+,{"stream_name":"stderr","time":27.958099235,"data":"Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n"}
+,{"stream_name":"stdout","time":39.937441497,"data":"$ nvidia-smi --query-gpu=name,memory.total --format=csv,noheader\n"}
+,{"stream_name":"stdout","time":39.967953912,"data":"Tesla T4, 15360 MiB\n"}
+,{"stream_name":"stdout","time":39.968004759,"data":"Tesla T4, 15360 MiB\n"}
+,{"stream_name":"stdout","time":361.620777663,"data":"config: steps 256 length 12 seq_len 4 ckpt /workspace/pog_dense.ckpt\n"}
+,{"stream_name":"stdout","time":361.620830301,"data":"pog_dense_k4: 2521 queries, own-pool F1 0.1374 Jaccard 0.0980, generated codes that are real items 38.32%, 248s\n"}
+,{"stream_name":"stdout","time":361.620834936,"data":"\n"}
+,{"stream_name":"stdout","time":361.620837981,"data":"$ cd /kaggle/working \u0026\u0026 ls -la ddbc_out \u0026\u0026 echo ALL DONE\n"}
+,{"stream_name":"stdout","time":361.625308916,"data":"total 1372\n"}
+,{"stream_name":"stdout","time":361.625328378,"data":"drwxr-xr-x 2 root root    4096 Nov 17 00:45 .\n"}
+,{"stream_name":"stdout","time":361.62533395,"data":"drwxr-xr-x 3 root root    4096 Nov 17 00:40 ..\n"}
+,{"stream_name":"stdout","time":361.625338884,"data":"-rw-r--r-- 1 root root 1392858 Nov 17 00:45 pog_dense_k4.npz\n"}
+,{"stream_name":"stdout","time":361.625499297,"data":"ALL DONE\n"}
+,{"stream_name":"stderr","time":363.567496421,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":363.567524314,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":363.784151241,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":363.784175265,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":364.522596966,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":365.409101537,"data":"[NbConvertApp] Writing 285895 bytes to __results__.html\n"}
+]

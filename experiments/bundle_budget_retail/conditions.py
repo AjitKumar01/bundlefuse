@@ -12,12 +12,12 @@ factors, partner histories) and training rows are the same bundles.
 
 PYTHONPATH=.:../dials .venv/bin/python -m experiments.bundle_budget_retail.conditions
 """
-import dials  # pins BLAS threads before numpy loads
+import triad  # pins BLAS threads before numpy loads
 import dataclasses
 import numpy as np
 from functools import lru_cache
 from pathlib import Path
-from dials import data as dials_data
+from triad import data as dials_data
 from bundlefuse.provenance import write_json
 from experiments.dials_frozen.compare import CACHE
 

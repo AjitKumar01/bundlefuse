@@ -6,7 +6,7 @@ DIALS full: the frozen runs. Writes comparison.json (retail) or comparison_<fami
 PYTHONPATH=.:../dials .venv/bin/python -m experiments.bundle_budget_retail.compare --family retail
 """
 import argparse
-import dials  # pins BLAS threads before numpy loads
+import triad  # pins BLAS threads before numpy loads
 import json
 import numpy as np
 from bundlefuse.provenance import write_json

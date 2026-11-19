@@ -5,10 +5,10 @@ The full condition reuses the frozen runs. Runs go to results/bundle_budget_reta
 PYTHONPATH=.:../dials .venv/bin/python -m experiments.bundle_budget_retail.train --dataset electronic --condition n100 --seed 0
 """
 import argparse
-import dials  # pins BLAS threads before numpy loads
+import triad  # pins BLAS threads before numpy loads
 import torch
-from dials import train as dials_train
-from dials.evaluate import evaluate
+from triad import train as dials_train
+from triad.evaluate import evaluate
 from experiments.dials_frozen.compare import CACHE
 from .conditions import dataset,condition,with_train,CONDITIONS,DATASETS,OUT
 

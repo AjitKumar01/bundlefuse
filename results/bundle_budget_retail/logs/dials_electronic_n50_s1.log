@@ -1,9 +1,10 @@
-2026-11-16T05:27:38Z electronic seed=1 parameters=41624 train_bundles=50 start_epoch=1
-2026-11-16T05:27:38Z electronic seed=1 epoch=1 loss=7.58345 VAL R20=0.160886 N20=0.081353 best_epoch=1 patience=0/6
-2026-11-16T05:27:38Z electronic seed=1 epoch=2 loss=7.68267 VAL R20=0.155106 N20=0.080776 best_epoch=1 patience=1/6
-2026-11-16T05:27:39Z electronic seed=1 epoch=3 loss=7.42239 VAL R20=0.162813 N20=0.078997 best_epoch=1 patience=2/6
-2026-11-16T05:27:39Z electronic seed=1 epoch=4 loss=7.34679 VAL R20=0.162813 N20=0.076973 best_epoch=1 patience=3/6
-2026-11-16T05:27:39Z electronic seed=1 epoch=5 loss=7.40354 VAL R20=0.162813 N20=0.076603 best_epoch=1 patience=4/6
-2026-11-16T05:27:39Z electronic seed=1 epoch=6 loss=7.41035 VAL R20=0.162813 N20=0.074711 best_epoch=1 patience=5/6
-2026-11-16T05:27:39Z electronic seed=1 epoch=7 loss=7.36004 VAL R20=0.157033 N20=0.068609 best_epoch=1 patience=6/6
-2026-11-16T05:27:39Z electronic n50 seed 1 COMPLETE
+2026-11-17T08:15:13Z electronic seed=1 parameters=41624 train_bundles=50 start_epoch=1
+2026-11-17T08:15:13Z electronic seed=1 epoch=1 loss=7.29022 VAL R20=0.227360 N20=0.123751 best_epoch=1 patience=0/6
+2026-11-17T08:15:13Z electronic seed=1 epoch=2 loss=7.31952 VAL R20=0.227360 N20=0.124857 best_epoch=2 patience=0/6
+2026-11-17T08:15:13Z electronic seed=1 epoch=3 loss=7.23139 VAL R20=0.221580 N20=0.121330 best_epoch=2 patience=1/6
+2026-11-17T08:15:13Z electronic seed=1 epoch=4 loss=7.04666 VAL R20=0.219653 N20=0.122677 best_epoch=2 patience=2/6
+2026-11-17T08:15:14Z electronic seed=1 epoch=5 loss=7.10994 VAL R20=0.219653 N20=0.122129 best_epoch=2 patience=3/6
+2026-11-17T08:15:14Z electronic seed=1 epoch=6 loss=7.15422 VAL R20=0.219653 N20=0.123483 best_epoch=2 patience=4/6
+2026-11-17T08:15:14Z electronic seed=1 epoch=7 loss=7.12114 VAL R20=0.231214 N20=0.121268 best_epoch=2 patience=5/6
+2026-11-17T08:15:14Z electronic seed=1 epoch=8 loss=6.97383 VAL R20=0.240077 N20=0.121847 best_epoch=2 patience=6/6
+2026-11-17T08:15:14Z electronic n50 seed 1 COMPLETE

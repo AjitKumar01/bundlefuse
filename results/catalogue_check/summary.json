@@ -1,0 +1,2287 @@
+{
+  "note": "Does the unseen-item bonus depend on the split, or on how the catalogue is built?\n\nTwo checks on Electronic and Food (dials/ARCHITECTURE.md section 14, paper section \"Equal information\"):\n\n  split<k>  a fresh seeded 70/10/20 split (triad.data.load_resplit(seed=k)); split0 is the published one, retrained\n            here with the same code so every condition is comparable.\n  pad<m>    the published split with P = m x n0 extra items that are in no bundle (n0 = items with f = 0 in the\n            published catalogue). Each extra item copies the features and category of a uniformly drawn catalogue\n            item, so features and labels cannot tell it apart from a real one. It is a negative everywhere.\n\nThe bonus is learned from training data alone, so a fresh split should leave it unchanged. Padding adds f = 0 items\nthat are never targets: the base-rate argument predicts the bonus falls by about log(1 + P/n0), and its test gain\nfalls with it.\n\nPer condition: TRIAD seeds 0-2 (the one configuration, early stopping on validation), scored with and without the\nbonus (rho of f = 0 items set to rho(log 2), experiments.fair_prior.no_bonus); the learned bonus\nw_G (rho(0) - rho(log 2)) averaged over test queries; the bonus the test base rates call for,\nlog(share of f=0 targets / share of f=0 items) - log(share of f=1 targets / share of f=1 items); and the two content\nblends of the main table with the frequency prior (experiments.fair_prior.baselines: published setting kept, mixing\nweight and lambda retuned on validation; also lambda = 0). Tests (paired cluster bootstrap and sign flips, Holm over\nall tests of this run): TRIAD - TRIAD w/o bonus, and TRIAD - the better blend with the prior chosen on validation.\nAll test queries are clean (duplicate bundles are removed before splitting). Writes results/catalogue_check/summary.json.\n\nPYTHONPATH=.:../dials nice -n 10 .venv/bin/python -m experiments.catalogue_check.run [name:cond ...]\n",
+  "conditions": {
+    "electronic:split0": {
+      "n_items": 3499,
+      "n0": 680,
+      "unseen_target_share": 0.4083333333333333,
+      "ideal_bonus_test": 1.1904417431664442,
+      "ideal_bonus_val": 1.405772541325137,
+      "learned_bonus": {
+        "per_seed": [
+          {
+            "rho_gap": 0.3684527240693569,
+            "weighted": 1.949724371645667
+          },
+          {
+            "rho_gap": 0.4289713501930237,
+            "weighted": 1.9877193861606202
+          },
+          {
+            "rho_gap": 0.37372034788131714,
+            "weighted": 1.8308822429493432
+          }
+        ],
+        "weighted": 1.92277533358521,
+        "rho_gap": 0.39038147404789925
+      },
+      "triad": [
+        0.4669075144508671,
+        0.334522806101869
+      ],
+      "triad_no_bonus": [
+        0.4046242774566474,
+        0.3062801341440916
+      ],
+      "best_simple": "hybrid+prior",
+      "simple": {
+        "hybrid+prior": {
+          "test": [
+            0.43463391136801555,
+            0.3121737371619649
+          ],
+          "validation_ndcg20": 0.3632672589176121,
+          "lam": 0.03,
+          "params": {
+            "k": 200,
+            "shrink": 0,
+            "content": 0.2
+          }
+        },
+        "hybrid": {
+          "test": [
+            0.4160404624277456,
+            0.30239660413223557
+          ],
+          "validation_ndcg20": 0.33166910264155275,
+          "lam": 0.0,
+          "params": {
+            "k": 200,
+            "shrink": 0,
+            "content": 0.3
+          }
+        },
+        "label_knn_content+prior": {
+          "test": [
+            0.43742774566473996,
+            0.3198105266622825
+          ],
+          "validation_ndcg20": 0.3462551178173025,
+          "lam": 0.03,
+          "params": {
+            "label": "transition",
+            "label_params": {
+              "a": [
+                1.0
+              ],
+              "gamma": 1.0,
+              "eps": 0.0001
+            },
+            "itemknn": {
+              "k": 200,
+              "shrink": 0
+            },
+            "w": 0.3,
+            "v": 1.5
+          }
+        },
+        "label_knn_content": {
+          "test": [
+            0.41266859344894036,
+            0.301071136653647
+          ],
+          "validation_ndcg20": 0.32070187275247186,
+          "lam": 0.0,
+          "params": {
+            "label": "transition",
+            "label_params": {
+              "a": [
+                1.0
+              ],
+              "gamma": 1.0,
+              "eps": 0.0001
+            },
+            "itemknn": {
+              "k": 200,
+              "shrink": 0
+            },
+            "w": 0.3,
+            "v": 1.5
+          }
+        }
+      }
+    },
+    "electronic:split1": {
+      "n_items": 3499,
+      "n0": 658,
+      "unseen_target_share": 0.44464609800362975,
+      "ideal_bonus_test": 1.4335903150748208,
+      "ideal_bonus_val": 1.3671571992491602,
+      "learned_bonus": {
+        "per_seed": [
+          {
+            "rho_gap": 0.32424360513687134,
+            "weighted": 1.5650577540817778
+          },
+          {
+            "rho_gap": 0.36767134070396423,
+            "weighted": 1.7756400604880582
+          },
+          {
+            "rho_gap": 0.35813213884830475,
+            "weighted": 1.754855028422135
+          }
+        ],
+        "weighted": 1.698517614330657,
+        "rho_gap": 0.3500156948963801
+      },
+      "triad": [
+        0.5457129094412331,
+        0.3768432703560055
+      ],
+      "triad_no_bonus": [
+        0.464193962748876,
+        0.3351805430904582
+      ],
+      "best_simple": "hybrid+prior",
+      "simple": {
+        "hybrid+prior": {
+          "test": [
+            0.5035645472061656,
+            0.3570892795891953
+          ],
+          "validation_ndcg20": 0.3368801687909447,
+          "lam": 0.03,
+          "params": {
+            "k": 200,
+            "shrink": 0,
+            "content": 0.3
+          }
+        },
+        "hybrid": {
+          "test": [
+            0.45953757225433517,
+            0.3288155083475509
+          ],
+          "validation_ndcg20": 0.3220090811793951,
+          "lam": 0.0,
+          "params": {
+            "k": 200,
+            "shrink": 0,
+            "content": 0.3
+          }
+        },
+        "label_knn_content+prior": {
+          "test": [
+            0.5102119460500962,
+            0.36115345199957466
+          ],
+          "validation_ndcg20": 0.3343910898193595,
+          "lam": 0.03,
+          "params": {
+            "label": "transition",
+            "label_params": {
+              "a": [
+                1.0
+              ],
+              "gamma": 1.0,
+              "eps": 0.0001
+            },
+            "itemknn": {
+              "k": 200,
+              "shrink": 0
+            },
+            "w": 0.3,
+            "v": 1.5
+          }
+        },
+        "label_knn_content": {
+          "test": [
+            0.4579961464354527,
+            0.3342012627826587
+          ],
+          "validation_ndcg20": 0.320037217305324,
+          "lam": 0.0,
+          "params": {
+            "label": "transition",
+            "label_params": {
+              "a": [
+                1.0
+              ],
+              "gamma": 1.0,
+              "eps": 0.0001
+            },
+            "itemknn": {
+              "k": 200,
+              "shrink": 0
+            },
+            "w": 0.3,
+            "v": 1.5
+          }
+        }
+      }
+    },
+    "electronic:split2": {
+      "n_items": 3499,
+      "n0": 693,
+      "unseen_target_share": 0.4532871972318339,
+      "ideal_bonus_test": 1.4058018773531256,
+      "ideal_bonus_val": 1.2363159693619425,
+      "learned_bonus": {
+        "per_seed": [
+          {
+            "rho_gap": 0.3803841508924961,
+            "weighted": 1.7889546685434077
+          },
+          {
+            "rho_gap": 0.4072043299674988,
+            "weighted": 1.8899297723633879
+          },
+          {
+            "rho_gap": 0.3654747009277344,
+            "weighted": 1.6947370650032099
+          }
+        ],
+        "weighted": 1.7912071686366684,
+        "rho_gap": 0.3843543939292431
+      },
+      "triad": [
+        0.4873956326268465,
+        0.34752003494848543
+      ],
+      "triad_no_bonus": [
+        0.4293352601156069,
+        0.3221542980788523
+      ],
+      "best_simple": "hybrid+prior",
+      "simple": {
+        "hybrid+prior": {
+          "test": [
+            0.44667630057803454,
+            0.32274957461643267
+          ],
+          "validation_ndcg20": 0.28814430009122455,
+          "lam": 0.1,
+          "params": {
+            "k": 200,
+            "shrink": 0,
+            "content": 0.5
+          }
+        },
+        "hybrid": {
+          "test": [
+            0.42114643545279373,
+            0.3157930760773642
+          ],
+          "validation_ndcg20": 0.26881406285792403,
+          "lam": 0.0,
+          "params": {
+            "k": 200,
+            "shrink": 0,
+            "content": 0.5
+          }
+        },
+        "label_knn_content+prior": {
+          "test": [
+            0.42996146435452787,
+            0.30093130800370405
+          ],
+          "validation_ndcg20": 0.28135426466832664,
+          "lam": 0.1,
+          "params": {
+            "label": "transition",
+            "label_params": {
+              "a": [
+                1.0
+              ],
+              "gamma": 1.0,
+              "eps": 0.0001
+            },
+            "itemknn": {
+              "k": 200,
+              "shrink": 0
+            },
+            "w": 0.3,
+            "v": 0.7
+          }
+        },
+        "label_knn_content": {
+          "test": [
+            0.4168111753371868,
+            0.3137303952065125
+          ],
+          "validation_ndcg20": 0.25744331276397153,
+          "lam": 0.0,
+          "params": {
+            "label": "transition",
+            "label_params": {
+              "a": [
+                1.0
+              ],
+              "gamma": 1.0,
+              "eps": 0.0001
+            },
+            "itemknn": {
+              "k": 200,
+              "shrink": 0
+            },
+            "w": 0.3,
+            "v": 1.0
+          }
+        }
+      }
+    },
+    "electronic:pad1": {
+      "n_items": 4179,
+      "n0": 1360,
+      "unseen_target_share": 0.4083333333333333,
+      "ideal_bonus_test": 0.49729456260649896,
+      "ideal_bonus_val": 0.7126253607651916,
+      "learned_bonus": {
+        "per_seed": [
+          {
+            "rho_gap": 0.19066211581230164,
+            "weighted": 0.8367016438679968
+          },
+          {
+            "rho_gap": 0.2887306809425354,
+            "weighted": 1.2628998963961067
+          },
+          {
+            "rho_gap": 0.2283528447151184,
+            "weighted": 1.065012740440352
+          }
+        ],
+        "weighted": 1.0548714269014852,
+        "rho_gap": 0.23591521382331848
+      },
+      "triad": [
+        0.4281791907514451,
+        0.31493862783240184
+      ],
+      "triad_no_bonus": [
+        0.4080603725112395,
+        0.3078573098079944
+      ],
+      "best_simple": "hybrid+prior",
+      "simple": {
+        "hybrid+prior": {
+          "test": [
+            0.4117052023121387,
+            0.3005656311474639
+          ],
+          "validation_ndcg20": 0.33361287971809367,
+          "lam": 0.03,
+          "params": {
+            "k": 200,
+            "shrink": 0,
+            "content": 0.2
+          }
+        },
+        "hybrid": {
+          "test": [
+            0.40881502890173416,
+            0.2983111927595286
+          ],
+          "validation_ndcg20": 0.3183000794725202,
+          "lam": 0.0,
+          "params": {
+            "k": 200,
+            "shrink": 0,
+            "content": 0.3
+          }
+        },
+        "label_knn_content+prior": {
+          "test": [
+            0.4151734104046243,
+            0.3090223084295745
+          ],
+          "validation_ndcg20": 0.32165931452013846,
+          "lam": 0.03,
+          "params": {
+            "label": "transition",
+            "label_params": {
+              "a": [
+                1.0
+              ],
+              "gamma": 1.0,
+              "eps": 0.0001
+            },
+            "itemknn": {
+              "k": 200,
+              "shrink": 0
+            },
+            "w": 0.3,
+            "v": 1.0
+          }
+        },
+        "label_knn_content": {
+          "test": [
+            0.41363198458574185,
+            0.3042121535069333
+          ],
+          "validation_ndcg20": 0.3034874018624155,
+          "lam": 0.0,
+          "params": {
+            "label": "transition",
+            "label_params": {
+              "a": [
+                1.0
+              ],
+              "gamma": 1.0,
+              "eps": 0.0001
+            },
+            "itemknn": {
+              "k": 200,
+              "shrink": 0
+            },
+            "w": 0.3,
+            "v": 1.0
+          }
+        }
+      }
+    },
+    "electronic:pad4": {
+      "n_items": 6219,
+      "n0": 3400,
+      "unseen_target_share": 0.4083333333333333,
+      "ideal_bonus_test": -0.41899616926765604,
+      "ideal_bonus_val": -0.20366537110896354,
+      "learned_bonus": {
+        "per_seed": [
+          {
+            "rho_gap": 0.09484732151031494,
+            "weighted": 0.41742193346959766
+          },
+          {
+            "rho_gap": 0.11195424199104309,
+            "weighted": 0.45634766860767684
+          },
+          {
+            "rho_gap": 0.04638540744781494,
+            "weighted": 0.19081126716309882
+          }
+        ],
+        "weighted": 0.3548602897467911,
+        "rho_gap": 0.08439565698305766
+      },
+      "triad": [
+        0.39124919717405254,
+        0.2970865958001235
+      ],
+      "triad_no_bonus": [
+        0.3943641618497108,
+        0.29834211397517946
+      ],
+      "best_simple": "hybrid+prior",
+      "simple": {
+        "hybrid+prior": {
+          "test": [
+            0.3990847784200386,
+            0.28974346489838093
+          ],
+          "validation_ndcg20": 0.2978758176578288,
+          "lam": 0.03,
+          "params": {
+            "k": 200,
+            "shrink": 0,
+            "content": 0.2
+          }
+        },
+        "hybrid": {
+          "test": [
+            0.40736994219653183,
+            0.2914898000942053
+          ],
+          "validation_ndcg20": 0.29745537471223216,
+          "lam": 0.0,
+          "params": {
+            "k": 200,
+            "shrink": 0,
+            "content": 0.3
+          }
+        },
+        "label_knn_content+prior": {
+          "test": [
+            0.4024566473988439,
+            0.29496434975057156
+          ],
+          "validation_ndcg20": 0.2890131263819306,
+          "lam": 0.03,
+          "params": {
+            "label": "transition",
+            "label_params": {
+              "a": [
+                1.0
+              ],
+              "gamma": 1.0,
+              "eps": 0.0001
+            },
+            "itemknn": {
+              "k": 200,
+              "shrink": 0
+            },
+            "w": 0.3,
+            "v": 1.0
+          }
+        },
+        "label_knn_content": {
+          "test": [
+            0.3990847784200386,
+            0.293709213577776
+          ],
+          "validation_ndcg20": 0.28629524402278017,
+          "lam": 0.0,
+          "params": {
+            "label": "transition",
+            "label_params": {
+              "a": [
+                1.0
+              ],
+              "gamma": 1.0,
+              "eps": 0.0001
+            },
+            "itemknn": {
+              "k": 200,
+              "shrink": 0
+            },
+            "w": 0.3,
+            "v": 1.0
+          }
+        }
+      }
+    },
+    "electronic:pad16": {
+      "n_items": 14379,
+      "n0": 11560,
+      "unseen_target_share": 0.4083333333333333,
+      "ideal_bonus_test": -1.6427716008897717,
+      "ideal_bonus_val": -1.4274408027310792,
+      "learned_bonus": {
+        "per_seed": [
+          {
+            "rho_gap": -0.2043437361717224,
+            "weighted": -0.7787563392949295
+          },
+          {
+            "rho_gap": -0.21402078866958618,
+            "weighted": -0.7772846667254356
+          },
+          {
+            "rho_gap": -0.08668287470936775,
+            "weighted": -0.3400142902923733
+          }
+        ],
+        "weighted": -0.6320184321042461,
+        "rho_gap": -0.1683491331835588
+      },
+      "triad": [
+        0.35929672447013494,
+        0.2845470961568963
+      ],
+      "triad_no_bonus": [
+        0.36250802825947337,
+        0.2849190745288009
+      ],
+      "best_simple": "hybrid+prior",
+      "simple": {
+        "hybrid+prior": {
+          "test": [
+            0.38078034682080925,
+            0.27930771247506947
+          ],
+          "validation_ndcg20": 0.2785790796860864,
+          "lam": 0.03,
+          "params": {
+            "k": 200,
+            "shrink": 0,
+            "content": 0.3
+          }
+        },
+        "hybrid": {
+          "test": [
+            0.3754816955684007,
+            0.2773825015716707
+          ],
+          "validation_ndcg20": 0.2768174555251948,
+          "lam": 0.0,
+          "params": {
+            "k": 200,
+            "shrink": 0,
+            "content": 0.3
+          }
+        },
+        "label_knn_content+prior": {
+          "test": [
+            0.3672928709055876,
+            0.2819084846524656
+          ],
+          "validation_ndcg20": 0.2697229343048729,
+          "lam": 0.01,
+          "params": {
+            "label": "transition",
+            "label_params": {
+              "a": [
+                1.0
+              ],
+              "gamma": 1.0,
+              "eps": 0.0001
+            },
+            "itemknn": {
+              "k": 200,
+              "shrink": 0
+            },
+            "w": 0.3,
+            "v": 1.0
+          }
+        },
+        "label_knn_content": {
+          "test": [
+            0.358140655105973,
+            0.2778776601298588
+          ],
+          "validation_ndcg20": 0.2692313402780488,
+          "lam": 0.0,
+          "params": {
+            "label": "transition",
+            "label_params": {
+              "a": [
+                1.0
+              ],
+              "gamma": 1.0,
+              "eps": 0.0001
+            },
+            "itemknn": {
+              "k": 200,
+              "shrink": 0
+            },
+            "w": 0.3,
+            "v": 1.0
+          }
+        }
+      }
+    },
+    "food:split0": {
+      "n_items": 3767,
+      "n0": 788,
+      "unseen_target_share": 0.46215780998389694,
+      "ideal_bonus_test": 1.3119776410030644,
+      "ideal_bonus_val": 1.430402678634824,
+      "learned_bonus": {
+        "per_seed": [
+          {
+            "rho_gap": 0.40311989188194275,
+            "weighted": 1.7790086848895754
+          },
+          {
+            "rho_gap": 0.5069335103034973,
+            "weighted": 1.6158417411395902
+          },
+          {
+            "rho_gap": 0.3370109051465988,
+            "weighted": 1.5351853735660796
+          }
+        ],
+        "weighted": 1.6433452665317485,
+        "rho_gap": 0.41568810244401294
+      },
+      "triad": [
+        0.617784073024866,
+        0.4738321448439196
+      ],
+      "triad_no_bonus": [
+        0.5807208057916274,
+        0.4446499752756071
+      ],
+      "best_simple": "hybrid+prior",
+      "simple": {
+        "hybrid+prior": {
+          "test": [
+            0.5834277620396601,
+            0.46010462019859394
+          ],
+          "validation_ndcg20": 0.4292931922857344,
+          "lam": 0.03,
+          "params": {
+            "k": 50,
+            "shrink": 10,
+            "content": 0.2
+          }
+        },
+        "hybrid": {
+          "test": [
+            0.5628423040604343,
+            0.44496946564251305
+          ],
+          "validation_ndcg20": 0.412843351144107,
+          "lam": 0.0,
+          "params": {
+            "k": 50,
+            "shrink": 10,
+            "content": 0.3
+          }
+        },
+        "label_knn_content+prior": {
+          "test": [
+            0.5943814919735599,
+            0.4644595509091154
+          ],
+          "validation_ndcg20": 0.42191962567017804,
+          "lam": 0.03,
+          "params": {
+            "label": "transition",
+            "label_params": {
+              "a": [
+                1.0
+              ],
+              "gamma": 0.5,
+              "eps": 0.01
+            },
+            "itemknn": {
+              "k": 50,
+              "shrink": 10
+            },
+            "w": 0.2,
+            "v": 1.5
+          }
+        },
+        "label_knn_content": {
+          "test": [
+            0.559773371104816,
+            0.4440681571995783
+          ],
+          "validation_ndcg20": 0.4070916037135726,
+          "lam": 0.0,
+          "params": {
+            "label": "transition",
+            "label_params": {
+              "a": [
+                1.0
+              ],
+              "gamma": 0.5,
+              "eps": 0.01
+            },
+            "itemknn": {
+              "k": 50,
+              "shrink": 10
+            },
+            "w": 0.2,
+            "v": 1.5
+          }
+        }
+      }
+    },
+    "food:split1": {
+      "n_items": 3767,
+      "n0": 797,
+      "unseen_target_share": 0.4688581314878893,
+      "ideal_bonus_test": 1.3500260628683838,
+      "ideal_bonus_val": 1.4265409560787972,
+      "learned_bonus": {
+        "per_seed": [
+          {
+            "rho_gap": 0.33024629950523376,
+            "weighted": 1.4749985777473
+          },
+          {
+            "rho_gap": 0.27160894870758057,
+            "weighted": 1.1824301011654939
+          },
+          {
+            "rho_gap": 0.3740791082382202,
+            "weighted": 1.641916841015643
+          }
+        ],
+        "weighted": 1.433115173309479,
+        "rho_gap": 0.32531145215034485
+      },
+      "triad": [
+        0.584198929807995,
+        0.4255639509663915
+      ],
+      "triad_no_bonus": [
+        0.5581366068618194,
+        0.4084671316777023
+      ],
+      "best_simple": "hybrid+prior",
+      "simple": {
+        "hybrid+prior": {
+          "test": [
+            0.5734655335221908,
+            0.41497103878594815
+          ],
+          "validation_ndcg20": 0.37463932825558804,
+          "lam": 0.03,
+          "params": {
+            "k": 50,
+            "shrink": 10,
+            "content": 0.5
+          }
+        },
+        "hybrid": {
+          "test": [
+            0.550661000944287,
+            0.3935241031569864
+          ],
+          "validation_ndcg20": 0.35842578887080156,
+          "lam": 0.0,
+          "params": {
+            "k": 50,
+            "shrink": 10,
+            "content": 0.1
+          }
+        },
+        "label_knn_content+prior": {
+          "test": [
+            0.5759206798866856,
+            0.4084561461866478
+          ],
+          "validation_ndcg20": 0.3705697235103408,
+          "lam": 0.03,
+          "params": {
+            "label": "transition",
+            "label_params": {
+              "a": [
+                1.0
+              ],
+              "gamma": 0.5,
+              "eps": 0.01
+            },
+            "itemknn": {
+              "k": 50,
+              "shrink": 10
+            },
+            "w": 0.2,
+            "v": 2.0
+          }
+        },
+        "label_knn_content": {
+          "test": [
+            0.5490084985835695,
+            0.3957882402156494
+          ],
+          "validation_ndcg20": 0.3511101103177276,
+          "lam": 0.0,
+          "params": {
+            "label": "transition",
+            "label_params": {
+              "a": [
+                1.0
+              ],
+              "gamma": 0.5,
+              "eps": 0.01
+            },
+            "itemknn": {
+              "k": 50,
+              "shrink": 10
+            },
+            "w": 0.2,
+            "v": 1.5
+          }
+        }
+      }
+    },
+    "food:split2": {
+      "n_items": 3767,
+      "n0": 789,
+      "unseen_target_share": 0.5023847376788553,
+      "ideal_bonus_test": 1.5258396151065072,
+      "ideal_bonus_val": 1.1698914627876205,
+      "learned_bonus": {
+        "per_seed": [
+          {
+            "rho_gap": 0.36415357887744904,
+            "weighted": 1.6510655254221547
+          },
+          {
+            "rho_gap": 0.411567822098732,
+            "weighted": 1.6957545615994647
+          },
+          {
+            "rho_gap": 0.34178173542022705,
+            "weighted": 1.4061607368797127
+          }
+        ],
+        "weighted": 1.584326941300444,
+        "rho_gap": 0.37250104546546936
+      },
+      "triad": [
+        0.5771954674220962,
+        0.44536543166792686
+      ],
+      "triad_no_bonus": [
+        0.5356940509915012,
+        0.4073570104211005
+      ],
+      "best_simple": "label_knn_content+prior",
+      "simple": {
+        "hybrid+prior": {
+          "test": [
+            0.5580264400377712,
+            0.43346460328966935
+          ],
+          "validation_ndcg20": 0.4134353174958923,
+          "lam": 0.03,
+          "params": {
+            "k": 50,
+            "shrink": 10,
+            "content": 0.7
+          }
+        },
+        "hybrid": {
+          "test": [
+            0.5470727101038715,
+            0.41639143132135115
+          ],
+          "validation_ndcg20": 0.4032247281149772,
+          "lam": 0.0,
+          "params": {
+            "k": 50,
+            "shrink": 10,
+            "content": 0.7
+          }
+        },
+        "label_knn_content+prior": {
+          "test": [
+            0.5668083097261566,
+            0.4265546150752939
+          ],
+          "validation_ndcg20": 0.4134689266310394,
+          "lam": 0.03,
+          "params": {
+            "label": "transition",
+            "label_params": {
+              "a": [
+                1.0
+              ],
+              "gamma": 0.5,
+              "eps": 0.01
+            },
+            "itemknn": {
+              "k": 50,
+              "shrink": 10
+            },
+            "w": 0.2,
+            "v": 2.0
+          }
+        },
+        "label_knn_content": {
+          "test": [
+            0.5472143531633614,
+            0.4083179191228896
+          ],
+          "validation_ndcg20": 0.39787511711135565,
+          "lam": 0.0,
+          "params": {
+            "label": "transition",
+            "label_params": {
+              "a": [
+                1.0
+              ],
+              "gamma": 0.5,
+              "eps": 0.01
+            },
+            "itemknn": {
+              "k": 50,
+              "shrink": 10
+            },
+            "w": 0.2,
+            "v": 2.0
+          }
+        }
+      }
+    },
+    "food:pad1": {
+      "n_items": 4555,
+      "n0": 1576,
+      "unseen_target_share": 0.46215780998389694,
+      "ideal_bonus_test": 0.618830460443119,
+      "ideal_bonus_val": 0.7372554980748787,
+      "learned_bonus": {
+        "per_seed": [
+          {
+            "rho_gap": 0.24131862074136734,
+            "weighted": 0.9941339600476908
+          },
+          {
+            "rho_gap": 0.27252407371997833,
+            "weighted": 0.8679838312703794
+          },
+          {
+            "rho_gap": 0.1717483401298523,
+            "weighted": 0.7468129763958018
+          }
+        ],
+        "weighted": 0.8696435892379574,
+        "rho_gap": 0.22853034486373267
+      },
+      "triad": [
+        0.5875354107648724,
+        0.43802727449782647
+      ],
+      "triad_no_bonus": [
+        0.5695624803273531,
+        0.4250404482195086
+      ],
+      "best_simple": "hybrid+prior",
+      "simple": {
+        "hybrid+prior": {
+          "test": [
+            0.5586874409820586,
+            0.4285518204664967
+          ],
+          "validation_ndcg20": 0.40115410567164905,
+          "lam": 0.01,
+          "params": {
+            "k": 50,
+            "shrink": 10,
+            "content": 0.3
+          }
+        },
+        "hybrid": {
+          "test": [
+            0.5545797922568462,
+            0.4265866493584581
+          ],
+          "validation_ndcg20": 0.39424611466346965,
+          "lam": 0.0,
+          "params": {
+            "k": 50,
+            "shrink": 10,
+            "content": 0.3
+          }
+        },
+        "label_knn_content+prior": {
+          "test": [
+            0.5753541076487252,
+            0.43902500035738773
+          ],
+          "validation_ndcg20": 0.39341044987051954,
+          "lam": 0.03,
+          "params": {
+            "label": "transition",
+            "label_params": {
+              "a": [
+                1.0
+              ],
+              "gamma": 0.5,
+              "eps": 0.01
+            },
+            "itemknn": {
+              "k": 50,
+              "shrink": 10
+            },
+            "w": 0.2,
+            "v": 1.5
+          }
+        },
+        "label_knn_content": {
+          "test": [
+            0.5571765816808311,
+            0.42934035517977515
+          ],
+          "validation_ndcg20": 0.38897542470028834,
+          "lam": 0.0,
+          "params": {
+            "label": "transition",
+            "label_params": {
+              "a": [
+                1.0
+              ],
+              "gamma": 0.5,
+              "eps": 0.01
+            },
+            "itemknn": {
+              "k": 50,
+              "shrink": 10
+            },
+            "w": 0.2,
+            "v": 1.5
+          }
+        }
+      }
+    },
+    "food:pad4": {
+      "n_items": 6919,
+      "n0": 3940,
+      "unseen_target_share": 0.46215780998389694,
+      "ideal_bonus_test": -0.2974602714310362,
+      "ideal_bonus_val": -0.17903523379927658,
+      "learned_bonus": {
+        "per_seed": [
+          {
+            "rho_gap": 0.005767598748207092,
+            "weighted": 0.016323654368243012
+          },
+          {
+            "rho_gap": -0.02173234522342682,
+            "weighted": -0.058886044906238055
+          },
+          {
+            "rho_gap": -0.08552519790828228,
+            "weighted": -0.28922863984949654
+          }
+        ],
+        "weighted": -0.11059701012916386,
+        "rho_gap": -0.033829981461167336
+      },
+      "triad": [
+        0.5305004721435318,
+        0.3832476680285695
+      ],
+      "triad_no_bonus": [
+        0.5350645262826565,
+        0.3846558997421549
+      ],
+      "best_simple": "hybrid+prior",
+      "simple": {
+        "hybrid+prior": {
+          "test": [
+            0.5322474032105761,
+            0.39193244550443085
+          ],
+          "validation_ndcg20": 0.3763572229914976,
+          "lam": 0.01,
+          "params": {
+            "k": 50,
+            "shrink": 10,
+            "content": 0.3
+          }
+        },
+        "hybrid": {
+          "test": [
+            0.5373465533522191,
+            0.3940407181594016
+          ],
+          "validation_ndcg20": 0.3750796434112997,
+          "lam": 0.0,
+          "params": {
+            "k": 50,
+            "shrink": 10,
+            "content": 0.3
+          }
+        },
+        "label_knn_content+prior": {
+          "test": [
+            0.532625118035883,
+            0.39759130832560485
+          ],
+          "validation_ndcg20": 0.3649024619673335,
+          "lam": 0.0,
+          "params": {
+            "label": "transition",
+            "label_params": {
+              "a": [
+                1.0
+              ],
+              "gamma": 0.5,
+              "eps": 0.01
+            },
+            "itemknn": {
+              "k": 50,
+              "shrink": 10
+            },
+            "w": 0.2,
+            "v": 1.0
+          }
+        },
+        "label_knn_content": {
+          "test": [
+            0.532625118035883,
+            0.39759130832560485
+          ],
+          "validation_ndcg20": 0.3649024619673335,
+          "lam": 0.0,
+          "params": {
+            "label": "transition",
+            "label_params": {
+              "a": [
+                1.0
+              ],
+              "gamma": 0.5,
+              "eps": 0.01
+            },
+            "itemknn": {
+              "k": 50,
+              "shrink": 10
+            },
+            "w": 0.2,
+            "v": 1.0
+          }
+        }
+      }
+    },
+    "food:pad16": {
+      "n_items": 16375,
+      "n0": 13396,
+      "unseen_target_share": 0.46215780998389694,
+      "ideal_bonus_test": -1.5212357030531516,
+      "ideal_bonus_val": -1.4028106654213919,
+      "learned_bonus": {
+        "per_seed": [
+          {
+            "rho_gap": -0.298623651266098,
+            "weighted": -0.8780575712500038
+          },
+          {
+            "rho_gap": -0.4770972579717636,
+            "weighted": -1.2243787476879575
+          },
+          {
+            "rho_gap": -0.3193133771419525,
+            "weighted": -1.0413242909088538
+          }
+        ],
+        "weighted": -1.0479202032822716,
+        "rho_gap": -0.36501142879327136
+      },
+      "triad": [
+        0.45997796663519064,
+        0.3485153725170012
+      ],
+      "triad_no_bonus": [
+        0.4740793201133146,
+        0.3502669018205157
+      ],
+      "best_simple": "hybrid+prior",
+      "simple": {
+        "hybrid+prior": {
+          "test": [
+            0.4857412653446649,
+            0.3501527651013353
+          ],
+          "validation_ndcg20": 0.3282329811772189,
+          "lam": 0.01,
+          "params": {
+            "k": 50,
+            "shrink": 10,
+            "content": 0.3
+          }
+        },
+        "hybrid": {
+          "test": [
+            0.4882436260623231,
+            0.3515257637973397
+          ],
+          "validation_ndcg20": 0.3266310974527442,
+          "lam": 0.0,
+          "params": {
+            "k": 50,
+            "shrink": 10,
+            "content": 0.3
+          }
+        },
+        "label_knn_content+prior": {
+          "test": [
+            0.4754957507082154,
+            0.3577981663849516
+          ],
+          "validation_ndcg20": 0.3244670656994763,
+          "lam": 0.0,
+          "params": {
+            "label": "transition",
+            "label_params": {
+              "a": [
+                1.0
+              ],
+              "gamma": 0.5,
+              "eps": 0.01
+            },
+            "itemknn": {
+              "k": 50,
+              "shrink": 10
+            },
+            "w": 0.2,
+            "v": 1.0
+          }
+        },
+        "label_knn_content": {
+          "test": [
+            0.4754957507082154,
+            0.3577981663849516
+          ],
+          "validation_ndcg20": 0.3244670656994763,
+          "lam": 0.0,
+          "params": {
+            "label": "transition",
+            "label_params": {
+              "a": [
+                1.0
+              ],
+              "gamma": 0.5,
+              "eps": 0.01
+            },
+            "itemknn": {
+              "k": 50,
+              "shrink": 10
+            },
+            "w": 0.2,
+            "v": 1.0
+          }
+        }
+      }
+    }
+  },
+  "tests": [
+    {
+      "delta": 0.028242671957777386,
+      "ci95": [
+        0.017220236016544755,
+        0.040764159031912314
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.18208092485549132,
+      "seed": 20261119,
+      "condition": "electronic:split0",
+      "test": "triad_minus_no_bonus",
+      "metric": "ndcg20",
+      "baseline": "TRIAD w/o bonus",
+      "p_holm": 0.0047995200479952005,
+      "reject_05": true
+    },
+    {
+      "delta": 0.022349068939903984,
+      "ci95": [
+        0.002450649035576841,
+        0.04109222217502366
+      ],
+      "p_value": 0.024997500249975,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.24277456647398843,
+      "seed": 20261119,
+      "condition": "electronic:split0",
+      "test": "triad_minus_best_simple",
+      "metric": "ndcg20",
+      "baseline": "hybrid+prior",
+      "p_holm": 0.5783421657834216,
+      "reject_05": false
+    },
+    {
+      "delta": 0.06228323699421964,
+      "ci95": [
+        0.033843127809890815,
+        0.09362556197816314
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.15028901734104047,
+      "seed": 20261119,
+      "condition": "electronic:split0",
+      "test": "triad_minus_no_bonus",
+      "metric": "recall20",
+      "baseline": "TRIAD w/o bonus",
+      "p_holm": 0.0047995200479952005,
+      "reject_05": true
+    },
+    {
+      "delta": 0.03227360308285163,
+      "ci95": [
+        0.005150128452151573,
+        0.0608750802825947
+      ],
+      "p_value": 0.0216978302169783,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.1069364161849711,
+      "seed": 20261119,
+      "condition": "electronic:split0",
+      "test": "triad_minus_best_simple",
+      "metric": "recall20",
+      "baseline": "hybrid+prior",
+      "p_holm": 0.5537446255374462,
+      "reject_05": false
+    },
+    {
+      "delta": 0.041662727265547414,
+      "ci95": [
+        0.0284774169911885,
+        0.055746440016785984
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.23410404624277456,
+      "seed": 20261119,
+      "condition": "electronic:split1",
+      "test": "triad_minus_no_bonus",
+      "metric": "ndcg20",
+      "baseline": "TRIAD w/o bonus",
+      "p_holm": 0.0047995200479952005,
+      "reject_05": true
+    },
+    {
+      "delta": 0.019753990766810246,
+      "ci95": [
+        0.0005207475871565112,
+        0.04031069330228417
+      ],
+      "p_value": 0.051094890510948905,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.2745664739884393,
+      "seed": 20261119,
+      "condition": "electronic:split1",
+      "test": "triad_minus_best_simple",
+      "metric": "ndcg20",
+      "baseline": "hybrid+prior",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.0815189466923571,
+      "ci95": [
+        0.056983381502890174,
+        0.11066233140655106
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.17630057803468208,
+      "seed": 20261119,
+      "condition": "electronic:split1",
+      "test": "triad_minus_no_bonus",
+      "metric": "recall20",
+      "baseline": "TRIAD w/o bonus",
+      "p_holm": 0.0047995200479952005,
+      "reject_05": true
+    },
+    {
+      "delta": 0.04214836223506743,
+      "ci95": [
+        0.01809328837508028,
+        0.06843489081567115
+      ],
+      "p_value": 0.0017998200179982,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.10982658959537572,
+      "seed": 20261119,
+      "condition": "electronic:split1",
+      "test": "triad_minus_best_simple",
+      "metric": "recall20",
+      "baseline": "hybrid+prior",
+      "p_holm": 0.0647935206479352,
+      "reject_05": false
+    },
+    {
+      "delta": 0.025365736869632994,
+      "ci95": [
+        0.012625313775651422,
+        0.038696156057954074
+      ],
+      "p_value": 0.00029997000299970003,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.17630057803468208,
+      "seed": 20261119,
+      "condition": "electronic:split2",
+      "test": "triad_minus_no_bonus",
+      "metric": "ndcg20",
+      "baseline": "TRIAD w/o bonus",
+      "p_holm": 0.012298770122987702,
+      "reject_05": true
+    },
+    {
+      "delta": 0.024770460332052692,
+      "ci95": [
+        0.0077736609913529936,
+        0.04188788039806751
+      ],
+      "p_value": 0.004299570042995701,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.2398843930635838,
+      "seed": 20261119,
+      "condition": "electronic:split2",
+      "test": "triad_minus_best_simple",
+      "metric": "ndcg20",
+      "baseline": "hybrid+prior",
+      "p_holm": 0.14618538146185384,
+      "reject_05": false
+    },
+    {
+      "delta": 0.058060372511239564,
+      "ci95": [
+        0.029731856133590237,
+        0.08558204881181761
+      ],
+      "p_value": 0.00029997000299970003,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.12716763005780346,
+      "seed": 20261119,
+      "condition": "electronic:split2",
+      "test": "triad_minus_no_bonus",
+      "metric": "recall20",
+      "baseline": "TRIAD w/o bonus",
+      "p_holm": 0.012298770122987702,
+      "reject_05": true
+    },
+    {
+      "delta": 0.04071933204881181,
+      "ci95": [
+        0.012009473346178547,
+        0.06888326910725755
+      ],
+      "p_value": 0.0058994100589941,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0953757225433526,
+      "seed": 20261119,
+      "condition": "electronic:split2",
+      "test": "triad_minus_best_simple",
+      "metric": "recall20",
+      "baseline": "hybrid+prior",
+      "p_holm": 0.1855814418558144,
+      "reject_05": false
+    },
+    {
+      "delta": 0.007081318024407269,
+      "ci95": [
+        0.00027816482413093663,
+        0.014146808756876898
+      ],
+      "p_value": 0.0491950804919508,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.14450867052023122,
+      "seed": 20261119,
+      "condition": "electronic:pad1",
+      "test": "triad_minus_no_bonus",
+      "metric": "ndcg20",
+      "baseline": "TRIAD w/o bonus",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.014372996684937848,
+      "ci95": [
+        -0.0027384950183389324,
+        0.031784059138334375
+      ],
+      "p_value": 0.10818918108189181,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.2254335260115607,
+      "seed": 20261119,
+      "condition": "electronic:pad1",
+      "test": "triad_minus_best_simple",
+      "metric": "ndcg20",
+      "baseline": "hybrid+prior",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.020118818240205522,
+      "ci95": [
+        0.0038816634553628803,
+        0.03803909762363519
+      ],
+      "p_value": 0.0212978702129787,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.10982658959537572,
+      "seed": 20261119,
+      "condition": "electronic:pad1",
+      "test": "triad_minus_no_bonus",
+      "metric": "recall20",
+      "baseline": "TRIAD w/o bonus",
+      "p_holm": 0.5537446255374462,
+      "reject_05": false
+    },
+    {
+      "delta": 0.016473988439306357,
+      "ci95": [
+        -0.008818641618497113,
+        0.042213792549775205
+      ],
+      "p_value": 0.2136786321367863,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.1069364161849711,
+      "seed": 20261119,
+      "condition": "electronic:pad1",
+      "test": "triad_minus_best_simple",
+      "metric": "recall20",
+      "baseline": "hybrid+prior",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": -0.0012555181750559226,
+      "ci95": [
+        -0.0037092234674229413,
+        0.0010367737376956265
+      ],
+      "p_value": 0.32826717328267174,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.06647398843930635,
+      "seed": 20261119,
+      "condition": "electronic:pad4",
+      "test": "triad_minus_no_bonus",
+      "metric": "ndcg20",
+      "baseline": "TRIAD w/o bonus",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.007343130901742413,
+      "ci95": [
+        -0.009491822880181012,
+        0.02379385511799254
+      ],
+      "p_value": 0.39446055394460555,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.1791907514450867,
+      "seed": 20261119,
+      "condition": "electronic:pad4",
+      "test": "triad_minus_best_simple",
+      "metric": "ndcg20",
+      "baseline": "hybrid+prior",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": -0.003114964675658317,
+      "ci95": [
+        -0.010340398201669878,
+        0.0031149646756583166
+      ],
+      "p_value": 0.40555944405559446,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.02023121387283237,
+      "seed": 20261119,
+      "condition": "electronic:pad4",
+      "test": "triad_minus_no_bonus",
+      "metric": "recall20",
+      "baseline": "TRIAD w/o bonus",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": -0.007835581245985868,
+      "ci95": [
+        -0.029455684007707133,
+        0.01265414258188824
+      ],
+      "p_value": 0.45755424457554245,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.06647398843930635,
+      "seed": 20261119,
+      "condition": "electronic:pad4",
+      "test": "triad_minus_best_simple",
+      "metric": "recall20",
+      "baseline": "hybrid+prior",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": -0.0003719783719045802,
+      "ci95": [
+        -0.0029642349759632985,
+        0.0018667050664690223
+      ],
+      "p_value": 0.7723227677232277,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.03757225433526012,
+      "seed": 20261119,
+      "condition": "electronic:pad16",
+      "test": "triad_minus_no_bonus",
+      "metric": "ndcg20",
+      "baseline": "TRIAD w/o bonus",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.005239383681826757,
+      "ci95": [
+        -0.010287118512026003,
+        0.020951756420980697
+      ],
+      "p_value": 0.5182481751824818,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.15028901734104047,
+      "seed": 20261119,
+      "condition": "electronic:pad16",
+      "test": "triad_minus_best_simple",
+      "metric": "ndcg20",
+      "baseline": "hybrid+prior",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": -0.0032113037893384717,
+      "ci95": [
+        -0.01194765574823378,
+        0.0037267180475272885
+      ],
+      "p_value": 0.48805119488051196,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.017341040462427744,
+      "seed": 20261119,
+      "condition": "electronic:pad16",
+      "test": "triad_minus_no_bonus",
+      "metric": "recall20",
+      "baseline": "TRIAD w/o bonus",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": -0.021483622350674372,
+      "ci95": [
+        -0.03805716120745022,
+        -0.006743737957610788
+      ],
+      "p_value": 0.004999500049995001,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.023121387283236993,
+      "seed": 20261119,
+      "condition": "electronic:pad16",
+      "test": "triad_minus_best_simple",
+      "metric": "recall20",
+      "baseline": "hybrid+prior",
+      "p_holm": 0.16498350164983502,
+      "reject_05": false
+    },
+    {
+      "delta": 0.02918216956831255,
+      "ci95": [
+        0.01638499798724006,
+        0.04135373146631554
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.2719546742209632,
+      "seed": 20261119,
+      "condition": "food:split0",
+      "test": "triad_minus_no_bonus",
+      "metric": "ndcg20",
+      "baseline": "TRIAD w/o bonus",
+      "p_holm": 0.0047995200479952005,
+      "reject_05": true
+    },
+    {
+      "delta": 0.01372752464532573,
+      "ci95": [
+        -0.0042351544711777215,
+        0.031582251825586646
+      ],
+      "p_value": 0.1282871712828717,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.26628895184135976,
+      "seed": 20261119,
+      "condition": "food:split0",
+      "test": "triad_minus_best_simple",
+      "metric": "ndcg20",
+      "baseline": "hybrid+prior",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.037063267233238904,
+      "ci95": [
+        0.014950031476235439,
+        0.05904941768964431
+      ],
+      "p_value": 0.00029997000299970003,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.12181303116147309,
+      "seed": 20261119,
+      "condition": "food:split0",
+      "test": "triad_minus_no_bonus",
+      "metric": "recall20",
+      "baseline": "TRIAD w/o bonus",
+      "p_holm": 0.012298770122987702,
+      "reject_05": true
+    },
+    {
+      "delta": 0.03435631098520617,
+      "ci95": [
+        0.010526833490714508,
+        0.05987134088762982
+      ],
+      "p_value": 0.0057994200579942,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.10198300283286119,
+      "seed": 20261119,
+      "condition": "food:split0",
+      "test": "triad_minus_best_simple",
+      "metric": "recall20",
+      "baseline": "hybrid+prior",
+      "p_holm": 0.1855814418558144,
+      "reject_05": false
+    },
+    {
+      "delta": 0.017096819288689225,
+      "ci95": [
+        0.009036064857020154,
+        0.025388365074966945
+      ],
+      "p_value": 0.00039996000399960006,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.22662889518413598,
+      "seed": 20261119,
+      "condition": "food:split1",
+      "test": "triad_minus_no_bonus",
+      "metric": "ndcg20",
+      "baseline": "TRIAD w/o bonus",
+      "p_holm": 0.014798520147985203,
+      "reject_05": true
+    },
+    {
+      "delta": 0.010592912180443573,
+      "ci95": [
+        -0.0018024480556530112,
+        0.023104216450742603
+      ],
+      "p_value": 0.09609039096090391,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.26345609065155806,
+      "seed": 20261119,
+      "condition": "food:split1",
+      "test": "triad_minus_best_simple",
+      "metric": "ndcg20",
+      "baseline": "hybrid+prior",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.026062322946175637,
+      "ci95": [
+        0.009279981114258732,
+        0.04321844507396915
+      ],
+      "p_value": 0.0021997800219978004,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0906515580736544,
+      "seed": 20261119,
+      "condition": "food:split1",
+      "test": "triad_minus_no_bonus",
+      "metric": "recall20",
+      "baseline": "TRIAD w/o bonus",
+      "p_holm": 0.07699230076992301,
+      "reject_05": false
+    },
+    {
+      "delta": 0.010733396285804215,
+      "ci95": [
+        -0.01196175637393768,
+        0.031731192949323236
+      ],
+      "p_value": 0.35696430356964304,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0764872521246459,
+      "seed": 20261119,
+      "condition": "food:split1",
+      "test": "triad_minus_best_simple",
+      "metric": "recall20",
+      "baseline": "hybrid+prior",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.038008421246826296,
+      "ci95": [
+        0.025632273767145847,
+        0.05074694717959846
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.23229461756373937,
+      "seed": 20261119,
+      "condition": "food:split2",
+      "test": "triad_minus_no_bonus",
+      "metric": "ndcg20",
+      "baseline": "TRIAD w/o bonus",
+      "p_holm": 0.0047995200479952005,
+      "reject_05": true
+    },
+    {
+      "delta": 0.01881081659263313,
+      "ci95": [
+        0.004178216219949015,
+        0.03414650233673749
+      ],
+      "p_value": 0.014498550144985502,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.24929178470254956,
+      "seed": 20261119,
+      "condition": "food:split2",
+      "test": "triad_minus_best_simple",
+      "metric": "ndcg20",
+      "baseline": "label_knn_content+prior",
+      "p_holm": 0.42045795420457954,
+      "reject_05": false
+    },
+    {
+      "delta": 0.0415014164305949,
+      "ci95": [
+        0.02203257790368272,
+        0.06377793515895497
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.10198300283286119,
+      "seed": 20261119,
+      "condition": "food:split2",
+      "test": "triad_minus_no_bonus",
+      "metric": "recall20",
+      "baseline": "TRIAD w/o bonus",
+      "p_holm": 0.0047995200479952005,
+      "reject_05": true
+    },
+    {
+      "delta": 0.010387157695939567,
+      "ci95": [
+        -0.012370947434686813,
+        0.03481822474032102
+      ],
+      "p_value": 0.39136086391360864,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0708215297450425,
+      "seed": 20261119,
+      "condition": "food:split2",
+      "test": "triad_minus_best_simple",
+      "metric": "recall20",
+      "baseline": "label_knn_content+prior",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.012986826278318254,
+      "ci95": [
+        0.00594561761455171,
+        0.02021656365094354
+      ],
+      "p_value": 0.00029997000299970003,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.20396600566572237,
+      "seed": 20261119,
+      "condition": "food:pad1",
+      "test": "triad_minus_no_bonus",
+      "metric": "ndcg20",
+      "baseline": "TRIAD w/o bonus",
+      "p_holm": 0.012298770122987702,
+      "reject_05": true
+    },
+    {
+      "delta": 0.00947545403132981,
+      "ci95": [
+        -0.005624448152808366,
+        0.024519811193787013
+      ],
+      "p_value": 0.23647635236476353,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.22096317280453256,
+      "seed": 20261119,
+      "condition": "food:pad1",
+      "test": "triad_minus_best_simple",
+      "metric": "ndcg20",
+      "baseline": "hybrid+prior",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": 0.01797293043751967,
+      "ci95": [
+        0.0036504564054139115,
+        0.03270380862448851
+      ],
+      "p_value": 0.0163983601639836,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0708215297450425,
+      "seed": 20261119,
+      "condition": "food:pad1",
+      "test": "triad_minus_no_bonus",
+      "metric": "recall20",
+      "baseline": "TRIAD w/o bonus",
+      "p_holm": 0.45915408459154083,
+      "reject_05": false
+    },
+    {
+      "delta": 0.028847969782813974,
+      "ci95": [
+        0.009206405413912495,
+        0.04783286118980167
+      ],
+      "p_value": 0.006199380061993801,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0708215297450425,
+      "seed": 20261119,
+      "condition": "food:pad1",
+      "test": "triad_minus_best_simple",
+      "metric": "recall20",
+      "baseline": "hybrid+prior",
+      "p_holm": 0.18598140185981402,
+      "reject_05": false
+    },
+    {
+      "delta": -0.0014082317135851613,
+      "ci95": [
+        -0.002684409838851692,
+        -0.00029016840105405877
+      ],
+      "p_value": 0.020097990200979902,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.031161473087818695,
+      "seed": 20261119,
+      "condition": "food:pad4",
+      "test": "triad_minus_no_bonus",
+      "metric": "ndcg20",
+      "baseline": "TRIAD w/o bonus",
+      "p_holm": 0.5426457354264573,
+      "reject_05": false
+    },
+    {
+      "delta": -0.008684777475861298,
+      "ci95": [
+        -0.022620150351924277,
+        0.005240421436197004
+      ],
+      "p_value": 0.23017698230176983,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.16997167138810199,
+      "seed": 20261119,
+      "condition": "food:pad4",
+      "test": "triad_minus_best_simple",
+      "metric": "ndcg20",
+      "baseline": "hybrid+prior",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": -0.004564054139124961,
+      "ci95": [
+        -0.009128108278249922,
+        -0.0009442870632672334
+      ],
+      "p_value": 0.0321967803219678,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0084985835694051,
+      "seed": 20261119,
+      "condition": "food:pad4",
+      "test": "triad_minus_no_bonus",
+      "metric": "recall20",
+      "baseline": "TRIAD w/o bonus",
+      "p_holm": 0.7083291670832916,
+      "reject_05": false
+    },
+    {
+      "delta": -0.0017469310670443837,
+      "ci95": [
+        -0.01931263770853006,
+        0.015269515265974165
+      ],
+      "p_value": 0.8545145485451455,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0453257790368272,
+      "seed": 20261119,
+      "condition": "food:pad4",
+      "test": "triad_minus_best_simple",
+      "metric": "recall20",
+      "baseline": "hybrid+prior",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": -0.0017515293035144216,
+      "ci95": [
+        -0.007008526833929963,
+        0.0032907926133637633
+      ],
+      "p_value": 0.4988501149885011,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.08781869688385269,
+      "seed": 20261119,
+      "condition": "food:pad16",
+      "test": "triad_minus_no_bonus",
+      "metric": "ndcg20",
+      "baseline": "TRIAD w/o bonus",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": -0.0016373925843340515,
+      "ci95": [
+        -0.0170423222348033,
+        0.012821915167110513
+      ],
+      "p_value": 0.8325167483251675,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.17847025495750707,
+      "seed": 20261119,
+      "condition": "food:pad16",
+      "test": "triad_minus_best_simple",
+      "metric": "ndcg20",
+      "baseline": "hybrid+prior",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": -0.014101353478124017,
+      "ci95": [
+        -0.029370081838212152,
+        0.00014400377714824097
+      ],
+      "p_value": 0.05269473052694731,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.0339943342776204,
+      "seed": 20261119,
+      "condition": "food:pad16",
+      "test": "triad_minus_no_bonus",
+      "metric": "recall20",
+      "baseline": "TRIAD w/o bonus",
+      "p_holm": 1.0,
+      "reject_05": false
+    },
+    {
+      "delta": -0.025763298709474348,
+      "ci95": [
+        -0.04848914069877243,
+        -0.003729146994019521
+      ],
+      "p_value": 0.0240975902409759,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.042492917847025496,
+      "seed": 20261119,
+      "condition": "food:pad16",
+      "test": "triad_minus_best_simple",
+      "metric": "recall20",
+      "baseline": "hybrid+prior",
+      "p_holm": 0.5783421657834216,
+      "reject_05": false
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+2026-11-17T16:09:02Z spotify seed=2 parameters=41466 train_bundles=300 start_epoch=1
+2026-11-17T16:09:23Z spotify seed=2 epoch=1 loss=10.29389 VAL R20=0.110584 N20=0.188108 best_epoch=1 patience=0/6
+2026-11-17T16:09:44Z spotify seed=2 epoch=2 loss=9.57835 VAL R20=0.113202 N20=0.195013 best_epoch=2 patience=0/6
+2026-11-17T16:10:04Z spotify seed=2 epoch=3 loss=9.44160 VAL R20=0.116021 N20=0.200771 best_epoch=3 patience=0/6
+2026-11-17T16:10:25Z spotify seed=2 epoch=4 loss=9.21274 VAL R20=0.120005 N20=0.208125 best_epoch=4 patience=0/6
+2026-11-17T16:10:44Z spotify seed=2 epoch=5 loss=9.03584 VAL R20=0.125243 N20=0.220047 best_epoch=5 patience=0/6
+2026-11-17T16:11:03Z spotify seed=2 epoch=6 loss=9.01462 VAL R20=0.128934 N20=0.226699 best_epoch=6 patience=0/6
+2026-11-17T16:11:23Z spotify seed=2 epoch=7 loss=8.92954 VAL R20=0.129881 N20=0.227742 best_epoch=7 patience=0/6
+2026-11-17T16:11:44Z spotify seed=2 epoch=8 loss=8.94515 VAL R20=0.129796 N20=0.226976 best_epoch=7 patience=1/6
+2026-11-17T16:12:03Z spotify seed=2 epoch=9 loss=9.03713 VAL R20=0.132472 N20=0.231128 best_epoch=9 patience=0/6
+2026-11-17T16:12:22Z spotify seed=2 epoch=10 loss=8.88287 VAL R20=0.132135 N20=0.230835 best_epoch=9 patience=1/6
+2026-11-17T16:12:43Z spotify seed=2 epoch=11 loss=8.92650 VAL R20=0.132737 N20=0.232751 best_epoch=11 patience=0/6
+2026-11-17T16:13:02Z spotify seed=2 epoch=12 loss=8.85711 VAL R20=0.132518 N20=0.231742 best_epoch=11 patience=1/6
+2026-11-17T16:13:22Z spotify seed=2 epoch=13 loss=8.90231 VAL R20=0.134233 N20=0.233276 best_epoch=13 patience=0/6
+2026-11-17T16:13:43Z spotify seed=2 epoch=14 loss=8.91294 VAL R20=0.131980 N20=0.230994 best_epoch=13 patience=1/6
+2026-11-17T16:14:03Z spotify seed=2 epoch=15 loss=8.84318 VAL R20=0.130275 N20=0.227377 best_epoch=13 patience=2/6
+2026-11-17T16:14:23Z spotify seed=2 epoch=16 loss=8.96527 VAL R20=0.133058 N20=0.232161 best_epoch=13 patience=3/6
+2026-11-17T16:14:43Z spotify seed=2 epoch=17 loss=8.78827 VAL R20=0.133018 N20=0.232482 best_epoch=13 patience=4/6
+2026-11-17T16:15:04Z spotify seed=2 epoch=18 loss=8.79147 VAL R20=0.133081 N20=0.232843 best_epoch=13 patience=5/6
+2026-11-17T16:15:23Z spotify seed=2 epoch=19 loss=8.83844 VAL R20=0.134694 N20=0.235479 best_epoch=19 patience=0/6
+2026-11-17T16:15:43Z spotify seed=2 epoch=20 loss=8.80773 VAL R20=0.133054 N20=0.233058 best_epoch=19 patience=1/6
+2026-11-17T16:16:03Z spotify seed=2 epoch=21 loss=8.73919 VAL R20=0.133775 N20=0.234238 best_epoch=19 patience=2/6
+2026-11-17T16:16:24Z spotify seed=2 epoch=22 loss=8.75461 VAL R20=0.134777 N20=0.235475 best_epoch=19 patience=3/6
+2026-11-17T16:16:43Z spotify seed=2 epoch=23 loss=8.72645 VAL R20=0.133212 N20=0.233619 best_epoch=19 patience=4/6
+2026-11-17T16:17:03Z spotify seed=2 epoch=24 loss=8.68155 VAL R20=0.134926 N20=0.235840 best_epoch=24 patience=0/6
+2026-11-17T16:17:23Z spotify seed=2 epoch=25 loss=8.75872 VAL R20=0.132874 N20=0.233816 best_epoch=24 patience=1/6
+2026-11-17T16:17:43Z spotify seed=2 epoch=26 loss=8.83155 VAL R20=0.134574 N20=0.235771 best_epoch=24 patience=2/6
+2026-11-17T16:18:03Z spotify seed=2 epoch=27 loss=8.69668 VAL R20=0.135241 N20=0.236142 best_epoch=27 patience=0/6
+2026-11-17T16:18:24Z spotify seed=2 epoch=28 loss=8.74685 VAL R20=0.134969 N20=0.236652 best_epoch=28 patience=0/6
+2026-11-17T16:18:44Z spotify seed=2 epoch=29 loss=8.75827 VAL R20=0.134415 N20=0.235374 best_epoch=28 patience=1/6
+2026-11-17T16:19:03Z spotify seed=2 epoch=30 loss=8.78518 VAL R20=0.134150 N20=0.235553 best_epoch=28 patience=2/6
+2026-11-17T16:19:23Z spotify seed=2 epoch=31 loss=8.73199 VAL R20=0.135296 N20=0.236455 best_epoch=28 patience=3/6
+2026-11-17T16:19:43Z spotify seed=2 epoch=32 loss=8.70948 VAL R20=0.135220 N20=0.236447 best_epoch=28 patience=4/6
+2026-11-17T16:20:01Z spotify seed=2 epoch=33 loss=8.77570 VAL R20=0.134757 N20=0.235874 best_epoch=28 patience=5/6
+2026-11-17T16:20:21Z spotify seed=2 epoch=34 loss=8.66408 VAL R20=0.134735 N20=0.235478 best_epoch=28 patience=6/6
+2026-11-17T16:20:55Z spotify n300 seed 2 COMPLETE

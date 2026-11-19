@@ -1,11 +1,10 @@
-2026-11-16T05:31:53Z clothing n100: 100 bundles repeated to 1294 rows per epoch
-2026-11-16T05:31:54Z clothing seed=2 parameters=41624 train_bundles=1294 start_epoch=1
-2026-11-16T05:31:55Z clothing seed=2 epoch=1 loss=6.61361 VAL R20=0.274275 N20=0.181473 best_epoch=1 patience=0/6
-2026-11-16T05:31:56Z clothing seed=2 epoch=2 loss=5.80884 VAL R20=0.278351 N20=0.182283 best_epoch=2 patience=0/6
-2026-11-16T05:31:57Z clothing seed=2 epoch=3 loss=5.01603 VAL R20=0.268931 N20=0.158889 best_epoch=2 patience=1/6
-2026-11-16T05:31:58Z clothing seed=2 epoch=4 loss=4.28838 VAL R20=0.269022 N20=0.164625 best_epoch=2 patience=2/6
-2026-11-16T05:31:59Z clothing seed=2 epoch=5 loss=3.64084 VAL R20=0.256159 N20=0.149539 best_epoch=2 patience=3/6
-2026-11-16T05:32:00Z clothing seed=2 epoch=6 loss=3.15133 VAL R20=0.263496 N20=0.154254 best_epoch=2 patience=4/6
-2026-11-16T05:32:01Z clothing seed=2 epoch=7 loss=2.77583 VAL R20=0.270471 N20=0.153887 best_epoch=2 patience=5/6
-2026-11-16T05:32:02Z clothing seed=2 epoch=8 loss=2.46263 VAL R20=0.263949 N20=0.148710 best_epoch=2 patience=6/6
-2026-11-16T05:32:02Z clothing n100 seed 2 steps COMPLETE
+2026-11-17T08:17:47Z clothing n100: 100 bundles repeated to 1294 rows per epoch
+2026-11-17T08:17:47Z clothing seed=2 parameters=41624 train_bundles=1294 start_epoch=1
+2026-11-17T08:17:49Z clothing seed=2 epoch=1 loss=5.80386 VAL R20=0.361322 N20=0.231969 best_epoch=1 patience=0/6
+2026-11-17T08:17:50Z clothing seed=2 epoch=2 loss=4.63673 VAL R20=0.374185 N20=0.224071 best_epoch=1 patience=1/6
+2026-11-17T08:17:51Z clothing seed=2 epoch=3 loss=3.79150 VAL R20=0.367663 N20=0.223210 best_epoch=1 patience=2/6
+2026-11-17T08:17:51Z clothing seed=2 epoch=4 loss=3.07874 VAL R20=0.352899 N20=0.214040 best_epoch=1 patience=3/6
+2026-11-17T08:17:52Z clothing seed=2 epoch=5 loss=2.40514 VAL R20=0.351087 N20=0.209314 best_epoch=1 patience=4/6
+2026-11-17T08:17:53Z clothing seed=2 epoch=6 loss=1.95831 VAL R20=0.343569 N20=0.214489 best_epoch=1 patience=5/6
+2026-11-17T08:17:54Z clothing seed=2 epoch=7 loss=1.58257 VAL R20=0.318750 N20=0.201439 best_epoch=1 patience=6/6
+2026-11-17T08:17:55Z clothing n100 seed 2 steps COMPLETE

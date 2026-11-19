@@ -5,8 +5,8 @@ PYTHONPATH=.:../dials .venv/bin/python -m experiments.dials_user.compare
 """
 import json,numpy as np,torch
 from pathlib import Path
-from dials import data as dials_data
-from dials import train as dials_train
+from triad import data as dials_data
+from triad import train as dials_train
 from bundlefuse.provenance import write_json
 from experiments.dials_frozen.compare import RUNS,CACHE,groups
 from experiments.mechanisms.statistics import paired_comparison,holm_adjust

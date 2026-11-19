@@ -1,0 +1,23 @@
+{
+ "dataset": "electronic_d768",
+ "seed": 2,
+ "config": {
+  "epochs": 100,
+  "batch": 32,
+  "patience": 6,
+  "shared_lr": 0.001,
+  "fast_lr": 0.01,
+  "weight_decay": 0.001,
+  "rank": 128,
+  "label_rank": 16,
+  "hidden": 32
+ },
+ "best_epoch": 5,
+ "epochs_run": 11,
+ "validation": {
+  "recall20": 0.46329479768786125,
+  "ndcg20": 0.3436806795704966
+ },
+ "parameters": 443672,
+ "seconds": 32.151109457961866
+}

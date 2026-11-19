@@ -13,12 +13,12 @@
   "hidden": 32,
   "ablation": "gate"
  },
- "best_epoch": 13,
- "epochs_run": 19,
+ "best_epoch": 7,
+ "epochs_run": 13,
  "validation": {
-  "recall20": 0.5403985507246376,
-  "ndcg20": 0.3925905275011582
+  "recall20": 0.6301630434782609,
+  "ndcg20": 0.4589033926166505
  },
  "parameters": 41624,
- "seconds": 33.625423330042395
+ "seconds": 9.150791167005082
 }
