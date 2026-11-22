@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/experiments/small_data/residual.py", line 196, in <module>
+    main(sys.argv[1], sys.argv[2:])
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/experiments/small_data/residual.py", line 179, in main
+    name, cond = job.split(':');SAVE_TAG = cond;ds0, train, _ = setup(name, cond);ds = with_train(ds0, train);spec = baseline_spec(name, cond)
+    ^^^^^^^^^^
+ValueError: not enough values to unpack (expected 2, got 1)

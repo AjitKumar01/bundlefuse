@@ -1,0 +1,20 @@
+{
+  "note": "Full-rank TRIAD (triad_v2) at initialization, no training: test NDCG@20, all test queries (e-commerce: all are clean).",
+  "ndcg20": {
+    "electronic:n50": 0.09483150843136459,
+    "electronic:n100": 0.116387505922444,
+    "electronic:n300": 0.16775678075108102,
+    "electronic:n600": 0.20937944629454236,
+    "electronic:full": 0.30989084420383717,
+    "food:n50": 0.25735336319884927,
+    "food:n100": 0.2812780404333494,
+    "food:n300": 0.2989852787897992,
+    "food:n600": 0.34876474346191666,
+    "food:full": 0.455311269329145,
+    "clothing:n50": 0.22229464745059518,
+    "clothing:n100": 0.22722246332929863,
+    "clothing:n300": 0.245848132566181,
+    "clothing:n600": 0.29120918874093366,
+    "clothing:full": 0.35871067893940994
+  }
+}

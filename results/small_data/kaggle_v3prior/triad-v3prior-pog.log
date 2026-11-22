@@ -1,0 +1,116 @@
+[{"stream_name":"stdout","time":10.376491405,"data":"GPUs 2 ['Tesla T4', 'Tesla T4']\n"}
+,{"stream_name":"stdout","time":33.91210582,"data":"pog seed 1 epoch 0 val N20 0.0126\n"}
+,{"stream_name":"stderr","time":34.352662544,"data":"/usr/local/lib/python3.13/dist-packages/torch/utils/_device.py:116: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.\n"}
+,{"stream_name":"stderr","time":34.352718154,"data":"Consider using tensor.detach() first. (Triggered internally at /pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:836.)\n"}
+,{"stream_name":"stderr","time":34.352724687,"data":"  return func(*args, **kwargs)\n"}
+,{"stream_name":"stdout","time":36.543663789,"data":"pog seed 0 epoch 0 val N20 0.0126\n"}
+,{"stream_name":"stderr","time":36.865902704,"data":"/usr/local/lib/python3.13/dist-packages/torch/utils/_device.py:116: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.\n"}
+,{"stream_name":"stderr","time":36.865968536,"data":"Consider using tensor.detach() first. (Triggered internally at /pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:836.)\n"}
+,{"stream_name":"stderr","time":36.865975742,"data":"  return func(*args, **kwargs)\n"}
+,{"stream_name":"stdout","time":38.984699365,"data":"pog seed 2 epoch 0 val N20 0.0126\n"}
+,{"stream_name":"stderr","time":39.31316012,"data":"/usr/local/lib/python3.13/dist-packages/torch/utils/_device.py:116: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.\n"}
+,{"stream_name":"stderr","time":39.31321763,"data":"Consider using tensor.detach() first. (Triggered internally at /pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:836.)\n"}
+,{"stream_name":"stderr","time":39.313229721,"data":"  return func(*args, **kwargs)\n"}
+,{"stream_name":"stdout","time":99.686645892,"data":"pog seed 1 epoch 1 train_loss 9.5268 val_loss 9.3100 val N20 0.0266 (84s)\n"}
+,{"stream_name":"stdout","time":141.524566362,"data":"pog seed 0 epoch 1 train_loss 9.5200 val_loss 9.3293 val N20 0.0273 (126s)\n"}
+,{"stream_name":"stdout","time":143.027618106,"data":"pog seed 2 epoch 1 train_loss 9.5171 val_loss 9.3074 val N20 0.0258 (127s)\n"}
+,{"stream_name":"stdout","time":167.607840153,"data":"pog seed 1 epoch 2 train_loss 9.1945 val_loss 9.2289 val N20 0.0278 (152s)\n"}
+,{"stream_name":"stdout","time":233.885417181,"data":"pog seed 1 epoch 3 train_loss 9.1575 val_loss 9.1904 val N20 0.0294 (218s)\n"}
+,{"stream_name":"stdout","time":245.789023475,"data":"pog seed 0 epoch 2 train_loss 9.2145 val_loss 9.2234 val N20 0.0277 (230s)\n"}
+,{"stream_name":"stdout","time":248.598152776,"data":"pog seed 2 epoch 2 train_loss 9.2213 val_loss 9.2167 val N20 0.0289 (233s)\n"}
+,{"stream_name":"stdout","time":302.17197429,"data":"pog seed 1 epoch 4 train_loss 9.1150 val_loss 9.1722 val N20 0.0304 (287s)\n"}
+,{"stream_name":"stdout","time":348.841941487,"data":"pog seed 0 epoch 3 train_loss 9.1389 val_loss 9.1926 val N20 0.0287 (333s)\n"}
+,{"stream_name":"stdout","time":355.277047028,"data":"pog seed 2 epoch 3 train_loss 9.1579 val_loss 9.1857 val N20 0.0291 (340s)\n"}
+,{"stream_name":"stdout","time":372.03420613,"data":"pog seed 1 epoch 5 train_loss 9.0885 val_loss 9.1599 val N20 0.0298 (356s)\n"}
+,{"stream_name":"stdout","time":438.183909917,"data":"pog seed 1 epoch 6 train_loss 9.0546 val_loss 9.1639 val N20 0.0320 (423s)\n"}
+,{"stream_name":"stdout","time":452.641529129,"data":"pog seed 0 epoch 4 train_loss 9.1075 val_loss 9.1791 val N20 0.0309 (437s)\n"}
+,{"stream_name":"stdout","time":460.9399804,"data":"pog seed 2 epoch 4 train_loss 9.1030 val_loss 9.1868 val N20 0.0307 (445s)\n"}
+,{"stream_name":"stdout","time":502.760245035,"data":"pog seed 1 epoch 7 train_loss 9.0447 val_loss 9.1353 val N20 0.0328 (487s)\n"}
+,{"stream_name":"stdout","time":557.973599584,"data":"pog seed 0 epoch 5 train_loss 9.0842 val_loss 9.1630 val N20 0.0305 (542s)\n"}
+,{"stream_name":"stdout","time":565.528069468,"data":"pog seed 1 epoch 8 train_loss 9.0228 val_loss 9.1376 val N20 0.0328 (550s)\n"}
+,{"stream_name":"stdout","time":566.789140362,"data":"pog seed 2 epoch 5 train_loss 9.0855 val_loss 9.1522 val N20 0.0303 (551s)\n"}
+,{"stream_name":"stdout","time":630.584567032,"data":"pog seed 1 epoch 9 train_loss 9.0096 val_loss 9.1331 val N20 0.0322 (615s)\n"}
+,{"stream_name":"stdout","time":663.972452405,"data":"pog seed 0 epoch 6 train_loss 9.0593 val_loss 9.1497 val N20 0.0311 (648s)\n"}
+,{"stream_name":"stdout","time":671.077423849,"data":"pog seed 2 epoch 6 train_loss 9.0585 val_loss 9.1389 val N20 0.0310 (656s)\n"}
+,{"stream_name":"stdout","time":695.531429877,"data":"pog seed 1 epoch 10 train_loss 8.9983 val_loss 9.1454 val N20 0.0318 (680s)\n"}
+,{"stream_name":"stdout","time":760.029065892,"data":"pog seed 1 epoch 11 train_loss 8.9863 val_loss 9.1227 val N20 0.0326 (744s)\n"}
+,{"stream_name":"stdout","time":769.523363036,"data":"pog seed 0 epoch 7 train_loss 9.0272 val_loss 9.1413 val N20 0.0317 (754s)\n"}
+,{"stream_name":"stdout","time":776.59362466,"data":"pog seed 2 epoch 7 train_loss 9.0396 val_loss 9.1306 val N20 0.0311 (761s)\n"}
+,{"stream_name":"stdout","time":828.102246834,"data":"pog seed 1 epoch 12 train_loss 8.9687 val_loss 9.1213 val N20 0.0332 (813s)\n"}
+,{"stream_name":"stdout","time":874.164816248,"data":"pog seed 0 epoch 8 train_loss 9.0270 val_loss 9.1431 val N20 0.0314 (859s)\n"}
+,{"stream_name":"stdout","time":880.284700933,"data":"pog seed 2 epoch 8 train_loss 9.0227 val_loss 9.1377 val N20 0.0312 (865s)\n"}
+,{"stream_name":"stdout","time":889.48226094,"data":"pog seed 1 epoch 13 train_loss 8.9541 val_loss 9.1293 val N20 0.0332 (874s)\n"}
+,{"stream_name":"stdout","time":956.708278301,"data":"pog seed 1 epoch 14 train_loss 8.9366 val_loss 9.1628 val N20 0.0338 (941s)\n"}
+,{"stream_name":"stdout","time":979.626211353,"data":"pog seed 0 epoch 9 train_loss 9.0007 val_loss 9.1300 val N20 0.0328 (964s)\n"}
+,{"stream_name":"stdout","time":982.738803553,"data":"pog seed 2 epoch 9 train_loss 9.0063 val_loss 9.1286 val N20 0.0319 (967s)\n"}
+,{"stream_name":"stdout","time":1019.110342141,"data":"pog seed 1 epoch 15 train_loss 8.9413 val_loss 9.1211 val N20 0.0325 (1004s)\n"}
+,{"stream_name":"stdout","time":1081.786796993,"data":"pog seed 0 epoch 10 train_loss 8.9971 val_loss 9.1447 val N20 0.0302 (1066s)\n"}
+,{"stream_name":"stdout","time":1083.532803643,"data":"pog seed 1 epoch 16 train_loss 8.8967 val_loss 9.0854 val N20 0.0327 (1068s)\n"}
+,{"stream_name":"stdout","time":1087.160110754,"data":"pog seed 2 epoch 10 train_loss 8.9770 val_loss 9.1232 val N20 0.0329 (1072s)\n"}
+,{"stream_name":"stdout","time":1148.974807229,"data":"pog seed 1 epoch 17 train_loss 8.8504 val_loss 9.0687 val N20 0.0324 (1133s)\n"}
+,{"stream_name":"stdout","time":1186.503531981,"data":"pog seed 0 epoch 11 train_loss 8.9718 val_loss 9.1327 val N20 0.0324 (1171s)\n"}
+,{"stream_name":"stdout","time":1189.169080865,"data":"pog seed 2 epoch 11 train_loss 8.9808 val_loss 9.1172 val N20 0.0320 (1174s)\n"}
+,{"stream_name":"stdout","time":1213.768342934,"data":"pog seed 1 epoch 18 train_loss 8.8278 val_loss 9.0783 val N20 0.0333 (1198s)\n"}
+,{"stream_name":"stdout","time":1278.328836818,"data":"pog seed 1 epoch 19 train_loss 8.8334 val_loss 9.0527 val N20 0.0353 (1263s)\n"}
+,{"stream_name":"stdout","time":1291.533310168,"data":"pog seed 0 epoch 12 train_loss 8.9671 val_loss 9.1225 val N20 0.0339 (1276s)\n"}
+,{"stream_name":"stdout","time":1292.325131832,"data":"pog seed 2 epoch 12 train_loss 8.9726 val_loss 9.1228 val N20 0.0324 (1277s)\n"}
+,{"stream_name":"stdout","time":1340.987624378,"data":"pog seed 1 epoch 20 train_loss 8.8070 val_loss 9.0354 val N20 0.0337 (1325s)\n"}
+,{"stream_name":"stdout","time":1393.824447882,"data":"pog seed 0 epoch 13 train_loss 8.9594 val_loss 9.1366 val N20 0.0332 (1378s)\n"}
+,{"stream_name":"stdout","time":1395.84732603,"data":"pog seed 2 epoch 13 train_loss 8.9537 val_loss 9.1179 val N20 0.0323 (1380s)\n"}
+,{"stream_name":"stdout","time":1406.003953551,"data":"pog seed 1 epoch 21 train_loss 8.7624 val_loss 9.0422 val N20 0.0349 (1390s)\n"}
+,{"stream_name":"stdout","time":1472.140278847,"data":"pog seed 1 epoch 22 train_loss 8.7464 val_loss 9.0233 val N20 0.0358 (1457s)\n"}
+,{"stream_name":"stdout","time":1496.934754417,"data":"pog seed 2 epoch 14 train_loss 8.9275 val_loss 9.0961 val N20 0.0321 (1481s)\n"}
+,{"stream_name":"stdout","time":1497.101250499,"data":"pog seed 0 epoch 14 train_loss 8.9440 val_loss 9.0991 val N20 0.0338 (1482s)\n"}
+,{"stream_name":"stdout","time":1535.026330992,"data":"pog seed 1 epoch 23 train_loss 8.7539 val_loss 9.0337 val N20 0.0353 (1519s)\n"}
+,{"stream_name":"stdout","time":1593.461788636,"data":"pog seed 1 epoch 24 train_loss 8.7250 val_loss 9.0088 val N20 0.0355 (1578s)\n"}
+,{"stream_name":"stdout","time":1600.669093422,"data":"pog seed 2 epoch 15 train_loss 8.8860 val_loss 9.0635 val N20 0.0332 (1585s)\n"}
+,{"stream_name":"stdout","time":1604.684001814,"data":"pog seed 0 epoch 15 train_loss 8.8905 val_loss 9.0819 val N20 0.0322 (1589s)\n"}
+,{"stream_name":"stdout","time":1652.711372205,"data":"pog seed 1 epoch 25 train_loss 8.7271 val_loss 9.0107 val N20 0.0353 (1637s)\n"}
+,{"stream_name":"stdout","time":1703.050349146,"data":"pog seed 2 epoch 16 train_loss 8.8633 val_loss 9.1199 val N20 0.0300 (1688s)\n"}
+,{"stream_name":"stdout","time":1710.60741715,"data":"pog seed 0 epoch 16 train_loss 8.8544 val_loss 9.0761 val N20 0.0335 (1695s)\n"}
+,{"stream_name":"stdout","time":1716.035377914,"data":"pog seed 1 epoch 26 train_loss 8.7158 val_loss 9.0223 val N20 0.0357 (1700s)\n"}
+,{"stream_name":"stdout","time":1780.87174183,"data":"pog seed 1 epoch 27 train_loss 8.7075 val_loss 9.0120 val N20 0.0350 (1765s)\n"}
+,{"stream_name":"stdout","time":1804.537649892,"data":"pog seed 2 epoch 17 train_loss 8.8564 val_loss 9.0662 val N20 0.0318 (1789s)\n"}
+,{"stream_name":"stdout","time":1814.06066664,"data":"pog seed 0 epoch 17 train_loss 8.8590 val_loss 9.0873 val N20 0.0346 (1799s)\n"}
+,{"stream_name":"stdout","time":1846.514363608,"data":"pog seed 1 epoch 28 train_loss 8.6961 val_loss 9.0242 val N20 0.0354 (1831s)\n"}
+,{"stream_name":"stdout","time":1853.069540916,"data":"pog seed 1 DONE best epoch 22 test N20 all 0.0324\n"}
+,{"stream_name":"stdout","time":1898.004495344,"data":"pog seed 2 epoch 18 train_loss 8.8447 val_loss 9.0882 val N20 0.0342 (1882s)\n"}
+,{"stream_name":"stdout","time":1910.890640862,"data":"pog seed 0 epoch 18 train_loss 8.8473 val_loss 9.0888 val N20 0.0332 (1895s)\n"}
+,{"stream_name":"stdout","time":1986.7912371,"data":"pog seed 2 epoch 19 train_loss 8.8245 val_loss 9.0641 val N20 0.0337 (1971s)\n"}
+,{"stream_name":"stdout","time":2000.674903439,"data":"pog seed 0 epoch 19 train_loss 8.8132 val_loss 9.0656 val N20 0.0347 (1985s)\n"}
+,{"stream_name":"stdout","time":2076.37492095,"data":"pog seed 2 epoch 20 train_loss 8.8196 val_loss 9.0951 val N20 0.0332 (2061s)\n"}
+,{"stream_name":"stdout","time":2090.64217,"data":"pog seed 0 epoch 20 train_loss 8.8169 val_loss 9.0664 val N20 0.0352 (2075s)\n"}
+,{"stream_name":"stdout","time":2165.448352457,"data":"pog seed 2 epoch 21 train_loss 8.8143 val_loss 9.0665 val N20 0.0340 (2150s)\n"}
+,{"stream_name":"stdout","time":2180.187162585,"data":"pog seed 0 epoch 21 train_loss 8.7741 val_loss 9.0469 val N20 0.0341 (2165s)\n"}
+,{"stream_name":"stdout","time":2254.907710029,"data":"pog seed 2 epoch 22 train_loss 8.7889 val_loss 9.0226 val N20 0.0343 (2239s)\n"}
+,{"stream_name":"stdout","time":2270.096078013,"data":"pog seed 0 epoch 22 train_loss 8.7608 val_loss 9.0350 val N20 0.0353 (2255s)\n"}
+,{"stream_name":"stdout","time":2343.697311824,"data":"pog seed 2 epoch 23 train_loss 8.7616 val_loss 9.0293 val N20 0.0341 (2328s)\n"}
+,{"stream_name":"stdout","time":2359.678874714,"data":"pog seed 0 epoch 23 train_loss 8.7597 val_loss 9.0158 val N20 0.0371 (2344s)\n"}
+,{"stream_name":"stdout","time":2433.086222129,"data":"pog seed 2 epoch 24 train_loss 8.7335 val_loss 9.0197 val N20 0.0357 (2418s)\n"}
+,{"stream_name":"stdout","time":2449.628424585,"data":"pog seed 0 epoch 24 train_loss 8.7270 val_loss 9.0050 val N20 0.0362 (2434s)\n"}
+,{"stream_name":"stdout","time":2522.933510289,"data":"pog seed 2 epoch 25 train_loss 8.7257 val_loss 9.0154 val N20 0.0344 (2507s)\n"}
+,{"stream_name":"stdout","time":2539.973137354,"data":"pog seed 0 epoch 25 train_loss 8.7147 val_loss 9.0121 val N20 0.0347 (2524s)\n"}
+,{"stream_name":"stdout","time":2611.987755126,"data":"pog seed 2 epoch 26 train_loss 8.7144 val_loss 9.0141 val N20 0.0347 (2596s)\n"}
+,{"stream_name":"stdout","time":2629.623504847,"data":"pog seed 0 epoch 26 train_loss 8.7151 val_loss 9.0145 val N20 0.0356 (2614s)\n"}
+,{"stream_name":"stdout","time":2700.806927582,"data":"pog seed 2 epoch 27 train_loss 8.7269 val_loss 9.0156 val N20 0.0346 (2685s)\n"}
+,{"stream_name":"stdout","time":2719.588717652,"data":"pog seed 0 epoch 27 train_loss 8.6995 val_loss 9.0126 val N20 0.0361 (2704s)\n"}
+,{"stream_name":"stdout","time":2789.69981392,"data":"pog seed 2 epoch 28 train_loss 8.6950 val_loss 9.0291 val N20 0.0339 (2774s)\n"}
+,{"stream_name":"stdout","time":2808.979615371,"data":"pog seed 0 epoch 28 train_loss 8.6962 val_loss 9.0211 val N20 0.0358 (2793s)\n"}
+,{"stream_name":"stdout","time":2878.634267917,"data":"pog seed 2 epoch 29 train_loss 8.6831 val_loss 9.0031 val N20 0.0366 (2863s)\n"}
+,{"stream_name":"stdout","time":2898.359554602,"data":"pog seed 0 epoch 29 train_loss 8.6923 val_loss 9.0511 val N20 0.0348 (2883s)\n"}
+,{"stream_name":"stdout","time":2906.997688644,"data":"pog seed 0 DONE best epoch 23 test N20 all 0.0313\n"}
+,{"stream_name":"stdout","time":2934.880252214,"data":"pog seed 2 epoch 30 train_loss 8.6748 val_loss 9.0528 val N20 0.0358 (2919s)\n"}
+,{"stream_name":"stdout","time":2978.741095649,"data":"pog seed 2 epoch 31 train_loss 8.6763 val_loss 9.0210 val N20 0.0354 (2963s)\n"}
+,{"stream_name":"stdout","time":3022.715836424,"data":"pog seed 2 epoch 32 train_loss 8.6542 val_loss 9.0325 val N20 0.0348 (3007s)\n"}
+,{"stream_name":"stdout","time":3066.808339927,"data":"pog seed 2 epoch 33 train_loss 8.6646 val_loss 9.0253 val N20 0.0354 (3051s)\n"}
+,{"stream_name":"stdout","time":3110.845136099,"data":"pog seed 2 epoch 34 train_loss 8.6483 val_loss 9.0552 val N20 0.0339 (3095s)\n"}
+,{"stream_name":"stdout","time":3154.944087646,"data":"pog seed 2 epoch 35 train_loss 8.6627 val_loss 9.0159 val N20 0.0340 (3139s)\n"}
+,{"stream_name":"stdout","time":3159.575993673,"data":"pog seed 2 DONE best epoch 29 test N20 all 0.0302\n"}
+,{"stream_name":"stdout","time":3160.611819331,"data":"exit codes [0, 0, 0]\n"}
+,{"stream_name":"stderr","time":3163.587694777,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":3163.587729437,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":3163.885232491,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":3163.88528162,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":3164.822096972,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":3165.924061008,"data":"[NbConvertApp] Writing 308710 bytes to __results__.html\n"}
+]

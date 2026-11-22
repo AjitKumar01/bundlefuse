@@ -1,0 +1,33 @@
+electronic n50 anchor (training CV): hybrid {'k': 50, 'shrink': 0, 'content': 0.1} lambda 0.0 cv N20 0.1041
+/Users/ajit/Projects/Career_change/projects/bundle-dpo/bundlefuse/experiments/small_data/residual.py:140: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /Users/runner/work/pytorch/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:837.)
+  extra = dict(kappa=float(model.kappa.exp()), gamma=float(model.gamma)) if variant.startswith('residual') else {}
+residual_cv electronic n50: test R/N [0.1818 0.0948] best epochs [2, 1, 1] [(2.88, -0.04), (2.94, -0.019), (2.94, -0.02)] (1s)
+food n50 anchor (training CV): hybrid {'k': 50, 'shrink': 0, 'content': 0.1} lambda 0.0 cv N20 0.267
+residual_cv food n50: test R/N [0.3752 0.2572] best epochs [8, 2, 2] [(2.56, -0.164), (2.88, -0.04), (2.88, -0.04)] (1s)
+clothing n50 anchor (training CV): label_knn_content {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1, 'v': 2.0} lambda 0.1 cv N20 0.2619
+residual_cv clothing n50: test R/N [0.3822 0.2334] best epochs [18, 9, 9] [(2.32, -0.307), (2.52, -0.182), (2.52, -0.185)] (3s)
+electronic n100 anchor (training CV): hybrid {'k': 50, 'shrink': 0, 'content': 1.0} lambda 0.0 cv N20 0.0881
+residual_cv electronic n100: test R/N [0.1732 0.0866] best epochs [0, 1, 0] [(3.0, 0.0), (2.88, -0.04), (3.0, 0.0)] (1s)
+food n100 anchor (training CV): hybrid {'k': 50, 'shrink': 0, 'content': 0.1} lambda 0.03 cv N20 0.2715
+exists results/small_data/residual_cv/food_n100.json
+clothing n100 anchor (training CV): label_knn_content {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1, 'v': 0.7} lambda 0.1 cv N20 0.2651
+residual_cv clothing n100: test R/N [0.4003 0.2454] best epochs [19, 16, 16] [(2.19, -0.349), (2.11, -0.375), (2.15, -0.366)] (4s)
+electronic n300 anchor (training CV): label_knn_content {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1, 'v': 1.5} lambda 0.1 cv N20 0.1515
+residual_cv electronic n300: test R/N [0.2434 0.1618] best epochs [4, 2, 5] [(2.13, -0.304), (2.46, -0.209), (2.02, -0.337)] (4s)
+food n300 anchor (training CV): label_knn_content {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1, 'v': 2.0} lambda 0.0 cv N20 0.3042
+residual_cv food n300: test R/N [0.439  0.3145] best epochs [4, 4, 4] [(2.16, -0.305), (2.11, -0.341), (2.12, -0.332)] (4s)
+clothing n300 anchor (training CV): hybrid {'k': 50, 'shrink': 0, 'content': 0.1} lambda 0.1 cv N20 0.307
+residual_cv clothing n300: test R/N [0.424 0.262] best epochs [10, 10, 12] [(1.79, -0.32), (1.77, -0.374), (1.7, -0.389)] (7s)
+electronic n600 anchor (training CV): hybrid {'k': 50, 'shrink': 0, 'content': 0.2} lambda 0.03 cv N20 0.2063
+residual_cv electronic n600: test R/N [0.2949 0.2128] best epochs [0, 0, 0] [(3.0, 0.0), (3.0, 0.0), (3.0, 0.0)] (4s)
+food n600 anchor (training CV): label_knn_content {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01}, 'itemknn': {'k': 50, 'shrink': 10}, 'w': 0.1, 'v': 3.0} lambda 0.03 cv N20 0.2994
+residual_cv food n600: test R/N [0.49   0.3678] best epochs [6, 5, 10] [(2.03, -0.332), (2.0, -0.385), (2.13, -0.416)] (10s)
+clothing n600 anchor (training CV): label_knn_content {'label': 'samelabel', 'label_params': {'a': (1.0,), 'gamma': 0.0}, 'itemknn': {'k': 50, 'shrink': 0}, 'w': 0.1, 'v': 1.5} lambda 0.1 cv N20 0.3553
+residual_cv clothing n600: test R/N [0.4635 0.3295] best epochs [10, 7, 10] [(2.5, -0.378), (2.26, -0.383), (2.55, -0.394)] (12s)
+electronic full anchor (training CV): hybrid {'k': 200, 'shrink': 0, 'content': 0.5} lambda 0.1 cv N20 0.2894
+residual_cv electronic full: test R/N [0.4652 0.3293] best epochs [4, 3, 6] [(1.34, -0.286), (1.45, -0.33), (1.21, -0.296)] (14s)
+food full anchor (training CV): label_knn_content {'label': 'transition', 'label_params': {'a': (1.0,), 'gamma': 0.5, 'eps': 0.01}, 'itemknn': {'k': 50, 'shrink': 10}, 'w': 0.1, 'v': 2.0} lambda 0.03 cv N20 0.3972
+residual_cv food full: test R/N [0.6242 0.4821] best epochs [4, 11, 7] [(1.54, -0.322), (1.54, -0.471), (1.43, -0.37)] (19s)
+clothing full anchor (training CV): hybrid {'k': 50, 'shrink': 0, 'content': 0.5} lambda 0.1 cv N20 0.4404
+residual_cv clothing full: test R/N [0.5933 0.4513] best epochs [3, 4, 6] [(1.84, -0.267), (1.8, -0.321), (1.82, -0.31)] (15s)

@@ -1,0 +1,322 @@
+{
+  "note": "Final full-data table: test NDCG@20 on clean test queries (mean of seeds 0-2 per query) of the best simple baseline,\nthe original TRIAD and the final TRIAD, on all seven datasets, with paired tests (bootstrap + sign flips, one cluster\nper query). Holm over the 10 tests of the first five datasets; for each Spotify set, Holm over its own 2 tests.\n\nSources (features match within each row):\n  best simple  results/fair_prior/budget_comparison.json picks the method (chosen on validation, popularity prior\n               allowed); its per-query clean-test scores are in results/fair_prior/<dataset>.json\n  original     the original TRIAD (rank 64, raw-count start, no per-query scaling), trained with the archived dials\n               code (branch archive/original-triad): ../dials/runs_original_triad/<dataset>/seed<s>/test.json. Its\n               e-commerce features are the BLIP title features of the same data loader (retraining it with\n               experiments.small_data.budget_rerun reproduces these runs exactly).\n  final        the final TRIAD (full rank, simple-scorer start, per-query scaling):\n               e-commerce: ../dials/runs/<dataset>/seed<s>/test.json (dials main code, learning rates halved);\n               POG_DENSE, POG: results/small_data/v2/<dataset>_full.json (experiments.small_data.residual, variant v2);\n               Spotify sets: results/small_data/kaggle_v2/<dataset>/seed<s>.json (kaggle_triad_v2/run.py)\nWrites results/small_data/table_final.json.\n\ncd ../bundlefuse && PYTHONPATH=.:../dials_original .venv/bin/python -m experiments.small_data.table_final\n",
+  "rows": {
+    "electronic": {
+      "queries": 346,
+      "best_simple": 0.3121737371619653,
+      "best_simple_method": "hybrid+prior",
+      "original": 0.33452280610186924,
+      "final": 0.34128283621919536
+    },
+    "food": {
+      "queries": 353,
+      "best_simple": 0.4601046201985941,
+      "best_simple_method": "hybrid+prior",
+      "original": 0.4738321448439198,
+      "final": 0.4881188160816103
+    },
+    "clothing": {
+      "queries": 371,
+      "best_simple": 0.427324879591976,
+      "best_simple_method": "hybrid+prior",
+      "original": 0.4387577783582936,
+      "final": 0.4509214627924409
+    },
+    "pog_dense": {
+      "queries": 5547,
+      "best_simple": 0.24071678151966952,
+      "best_simple_method": "rp3beta+prior",
+      "original": 0.2781326469188584,
+      "final": 0.2797944460372724
+    },
+    "pog": {
+      "queries": 3995,
+      "best_simple": 0.02344972940861992,
+      "best_simple_method": "label_knn_content+prior",
+      "original": 0.030612740591310802,
+      "final": 0.03075405679831574
+    },
+    "spotify_sparse": {
+      "queries": 2497,
+      "best_simple": 0.20852953897076956,
+      "best_simple_method": "label_knn_content+prior",
+      "original": 0.2562473799414572,
+      "final": 0.25645728870580253
+    },
+    "spotify": {
+      "queries": 3995,
+      "best_simple": 0.24689467832535475,
+      "best_simple_method": "label_knn_content+prior",
+      "original": 0.28231368372856097,
+      "final": 0.28236059220878257
+    }
+  },
+  "tests": [
+    {
+      "delta": 0.029109099057230088,
+      "ci95": [
+        0.012082409362331466,
+        0.045371139659865556
+      ],
+      "p_value": 0.00039996000399960006,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.2630057803468208,
+      "seed": 20261121,
+      "dataset": "electronic",
+      "versus": "best_simple",
+      "group": "main",
+      "p_holm": 0.0027997200279972004,
+      "reject_05": true
+    },
+    {
+      "delta": 0.006760030117326099,
+      "ci95": [
+        -0.0028086376022875242,
+        0.015472967027568996
+      ],
+      "p_value": 0.15998400159984003,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.18497109826589594,
+      "seed": 20261121,
+      "dataset": "electronic",
+      "versus": "original",
+      "group": "main",
+      "p_holm": 0.31996800319968005,
+      "reject_05": false
+    },
+    {
+      "delta": 0.028014195883016204,
+      "ci95": [
+        0.013051894235380605,
+        0.04430349157719085
+      ],
+      "p_value": 0.00039996000399960006,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.2804532577903683,
+      "seed": 20261121,
+      "dataset": "food",
+      "versus": "best_simple",
+      "group": "main",
+      "p_holm": 0.0027997200279972004,
+      "reject_05": true
+    },
+    {
+      "delta": 0.014286671237690474,
+      "ci95": [
+        0.0039611029134080855,
+        0.025007311850583344
+      ],
+      "p_value": 0.007899210078992101,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.23512747875354106,
+      "seed": 20261121,
+      "dataset": "food",
+      "versus": "original",
+      "group": "main",
+      "p_holm": 0.031596840315968405,
+      "reject_05": true
+    },
+    {
+      "delta": 0.023596583200464823,
+      "ci95": [
+        0.012177439013833858,
+        0.03567703671340513
+      ],
+      "p_value": 0.00019998000199980003,
+      "queries": 371,
+      "clusters": 371,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.2749326145552561,
+      "seed": 20261121,
+      "dataset": "clothing",
+      "versus": "best_simple",
+      "group": "main",
+      "p_holm": 0.0015998400159984002,
+      "reject_05": true
+    },
+    {
+      "delta": 0.012163684434147152,
+      "ci95": [
+        0.0017224025336111065,
+        0.022883500055708068
+      ],
+      "p_value": 0.026497350264973504,
+      "queries": 371,
+      "clusters": 371,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.24797843665768193,
+      "seed": 20261121,
+      "dataset": "clothing",
+      "versus": "original",
+      "group": "main",
+      "p_holm": 0.07949205079492051,
+      "reject_05": false
+    },
+    {
+      "delta": 0.03907766451760288,
+      "ci95": [
+        0.03540520333391041,
+        0.04269429746322015
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5547,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.2760050477735713,
+      "seed": 20261121,
+      "dataset": "pog_dense",
+      "versus": "best_simple",
+      "group": "main",
+      "p_holm": 0.000999900009999,
+      "reject_05": true
+    },
+    {
+      "delta": 0.0016617991184140466,
+      "ci95": [
+        0.0005392519850460807,
+        0.0028466912722828045
+      ],
+      "p_value": 0.0052994700529947,
+      "queries": 5547,
+      "clusters": 5547,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.16062736614386156,
+      "seed": 20261121,
+      "dataset": "pog_dense",
+      "versus": "original",
+      "group": "main",
+      "p_holm": 0.0264973502649735,
+      "reject_05": true
+    },
+    {
+      "delta": 0.007304327389695815,
+      "ci95": [
+        0.005054800789516885,
+        0.00950416367010602
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3995,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.09737171464330413,
+      "seed": 20261121,
+      "dataset": "pog",
+      "versus": "best_simple",
+      "group": "main",
+      "p_holm": 0.000999900009999,
+      "reject_05": true
+    },
+    {
+      "delta": 0.0001413162070049305,
+      "ci95": [
+        -0.0009445632262543055,
+        0.0012170530380772677
+      ],
+      "p_value": 0.7948205179482052,
+      "queries": 3995,
+      "clusters": 3995,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.07133917396745933,
+      "seed": 20261121,
+      "dataset": "pog",
+      "versus": "original",
+      "group": "main",
+      "p_holm": 0.7948205179482052,
+      "reject_05": false
+    },
+    {
+      "delta": 0.047927749735033005,
+      "ci95": [
+        0.043061556839568936,
+        0.0524610872309174
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 2497,
+      "clusters": 2497,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.5506607929515418,
+      "seed": 20261121,
+      "dataset": "spotify_sparse",
+      "versus": "best_simple",
+      "group": "spotify_sparse",
+      "p_holm": 0.00019998000199980003,
+      "reject_05": true
+    },
+    {
+      "delta": 0.0002099087643454126,
+      "ci95": [
+        -0.0008212073210894735,
+        0.0013120327788270865
+      ],
+      "p_value": 0.7054294570542946,
+      "queries": 2497,
+      "clusters": 2497,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.38446135362434924,
+      "seed": 20261121,
+      "dataset": "spotify_sparse",
+      "versus": "original",
+      "group": "spotify_sparse",
+      "p_holm": 0.7054294570542946,
+      "reject_05": false
+    },
+    {
+      "delta": 0.03546591388342781,
+      "ci95": [
+        0.03133929076226244,
+        0.03972814898777909
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3995,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.5204005006257822,
+      "seed": 20261121,
+      "dataset": "spotify",
+      "versus": "best_simple",
+      "group": "spotify",
+      "p_holm": 0.00019998000199980003,
+      "reject_05": true
+    },
+    {
+      "delta": 4.690848022159884e-05,
+      "ci95": [
+        -0.001029390135739644,
+        0.0010912053636334285
+      ],
+      "p_value": 0.9254074592540746,
+      "queries": 3995,
+      "clusters": 3995,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.4420525657071339,
+      "seed": 20261121,
+      "dataset": "spotify",
+      "versus": "original",
+      "group": "spotify",
+      "p_holm": 0.9254074592540746,
+      "reject_05": false
+    }
+  ]
+}

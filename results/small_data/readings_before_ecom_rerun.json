@@ -1,0 +1,3508 @@
+{
+  "note": "What the full-rank TRIAD (experiments.small_data.triad_v2) learns: its trained parameters read on the first 512\nvalidation queries of seeds 0-2 (never test), full training data. Models: results/small_data/v2_models/<name>_full_seed<s>.pt\n(local runs) or results/small_data/kaggle_v2/<name>/seed<s>.pt (Kaggle runs). Writes results/small_data/readings.json.\n\nPer seed:\n  start_distance      relative change of each part from its initial value\n  exponents           alpha (seed), beta (candidate), theta; discount factor deg^-alpha, deg^-beta at the 90th-percentile\n                      degree (1 = no discount, < 1 discount, > 1 boost)\n  gate                mean weights (content, labels..., graph) over the queries; content weight as the share of unseen\n                      seeds goes 0 -> 1 (other inputs at the median query), relative to 0\n  influence_top100    per term, std over each query's top 100 candidates of its weighted, per-query scaled score: how\n                      much the term reorders the shortlist (shares of the total)\n  content_blocks      the same for the four blocks of the content score (zz, zh, hz, hh), scaled as the content term\n  Mzz_change          ||A_z'B_z - 10 I|| / ||10 I||\n  Mzz_asymmetry       ||M - M'|| / ||M|| for M = A_z'B_z (0 = symmetric, the start)\n  history_vs_feature  ||A_z'B_h|| / ||A_z'B_z||: weight on partner histories relative to features\n  encoder_cos         mean cosine between refined features Z and inputs X\n  label_rule          delta_l at m = 1 and m = 2, median log|S|, label sizes at the 10/50/90th percentiles of items\n  prior_vs_base_rate  correlation over frequency bins of rho with the base rate of validation targets\n                      log(share of targets in bin / share of items in bin) (bins with >= 20 items and targets)\n  knockouts           validation NDCG@20 (first VQ validation queries) of the trained model and of copies with one learned\n                      behaviour removed: content made symmetric (M_zz -> (M_zz + M_zz')/2), partner-history blocks\n                      removed, content maps back to the start 10 I (history removed too), label rule removed, prior\n                      removed, one shared exponent (alpha = beta = their mean), exponents back to the start 1/2, gate\n                      fixed at its mean over the queries, feature refinement removed (Z = X)\n  geometry            the learned content matrix M = A_z'B_z on the refined features Z (start: M = 10 I, so the content score\n                      is 10 x cosine): self score z'Mz (start 10), Pearson correlation between z_s'Mz_c and 10 cos(z_s, z_c) over\n                      20,000 random item pairs and over each item's 10 nearest neighbours (start 1), share of the\n                      squared spectrum of the symmetric part (M + M')/2 on negative eigenvalues (start 0), and\n                      ||M - M'|| / ||M + M'|| (antisymmetric against symmetric part)\n  data_facts          facts about the data that the simple scorers get wrong, on the same validation queries:\n                      share of targets in the top 20 of start cosine content (and of the trained content term), share\n                      of targets sharing a label with a seed against the share of catalogue items that do, share of\n                      queries with an unseen seed / only unseen seeds\n\ncd ../bundlefuse && PYTHONPATH=.:../dials .venv/bin/python -m experiments.small_data.readings [names]\n",
+  "datasets": {
+    "electronic_asymmetry_example": [
+      {
+        "seed": 1912,
+        "target": 943,
+        "seed_to_target": 6.165684700012207,
+        "target_to_seed": 5.949347019195557,
+        "start_both_ways": 6.692566871643066
+      },
+      {
+        "seed": 2708,
+        "target": 943,
+        "seed_to_target": 6.9976654052734375,
+        "target_to_seed": 6.8319830894470215,
+        "start_both_ways": 7.291100025177002
+      }
+    ],
+    "electronic": [
+      {
+        "start_distance": {
+          "query_content": 0.04944093897938728,
+          "key_content": 0.04951343685388565,
+          "query_history": 1762911.75,
+          "key_history": 1710596.875,
+          "exponents": 0.46829208731651306,
+          "theta": 0.09570574760437012,
+          "same_label.0.0.weight": 1.253557801246643,
+          "same_label.0.0.bias": 1.1725281476974487,
+          "same_label.0.2.weight": 245707.453125,
+          "encoder.0.weight": 1.5125688314437866,
+          "encoder.0.bias": 2.2366812229156494,
+          "encoder.2.weight": 1059924.125,
+          "encoder.2.bias": 109644.703125,
+          "prior.0.weight": 1.5947362184524536,
+          "prior.0.bias": 1.2295165061950684,
+          "prior.2.weight": 280325.5,
+          "gate.0.weight": 1.9856387376785278,
+          "gate.0.bias": 2.7879323959350586,
+          "gate.2.weight": 3078982.25,
+          "gate.2.bias": 0.7706248760223389
+        },
+        "exponents": {
+          "alpha": 0.37676554918289185,
+          "beta": 0.19265326857566833,
+          "theta": 1.0957057476043701,
+          "deg90": 11.0,
+          "seed_factor": 0.4051717088169606,
+          "cand_factor": 0.6300460531647466
+        },
+        "gate": {
+          "mean": [
+            6.642641544342041,
+            0.700410783290863,
+            4.14431619644165
+          ],
+          "unseen_sweep": [
+            [
+              5.953498840332031,
+              0.6574358344078064,
+              3.83109188079834
+            ],
+            [
+              6.8974127769470215,
+              0.6773833632469177,
+              4.303199291229248
+            ],
+            [
+              7.824910640716553,
+              0.7199620604515076,
+              4.727903366088867
+            ]
+          ],
+          "content_rise": 0.31433820724487305
+        },
+        "influence_top100": {
+          "raw": [
+            0.6900628805160522,
+            0.2359607070684433,
+            0.8857365250587463
+          ],
+          "share": [
+            0.380879828240227,
+            0.1302383827868866,
+            0.4888817889728864
+          ]
+        },
+        "content_blocks": {
+          "raw": {
+            "zz": 0.6936169862747192,
+            "zh": 0.020747484639286995,
+            "hz": 0.015679223462939262,
+            "hh": 0.0005464773275889456
+          },
+          "share": {
+            "zz": 0.9493927144632218,
+            "zh": 0.028398253142224997,
+            "hz": 0.021461038034987775,
+            "hh": 0.0007479943595654503
+          }
+        },
+        "Mzz_change": 0.09941016137599945,
+        "Mzz_asymmetry": 0.11545871943235397,
+        "history_vs_feature": 0.048091594129800797,
+        "encoder_cos": 0.9419460296630859,
+        "label_rule": [
+          {
+            "size_q10_50_90": [
+              3,
+              20,
+              61
+            ],
+            "m1": [
+              0.5656496286392212,
+              0.8284215927124023,
+              1.0102522373199463
+            ],
+            "m2": [
+              0.6786720752716064,
+              0.9403420686721802,
+              1.1189576387405396
+            ],
+            "gate": 0.700410783290863
+          }
+        ],
+        "prior_vs_base_rate": {
+          "bins": [
+            [
+              0.8848239921711375,
+              -0.09723246097564697
+            ],
+            [
+              -0.5209485491539994,
+              -0.22157631814479828
+            ],
+            [
+              -0.8495371791466769,
+              -0.22231540083885193
+            ]
+          ],
+          "corr": 0.984871410316172
+        },
+        "knockouts": {
+          "trained": 0.38141514797131043,
+          "symmetric_content": 0.38062009497002464,
+          "no_partner_history": 0.38163441390541114,
+          "content_maps_at_start": 0.3710159455938498,
+          "no_label_rule": 0.37762560872914996,
+          "no_prior": 0.3203235181973615,
+          "shared_exponent": 0.37451353201731746,
+          "exponents_at_start": 0.36183280697796444,
+          "fixed_gate": 0.3802290162640884,
+          "no_feature_refinement": 0.37783279724747876
+        },
+        "data_facts": {
+          "start_cosine_recall20": 0.22736030828516374,
+          "trained_content_recall20": 0.24951830443159922,
+          "labels": [
+            {
+              "targets_sharing": 0.2201348747591522,
+              "catalogue_sharing": 0.014436968620505952
+            }
+          ],
+          "queries_with_unseen_seed": 0.5260115606936416,
+          "queries_all_unseen": 0.34104046242774566
+        },
+        "geometry": {
+          "self_score": 10.09328556060791,
+          "corr_random_pairs": 0.9948159612109914,
+          "corr_near_neighbours": 0.993056850035319,
+          "neg_spectrum_share": 0.0,
+          "antisym_vs_sym": 0.057825807482004166
+        }
+      },
+      {
+        "start_distance": {
+          "query_content": 0.05060863494873047,
+          "key_content": 0.050583694130182266,
+          "query_history": 1796689.125,
+          "key_history": 1757424.875,
+          "exponents": 0.5400060415267944,
+          "theta": 0.008257925510406494,
+          "same_label.0.0.weight": 1.5908280611038208,
+          "same_label.0.0.bias": 1.3387964963912964,
+          "same_label.0.2.weight": 219389.234375,
+          "encoder.0.weight": 1.5434373617172241,
+          "encoder.0.bias": 2.111518383026123,
+          "encoder.2.weight": 1056657.0,
+          "encoder.2.bias": 118727.703125,
+          "prior.0.weight": 1.3449701070785522,
+          "prior.0.bias": 1.2301543951034546,
+          "prior.2.weight": 387923.9375,
+          "gate.0.weight": 1.9432159662246704,
+          "gate.0.bias": 2.118013381958008,
+          "gate.2.weight": 3140689.25,
+          "gate.2.bias": 0.779430627822876
+        },
+        "exponents": {
+          "alpha": 0.265855610370636,
+          "beta": 0.19837164878845215,
+          "theta": 0.9917420744895935,
+          "deg90": 11.0,
+          "seed_factor": 0.5286155228086314,
+          "cand_factor": 0.6214657744056219
+        },
+        "gate": {
+          "mean": [
+            7.57546854019165,
+            0.4969002902507782,
+            4.0590362548828125
+          ],
+          "unseen_sweep": [
+            [
+              6.569408416748047,
+              0.30455636978149414,
+              4.578517436981201
+            ],
+            [
+              7.575945854187012,
+              0.3871959447860718,
+              4.210249900817871
+            ],
+            [
+              9.236396789550781,
+              0.6020395159721375,
+              3.352369546890259
+            ]
+          ],
+          "content_rise": 0.40597081184387207
+        },
+        "influence_top100": {
+          "raw": [
+            0.7417635917663574,
+            0.15408095717430115,
+            0.9584194421768188
+          ],
+          "share": [
+            0.4000312767327868,
+            0.08309548042371455,
+            0.5168732428434986
+          ]
+        },
+        "content_blocks": {
+          "raw": {
+            "zz": 0.7479506731033325,
+            "zh": 0.07780304551124573,
+            "hz": 0.016558390110731125,
+            "hh": 0.0018390805926173925
+          },
+          "share": {
+            "zz": 0.8860387600800229,
+            "zh": 0.09216719291020664,
+            "hz": 0.019615431832904585,
+            "hh": 0.0021786151768658497
+          }
+        },
+        "Mzz_change": 0.10175652801990509,
+        "Mzz_asymmetry": 0.11928471177816391,
+        "history_vs_feature": 0.049568869173526764,
+        "encoder_cos": 0.9176496267318726,
+        "label_rule": [
+          {
+            "size_q10_50_90": [
+              3,
+              20,
+              61
+            ],
+            "m1": [
+              0.31806594133377075,
+              0.4184131920337677,
+              0.5022201538085938
+            ],
+            "m2": [
+              0.37736228108406067,
+              0.4780566692352295,
+              0.5585830211639404
+            ],
+            "gate": 0.4969002902507782
+          }
+        ],
+        "prior_vs_base_rate": {
+          "bins": [
+            [
+              0.8848239921711375,
+              -0.02196936309337616
+            ],
+            [
+              -0.5209485491539994,
+              -0.1578340381383896
+            ],
+            [
+              -0.8495371791466769,
+              -0.14913521707057953
+            ]
+          ],
+          "corr": 0.9721599458534185
+        },
+        "knockouts": {
+          "trained": 0.371728450241041,
+          "symmetric_content": 0.37541294871768077,
+          "no_partner_history": 0.3708276347332112,
+          "content_maps_at_start": 0.3679297454852177,
+          "no_label_rule": 0.3615517563098015,
+          "no_prior": 0.323551351617322,
+          "shared_exponent": 0.37480334093725404,
+          "exponents_at_start": 0.34488935972672097,
+          "fixed_gate": 0.3554454253470759,
+          "no_feature_refinement": 0.37637075120670044
+        },
+        "geometry": {
+          "self_score": 10.187823295593262,
+          "corr_random_pairs": 0.9907104830526232,
+          "corr_near_neighbours": 0.9841200690982294,
+          "neg_spectrum_share": 0.0,
+          "antisym_vs_sym": 0.05974870175123215
+        }
+      },
+      {
+        "start_distance": {
+          "query_content": 0.0692656934261322,
+          "key_content": 0.06883668154478073,
+          "query_history": 2452040.5,
+          "key_history": 2409424.0,
+          "exponents": 0.4951383173465729,
+          "theta": 0.23096346855163574,
+          "same_label.0.0.weight": 1.562398910522461,
+          "same_label.0.0.bias": 1.4023618698120117,
+          "same_label.0.2.weight": 207787.90625,
+          "encoder.0.weight": 1.6317147016525269,
+          "encoder.0.bias": 2.5080466270446777,
+          "encoder.2.weight": 1422884.75,
+          "encoder.2.bias": 141107.359375,
+          "prior.0.weight": 1.852532148361206,
+          "prior.0.bias": 1.4107800722122192,
+          "prior.2.weight": 403514.34375,
+          "gate.0.weight": 1.7909365892410278,
+          "gate.0.bias": 2.882627010345459,
+          "gate.2.weight": 3223956.5,
+          "gate.2.bias": 0.8478786945343018
+        },
+        "exponents": {
+          "alpha": 0.42169177532196045,
+          "beta": 0.15875405073165894,
+          "theta": 1.2309634685516357,
+          "deg90": 11.0,
+          "seed_factor": 0.3637921049983434,
+          "cand_factor": 0.6833995568247484
+        },
+        "gate": {
+          "mean": [
+            8.471342086791992,
+            0.393582820892334,
+            4.179737091064453
+          ],
+          "unseen_sweep": [
+            [
+              7.135282516479492,
+              0.23808248341083527,
+              3.844367504119873
+            ],
+            [
+              8.423523902893066,
+              0.3549593985080719,
+              4.101558685302734
+            ],
+            [
+              9.723939895629883,
+              0.5010956525802612,
+              4.370438575744629
+            ]
+          ],
+          "content_rise": 0.3627967834472656
+        },
+        "influence_top100": {
+          "raw": [
+            0.8055152893066406,
+            0.12252062559127808,
+            0.9142439961433411
+          ],
+          "share": [
+            0.43723827442234986,
+            0.06650489149720425,
+            0.4962568340804459
+          ]
+        },
+        "content_blocks": {
+          "raw": {
+            "zz": 0.8313987851142883,
+            "zh": 0.07018503546714783,
+            "hz": 0.022621385753154755,
+            "hh": 0.0014025956625118852
+          },
+          "share": {
+            "zz": 0.8982192925777549,
+            "zh": 0.07582589009698895,
+            "hz": 0.024439493384073228,
+            "hh": 0.0015153239411828936
+          }
+        },
+        "Mzz_change": 0.13971658051013947,
+        "Mzz_asymmetry": 0.1505337357521057,
+        "history_vs_feature": 0.06856797635555267,
+        "encoder_cos": 0.8869147896766663,
+        "label_rule": [
+          {
+            "size_q10_50_90": [
+              3,
+              20,
+              61
+            ],
+            "m1": [
+              0.29556697607040405,
+              0.5470970869064331,
+              0.7228440642356873
+            ],
+            "m2": [
+              0.30095046758651733,
+              0.5569621920585632,
+              0.7334511876106262
+            ],
+            "gate": 0.393582820892334
+          }
+        ],
+        "prior_vs_base_rate": {
+          "bins": [
+            [
+              0.8848239921711375,
+              -0.1586339771747589
+            ],
+            [
+              -0.5209485491539994,
+              -0.31352993845939636
+            ],
+            [
+              -0.8495371791466769,
+              -0.31981316208839417
+            ]
+          ],
+          "corr": 0.9895231600383481
+        },
+        "knockouts": {
+          "trained": 0.3757934254367075,
+          "symmetric_content": 0.3774480393273576,
+          "no_partner_history": 0.37952671061297477,
+          "content_maps_at_start": 0.3831453736450288,
+          "no_label_rule": 0.3711349377961205,
+          "no_prior": 0.31927282600570284,
+          "shared_exponent": 0.37509884497518936,
+          "exponents_at_start": 0.3526111012908728,
+          "fixed_gate": 0.37360371008192655,
+          "no_feature_refinement": 0.38067280063441233
+        },
+        "geometry": {
+          "self_score": 10.366070747375488,
+          "corr_random_pairs": 0.9842183581326055,
+          "corr_near_neighbours": 0.9705683529616758,
+          "neg_spectrum_share": 0.0,
+          "antisym_vs_sym": 0.07548099756240845
+        }
+      }
+    ],
+    "food": [
+      {
+        "start_distance": {
+          "query_content": 0.05037711560726166,
+          "key_content": 0.05040142312645912,
+          "query_history": 1850989.75,
+          "key_history": 1789565.5,
+          "exponents": 0.6893325448036194,
+          "theta": 0.16131901741027832,
+          "same_label.0.0.weight": 1.5077590942382812,
+          "same_label.0.0.bias": 1.5600271224975586,
+          "same_label.0.2.weight": 236637.09375,
+          "encoder.0.weight": 1.5446150302886963,
+          "encoder.0.bias": 2.675489664077759,
+          "encoder.2.weight": 999886.3125,
+          "encoder.2.bias": 97892.2734375,
+          "prior.0.weight": 1.6089019775390625,
+          "prior.0.bias": 1.5917694568634033,
+          "prior.2.weight": 323086.3125,
+          "gate.0.weight": 1.792426586151123,
+          "gate.0.bias": 2.7441020011901855,
+          "gate.2.weight": 3348035.25,
+          "gate.2.bias": 0.8528355360031128
+        },
+        "exponents": {
+          "alpha": 0.16131938993930817,
+          "beta": 0.14945031702518463,
+          "theta": 1.1613190174102783,
+          "deg90": 10.0,
+          "seed_factor": 0.6897323725601217,
+          "cand_factor": 0.708842392870363
+        },
+        "gate": {
+          "mean": [
+            9.02210521697998,
+            1.4297809600830078,
+            4.1979217529296875
+          ],
+          "unseen_sweep": [
+            [
+              7.7673516273498535,
+              1.1155786514282227,
+              4.0032501220703125
+            ],
+            [
+              9.009330749511719,
+              1.418682336807251,
+              4.202877044677734
+            ],
+            [
+              10.31137752532959,
+              1.8515071868896484,
+              4.279646396636963
+            ]
+          ],
+          "content_rise": 0.32752811908721924
+        },
+        "influence_top100": {
+          "raw": [
+            0.8814167380332947,
+            0.42573368549346924,
+            0.984554648399353
+          ],
+          "share": [
+            0.3846117673826534,
+            0.18577158584182538,
+            0.4296166467755212
+          ]
+        },
+        "content_blocks": {
+          "raw": {
+            "zz": 0.8915634751319885,
+            "zh": 0.03601953014731407,
+            "hz": 0.017470097169280052,
+            "hh": 0.0006342310807667673
+          },
+          "share": {
+            "zz": 0.9427677029411315,
+            "zh": 0.03808820195665252,
+            "hz": 0.018473438894524293,
+            "hh": 0.0006706562076915921
+          }
+        },
+        "Mzz_change": 0.10177434980869293,
+        "Mzz_asymmetry": 0.11901304870843887,
+        "history_vs_feature": 0.049866463989019394,
+        "encoder_cos": 0.9314612150192261,
+        "label_rule": [
+          {
+            "size_q10_50_90": [
+              2,
+              10,
+              84
+            ],
+            "m1": [
+              0.5719843506813049,
+              0.7306796312332153,
+              0.9916025996208191
+            ],
+            "m2": [
+              0.7417485117912292,
+              0.9038350582122803,
+              1.1620657444000244
+            ],
+            "gate": 1.4297809600830078
+          }
+        ],
+        "prior_vs_base_rate": {
+          "bins": [
+            [
+              0.8116171939742994,
+              -0.06385482102632523
+            ],
+            [
+              -0.6187854846605246,
+              -0.2228834331035614
+            ],
+            [
+              -0.36248564562445174,
+              -0.2375400960445404
+            ]
+          ],
+          "corr": 0.9701434133120672
+        },
+        "knockouts": {
+          "trained": 0.4474324200281617,
+          "symmetric_content": 0.4470035167987046,
+          "no_partner_history": 0.445609261167762,
+          "content_maps_at_start": 0.4455155177276224,
+          "no_label_rule": 0.4360040450274443,
+          "no_prior": 0.41096052454423315,
+          "shared_exponent": 0.447464323433999,
+          "exponents_at_start": 0.42275235400284733,
+          "fixed_gate": 0.43437450990336884,
+          "no_feature_refinement": 0.4532668590577222
+        },
+        "data_facts": {
+          "start_cosine_recall20": 0.34450757575757573,
+          "trained_content_recall20": 0.35965909090909093,
+          "labels": [
+            {
+              "targets_sharing": 0.2581439393939394,
+              "catalogue_sharing": 0.01413977715870287
+            }
+          ],
+          "queries_with_unseen_seed": 0.5795454545454546,
+          "queries_all_unseen": 0.375
+        },
+        "geometry": {
+          "self_score": 10.130663871765137,
+          "corr_random_pairs": 0.9956572560954059,
+          "corr_near_neighbours": 0.9939191117615841,
+          "neg_spectrum_share": 0.0,
+          "antisym_vs_sym": 0.05961215868592262
+        }
+      },
+      {
+        "start_distance": {
+          "query_content": 0.0702626183629036,
+          "key_content": 0.07021044939756393,
+          "query_history": 2542506.25,
+          "key_history": 2532686.0,
+          "exponents": 0.5884199738502502,
+          "theta": 0.0022497177124023438,
+          "same_label.0.0.weight": 1.269486665725708,
+          "same_label.0.0.bias": 1.4331170320510864,
+          "same_label.0.2.weight": 224906.671875,
+          "encoder.0.weight": 1.6149976253509521,
+          "encoder.0.bias": 2.9119362831115723,
+          "encoder.2.weight": 1252160.875,
+          "encoder.2.bias": 136089.421875,
+          "prior.0.weight": 1.1790554523468018,
+          "prior.0.bias": 1.111549973487854,
+          "prior.2.weight": 490702.375,
+          "gate.0.weight": 1.7934606075286865,
+          "gate.0.bias": 2.3471624851226807,
+          "gate.2.weight": 3634208.0,
+          "gate.2.bias": 0.9037531018257141
+        },
+        "exponents": {
+          "alpha": 0.27752065658569336,
+          "beta": 0.14840085804462433,
+          "theta": 0.9977502822875977,
+          "deg90": 10.0,
+          "seed_factor": 0.5278121015692098,
+          "cand_factor": 0.7105573595051597
+        },
+        "gate": {
+          "mean": [
+            12.331961631774902,
+            0.6210466623306274,
+            6.061518669128418
+          ],
+          "unseen_sweep": [
+            [
+              9.121343612670898,
+              0.5548949241638184,
+              5.034890174865723
+            ],
+            [
+              11.892413139343262,
+              0.6301419734954834,
+              5.749815940856934
+            ],
+            [
+              14.831520080566406,
+              0.732611358165741,
+              6.468588829040527
+            ]
+          ],
+          "content_rise": 0.6260236501693726
+        },
+        "influence_top100": {
+          "raw": [
+            0.9344044327735901,
+            0.15998214483261108,
+            0.9786939024925232
+          ],
+          "share": [
+            0.45073234818606356,
+            0.0771712176002894,
+            0.472096434213647
+          ]
+        },
+        "content_blocks": {
+          "raw": {
+            "zz": 0.9605092406272888,
+            "zh": 0.07142069935798645,
+            "hz": 0.025145363062620163,
+            "hh": 0.0018848362378776073
+          },
+          "share": {
+            "zz": 0.907030590665211,
+            "zh": 0.06744418104930455,
+            "hz": 0.023745334814566033,
+            "hh": 0.0017798934709184193
+          }
+        },
+        "Mzz_change": 0.14241290092468262,
+        "Mzz_asymmetry": 0.15807832777500153,
+        "history_vs_feature": 0.07101486623287201,
+        "encoder_cos": 0.8843584656715393,
+        "label_rule": [
+          {
+            "size_q10_50_90": [
+              2,
+              10,
+              84
+            ],
+            "m1": [
+              0.3902544677257538,
+              0.5298684239387512,
+              0.6731485724449158
+            ],
+            "m2": [
+              0.42289507389068604,
+              0.5700520873069763,
+              0.716863214969635
+            ],
+            "gate": 0.6210466623306274
+          }
+        ],
+        "prior_vs_base_rate": {
+          "bins": [
+            [
+              0.8116171939742994,
+              -0.33476540446281433
+            ],
+            [
+              -0.6187854846605246,
+              -0.48562192916870117
+            ],
+            [
+              -0.36248564562445174,
+              -0.5029454827308655
+            ]
+          ],
+          "corr": 0.9657192905245563
+        },
+        "knockouts": {
+          "trained": 0.44876169327079796,
+          "symmetric_content": 0.44720590578512115,
+          "no_partner_history": 0.44929331353264923,
+          "content_maps_at_start": 0.4497071432160091,
+          "no_label_rule": 0.43950862500834637,
+          "no_prior": 0.4283893844987166,
+          "shared_exponent": 0.4509377501494383,
+          "exponents_at_start": 0.3872417926866035,
+          "fixed_gate": 0.443876033065216,
+          "no_feature_refinement": 0.4434726402692379
+        },
+        "geometry": {
+          "self_score": 10.431886672973633,
+          "corr_random_pairs": 0.9854886508389226,
+          "corr_near_neighbours": 0.9813484380447617,
+          "neg_spectrum_share": 0.0,
+          "antisym_vs_sym": 0.07928716391324997
+        }
+      },
+      {
+        "start_distance": {
+          "query_content": 0.12369535863399506,
+          "key_content": 0.12138176709413528,
+          "query_history": 4987415.0,
+          "key_history": 4814650.0,
+          "exponents": 0.7048361897468567,
+          "theta": 0.31276917457580566,
+          "same_label.0.0.weight": 1.233843207359314,
+          "same_label.0.0.bias": 1.7519704103469849,
+          "same_label.0.2.weight": 390117.5625,
+          "encoder.0.weight": 1.8741525411605835,
+          "encoder.0.bias": 2.1603574752807617,
+          "encoder.2.weight": 1954607.75,
+          "encoder.2.bias": 204766.203125,
+          "prior.0.weight": 1.3605211973190308,
+          "prior.0.bias": 1.4279299974441528,
+          "prior.2.weight": 416080.3125,
+          "gate.0.weight": 2.4105441570281982,
+          "gate.0.bias": 2.6426784992218018,
+          "gate.2.weight": 4377811.0,
+          "gate.2.bias": 1.0468066930770874
+        },
+        "exponents": {
+          "alpha": 0.10817719250917435,
+          "beta": 0.19198718667030334,
+          "theta": 1.3127691745758057,
+          "deg90": 10.0,
+          "seed_factor": 0.7795120040889959,
+          "cand_factor": 0.642706679315018
+        },
+        "gate": {
+          "mean": [
+            14.605557441711426,
+            0.34169936180114746,
+            3.774401903152466
+          ],
+          "unseen_sweep": [
+            [
+              11.862452507019043,
+              0.24222950637340546,
+              4.489055156707764
+            ],
+            [
+              14.722217559814453,
+              0.3789958655834198,
+              3.632741689682007
+            ],
+            [
+              17.406644821166992,
+              0.49477052688598633,
+              2.9779441356658936
+            ]
+          ],
+          "content_rise": 0.467373251914978
+        },
+        "influence_top100": {
+          "raw": [
+            0.8757359981536865,
+            0.07370880991220474,
+            0.8941095471382141
+          ],
+          "share": [
+            0.47502586277513426,
+            0.03998190219026345,
+            0.48499223503460226
+          ]
+        },
+        "content_blocks": {
+          "raw": {
+            "zz": 0.9979674816131592,
+            "zh": 0.31294289231300354,
+            "hz": 0.04662930965423584,
+            "hh": 0.006197200622409582
+          },
+          "share": {
+            "zz": 0.7317888759726077,
+            "zh": 0.22947453862842374,
+            "hz": 0.03419230659108679,
+            "hh": 0.004544278807881804
+          }
+        },
+        "Mzz_change": 0.25165268778800964,
+        "Mzz_asymmetry": 0.22883833944797516,
+        "history_vs_feature": 0.13655853271484375,
+        "encoder_cos": 0.8484329581260681,
+        "label_rule": [
+          {
+            "size_q10_50_90": [
+              2,
+              10,
+              84
+            ],
+            "m1": [
+              0.4993571639060974,
+              0.40417444705963135,
+              0.26182371377944946
+            ],
+            "m2": [
+              0.5572576522827148,
+              0.45176422595977783,
+              0.29006093740463257
+            ],
+            "gate": 0.34169936180114746
+          }
+        ],
+        "prior_vs_base_rate": {
+          "bins": [
+            [
+              0.8116171939742994,
+              -0.10942013561725616
+            ],
+            [
+              -0.6187854846605246,
+              -0.27678346633911133
+            ],
+            [
+              -0.36248564562445174,
+              -0.2791154384613037
+            ]
+          ],
+          "corr": 0.9836992216914178
+        },
+        "knockouts": {
+          "trained": 0.4418267072508975,
+          "symmetric_content": 0.437195279479921,
+          "no_partner_history": 0.44498994853811935,
+          "content_maps_at_start": 0.4401915241082731,
+          "no_label_rule": 0.4365704125790733,
+          "no_prior": 0.4188528259260616,
+          "shared_exponent": 0.4418420192110704,
+          "exponents_at_start": 0.4048761470437088,
+          "fixed_gate": 0.4243783376707379,
+          "no_feature_refinement": 0.4414794848135255
+        },
+        "geometry": {
+          "self_score": 10.727714538574219,
+          "corr_random_pairs": 0.9547089706573474,
+          "corr_near_neighbours": 0.9395254387070627,
+          "neg_spectrum_share": 0.0,
+          "antisym_vs_sym": 0.11517557501792908
+        }
+      }
+    ],
+    "clothing": [
+      {
+        "start_distance": {
+          "query_content": 0.07679449021816254,
+          "key_content": 0.07663694769144058,
+          "query_history": 2511351.75,
+          "key_history": 2598882.25,
+          "exponents": 0.8028229475021362,
+          "theta": 0.15849769115447998,
+          "same_label.0.0.weight": 1.4891386032104492,
+          "same_label.0.0.bias": 1.3955745697021484,
+          "same_label.0.2.weight": 222749.375,
+          "encoder.0.weight": 1.62855863571167,
+          "encoder.0.bias": 2.7814197540283203,
+          "encoder.2.weight": 1403682.75,
+          "encoder.2.bias": 146567.09375,
+          "prior.0.weight": 1.2216527462005615,
+          "prior.0.bias": 0.8454341292381287,
+          "prior.2.weight": 292900.5,
+          "gate.0.weight": 2.189506769180298,
+          "gate.0.bias": 3.3498032093048096,
+          "gate.2.weight": 3859739.0,
+          "gate.2.bias": 0.9500204920768738
+        },
+        "exponents": {
+          "alpha": 0.09155455976724625,
+          "beta": 0.10574797540903091,
+          "theta": 1.15849769115448,
+          "deg90": 9.0,
+          "seed_factor": 0.8177767275127027,
+          "cand_factor": 0.7926670153031441
+        },
+        "gate": {
+          "mean": [
+            12.368337631225586,
+            1.2070623636245728,
+            5.964197635650635
+          ],
+          "unseen_sweep": [
+            [
+              8.162063598632812,
+              1.1961424350738525,
+              4.452432632446289
+            ],
+            [
+              11.147058486938477,
+              1.218536376953125,
+              5.491424560546875
+            ],
+            [
+              14.126273155212402,
+              1.2353006601333618,
+              6.481110095977783
+            ]
+          ],
+          "content_rise": 0.7307232618331909
+        },
+        "influence_top100": {
+          "raw": [
+            1.1824573278427124,
+            0.23848943412303925,
+            1.1802396774291992
+          ],
+          "share": [
+            0.45458384294735826,
+            0.09168486753241459,
+            0.4537312895202271
+          ]
+        },
+        "content_blocks": {
+          "raw": {
+            "zz": 1.2371256351470947,
+            "zh": 0.10664953291416168,
+            "hz": 0.024840759113430977,
+            "hh": 0.0021128165535628796
+          },
+          "share": {
+            "zz": 0.9025313292710504,
+            "zh": 0.07780498760395527,
+            "hz": 0.018122301167965954,
+            "hh": 0.001541381957028363
+          }
+        },
+        "Mzz_change": 0.15619364380836487,
+        "Mzz_asymmetry": 0.1683943122625351,
+        "history_vs_feature": 0.0732831060886383,
+        "encoder_cos": 0.8927189111709595,
+        "label_rule": [
+          {
+            "size_q10_50_90": [
+              1,
+              3,
+              31
+            ],
+            "m1": [
+              0.3279247581958771,
+              0.4670257866382599,
+              0.9563490152359009
+            ],
+            "m2": [
+              0.3759261667728424,
+              0.5170443058013916,
+              1.003645658493042
+            ],
+            "gate": 1.2070623636245728
+          }
+        ],
+        "prior_vs_base_rate": {
+          "bins": [
+            [
+              0.9726282954274242,
+              -0.07328665256500244
+            ],
+            [
+              -0.5698857329481944,
+              -0.2349517047405243
+            ]
+          ],
+          "corr": null
+        },
+        "knockouts": {
+          "trained": 0.5263633488451551,
+          "symmetric_content": 0.5218971842166277,
+          "no_partner_history": 0.529035022325977,
+          "content_maps_at_start": 0.5144145682714607,
+          "no_label_rule": 0.5144180618627957,
+          "no_prior": 0.43470379433071615,
+          "shared_exponent": 0.5263633488451551,
+          "exponents_at_start": 0.5046514774609614,
+          "fixed_gate": 0.5285901144979558,
+          "no_feature_refinement": 0.5182361853260007
+        },
+        "data_facts": {
+          "start_cosine_recall20": 0.3545289855072464,
+          "trained_content_recall20": 0.3957427536231884,
+          "labels": [
+            {
+              "targets_sharing": 0.20208333333333336,
+              "catalogue_sharing": 0.004297277369750429
+            }
+          ],
+          "queries_with_unseen_seed": 0.7119565217391305,
+          "queries_all_unseen": 0.5217391304347826
+        },
+        "geometry": {
+          "self_score": 10.400760650634766,
+          "corr_random_pairs": 0.9782996298762664,
+          "corr_near_neighbours": 0.9557188245015562,
+          "neg_spectrum_share": 0.0,
+          "antisym_vs_sym": 0.08449715375900269
+        }
+      },
+      {
+        "start_distance": {
+          "query_content": 0.07359400391578674,
+          "key_content": 0.07336306571960449,
+          "query_history": 2377405.0,
+          "key_history": 2487892.0,
+          "exponents": 0.7476275563240051,
+          "theta": 0.16344451904296875,
+          "same_label.0.0.weight": 1.503818392753601,
+          "same_label.0.0.bias": 1.794339656829834,
+          "same_label.0.2.weight": 664466.5,
+          "encoder.0.weight": 1.6298975944519043,
+          "encoder.0.bias": 2.4820101261138916,
+          "encoder.2.weight": 1353538.375,
+          "encoder.2.bias": 149966.90625,
+          "prior.0.weight": 1.199547290802002,
+          "prior.0.bias": 1.1380882263183594,
+          "prior.2.weight": 366943.3125,
+          "gate.0.weight": 2.1317005157470703,
+          "gate.0.bias": 2.4710731506347656,
+          "gate.2.weight": 3502930.25,
+          "gate.2.bias": 0.8557659387588501
+        },
+        "exponents": {
+          "alpha": 0.14569471776485443,
+          "beta": 0.10764659196138382,
+          "theta": 1.1634445190429688,
+          "deg90": 9.0,
+          "seed_factor": 0.7260589895307444,
+          "cand_factor": 0.7893671444580099
+        },
+        "gate": {
+          "mean": [
+            13.212552070617676,
+            1.29814612865448,
+            5.7843708992004395
+          ],
+          "unseen_sweep": [
+            [
+              7.753251552581787,
+              1.1672472953796387,
+              3.8499464988708496
+            ],
+            [
+              11.3352632522583,
+              1.2371697425842285,
+              5.000776767730713
+            ],
+            [
+              15.11170482635498,
+              1.3138368129730225,
+              6.216603755950928
+            ]
+          ],
+          "content_rise": 0.9490796327590942
+        },
+        "influence_top100": {
+          "raw": [
+            1.0813422203063965,
+            0.1958743780851364,
+            1.0990664958953857
+          ],
+          "share": [
+            0.45505614331313016,
+            0.08242889012511151,
+            0.46251496656175833
+          ]
+        },
+        "content_blocks": {
+          "raw": {
+            "zz": 1.1328834295272827,
+            "zh": 0.10181798040866852,
+            "hz": 0.021594524383544922,
+            "hh": 0.0012679973151534796
+          },
+          "share": {
+            "zz": 0.9008555358729949,
+            "zh": 0.0809644566350754,
+            "hz": 0.017171710988462582,
+            "hh": 0.001008296503467039
+          }
+        },
+        "Mzz_change": 0.14951203763484955,
+        "Mzz_asymmetry": 0.16257822513580322,
+        "history_vs_feature": 0.07017174363136292,
+        "encoder_cos": 0.8895043134689331,
+        "label_rule": [
+          {
+            "size_q10_50_90": [
+              1,
+              3,
+              31
+            ],
+            "m1": [
+              0.6256289482116699,
+              0.4734254479408264,
+              0.12192539125680923
+            ],
+            "m2": [
+              0.6992429494857788,
+              0.5350067615509033,
+              0.15056192874908447
+            ],
+            "gate": 1.29814612865448
+          }
+        ],
+        "prior_vs_base_rate": {
+          "bins": [
+            [
+              0.9726282954274242,
+              -0.08928879350423813
+            ],
+            [
+              -0.5698857329481944,
+              -0.24437035620212555
+            ]
+          ],
+          "corr": null
+        },
+        "knockouts": {
+          "trained": 0.5253522552932932,
+          "symmetric_content": 0.5194854614014504,
+          "no_partner_history": 0.525485716274085,
+          "content_maps_at_start": 0.5195642107827096,
+          "no_label_rule": 0.5129463064003698,
+          "no_prior": 0.44676064950620464,
+          "shared_exponent": 0.5253522552932932,
+          "exponents_at_start": 0.5075406481432008,
+          "fixed_gate": 0.5240530679651502,
+          "no_feature_refinement": 0.5206523054076914
+        },
+        "geometry": {
+          "self_score": 10.506304740905762,
+          "corr_random_pairs": 0.9744581225873807,
+          "corr_near_neighbours": 0.9592314893127077,
+          "neg_spectrum_share": 0.0,
+          "antisym_vs_sym": 0.08155901730060577
+        }
+      },
+      {
+        "start_distance": {
+          "query_content": 0.07478433102369308,
+          "key_content": 0.07459912449121475,
+          "query_history": 2410322.5,
+          "key_history": 2519512.0,
+          "exponents": 0.8142662644386292,
+          "theta": 0.17683255672454834,
+          "same_label.0.0.weight": 1.3763148784637451,
+          "same_label.0.0.bias": 1.5848361253738403,
+          "same_label.0.2.weight": 544308.625,
+          "encoder.0.weight": 1.6484525203704834,
+          "encoder.0.bias": 2.4132792949676514,
+          "encoder.2.weight": 1352992.0,
+          "encoder.2.bias": 156381.453125,
+          "prior.0.weight": 1.9721605777740479,
+          "prior.0.bias": 1.170204758644104,
+          "prior.2.weight": 319637.1875,
+          "gate.0.weight": 2.1749684810638428,
+          "gate.0.bias": 2.3594818115234375,
+          "gate.2.weight": 3675990.0,
+          "gate.2.bias": 0.9033377766609192
+        },
+        "exponents": {
+          "alpha": 0.12457019090652466,
+          "beta": 0.06345996260643005,
+          "theta": 1.1768325567245483,
+          "deg90": 9.0,
+          "seed_factor": 0.7605536036169651,
+          "cand_factor": 0.8698488748287826
+        },
+        "gate": {
+          "mean": [
+            12.874807357788086,
+            1.2582066059112549,
+            6.5786943435668945
+          ],
+          "unseen_sweep": [
+            [
+              8.109386444091797,
+              1.2209912538528442,
+              4.338766098022461
+            ],
+            [
+              11.319080352783203,
+              1.2589167356491089,
+              5.8018364906311035
+            ],
+            [
+              14.48538589477539,
+              1.2912335395812988,
+              7.250494480133057
+            ]
+          ],
+          "content_rise": 0.7862492799758911
+        },
+        "influence_top100": {
+          "raw": [
+            1.0618302822113037,
+            0.18407942354679108,
+            1.0280985832214355
+          ],
+          "share": [
+            0.4669421335697083,
+            0.08094931950727295,
+            0.4521085469230187
+          ]
+        },
+        "content_blocks": {
+          "raw": {
+            "zz": 1.095925211906433,
+            "zh": 0.07518404722213745,
+            "hz": 0.02271549589931965,
+            "hh": 0.0013289647176861763
+          },
+          "share": {
+            "zz": 0.916974271844908,
+            "zh": 0.0629074285424494,
+            "hz": 0.019006338284380114,
+            "hh": 0.0011119613282625147
+          }
+        },
+        "Mzz_change": 0.15218357741832733,
+        "Mzz_asymmetry": 0.163456529378891,
+        "history_vs_feature": 0.07111192494630814,
+        "encoder_cos": 0.8508065342903137,
+        "label_rule": [
+          {
+            "size_q10_50_90": [
+              1,
+              3,
+              31
+            ],
+            "m1": [
+              0.6954807639122009,
+              0.5346420407295227,
+              0.1447993814945221
+            ],
+            "m2": [
+              0.7642956376075745,
+              0.593684732913971,
+              0.1711440086364746
+            ],
+            "gate": 1.2582066059112549
+          }
+        ],
+        "prior_vs_base_rate": {
+          "bins": [
+            [
+              0.9726282954274242,
+              0.005216059274971485
+            ],
+            [
+              -0.5698857329481944,
+              -0.19606448709964752
+            ]
+          ],
+          "corr": null
+        },
+        "knockouts": {
+          "trained": 0.5272981694037409,
+          "symmetric_content": 0.5293669049041128,
+          "no_partner_history": 0.5298955786639267,
+          "content_maps_at_start": 0.5213909367057331,
+          "no_label_rule": 0.5146679761209865,
+          "no_prior": 0.44241700450146104,
+          "shared_exponent": 0.5271521345678534,
+          "exponents_at_start": 0.47711833174678453,
+          "fixed_gate": 0.5273536418045441,
+          "no_feature_refinement": 0.5231974313563398
+        },
+        "geometry": {
+          "self_score": 10.712377548217773,
+          "corr_random_pairs": 0.9734468033863873,
+          "corr_near_neighbours": 0.9566775520072992,
+          "neg_spectrum_share": 0.0,
+          "antisym_vs_sym": 0.08200262486934662
+        }
+      }
+    ],
+    "pog_dense": [
+      {
+        "start_distance": {
+          "query_content": 0.5827255249023438,
+          "key_content": 0.5367652177810669,
+          "query_history": 40469044.0,
+          "key_history": 29838678.0,
+          "exponents": 0.2454216331243515,
+          "theta": 2.846529960632324,
+          "same_label.0.0.weight": 3.5265095233917236,
+          "same_label.0.0.bias": 3.1198229789733887,
+          "same_label.0.2.weight": 4125836.0,
+          "encoder.0.weight": 3.570646047592163,
+          "encoder.0.bias": 1.5980130434036255,
+          "encoder.2.weight": 8621295.0,
+          "encoder.2.bias": 969081.0625,
+          "prior.0.weight": 3.0350449085235596,
+          "prior.0.bias": 2.982792377471924,
+          "prior.2.weight": 1451337.5,
+          "gate.0.weight": 3.58378267288208,
+          "gate.0.bias": 5.625461578369141,
+          "gate.2.weight": 10446430.0,
+          "gate.2.bias": 3.160898208618164
+        },
+        "exponents": {
+          "alpha": 0.3817294239997864,
+          "beta": 0.37300410866737366,
+          "theta": 3.846529960632324,
+          "deg90": 10.0,
+          "seed_factor": 0.415212649622473,
+          "cand_factor": 0.4236389581703907
+        },
+        "gate": {
+          "mean": [
+            37.67197036743164,
+            9.281929969787598,
+            15.284844398498535
+          ],
+          "unseen_sweep": [
+            [
+              37.771324157714844,
+              9.354687690734863,
+              15.393536567687988
+            ],
+            [
+              38.946170806884766,
+              8.798794746398926,
+              17.232091903686523
+            ],
+            [
+              37.46295166015625,
+              8.372444152832031,
+              18.67051124572754
+            ]
+          ],
+          "content_rise": -0.008164167404174805
+        },
+        "influence_top100": {
+          "raw": [
+            1.0568169355392456,
+            0.0,
+            1.5214132070541382
+          ],
+          "share": [
+            0.40990015518017997,
+            0.0,
+            0.59009984481982
+          ]
+        },
+        "content_blocks": {
+          "raw": {
+            "zz": 0.5506036281585693,
+            "zh": 0.3921891450881958,
+            "hz": 0.40349075198173523,
+            "hh": 0.4053735136985779
+          },
+          "share": {
+            "zz": 0.31433300921499113,
+            "zh": 0.22389608032427327,
+            "hz": 0.23034803218607258,
+            "hh": 0.231422878274663
+          }
+        },
+        "Mzz_change": 1.0501277446746826,
+        "Mzz_asymmetry": 0.5603975653648376,
+        "history_vs_feature": 0.7581692337989807,
+        "encoder_cos": 0.8853772282600403,
+        "label_rule": [
+          {
+            "size_q10_50_90": [
+              345,
+              1483,
+              4615
+            ],
+            "m1": [
+              -80.2867431640625,
+              -103.39409637451172,
+              -121.42070007324219
+            ],
+            "m2": [
+              -78.37345886230469,
+              -101.50505828857422,
+              -119.50978088378906
+            ],
+            "gate": 9.281929969787598
+          }
+        ],
+        "prior_vs_base_rate": {
+          "bins": [
+            [
+              0.09395666068243007,
+              2.4687352180480957
+            ],
+            [
+              -1.7684866438608813,
+              1.9358901977539062
+            ],
+            [
+              -0.6348963518225567,
+              2.2484357357025146
+            ],
+            [
+              0.0806451266803448,
+              2.440398931503296
+            ],
+            [
+              0.7572565405088786,
+              2.630554437637329
+            ],
+            [
+              1.5965354869366004,
+              2.8235208988189697
+            ],
+            [
+              2.48267046730034,
+              3.01773738861084
+            ],
+            [
+              5.0549368654453675,
+              3.480252742767334
+            ]
+          ],
+          "corr": 0.9937690191785243
+        },
+        "knockouts": {
+          "trained": 0.3018087531765722,
+          "symmetric_content": 0.27824200013174266,
+          "no_partner_history": 0.2691816827221278,
+          "content_maps_at_start": 0.2506702061356056,
+          "no_label_rule": 0.29477750096703575,
+          "no_prior": 0.13536026807414275,
+          "shared_exponent": 0.30167121622858345,
+          "exponents_at_start": 0.2932040866279154,
+          "fixed_gate": 0.2994297108567715,
+          "no_feature_refinement": 0.1943829554181645
+        },
+        "data_facts": {
+          "start_cosine_recall20": 0.0,
+          "trained_content_recall20": 0.029499999999999995,
+          "labels": [
+            {
+              "targets_sharing": 0.0,
+              "catalogue_sharing": 0.12837786145142457
+            }
+          ],
+          "queries_with_unseen_seed": 0.41,
+          "queries_all_unseen": 0.059
+        },
+        "geometry": {
+          "self_score": 6.274692058563232,
+          "corr_random_pairs": 0.3894670829560573,
+          "corr_near_neighbours": 0.21292733862752672,
+          "neg_spectrum_share": 0.06283803284168243,
+          "antisym_vs_sym": 0.2918913960456848
+        }
+      },
+      {
+        "start_distance": {
+          "query_content": 0.6013116836547852,
+          "key_content": 0.5377956628799438,
+          "query_history": 40843340.0,
+          "key_history": 30039284.0,
+          "exponents": 0.27087265253067017,
+          "theta": 2.7472963333129883,
+          "same_label.0.0.weight": 2.710184335708618,
+          "same_label.0.0.bias": 3.356039047241211,
+          "same_label.0.2.weight": 2676120.5,
+          "encoder.0.weight": 3.6359310150146484,
+          "encoder.0.bias": 1.6999326944351196,
+          "encoder.2.weight": 8503869.0,
+          "encoder.2.bias": 996991.0,
+          "prior.0.weight": 4.4776434898376465,
+          "prior.0.bias": 1.857543706893921,
+          "prior.2.weight": 1521647.0,
+          "gate.0.weight": 2.3174099922180176,
+          "gate.0.bias": 5.485743045806885,
+          "gate.2.weight": 12548191.0,
+          "gate.2.bias": 3.8614089488983154
+        },
+        "exponents": {
+          "alpha": 0.3812747597694397,
+          "beta": 0.3496992588043213,
+          "theta": 3.7472963333129883,
+          "deg90": 10.0,
+          "seed_factor": 0.4156475646410634,
+          "cand_factor": 0.44699301970906025
+        },
+        "gate": {
+          "mean": [
+            39.821128845214844,
+            8.434942245483398,
+            14.962343215942383
+          ],
+          "unseen_sweep": [
+            [
+              39.83065414428711,
+              8.610431671142578,
+              14.930030822753906
+            ],
+            [
+              40.95241928100586,
+              8.366485595703125,
+              17.338336944580078
+            ],
+            [
+              39.430057525634766,
+              7.66973352432251,
+              18.31879234313965
+            ]
+          ],
+          "content_rise": -0.010057508945465088
+        },
+        "influence_top100": {
+          "raw": [
+            1.109084963798523,
+            0.0033970638178288937,
+            1.593553900718689
+          ],
+          "share": [
+            0.40985596391579193,
+            0.0012553653786552,
+            0.5888886707055528
+          ]
+        },
+        "content_blocks": {
+          "raw": {
+            "zz": 0.5642473101615906,
+            "zh": 0.40233901143074036,
+            "hz": 0.44157037138938904,
+            "hh": 0.42359453439712524
+          },
+          "share": {
+            "zz": 0.3080370858923913,
+            "zh": 0.21964719085051174,
+            "hz": 0.24106459697655377,
+            "hh": 0.23125112628054315
+          }
+        },
+        "Mzz_change": 1.0639477968215942,
+        "Mzz_asymmetry": 0.5641227960586548,
+        "history_vs_feature": 0.7582284212112427,
+        "encoder_cos": 0.8835853934288025,
+        "label_rule": [
+          {
+            "size_q10_50_90": [
+              345,
+              1483,
+              4615
+            ],
+            "m1": [
+              -21.362552642822266,
+              -29.52414894104004,
+              -35.85671615600586
+            ],
+            "m2": [
+              -19.765926361083984,
+              -27.96211051940918,
+              -34.30478286743164
+            ],
+            "gate": 8.434942245483398
+          }
+        ],
+        "prior_vs_base_rate": {
+          "bins": [
+            [
+              0.09395666068243007,
+              2.182922840118408
+            ],
+            [
+              -1.7684866438608813,
+              1.687409520149231
+            ],
+            [
+              -0.6348963518225567,
+              2.0088980197906494
+            ],
+            [
+              0.0806451266803448,
+              2.220212936401367
+            ],
+            [
+              0.7572565405088786,
+              2.416167974472046
+            ],
+            [
+              1.5965354869366004,
+              2.613624095916748
+            ],
+            [
+              2.48267046730034,
+              2.8170692920684814
+            ],
+            [
+              5.0549368654453675,
+              3.297635793685913
+            ]
+          ],
+          "corr": 0.9938296659500443
+        },
+        "knockouts": {
+          "trained": 0.30113283875240676,
+          "symmetric_content": 0.2804676487784979,
+          "no_partner_history": 0.2655665256920471,
+          "content_maps_at_start": 0.2467569754671,
+          "no_label_rule": 0.2938684762889021,
+          "no_prior": 0.14029803147467942,
+          "shared_exponent": 0.3002090878730314,
+          "exponents_at_start": 0.2928203179327606,
+          "fixed_gate": 0.29825577071041115,
+          "no_feature_refinement": 0.1930270659592633
+        },
+        "geometry": {
+          "self_score": 6.3033833503723145,
+          "corr_random_pairs": 0.38891440104074154,
+          "corr_near_neighbours": 0.17648142804731562,
+          "neg_spectrum_share": 0.06247676536440849,
+          "antisym_vs_sym": 0.29399871826171875
+        }
+      },
+      {
+        "start_distance": {
+          "query_content": 0.6591270565986633,
+          "key_content": 0.5793570280075073,
+          "query_history": 44380604.0,
+          "key_history": 33023976.0,
+          "exponents": 0.2700919806957245,
+          "theta": 2.9822826385498047,
+          "same_label.0.0.weight": 3.1536316871643066,
+          "same_label.0.0.bias": 3.05220365524292,
+          "same_label.0.2.weight": 4351614.0,
+          "encoder.0.weight": 3.8927838802337646,
+          "encoder.0.bias": 1.819055438041687,
+          "encoder.2.weight": 8925017.0,
+          "encoder.2.bias": 1126314.75,
+          "prior.0.weight": 2.881253957748413,
+          "prior.0.bias": 3.728515386581421,
+          "prior.2.weight": 1695607.0,
+          "gate.0.weight": 3.487957239151001,
+          "gate.0.bias": 6.644995212554932,
+          "gate.2.weight": 9745853.0,
+          "gate.2.bias": 4.008418083190918
+        },
+        "exponents": {
+          "alpha": 0.34128427505493164,
+          "beta": 0.39377307891845703,
+          "theta": 3.9822826385498047,
+          "deg90": 10.0,
+          "seed_factor": 0.4557385066807436,
+          "cand_factor": 0.40385635485341054
+        },
+        "gate": {
+          "mean": [
+            42.442649841308594,
+            8.231925964355469,
+            15.931583404541016
+          ],
+          "unseen_sweep": [
+            [
+              42.47209930419922,
+              8.215180397033691,
+              15.888607025146484
+            ],
+            [
+              43.31172561645508,
+              7.548131942749023,
+              18.32933807373047
+            ],
+            [
+              42.5599365234375,
+              7.124448776245117,
+              19.778303146362305
+            ]
+          ],
+          "content_rise": 0.002068161964416504
+        },
+        "influence_top100": {
+          "raw": [
+            1.1083498001098633,
+            0.0030036524403840303,
+            1.5820778608322144
+          ],
+          "share": [
+            0.4115010450064074,
+            0.0011151769215202252,
+            0.5873837780720724
+          ]
+        },
+        "content_blocks": {
+          "raw": {
+            "zz": 0.5896787643432617,
+            "zh": 0.3966832756996155,
+            "hz": 0.44405969977378845,
+            "hh": 0.4162817597389221
+          },
+          "share": {
+            "zz": 0.3193142615937907,
+            "zh": 0.21480615366520828,
+            "hz": 0.24046074525805153,
+            "hh": 0.2254188394829495
+          }
+        },
+        "Mzz_change": 1.1595888137817383,
+        "Mzz_asymmetry": 0.5798888206481934,
+        "history_vs_feature": 0.8088272213935852,
+        "encoder_cos": 0.8860766291618347,
+        "label_rule": [
+          {
+            "size_q10_50_90": [
+              345,
+              1483,
+              4615
+            ],
+            "m1": [
+              -42.52731704711914,
+              -58.88488006591797,
+              -71.62916564941406
+            ],
+            "m2": [
+              -38.218013763427734,
+              -54.595943450927734,
+              -67.34046173095703
+            ],
+            "gate": 8.231925964355469
+          }
+        ],
+        "prior_vs_base_rate": {
+          "bins": [
+            [
+              0.09395666068243007,
+              2.741621732711792
+            ],
+            [
+              -1.7684866438608813,
+              2.1713438034057617
+            ],
+            [
+              -0.6348963518225567,
+              2.535763740539551
+            ],
+            [
+              0.0806451266803448,
+              2.7572073936462402
+            ],
+            [
+              0.7572565405088786,
+              2.9708526134490967
+            ],
+            [
+              1.5965354869366004,
+              3.18514084815979
+            ],
+            [
+              2.48267046730034,
+              3.402024984359741
+            ],
+            [
+              5.0549368654453675,
+              3.9208359718322754
+            ]
+          ],
+          "corr": 0.9934095649376194
+        },
+        "knockouts": {
+          "trained": 0.30650072566256553,
+          "symmetric_content": 0.2744791689814095,
+          "no_partner_history": 0.2658120768006589,
+          "content_maps_at_start": 0.24227260383148655,
+          "no_label_rule": 0.2994858360931375,
+          "no_prior": 0.12444836105127578,
+          "shared_exponent": 0.30357687369932784,
+          "exponents_at_start": 0.2977050517255076,
+          "fixed_gate": 0.30148813494806426,
+          "no_feature_refinement": 0.17461738052181536
+        },
+        "geometry": {
+          "self_score": 6.182802200317383,
+          "corr_random_pairs": 0.36557188827641374,
+          "corr_near_neighbours": 0.17921150401253585,
+          "neg_spectrum_share": 0.06875433027744293,
+          "antisym_vs_sym": 0.3029586374759674
+        }
+      }
+    ],
+    "pog": [
+      {
+        "start_distance": {
+          "query_content": 0.49288347363471985,
+          "key_content": 0.4860821068286896,
+          "query_history": 33056004.0,
+          "key_history": 25696324.0,
+          "exponents": 0.5083238482475281,
+          "theta": 0.8681162595748901,
+          "same_label.0.0.weight": 1.8941504955291748,
+          "same_label.0.0.bias": 2.316969394683838,
+          "same_label.0.2.weight": 2339953.0,
+          "encoder.0.weight": 3.1914944648742676,
+          "encoder.0.bias": 1.4246811866760254,
+          "encoder.2.weight": 7421945.0,
+          "encoder.2.bias": 716245.4375,
+          "prior.0.weight": 1.9842115640640259,
+          "prior.0.bias": 1.7231762409210205,
+          "prior.2.weight": 2083017.125,
+          "gate.0.weight": 2.795423984527588,
+          "gate.0.bias": 2.8784549236297607,
+          "gate.2.weight": 9196515.0,
+          "gate.2.bias": 2.590873956680298
+        },
+        "exponents": {
+          "alpha": 0.2538800835609436,
+          "beta": 0.23804283142089844,
+          "theta": 1.8681162595748901,
+          "deg90": 6.0,
+          "seed_factor": 0.6345164642570196,
+          "cand_factor": 0.6527797491864489
+        },
+        "gate": {
+          "mean": [
+            27.925670623779297,
+            6.086496353149414,
+            6.709850311279297
+          ],
+          "unseen_sweep": [
+            [
+              22.06399917602539,
+              6.276629447937012,
+              6.7886762619018555
+            ],
+            [
+              22.317033767700195,
+              6.106478214263916,
+              6.709408283233643
+            ],
+            [
+              23.03794288635254,
+              5.545865058898926,
+              6.2506866455078125
+            ]
+          ],
+          "content_rise": 0.04414176940917969
+        },
+        "influence_top100": {
+          "raw": [
+            0.656949520111084,
+            0.0,
+            0.665911078453064
+          ],
+          "share": [
+            0.4966128107709509,
+            0.0,
+            0.5033871892290491
+          ]
+        },
+        "content_blocks": {
+          "raw": {
+            "zz": 0.5516790151596069,
+            "zh": 0.22620192170143127,
+            "hz": 0.18860724568367004,
+            "hh": 0.18595850467681885
+          },
+          "share": {
+            "zz": 0.47870241745383346,
+            "zh": 0.19627972747857791,
+            "hz": 0.1636581091125262,
+            "hh": 0.1613597459550624
+          }
+        },
+        "Mzz_change": 0.9958373308181763,
+        "Mzz_asymmetry": 0.46514877676963806,
+        "history_vs_feature": 0.623540997505188,
+        "encoder_cos": 0.7726832032203674,
+        "label_rule": [
+          {
+            "size_q10_50_90": [
+              403,
+              2035,
+              5433
+            ],
+            "m1": [
+              -9.988231658935547,
+              -14.305974960327148,
+              -16.923076629638672
+            ],
+            "m2": [
+              -8.60901165008545,
+              -12.955655097961426,
+              -15.570313453674316
+            ],
+            "gate": 6.086496353149414
+          }
+        ],
+        "prior_vs_base_rate": {
+          "bins": [
+            [
+              0.8644558842275966,
+              -1.0785863399505615
+            ],
+            [
+              -1.407716146758159,
+              -1.7376731634140015
+            ],
+            [
+              -0.11455248156293107,
+              -1.4288346767425537
+            ],
+            [
+              0.6071558198711021,
+              -1.214226245880127
+            ],
+            [
+              1.5243758220719743,
+              -1.008233904838562
+            ],
+            [
+              2.456607787425061,
+              -0.8306848406791687
+            ],
+            [
+              3.1802750479943662,
+              -0.6331380009651184
+            ]
+          ],
+          "corr": 0.992764460245889
+        },
+        "knockouts": {
+          "trained": 0.035405278362953284,
+          "symmetric_content": 0.030744898978605027,
+          "no_partner_history": 0.029030141659335394,
+          "content_maps_at_start": 0.015498733083451701,
+          "no_label_rule": 0.031275027414075854,
+          "no_prior": 0.018082411655567312,
+          "shared_exponent": 0.03540883954059295,
+          "exponents_at_start": 0.03282422799494732,
+          "fixed_gate": 0.035413763004739966,
+          "no_feature_refinement": 0.01455360759640256
+        },
+        "data_facts": {
+          "start_cosine_recall20": 0.0,
+          "trained_content_recall20": 0.013666666666666666,
+          "labels": [
+            {
+              "targets_sharing": 0.0005,
+              "catalogue_sharing": 0.0720411210970827
+            }
+          ],
+          "queries_with_unseen_seed": 0.696,
+          "queries_all_unseen": 0.488
+        },
+        "geometry": {
+          "self_score": 6.624038219451904,
+          "corr_random_pairs": 0.5013387070781138,
+          "corr_near_neighbours": -0.17519857559652305,
+          "neg_spectrum_share": 0.021796368062496185,
+          "antisym_vs_sym": 0.2391316294670105
+        }
+      },
+      {
+        "start_distance": {
+          "query_content": 0.49079909920692444,
+          "key_content": 0.4833929240703583,
+          "query_history": 33571524.0,
+          "key_history": 26003318.0,
+          "exponents": 0.48416534066200256,
+          "theta": 0.6485953330993652,
+          "same_label.0.0.weight": 2.5879857540130615,
+          "same_label.0.0.bias": 3.016362428665161,
+          "same_label.0.2.weight": 4015525.75,
+          "encoder.0.weight": 3.174621820449829,
+          "encoder.0.bias": 1.7845847606658936,
+          "encoder.2.weight": 7310196.5,
+          "encoder.2.bias": 832905.0,
+          "prior.0.weight": 1.5690882205963135,
+          "prior.0.bias": 1.340049147605896,
+          "prior.2.weight": 2204535.25,
+          "gate.0.weight": 2.117872714996338,
+          "gate.0.bias": 3.605348587036133,
+          "gate.2.weight": 8306610.0,
+          "gate.2.bias": 2.727574586868286
+        },
+        "exponents": {
+          "alpha": 0.24036480486392975,
+          "beta": 0.2768462598323822,
+          "theta": 1.6485953330993652,
+          "deg90": 6.0,
+          "seed_factor": 0.6500695543115513,
+          "cand_factor": 0.6089361215019617
+        },
+        "gate": {
+          "mean": [
+            28.79081916809082,
+            6.21013069152832,
+            7.591387748718262
+          ],
+          "unseen_sweep": [
+            [
+              22.857934951782227,
+              6.282090187072754,
+              7.699326992034912
+            ],
+            [
+              23.170148849487305,
+              5.929152011871338,
+              7.572749137878418
+            ],
+            [
+              24.10537338256836,
+              5.5012102127075195,
+              7.217417240142822
+            ]
+          ],
+          "content_rise": 0.05457353591918945
+        },
+        "influence_top100": {
+          "raw": [
+            0.7105860710144043,
+            0.0,
+            0.7432181239128113
+          ],
+          "share": [
+            0.48877701240226484,
+            0.0,
+            0.5112229875977352
+          ]
+        },
+        "content_blocks": {
+          "raw": {
+            "zz": 0.5744352340698242,
+            "zh": 0.2477160543203354,
+            "hz": 0.1974201798439026,
+            "hh": 0.1716618835926056
+          },
+          "share": {
+            "zz": 0.4822188979086008,
+            "zh": 0.2079492266905399,
+            "hz": 0.16572754577528695,
+            "hh": 0.1441043296255724
+          }
+        },
+        "Mzz_change": 0.9818584322929382,
+        "Mzz_asymmetry": 0.46118393540382385,
+        "history_vs_feature": 0.6303313374519348,
+        "encoder_cos": 0.5648751854896545,
+        "label_rule": [
+          {
+            "size_q10_50_90": [
+              403,
+              2035,
+              5433
+            ],
+            "m1": [
+              -19.37694549560547,
+              -26.210792541503906,
+              -30.43174171447754
+            ],
+            "m2": [
+              -17.882835388183594,
+              -24.581031799316406,
+              -28.793153762817383
+            ],
+            "gate": 6.21013069152832
+          }
+        ],
+        "prior_vs_base_rate": {
+          "bins": [
+            [
+              0.8644558842275966,
+              -1.2482577562332153
+            ],
+            [
+              -1.407716146758159,
+              -1.841754674911499
+            ],
+            [
+              -0.11455248156293107,
+              -1.55528724193573
+            ],
+            [
+              0.6071558198711021,
+              -1.351486325263977
+            ],
+            [
+              1.5243758220719743,
+              -1.1538121700286865
+            ],
+            [
+              2.456607787425061,
+              -0.9773194789886475
+            ],
+            [
+              3.1802750479943662,
+              -0.7768662571907043
+            ]
+          ],
+          "corr": 0.9962509003398876
+        },
+        "knockouts": {
+          "trained": 0.03635989444468152,
+          "symmetric_content": 0.027921166993044897,
+          "no_partner_history": 0.027892232688051136,
+          "content_maps_at_start": 0.013874382091845007,
+          "no_label_rule": 0.03049611064973476,
+          "no_prior": 0.0183120555453403,
+          "shared_exponent": 0.036160351396882374,
+          "exponents_at_start": 0.033127368966069354,
+          "fixed_gate": 0.03514233708173896,
+          "no_feature_refinement": 0.013864118796962236
+        },
+        "geometry": {
+          "self_score": 6.5472092628479,
+          "corr_random_pairs": 0.5024681419449534,
+          "corr_near_neighbours": -0.13905289450954567,
+          "neg_spectrum_share": 0.018208177760243416,
+          "antisym_vs_sym": 0.2369784414768219
+        }
+      },
+      {
+        "start_distance": {
+          "query_content": 0.5356085300445557,
+          "key_content": 0.5297077894210815,
+          "query_history": 36440428.0,
+          "key_history": 28410536.0,
+          "exponents": 0.4941549599170685,
+          "theta": 0.9657924175262451,
+          "same_label.0.0.weight": 2.509446620941162,
+          "same_label.0.0.bias": 2.969050884246826,
+          "same_label.0.2.weight": 3151066.25,
+          "encoder.0.weight": 3.3376364707946777,
+          "encoder.0.bias": 1.966850757598877,
+          "encoder.2.weight": 7747595.5,
+          "encoder.2.bias": 913134.125,
+          "prior.0.weight": 1.7531322240829468,
+          "prior.0.bias": 1.9716931581497192,
+          "prior.2.weight": 2770367.5,
+          "gate.0.weight": 3.2119507789611816,
+          "gate.0.bias": 3.6065170764923096,
+          "gate.2.weight": 9823432.0,
+          "gate.2.bias": 2.908935308456421
+        },
+        "exponents": {
+          "alpha": 0.25081560015678406,
+          "beta": 0.25504758954048157,
+          "theta": 1.9657924175262451,
+          "deg90": 6.0,
+          "seed_factor": 0.6380100607181105,
+          "cand_factor": 0.6331905130332388
+        },
+        "gate": {
+          "mean": [
+            31.158769607543945,
+            6.185918807983398,
+            7.049564361572266
+          ],
+          "unseen_sweep": [
+            [
+              24.39558982849121,
+              6.477807998657227,
+              7.130064010620117
+            ],
+            [
+              24.622474670410156,
+              6.199152946472168,
+              7.200150012969971
+            ],
+            [
+              25.082075119018555,
+              5.603857517242432,
+              6.816765785217285
+            ]
+          ],
+          "content_rise": 0.028139710426330566
+        },
+        "influence_top100": {
+          "raw": [
+            0.7832145690917969,
+            0.0,
+            0.8199537992477417
+          ],
+          "share": [
+            0.4885416806863533,
+            0.0,
+            0.5114583193136467
+          ]
+        },
+        "content_blocks": {
+          "raw": {
+            "zz": 0.6338032484054565,
+            "zh": 0.23941698670387268,
+            "hz": 0.19845397770404816,
+            "hh": 0.18548858165740967
+          },
+          "share": {
+            "zz": 0.5041536793747234,
+            "zh": 0.19044231006268145,
+            "hz": 0.15785861511085283,
+            "hh": 0.14754539545174228
+          }
+        },
+        "Mzz_change": 1.065065622329712,
+        "Mzz_asymmetry": 0.45944222807884216,
+        "history_vs_feature": 0.6686806678771973,
+        "encoder_cos": 0.5187546014785767,
+        "label_rule": [
+          {
+            "size_q10_50_90": [
+              403,
+              2035,
+              5433
+            ],
+            "m1": [
+              -11.143247604370117,
+              -15.433865547180176,
+              -18.05963897705078
+            ],
+            "m2": [
+              -9.983880996704102,
+              -14.268802642822266,
+              -16.892932891845703
+            ],
+            "gate": 6.185918807983398
+          }
+        ],
+        "prior_vs_base_rate": {
+          "bins": [
+            [
+              0.8644558842275966,
+              -1.422568440437317
+            ],
+            [
+              -1.407716146758159,
+              -2.257387638092041
+            ],
+            [
+              -0.11455248156293107,
+              -1.8827171325683594
+            ],
+            [
+              0.6071558198711021,
+              -1.6032612323760986
+            ],
+            [
+              1.5243758220719743,
+              -1.313560128211975
+            ],
+            [
+              2.456607787425061,
+              -1.0434211492538452
+            ],
+            [
+              3.1802750479943662,
+              -0.7407382726669312
+            ]
+          ],
+          "corr": 0.9955593033627269
+        },
+        "knockouts": {
+          "trained": 0.03684473802454534,
+          "symmetric_content": 0.028244162317532847,
+          "no_partner_history": 0.02775505233608577,
+          "content_maps_at_start": 0.014626458231322883,
+          "no_label_rule": 0.031843524767057554,
+          "no_prior": 0.018267529605690478,
+          "shared_exponent": 0.03684473802454534,
+          "exponents_at_start": 0.03424535643325378,
+          "fixed_gate": 0.03674974023215962,
+          "no_feature_refinement": 0.012465904339556834
+        },
+        "geometry": {
+          "self_score": 6.408911228179932,
+          "corr_random_pairs": 0.47696469290587185,
+          "corr_near_neighbours": -0.2026122806940659,
+          "neg_spectrum_share": 0.02284473180770874,
+          "antisym_vs_sym": 0.23603329062461853
+        }
+      }
+    ],
+    "spotify_sparse": [
+      {
+        "start_distance": {
+          "query_content": 0.24035334587097168,
+          "key_content": 0.23870249092578888,
+          "query_history": 27182492.0,
+          "key_history": 22881814.0,
+          "exponents": 1.0227628946304321,
+          "theta": 0.46259379386901855,
+          "same_label.0.0.weight": 1.8406860828399658,
+          "same_label.0.0.bias": 1.5332081317901611,
+          "same_label.0.2.weight": 2271278.75,
+          "same_label.1.0.weight": 2.5923967361450195,
+          "same_label.1.0.bias": 1.4632899761199951,
+          "same_label.1.2.weight": 2091081.125,
+          "encoder.0.weight": 2.687119960784912,
+          "encoder.0.bias": 2.4956302642822266,
+          "encoder.2.weight": 4714379.5,
+          "encoder.2.bias": 778236.1875,
+          "prior.0.weight": 1.9453827142715454,
+          "prior.0.bias": 1.108738660812378,
+          "prior.2.weight": 1367958.25,
+          "gate.0.weight": 2.2541637420654297,
+          "gate.0.bias": 4.121022701263428,
+          "gate.2.weight": 9711619.0,
+          "gate.2.bias": 1.8927927017211914
+        },
+        "exponents": {
+          "alpha": -0.020789172500371933,
+          "beta": -0.0017973812064155936,
+          "theta": 0.5374062061309814,
+          "deg90": 347.0,
+          "seed_factor": 1.1293052513854167,
+          "cand_factor": 1.0105689271088074
+        },
+        "gate": {
+          "mean": [
+            21.45875358581543,
+            3.9372785091400146,
+            3.998861789703369,
+            7.421879768371582
+          ],
+          "unseen_sweep": [
+            [
+              19.714866638183594,
+              3.642272472381592,
+              3.6627707481384277,
+              7.066841125488281
+            ],
+            [
+              24.813249588012695,
+              5.219457149505615,
+              5.161951065063477,
+              5.8166093826293945
+            ],
+            [
+              29.024381637573242,
+              6.153966426849365,
+              6.196680545806885,
+              5.272923469543457
+            ]
+          ],
+          "content_rise": 0.4722079038619995
+        },
+        "influence_top100": {
+          "raw": [
+            0.7809839248657227,
+            0.8885458707809448,
+            0.534060001373291,
+            1.0513720512390137
+          ],
+          "share": [
+            0.23993642975676002,
+            0.2729819617566989,
+            0.16407565626581808,
+            0.323005952220723
+          ]
+        },
+        "content_blocks": {
+          "raw": {
+            "zz": 0.516827404499054,
+            "zh": 0.5531789064407349,
+            "hz": 0.1777496039867401,
+            "hh": 0.23247414827346802
+          },
+          "share": {
+            "zz": 0.34915343050239367,
+            "zh": 0.3737114386427603,
+            "hz": 0.12008241719025538,
+            "hh": 0.15705271366459064
+          }
+        },
+        "Mzz_change": 0.49842995405197144,
+        "Mzz_asymmetry": 0.46904027462005615,
+        "history_vs_feature": 0.6532467603683472,
+        "encoder_cos": 0.642453134059906,
+        "label_rule": [
+          {
+            "size_q10_50_90": [
+              1,
+              15,
+              83
+            ],
+            "m1": [
+              1.542255163192749,
+              0.7909771203994751,
+              0.4292111098766327
+            ],
+            "m2": [
+              1.5698908567428589,
+              0.9182100296020508,
+              0.5397176146507263
+            ],
+            "gate": 3.9372785091400146
+          },
+          {
+            "size_q10_50_90": [
+              1,
+              3,
+              13
+            ],
+            "m1": [
+              1.02793550491333,
+              0.29839223623275757,
+              0.09099429845809937
+            ],
+            "m2": [
+              1.6219853162765503,
+              0.6203500032424927,
+              0.22443918883800507
+            ],
+            "gate": 3.998861789703369
+          }
+        ],
+        "prior_vs_base_rate": {
+          "bins": [
+            [
+              0.38234157819887316,
+              1.2224048376083374
+            ],
+            [
+              -1.5105623187968469,
+              0.9496267437934875
+            ],
+            [
+              -0.39351813779672545,
+              1.5064748525619507
+            ],
+            [
+              0.338944018091288,
+              1.8626359701156616
+            ],
+            [
+              1.1067493560505304,
+              2.2348713874816895
+            ],
+            [
+              1.8793273353705466,
+              2.5787901878356934
+            ],
+            [
+              2.659565033603907,
+              2.876281499862671
+            ],
+            [
+              3.4411753403142242,
+              3.1946489810943604
+            ]
+          ],
+          "corr": 0.9600103671795959
+        },
+        "knockouts": {
+          "trained": 0.25779203365765657,
+          "symmetric_content": 0.2479208245232087,
+          "no_partner_history": 0.23956069036292243,
+          "content_maps_at_start": 0.2288189082894686,
+          "no_label_rule": 0.13552619950670158,
+          "no_prior": 0.24438130758153398,
+          "shared_exponent": 0.25767487727530386,
+          "exponents_at_start": 0.2523084386724605,
+          "fixed_gate": 0.23345357629455224,
+          "no_feature_refinement": 0.2182351276165684
+        },
+        "geometry": {
+          "self_score": 10.130163192749023,
+          "corr_random_pairs": 0.698389932045876,
+          "corr_near_neighbours": 0.22473091368106696,
+          "neg_spectrum_share": 0.0,
+          "antisym_vs_sym": 0.2412482500076294
+        },
+        "data_facts": {
+          "start_cosine_recall20": 0.021252038507553764,
+          "trained_content_recall20": 0.025667751003752005,
+          "labels": [
+            {
+              "targets_sharing": 0.3573311259702921,
+              "catalogue_sharing": 0.0022374411161284174
+            },
+            {
+              "targets_sharing": 0.21476129967567706,
+              "catalogue_sharing": 0.00036720542660507213
+            }
+          ],
+          "queries_with_unseen_seed": 0.8,
+          "queries_all_unseen": 0.009
+        }
+      },
+      {
+        "start_distance": {
+          "query_content": 0.21413680911064148,
+          "key_content": 0.21498724818229675,
+          "query_history": 23321710.0,
+          "key_history": 19974048.0,
+          "exponents": 1.0625795125961304,
+          "theta": 0.5678447484970093,
+          "same_label.0.0.weight": 1.5471606254577637,
+          "same_label.0.0.bias": 1.8984150886535645,
+          "same_label.0.2.weight": 1440477.25,
+          "same_label.1.0.weight": 2.3516485691070557,
+          "same_label.1.0.bias": 1.8907201290130615,
+          "same_label.1.2.weight": 1827771.25,
+          "encoder.0.weight": 2.543248176574707,
+          "encoder.0.bias": 2.4849026203155518,
+          "encoder.2.weight": 4375964.5,
+          "encoder.2.bias": 664441.4375,
+          "prior.0.weight": 1.8455573320388794,
+          "prior.0.bias": 1.2960526943206787,
+          "prior.2.weight": 1496832.5,
+          "gate.0.weight": 2.205594539642334,
+          "gate.0.bias": 3.964777708053589,
+          "gate.2.weight": 7915601.5,
+          "gate.2.bias": 1.808146595954895
+        },
+        "exponents": {
+          "alpha": -0.03999375179409981,
+          "beta": -0.022440671920776367,
+          "theta": 0.4321552515029907,
+          "deg90": 347.0,
+          "seed_factor": 1.263564181827906,
+          "cand_factor": 1.1402673795209881
+        },
+        "gate": {
+          "mean": [
+            20.151657104492188,
+            3.614732503890991,
+            3.358034372329712,
+            7.156716823577881
+          ],
+          "unseen_sweep": [
+            [
+              18.066564559936523,
+              3.220741033554077,
+              3.011577606201172,
+              6.956182479858398
+            ],
+            [
+              23.150283813476562,
+              4.944689750671387,
+              4.527999401092529,
+              5.457601070404053
+            ],
+            [
+              26.807479858398438,
+              5.977721214294434,
+              5.832189559936523,
+              4.740617275238037
+            ]
+          ],
+          "content_rise": 0.4838172197341919
+        },
+        "influence_top100": {
+          "raw": [
+            0.8164947032928467,
+            0.847802996635437,
+            0.5181818008422852,
+            1.0429620742797852
+          ],
+          "share": [
+            0.2531419913504711,
+            0.26284866022482567,
+            0.160654530173654,
+            0.3233548182510492
+          ]
+        },
+        "content_blocks": {
+          "raw": {
+            "zz": 0.5417681932449341,
+            "zh": 0.5881333947181702,
+            "hz": 0.17527325451374054,
+            "hh": 0.22826477885246277
+          },
+          "share": {
+            "zz": 0.3533025922307174,
+            "zh": 0.3835386711922373,
+            "hz": 0.1143007211211875,
+            "hh": 0.14885801545585778
+          }
+        },
+        "Mzz_change": 0.4451774060726166,
+        "Mzz_asymmetry": 0.42915230989456177,
+        "history_vs_feature": 0.5817797780036926,
+        "encoder_cos": 0.6922188997268677,
+        "label_rule": [
+          {
+            "size_q10_50_90": [
+              1,
+              15,
+              83
+            ],
+            "m1": [
+              1.4374761581420898,
+              0.7803789973258972,
+              0.4315730929374695
+            ],
+            "m2": [
+              1.4809064865112305,
+              0.8943160772323608,
+              0.5128380060195923
+            ],
+            "gate": 3.614732503890991
+          },
+          {
+            "size_q10_50_90": [
+              1,
+              3,
+              13
+            ],
+            "m1": [
+              1.1588938236236572,
+              0.4059734642505646,
+              0.14323891699314117
+            ],
+            "m2": [
+              1.894324541091919,
+              0.735249400138855,
+              0.3439062833786011
+            ],
+            "gate": 3.358034372329712
+          }
+        ],
+        "prior_vs_base_rate": {
+          "bins": [
+            [
+              0.38234157819887316,
+              0.7735753655433655
+            ],
+            [
+              -1.5105623187968469,
+              0.5561414361000061
+            ],
+            [
+              -0.39351813779672545,
+              1.0202101469039917
+            ],
+            [
+              0.338944018091288,
+              1.313326120376587
+            ],
+            [
+              1.1067493560505304,
+              1.5907680988311768
+            ],
+            [
+              1.8793273353705466,
+              1.8567063808441162
+            ],
+            [
+              2.659565033603907,
+              2.102782964706421
+            ],
+            [
+              3.4411753403142242,
+              2.346317768096924
+            ]
+          ],
+          "corr": 0.9576357820786818
+        },
+        "knockouts": {
+          "trained": 0.2561682496532638,
+          "symmetric_content": 0.24690657821309026,
+          "no_partner_history": 0.23634148575396774,
+          "content_maps_at_start": 0.22620587081744956,
+          "no_label_rule": 0.13457262291092442,
+          "no_prior": 0.24420599693361697,
+          "shared_exponent": 0.25623415103278974,
+          "exponents_at_start": 0.25143808633762915,
+          "fixed_gate": 0.2297433587168715,
+          "no_feature_refinement": 0.21957083771528513
+        },
+        "geometry": {
+          "self_score": 9.940887451171875,
+          "corr_random_pairs": 0.7959794009479632,
+          "corr_near_neighbours": 0.25504331819871445,
+          "neg_spectrum_share": 0.0,
+          "antisym_vs_sym": 0.21969333291053772
+        }
+      },
+      {
+        "start_distance": {
+          "query_content": 0.2033558189868927,
+          "key_content": 0.20411086082458496,
+          "query_history": 21943602.0,
+          "key_history": 18743926.0,
+          "exponents": 0.974260687828064,
+          "theta": 0.5489274263381958,
+          "same_label.0.0.weight": 1.5090144872665405,
+          "same_label.0.0.bias": 1.8861067295074463,
+          "same_label.0.2.weight": 1274771.125,
+          "same_label.1.0.weight": 2.141479253768921,
+          "same_label.1.0.bias": 1.7307863235473633,
+          "same_label.1.2.weight": 1759840.125,
+          "encoder.0.weight": 2.4426398277282715,
+          "encoder.0.bias": 2.4635090827941895,
+          "encoder.2.weight": 4321872.0,
+          "encoder.2.bias": 622256.875,
+          "prior.0.weight": 1.8608139753341675,
+          "prior.0.bias": 1.2332535982131958,
+          "prior.2.weight": 1510056.75,
+          "gate.0.weight": 1.8104127645492554,
+          "gate.0.bias": 3.197467565536499,
+          "gate.2.weight": 8567238.0,
+          "gate.2.bias": 1.7707724571228027
+        },
+        "exponents": {
+          "alpha": -0.02092215232551098,
+          "beta": 0.049187399446964264,
+          "theta": 0.4510725736618042,
+          "deg90": 347.0,
+          "seed_factor": 1.1301840143764446,
+          "cand_factor": 0.749976748864549
+        },
+        "gate": {
+          "mean": [
+            18.628049850463867,
+            4.129313945770264,
+            3.890840530395508,
+            6.43303108215332
+          ],
+          "unseen_sweep": [
+            [
+              17.255008697509766,
+              3.8058457374572754,
+              3.544694423675537,
+              6.313967227935791
+            ],
+            [
+              21.571992874145508,
+              5.4350385665893555,
+              4.953882217407227,
+              4.721841335296631
+            ],
+            [
+              25.282474517822266,
+              6.716113090515137,
+              6.122675895690918,
+              3.479079484939575
+            ]
+          ],
+          "content_rise": 0.4652252197265625
+        },
+        "influence_top100": {
+          "raw": [
+            0.8024644255638123,
+            0.9481709599494934,
+            0.49275481700897217,
+            1.0161762237548828
+          ],
+          "share": [
+            0.2461874742280766,
+            0.29088867534828095,
+            0.15117188992885805,
+            0.3117519604947844
+          ]
+        },
+        "content_blocks": {
+          "raw": {
+            "zz": 0.537917971611023,
+            "zh": 0.6091947555541992,
+            "hz": 0.16558626294136047,
+            "hh": 0.2274070382118225
+          },
+          "share": {
+            "zz": 0.3492733368483462,
+            "zh": 0.3955537763976941,
+            "hz": 0.10751614492552768,
+            "hh": 0.147656741828432
+          }
+        },
+        "Mzz_change": 0.42427515983581543,
+        "Mzz_asymmetry": 0.4165797531604767,
+        "history_vs_feature": 0.5540288090705872,
+        "encoder_cos": 0.6730539798736572,
+        "label_rule": [
+          {
+            "size_q10_50_90": [
+              1,
+              15,
+              83
+            ],
+            "m1": [
+              1.6531970500946045,
+              0.9737626314163208,
+              0.5749788284301758
+            ],
+            "m2": [
+              1.7048873901367188,
+              1.1070817708969116,
+              0.6754791736602783
+            ],
+            "gate": 4.129313945770264
+          },
+          {
+            "size_q10_50_90": [
+              1,
+              3,
+              13
+            ],
+            "m1": [
+              0.8335346579551697,
+              0.23516732454299927,
+              0.07222972810268402
+            ],
+            "m2": [
+              1.2860417366027832,
+              0.4603160619735718,
+              0.1716652810573578
+            ],
+            "gate": 3.890840530395508
+          }
+        ],
+        "prior_vs_base_rate": {
+          "bins": [
+            [
+              0.38234157819887316,
+              0.6676434874534607
+            ],
+            [
+              -1.5105623187968469,
+              0.4436303675174713
+            ],
+            [
+              -0.39351813779672545,
+              0.9015010595321655
+            ],
+            [
+              0.338944018091288,
+              1.1815905570983887
+            ],
+            [
+              1.1067493560505304,
+              1.4490779638290405
+            ],
+            [
+              1.8793273353705466,
+              1.7041794061660767
+            ],
+            [
+              2.659565033603907,
+              1.9249155521392822
+            ],
+            [
+              3.4411753403142242,
+              2.1231181621551514
+            ]
+          ],
+          "corr": 0.9563631447129203
+        },
+        "knockouts": {
+          "trained": 0.2571769347400848,
+          "symmetric_content": 0.2498197387524371,
+          "no_partner_history": 0.23833419960067687,
+          "content_maps_at_start": 0.22937545173868706,
+          "no_label_rule": 0.13526818568926463,
+          "no_prior": 0.24744031331894797,
+          "shared_exponent": 0.25785055087802994,
+          "exponents_at_start": 0.25213438240392316,
+          "fixed_gate": 0.232800554479129,
+          "no_feature_refinement": 0.2214576831073868
+        },
+        "geometry": {
+          "self_score": 10.076794624328613,
+          "corr_random_pairs": 0.8351163059435309,
+          "corr_near_neighbours": 0.29810434473356573,
+          "neg_spectrum_share": 0.0,
+          "antisym_vs_sym": 0.21296074986457825
+        }
+      }
+    ],
+    "spotify": [
+      {
+        "start_distance": {
+          "query_content": 0.22884656488895416,
+          "key_content": 0.218246728181839,
+          "query_history": 23744082.0,
+          "key_history": 21917660.0,
+          "exponents": 0.7622631788253784,
+          "theta": 0.09529238939285278,
+          "same_label.0.0.weight": 1.7571660280227661,
+          "same_label.0.0.bias": 1.4489027261734009,
+          "same_label.0.2.weight": 2097489.25,
+          "same_label.1.0.weight": 2.354185104370117,
+          "same_label.1.0.bias": 1.7601250410079956,
+          "same_label.1.2.weight": 1904994.0,
+          "encoder.0.weight": 2.636598587036133,
+          "encoder.0.bias": 1.8467750549316406,
+          "encoder.2.weight": 4592318.5,
+          "encoder.2.bias": 649087.3125,
+          "prior.0.weight": 1.657913088798523,
+          "prior.0.bias": 1.4110221862792969,
+          "prior.2.weight": 1397635.5,
+          "gate.0.weight": 1.9614776372909546,
+          "gate.0.bias": 3.3772308826446533,
+          "gate.2.weight": 8995055.0,
+          "gate.2.bias": 1.8948251008987427
+        },
+        "exponents": {
+          "alpha": 0.08200586587190628,
+          "beta": 0.15970085561275482,
+          "theta": 0.9047076106071472,
+          "deg90": 697.0,
+          "seed_factor": 0.5845723023186923,
+          "cand_factor": 0.35150644520522106
+        },
+        "gate": {
+          "mean": [
+            14.034769058227539,
+            3.2161734104156494,
+            3.259002923965454,
+            8.75134563446045
+          ],
+          "unseen_sweep": [
+            [
+              12.590747833251953,
+              2.807365894317627,
+              3.0210232734680176,
+              8.929227828979492
+            ],
+            [
+              18.570335388183594,
+              5.130982875823975,
+              4.867978572845459,
+              6.107167720794678
+            ],
+            [
+              23.864578247070312,
+              6.774668216705322,
+              6.200405597686768,
+              3.4272727966308594
+            ]
+          ],
+          "content_rise": 0.8954058885574341
+        },
+        "influence_top100": {
+          "raw": [
+            0.6093854308128357,
+            0.6786783933639526,
+            0.4342426061630249,
+            0.9357686042785645
+          ],
+          "share": [
+            0.22925817476041482,
+            0.2553270259586149,
+            0.16336732428825868,
+            0.35204747499271166
+          ]
+        },
+        "content_blocks": {
+          "raw": {
+            "zz": 0.45836180448532104,
+            "zh": 0.3112872838973999,
+            "hz": 0.21074813604354858,
+            "hh": 0.1476885974407196
+          },
+          "share": {
+            "zz": 0.4063182034561248,
+            "zh": 0.2759429095405326,
+            "hz": 0.1868192401308254,
+            "hh": 0.13091964687251725
+          }
+        },
+        "Mzz_change": 0.4606420397758484,
+        "Mzz_asymmetry": 0.4551565647125244,
+        "history_vs_feature": 0.6530210375785828,
+        "encoder_cos": 0.7669444680213928,
+        "label_rule": [
+          {
+            "size_q10_50_90": [
+              2,
+              17,
+              91
+            ],
+            "m1": [
+              1.392100214958191,
+              0.8051222562789917,
+              0.4464762806892395
+            ],
+            "m2": [
+              1.4856712818145752,
+              0.9544107913970947,
+              0.5893362164497375
+            ],
+            "gate": 3.2161734104156494
+          },
+          {
+            "size_q10_50_90": [
+              1,
+              3,
+              13
+            ],
+            "m1": [
+              1.5365382432937622,
+              0.4633817672729492,
+              0.1943529099225998
+            ],
+            "m2": [
+              2.212674617767334,
+              0.8558454513549805,
+              0.38604068756103516
+            ],
+            "gate": 3.259002923965454
+          }
+        ],
+        "prior_vs_base_rate": {
+          "bins": [
+            [
+              -0.3037683385742377,
+              0.6751793622970581
+            ],
+            [
+              -2.087302234414958,
+              0.4088020622730255
+            ],
+            [
+              -1.0037161576531435,
+              0.7999278903007507
+            ],
+            [
+              -0.2941788385019553,
+              1.0466245412826538
+            ],
+            [
+              0.4590264449325207,
+              1.2590835094451904
+            ],
+            [
+              1.2714244153161405,
+              1.3895999193191528
+            ],
+            [
+              2.130762559693187,
+              1.3932616710662842
+            ],
+            [
+              3.4528337196993935,
+              1.2518994808197021
+            ]
+          ],
+          "corr": 0.824217415795923
+        },
+        "knockouts": {
+          "trained": 0.29706910898848843,
+          "symmetric_content": 0.28932407431820184,
+          "no_partner_history": 0.28252659565035915,
+          "content_maps_at_start": 0.27362319471316104,
+          "no_label_rule": 0.21616715580248191,
+          "no_prior": 0.2963261254852603,
+          "shared_exponent": 0.2983512463755129,
+          "exponents_at_start": 0.19903650411657026,
+          "fixed_gate": 0.25698493812929074,
+          "no_feature_refinement": 0.27121570840482195
+        },
+        "geometry": {
+          "self_score": 9.254892349243164,
+          "corr_random_pairs": 0.6996282276026726,
+          "corr_near_neighbours": -0.04326927994751776,
+          "neg_spectrum_share": 0.0,
+          "antisym_vs_sym": 0.23371075093746185
+        },
+        "data_facts": {
+          "start_cosine_recall20": 0.014415460684930438,
+          "trained_content_recall20": 0.01412948432117055,
+          "labels": [
+            {
+              "targets_sharing": 0.386059373759342,
+              "catalogue_sharing": 0.004032053470777562
+            },
+            {
+              "targets_sharing": 0.21954779828063675,
+              "catalogue_sharing": 0.0006254006098542518
+            }
+          ],
+          "queries_with_unseen_seed": 0.659,
+          "queries_all_unseen": 0.003
+        }
+      },
+      {
+        "start_distance": {
+          "query_content": 0.30512839555740356,
+          "key_content": 0.28531983494758606,
+          "query_history": 36669732.0,
+          "key_history": 32511544.0,
+          "exponents": 0.8634940981864929,
+          "theta": 0.04146850109100342,
+          "same_label.0.0.weight": 1.8870731592178345,
+          "same_label.0.0.bias": 2.6864845752716064,
+          "same_label.0.2.weight": 1777917.75,
+          "same_label.1.0.weight": 2.3915693759918213,
+          "same_label.1.0.bias": 1.9311190843582153,
+          "same_label.1.2.weight": 2314009.5,
+          "encoder.0.weight": 3.1257429122924805,
+          "encoder.0.bias": 1.6852920055389404,
+          "encoder.2.weight": 5485839.5,
+          "encoder.2.bias": 808198.25,
+          "prior.0.weight": 1.8680468797683716,
+          "prior.0.bias": 1.4601531028747559,
+          "prior.2.weight": 2068701.0,
+          "gate.0.weight": 3.1301920413970947,
+          "gate.0.bias": 4.447422981262207,
+          "gate.2.weight": 8006634.0,
+          "gate.2.bias": 2.5249099731445312
+        },
+        "exponents": {
+          "alpha": 0.15706393122673035,
+          "beta": -0.005179077386856079,
+          "theta": 0.9585314989089966,
+          "deg90": 697.0,
+          "seed_factor": 0.3576273153075109,
+          "cand_factor": 1.0344876792549316
+        },
+        "gate": {
+          "mean": [
+            19.068695068359375,
+            2.884143114089966,
+            3.490626811981201,
+            8.952130317687988
+          ],
+          "unseen_sweep": [
+            [
+              18.001773834228516,
+              2.508465051651001,
+              3.0191776752471924,
+              9.014180183410645
+            ],
+            [
+              24.747243881225586,
+              4.863035678863525,
+              5.1643829345703125,
+              6.723459720611572
+            ],
+            [
+              30.75843620300293,
+              6.479172706604004,
+              6.570512771606445,
+              4.1185150146484375
+            ]
+          ],
+          "content_rise": 0.7086336612701416
+        },
+        "influence_top100": {
+          "raw": [
+            0.6406548619270325,
+            0.6249613165855408,
+            0.4098292887210846,
+            0.9404304623603821
+          ],
+          "share": [
+            0.2449102630132983,
+            0.23891091680427254,
+            0.15667000261158653,
+            0.35950881757084263
+          ]
+        },
+        "content_blocks": {
+          "raw": {
+            "zz": 0.46676522493362427,
+            "zh": 0.3179331421852112,
+            "hz": 0.25189709663391113,
+            "hh": 0.23533490300178528
+          },
+          "share": {
+            "zz": 0.36697388248118196,
+            "zh": 0.2499611224759513,
+            "hz": 0.19804315017389976,
+            "hh": 0.185021844868967
+          }
+        },
+        "Mzz_change": 0.6022593975067139,
+        "Mzz_asymmetry": 0.5273089408874512,
+        "history_vs_feature": 0.9061310887336731,
+        "encoder_cos": 0.7386491894721985,
+        "label_rule": [
+          {
+            "size_q10_50_90": [
+              2,
+              17,
+              91
+            ],
+            "m1": [
+              1.9921848773956299,
+              1.1155517101287842,
+              0.5344769954681396
+            ],
+            "m2": [
+              2.138838529586792,
+              1.3656545877456665,
+              0.7725720405578613
+            ],
+            "gate": 2.884143114089966
+          },
+          {
+            "size_q10_50_90": [
+              1,
+              3,
+              13
+            ],
+            "m1": [
+              1.6314377784729004,
+              0.4749378561973572,
+              0.17187094688415527
+            ],
+            "m2": [
+              3.069976806640625,
+              0.8777630925178528,
+              0.30464503169059753
+            ],
+            "gate": 3.490626811981201
+          }
+        ],
+        "prior_vs_base_rate": {
+          "bins": [
+            [
+              -0.3037683385742377,
+              1.0133802890777588
+            ],
+            [
+              -2.087302234414958,
+              0.7634903788566589
+            ],
+            [
+              -1.0037161576531435,
+              1.2590579986572266
+            ],
+            [
+              -0.2941788385019553,
+              1.5705751180648804
+            ],
+            [
+              0.4590264449325207,
+              1.8278266191482544
+            ],
+            [
+              1.2714244153161405,
+              2.007866382598877
+            ],
+            [
+              2.130762559693187,
+              2.0663723945617676
+            ],
+            [
+              3.4528337196993935,
+              1.9470312595367432
+            ]
+          ],
+          "corr": 0.85359314127239
+        },
+        "knockouts": {
+          "trained": 0.2982319127325547,
+          "symmetric_content": 0.28050616546898455,
+          "no_partner_history": 0.28040650429672576,
+          "content_maps_at_start": 0.27147341560774296,
+          "no_label_rule": 0.2091531485296731,
+          "no_prior": 0.2924367780435107,
+          "shared_exponent": 0.2957556856269827,
+          "exponents_at_start": 0.21012868869862142,
+          "fixed_gate": 0.26056354515468083,
+          "no_feature_refinement": 0.2573908920877845
+        },
+        "geometry": {
+          "self_score": 8.133354187011719,
+          "corr_random_pairs": 0.577907722256268,
+          "corr_near_neighbours": -0.044581005029253475,
+          "neg_spectrum_share": 1.4965439731895458e-05,
+          "antisym_vs_sym": 0.273325651884079
+        }
+      },
+      {
+        "start_distance": {
+          "query_content": 0.25656071305274963,
+          "key_content": 0.2473861426115036,
+          "query_history": 28295964.0,
+          "key_history": 26039920.0,
+          "exponents": 0.7765045166015625,
+          "theta": 0.017519354820251465,
+          "same_label.0.0.weight": 1.8382364511489868,
+          "same_label.0.0.bias": 2.4299097061157227,
+          "same_label.0.2.weight": 1290822.375,
+          "same_label.1.0.weight": 2.1513540744781494,
+          "same_label.1.0.bias": 2.0072147846221924,
+          "same_label.1.2.weight": 1633523.0,
+          "encoder.0.weight": 2.725527048110962,
+          "encoder.0.bias": 1.2812734842300415,
+          "encoder.2.weight": 5072630.0,
+          "encoder.2.bias": 710696.375,
+          "prior.0.weight": 2.2301390171051025,
+          "prior.0.bias": 1.2282434701919556,
+          "prior.2.weight": 1842169.375,
+          "gate.0.weight": 1.8500646352767944,
+          "gate.0.bias": 2.929791212081909,
+          "gate.2.weight": 10575615.0,
+          "gate.2.bias": 2.1313412189483643
+        },
+        "exponents": {
+          "alpha": 0.10456797480583191,
+          "beta": 0.11906278133392334,
+          "theta": 0.9824806451797485,
+          "deg90": 697.0,
+          "seed_factor": 0.5042999283933705,
+          "cand_factor": 0.4586451416494655
+        },
+        "gate": {
+          "mean": [
+            15.846776008605957,
+            3.023930311203003,
+            3.4941868782043457,
+            8.53438663482666
+          ],
+          "unseen_sweep": [
+            [
+              14.90340518951416,
+              2.728379011154175,
+              3.2355804443359375,
+              8.681726455688477
+            ],
+            [
+              21.132112503051758,
+              4.786391735076904,
+              4.960165500640869,
+              5.84859561920166
+            ],
+            [
+              25.92405128479004,
+              6.386837005615234,
+              6.8208394050598145,
+              3.783543109893799
+            ]
+          ],
+          "content_rise": 0.7394716739654541
+        },
+        "influence_top100": {
+          "raw": [
+            0.6302504539489746,
+            0.6503183245658875,
+            0.4355451166629791,
+            0.9264086484909058
+          ],
+          "share": [
+            0.23850334047631858,
+            0.24609755028353242,
+            0.1648217222239058,
+            0.3505773870162432
+          ]
+        },
+        "content_blocks": {
+          "raw": {
+            "zz": 0.4642314016819,
+            "zh": 0.3417981266975403,
+            "hz": 0.22673022747039795,
+            "hh": 0.1872098445892334
+          },
+          "share": {
+            "zz": 0.380527024210129,
+            "zh": 0.2801693801013778,
+            "hz": 0.1858490796728024,
+            "hh": 0.15345451601569077
+          }
+        },
+        "Mzz_change": 0.5187555551528931,
+        "Mzz_asymmetry": 0.48719698190689087,
+        "history_vs_feature": 0.7609561681747437,
+        "encoder_cos": 0.7519644498825073,
+        "label_rule": [
+          {
+            "size_q10_50_90": [
+              2,
+              17,
+              91
+            ],
+            "m1": [
+              1.954024076461792,
+              1.1358413696289062,
+              0.5861347913742065
+            ],
+            "m2": [
+              2.132780075073242,
+              1.366302490234375,
+              0.7941862940788269
+            ],
+            "gate": 3.023930311203003
+          },
+          {
+            "size_q10_50_90": [
+              1,
+              3,
+              13
+            ],
+            "m1": [
+              1.211545705795288,
+              0.32984164357185364,
+              0.15121644735336304
+            ],
+            "m2": [
+              1.8596307039260864,
+              0.6319007873535156,
+              0.2794342041015625
+            ],
+            "gate": 3.4941868782043457
+          }
+        ],
+        "prior_vs_base_rate": {
+          "bins": [
+            [
+              -0.3037683385742377,
+              0.7926398515701294
+            ],
+            [
+              -2.087302234414958,
+              0.5182715654373169
+            ],
+            [
+              -1.0037161576531435,
+              0.9895703196525574
+            ],
+            [
+              -0.2941788385019553,
+              1.2897424697875977
+            ],
+            [
+              0.4590264449325207,
+              1.5391085147857666
+            ],
+            [
+              1.2714244153161405,
+              1.7137845754623413
+            ],
+            [
+              2.130762559693187,
+              1.7672590017318726
+            ],
+            [
+              3.4528337196993935,
+              1.6554065942764282
+            ]
+          ],
+          "corr": 0.859908779833978
+        },
+        "knockouts": {
+          "trained": 0.2974350266223151,
+          "symmetric_content": 0.28857746150583,
+          "no_partner_history": 0.2806334964133912,
+          "content_maps_at_start": 0.27348114334479934,
+          "no_label_rule": 0.2109999846563983,
+          "no_prior": 0.2961624960839518,
+          "shared_exponent": 0.29765417019404444,
+          "exponents_at_start": 0.20918056642408506,
+          "fixed_gate": 0.2578077371218943,
+          "no_feature_refinement": 0.2657526646152344
+        },
+        "geometry": {
+          "self_score": 9.33931827545166,
+          "corr_random_pairs": 0.7049987300498162,
+          "corr_near_neighbours": -0.05871769052575679,
+          "neg_spectrum_share": 0.0,
+          "antisym_vs_sym": 0.25116461515426636
+        }
+      }
+    ]
+  }
+}

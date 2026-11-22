@@ -1,0 +1,21 @@
+{
+ "dataset": "electronic",
+ "seed": 2,
+ "config": {
+  "epochs": 100,
+  "batch": 32,
+  "patience": 6,
+  "shared_lr": 0.0005,
+  "fast_lr": 0.005,
+  "weight_decay": 0.001,
+  "hidden": 32
+ },
+ "best_epoch": 0,
+ "epochs_run": 6,
+ "validation": {
+  "recall20": 0.233140655105973,
+  "ndcg20": 0.13260200475961528
+ },
+ "parameters": 74136,
+ "seconds": 0.23298075096681714
+}

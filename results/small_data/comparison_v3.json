@@ -1,0 +1,434 @@
+{
+  "note": "Compare the three parameter-suggested changes (experiments.small_data.triad_v3) with the current full-rank TRIAD (v2)\non full training data: test NDCG@20 on clean test queries (mean over seeds 0-2, per query), mean validation NDCG@20,\nand paired tests (bootstrap + sign flips, one cluster per query) of each variant minus v2, Holm over the datasets\nwithin each variant. Writes results/small_data/comparison_v3.json.\n\ncd ../bundlefuse && PYTHONPATH=.:../dials .venv/bin/python -m experiments.small_data.compare_v3\n",
+  "rows": {
+    "electronic": {
+      "v2": {
+        "test": 0.3404190880732816,
+        "validation": 0.376312341216353,
+        "epochs": [
+          2,
+          2,
+          3
+        ]
+      },
+      "v3_prior": {
+        "test": 0.3438124840951693,
+        "validation": 0.3823953490504797,
+        "epochs": [
+          2,
+          5,
+          2
+        ]
+      },
+      "v3_taste": {
+        "test": 0.33554656506643427,
+        "validation": 0.3756085355776922,
+        "epochs": [
+          2,
+          6,
+          4
+        ]
+      },
+      "v3_oneexp": {
+        "test": 0.33872802516227646,
+        "validation": 0.37494671566100596,
+        "epochs": [
+          2,
+          5,
+          5
+        ]
+      },
+      "v3_all": {
+        "test": 0.339749224954284,
+        "validation": 0.3770086523152842,
+        "epochs": [
+          6,
+          5,
+          3
+        ]
+      }
+    },
+    "food": {
+      "v2": {
+        "test": 0.48567790794242227,
+        "validation": 0.44600694018328574,
+        "epochs": [
+          2,
+          3,
+          7
+        ]
+      },
+      "v3_prior": {
+        "test": 0.4898416908235835,
+        "validation": 0.45281820189637956,
+        "epochs": [
+          2,
+          3,
+          3
+        ]
+      },
+      "v3_taste": {
+        "test": 0.48464668237971487,
+        "validation": 0.44289557727052986,
+        "epochs": [
+          5,
+          5,
+          3
+        ]
+      },
+      "v3_oneexp": {
+        "test": 0.48566483933056426,
+        "validation": 0.4475279836654171,
+        "epochs": [
+          2,
+          2,
+          2
+        ]
+      },
+      "v3_all": {
+        "test": 0.4856237751116079,
+        "validation": 0.45025767682727785,
+        "epochs": [
+          3,
+          3,
+          7
+        ]
+      }
+    },
+    "clothing": {
+      "v2": {
+        "test": 0.45428401668175317,
+        "validation": 0.526337924514063,
+        "epochs": [
+          3,
+          3,
+          3
+        ]
+      },
+      "v3_prior": {
+        "test": 0.4508119534030172,
+        "validation": 0.5291235023861275,
+        "epochs": [
+          3,
+          4,
+          3
+        ]
+      },
+      "v3_taste": {
+        "test": 0.4523617729987648,
+        "validation": 0.5231688389338305,
+        "epochs": [
+          3,
+          5,
+          3
+        ]
+      },
+      "v3_oneexp": {
+        "test": 0.45233292132476693,
+        "validation": 0.5246361638590081,
+        "epochs": [
+          3,
+          3,
+          4
+        ]
+      },
+      "v3_all": {
+        "test": 0.4504233422341091,
+        "validation": 0.5285761633052285,
+        "epochs": [
+          5,
+          7,
+          3
+        ]
+      }
+    },
+    "pog_dense": {
+      "v2": {
+        "test": 0.2797944460372724,
+        "validation": 0.3060347695447456,
+        "epochs": [
+          29,
+          30,
+          37
+        ]
+      },
+      "v3_prior": {
+        "test": 0.2770872196907816,
+        "validation": 0.3065668400441774,
+        "epochs": [
+          10,
+          16,
+          19
+        ]
+      },
+      "v3_all": {
+        "test": 0.27717264526283614,
+        "validation": 0.3068558547597836,
+        "epochs": [
+          24,
+          15,
+          9
+        ]
+      }
+    },
+    "pog": {
+      "v2": {
+        "test": 0.03075405679831574,
+        "validation": 0.037047372516237055,
+        "epochs": [
+          23,
+          24,
+          29
+        ]
+      }
+    }
+  },
+  "tests": {
+    "v3_prior": [
+      {
+        "delta": 0.0033933960218877337,
+        "ci95": [
+          -0.002491975148031648,
+          0.009677323894232419
+        ],
+        "p_value": 0.2822717728227177,
+        "queries": 346,
+        "clusters": 346,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.1994219653179191,
+        "seed": 20261121,
+        "dataset": "electronic",
+        "p_holm": 0.2822717728227177,
+        "reject_05": false
+      },
+      {
+        "delta": 0.004163782881161205,
+        "ci95": [
+          -0.0009554713722786516,
+          0.00960777650135216
+        ],
+        "p_value": 0.1362863713628637,
+        "queries": 353,
+        "clusters": 353,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.21529745042492918,
+        "seed": 20261121,
+        "dataset": "food",
+        "p_holm": 0.2725727427257274,
+        "reject_05": false
+      },
+      {
+        "delta": -0.003472063278735975,
+        "ci95": [
+          -0.007294391512794216,
+          0.00037439418597920524
+        ],
+        "p_value": 0.06989301069893011,
+        "queries": 371,
+        "clusters": 371,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.15363881401617252,
+        "seed": 20261121,
+        "dataset": "clothing",
+        "p_holm": 0.20967903209679034,
+        "reject_05": false
+      },
+      {
+        "delta": -0.0027072263464908756,
+        "ci95": [
+          -0.004252170023669909,
+          -0.0010764886957949388
+        ],
+        "p_value": 0.0008999100089991,
+        "queries": 5547,
+        "clusters": 5547,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.13791238507301243,
+        "seed": 20261121,
+        "dataset": "pog_dense",
+        "p_holm": 0.0035996400359964,
+        "reject_05": true
+      }
+    ],
+    "v3_taste": [
+      {
+        "delta": -0.0048725230068473145,
+        "ci95": [
+          -0.010684905088389731,
+          0.001108132884905691
+        ],
+        "p_value": 0.12468753124687532,
+        "queries": 346,
+        "clusters": 346,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.1791907514450867,
+        "seed": 20261121,
+        "dataset": "electronic",
+        "p_holm": 0.37406259374062595,
+        "reject_05": false
+      },
+      {
+        "delta": -0.0010312255627073536,
+        "ci95": [
+          -0.006773346541590653,
+          0.004381568690518029
+        ],
+        "p_value": 0.7230276972302769,
+        "queries": 353,
+        "clusters": 353,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.20396600566572237,
+        "seed": 20261121,
+        "dataset": "food",
+        "p_holm": 1.0,
+        "reject_05": false
+      },
+      {
+        "delta": -0.00192224368298846,
+        "ci95": [
+          -0.007729776195031286,
+          0.004149876975867187
+        ],
+        "p_value": 0.5246475352464753,
+        "queries": 371,
+        "clusters": 371,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.15363881401617252,
+        "seed": 20261121,
+        "dataset": "clothing",
+        "p_holm": 1.0,
+        "reject_05": false
+      }
+    ],
+    "v3_oneexp": [
+      {
+        "delta": -0.001691062911005095,
+        "ci95": [
+          -0.006849873229674361,
+          0.003668413166409883
+        ],
+        "p_value": 0.5305469453054694,
+        "queries": 346,
+        "clusters": 346,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.17630057803468208,
+        "seed": 20261121,
+        "dataset": "electronic",
+        "p_holm": 1.0,
+        "reject_05": false
+      },
+      {
+        "delta": -1.3068611857995111e-05,
+        "ci95": [
+          -0.0052857544530509224,
+          0.005158210443884826
+        ],
+        "p_value": 0.9968003199680032,
+        "queries": 353,
+        "clusters": 353,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.16997167138810199,
+        "seed": 20261121,
+        "dataset": "food",
+        "p_holm": 1.0,
+        "reject_05": false
+      },
+      {
+        "delta": -0.0019510953569862534,
+        "ci95": [
+          -0.004635317175922045,
+          0.0006446609500168163
+        ],
+        "p_value": 0.16058394160583941,
+        "queries": 371,
+        "clusters": 371,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.14016172506738545,
+        "seed": 20261121,
+        "dataset": "clothing",
+        "p_holm": 0.4817518248175182,
+        "reject_05": false
+      }
+    ],
+    "v3_all": [
+      {
+        "delta": -0.0006698631189975682,
+        "ci95": [
+          -0.007947917154994455,
+          0.006731012427535314
+        ],
+        "p_value": 0.8665133486651335,
+        "queries": 346,
+        "clusters": 346,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.2023121387283237,
+        "seed": 20261121,
+        "dataset": "electronic",
+        "p_holm": 1.0,
+        "reject_05": false
+      },
+      {
+        "delta": -5.413283081439393e-05,
+        "ci95": [
+          -0.005296704329336389,
+          0.004980723986086202
+        ],
+        "p_value": 0.9849015098490151,
+        "queries": 353,
+        "clusters": 353,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.2237960339943343,
+        "seed": 20261121,
+        "dataset": "food",
+        "p_holm": 1.0,
+        "reject_05": false
+      },
+      {
+        "delta": -0.0038606744476441085,
+        "ci95": [
+          -0.00991928957386005,
+          0.0023025497083069267
+        ],
+        "p_value": 0.2216778322167783,
+        "queries": 371,
+        "clusters": 371,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.18059299191374664,
+        "seed": 20261121,
+        "dataset": "clothing",
+        "p_holm": 0.665033496650335,
+        "reject_05": false
+      },
+      {
+        "delta": -0.00262180077443629,
+        "ci95": [
+          -0.004291173343855032,
+          -0.0009554959646616735
+        ],
+        "p_value": 0.0026997300269973002,
+        "queries": 5547,
+        "clusters": 5547,
+        "bootstrap": 2000,
+        "permutations": 10000,
+        "query_win_fraction": 0.1400757166035695,
+        "seed": 20261121,
+        "dataset": "pog_dense",
+        "p_holm": 0.010798920107989201,
+        "reject_05": true
+      }
+    ]
+  }
+}
