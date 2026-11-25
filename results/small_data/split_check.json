@@ -1,0 +1,331 @@
+{
+ "note": "Fresh random splits of Electronic, Food and Clothing: does the learned prior still rank never-bundled items above\nonce-bundled ones, and does TRIAD stay ahead of the best simple baseline?\n\nFor split seeds 1 and 2 (the published split is seed 0), the 70/10/20 split of triad.data.load_resplit is redrawn;\nTRIAD (dials main, config_for) is trained with model seeds 0-2 and the simple baselines are retuned on validation\n(triad.baselines.run). Reported per split:\n  rho(f)     the learned prior at f = 0, 1, 2 training bundles (mean of the three model seeds)\n  b(f)       validation base rate: log(share of validation targets with frequency f / share of catalogue items)\n  test       clean-test NDCG@20 of TRIAD (mean of model seeds per query) and of the best simple baseline, with a paired\n             test (bootstrap + sign flips), Holm over the 6 dataset-split pairs.\nWrites results/small_data/split_check.json; runs in results/small_data/split_check/<dataset>_split<k>/.\n\ncd ../bundlefuse && PYTHONPATH=.:../dials .venv/bin/python -m experiments.small_data.split_check\n",
+ "rows": {
+  "electronic_split1": {
+   "rho": {
+    "f0": -0.131,
+    "f1": -0.236,
+    "f2": -0.233
+   },
+   "rho_by_seed": [
+    [
+     -0.097,
+     -0.194,
+     -0.193
+    ],
+    [
+     -0.154,
+     -0.255,
+     -0.248
+    ],
+    [
+     -0.143,
+     -0.26,
+     -0.258
+    ]
+   ],
+   "base_rate": {
+    "0": 0.8225594255069768,
+    "1": -0.5445977737421834,
+    "2": -0.7716630125091957
+   },
+   "triad": 0.39325264216385897,
+   "best_simple": 0.3628448768434469,
+   "best_simple_method": "hybrid+prior",
+   "epochs": [
+    4,
+    7,
+    6
+   ]
+  },
+  "electronic_split2": {
+   "rho": {
+    "f0": -0.1,
+    "f1": -0.21,
+    "f2": -0.208
+   },
+   "rho_by_seed": [
+    [
+     -0.05,
+     -0.174,
+     -0.175
+    ],
+    [
+     -0.1,
+     -0.201,
+     -0.197
+    ],
+    [
+     -0.15,
+     -0.255,
+     -0.251
+    ]
+   ],
+   "base_rate": {
+    "0": 0.7473635238744634,
+    "1": -0.4889524454874792,
+    "2": -1.037129283975905
+   },
+   "triad": 0.3553602477401609,
+   "best_simple": 0.33527548543569446,
+   "best_simple_method": "hybrid+prior",
+   "epochs": [
+    9,
+    6,
+    5
+   ]
+  },
+  "food_split1": {
+   "rho": {
+    "f0": -0.129,
+    "f1": -0.255,
+    "f2": -0.26
+   },
+   "rho_by_seed": [
+    [
+     -0.124,
+     -0.296,
+     -0.309
+    ],
+    [
+     -0.15,
+     -0.249,
+     -0.245
+    ],
+    [
+     -0.113,
+     -0.221,
+     -0.226
+    ]
+   ],
+   "base_rate": {
+    "0": 0.853517667320687,
+    "1": -0.5730232887581103,
+    "2": -0.6530659964316466
+   },
+   "triad": 0.42712447228194117,
+   "best_simple": 0.4145352525198608,
+   "best_simple_method": "hybrid+prior",
+   "epochs": [
+    8,
+    5,
+    5
+   ]
+  },
+  "food_split2": {
+   "rho": {
+    "f0": -0.053,
+    "f1": -0.188,
+    "f2": -0.195
+   },
+   "rho_by_seed": [
+    [
+     -0.047,
+     -0.185,
+     -0.198
+    ],
+    [
+     -0.032,
+     -0.169,
+     -0.168
+    ],
+    [
+     -0.079,
+     -0.211,
+     -0.218
+    ]
+   ],
+   "base_rate": {
+    "0": 0.6939656644079308,
+    "1": -0.4759257983796897,
+    "2": -0.43917934318210605
+   },
+   "triad": 0.45117236309370345,
+   "best_simple": 0.43094565816248787,
+   "best_simple_method": "hybrid+prior",
+   "epochs": [
+    4,
+    18,
+    14
+   ]
+  },
+  "clothing_split1": {
+   "rho": {
+    "f0": -0.043,
+    "f1": -0.215,
+    "f2": -0.28
+   },
+   "rho_by_seed": [
+    [
+     -0.042,
+     -0.217,
+     -0.287
+    ],
+    [
+     -0.037,
+     -0.2,
+     -0.267
+    ],
+    [
+     -0.051,
+     -0.227,
+     -0.285
+    ]
+   ],
+   "base_rate": {
+    "0": 1.0216786878735018,
+    "1": -0.6759420979014575,
+    "2": -1.3132168082307698
+   },
+   "triad": 0.4971847066028585,
+   "best_simple": 0.4752918283637203,
+   "best_simple_method": "label_knn_content+prior",
+   "epochs": [
+    11,
+    13,
+    11
+   ]
+  },
+  "clothing_split2": {
+   "rho": {
+    "f0": -0.069,
+    "f1": -0.215,
+    "f2": -0.259
+   },
+   "rho_by_seed": [
+    [
+     -0.08,
+     -0.203,
+     -0.237
+    ],
+    [
+     -0.074,
+     -0.251,
+     -0.303
+    ],
+    [
+     -0.054,
+     -0.19,
+     -0.238
+    ]
+   ],
+   "base_rate": {
+    "0": 0.9399357875099494,
+    "1": -0.5748175558362388,
+    "2": -0.8985325180571944
+   },
+   "triad": 0.5136174155125797,
+   "best_simple": 0.4981041004052635,
+   "best_simple_method": "label_knn_content+prior",
+   "epochs": [
+    4,
+    9,
+    6
+   ]
+  }
+ },
+ "tests": [
+  {
+   "delta": 0.030407765320412106,
+   "ci95": [
+    0.015477028981187307,
+    0.04519851306957393
+   ],
+   "p_value": 0.00019998000199980003,
+   "queries": 346,
+   "clusters": 346,
+   "bootstrap": 2000,
+   "permutations": 10000,
+   "query_win_fraction": 0.30057803468208094,
+   "seed": 20261121,
+   "key": "electronic_split1",
+   "p_holm": 0.0011998800119988001,
+   "reject_05": true
+  },
+  {
+   "delta": 0.02008476230446647,
+   "ci95": [
+    0.006185089200652276,
+    0.03359707094606258
+   ],
+   "p_value": 0.0047995200479952005,
+   "queries": 346,
+   "clusters": 346,
+   "bootstrap": 2000,
+   "permutations": 10000,
+   "query_win_fraction": 0.2543352601156069,
+   "seed": 20261121,
+   "key": "electronic_split2",
+   "p_holm": 0.023997600239976002,
+   "reject_05": true
+  },
+  {
+   "delta": 0.0125892197620804,
+   "ci95": [
+    -0.0021014741407531577,
+    0.02799598678795813
+   ],
+   "p_value": 0.1060893910608939,
+   "queries": 353,
+   "clusters": 353,
+   "bootstrap": 2000,
+   "permutations": 10000,
+   "query_win_fraction": 0.26912181303116145,
+   "seed": 20261121,
+   "key": "food_split1",
+   "p_holm": 0.1060893910608939,
+   "reject_05": false
+  },
+  {
+   "delta": 0.02022670493121554,
+   "ci95": [
+    0.006139053584946529,
+    0.0349421365417659
+   ],
+   "p_value": 0.007499250074992501,
+   "queries": 353,
+   "clusters": 353,
+   "bootstrap": 2000,
+   "permutations": 10000,
+   "query_win_fraction": 0.24929178470254956,
+   "seed": 20261121,
+   "key": "food_split2",
+   "p_holm": 0.029997000299970003,
+   "reject_05": true
+  },
+  {
+   "delta": 0.02189287823913824,
+   "ci95": [
+    0.005522480388130205,
+    0.039300063679613154
+   ],
+   "p_value": 0.0187981201879812,
+   "queries": 371,
+   "clusters": 371,
+   "bootstrap": 2000,
+   "permutations": 10000,
+   "query_win_fraction": 0.2668463611859838,
+   "seed": 20261121,
+   "key": "clothing_split1",
+   "p_holm": 0.056394360563943605,
+   "reject_05": false
+  },
+  {
+   "delta": 0.015513315107316145,
+   "ci95": [
+    0.0017776827403191819,
+    0.028642045663855385
+   ],
+   "p_value": 0.025797420257974202,
+   "queries": 371,
+   "clusters": 371,
+   "bootstrap": 2000,
+   "permutations": 10000,
+   "query_win_fraction": 0.25336927223719674,
+   "seed": 20261121,
+   "key": "clothing_split2",
+   "p_holm": 0.056394360563943605,
+   "reject_05": false
+  }
+ ]
+}

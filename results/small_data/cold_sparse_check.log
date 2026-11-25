@@ -1,0 +1,70 @@
+electronic: simple hybrid lam 0.03 reproduced 0.312174 vs published 0.312174; TRIAD 0.341283 vs 0.341283
+  drop 0.25: TRIAD 0.3067 simple 0.2799 (31% of queries changed)
+  drop 0.5: TRIAD 0.2885 simple 0.2655 (44% of queries changed)
+food: simple hybrid lam 0.03 reproduced 0.460105 vs published 0.460105; TRIAD 0.488119 vs 0.488119
+  drop 0.25: TRIAD 0.4643 simple 0.4413 (33% of queries changed)
+  drop 0.5: TRIAD 0.4336 simple 0.4124 (48% of queries changed)
+clothing: simple hybrid lam 0.1 reproduced 0.427325 vs published 0.427325; TRIAD 0.450921 vs 0.450921
+  drop 0.25: TRIAD 0.4240 simple 0.4026 (26% of queries changed)
+  drop 0.5: TRIAD 0.3957 simple 0.3733 (40% of queries changed)
+pog_dense: simple rp3beta lam 0.0 reproduced 0.240717 vs published 0.240717; TRIAD 0.279794 vs 0.279794
+  drop 0.25: TRIAD 0.2593 simple 0.2264 (45% of queries changed)
+  drop 0.5: TRIAD 0.2461 simple 0.2161 (75% of queries changed)
+pog: simple label_knn_content lam 0.0 reproduced 0.023450 vs published 0.023450; TRIAD 0.030754 vs 0.030754
+  drop 0.25: TRIAD 0.0276 simple 0.0219 (22% of queries changed)
+  drop 0.5: TRIAD 0.0271 simple 0.0215 (38% of queries changed)
+spotify_sparse: simple label_knn_content lam 0.03 reproduced 0.208529 vs published 0.208530; TRIAD 0.256457 vs 0.256457
+  drop 0.25: TRIAD 0.2234 simple 0.1821 (95% of queries changed)
+  drop 0.5: TRIAD 0.1906 simple 0.1585 (99% of queries changed)
+spotify: simple label_knn_content lam 0.0 reproduced 0.246895 vs published 0.246895; TRIAD 0.282360 vs 0.282361
+  drop 0.25: TRIAD 0.2495 simple 0.2216 (96% of queries changed)
+  drop 0.5: TRIAD 0.2174 simple 0.1938 (99% of queries changed)
+
+electronic (hybrid; 346 queries; warm 36%, cold seed 54%, cold target 47%)
+  hybrid  n=  346  TRIAD 0.3413  simple 0.3122
+  warm    n=  125  TRIAD 0.5540  simple 0.5259  diff +0.0281 [-0.0099,+0.0697] p_holm 0.6627
+  cold    n=  221  TRIAD 0.2210  simple 0.1913  diff +0.0297 [+0.0159,+0.0427] p_holm 0.0028
+  drop25  n=  346  TRIAD 0.3067  simple 0.2799  diff +0.0269 [+0.0105,+0.0432] p_holm 0.0200
+  drop50  n=  346  TRIAD 0.2885  simple 0.2655  diff +0.0229 [+0.0066,+0.0395] p_holm 0.0504
+
+food (hybrid; 353 queries; warm 30%, cold seed 60%, cold target 54%)
+  hybrid  n=  353  TRIAD 0.4881  simple 0.4601
+  warm    n=  105  TRIAD 0.7435  simple 0.7126  diff +0.0310 [-0.0026,+0.0664] p_holm 0.3825
+  cold    n=  248  TRIAD 0.3800  simple 0.3532  diff +0.0268 [+0.0087,+0.0443] p_holm 0.0234
+  drop25  n=  353  TRIAD 0.4643  simple 0.4413  diff +0.0230 [+0.0073,+0.0397] p_holm 0.0464
+  drop50  n=  353  TRIAD 0.4336  simple 0.4124  diff +0.0213 [+0.0062,+0.0373] p_holm 0.0504
+
+clothing (hybrid; 371 queries; warm 18%, cold seed 75%, cold target 73%)
+  hybrid  n=  371  TRIAD 0.4509  simple 0.4273
+  warm    n=   65  TRIAD 0.8388  simple 0.8182  diff +0.0206 [-0.0115,+0.0548] p_holm 0.6627
+  cold    n=  306  TRIAD 0.3685  simple 0.3443  diff +0.0242 [+0.0122,+0.0371] p_holm 0.0028
+  drop25  n=  371  TRIAD 0.4240  simple 0.4026  diff +0.0214 [+0.0102,+0.0331] p_holm 0.0033
+  drop50  n=  371  TRIAD 0.3957  simple 0.3733  diff +0.0225 [+0.0113,+0.0341] p_holm 0.0028
+
+pog_dense (rp3beta; 5547 queries; warm 38%, cold seed 43%, cold target 34%)
+  hybrid  n= 5547  TRIAD 0.2798  simple 0.2407
+  warm    n= 2117  TRIAD 0.3062  simple 0.2668  diff +0.0394 [+0.0329,+0.0461] p_holm 0.0028
+  cold    n= 3430  TRIAD 0.2635  simple 0.2246  diff +0.0389 [+0.0343,+0.0432] p_holm 0.0028
+  drop25  n= 5547  TRIAD 0.2593  simple 0.2264  diff +0.0329 [+0.0293,+0.0365] p_holm 0.0028
+  drop50  n= 5547  TRIAD 0.2461  simple 0.2161  diff +0.0299 [+0.0266,+0.0334] p_holm 0.0028
+
+pog (label_knn_content; 3995 queries; warm 7%, cold seed 70%, cold target 81%)
+  hybrid  n= 3995  TRIAD 0.0308  simple 0.0234
+  warm    n=  298  TRIAD 0.0950  simple 0.0867  diff +0.0083 [-0.0050,+0.0214] p_holm 0.6627
+  cold    n= 3697  TRIAD 0.0256  simple 0.0183  diff +0.0072 [+0.0051,+0.0093] p_holm 0.0028
+  drop25  n= 3995  TRIAD 0.0276  simple 0.0219  diff +0.0058 [+0.0036,+0.0078] p_holm 0.0028
+  drop50  n= 3995  TRIAD 0.0271  simple 0.0215  diff +0.0056 [+0.0034,+0.0076] p_holm 0.0028
+
+spotify_sparse (label_knn_content; 2497 queries; warm 15%, cold seed 77%, cold target 76%)
+  hybrid  n= 2497  TRIAD 0.2565  simple 0.2085
+  warm    n=  372  TRIAD 0.2545  simple 0.2250  diff +0.0296 [+0.0188,+0.0404] p_holm 0.0028
+  cold    n= 2125  TRIAD 0.2568  simple 0.2057  diff +0.0511 [+0.0461,+0.0561] p_holm 0.0028
+  drop25  n= 2497  TRIAD 0.2234  simple 0.1821  diff +0.0413 [+0.0368,+0.0456] p_holm 0.0028
+  drop50  n= 2497  TRIAD 0.1906  simple 0.1585  diff +0.0322 [+0.0282,+0.0361] p_holm 0.0028
+
+spotify (label_knn_content; 3995 queries; warm 25%, cold seed 64%, cold target 65%)
+  hybrid  n= 3995  TRIAD 0.2824  simple 0.2469
+  warm    n=  997  TRIAD 0.2676  simple 0.2643  diff +0.0033 [-0.0014,+0.0078] p_holm 0.6627
+  cold    n= 2998  TRIAD 0.2873  simple 0.2411  diff +0.0462 [+0.0411,+0.0517] p_holm 0.0028
+  drop25  n= 3995  TRIAD 0.2495  simple 0.2216  diff +0.0279 [+0.0245,+0.0315] p_holm 0.0028
+  drop50  n= 3995  TRIAD 0.2174  simple 0.1938  diff +0.0236 [+0.0205,+0.0268] p_holm 0.0028

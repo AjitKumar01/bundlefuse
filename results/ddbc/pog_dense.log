@@ -1,0 +1,5 @@
+checkpoint {'epoch': 207, 'step': 10375}
+validation single {'queries': 2968, 'recall20': 0.2530323450134771, 'ndcg20': 0.19785529072583313} 294s
+validation split {'queries': 2968, 'recall20': 0.251740790655885, 'ndcg20': 0.19568117762793444} 311s
+chosen layout single
+test {'queries': 5938, 'recall20': 0.25853261479735035, 'ndcg20': 0.20484485103516956} clean {'queries': 5547, 'recall20': 0.24677002583979332, 'ndcg20': 0.1950222759467168} 631s

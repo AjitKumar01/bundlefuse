@@ -1,0 +1,1001 @@
+[{"stream_name":"stdout","time":0.752246468,"data":"$ pip -q install huggingface_hub pyyaml tensorboard tensorboardX 2\u003e/dev/null || true\n"}
+,{"stream_name":"stdout","time":5.551888249,"data":"$ rm -rf /kaggle/working/CLHE \u0026\u0026 git clone -q https://github.com/Xiaohao-Liu/CLHE.git /kaggle/working/CLHE \u0026\u0026 cd /kaggle/working/CLHE \u0026\u0026 git checkout -q 74eb236 \u0026\u0026 git log -1 --format=%H\n"}
+,{"stream_name":"stdout","time":6.149116893,"data":"74eb236986721d6c390e4a2ca5f2ac861b8e876c\n"}
+,{"stream_name":"stderr","time":7.021158682,"data":"Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n"}
+,{"stream_name":"stdout","time":58.071661319,"data":"SPLIT SHA256 {\"bi_full-checkpoint.txt\": \"dcd230eb822fc006a0d33b22e36952e79823f2244fdc8ed91915b23280e1d05d\", \"bi_full.txt\": \"f69b8b0c65686580bb43a857ac4d5c55ac553621ea7a01c642f52987e01494d1\", \"bi_test_gt-checkpoint.txt\": \"a6c04e2b7b4856d6822e689ebcae3d924f0c585592ebfeaa87b3631e22dc1d8f\", \"bi_test_gt.txt\": \"7274703720f26196fd08153f602ea76a952aa5a606948269544bb657020122b8\", \"bi_test_input-checkpoint.txt\": \"fcdbe802fae354d9519ddbff6a93b03effdbc63e9e6d1d5f1a8900c86b9d62a1\", \"bi_test_input.txt\": \"a6425f2d41cf5ec0366354a4fd21ea431e2428294c375c5ff93a1adb75449ac7\", \"bi_train-checkpoint.txt\": \"984a40495aa3afe519fad733e402eb7cfd76d9db14ddaa098d4db24b3890c22d\", \"bi_train.txt\": \"984a40495aa3afe519fad733e402eb7cfd76d9db14ddaa098d4db24b3890c22d\", \"bi_valid_gt-checkpoint.txt\": \"a1d49115b963422bab75deb4df4c871f92e5cab0e7d4694f9dcc0462c6db0469\", \"bi_valid_gt.txt\": \"a1d49115b963422bab75deb4df4c871f92e5cab0e7d4694f9dcc0462c6db0469\", \"bi_valid_input-checkpoint.txt\": \"ebc64bf6ad97c0619ac848b1157a989b7224626b815808823db694272fbfb595\", \"bi_valid_input.txt\": \"ebc64bf6ad97c0619ac848b1157a989b7224626b815808823db694272fbfb595\"}\n"}
+,{"stream_name":"stderr","time":77.726829377,"data":"WARNING: All log messages before absl::InitializeLog() is called are written to STDERR\n"}
+,{"stream_name":"stderr","time":77.726866343,"data":"I0000 00:00:1795440482.258410       7 cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.\n"}
+,{"stream_name":"stdout","time":83.964708892,"data":"Train: 5\n"}
+,{"stream_name":"stdout","time":83.965220178,"data":"Val/Test: 2\n"}
+,{"stream_name":"stdout","time":83.966005679,"data":"Val/Test: 2\n"}
+,{"stream_name":"stderr","time":83.968801219,"data":"/usr/local/lib/python3.13/dist-packages/torch/utils/data/dataloader.py:424: UserWarning: This DataLoader will create 10 worker processes in total. Our suggested max number of worker in current system is 4, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.\n"}
+,{"stream_name":"stderr","time":83.968840667,"data":"  self.check_worker_number_rationality()\n"}
+,{"stream_name":"stderr","time":83.969056479,"data":"/usr/local/lib/python3.13/dist-packages/torch/utils/data/dataloader.py:424: UserWarning: This DataLoader will create 20 worker processes in total. Our suggested max number of worker in current system is 4, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.\n"}
+,{"stream_name":"stderr","time":83.969066435,"data":"  self.check_worker_number_rationality()\n"}
+,{"stream_name":"stderr","time":89.030545912,"data":"/usr/local/lib/python3.13/dist-packages/torch/utils/data/dataloader.py:432: UserWarning: This DataLoader will create 10 worker processes in total. Our suggested max number of worker in current system is 4, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.\n"}
+,{"stream_name":"stderr","time":89.030590164,"data":"  self.check_worker_number_rationality()\n"}
+,{"stream_name":"stderr","time":103.734383413,"data":"/usr/local/lib/python3.13/dist-packages/torch/utils/data/dataloader.py:432: UserWarning: This DataLoader will create 20 worker processes in total. Our suggested max number of worker in current system is 4, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.\n"}
+,{"stream_name":"stderr","time":103.734421324,"data":"  self.check_worker_number_rationality()\n"}
+,{"stream_name":"stdout","time":106.222081341,"data":"pog MultiDAE seed 2023 epoch 0 val R20 0.0018 N20 0.0008 best epoch 0 17s\n"}
+,{"stream_name":"stdout","time":122.593936018,"data":"pog MultiDAE seed 2023 epoch 1 val R20 0.0024 N20 0.0009 best epoch 1 34s\n"}
+,{"stream_name":"stdout","time":139.16538036,"data":"pog MultiDAE seed 2023 epoch 2 val R20 0.0037 N20 0.0013 best epoch 2 50s\n"}
+,{"stream_name":"stdout","time":156.138983668,"data":"pog MultiDAE seed 2023 epoch 3 val R20 0.0041 N20 0.0014 best epoch 3 67s\n"}
+,{"stream_name":"stdout","time":173.648566798,"data":"pog MultiDAE seed 2023 epoch 4 val R20 0.0054 N20 0.0024 best epoch 4 85s\n"}
+,{"stream_name":"stdout","time":191.689527908,"data":"pog MultiDAE seed 2023 epoch 5 val R20 0.0042 N20 0.0018 best epoch 4 103s\n"}
+,{"stream_name":"stdout","time":209.258637157,"data":"pog MultiDAE seed 2023 epoch 6 val R20 0.0072 N20 0.0029 best epoch 6 120s\n"}
+,{"stream_name":"stdout","time":226.431469188,"data":"pog MultiDAE seed 2023 epoch 7 val R20 0.0060 N20 0.0029 best epoch 6 137s\n"}
+,{"stream_name":"stdout","time":243.605009689,"data":"pog MultiDAE seed 2023 epoch 8 val R20 0.0039 N20 0.0017 best epoch 6 155s\n"}
+,{"stream_name":"stdout","time":261.097922716,"data":"pog MultiDAE seed 2023 epoch 9 val R20 0.0061 N20 0.0027 best epoch 6 172s\n"}
+,{"stream_name":"stdout","time":278.762028919,"data":"pog MultiDAE seed 2023 epoch 10 val R20 0.0061 N20 0.0028 best epoch 6 190s\n"}
+,{"stream_name":"stdout","time":296.0743726,"data":"pog MultiDAE seed 2023 epoch 11 val R20 0.0056 N20 0.0025 best epoch 6 207s\n"}
+,{"stream_name":"stdout","time":313.455171384,"data":"pog MultiDAE seed 2023 epoch 12 val R20 0.0070 N20 0.0039 best epoch 6 224s\n"}
+,{"stream_name":"stdout","time":330.68657459,"data":"pog MultiDAE seed 2023 epoch 13 val R20 0.0062 N20 0.0034 best epoch 6 242s\n"}
+,{"stream_name":"stdout","time":348.216030483,"data":"pog MultiDAE seed 2023 epoch 14 val R20 0.0078 N20 0.0039 best epoch 14 259s\n"}
+,{"stream_name":"stdout","time":365.585734148,"data":"pog MultiDAE seed 2023 epoch 15 val R20 0.0078 N20 0.0039 best epoch 14 277s\n"}
+,{"stream_name":"stdout","time":382.850194651,"data":"pog MultiDAE seed 2023 epoch 16 val R20 0.0083 N20 0.0039 best epoch 16 294s\n"}
+,{"stream_name":"stdout","time":400.094958653,"data":"pog MultiDAE seed 2023 epoch 17 val R20 0.0089 N20 0.0044 best epoch 17 311s\n"}
+,{"stream_name":"stdout","time":417.353298006,"data":"pog MultiDAE seed 2023 epoch 18 val R20 0.0073 N20 0.0033 best epoch 17 328s\n"}
+,{"stream_name":"stdout","time":434.60166283,"data":"pog MultiDAE seed 2023 epoch 19 val R20 0.0075 N20 0.0043 best epoch 17 346s\n"}
+,{"stream_name":"stdout","time":452.047169299,"data":"pog MultiDAE seed 2023 epoch 20 val R20 0.0098 N20 0.0043 best epoch 17 363s\n"}
+,{"stream_name":"stdout","time":469.396031836,"data":"pog MultiDAE seed 2023 epoch 21 val R20 0.0080 N20 0.0035 best epoch 17 380s\n"}
+,{"stream_name":"stdout","time":486.73167119,"data":"pog MultiDAE seed 2023 epoch 22 val R20 0.0075 N20 0.0035 best epoch 17 398s\n"}
+,{"stream_name":"stdout","time":504.266022862,"data":"pog MultiDAE seed 2023 epoch 23 val R20 0.0098 N20 0.0045 best epoch 23 415s\n"}
+,{"stream_name":"stdout","time":521.43374098,"data":"pog MultiDAE seed 2023 epoch 24 val R20 0.0076 N20 0.0033 best epoch 23 432s\n"}
+,{"stream_name":"stdout","time":538.885414927,"data":"pog MultiDAE seed 2023 epoch 25 val R20 0.0090 N20 0.0041 best epoch 23 450s\n"}
+,{"stream_name":"stdout","time":556.244919661,"data":"pog MultiDAE seed 2023 epoch 26 val R20 0.0123 N20 0.0058 best epoch 26 467s\n"}
+,{"stream_name":"stdout","time":573.722920579,"data":"pog MultiDAE seed 2023 epoch 27 val R20 0.0123 N20 0.0053 best epoch 26 485s\n"}
+,{"stream_name":"stdout","time":591.041634955,"data":"pog MultiDAE seed 2023 epoch 28 val R20 0.0094 N20 0.0043 best epoch 26 502s\n"}
+,{"stream_name":"stdout","time":608.55443546,"data":"pog MultiDAE seed 2023 epoch 29 val R20 0.0119 N20 0.0062 best epoch 26 520s\n"}
+,{"stream_name":"stdout","time":625.923214656,"data":"pog MultiDAE seed 2023 epoch 30 val R20 0.0104 N20 0.0050 best epoch 26 537s\n"}
+,{"stream_name":"stdout","time":643.322684381,"data":"pog MultiDAE seed 2023 epoch 31 val R20 0.0102 N20 0.0044 best epoch 26 554s\n"}
+,{"stream_name":"stdout","time":660.567394096,"data":"pog MultiDAE seed 2023 epoch 32 val R20 0.0086 N20 0.0040 best epoch 26 572s\n"}
+,{"stream_name":"stdout","time":678.151311433,"data":"pog MultiDAE seed 2023 epoch 33 val R20 0.0079 N20 0.0041 best epoch 26 589s\n"}
+,{"stream_name":"stdout","time":695.267921529,"data":"pog MultiDAE seed 2023 epoch 34 val R20 0.0098 N20 0.0048 best epoch 26 606s\n"}
+,{"stream_name":"stdout","time":712.633667678,"data":"pog MultiDAE seed 2023 epoch 35 val R20 0.0128 N20 0.0062 best epoch 35 624s\n"}
+,{"stream_name":"stdout","time":730.095936788,"data":"pog MultiDAE seed 2023 epoch 36 val R20 0.0100 N20 0.0051 best epoch 35 641s\n"}
+,{"stream_name":"stdout","time":747.333684604,"data":"pog MultiDAE seed 2023 epoch 37 val R20 0.0081 N20 0.0041 best epoch 35 658s\n"}
+,{"stream_name":"stdout","time":764.761407244,"data":"pog MultiDAE seed 2023 epoch 38 val R20 0.0121 N20 0.0055 best epoch 35 676s\n"}
+,{"stream_name":"stdout","time":782.351028181,"data":"pog MultiDAE seed 2023 epoch 39 val R20 0.0116 N20 0.0060 best epoch 35 693s\n"}
+,{"stream_name":"stdout","time":799.576687422,"data":"pog MultiDAE seed 2023 epoch 40 val R20 0.0115 N20 0.0051 best epoch 35 711s\n"}
+,{"stream_name":"stdout","time":816.691563482,"data":"pog MultiDAE seed 2023 epoch 41 val R20 0.0110 N20 0.0053 best epoch 35 728s\n"}
+,{"stream_name":"stdout","time":833.940751991,"data":"pog MultiDAE seed 2023 epoch 42 val R20 0.0110 N20 0.0048 best epoch 35 745s\n"}
+,{"stream_name":"stdout","time":851.329135997,"data":"pog MultiDAE seed 2023 epoch 43 val R20 0.0116 N20 0.0057 best epoch 35 762s\n"}
+,{"stream_name":"stdout","time":868.729657338,"data":"pog MultiDAE seed 2023 epoch 44 val R20 0.0098 N20 0.0048 best epoch 35 780s\n"}
+,{"stream_name":"stdout","time":885.975473004,"data":"pog MultiDAE seed 2023 epoch 45 val R20 0.0111 N20 0.0056 best epoch 35 797s\n"}
+,{"stream_name":"stdout","time":903.423043773,"data":"pog MultiDAE seed 2023 epoch 46 val R20 0.0121 N20 0.0070 best epoch 35 814s\n"}
+,{"stream_name":"stdout","time":920.799403654,"data":"pog MultiDAE seed 2023 epoch 47 val R20 0.0122 N20 0.0066 best epoch 35 832s\n"}
+,{"stream_name":"stdout","time":937.950733177,"data":"pog MultiDAE seed 2023 epoch 48 val R20 0.0118 N20 0.0066 best epoch 35 849s\n"}
+,{"stream_name":"stdout","time":955.34847554,"data":"pog MultiDAE seed 2023 epoch 49 val R20 0.0109 N20 0.0054 best epoch 35 866s\n"}
+,{"stream_name":"stdout","time":959.86532331,"data":"RESULT pog MultiDAE seed 2023 epoch 35 test R20 0.0097 N20 0.0048\n"}
+,{"stream_name":"stdout","time":960.816399918,"data":"Train: 5\n"}
+,{"stream_name":"stdout","time":960.817169392,"data":"Val/Test: 2\n"}
+,{"stream_name":"stdout","time":960.817915413,"data":"Val/Test: 2\n"}
+,{"stream_name":"stderr","time":960.818147221,"data":"/usr/local/lib/python3.13/dist-packages/torch/utils/data/dataloader.py:424: UserWarning: This DataLoader will create 10 worker processes in total. Our suggested max number of worker in current system is 4, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.\n"}
+,{"stream_name":"stderr","time":960.818160013,"data":"  self.check_worker_number_rationality()\n"}
+,{"stream_name":"stderr","time":960.818260564,"data":"/usr/local/lib/python3.13/dist-packages/torch/utils/data/dataloader.py:424: UserWarning: This DataLoader will create 20 worker processes in total. Our suggested max number of worker in current system is 4, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.\n"}
+,{"stream_name":"stderr","time":960.818270224,"data":"  self.check_worker_number_rationality()\n"}
+,{"stream_name":"stdout","time":978.451988636,"data":"pog MultiDAE seed 0 epoch 0 val R20 0.0024 N20 0.0010 best epoch 0 18s\n"}
+,{"stream_name":"stdout","time":995.942743111,"data":"pog MultiDAE seed 0 epoch 1 val R20 0.0030 N20 0.0014 best epoch 1 35s\n"}
+,{"stream_name":"stdout","time":1013.677659892,"data":"pog MultiDAE seed 0 epoch 2 val R20 0.0040 N20 0.0019 best epoch 2 53s\n"}
+,{"stream_name":"stdout","time":1031.096505551,"data":"pog MultiDAE seed 0 epoch 3 val R20 0.0040 N20 0.0020 best epoch 2 70s\n"}
+,{"stream_name":"stdout","time":1048.467254152,"data":"pog MultiDAE seed 0 epoch 4 val R20 0.0043 N20 0.0016 best epoch 2 88s\n"}
+,{"stream_name":"stdout","time":1065.945895574,"data":"pog MultiDAE seed 0 epoch 5 val R20 0.0045 N20 0.0025 best epoch 5 105s\n"}
+,{"stream_name":"stdout","time":1083.507329763,"data":"pog MultiDAE seed 0 epoch 6 val R20 0.0049 N20 0.0020 best epoch 5 123s\n"}
+,{"stream_name":"stdout","time":1100.843111246,"data":"pog MultiDAE seed 0 epoch 7 val R20 0.0042 N20 0.0018 best epoch 5 140s\n"}
+,{"stream_name":"stdout","time":1118.350679557,"data":"pog MultiDAE seed 0 epoch 8 val R20 0.0062 N20 0.0029 best epoch 8 157s\n"}
+,{"stream_name":"stdout","time":1135.63506067,"data":"pog MultiDAE seed 0 epoch 9 val R20 0.0042 N20 0.0018 best epoch 8 175s\n"}
+,{"stream_name":"stdout","time":1153.19657095,"data":"pog MultiDAE seed 0 epoch 10 val R20 0.0062 N20 0.0031 best epoch 10 192s\n"}
+,{"stream_name":"stdout","time":1170.689356403,"data":"pog MultiDAE seed 0 epoch 11 val R20 0.0071 N20 0.0031 best epoch 10 210s\n"}
+,{"stream_name":"stdout","time":1188.297289781,"data":"pog MultiDAE seed 0 epoch 12 val R20 0.0073 N20 0.0035 best epoch 12 227s\n"}
+,{"stream_name":"stdout","time":1205.639779551,"data":"pog MultiDAE seed 0 epoch 13 val R20 0.0069 N20 0.0030 best epoch 12 245s\n"}
+,{"stream_name":"stdout","time":1222.977877497,"data":"pog MultiDAE seed 0 epoch 14 val R20 0.0074 N20 0.0033 best epoch 12 262s\n"}
+,{"stream_name":"stdout","time":1240.351801692,"data":"pog MultiDAE seed 0 epoch 15 val R20 0.0065 N20 0.0036 best epoch 12 279s\n"}
+,{"stream_name":"stdout","time":1257.897026899,"data":"pog MultiDAE seed 0 epoch 16 val R20 0.0073 N20 0.0035 best epoch 12 297s\n"}
+,{"stream_name":"stdout","time":1275.399504869,"data":"pog MultiDAE seed 0 epoch 17 val R20 0.0097 N20 0.0052 best epoch 17 315s\n"}
+,{"stream_name":"stdout","time":1292.82521131,"data":"pog MultiDAE seed 0 epoch 18 val R20 0.0081 N20 0.0041 best epoch 17 332s\n"}
+,{"stream_name":"stdout","time":1310.350124608,"data":"pog MultiDAE seed 0 epoch 19 val R20 0.0093 N20 0.0043 best epoch 17 349s\n"}
+,{"stream_name":"stdout","time":1327.539547029,"data":"pog MultiDAE seed 0 epoch 20 val R20 0.0088 N20 0.0043 best epoch 17 367s\n"}
+,{"stream_name":"stdout","time":1344.803228719,"data":"pog MultiDAE seed 0 epoch 21 val R20 0.0078 N20 0.0046 best epoch 17 384s\n"}
+,{"stream_name":"stdout","time":1362.168505644,"data":"pog MultiDAE seed 0 epoch 22 val R20 0.0090 N20 0.0049 best epoch 17 401s\n"}
+,{"stream_name":"stdout","time":1379.533309228,"data":"pog MultiDAE seed 0 epoch 23 val R20 0.0098 N20 0.0053 best epoch 23 419s\n"}
+,{"stream_name":"stdout","time":1396.944302549,"data":"pog MultiDAE seed 0 epoch 24 val R20 0.0115 N20 0.0063 best epoch 24 436s\n"}
+,{"stream_name":"stdout","time":1414.512809093,"data":"pog MultiDAE seed 0 epoch 25 val R20 0.0100 N20 0.0049 best epoch 24 454s\n"}
+,{"stream_name":"stdout","time":1431.875565003,"data":"pog MultiDAE seed 0 epoch 26 val R20 0.0093 N20 0.0047 best epoch 24 471s\n"}
+,{"stream_name":"stdout","time":1449.421020396,"data":"pog MultiDAE seed 0 epoch 27 val R20 0.0103 N20 0.0053 best epoch 24 489s\n"}
+,{"stream_name":"stdout","time":1466.893327481,"data":"pog MultiDAE seed 0 epoch 28 val R20 0.0106 N20 0.0058 best epoch 24 506s\n"}
+,{"stream_name":"stdout","time":1484.215419406,"data":"pog MultiDAE seed 0 epoch 29 val R20 0.0105 N20 0.0052 best epoch 24 523s\n"}
+,{"stream_name":"stdout","time":1501.736208639,"data":"pog MultiDAE seed 0 epoch 30 val R20 0.0101 N20 0.0051 best epoch 24 541s\n"}
+,{"stream_name":"stdout","time":1519.028006652,"data":"pog MultiDAE seed 0 epoch 31 val R20 0.0105 N20 0.0057 best epoch 24 558s\n"}
+,{"stream_name":"stdout","time":1536.454558831,"data":"pog MultiDAE seed 0 epoch 32 val R20 0.0126 N20 0.0067 best epoch 32 576s\n"}
+,{"stream_name":"stdout","time":1553.832342663,"data":"pog MultiDAE seed 0 epoch 33 val R20 0.0108 N20 0.0054 best epoch 32 593s\n"}
+,{"stream_name":"stdout","time":1571.301946594,"data":"pog MultiDAE seed 0 epoch 34 val R20 0.0095 N20 0.0047 best epoch 32 610s\n"}
+,{"stream_name":"stdout","time":1588.696806361,"data":"pog MultiDAE seed 0 epoch 35 val R20 0.0119 N20 0.0066 best epoch 32 628s\n"}
+,{"stream_name":"stdout","time":1606.06872119,"data":"pog MultiDAE seed 0 epoch 36 val R20 0.0123 N20 0.0063 best epoch 32 645s\n"}
+,{"stream_name":"stdout","time":1623.351685954,"data":"pog MultiDAE seed 0 epoch 37 val R20 0.0120 N20 0.0058 best epoch 32 662s\n"}
+,{"stream_name":"stdout","time":1640.837568086,"data":"pog MultiDAE seed 0 epoch 38 val R20 0.0099 N20 0.0053 best epoch 32 680s\n"}
+,{"stream_name":"stdout","time":1658.393836237,"data":"pog MultiDAE seed 0 epoch 39 val R20 0.0120 N20 0.0063 best epoch 32 698s\n"}
+,{"stream_name":"stdout","time":1675.788671797,"data":"pog MultiDAE seed 0 epoch 40 val R20 0.0119 N20 0.0066 best epoch 32 715s\n"}
+,{"stream_name":"stdout","time":1693.234494872,"data":"pog MultiDAE seed 0 epoch 41 val R20 0.0105 N20 0.0051 best epoch 32 732s\n"}
+,{"stream_name":"stdout","time":1710.555541192,"data":"pog MultiDAE seed 0 epoch 42 val R20 0.0120 N20 0.0060 best epoch 32 750s\n"}
+,{"stream_name":"stdout","time":1728.190560599,"data":"pog MultiDAE seed 0 epoch 43 val R20 0.0121 N20 0.0070 best epoch 32 767s\n"}
+,{"stream_name":"stdout","time":1745.845423492,"data":"pog MultiDAE seed 0 epoch 44 val R20 0.0116 N20 0.0057 best epoch 32 785s\n"}
+,{"stream_name":"stdout","time":1767.62597946,"data":"pog MultiDAE seed 0 epoch 45 val R20 0.0118 N20 0.0059 best epoch 32 807s\n"}
+,{"stream_name":"stdout","time":1785.112748371,"data":"pog MultiDAE seed 0 epoch 46 val R20 0.0128 N20 0.0065 best epoch 32 824s\n"}
+,{"stream_name":"stdout","time":1802.541200136,"data":"pog MultiDAE seed 0 epoch 47 val R20 0.0113 N20 0.0057 best epoch 32 842s\n"}
+,{"stream_name":"stdout","time":1819.790219261,"data":"pog MultiDAE seed 0 epoch 48 val R20 0.0125 N20 0.0063 best epoch 32 859s\n"}
+,{"stream_name":"stdout","time":1837.002348077,"data":"pog MultiDAE seed 0 epoch 49 val R20 0.0116 N20 0.0056 best epoch 32 876s\n"}
+,{"stream_name":"stdout","time":1841.606710072,"data":"RESULT pog MultiDAE seed 0 epoch 32 test R20 0.0113 N20 0.0050\n"}
+,{"stream_name":"stdout","time":1842.530477717,"data":"Train: 5\n"}
+,{"stream_name":"stdout","time":1842.531034477,"data":"Val/Test: 2\n"}
+,{"stream_name":"stdout","time":1842.531808907,"data":"Val/Test: 2\n"}
+,{"stream_name":"stdout","time":1859.992942526,"data":"pog MultiDAE seed 1 epoch 0 val R20 0.0031 N20 0.0014 best epoch 0 17s\n"}
+,{"stream_name":"stdout","time":1877.907711493,"data":"pog MultiDAE seed 1 epoch 1 val R20 0.0020 N20 0.0008 best epoch 0 35s\n"}
+,{"stream_name":"stdout","time":1895.400612694,"data":"pog MultiDAE seed 1 epoch 2 val R20 0.0032 N20 0.0013 best epoch 0 53s\n"}
+,{"stream_name":"stdout","time":1912.898042762,"data":"pog MultiDAE seed 1 epoch 3 val R20 0.0033 N20 0.0013 best epoch 0 70s\n"}
+,{"stream_name":"stdout","time":1930.387576925,"data":"pog MultiDAE seed 1 epoch 4 val R20 0.0046 N20 0.0020 best epoch 4 88s\n"}
+,{"stream_name":"stdout","time":1948.000400329,"data":"pog MultiDAE seed 1 epoch 5 val R20 0.0056 N20 0.0028 best epoch 5 105s\n"}
+,{"stream_name":"stdout","time":1965.440946506,"data":"pog MultiDAE seed 1 epoch 6 val R20 0.0060 N20 0.0028 best epoch 5 123s\n"}
+,{"stream_name":"stdout","time":1983.055670327,"data":"pog MultiDAE seed 1 epoch 7 val R20 0.0037 N20 0.0017 best epoch 5 140s\n"}
+,{"stream_name":"stdout","time":2000.607889706,"data":"pog MultiDAE seed 1 epoch 8 val R20 0.0048 N20 0.0025 best epoch 5 158s\n"}
+,{"stream_name":"stdout","time":2018.119038525,"data":"pog MultiDAE seed 1 epoch 9 val R20 0.0053 N20 0.0026 best epoch 5 176s\n"}
+,{"stream_name":"stdout","time":2035.552458604,"data":"pog MultiDAE seed 1 epoch 10 val R20 0.0067 N20 0.0034 best epoch 10 193s\n"}
+,{"stream_name":"stdout","time":2053.11293527,"data":"pog MultiDAE seed 1 epoch 11 val R20 0.0052 N20 0.0025 best epoch 10 211s\n"}
+,{"stream_name":"stdout","time":2070.506046791,"data":"pog MultiDAE seed 1 epoch 12 val R20 0.0062 N20 0.0031 best epoch 10 228s\n"}
+,{"stream_name":"stdout","time":2087.899166852,"data":"pog MultiDAE seed 1 epoch 13 val R20 0.0056 N20 0.0028 best epoch 10 245s\n"}
+,{"stream_name":"stdout","time":2105.359322298,"data":"pog MultiDAE seed 1 epoch 14 val R20 0.0072 N20 0.0047 best epoch 14 263s\n"}
+,{"stream_name":"stdout","time":2122.781161468,"data":"pog MultiDAE seed 1 epoch 15 val R20 0.0063 N20 0.0034 best epoch 14 280s\n"}
+,{"stream_name":"stdout","time":2140.374142615,"data":"pog MultiDAE seed 1 epoch 16 val R20 0.0090 N20 0.0038 best epoch 14 298s\n"}
+,{"stream_name":"stdout","time":2157.772567464,"data":"pog MultiDAE seed 1 epoch 17 val R20 0.0103 N20 0.0049 best epoch 17 315s\n"}
+,{"stream_name":"stdout","time":2175.09146863,"data":"pog MultiDAE seed 1 epoch 18 val R20 0.0059 N20 0.0031 best epoch 17 333s\n"}
+,{"stream_name":"stdout","time":2192.482319365,"data":"pog MultiDAE seed 1 epoch 19 val R20 0.0098 N20 0.0046 best epoch 17 350s\n"}
+,{"stream_name":"stdout","time":2210.010951803,"data":"pog MultiDAE seed 1 epoch 20 val R20 0.0072 N20 0.0039 best epoch 17 367s\n"}
+,{"stream_name":"stdout","time":2227.614194835,"data":"pog MultiDAE seed 1 epoch 21 val R20 0.0092 N20 0.0050 best epoch 17 385s\n"}
+,{"stream_name":"stdout","time":2245.095568091,"data":"pog MultiDAE seed 1 epoch 22 val R20 0.0075 N20 0.0033 best epoch 17 403s\n"}
+,{"stream_name":"stdout","time":2262.651983464,"data":"pog MultiDAE seed 1 epoch 23 val R20 0.0090 N20 0.0041 best epoch 17 420s\n"}
+,{"stream_name":"stdout","time":2280.026359662,"data":"pog MultiDAE seed 1 epoch 24 val R20 0.0106 N20 0.0057 best epoch 24 437s\n"}
+,{"stream_name":"stdout","time":2297.470269522,"data":"pog MultiDAE seed 1 epoch 25 val R20 0.0088 N20 0.0043 best epoch 24 455s\n"}
+,{"stream_name":"stdout","time":2314.781509092,"data":"pog MultiDAE seed 1 epoch 26 val R20 0.0088 N20 0.0050 best epoch 24 472s\n"}
+,{"stream_name":"stdout","time":2332.35714403,"data":"pog MultiDAE seed 1 epoch 27 val R20 0.0110 N20 0.0057 best epoch 27 490s\n"}
+,{"stream_name":"stdout","time":2349.928366654,"data":"pog MultiDAE seed 1 epoch 28 val R20 0.0109 N20 0.0054 best epoch 27 507s\n"}
+,{"stream_name":"stdout","time":2367.392218046,"data":"pog MultiDAE seed 1 epoch 29 val R20 0.0091 N20 0.0043 best epoch 27 525s\n"}
+,{"stream_name":"stdout","time":2384.825308781,"data":"pog MultiDAE seed 1 epoch 30 val R20 0.0108 N20 0.0055 best epoch 27 542s\n"}
+,{"stream_name":"stdout","time":2402.30899411,"data":"pog MultiDAE seed 1 epoch 31 val R20 0.0100 N20 0.0051 best epoch 27 560s\n"}
+,{"stream_name":"stdout","time":2419.673017979,"data":"pog MultiDAE seed 1 epoch 32 val R20 0.0109 N20 0.0055 best epoch 27 577s\n"}
+,{"stream_name":"stdout","time":2437.218440973,"data":"pog MultiDAE seed 1 epoch 33 val R20 0.0125 N20 0.0063 best epoch 33 595s\n"}
+,{"stream_name":"stdout","time":2454.709538496,"data":"pog MultiDAE seed 1 epoch 34 val R20 0.0101 N20 0.0061 best epoch 33 612s\n"}
+,{"stream_name":"stdout","time":2472.113490906,"data":"pog MultiDAE seed 1 epoch 35 val R20 0.0107 N20 0.0051 best epoch 33 630s\n"}
+,{"stream_name":"stdout","time":2489.638956298,"data":"pog MultiDAE seed 1 epoch 36 val R20 0.0128 N20 0.0062 best epoch 33 647s\n"}
+,{"stream_name":"stdout","time":2507.079265287,"data":"pog MultiDAE seed 1 epoch 37 val R20 0.0112 N20 0.0058 best epoch 33 665s\n"}
+,{"stream_name":"stdout","time":2524.626497532,"data":"pog MultiDAE seed 1 epoch 38 val R20 0.0118 N20 0.0058 best epoch 33 682s\n"}
+,{"stream_name":"stdout","time":2541.994084623,"data":"pog MultiDAE seed 1 epoch 39 val R20 0.0117 N20 0.0061 best epoch 33 699s\n"}
+,{"stream_name":"stdout","time":2559.192974357,"data":"pog MultiDAE seed 1 epoch 40 val R20 0.0118 N20 0.0064 best epoch 33 717s\n"}
+,{"stream_name":"stdout","time":2576.653340769,"data":"pog MultiDAE seed 1 epoch 41 val R20 0.0108 N20 0.0061 best epoch 33 734s\n"}
+,{"stream_name":"stdout","time":2594.137278357,"data":"pog MultiDAE seed 1 epoch 42 val R20 0.0121 N20 0.0064 best epoch 33 752s\n"}
+,{"stream_name":"stdout","time":2611.439845897,"data":"pog MultiDAE seed 1 epoch 43 val R20 0.0108 N20 0.0055 best epoch 33 769s\n"}
+,{"stream_name":"stdout","time":2628.787421092,"data":"pog MultiDAE seed 1 epoch 44 val R20 0.0136 N20 0.0068 best epoch 44 786s\n"}
+,{"stream_name":"stdout","time":2646.154834899,"data":"pog MultiDAE seed 1 epoch 45 val R20 0.0124 N20 0.0066 best epoch 44 804s\n"}
+,{"stream_name":"stdout","time":2663.565377578,"data":"pog MultiDAE seed 1 epoch 46 val R20 0.0134 N20 0.0064 best epoch 44 821s\n"}
+,{"stream_name":"stdout","time":2681.14623707,"data":"pog MultiDAE seed 1 epoch 47 val R20 0.0116 N20 0.0066 best epoch 44 839s\n"}
+,{"stream_name":"stdout","time":2698.67277771,"data":"pog MultiDAE seed 1 epoch 48 val R20 0.0133 N20 0.0065 best epoch 44 856s\n"}
+,{"stream_name":"stdout","time":2716.267471812,"data":"pog MultiDAE seed 1 epoch 49 val R20 0.0133 N20 0.0071 best epoch 44 874s\n"}
+,{"stream_name":"stdout","time":2720.909274357,"data":"RESULT pog MultiDAE seed 1 epoch 44 test R20 0.0098 N20 0.0055\n"}
+,{"stream_name":"stdout","time":2721.877897965,"data":"Train: 5\n"}
+,{"stream_name":"stdout","time":2721.878625833,"data":"Val/Test: 2\n"}
+,{"stream_name":"stdout","time":2721.879483892,"data":"Val/Test: 2\n"}
+,{"stream_name":"stdout","time":2739.777744907,"data":"pog MultiVAE_a0 seed 2023 epoch 0 val R20 0.0013 N20 0.0005 best epoch 0 18s\n"}
+,{"stream_name":"stdout","time":2757.712415095,"data":"pog MultiVAE_a0 seed 2023 epoch 1 val R20 0.0037 N20 0.0015 best epoch 1 36s\n"}
+,{"stream_name":"stdout","time":2775.612359968,"data":"pog MultiVAE_a0 seed 2023 epoch 2 val R20 0.0063 N20 0.0034 best epoch 2 54s\n"}
+,{"stream_name":"stdout","time":2793.336861792,"data":"pog MultiVAE_a0 seed 2023 epoch 3 val R20 0.0054 N20 0.0040 best epoch 2 71s\n"}
+,{"stream_name":"stdout","time":2811.017619308,"data":"pog MultiVAE_a0 seed 2023 epoch 4 val R20 0.0085 N20 0.0058 best epoch 4 89s\n"}
+,{"stream_name":"stdout","time":2828.862975636,"data":"pog MultiVAE_a0 seed 2023 epoch 5 val R20 0.0101 N20 0.0069 best epoch 5 107s\n"}
+,{"stream_name":"stdout","time":2846.58726578,"data":"pog MultiVAE_a0 seed 2023 epoch 6 val R20 0.0115 N20 0.0078 best epoch 6 125s\n"}
+,{"stream_name":"stdout","time":2864.057432251,"data":"pog MultiVAE_a0 seed 2023 epoch 7 val R20 0.0115 N20 0.0074 best epoch 6 142s\n"}
+,{"stream_name":"stdout","time":2881.755291214,"data":"pog MultiVAE_a0 seed 2023 epoch 8 val R20 0.0116 N20 0.0076 best epoch 6 160s\n"}
+,{"stream_name":"stdout","time":2899.481764491,"data":"pog MultiVAE_a0 seed 2023 epoch 9 val R20 0.0136 N20 0.0082 best epoch 9 178s\n"}
+,{"stream_name":"stdout","time":2917.150897691,"data":"pog MultiVAE_a0 seed 2023 epoch 10 val R20 0.0138 N20 0.0091 best epoch 10 195s\n"}
+,{"stream_name":"stdout","time":2934.768667137,"data":"pog MultiVAE_a0 seed 2023 epoch 11 val R20 0.0143 N20 0.0090 best epoch 10 213s\n"}
+,{"stream_name":"stdout","time":2952.530422023,"data":"pog MultiVAE_a0 seed 2023 epoch 12 val R20 0.0170 N20 0.0101 best epoch 12 231s\n"}
+,{"stream_name":"stdout","time":2970.190985579,"data":"pog MultiVAE_a0 seed 2023 epoch 13 val R20 0.0157 N20 0.0103 best epoch 12 248s\n"}
+,{"stream_name":"stdout","time":2987.749377598,"data":"pog MultiVAE_a0 seed 2023 epoch 14 val R20 0.0169 N20 0.0103 best epoch 12 266s\n"}
+,{"stream_name":"stdout","time":3005.399637437,"data":"pog MultiVAE_a0 seed 2023 epoch 15 val R20 0.0198 N20 0.0114 best epoch 15 283s\n"}
+,{"stream_name":"stdout","time":3023.072163583,"data":"pog MultiVAE_a0 seed 2023 epoch 16 val R20 0.0158 N20 0.0105 best epoch 15 301s\n"}
+,{"stream_name":"stdout","time":3040.649095119,"data":"pog MultiVAE_a0 seed 2023 epoch 17 val R20 0.0166 N20 0.0094 best epoch 15 319s\n"}
+,{"stream_name":"stdout","time":3058.451132317,"data":"pog MultiVAE_a0 seed 2023 epoch 18 val R20 0.0177 N20 0.0104 best epoch 15 337s\n"}
+,{"stream_name":"stdout","time":3076.139364874,"data":"pog MultiVAE_a0 seed 2023 epoch 19 val R20 0.0187 N20 0.0111 best epoch 15 354s\n"}
+,{"stream_name":"stdout","time":3093.872482264,"data":"pog MultiVAE_a0 seed 2023 epoch 20 val R20 0.0200 N20 0.0118 best epoch 20 372s\n"}
+,{"stream_name":"stdout","time":3111.563339475,"data":"pog MultiVAE_a0 seed 2023 epoch 21 val R20 0.0195 N20 0.0116 best epoch 20 390s\n"}
+,{"stream_name":"stdout","time":3129.169870593,"data":"pog MultiVAE_a0 seed 2023 epoch 22 val R20 0.0167 N20 0.0097 best epoch 20 407s\n"}
+,{"stream_name":"stdout","time":3146.742314449,"data":"pog MultiVAE_a0 seed 2023 epoch 23 val R20 0.0210 N20 0.0115 best epoch 20 425s\n"}
+,{"stream_name":"stdout","time":3164.363420717,"data":"pog MultiVAE_a0 seed 2023 epoch 24 val R20 0.0198 N20 0.0112 best epoch 20 442s\n"}
+,{"stream_name":"stdout","time":3181.876104684,"data":"pog MultiVAE_a0 seed 2023 epoch 25 val R20 0.0201 N20 0.0120 best epoch 25 460s\n"}
+,{"stream_name":"stdout","time":3199.227491302,"data":"pog MultiVAE_a0 seed 2023 epoch 26 val R20 0.0205 N20 0.0111 best epoch 25 477s\n"}
+,{"stream_name":"stdout","time":3216.90522018,"data":"pog MultiVAE_a0 seed 2023 epoch 27 val R20 0.0190 N20 0.0118 best epoch 25 495s\n"}
+,{"stream_name":"stdout","time":3234.516463241,"data":"pog MultiVAE_a0 seed 2023 epoch 28 val R20 0.0183 N20 0.0112 best epoch 25 513s\n"}
+,{"stream_name":"stdout","time":3252.17900634,"data":"pog MultiVAE_a0 seed 2023 epoch 29 val R20 0.0211 N20 0.0126 best epoch 29 530s\n"}
+,{"stream_name":"stdout","time":3269.634419407,"data":"pog MultiVAE_a0 seed 2023 epoch 30 val R20 0.0195 N20 0.0126 best epoch 29 548s\n"}
+,{"stream_name":"stdout","time":3287.329547078,"data":"pog MultiVAE_a0 seed 2023 epoch 31 val R20 0.0200 N20 0.0119 best epoch 29 565s\n"}
+,{"stream_name":"stdout","time":3304.654430573,"data":"pog MultiVAE_a0 seed 2023 epoch 32 val R20 0.0198 N20 0.0117 best epoch 29 583s\n"}
+,{"stream_name":"stdout","time":3322.260921555,"data":"pog MultiVAE_a0 seed 2023 epoch 33 val R20 0.0217 N20 0.0121 best epoch 29 600s\n"}
+,{"stream_name":"stdout","time":3339.914899015,"data":"pog MultiVAE_a0 seed 2023 epoch 34 val R20 0.0197 N20 0.0116 best epoch 29 618s\n"}
+,{"stream_name":"stdout","time":3357.612287968,"data":"pog MultiVAE_a0 seed 2023 epoch 35 val R20 0.0210 N20 0.0126 best epoch 29 636s\n"}
+,{"stream_name":"stdout","time":3375.116394827,"data":"pog MultiVAE_a0 seed 2023 epoch 36 val R20 0.0198 N20 0.0111 best epoch 29 653s\n"}
+,{"stream_name":"stdout","time":3392.676281954,"data":"pog MultiVAE_a0 seed 2023 epoch 37 val R20 0.0170 N20 0.0110 best epoch 29 671s\n"}
+,{"stream_name":"stdout","time":3410.196524606,"data":"pog MultiVAE_a0 seed 2023 epoch 38 val R20 0.0223 N20 0.0116 best epoch 29 688s\n"}
+,{"stream_name":"stdout","time":3427.723646027,"data":"pog MultiVAE_a0 seed 2023 epoch 39 val R20 0.0175 N20 0.0098 best epoch 29 706s\n"}
+,{"stream_name":"stdout","time":3445.207239404,"data":"pog MultiVAE_a0 seed 2023 epoch 40 val R20 0.0195 N20 0.0110 best epoch 29 723s\n"}
+,{"stream_name":"stdout","time":3462.592543144,"data":"pog MultiVAE_a0 seed 2023 epoch 41 val R20 0.0196 N20 0.0112 best epoch 29 741s\n"}
+,{"stream_name":"stdout","time":3479.970452563,"data":"pog MultiVAE_a0 seed 2023 epoch 42 val R20 0.0183 N20 0.0103 best epoch 29 758s\n"}
+,{"stream_name":"stdout","time":3497.457356231,"data":"pog MultiVAE_a0 seed 2023 epoch 43 val R20 0.0193 N20 0.0116 best epoch 29 776s\n"}
+,{"stream_name":"stdout","time":3515.030835947,"data":"pog MultiVAE_a0 seed 2023 epoch 44 val R20 0.0203 N20 0.0112 best epoch 29 793s\n"}
+,{"stream_name":"stdout","time":3532.574228688,"data":"pog MultiVAE_a0 seed 2023 epoch 45 val R20 0.0223 N20 0.0119 best epoch 29 811s\n"}
+,{"stream_name":"stdout","time":3550.149526968,"data":"pog MultiVAE_a0 seed 2023 epoch 46 val R20 0.0229 N20 0.0117 best epoch 29 828s\n"}
+,{"stream_name":"stdout","time":3567.634380454,"data":"pog MultiVAE_a0 seed 2023 epoch 47 val R20 0.0225 N20 0.0119 best epoch 29 846s\n"}
+,{"stream_name":"stdout","time":3585.216822032,"data":"pog MultiVAE_a0 seed 2023 epoch 48 val R20 0.0213 N20 0.0122 best epoch 29 863s\n"}
+,{"stream_name":"stdout","time":3602.590220354,"data":"pog MultiVAE_a0 seed 2023 epoch 49 val R20 0.0230 N20 0.0130 best epoch 49 881s\n"}
+,{"stream_name":"stdout","time":3607.175918537,"data":"RESULT pog MultiVAE_a0 seed 2023 epoch 49 test R20 0.0168 N20 0.0084\n"}
+,{"stream_name":"stdout","time":3608.100664201,"data":"Train: 5\n"}
+,{"stream_name":"stdout","time":3608.101406132,"data":"Val/Test: 2\n"}
+,{"stream_name":"stdout","time":3608.102282746,"data":"Val/Test: 2\n"}
+,{"stream_name":"stdout","time":3626.2074563,"data":"pog MultiVAE_a0 seed 0 epoch 0 val R20 0.0022 N20 0.0010 best epoch 0 18s\n"}
+,{"stream_name":"stdout","time":3644.110360547,"data":"pog MultiVAE_a0 seed 0 epoch 1 val R20 0.0033 N20 0.0023 best epoch 1 36s\n"}
+,{"stream_name":"stdout","time":3662.191332147,"data":"pog MultiVAE_a0 seed 0 epoch 2 val R20 0.0060 N20 0.0035 best epoch 2 54s\n"}
+,{"stream_name":"stdout","time":3680.394990271,"data":"pog MultiVAE_a0 seed 0 epoch 3 val R20 0.0064 N20 0.0045 best epoch 3 72s\n"}
+,{"stream_name":"stdout","time":3702.566065336,"data":"pog MultiVAE_a0 seed 0 epoch 4 val R20 0.0081 N20 0.0049 best epoch 4 94s\n"}
+,{"stream_name":"stdout","time":3720.587336296,"data":"pog MultiVAE_a0 seed 0 epoch 5 val R20 0.0083 N20 0.0051 best epoch 5 112s\n"}
+,{"stream_name":"stdout","time":3738.744263021,"data":"pog MultiVAE_a0 seed 0 epoch 6 val R20 0.0096 N20 0.0060 best epoch 6 131s\n"}
+,{"stream_name":"stdout","time":3756.878231437,"data":"pog MultiVAE_a0 seed 0 epoch 7 val R20 0.0099 N20 0.0062 best epoch 7 149s\n"}
+,{"stream_name":"stdout","time":3774.758006856,"data":"pog MultiVAE_a0 seed 0 epoch 8 val R20 0.0113 N20 0.0073 best epoch 8 167s\n"}
+,{"stream_name":"stdout","time":3792.749619525,"data":"pog MultiVAE_a0 seed 0 epoch 9 val R20 0.0131 N20 0.0079 best epoch 9 185s\n"}
+,{"stream_name":"stdout","time":3810.631042303,"data":"pog MultiVAE_a0 seed 0 epoch 10 val R20 0.0138 N20 0.0084 best epoch 10 202s\n"}
+,{"stream_name":"stdout","time":3828.886399199,"data":"pog MultiVAE_a0 seed 0 epoch 11 val R20 0.0153 N20 0.0094 best epoch 11 221s\n"}
+,{"stream_name":"stdout","time":3846.757479934,"data":"pog MultiVAE_a0 seed 0 epoch 12 val R20 0.0158 N20 0.0106 best epoch 12 239s\n"}
+,{"stream_name":"stdout","time":3864.455461767,"data":"pog MultiVAE_a0 seed 0 epoch 13 val R20 0.0166 N20 0.0100 best epoch 12 256s\n"}
+,{"stream_name":"stdout","time":3882.350448039,"data":"pog MultiVAE_a0 seed 0 epoch 14 val R20 0.0180 N20 0.0108 best epoch 14 274s\n"}
+,{"stream_name":"stdout","time":3899.871647136,"data":"pog MultiVAE_a0 seed 0 epoch 15 val R20 0.0181 N20 0.0107 best epoch 14 292s\n"}
+,{"stream_name":"stdout","time":3917.81898466,"data":"pog MultiVAE_a0 seed 0 epoch 16 val R20 0.0180 N20 0.0108 best epoch 14 310s\n"}
+,{"stream_name":"stdout","time":3935.692290583,"data":"pog MultiVAE_a0 seed 0 epoch 17 val R20 0.0182 N20 0.0105 best epoch 14 328s\n"}
+,{"stream_name":"stdout","time":3953.63971628,"data":"pog MultiVAE_a0 seed 0 epoch 18 val R20 0.0193 N20 0.0114 best epoch 18 345s\n"}
+,{"stream_name":"stdout","time":3971.512120198,"data":"pog MultiVAE_a0 seed 0 epoch 19 val R20 0.0194 N20 0.0109 best epoch 18 363s\n"}
+,{"stream_name":"stdout","time":3989.582100264,"data":"pog MultiVAE_a0 seed 0 epoch 20 val R20 0.0171 N20 0.0103 best epoch 18 381s\n"}
+,{"stream_name":"stdout","time":4007.44214676,"data":"pog MultiVAE_a0 seed 0 epoch 21 val R20 0.0208 N20 0.0112 best epoch 18 399s\n"}
+,{"stream_name":"stdout","time":4025.202048665,"data":"pog MultiVAE_a0 seed 0 epoch 22 val R20 0.0187 N20 0.0116 best epoch 18 417s\n"}
+,{"stream_name":"stdout","time":4043.177116519,"data":"pog MultiVAE_a0 seed 0 epoch 23 val R20 0.0213 N20 0.0123 best epoch 23 435s\n"}
+,{"stream_name":"stdout","time":4060.857723131,"data":"pog MultiVAE_a0 seed 0 epoch 24 val R20 0.0180 N20 0.0103 best epoch 23 453s\n"}
+,{"stream_name":"stdout","time":4078.469065798,"data":"pog MultiVAE_a0 seed 0 epoch 25 val R20 0.0178 N20 0.0106 best epoch 23 470s\n"}
+,{"stream_name":"stdout","time":4096.385760462,"data":"pog MultiVAE_a0 seed 0 epoch 26 val R20 0.0218 N20 0.0122 best epoch 23 488s\n"}
+,{"stream_name":"stdout","time":4114.103785585,"data":"pog MultiVAE_a0 seed 0 epoch 27 val R20 0.0192 N20 0.0119 best epoch 23 506s\n"}
+,{"stream_name":"stdout","time":4131.879560822,"data":"pog MultiVAE_a0 seed 0 epoch 28 val R20 0.0189 N20 0.0119 best epoch 23 524s\n"}
+,{"stream_name":"stdout","time":4149.64325798,"data":"pog MultiVAE_a0 seed 0 epoch 29 val R20 0.0203 N20 0.0122 best epoch 23 541s\n"}
+,{"stream_name":"stdout","time":4167.433187031,"data":"pog MultiVAE_a0 seed 0 epoch 30 val R20 0.0211 N20 0.0122 best epoch 23 559s\n"}
+,{"stream_name":"stdout","time":4185.213422438,"data":"pog MultiVAE_a0 seed 0 epoch 31 val R20 0.0208 N20 0.0126 best epoch 23 577s\n"}
+,{"stream_name":"stdout","time":4202.85953385,"data":"pog MultiVAE_a0 seed 0 epoch 32 val R20 0.0193 N20 0.0116 best epoch 23 595s\n"}
+,{"stream_name":"stdout","time":4220.663494233,"data":"pog MultiVAE_a0 seed 0 epoch 33 val R20 0.0204 N20 0.0114 best epoch 23 613s\n"}
+,{"stream_name":"stdout","time":4238.572419913,"data":"pog MultiVAE_a0 seed 0 epoch 34 val R20 0.0198 N20 0.0110 best epoch 23 630s\n"}
+,{"stream_name":"stdout","time":4256.309449959,"data":"pog MultiVAE_a0 seed 0 epoch 35 val R20 0.0208 N20 0.0120 best epoch 23 648s\n"}
+,{"stream_name":"stdout","time":4274.006900964,"data":"pog MultiVAE_a0 seed 0 epoch 36 val R20 0.0192 N20 0.0119 best epoch 23 666s\n"}
+,{"stream_name":"stdout","time":4291.866632136,"data":"pog MultiVAE_a0 seed 0 epoch 37 val R20 0.0191 N20 0.0108 best epoch 23 684s\n"}
+,{"stream_name":"stdout","time":4309.698708218,"data":"pog MultiVAE_a0 seed 0 epoch 38 val R20 0.0218 N20 0.0114 best epoch 23 702s\n"}
+,{"stream_name":"stdout","time":4327.300140657,"data":"pog MultiVAE_a0 seed 0 epoch 39 val R20 0.0196 N20 0.0106 best epoch 23 719s\n"}
+,{"stream_name":"stdout","time":4344.95687729,"data":"pog MultiVAE_a0 seed 0 epoch 40 val R20 0.0219 N20 0.0121 best epoch 23 737s\n"}
+,{"stream_name":"stdout","time":4362.803277803,"data":"pog MultiVAE_a0 seed 0 epoch 41 val R20 0.0208 N20 0.0115 best epoch 23 755s\n"}
+,{"stream_name":"stdout","time":4380.476627003,"data":"pog MultiVAE_a0 seed 0 epoch 42 val R20 0.0178 N20 0.0104 best epoch 23 772s\n"}
+,{"stream_name":"stdout","time":4398.322164725,"data":"pog MultiVAE_a0 seed 0 epoch 43 val R20 0.0218 N20 0.0121 best epoch 23 790s\n"}
+,{"stream_name":"stdout","time":4415.984787137,"data":"pog MultiVAE_a0 seed 0 epoch 44 val R20 0.0213 N20 0.0111 best epoch 23 808s\n"}
+,{"stream_name":"stdout","time":4433.740949378,"data":"pog MultiVAE_a0 seed 0 epoch 45 val R20 0.0208 N20 0.0105 best epoch 23 826s\n"}
+,{"stream_name":"stdout","time":4451.355007542,"data":"pog MultiVAE_a0 seed 0 epoch 46 val R20 0.0190 N20 0.0102 best epoch 23 843s\n"}
+,{"stream_name":"stdout","time":4469.002009422,"data":"pog MultiVAE_a0 seed 0 epoch 47 val R20 0.0218 N20 0.0114 best epoch 23 861s\n"}
+,{"stream_name":"stdout","time":4486.590869392,"data":"pog MultiVAE_a0 seed 0 epoch 48 val R20 0.0231 N20 0.0119 best epoch 23 878s\n"}
+,{"stream_name":"stdout","time":4504.391030836,"data":"pog MultiVAE_a0 seed 0 epoch 49 val R20 0.0210 N20 0.0114 best epoch 23 896s\n"}
+,{"stream_name":"stdout","time":4509.113924128,"data":"RESULT pog MultiVAE_a0 seed 0 epoch 23 test R20 0.0182 N20 0.0097\n"}
+,{"stream_name":"stdout","time":4510.07488297,"data":"Train: 5\n"}
+,{"stream_name":"stdout","time":4510.075526855,"data":"Val/Test: 2\n"}
+,{"stream_name":"stdout","time":4510.076279593,"data":"Val/Test: 2\n"}
+,{"stream_name":"stdout","time":4528.521717392,"data":"pog MultiVAE_a0 seed 1 epoch 0 val R20 0.0013 N20 0.0007 best epoch 0 18s\n"}
+,{"stream_name":"stdout","time":4546.690676271,"data":"pog MultiVAE_a0 seed 1 epoch 1 val R20 0.0029 N20 0.0021 best epoch 1 37s\n"}
+,{"stream_name":"stdout","time":4564.575642059,"data":"pog MultiVAE_a0 seed 1 epoch 2 val R20 0.0048 N20 0.0031 best epoch 2 54s\n"}
+,{"stream_name":"stdout","time":4582.659612846,"data":"pog MultiVAE_a0 seed 1 epoch 3 val R20 0.0069 N20 0.0041 best epoch 3 73s\n"}
+,{"stream_name":"stdout","time":4600.349635275,"data":"pog MultiVAE_a0 seed 1 epoch 4 val R20 0.0084 N20 0.0054 best epoch 4 90s\n"}
+,{"stream_name":"stdout","time":4618.285999362,"data":"pog MultiVAE_a0 seed 1 epoch 5 val R20 0.0094 N20 0.0065 best epoch 5 108s\n"}
+,{"stream_name":"stdout","time":4636.171298046,"data":"pog MultiVAE_a0 seed 1 epoch 6 val R20 0.0099 N20 0.0070 best epoch 6 126s\n"}
+,{"stream_name":"stdout","time":4654.105564691,"data":"pog MultiVAE_a0 seed 1 epoch 7 val R20 0.0112 N20 0.0073 best epoch 7 144s\n"}
+,{"stream_name":"stdout","time":4671.91884674,"data":"pog MultiVAE_a0 seed 1 epoch 8 val R20 0.0107 N20 0.0072 best epoch 7 162s\n"}
+,{"stream_name":"stdout","time":4689.861634034,"data":"pog MultiVAE_a0 seed 1 epoch 9 val R20 0.0129 N20 0.0087 best epoch 9 180s\n"}
+,{"stream_name":"stdout","time":4707.879217969,"data":"pog MultiVAE_a0 seed 1 epoch 10 val R20 0.0153 N20 0.0094 best epoch 10 198s\n"}
+,{"stream_name":"stdout","time":4725.541322583,"data":"pog MultiVAE_a0 seed 1 epoch 11 val R20 0.0132 N20 0.0079 best epoch 10 215s\n"}
+,{"stream_name":"stdout","time":4743.38950901,"data":"pog MultiVAE_a0 seed 1 epoch 12 val R20 0.0147 N20 0.0092 best epoch 10 233s\n"}
+,{"stream_name":"stdout","time":4761.182347005,"data":"pog MultiVAE_a0 seed 1 epoch 13 val R20 0.0153 N20 0.0101 best epoch 10 251s\n"}
+,{"stream_name":"stdout","time":4779.029903484,"data":"pog MultiVAE_a0 seed 1 epoch 14 val R20 0.0142 N20 0.0090 best epoch 10 269s\n"}
+,{"stream_name":"stdout","time":4796.881350545,"data":"pog MultiVAE_a0 seed 1 epoch 15 val R20 0.0197 N20 0.0119 best epoch 15 287s\n"}
+,{"stream_name":"stdout","time":4814.577208704,"data":"pog MultiVAE_a0 seed 1 epoch 16 val R20 0.0162 N20 0.0095 best epoch 15 304s\n"}
+,{"stream_name":"stdout","time":4832.061425686,"data":"pog MultiVAE_a0 seed 1 epoch 17 val R20 0.0184 N20 0.0111 best epoch 15 322s\n"}
+,{"stream_name":"stdout","time":4849.831324845,"data":"pog MultiVAE_a0 seed 1 epoch 18 val R20 0.0198 N20 0.0113 best epoch 15 340s\n"}
+,{"stream_name":"stdout","time":4867.654895862,"data":"pog MultiVAE_a0 seed 1 epoch 19 val R20 0.0197 N20 0.0114 best epoch 15 358s\n"}
+,{"stream_name":"stdout","time":4885.240770983,"data":"pog MultiVAE_a0 seed 1 epoch 20 val R20 0.0186 N20 0.0110 best epoch 15 375s\n"}
+,{"stream_name":"stdout","time":4903.076397116,"data":"pog MultiVAE_a0 seed 1 epoch 21 val R20 0.0183 N20 0.0108 best epoch 15 393s\n"}
+,{"stream_name":"stdout","time":4920.731001537,"data":"pog MultiVAE_a0 seed 1 epoch 22 val R20 0.0179 N20 0.0107 best epoch 15 411s\n"}
+,{"stream_name":"stdout","time":4938.490744938,"data":"pog MultiVAE_a0 seed 1 epoch 23 val R20 0.0202 N20 0.0122 best epoch 23 428s\n"}
+,{"stream_name":"stdout","time":4956.534389898,"data":"pog MultiVAE_a0 seed 1 epoch 24 val R20 0.0200 N20 0.0116 best epoch 23 446s\n"}
+,{"stream_name":"stdout","time":4974.318294772,"data":"pog MultiVAE_a0 seed 1 epoch 25 val R20 0.0209 N20 0.0111 best epoch 23 464s\n"}
+,{"stream_name":"stdout","time":4992.068661473,"data":"pog MultiVAE_a0 seed 1 epoch 26 val R20 0.0224 N20 0.0132 best epoch 26 482s\n"}
+,{"stream_name":"stdout","time":5009.540328856,"data":"pog MultiVAE_a0 seed 1 epoch 27 val R20 0.0195 N20 0.0117 best epoch 26 499s\n"}
+,{"stream_name":"stdout","time":5027.165530878,"data":"pog MultiVAE_a0 seed 1 epoch 28 val R20 0.0213 N20 0.0117 best epoch 26 517s\n"}
+,{"stream_name":"stdout","time":5044.875543914,"data":"pog MultiVAE_a0 seed 1 epoch 29 val R20 0.0224 N20 0.0134 best epoch 29 535s\n"}
+,{"stream_name":"stdout","time":5062.824311419,"data":"pog MultiVAE_a0 seed 1 epoch 30 val R20 0.0209 N20 0.0117 best epoch 29 553s\n"}
+,{"stream_name":"stdout","time":5080.658270758,"data":"pog MultiVAE_a0 seed 1 epoch 31 val R20 0.0208 N20 0.0127 best epoch 29 571s\n"}
+,{"stream_name":"stdout","time":5098.433616824,"data":"pog MultiVAE_a0 seed 1 epoch 32 val R20 0.0197 N20 0.0111 best epoch 29 588s\n"}
+,{"stream_name":"stdout","time":5116.224775081,"data":"pog MultiVAE_a0 seed 1 epoch 33 val R20 0.0218 N20 0.0124 best epoch 29 606s\n"}
+,{"stream_name":"stdout","time":5134.000811285,"data":"pog MultiVAE_a0 seed 1 epoch 34 val R20 0.0185 N20 0.0104 best epoch 29 624s\n"}
+,{"stream_name":"stdout","time":5151.863870572,"data":"pog MultiVAE_a0 seed 1 epoch 35 val R20 0.0207 N20 0.0122 best epoch 29 642s\n"}
+,{"stream_name":"stdout","time":5169.623719822,"data":"pog MultiVAE_a0 seed 1 epoch 36 val R20 0.0184 N20 0.0103 best epoch 29 660s\n"}
+,{"stream_name":"stdout","time":5187.488514319,"data":"pog MultiVAE_a0 seed 1 epoch 37 val R20 0.0198 N20 0.0101 best epoch 29 677s\n"}
+,{"stream_name":"stdout","time":5205.272304355,"data":"pog MultiVAE_a0 seed 1 epoch 38 val R20 0.0218 N20 0.0117 best epoch 29 695s\n"}
+,{"stream_name":"stdout","time":5222.990889251,"data":"pog MultiVAE_a0 seed 1 epoch 39 val R20 0.0189 N20 0.0107 best epoch 29 713s\n"}
+,{"stream_name":"stdout","time":5240.675487243,"data":"pog MultiVAE_a0 seed 1 epoch 40 val R20 0.0228 N20 0.0116 best epoch 29 731s\n"}
+,{"stream_name":"stdout","time":5258.489953572,"data":"pog MultiVAE_a0 seed 1 epoch 41 val R20 0.0184 N20 0.0103 best epoch 29 748s\n"}
+,{"stream_name":"stdout","time":5276.320412663,"data":"pog MultiVAE_a0 seed 1 epoch 42 val R20 0.0221 N20 0.0121 best epoch 29 766s\n"}
+,{"stream_name":"stdout","time":5293.966663285,"data":"pog MultiVAE_a0 seed 1 epoch 43 val R20 0.0217 N20 0.0123 best epoch 29 784s\n"}
+,{"stream_name":"stdout","time":5311.675190062,"data":"pog MultiVAE_a0 seed 1 epoch 44 val R20 0.0208 N20 0.0115 best epoch 29 802s\n"}
+,{"stream_name":"stdout","time":5329.375105056,"data":"pog MultiVAE_a0 seed 1 epoch 45 val R20 0.0193 N20 0.0112 best epoch 29 819s\n"}
+,{"stream_name":"stdout","time":5347.189053261,"data":"pog MultiVAE_a0 seed 1 epoch 46 val R20 0.0200 N20 0.0114 best epoch 29 837s\n"}
+,{"stream_name":"stdout","time":5364.758232335,"data":"pog MultiVAE_a0 seed 1 epoch 47 val R20 0.0218 N20 0.0121 best epoch 29 855s\n"}
+,{"stream_name":"stdout","time":5382.400148803,"data":"pog MultiVAE_a0 seed 1 epoch 48 val R20 0.0221 N20 0.0119 best epoch 29 872s\n"}
+,{"stream_name":"stdout","time":5400.1188371,"data":"pog MultiVAE_a0 seed 1 epoch 49 val R20 0.0204 N20 0.0106 best epoch 29 890s\n"}
+,{"stream_name":"stdout","time":5404.885041613,"data":"RESULT pog MultiVAE_a0 seed 1 epoch 29 test R20 0.0202 N20 0.0110\n"}
+,{"stream_name":"stdout","time":5405.843612721,"data":"Train: 5\n"}
+,{"stream_name":"stdout","time":5405.844422764,"data":"Val/Test: 2\n"}
+,{"stream_name":"stdout","time":5405.845341566,"data":"Val/Test: 2\n"}
+,{"stream_name":"stdout","time":5423.953303263,"data":"pog MultiVAE_a0.2 seed 2023 epoch 0 val R20 0.0015 N20 0.0006 best epoch 0 18s\n"}
+,{"stream_name":"stdout","time":5442.014560657,"data":"pog MultiVAE_a0.2 seed 2023 epoch 1 val R20 0.0025 N20 0.0010 best epoch 1 36s\n"}
+,{"stream_name":"stdout","time":5460.082869286,"data":"pog MultiVAE_a0.2 seed 2023 epoch 2 val R20 0.0027 N20 0.0009 best epoch 1 54s\n"}
+,{"stream_name":"stdout","time":5477.977667183,"data":"pog MultiVAE_a0.2 seed 2023 epoch 3 val R20 0.0033 N20 0.0021 best epoch 3 72s\n"}
+,{"stream_name":"stdout","time":5495.658364323,"data":"pog MultiVAE_a0.2 seed 2023 epoch 4 val R20 0.0047 N20 0.0023 best epoch 4 90s\n"}
+,{"stream_name":"stdout","time":5513.488117048,"data":"pog MultiVAE_a0.2 seed 2023 epoch 5 val R20 0.0053 N20 0.0034 best epoch 5 108s\n"}
+,{"stream_name":"stdout","time":5531.361102652,"data":"pog MultiVAE_a0.2 seed 2023 epoch 6 val R20 0.0060 N20 0.0027 best epoch 5 125s\n"}
+,{"stream_name":"stdout","time":5549.233369895,"data":"pog MultiVAE_a0.2 seed 2023 epoch 7 val R20 0.0078 N20 0.0044 best epoch 7 143s\n"}
+,{"stream_name":"stdout","time":5566.910479848,"data":"pog MultiVAE_a0.2 seed 2023 epoch 8 val R20 0.0062 N20 0.0042 best epoch 7 161s\n"}
+,{"stream_name":"stdout","time":5584.668218544,"data":"pog MultiVAE_a0.2 seed 2023 epoch 9 val R20 0.0095 N20 0.0056 best epoch 9 179s\n"}
+,{"stream_name":"stdout","time":5602.190233518,"data":"pog MultiVAE_a0.2 seed 2023 epoch 10 val R20 0.0088 N20 0.0056 best epoch 9 196s\n"}
+,{"stream_name":"stdout","time":5620.015030507,"data":"pog MultiVAE_a0.2 seed 2023 epoch 11 val R20 0.0106 N20 0.0072 best epoch 11 214s\n"}
+,{"stream_name":"stdout","time":5637.8526814,"data":"pog MultiVAE_a0.2 seed 2023 epoch 12 val R20 0.0115 N20 0.0074 best epoch 12 232s\n"}
+,{"stream_name":"stdout","time":5655.739907447,"data":"pog MultiVAE_a0.2 seed 2023 epoch 13 val R20 0.0108 N20 0.0065 best epoch 12 250s\n"}
+,{"stream_name":"stdout","time":5673.553976527,"data":"pog MultiVAE_a0.2 seed 2023 epoch 14 val R20 0.0112 N20 0.0067 best epoch 12 268s\n"}
+,{"stream_name":"stdout","time":5691.25554688,"data":"pog MultiVAE_a0.2 seed 2023 epoch 15 val R20 0.0126 N20 0.0079 best epoch 15 285s\n"}
+,{"stream_name":"stdout","time":5708.971825204,"data":"pog MultiVAE_a0.2 seed 2023 epoch 16 val R20 0.0138 N20 0.0083 best epoch 16 303s\n"}
+,{"stream_name":"stdout","time":5726.697895734,"data":"pog MultiVAE_a0.2 seed 2023 epoch 17 val R20 0.0140 N20 0.0084 best epoch 17 321s\n"}
+,{"stream_name":"stdout","time":5744.458379529,"data":"pog MultiVAE_a0.2 seed 2023 epoch 18 val R20 0.0152 N20 0.0091 best epoch 18 339s\n"}
+,{"stream_name":"stdout","time":5762.334193342,"data":"pog MultiVAE_a0.2 seed 2023 epoch 19 val R20 0.0174 N20 0.0094 best epoch 19 356s\n"}
+,{"stream_name":"stdout","time":5779.967021666,"data":"pog MultiVAE_a0.2 seed 2023 epoch 20 val R20 0.0194 N20 0.0122 best epoch 20 374s\n"}
+,{"stream_name":"stdout","time":5797.779571293,"data":"pog MultiVAE_a0.2 seed 2023 epoch 21 val R20 0.0178 N20 0.0101 best epoch 20 392s\n"}
+,{"stream_name":"stdout","time":5815.467514084,"data":"pog MultiVAE_a0.2 seed 2023 epoch 22 val R20 0.0163 N20 0.0102 best epoch 20 410s\n"}
+,{"stream_name":"stdout","time":5833.191894052,"data":"pog MultiVAE_a0.2 seed 2023 epoch 23 val R20 0.0176 N20 0.0106 best epoch 20 427s\n"}
+,{"stream_name":"stdout","time":5850.880784404,"data":"pog MultiVAE_a0.2 seed 2023 epoch 24 val R20 0.0184 N20 0.0108 best epoch 20 445s\n"}
+,{"stream_name":"stdout","time":5868.638162971,"data":"pog MultiVAE_a0.2 seed 2023 epoch 25 val R20 0.0169 N20 0.0097 best epoch 20 463s\n"}
+,{"stream_name":"stdout","time":5886.373792706,"data":"pog MultiVAE_a0.2 seed 2023 epoch 26 val R20 0.0178 N20 0.0104 best epoch 20 480s\n"}
+,{"stream_name":"stdout","time":5904.071746149,"data":"pog MultiVAE_a0.2 seed 2023 epoch 27 val R20 0.0198 N20 0.0118 best epoch 20 498s\n"}
+,{"stream_name":"stdout","time":5921.706483445,"data":"pog MultiVAE_a0.2 seed 2023 epoch 28 val R20 0.0193 N20 0.0113 best epoch 20 516s\n"}
+,{"stream_name":"stdout","time":5939.163332005,"data":"pog MultiVAE_a0.2 seed 2023 epoch 29 val R20 0.0174 N20 0.0108 best epoch 20 533s\n"}
+,{"stream_name":"stdout","time":5956.869076039,"data":"pog MultiVAE_a0.2 seed 2023 epoch 30 val R20 0.0223 N20 0.0128 best epoch 30 551s\n"}
+,{"stream_name":"stdout","time":5974.756270491,"data":"pog MultiVAE_a0.2 seed 2023 epoch 31 val R20 0.0192 N20 0.0117 best epoch 30 569s\n"}
+,{"stream_name":"stdout","time":5992.520305853,"data":"pog MultiVAE_a0.2 seed 2023 epoch 32 val R20 0.0178 N20 0.0112 best epoch 30 587s\n"}
+,{"stream_name":"stdout","time":6010.266376984,"data":"pog MultiVAE_a0.2 seed 2023 epoch 33 val R20 0.0181 N20 0.0113 best epoch 30 604s\n"}
+,{"stream_name":"stdout","time":6027.841151126,"data":"pog MultiVAE_a0.2 seed 2023 epoch 34 val R20 0.0208 N20 0.0127 best epoch 30 622s\n"}
+,{"stream_name":"stdout","time":6045.590230729,"data":"pog MultiVAE_a0.2 seed 2023 epoch 35 val R20 0.0193 N20 0.0124 best epoch 30 640s\n"}
+,{"stream_name":"stdout","time":6063.407128697,"data":"pog MultiVAE_a0.2 seed 2023 epoch 36 val R20 0.0223 N20 0.0123 best epoch 30 658s\n"}
+,{"stream_name":"stdout","time":6081.163852987,"data":"pog MultiVAE_a0.2 seed 2023 epoch 37 val R20 0.0194 N20 0.0114 best epoch 30 675s\n"}
+,{"stream_name":"stdout","time":6098.800721664,"data":"pog MultiVAE_a0.2 seed 2023 epoch 38 val R20 0.0211 N20 0.0118 best epoch 30 693s\n"}
+,{"stream_name":"stdout","time":6116.21008811,"data":"pog MultiVAE_a0.2 seed 2023 epoch 39 val R20 0.0204 N20 0.0127 best epoch 30 710s\n"}
+,{"stream_name":"stdout","time":6133.925004393,"data":"pog MultiVAE_a0.2 seed 2023 epoch 40 val R20 0.0201 N20 0.0117 best epoch 30 728s\n"}
+,{"stream_name":"stdout","time":6151.663548015,"data":"pog MultiVAE_a0.2 seed 2023 epoch 41 val R20 0.0208 N20 0.0111 best epoch 30 746s\n"}
+,{"stream_name":"stdout","time":6169.201667599,"data":"pog MultiVAE_a0.2 seed 2023 epoch 42 val R20 0.0213 N20 0.0118 best epoch 30 763s\n"}
+,{"stream_name":"stdout","time":6186.80643163,"data":"pog MultiVAE_a0.2 seed 2023 epoch 43 val R20 0.0202 N20 0.0119 best epoch 30 781s\n"}
+,{"stream_name":"stdout","time":6204.391505094,"data":"pog MultiVAE_a0.2 seed 2023 epoch 44 val R20 0.0200 N20 0.0116 best epoch 30 799s\n"}
+,{"stream_name":"stdout","time":6222.116057097,"data":"pog MultiVAE_a0.2 seed 2023 epoch 45 val R20 0.0203 N20 0.0117 best epoch 30 816s\n"}
+,{"stream_name":"stdout","time":6239.696679961,"data":"pog MultiVAE_a0.2 seed 2023 epoch 46 val R20 0.0232 N20 0.0132 best epoch 46 834s\n"}
+,{"stream_name":"stdout","time":6257.311289395,"data":"pog MultiVAE_a0.2 seed 2023 epoch 47 val R20 0.0243 N20 0.0148 best epoch 47 851s\n"}
+,{"stream_name":"stdout","time":6274.941281093,"data":"pog MultiVAE_a0.2 seed 2023 epoch 48 val R20 0.0228 N20 0.0128 best epoch 47 869s\n"}
+,{"stream_name":"stdout","time":6292.631503676,"data":"pog MultiVAE_a0.2 seed 2023 epoch 49 val R20 0.0222 N20 0.0135 best epoch 47 887s\n"}
+,{"stream_name":"stdout","time":6297.438109711,"data":"RESULT pog MultiVAE_a0.2 seed 2023 epoch 47 test R20 0.0184 N20 0.0097\n"}
+,{"stream_name":"stdout","time":6298.380242967,"data":"Train: 5\n"}
+,{"stream_name":"stdout","time":6298.381165284,"data":"Val/Test: 2\n"}
+,{"stream_name":"stdout","time":6298.382028075,"data":"Val/Test: 2\n"}
+,{"stream_name":"stdout","time":6316.400116348,"data":"pog MultiVAE_a0.2 seed 0 epoch 0 val R20 0.0010 N20 0.0008 best epoch 0 18s\n"}
+,{"stream_name":"stdout","time":6334.4248627,"data":"pog MultiVAE_a0.2 seed 0 epoch 1 val R20 0.0010 N20 0.0005 best epoch 0 36s\n"}
+,{"stream_name":"stdout","time":6352.201752541,"data":"pog MultiVAE_a0.2 seed 0 epoch 2 val R20 0.0038 N20 0.0015 best epoch 2 54s\n"}
+,{"stream_name":"stdout","time":6370.00721324,"data":"pog MultiVAE_a0.2 seed 0 epoch 3 val R20 0.0031 N20 0.0016 best epoch 2 72s\n"}
+,{"stream_name":"stdout","time":6387.934088707,"data":"pog MultiVAE_a0.2 seed 0 epoch 4 val R20 0.0055 N20 0.0025 best epoch 4 90s\n"}
+,{"stream_name":"stdout","time":6405.954647926,"data":"pog MultiVAE_a0.2 seed 0 epoch 5 val R20 0.0080 N20 0.0042 best epoch 5 108s\n"}
+,{"stream_name":"stdout","time":6423.919422731,"data":"pog MultiVAE_a0.2 seed 0 epoch 6 val R20 0.0075 N20 0.0043 best epoch 5 125s\n"}
+,{"stream_name":"stdout","time":6441.790046634,"data":"pog MultiVAE_a0.2 seed 0 epoch 7 val R20 0.0096 N20 0.0049 best epoch 7 143s\n"}
+,{"stream_name":"stdout","time":6459.501957743,"data":"pog MultiVAE_a0.2 seed 0 epoch 8 val R20 0.0089 N20 0.0051 best epoch 7 161s\n"}
+,{"stream_name":"stdout","time":6477.326942763,"data":"pog MultiVAE_a0.2 seed 0 epoch 9 val R20 0.0094 N20 0.0058 best epoch 7 179s\n"}
+,{"stream_name":"stdout","time":6495.242683881,"data":"pog MultiVAE_a0.2 seed 0 epoch 10 val R20 0.0107 N20 0.0070 best epoch 10 197s\n"}
+,{"stream_name":"stdout","time":6513.241275927,"data":"pog MultiVAE_a0.2 seed 0 epoch 11 val R20 0.0109 N20 0.0075 best epoch 11 215s\n"}
+,{"stream_name":"stdout","time":6531.089043217,"data":"pog MultiVAE_a0.2 seed 0 epoch 12 val R20 0.0118 N20 0.0071 best epoch 11 233s\n"}
+,{"stream_name":"stdout","time":6548.867389374,"data":"pog MultiVAE_a0.2 seed 0 epoch 13 val R20 0.0113 N20 0.0069 best epoch 11 250s\n"}
+,{"stream_name":"stdout","time":6566.638257938,"data":"pog MultiVAE_a0.2 seed 0 epoch 14 val R20 0.0123 N20 0.0074 best epoch 11 268s\n"}
+,{"stream_name":"stdout","time":6584.37403893,"data":"pog MultiVAE_a0.2 seed 0 epoch 15 val R20 0.0138 N20 0.0083 best epoch 15 286s\n"}
+,{"stream_name":"stdout","time":6602.098208714,"data":"pog MultiVAE_a0.2 seed 0 epoch 16 val R20 0.0148 N20 0.0087 best epoch 16 304s\n"}
+,{"stream_name":"stdout","time":6619.986366242,"data":"pog MultiVAE_a0.2 seed 0 epoch 17 val R20 0.0134 N20 0.0080 best epoch 16 322s\n"}
+,{"stream_name":"stdout","time":6637.624419199,"data":"pog MultiVAE_a0.2 seed 0 epoch 18 val R20 0.0174 N20 0.0106 best epoch 18 339s\n"}
+,{"stream_name":"stdout","time":6655.537150858,"data":"pog MultiVAE_a0.2 seed 0 epoch 19 val R20 0.0160 N20 0.0099 best epoch 18 357s\n"}
+,{"stream_name":"stdout","time":6673.306855634,"data":"pog MultiVAE_a0.2 seed 0 epoch 20 val R20 0.0174 N20 0.0097 best epoch 18 375s\n"}
+,{"stream_name":"stdout","time":6690.971225347,"data":"pog MultiVAE_a0.2 seed 0 epoch 21 val R20 0.0180 N20 0.0103 best epoch 18 393s\n"}
+,{"stream_name":"stdout","time":6708.696124573,"data":"pog MultiVAE_a0.2 seed 0 epoch 22 val R20 0.0179 N20 0.0112 best epoch 22 410s\n"}
+,{"stream_name":"stdout","time":6726.381925427,"data":"pog MultiVAE_a0.2 seed 0 epoch 23 val R20 0.0180 N20 0.0100 best epoch 22 428s\n"}
+,{"stream_name":"stdout","time":6744.116357572,"data":"pog MultiVAE_a0.2 seed 0 epoch 24 val R20 0.0183 N20 0.0110 best epoch 22 446s\n"}
+,{"stream_name":"stdout","time":6762.015616232,"data":"pog MultiVAE_a0.2 seed 0 epoch 25 val R20 0.0184 N20 0.0111 best epoch 22 464s\n"}
+,{"stream_name":"stdout","time":6779.866706709,"data":"pog MultiVAE_a0.2 seed 0 epoch 26 val R20 0.0189 N20 0.0119 best epoch 26 481s\n"}
+,{"stream_name":"stdout","time":6797.861485425,"data":"pog MultiVAE_a0.2 seed 0 epoch 27 val R20 0.0186 N20 0.0106 best epoch 26 499s\n"}
+,{"stream_name":"stdout","time":6815.670679509,"data":"pog MultiVAE_a0.2 seed 0 epoch 28 val R20 0.0203 N20 0.0116 best epoch 26 517s\n"}
+,{"stream_name":"stdout","time":6833.704252422,"data":"pog MultiVAE_a0.2 seed 0 epoch 29 val R20 0.0206 N20 0.0116 best epoch 26 535s\n"}
+,{"stream_name":"stdout","time":6851.647915357,"data":"pog MultiVAE_a0.2 seed 0 epoch 30 val R20 0.0199 N20 0.0120 best epoch 30 553s\n"}
+,{"stream_name":"stdout","time":6869.715407693,"data":"pog MultiVAE_a0.2 seed 0 epoch 31 val R20 0.0220 N20 0.0132 best epoch 31 571s\n"}
+,{"stream_name":"stdout","time":6887.532226413,"data":"pog MultiVAE_a0.2 seed 0 epoch 32 val R20 0.0205 N20 0.0127 best epoch 31 589s\n"}
+,{"stream_name":"stdout","time":6905.398176685,"data":"pog MultiVAE_a0.2 seed 0 epoch 33 val R20 0.0206 N20 0.0115 best epoch 31 607s\n"}
+,{"stream_name":"stdout","time":6923.195536001,"data":"pog MultiVAE_a0.2 seed 0 epoch 34 val R20 0.0218 N20 0.0117 best epoch 31 625s\n"}
+,{"stream_name":"stdout","time":6941.10838873,"data":"pog MultiVAE_a0.2 seed 0 epoch 35 val R20 0.0203 N20 0.0115 best epoch 31 643s\n"}
+,{"stream_name":"stdout","time":6958.923428984,"data":"pog MultiVAE_a0.2 seed 0 epoch 36 val R20 0.0198 N20 0.0109 best epoch 31 660s\n"}
+,{"stream_name":"stdout","time":6976.741812568,"data":"pog MultiVAE_a0.2 seed 0 epoch 37 val R20 0.0206 N20 0.0114 best epoch 31 678s\n"}
+,{"stream_name":"stdout","time":6994.547123632,"data":"pog MultiVAE_a0.2 seed 0 epoch 38 val R20 0.0208 N20 0.0129 best epoch 31 696s\n"}
+,{"stream_name":"stdout","time":7012.169086926,"data":"pog MultiVAE_a0.2 seed 0 epoch 39 val R20 0.0223 N20 0.0120 best epoch 31 714s\n"}
+,{"stream_name":"stdout","time":7029.646135575,"data":"pog MultiVAE_a0.2 seed 0 epoch 40 val R20 0.0205 N20 0.0122 best epoch 31 731s\n"}
+,{"stream_name":"stdout","time":7047.377688133,"data":"pog MultiVAE_a0.2 seed 0 epoch 41 val R20 0.0188 N20 0.0108 best epoch 31 749s\n"}
+,{"stream_name":"stdout","time":7065.141408888,"data":"pog MultiVAE_a0.2 seed 0 epoch 42 val R20 0.0213 N20 0.0118 best epoch 31 767s\n"}
+,{"stream_name":"stdout","time":7082.967323138,"data":"pog MultiVAE_a0.2 seed 0 epoch 43 val R20 0.0195 N20 0.0100 best epoch 31 785s\n"}
+,{"stream_name":"stdout","time":7100.586057537,"data":"pog MultiVAE_a0.2 seed 0 epoch 44 val R20 0.0191 N20 0.0121 best epoch 31 802s\n"}
+,{"stream_name":"stdout","time":7118.304822981,"data":"pog MultiVAE_a0.2 seed 0 epoch 45 val R20 0.0195 N20 0.0105 best epoch 31 820s\n"}
+,{"stream_name":"stdout","time":7135.989702374,"data":"pog MultiVAE_a0.2 seed 0 epoch 46 val R20 0.0209 N20 0.0117 best epoch 31 838s\n"}
+,{"stream_name":"stdout","time":7153.786771236,"data":"pog MultiVAE_a0.2 seed 0 epoch 47 val R20 0.0210 N20 0.0121 best epoch 31 855s\n"}
+,{"stream_name":"stdout","time":7171.59343716,"data":"pog MultiVAE_a0.2 seed 0 epoch 48 val R20 0.0202 N20 0.0114 best epoch 31 873s\n"}
+,{"stream_name":"stdout","time":7189.37924139,"data":"pog MultiVAE_a0.2 seed 0 epoch 49 val R20 0.0218 N20 0.0127 best epoch 31 891s\n"}
+,{"stream_name":"stdout","time":7193.964788483,"data":"RESULT pog MultiVAE_a0.2 seed 0 epoch 31 test R20 0.0172 N20 0.0093\n"}
+,{"stream_name":"stdout","time":7195.241576773,"data":"Train: 5\n"}
+,{"stream_name":"stdout","time":7195.242281146,"data":"Val/Test: 2\n"}
+,{"stream_name":"stdout","time":7195.243181887,"data":"Val/Test: 2\n"}
+,{"stream_name":"stdout","time":7213.15669795,"data":"pog MultiVAE_a0.2 seed 1 epoch 0 val R20 0.0008 N20 0.0003 best epoch 0 18s\n"}
+,{"stream_name":"stdout","time":7231.19612447,"data":"pog MultiVAE_a0.2 seed 1 epoch 1 val R20 0.0013 N20 0.0004 best epoch 1 36s\n"}
+,{"stream_name":"stdout","time":7249.249084091,"data":"pog MultiVAE_a0.2 seed 1 epoch 2 val R20 0.0037 N20 0.0019 best epoch 2 54s\n"}
+,{"stream_name":"stdout","time":7266.910752091,"data":"pog MultiVAE_a0.2 seed 1 epoch 3 val R20 0.0045 N20 0.0027 best epoch 3 72s\n"}
+,{"stream_name":"stdout","time":7284.66583072,"data":"pog MultiVAE_a0.2 seed 1 epoch 4 val R20 0.0064 N20 0.0035 best epoch 4 89s\n"}
+,{"stream_name":"stdout","time":7302.770828232,"data":"pog MultiVAE_a0.2 seed 1 epoch 5 val R20 0.0071 N20 0.0032 best epoch 4 107s\n"}
+,{"stream_name":"stdout","time":7320.610122027,"data":"pog MultiVAE_a0.2 seed 1 epoch 6 val R20 0.0083 N20 0.0047 best epoch 6 125s\n"}
+,{"stream_name":"stdout","time":7338.420693741,"data":"pog MultiVAE_a0.2 seed 1 epoch 7 val R20 0.0074 N20 0.0049 best epoch 6 143s\n"}
+,{"stream_name":"stdout","time":7356.142575585,"data":"pog MultiVAE_a0.2 seed 1 epoch 8 val R20 0.0092 N20 0.0060 best epoch 8 161s\n"}
+,{"stream_name":"stdout","time":7374.004853798,"data":"pog MultiVAE_a0.2 seed 1 epoch 9 val R20 0.0088 N20 0.0057 best epoch 8 179s\n"}
+,{"stream_name":"stdout","time":7391.896211232,"data":"pog MultiVAE_a0.2 seed 1 epoch 10 val R20 0.0098 N20 0.0064 best epoch 10 197s\n"}
+,{"stream_name":"stdout","time":7409.827694155,"data":"pog MultiVAE_a0.2 seed 1 epoch 11 val R20 0.0110 N20 0.0077 best epoch 11 215s\n"}
+,{"stream_name":"stdout","time":7428.076469869,"data":"pog MultiVAE_a0.2 seed 1 epoch 12 val R20 0.0117 N20 0.0074 best epoch 11 233s\n"}
+,{"stream_name":"stdout","time":7445.920006362,"data":"pog MultiVAE_a0.2 seed 1 epoch 13 val R20 0.0116 N20 0.0080 best epoch 13 251s\n"}
+,{"stream_name":"stdout","time":7463.656521274,"data":"pog MultiVAE_a0.2 seed 1 epoch 14 val R20 0.0119 N20 0.0086 best epoch 14 268s\n"}
+,{"stream_name":"stdout","time":7481.665180641,"data":"pog MultiVAE_a0.2 seed 1 epoch 15 val R20 0.0148 N20 0.0099 best epoch 15 286s\n"}
+,{"stream_name":"stdout","time":7499.510849362,"data":"pog MultiVAE_a0.2 seed 1 epoch 16 val R20 0.0150 N20 0.0093 best epoch 15 304s\n"}
+,{"stream_name":"stdout","time":7517.268045217,"data":"pog MultiVAE_a0.2 seed 1 epoch 17 val R20 0.0133 N20 0.0080 best epoch 15 322s\n"}
+,{"stream_name":"stdout","time":7535.031551738,"data":"pog MultiVAE_a0.2 seed 1 epoch 18 val R20 0.0144 N20 0.0091 best epoch 15 340s\n"}
+,{"stream_name":"stdout","time":7552.9470044,"data":"pog MultiVAE_a0.2 seed 1 epoch 19 val R20 0.0162 N20 0.0091 best epoch 15 358s\n"}
+,{"stream_name":"stdout","time":7570.776532565,"data":"pog MultiVAE_a0.2 seed 1 epoch 20 val R20 0.0181 N20 0.0106 best epoch 20 375s\n"}
+,{"stream_name":"stdout","time":7588.676258331,"data":"pog MultiVAE_a0.2 seed 1 epoch 21 val R20 0.0169 N20 0.0108 best epoch 20 393s\n"}
+,{"stream_name":"stdout","time":7606.772900989,"data":"pog MultiVAE_a0.2 seed 1 epoch 22 val R20 0.0167 N20 0.0093 best epoch 20 411s\n"}
+,{"stream_name":"stdout","time":7624.615513064,"data":"pog MultiVAE_a0.2 seed 1 epoch 23 val R20 0.0159 N20 0.0103 best epoch 20 429s\n"}
+,{"stream_name":"stdout","time":7642.570829288,"data":"pog MultiVAE_a0.2 seed 1 epoch 24 val R20 0.0168 N20 0.0093 best epoch 20 447s\n"}
+,{"stream_name":"stdout","time":7660.230929855,"data":"pog MultiVAE_a0.2 seed 1 epoch 25 val R20 0.0186 N20 0.0110 best epoch 25 465s\n"}
+,{"stream_name":"stdout","time":7678.186052328,"data":"pog MultiVAE_a0.2 seed 1 epoch 26 val R20 0.0183 N20 0.0107 best epoch 25 483s\n"}
+,{"stream_name":"stdout","time":7695.968869769,"data":"pog MultiVAE_a0.2 seed 1 epoch 27 val R20 0.0166 N20 0.0101 best epoch 25 501s\n"}
+,{"stream_name":"stdout","time":7713.849153954,"data":"pog MultiVAE_a0.2 seed 1 epoch 28 val R20 0.0216 N20 0.0122 best epoch 28 519s\n"}
+,{"stream_name":"stdout","time":7731.700522377,"data":"pog MultiVAE_a0.2 seed 1 epoch 29 val R20 0.0205 N20 0.0121 best epoch 28 536s\n"}
+,{"stream_name":"stdout","time":7749.5417968,"data":"pog MultiVAE_a0.2 seed 1 epoch 30 val R20 0.0221 N20 0.0127 best epoch 30 554s\n"}
+,{"stream_name":"stdout","time":7767.465507328,"data":"pog MultiVAE_a0.2 seed 1 epoch 31 val R20 0.0180 N20 0.0115 best epoch 30 572s\n"}
+,{"stream_name":"stdout","time":7785.119376643,"data":"pog MultiVAE_a0.2 seed 1 epoch 32 val R20 0.0169 N20 0.0091 best epoch 30 590s\n"}
+,{"stream_name":"stdout","time":7802.888427358,"data":"pog MultiVAE_a0.2 seed 1 epoch 33 val R20 0.0186 N20 0.0116 best epoch 30 608s\n"}
+,{"stream_name":"stdout","time":7820.399457968,"data":"pog MultiVAE_a0.2 seed 1 epoch 34 val R20 0.0198 N20 0.0112 best epoch 30 625s\n"}
+,{"stream_name":"stdout","time":7838.184888746,"data":"pog MultiVAE_a0.2 seed 1 epoch 35 val R20 0.0208 N20 0.0120 best epoch 30 643s\n"}
+,{"stream_name":"stdout","time":7855.837874469,"data":"pog MultiVAE_a0.2 seed 1 epoch 36 val R20 0.0181 N20 0.0107 best epoch 30 661s\n"}
+,{"stream_name":"stdout","time":7873.697973832,"data":"pog MultiVAE_a0.2 seed 1 epoch 37 val R20 0.0197 N20 0.0113 best epoch 30 678s\n"}
+,{"stream_name":"stdout","time":7891.374474904,"data":"pog MultiVAE_a0.2 seed 1 epoch 38 val R20 0.0213 N20 0.0123 best epoch 30 696s\n"}
+,{"stream_name":"stdout","time":7909.234698063,"data":"pog MultiVAE_a0.2 seed 1 epoch 39 val R20 0.0199 N20 0.0114 best epoch 30 714s\n"}
+,{"stream_name":"stdout","time":7927.004891649,"data":"pog MultiVAE_a0.2 seed 1 epoch 40 val R20 0.0187 N20 0.0103 best epoch 30 732s\n"}
+,{"stream_name":"stdout","time":7944.751666078,"data":"pog MultiVAE_a0.2 seed 1 epoch 41 val R20 0.0192 N20 0.0107 best epoch 30 749s\n"}
+,{"stream_name":"stdout","time":7962.668403452,"data":"pog MultiVAE_a0.2 seed 1 epoch 42 val R20 0.0198 N20 0.0109 best epoch 30 767s\n"}
+,{"stream_name":"stdout","time":7980.419924452,"data":"pog MultiVAE_a0.2 seed 1 epoch 43 val R20 0.0191 N20 0.0108 best epoch 30 785s\n"}
+,{"stream_name":"stdout","time":7998.330235344,"data":"pog MultiVAE_a0.2 seed 1 epoch 44 val R20 0.0194 N20 0.0114 best epoch 30 803s\n"}
+,{"stream_name":"stdout","time":8016.024201827,"data":"pog MultiVAE_a0.2 seed 1 epoch 45 val R20 0.0178 N20 0.0102 best epoch 30 821s\n"}
+,{"stream_name":"stdout","time":8033.720401189,"data":"pog MultiVAE_a0.2 seed 1 epoch 46 val R20 0.0183 N20 0.0112 best epoch 30 838s\n"}
+,{"stream_name":"stdout","time":8051.558057777,"data":"pog MultiVAE_a0.2 seed 1 epoch 47 val R20 0.0206 N20 0.0117 best epoch 30 856s\n"}
+,{"stream_name":"stdout","time":8069.254827614,"data":"pog MultiVAE_a0.2 seed 1 epoch 48 val R20 0.0230 N20 0.0120 best epoch 30 874s\n"}
+,{"stream_name":"stdout","time":8086.859630654,"data":"pog MultiVAE_a0.2 seed 1 epoch 49 val R20 0.0199 N20 0.0115 best epoch 30 892s\n"}
+,{"stream_name":"stdout","time":8091.743881974,"data":"RESULT pog MultiVAE_a0.2 seed 1 epoch 30 test R20 0.0183 N20 0.0102\n"}
+,{"stream_name":"stdout","time":8092.743147242,"data":"Train: 5\n"}
+,{"stream_name":"stdout","time":8092.744069302,"data":"Val/Test: 2\n"}
+,{"stream_name":"stdout","time":8092.745089285,"data":"Val/Test: 2\n"}
+,{"stream_name":"stderr","time":8092.79306118,"data":"/kaggle/working/CLHE/models/BiLSTM.py:82: UserWarning: torch.sparse.SparseTensor(indices, values, shape, *, device=) is deprecated.  Please use torch.sparse_coo_tensor(indices, values, shape, dtype=, device=). (Triggered internally at /pytorch/torch/csrc/utils/tensor_new.cpp:654.)\n"}
+,{"stream_name":"stderr","time":8092.793092606,"data":"  graph = torch.sparse.FloatTensor(torch.LongTensor(indices), torch.LongTensor(values), torch.Size(graph.shape))\n"}
+,{"stream_name":"stdout","time":8116.508546182,"data":"pog BiLSTM seed 2023 epoch 0 val R20 0.0018 N20 0.0010 best epoch 0 20s\n"}
+,{"stream_name":"stdout","time":8135.210416182,"data":"pog BiLSTM seed 2023 epoch 1 val R20 0.0058 N20 0.0039 best epoch 1 39s\n"}
+,{"stream_name":"stdout","time":8153.615161805,"data":"pog BiLSTM seed 2023 epoch 2 val R20 0.0106 N20 0.0066 best epoch 2 57s\n"}
+,{"stream_name":"stdout","time":8171.690137664,"data":"pog BiLSTM seed 2023 epoch 3 val R20 0.0134 N20 0.0074 best epoch 3 75s\n"}
+,{"stream_name":"stdout","time":8189.649946025,"data":"pog BiLSTM seed 2023 epoch 4 val R20 0.0133 N20 0.0078 best epoch 3 93s\n"}
+,{"stream_name":"stdout","time":8207.744670521,"data":"pog BiLSTM seed 2023 epoch 5 val R20 0.0126 N20 0.0084 best epoch 3 111s\n"}
+,{"stream_name":"stdout","time":8225.918027609,"data":"pog BiLSTM seed 2023 epoch 6 val R20 0.0106 N20 0.0060 best epoch 3 130s\n"}
+,{"stream_name":"stdout","time":8244.042569434,"data":"pog BiLSTM seed 2023 epoch 7 val R20 0.0088 N20 0.0056 best epoch 3 148s\n"}
+,{"stream_name":"stdout","time":8262.128987681,"data":"pog BiLSTM seed 2023 epoch 8 val R20 0.0081 N20 0.0057 best epoch 3 166s\n"}
+,{"stream_name":"stdout","time":8280.228547708,"data":"pog BiLSTM seed 2023 epoch 9 val R20 0.0087 N20 0.0054 best epoch 3 184s\n"}
+,{"stream_name":"stdout","time":8298.584991263,"data":"pog BiLSTM seed 2023 epoch 10 val R20 0.0097 N20 0.0062 best epoch 3 202s\n"}
+,{"stream_name":"stdout","time":8316.850848231,"data":"pog BiLSTM seed 2023 epoch 11 val R20 0.0095 N20 0.0051 best epoch 3 220s\n"}
+,{"stream_name":"stdout","time":8334.848457006,"data":"pog BiLSTM seed 2023 epoch 12 val R20 0.0100 N20 0.0058 best epoch 3 238s\n"}
+,{"stream_name":"stdout","time":8352.924502826,"data":"pog BiLSTM seed 2023 epoch 13 val R20 0.0073 N20 0.0045 best epoch 3 257s\n"}
+,{"stream_name":"stdout","time":8370.911074494,"data":"pog BiLSTM seed 2023 epoch 14 val R20 0.0068 N20 0.0033 best epoch 3 275s\n"}
+,{"stream_name":"stdout","time":8388.976016319,"data":"pog BiLSTM seed 2023 epoch 15 val R20 0.0061 N20 0.0040 best epoch 3 293s\n"}
+,{"stream_name":"stdout","time":8407.115554161,"data":"pog BiLSTM seed 2023 epoch 16 val R20 0.0084 N20 0.0040 best epoch 3 311s\n"}
+,{"stream_name":"stdout","time":8425.056264793,"data":"pog BiLSTM seed 2023 epoch 17 val R20 0.0071 N20 0.0033 best epoch 3 329s\n"}
+,{"stream_name":"stdout","time":8443.20805546,"data":"pog BiLSTM seed 2023 epoch 18 val R20 0.0069 N20 0.0036 best epoch 3 347s\n"}
+,{"stream_name":"stdout","time":8461.144322604,"data":"pog BiLSTM seed 2023 epoch 19 val R20 0.0073 N20 0.0032 best epoch 3 365s\n"}
+,{"stream_name":"stdout","time":8479.307121871,"data":"pog BiLSTM seed 2023 epoch 20 val R20 0.0080 N20 0.0036 best epoch 3 383s\n"}
+,{"stream_name":"stdout","time":8497.339053011,"data":"pog BiLSTM seed 2023 epoch 21 val R20 0.0068 N20 0.0031 best epoch 3 401s\n"}
+,{"stream_name":"stdout","time":8515.294382896,"data":"pog BiLSTM seed 2023 epoch 22 val R20 0.0064 N20 0.0034 best epoch 3 419s\n"}
+,{"stream_name":"stdout","time":8533.277183584,"data":"pog BiLSTM seed 2023 epoch 23 val R20 0.0064 N20 0.0030 best epoch 3 437s\n"}
+,{"stream_name":"stdout","time":8551.282846626,"data":"pog BiLSTM seed 2023 epoch 24 val R20 0.0064 N20 0.0030 best epoch 3 455s\n"}
+,{"stream_name":"stdout","time":8569.397460562,"data":"pog BiLSTM seed 2023 epoch 25 val R20 0.0065 N20 0.0032 best epoch 3 473s\n"}
+,{"stream_name":"stdout","time":8587.368265195,"data":"pog BiLSTM seed 2023 epoch 26 val R20 0.0057 N20 0.0033 best epoch 3 491s\n"}
+,{"stream_name":"stdout","time":8605.429808784,"data":"pog BiLSTM seed 2023 epoch 27 val R20 0.0063 N20 0.0033 best epoch 3 509s\n"}
+,{"stream_name":"stdout","time":8623.489650792,"data":"pog BiLSTM seed 2023 epoch 28 val R20 0.0043 N20 0.0019 best epoch 3 527s\n"}
+,{"stream_name":"stdout","time":8641.481047209,"data":"pog BiLSTM seed 2023 epoch 29 val R20 0.0050 N20 0.0030 best epoch 3 545s\n"}
+,{"stream_name":"stdout","time":8659.560631233,"data":"pog BiLSTM seed 2023 epoch 30 val R20 0.0050 N20 0.0027 best epoch 3 563s\n"}
+,{"stream_name":"stdout","time":8677.674685711,"data":"pog BiLSTM seed 2023 epoch 31 val R20 0.0053 N20 0.0024 best epoch 3 581s\n"}
+,{"stream_name":"stdout","time":8695.648457986,"data":"pog BiLSTM seed 2023 epoch 32 val R20 0.0048 N20 0.0022 best epoch 3 599s\n"}
+,{"stream_name":"stdout","time":8713.700910219,"data":"pog BiLSTM seed 2023 epoch 33 val R20 0.0035 N20 0.0017 best epoch 3 617s\n"}
+,{"stream_name":"stdout","time":8731.725304656,"data":"pog BiLSTM seed 2023 epoch 34 val R20 0.0033 N20 0.0019 best epoch 3 635s\n"}
+,{"stream_name":"stdout","time":8749.90603627,"data":"pog BiLSTM seed 2023 epoch 35 val R20 0.0036 N20 0.0019 best epoch 3 654s\n"}
+,{"stream_name":"stdout","time":8768.149245949,"data":"pog BiLSTM seed 2023 epoch 36 val R20 0.0030 N20 0.0015 best epoch 3 672s\n"}
+,{"stream_name":"stdout","time":8786.268196663,"data":"pog BiLSTM seed 2023 epoch 37 val R20 0.0024 N20 0.0012 best epoch 3 690s\n"}
+,{"stream_name":"stdout","time":8804.268953603,"data":"pog BiLSTM seed 2023 epoch 38 val R20 0.0033 N20 0.0014 best epoch 3 708s\n"}
+,{"stream_name":"stdout","time":8822.202823919,"data":"pog BiLSTM seed 2023 epoch 39 val R20 0.0038 N20 0.0019 best epoch 3 726s\n"}
+,{"stream_name":"stdout","time":8839.979378905,"data":"pog BiLSTM seed 2023 epoch 40 val R20 0.0032 N20 0.0017 best epoch 3 744s\n"}
+,{"stream_name":"stdout","time":8857.804461973,"data":"pog BiLSTM seed 2023 epoch 41 val R20 0.0048 N20 0.0019 best epoch 3 761s\n"}
+,{"stream_name":"stdout","time":8876.016468062,"data":"pog BiLSTM seed 2023 epoch 42 val R20 0.0035 N20 0.0017 best epoch 3 780s\n"}
+,{"stream_name":"stdout","time":8894.074005532,"data":"pog BiLSTM seed 2023 epoch 43 val R20 0.0033 N20 0.0015 best epoch 3 798s\n"}
+,{"stream_name":"stdout","time":8912.217361061,"data":"pog BiLSTM seed 2023 epoch 44 val R20 0.0037 N20 0.0017 best epoch 3 816s\n"}
+,{"stream_name":"stdout","time":8930.334764583,"data":"pog BiLSTM seed 2023 epoch 45 val R20 0.0029 N20 0.0017 best epoch 3 834s\n"}
+,{"stream_name":"stdout","time":8948.459329305,"data":"pog BiLSTM seed 2023 epoch 46 val R20 0.0030 N20 0.0013 best epoch 3 852s\n"}
+,{"stream_name":"stdout","time":8966.439412659,"data":"pog BiLSTM seed 2023 epoch 47 val R20 0.0022 N20 0.0009 best epoch 3 870s\n"}
+,{"stream_name":"stdout","time":8984.484359937,"data":"pog BiLSTM seed 2023 epoch 48 val R20 0.0037 N20 0.0020 best epoch 3 888s\n"}
+,{"stream_name":"stdout","time":9002.286477476,"data":"pog BiLSTM seed 2023 epoch 49 val R20 0.0043 N20 0.0019 best epoch 3 906s\n"}
+,{"stream_name":"stdout","time":9007.15498334,"data":"RESULT pog BiLSTM seed 2023 epoch 3 test R20 0.0106 N20 0.0067\n"}
+,{"stream_name":"stdout","time":9008.162067125,"data":"Train: 5\n"}
+,{"stream_name":"stdout","time":9008.162627249,"data":"Val/Test: 2\n"}
+,{"stream_name":"stdout","time":9008.163526392,"data":"Val/Test: 2\n"}
+,{"stream_name":"stdout","time":9029.349620652,"data":"pog BiLSTM seed 0 epoch 0 val R20 0.0047 N20 0.0028 best epoch 0 18s\n"}
+,{"stream_name":"stdout","time":9048.049309646,"data":"pog BiLSTM seed 0 epoch 1 val R20 0.0101 N20 0.0060 best epoch 1 37s\n"}
+,{"stream_name":"stdout","time":9066.373076459,"data":"pog BiLSTM seed 0 epoch 2 val R20 0.0108 N20 0.0069 best epoch 2 55s\n"}
+,{"stream_name":"stdout","time":9084.48655525,"data":"pog BiLSTM seed 0 epoch 3 val R20 0.0108 N20 0.0061 best epoch 2 73s\n"}
+,{"stream_name":"stdout","time":9103.308791131,"data":"pog BiLSTM seed 0 epoch 4 val R20 0.0151 N20 0.0093 best epoch 4 92s\n"}
+,{"stream_name":"stdout","time":9125.936664354,"data":"pog BiLSTM seed 0 epoch 5 val R20 0.0120 N20 0.0074 best epoch 4 115s\n"}
+,{"stream_name":"stdout","time":9144.282350462,"data":"pog BiLSTM seed 0 epoch 6 val R20 0.0134 N20 0.0090 best epoch 4 133s\n"}
+,{"stream_name":"stdout","time":9162.470779447,"data":"pog BiLSTM seed 0 epoch 7 val R20 0.0158 N20 0.0097 best epoch 7 151s\n"}
+,{"stream_name":"stdout","time":9180.68280455,"data":"pog BiLSTM seed 0 epoch 8 val R20 0.0133 N20 0.0079 best epoch 7 170s\n"}
+,{"stream_name":"stdout","time":9198.909682152,"data":"pog BiLSTM seed 0 epoch 9 val R20 0.0110 N20 0.0070 best epoch 7 188s\n"}
+,{"stream_name":"stdout","time":9217.029278205,"data":"pog BiLSTM seed 0 epoch 10 val R20 0.0104 N20 0.0066 best epoch 7 206s\n"}
+,{"stream_name":"stdout","time":9235.177349036,"data":"pog BiLSTM seed 0 epoch 11 val R20 0.0069 N20 0.0043 best epoch 7 224s\n"}
+,{"stream_name":"stdout","time":9253.405081327,"data":"pog BiLSTM seed 0 epoch 12 val R20 0.0092 N20 0.0048 best epoch 7 242s\n"}
+,{"stream_name":"stdout","time":9271.569050811,"data":"pog BiLSTM seed 0 epoch 13 val R20 0.0082 N20 0.0045 best epoch 7 261s\n"}
+,{"stream_name":"stdout","time":9289.516910756,"data":"pog BiLSTM seed 0 epoch 14 val R20 0.0079 N20 0.0042 best epoch 7 279s\n"}
+,{"stream_name":"stdout","time":9307.529467241,"data":"pog BiLSTM seed 0 epoch 15 val R20 0.0078 N20 0.0047 best epoch 7 297s\n"}
+,{"stream_name":"stdout","time":9325.610029776,"data":"pog BiLSTM seed 0 epoch 16 val R20 0.0070 N20 0.0036 best epoch 7 315s\n"}
+,{"stream_name":"stdout","time":9343.606695865,"data":"pog BiLSTM seed 0 epoch 17 val R20 0.0049 N20 0.0027 best epoch 7 333s\n"}
+,{"stream_name":"stdout","time":9361.74369202,"data":"pog BiLSTM seed 0 epoch 18 val R20 0.0044 N20 0.0028 best epoch 7 351s\n"}
+,{"stream_name":"stdout","time":9379.815081429,"data":"pog BiLSTM seed 0 epoch 19 val R20 0.0053 N20 0.0031 best epoch 7 369s\n"}
+,{"stream_name":"stdout","time":9397.943511867,"data":"pog BiLSTM seed 0 epoch 20 val R20 0.0043 N20 0.0022 best epoch 7 387s\n"}
+,{"stream_name":"stdout","time":9416.04366913,"data":"pog BiLSTM seed 0 epoch 21 val R20 0.0055 N20 0.0034 best epoch 7 405s\n"}
+,{"stream_name":"stdout","time":9434.072771101,"data":"pog BiLSTM seed 0 epoch 22 val R20 0.0061 N20 0.0030 best epoch 7 423s\n"}
+,{"stream_name":"stdout","time":9452.194492806,"data":"pog BiLSTM seed 0 epoch 23 val R20 0.0048 N20 0.0024 best epoch 7 441s\n"}
+,{"stream_name":"stdout","time":9470.268472917,"data":"pog BiLSTM seed 0 epoch 24 val R20 0.0042 N20 0.0023 best epoch 7 459s\n"}
+,{"stream_name":"stdout","time":9488.612982126,"data":"pog BiLSTM seed 0 epoch 25 val R20 0.0051 N20 0.0022 best epoch 7 478s\n"}
+,{"stream_name":"stdout","time":9506.683755658,"data":"pog BiLSTM seed 0 epoch 26 val R20 0.0062 N20 0.0034 best epoch 7 496s\n"}
+,{"stream_name":"stdout","time":9524.636417448,"data":"pog BiLSTM seed 0 epoch 27 val R20 0.0050 N20 0.0030 best epoch 7 514s\n"}
+,{"stream_name":"stdout","time":9542.830442785,"data":"pog BiLSTM seed 0 epoch 28 val R20 0.0058 N20 0.0028 best epoch 7 532s\n"}
+,{"stream_name":"stdout","time":9560.812159332,"data":"pog BiLSTM seed 0 epoch 29 val R20 0.0035 N20 0.0022 best epoch 7 550s\n"}
+,{"stream_name":"stdout","time":9579.081044637,"data":"pog BiLSTM seed 0 epoch 30 val R20 0.0046 N20 0.0022 best epoch 7 568s\n"}
+,{"stream_name":"stdout","time":9597.194662502,"data":"pog BiLSTM seed 0 epoch 31 val R20 0.0034 N20 0.0023 best epoch 7 586s\n"}
+,{"stream_name":"stdout","time":9615.33367243,"data":"pog BiLSTM seed 0 epoch 32 val R20 0.0036 N20 0.0017 best epoch 7 604s\n"}
+,{"stream_name":"stdout","time":9633.482523798,"data":"pog BiLSTM seed 0 epoch 33 val R20 0.0041 N20 0.0026 best epoch 7 622s\n"}
+,{"stream_name":"stdout","time":9651.515414389,"data":"pog BiLSTM seed 0 epoch 34 val R20 0.0034 N20 0.0019 best epoch 7 641s\n"}
+,{"stream_name":"stdout","time":9669.759493091,"data":"pog BiLSTM seed 0 epoch 35 val R20 0.0034 N20 0.0016 best epoch 7 659s\n"}
+,{"stream_name":"stdout","time":9688.014758562,"data":"pog BiLSTM seed 0 epoch 36 val R20 0.0040 N20 0.0017 best epoch 7 677s\n"}
+,{"stream_name":"stdout","time":9706.167292713,"data":"pog BiLSTM seed 0 epoch 37 val R20 0.0045 N20 0.0024 best epoch 7 695s\n"}
+,{"stream_name":"stdout","time":9724.235046997,"data":"pog BiLSTM seed 0 epoch 38 val R20 0.0035 N20 0.0021 best epoch 7 713s\n"}
+,{"stream_name":"stdout","time":9742.389209765,"data":"pog BiLSTM seed 0 epoch 39 val R20 0.0043 N20 0.0028 best epoch 7 731s\n"}
+,{"stream_name":"stdout","time":9760.505653893,"data":"pog BiLSTM seed 0 epoch 40 val R20 0.0039 N20 0.0025 best epoch 7 750s\n"}
+,{"stream_name":"stdout","time":9778.719609586,"data":"pog BiLSTM seed 0 epoch 41 val R20 0.0034 N20 0.0018 best epoch 7 768s\n"}
+,{"stream_name":"stdout","time":9796.821210801,"data":"pog BiLSTM seed 0 epoch 42 val R20 0.0049 N20 0.0024 best epoch 7 786s\n"}
+,{"stream_name":"stdout","time":9814.71139805,"data":"pog BiLSTM seed 0 epoch 43 val R20 0.0038 N20 0.0020 best epoch 7 804s\n"}
+,{"stream_name":"stdout","time":9832.869164152,"data":"pog BiLSTM seed 0 epoch 44 val R20 0.0031 N20 0.0017 best epoch 7 822s\n"}
+,{"stream_name":"stdout","time":9851.21808655,"data":"pog BiLSTM seed 0 epoch 45 val R20 0.0045 N20 0.0025 best epoch 7 840s\n"}
+,{"stream_name":"stdout","time":9869.384663611,"data":"pog BiLSTM seed 0 epoch 46 val R20 0.0043 N20 0.0024 best epoch 7 858s\n"}
+,{"stream_name":"stdout","time":9887.439895752,"data":"pog BiLSTM seed 0 epoch 47 val R20 0.0041 N20 0.0022 best epoch 7 876s\n"}
+,{"stream_name":"stdout","time":9905.509696938,"data":"pog BiLSTM seed 0 epoch 48 val R20 0.0043 N20 0.0020 best epoch 7 895s\n"}
+,{"stream_name":"stdout","time":9923.664982146,"data":"pog BiLSTM seed 0 epoch 49 val R20 0.0048 N20 0.0029 best epoch 7 913s\n"}
+,{"stream_name":"stdout","time":9928.682082507,"data":"RESULT pog BiLSTM seed 0 epoch 7 test R20 0.0126 N20 0.0069\n"}
+,{"stream_name":"stdout","time":9929.640263953,"data":"Train: 5\n"}
+,{"stream_name":"stdout","time":9929.641003723,"data":"Val/Test: 2\n"}
+,{"stream_name":"stdout","time":9929.641870572,"data":"Val/Test: 2\n"}
+,{"stream_name":"stdout","time":9950.736433575,"data":"pog BiLSTM seed 1 epoch 0 val R20 0.0035 N20 0.0021 best epoch 0 18s\n"}
+,{"stream_name":"stdout","time":9969.266939453,"data":"pog BiLSTM seed 1 epoch 1 val R20 0.0053 N20 0.0026 best epoch 1 37s\n"}
+,{"stream_name":"stdout","time":9987.667546337,"data":"pog BiLSTM seed 1 epoch 2 val R20 0.0092 N20 0.0058 best epoch 2 55s\n"}
+,{"stream_name":"stdout","time":10005.971739294,"data":"pog BiLSTM seed 1 epoch 3 val R20 0.0093 N20 0.0058 best epoch 3 73s\n"}
+,{"stream_name":"stdout","time":10024.265948105,"data":"pog BiLSTM seed 1 epoch 4 val R20 0.0138 N20 0.0082 best epoch 4 92s\n"}
+,{"stream_name":"stdout","time":10042.518413733,"data":"pog BiLSTM seed 1 epoch 5 val R20 0.0130 N20 0.0077 best epoch 4 110s\n"}
+,{"stream_name":"stdout","time":10060.824875087,"data":"pog BiLSTM seed 1 epoch 6 val R20 0.0102 N20 0.0060 best epoch 4 128s\n"}
+,{"stream_name":"stdout","time":10079.083584449,"data":"pog BiLSTM seed 1 epoch 7 val R20 0.0112 N20 0.0067 best epoch 4 147s\n"}
+,{"stream_name":"stdout","time":10097.296624566,"data":"pog BiLSTM seed 1 epoch 8 val R20 0.0105 N20 0.0063 best epoch 4 165s\n"}
+,{"stream_name":"stdout","time":10115.487060082,"data":"pog BiLSTM seed 1 epoch 9 val R20 0.0082 N20 0.0054 best epoch 4 183s\n"}
+,{"stream_name":"stdout","time":10133.686553789,"data":"pog BiLSTM seed 1 epoch 10 val R20 0.0082 N20 0.0047 best epoch 4 201s\n"}
+,{"stream_name":"stdout","time":10151.89350553,"data":"pog BiLSTM seed 1 epoch 11 val R20 0.0075 N20 0.0047 best epoch 4 219s\n"}
+,{"stream_name":"stdout","time":10170.028915246,"data":"pog BiLSTM seed 1 epoch 12 val R20 0.0054 N20 0.0036 best epoch 4 238s\n"}
+,{"stream_name":"stdout","time":10188.291161176,"data":"pog BiLSTM seed 1 epoch 13 val R20 0.0054 N20 0.0032 best epoch 4 256s\n"}
+,{"stream_name":"stdout","time":10206.504676577,"data":"pog BiLSTM seed 1 epoch 14 val R20 0.0059 N20 0.0037 best epoch 4 274s\n"}
+,{"stream_name":"stdout","time":10224.820448364,"data":"pog BiLSTM seed 1 epoch 15 val R20 0.0065 N20 0.0035 best epoch 4 292s\n"}
+,{"stream_name":"stdout","time":10243.162524114,"data":"pog BiLSTM seed 1 epoch 16 val R20 0.0066 N20 0.0032 best epoch 4 311s\n"}
+,{"stream_name":"stdout","time":10261.316857422,"data":"pog BiLSTM seed 1 epoch 17 val R20 0.0079 N20 0.0044 best epoch 4 329s\n"}
+,{"stream_name":"stdout","time":10279.648401633,"data":"pog BiLSTM seed 1 epoch 18 val R20 0.0072 N20 0.0039 best epoch 4 347s\n"}
+,{"stream_name":"stdout","time":10297.969679001,"data":"pog BiLSTM seed 1 epoch 19 val R20 0.0053 N20 0.0025 best epoch 4 365s\n"}
+,{"stream_name":"stdout","time":10316.06970941,"data":"pog BiLSTM seed 1 epoch 20 val R20 0.0051 N20 0.0031 best epoch 4 384s\n"}
+,{"stream_name":"stdout","time":10334.04846334,"data":"pog BiLSTM seed 1 epoch 21 val R20 0.0039 N20 0.0024 best epoch 4 402s\n"}
+,{"stream_name":"stdout","time":10352.262453522,"data":"pog BiLSTM seed 1 epoch 22 val R20 0.0040 N20 0.0019 best epoch 4 420s\n"}
+,{"stream_name":"stdout","time":10370.480067981,"data":"pog BiLSTM seed 1 epoch 23 val R20 0.0049 N20 0.0032 best epoch 4 438s\n"}
+,{"stream_name":"stdout","time":10388.84248387,"data":"pog BiLSTM seed 1 epoch 24 val R20 0.0045 N20 0.0026 best epoch 4 456s\n"}
+,{"stream_name":"stdout","time":10407.288402605,"data":"pog BiLSTM seed 1 epoch 25 val R20 0.0054 N20 0.0033 best epoch 4 475s\n"}
+,{"stream_name":"stdout","time":10425.329852084,"data":"pog BiLSTM seed 1 epoch 26 val R20 0.0051 N20 0.0031 best epoch 4 493s\n"}
+,{"stream_name":"stdout","time":10443.561826793,"data":"pog BiLSTM seed 1 epoch 27 val R20 0.0058 N20 0.0034 best epoch 4 511s\n"}
+,{"stream_name":"stdout","time":10461.802146111,"data":"pog BiLSTM seed 1 epoch 28 val R20 0.0056 N20 0.0034 best epoch 4 529s\n"}
+,{"stream_name":"stdout","time":10479.793062059,"data":"pog BiLSTM seed 1 epoch 29 val R20 0.0042 N20 0.0019 best epoch 4 547s\n"}
+,{"stream_name":"stdout","time":10498.115369133,"data":"pog BiLSTM seed 1 epoch 30 val R20 0.0043 N20 0.0027 best epoch 4 566s\n"}
+,{"stream_name":"stdout","time":10516.411417339,"data":"pog BiLSTM seed 1 epoch 31 val R20 0.0043 N20 0.0018 best epoch 4 584s\n"}
+,{"stream_name":"stdout","time":10534.7330668,"data":"pog BiLSTM seed 1 epoch 32 val R20 0.0049 N20 0.0023 best epoch 4 602s\n"}
+,{"stream_name":"stdout","time":10553.050210786,"data":"pog BiLSTM seed 1 epoch 33 val R20 0.0033 N20 0.0019 best epoch 4 621s\n"}
+,{"stream_name":"stdout","time":10571.391427453,"data":"pog BiLSTM seed 1 epoch 34 val R20 0.0033 N20 0.0017 best epoch 4 639s\n"}
+,{"stream_name":"stdout","time":10589.76713472,"data":"pog BiLSTM seed 1 epoch 35 val R20 0.0039 N20 0.0016 best epoch 4 657s\n"}
+,{"stream_name":"stdout","time":10607.892286782,"data":"pog BiLSTM seed 1 epoch 36 val R20 0.0048 N20 0.0021 best epoch 4 675s\n"}
+,{"stream_name":"stdout","time":10626.128507766,"data":"pog BiLSTM seed 1 epoch 37 val R20 0.0044 N20 0.0019 best epoch 4 694s\n"}
+,{"stream_name":"stdout","time":10644.299253244,"data":"pog BiLSTM seed 1 epoch 38 val R20 0.0044 N20 0.0024 best epoch 4 712s\n"}
+,{"stream_name":"stdout","time":10662.634296626,"data":"pog BiLSTM seed 1 epoch 39 val R20 0.0045 N20 0.0025 best epoch 4 730s\n"}
+,{"stream_name":"stdout","time":10680.882126491,"data":"pog BiLSTM seed 1 epoch 40 val R20 0.0052 N20 0.0025 best epoch 4 748s\n"}
+,{"stream_name":"stdout","time":10699.276108895,"data":"pog BiLSTM seed 1 epoch 41 val R20 0.0053 N20 0.0032 best epoch 4 767s\n"}
+,{"stream_name":"stdout","time":10717.550093598,"data":"pog BiLSTM seed 1 epoch 42 val R20 0.0043 N20 0.0024 best epoch 4 785s\n"}
+,{"stream_name":"stdout","time":10735.60034734,"data":"pog BiLSTM seed 1 epoch 43 val R20 0.0055 N20 0.0025 best epoch 4 803s\n"}
+,{"stream_name":"stdout","time":10753.764961347,"data":"pog BiLSTM seed 1 epoch 44 val R20 0.0048 N20 0.0019 best epoch 4 821s\n"}
+,{"stream_name":"stdout","time":10771.7994555,"data":"pog BiLSTM seed 1 epoch 45 val R20 0.0048 N20 0.0026 best epoch 4 839s\n"}
+,{"stream_name":"stdout","time":10790.029730989,"data":"pog BiLSTM seed 1 epoch 46 val R20 0.0043 N20 0.0019 best epoch 4 858s\n"}
+,{"stream_name":"stdout","time":10808.087302754,"data":"pog BiLSTM seed 1 epoch 47 val R20 0.0056 N20 0.0025 best epoch 4 876s\n"}
+,{"stream_name":"stdout","time":10826.310000906,"data":"pog BiLSTM seed 1 epoch 48 val R20 0.0048 N20 0.0023 best epoch 4 894s\n"}
+,{"stream_name":"stdout","time":10844.57936236,"data":"pog BiLSTM seed 1 epoch 49 val R20 0.0048 N20 0.0020 best epoch 4 912s\n"}
+,{"stream_name":"stdout","time":10849.572837881,"data":"RESULT pog BiLSTM seed 1 epoch 4 test R20 0.0120 N20 0.0077\n"}
+,{"stream_name":"stdout","time":10850.531000717,"data":"Train: 5\n"}
+,{"stream_name":"stdout","time":10850.531578805,"data":"Val/Test: 2\n"}
+,{"stream_name":"stdout","time":10850.533032129,"data":"Val/Test: 2\n"}
+,{"stream_name":"stdout","time":10869.580391589,"data":"pog HyperGraph seed 2023 epoch 0 val R20 0.0042 N20 0.0023 best epoch 0 19s\n"}
+,{"stream_name":"stdout","time":10888.499891206,"data":"pog HyperGraph seed 2023 epoch 1 val R20 0.0073 N20 0.0045 best epoch 1 38s\n"}
+,{"stream_name":"stdout","time":10907.21190685,"data":"pog HyperGraph seed 2023 epoch 2 val R20 0.0095 N20 0.0063 best epoch 2 57s\n"}
+,{"stream_name":"stdout","time":10926.222565285,"data":"pog HyperGraph seed 2023 epoch 3 val R20 0.0111 N20 0.0071 best epoch 3 76s\n"}
+,{"stream_name":"stdout","time":10948.942771419,"data":"pog HyperGraph seed 2023 epoch 4 val R20 0.0145 N20 0.0079 best epoch 4 98s\n"}
+,{"stream_name":"stdout","time":10967.586040572,"data":"pog HyperGraph seed 2023 epoch 5 val R20 0.0139 N20 0.0076 best epoch 4 117s\n"}
+,{"stream_name":"stdout","time":10986.324043077,"data":"pog HyperGraph seed 2023 epoch 6 val R20 0.0158 N20 0.0080 best epoch 6 136s\n"}
+,{"stream_name":"stdout","time":11004.917272656,"data":"pog HyperGraph seed 2023 epoch 7 val R20 0.0159 N20 0.0087 best epoch 7 154s\n"}
+,{"stream_name":"stdout","time":11023.388132359,"data":"pog HyperGraph seed 2023 epoch 8 val R20 0.0165 N20 0.0091 best epoch 8 173s\n"}
+,{"stream_name":"stdout","time":11041.806441708,"data":"pog HyperGraph seed 2023 epoch 9 val R20 0.0140 N20 0.0081 best epoch 8 191s\n"}
+,{"stream_name":"stdout","time":11060.341920839,"data":"pog HyperGraph seed 2023 epoch 10 val R20 0.0158 N20 0.0086 best epoch 8 210s\n"}
+,{"stream_name":"stdout","time":11078.731252775,"data":"pog HyperGraph seed 2023 epoch 11 val R20 0.0158 N20 0.0085 best epoch 8 228s\n"}
+,{"stream_name":"stdout","time":11097.179011202,"data":"pog HyperGraph seed 2023 epoch 12 val R20 0.0180 N20 0.0096 best epoch 12 247s\n"}
+,{"stream_name":"stdout","time":11115.444073684,"data":"pog HyperGraph seed 2023 epoch 13 val R20 0.0181 N20 0.0099 best epoch 13 265s\n"}
+,{"stream_name":"stdout","time":11134.056314937,"data":"pog HyperGraph seed 2023 epoch 14 val R20 0.0173 N20 0.0092 best epoch 13 283s\n"}
+,{"stream_name":"stdout","time":11152.435387058,"data":"pog HyperGraph seed 2023 epoch 15 val R20 0.0190 N20 0.0110 best epoch 15 302s\n"}
+,{"stream_name":"stdout","time":11171.011424745,"data":"pog HyperGraph seed 2023 epoch 16 val R20 0.0165 N20 0.0093 best epoch 15 320s\n"}
+,{"stream_name":"stdout","time":11189.455724475,"data":"pog HyperGraph seed 2023 epoch 17 val R20 0.0200 N20 0.0115 best epoch 17 339s\n"}
+,{"stream_name":"stdout","time":11208.044774791,"data":"pog HyperGraph seed 2023 epoch 18 val R20 0.0186 N20 0.0096 best epoch 17 357s\n"}
+,{"stream_name":"stdout","time":11226.553903176,"data":"pog HyperGraph seed 2023 epoch 19 val R20 0.0193 N20 0.0113 best epoch 17 376s\n"}
+,{"stream_name":"stdout","time":11245.062189795,"data":"pog HyperGraph seed 2023 epoch 20 val R20 0.0186 N20 0.0105 best epoch 17 394s\n"}
+,{"stream_name":"stdout","time":11263.546337125,"data":"pog HyperGraph seed 2023 epoch 21 val R20 0.0199 N20 0.0115 best epoch 17 413s\n"}
+,{"stream_name":"stdout","time":11281.919201468,"data":"pog HyperGraph seed 2023 epoch 22 val R20 0.0175 N20 0.0107 best epoch 17 431s\n"}
+,{"stream_name":"stdout","time":11300.209659306,"data":"pog HyperGraph seed 2023 epoch 23 val R20 0.0195 N20 0.0103 best epoch 17 450s\n"}
+,{"stream_name":"stdout","time":11318.713217221,"data":"pog HyperGraph seed 2023 epoch 24 val R20 0.0202 N20 0.0107 best epoch 17 468s\n"}
+,{"stream_name":"stdout","time":11336.892142619,"data":"pog HyperGraph seed 2023 epoch 25 val R20 0.0214 N20 0.0117 best epoch 25 486s\n"}
+,{"stream_name":"stdout","time":11355.265706139,"data":"pog HyperGraph seed 2023 epoch 26 val R20 0.0198 N20 0.0106 best epoch 25 505s\n"}
+,{"stream_name":"stdout","time":11373.642649314,"data":"pog HyperGraph seed 2023 epoch 27 val R20 0.0184 N20 0.0114 best epoch 25 523s\n"}
+,{"stream_name":"stdout","time":11392.051011539,"data":"pog HyperGraph seed 2023 epoch 28 val R20 0.0180 N20 0.0102 best epoch 25 541s\n"}
+,{"stream_name":"stdout","time":11410.579225489,"data":"pog HyperGraph seed 2023 epoch 29 val R20 0.0192 N20 0.0111 best epoch 25 560s\n"}
+,{"stream_name":"stdout","time":11428.920726377,"data":"pog HyperGraph seed 2023 epoch 30 val R20 0.0206 N20 0.0122 best epoch 25 578s\n"}
+,{"stream_name":"stdout","time":11447.398607214,"data":"pog HyperGraph seed 2023 epoch 31 val R20 0.0184 N20 0.0115 best epoch 25 597s\n"}
+,{"stream_name":"stdout","time":11465.730794578,"data":"pog HyperGraph seed 2023 epoch 32 val R20 0.0206 N20 0.0116 best epoch 25 615s\n"}
+,{"stream_name":"stdout","time":11484.375208632,"data":"pog HyperGraph seed 2023 epoch 33 val R20 0.0184 N20 0.0108 best epoch 25 634s\n"}
+,{"stream_name":"stdout","time":11502.73328151,"data":"pog HyperGraph seed 2023 epoch 34 val R20 0.0192 N20 0.0121 best epoch 25 652s\n"}
+,{"stream_name":"stdout","time":11521.453290697,"data":"pog HyperGraph seed 2023 epoch 35 val R20 0.0194 N20 0.0114 best epoch 25 671s\n"}
+,{"stream_name":"stdout","time":11540.090463722,"data":"pog HyperGraph seed 2023 epoch 36 val R20 0.0193 N20 0.0109 best epoch 25 689s\n"}
+,{"stream_name":"stdout","time":11558.371451599,"data":"pog HyperGraph seed 2023 epoch 37 val R20 0.0191 N20 0.0113 best epoch 25 708s\n"}
+,{"stream_name":"stdout","time":11576.769084968,"data":"pog HyperGraph seed 2023 epoch 38 val R20 0.0188 N20 0.0117 best epoch 25 726s\n"}
+,{"stream_name":"stdout","time":11595.109135664,"data":"pog HyperGraph seed 2023 epoch 39 val R20 0.0173 N20 0.0111 best epoch 25 744s\n"}
+,{"stream_name":"stdout","time":11613.512802797,"data":"pog HyperGraph seed 2023 epoch 40 val R20 0.0184 N20 0.0111 best epoch 25 763s\n"}
+,{"stream_name":"stdout","time":11631.846407822,"data":"pog HyperGraph seed 2023 epoch 41 val R20 0.0211 N20 0.0118 best epoch 25 781s\n"}
+,{"stream_name":"stdout","time":11650.230470495,"data":"pog HyperGraph seed 2023 epoch 42 val R20 0.0194 N20 0.0114 best epoch 25 800s\n"}
+,{"stream_name":"stdout","time":11668.500238144,"data":"pog HyperGraph seed 2023 epoch 43 val R20 0.0193 N20 0.0117 best epoch 25 818s\n"}
+,{"stream_name":"stdout","time":11686.972585565,"data":"pog HyperGraph seed 2023 epoch 44 val R20 0.0176 N20 0.0103 best epoch 25 836s\n"}
+,{"stream_name":"stdout","time":11705.371735954,"data":"pog HyperGraph seed 2023 epoch 45 val R20 0.0182 N20 0.0119 best epoch 25 855s\n"}
+,{"stream_name":"stdout","time":11723.815297451,"data":"pog HyperGraph seed 2023 epoch 46 val R20 0.0200 N20 0.0121 best epoch 25 873s\n"}
+,{"stream_name":"stdout","time":11742.129452138,"data":"pog HyperGraph seed 2023 epoch 47 val R20 0.0183 N20 0.0114 best epoch 25 892s\n"}
+,{"stream_name":"stdout","time":11760.470505064,"data":"pog HyperGraph seed 2023 epoch 48 val R20 0.0203 N20 0.0129 best epoch 25 910s\n"}
+,{"stream_name":"stdout","time":11778.914644034,"data":"pog HyperGraph seed 2023 epoch 49 val R20 0.0177 N20 0.0112 best epoch 25 928s\n"}
+,{"stream_name":"stdout","time":11784.16690599,"data":"RESULT pog HyperGraph seed 2023 epoch 25 test R20 0.0166 N20 0.0089\n"}
+,{"stream_name":"stdout","time":11785.133528737,"data":"Train: 5\n"}
+,{"stream_name":"stdout","time":11785.134164135,"data":"Val/Test: 2\n"}
+,{"stream_name":"stdout","time":11785.135052958,"data":"Val/Test: 2\n"}
+,{"stream_name":"stdout","time":11804.107649784,"data":"pog HyperGraph seed 0 epoch 0 val R20 0.0033 N20 0.0026 best epoch 0 19s\n"}
+,{"stream_name":"stdout","time":11822.844897176,"data":"pog HyperGraph seed 0 epoch 1 val R20 0.0070 N20 0.0049 best epoch 1 38s\n"}
+,{"stream_name":"stdout","time":11841.562460378,"data":"pog HyperGraph seed 0 epoch 2 val R20 0.0100 N20 0.0058 best epoch 2 56s\n"}
+,{"stream_name":"stdout","time":11859.97482193,"data":"pog HyperGraph seed 0 epoch 3 val R20 0.0117 N20 0.0068 best epoch 3 75s\n"}
+,{"stream_name":"stdout","time":11878.600828738,"data":"pog HyperGraph seed 0 epoch 4 val R20 0.0124 N20 0.0070 best epoch 4 93s\n"}
+,{"stream_name":"stdout","time":11897.221553215,"data":"pog HyperGraph seed 0 epoch 5 val R20 0.0133 N20 0.0077 best epoch 5 112s\n"}
+,{"stream_name":"stdout","time":11915.766522619,"data":"pog HyperGraph seed 0 epoch 6 val R20 0.0163 N20 0.0092 best epoch 6 131s\n"}
+,{"stream_name":"stdout","time":11934.335025916,"data":"pog HyperGraph seed 0 epoch 7 val R20 0.0143 N20 0.0081 best epoch 6 149s\n"}
+,{"stream_name":"stdout","time":11952.806520332,"data":"pog HyperGraph seed 0 epoch 8 val R20 0.0152 N20 0.0084 best epoch 6 168s\n"}
+,{"stream_name":"stdout","time":11971.354454253,"data":"pog HyperGraph seed 0 epoch 9 val R20 0.0158 N20 0.0085 best epoch 6 186s\n"}
+,{"stream_name":"stdout","time":11990.015047108,"data":"pog HyperGraph seed 0 epoch 10 val R20 0.0171 N20 0.0098 best epoch 10 205s\n"}
+,{"stream_name":"stdout","time":12008.481488302,"data":"pog HyperGraph seed 0 epoch 11 val R20 0.0152 N20 0.0088 best epoch 10 223s\n"}
+,{"stream_name":"stdout","time":12027.054421399,"data":"pog HyperGraph seed 0 epoch 12 val R20 0.0168 N20 0.0094 best epoch 10 242s\n"}
+,{"stream_name":"stdout","time":12045.489981233,"data":"pog HyperGraph seed 0 epoch 13 val R20 0.0174 N20 0.0097 best epoch 10 260s\n"}
+,{"stream_name":"stdout","time":12063.990896064,"data":"pog HyperGraph seed 0 epoch 14 val R20 0.0161 N20 0.0101 best epoch 10 279s\n"}
+,{"stream_name":"stdout","time":12082.74045548,"data":"pog HyperGraph seed 0 epoch 15 val R20 0.0172 N20 0.0101 best epoch 15 298s\n"}
+,{"stream_name":"stdout","time":12101.298033427,"data":"pog HyperGraph seed 0 epoch 16 val R20 0.0202 N20 0.0113 best epoch 16 316s\n"}
+,{"stream_name":"stdout","time":12119.667408508,"data":"pog HyperGraph seed 0 epoch 17 val R20 0.0194 N20 0.0109 best epoch 16 334s\n"}
+,{"stream_name":"stdout","time":12138.030245947,"data":"pog HyperGraph seed 0 epoch 18 val R20 0.0188 N20 0.0103 best epoch 16 353s\n"}
+,{"stream_name":"stdout","time":12156.513660641,"data":"pog HyperGraph seed 0 epoch 19 val R20 0.0177 N20 0.0098 best epoch 16 371s\n"}
+,{"stream_name":"stdout","time":12174.919234465,"data":"pog HyperGraph seed 0 epoch 20 val R20 0.0198 N20 0.0111 best epoch 16 390s\n"}
+,{"stream_name":"stdout","time":12193.247415262,"data":"pog HyperGraph seed 0 epoch 21 val R20 0.0185 N20 0.0109 best epoch 16 408s\n"}
+,{"stream_name":"stdout","time":12211.46643284,"data":"pog HyperGraph seed 0 epoch 22 val R20 0.0192 N20 0.0111 best epoch 16 426s\n"}
+,{"stream_name":"stdout","time":12229.994502898,"data":"pog HyperGraph seed 0 epoch 23 val R20 0.0190 N20 0.0108 best epoch 16 445s\n"}
+,{"stream_name":"stdout","time":12248.200462494,"data":"pog HyperGraph seed 0 epoch 24 val R20 0.0187 N20 0.0106 best epoch 16 463s\n"}
+,{"stream_name":"stdout","time":12266.712625394,"data":"pog HyperGraph seed 0 epoch 25 val R20 0.0188 N20 0.0111 best epoch 16 482s\n"}
+,{"stream_name":"stdout","time":12284.953020693,"data":"pog HyperGraph seed 0 epoch 26 val R20 0.0182 N20 0.0108 best epoch 16 500s\n"}
+,{"stream_name":"stdout","time":12303.452101703,"data":"pog HyperGraph seed 0 epoch 27 val R20 0.0199 N20 0.0111 best epoch 16 518s\n"}
+,{"stream_name":"stdout","time":12321.669473364,"data":"pog HyperGraph seed 0 epoch 28 val R20 0.0193 N20 0.0118 best epoch 16 536s\n"}
+,{"stream_name":"stdout","time":12340.077953367,"data":"pog HyperGraph seed 0 epoch 29 val R20 0.0208 N20 0.0118 best epoch 29 555s\n"}
+,{"stream_name":"stdout","time":12358.593569949,"data":"pog HyperGraph seed 0 epoch 30 val R20 0.0206 N20 0.0117 best epoch 29 573s\n"}
+,{"stream_name":"stdout","time":12376.991684759,"data":"pog HyperGraph seed 0 epoch 31 val R20 0.0186 N20 0.0109 best epoch 29 592s\n"}
+,{"stream_name":"stdout","time":12395.551725463,"data":"pog HyperGraph seed 0 epoch 32 val R20 0.0180 N20 0.0113 best epoch 29 610s\n"}
+,{"stream_name":"stdout","time":12414.078197531,"data":"pog HyperGraph seed 0 epoch 33 val R20 0.0199 N20 0.0119 best epoch 29 629s\n"}
+,{"stream_name":"stdout","time":12432.602177989,"data":"pog HyperGraph seed 0 epoch 34 val R20 0.0213 N20 0.0119 best epoch 34 647s\n"}
+,{"stream_name":"stdout","time":12451.001659433,"data":"pog HyperGraph seed 0 epoch 35 val R20 0.0180 N20 0.0110 best epoch 34 666s\n"}
+,{"stream_name":"stdout","time":12469.435728959,"data":"pog HyperGraph seed 0 epoch 36 val R20 0.0175 N20 0.0109 best epoch 34 684s\n"}
+,{"stream_name":"stdout","time":12487.9586391,"data":"pog HyperGraph seed 0 epoch 37 val R20 0.0197 N20 0.0122 best epoch 34 703s\n"}
+,{"stream_name":"stdout","time":12506.249267569,"data":"pog HyperGraph seed 0 epoch 38 val R20 0.0207 N20 0.0128 best epoch 34 721s\n"}
+,{"stream_name":"stdout","time":12524.601082921,"data":"pog HyperGraph seed 0 epoch 39 val R20 0.0183 N20 0.0118 best epoch 34 739s\n"}
+,{"stream_name":"stdout","time":12543.242873212,"data":"pog HyperGraph seed 0 epoch 40 val R20 0.0193 N20 0.0124 best epoch 34 758s\n"}
+,{"stream_name":"stdout","time":12561.840134704,"data":"pog HyperGraph seed 0 epoch 41 val R20 0.0190 N20 0.0113 best epoch 34 777s\n"}
+,{"stream_name":"stdout","time":12580.169660844,"data":"pog HyperGraph seed 0 epoch 42 val R20 0.0199 N20 0.0124 best epoch 34 795s\n"}
+,{"stream_name":"stdout","time":12598.498107742,"data":"pog HyperGraph seed 0 epoch 43 val R20 0.0180 N20 0.0118 best epoch 34 813s\n"}
+,{"stream_name":"stdout","time":12616.999506005,"data":"pog HyperGraph seed 0 epoch 44 val R20 0.0183 N20 0.0112 best epoch 34 832s\n"}
+,{"stream_name":"stdout","time":12635.288677164,"data":"pog HyperGraph seed 0 epoch 45 val R20 0.0179 N20 0.0120 best epoch 34 850s\n"}
+,{"stream_name":"stdout","time":12653.704852915,"data":"pog HyperGraph seed 0 epoch 46 val R20 0.0177 N20 0.0121 best epoch 34 869s\n"}
+,{"stream_name":"stdout","time":12672.182397957,"data":"pog HyperGraph seed 0 epoch 47 val R20 0.0193 N20 0.0125 best epoch 34 887s\n"}
+,{"stream_name":"stdout","time":12690.61762942,"data":"pog HyperGraph seed 0 epoch 48 val R20 0.0178 N20 0.0116 best epoch 34 905s\n"}
+,{"stream_name":"stdout","time":12709.044827693,"data":"pog HyperGraph seed 0 epoch 49 val R20 0.0163 N20 0.0109 best epoch 34 924s\n"}
+,{"stream_name":"stdout","time":12714.053074124,"data":"RESULT pog HyperGraph seed 0 epoch 34 test R20 0.0165 N20 0.0088\n"}
+,{"stream_name":"stdout","time":12715.002532333,"data":"Train: 5\n"}
+,{"stream_name":"stdout","time":12715.003359838,"data":"Val/Test: 2\n"}
+,{"stream_name":"stdout","time":12715.004238381,"data":"Val/Test: 2\n"}
+,{"stream_name":"stdout","time":12733.765062199,"data":"pog HyperGraph seed 1 epoch 0 val R20 0.0047 N20 0.0030 best epoch 0 19s\n"}
+,{"stream_name":"stdout","time":12752.497742329,"data":"pog HyperGraph seed 1 epoch 1 val R20 0.0071 N20 0.0043 best epoch 1 37s\n"}
+,{"stream_name":"stdout","time":12771.281062819,"data":"pog HyperGraph seed 1 epoch 2 val R20 0.0099 N20 0.0061 best epoch 2 56s\n"}
+,{"stream_name":"stdout","time":12789.707692938,"data":"pog HyperGraph seed 1 epoch 3 val R20 0.0125 N20 0.0076 best epoch 3 75s\n"}
+,{"stream_name":"stdout","time":12808.274396724,"data":"pog HyperGraph seed 1 epoch 4 val R20 0.0127 N20 0.0072 best epoch 3 93s\n"}
+,{"stream_name":"stdout","time":12826.822990268,"data":"pog HyperGraph seed 1 epoch 5 val R20 0.0133 N20 0.0086 best epoch 5 112s\n"}
+,{"stream_name":"stdout","time":12845.395676444,"data":"pog HyperGraph seed 1 epoch 6 val R20 0.0172 N20 0.0104 best epoch 6 130s\n"}
+,{"stream_name":"stdout","time":12863.953313507,"data":"pog HyperGraph seed 1 epoch 7 val R20 0.0162 N20 0.0099 best epoch 6 149s\n"}
+,{"stream_name":"stdout","time":12882.609948563,"data":"pog HyperGraph seed 1 epoch 8 val R20 0.0173 N20 0.0107 best epoch 8 168s\n"}
+,{"stream_name":"stdout","time":12901.069453985,"data":"pog HyperGraph seed 1 epoch 9 val R20 0.0186 N20 0.0106 best epoch 8 186s\n"}
+,{"stream_name":"stdout","time":12919.543266238,"data":"pog HyperGraph seed 1 epoch 10 val R20 0.0190 N20 0.0105 best epoch 8 204s\n"}
+,{"stream_name":"stdout","time":12937.974480104,"data":"pog HyperGraph seed 1 epoch 11 val R20 0.0187 N20 0.0103 best epoch 8 223s\n"}
+,{"stream_name":"stdout","time":12956.225970129,"data":"pog HyperGraph seed 1 epoch 12 val R20 0.0179 N20 0.0099 best epoch 8 241s\n"}
+,{"stream_name":"stdout","time":12974.708914218,"data":"pog HyperGraph seed 1 epoch 13 val R20 0.0189 N20 0.0107 best epoch 13 260s\n"}
+,{"stream_name":"stdout","time":12993.062075169,"data":"pog HyperGraph seed 1 epoch 14 val R20 0.0189 N20 0.0108 best epoch 13 278s\n"}
+,{"stream_name":"stdout","time":13011.73319426,"data":"pog HyperGraph seed 1 epoch 15 val R20 0.0155 N20 0.0095 best epoch 13 297s\n"}
+,{"stream_name":"stdout","time":13029.97065811,"data":"pog HyperGraph seed 1 epoch 16 val R20 0.0199 N20 0.0115 best epoch 16 315s\n"}
+,{"stream_name":"stdout","time":13048.432242597,"data":"pog HyperGraph seed 1 epoch 17 val R20 0.0177 N20 0.0102 best epoch 16 333s\n"}
+,{"stream_name":"stdout","time":13066.832381827,"data":"pog HyperGraph seed 1 epoch 18 val R20 0.0192 N20 0.0098 best epoch 16 352s\n"}
+,{"stream_name":"stdout","time":13085.365145128,"data":"pog HyperGraph seed 1 epoch 19 val R20 0.0207 N20 0.0108 best epoch 16 370s\n"}
+,{"stream_name":"stdout","time":13103.5633909,"data":"pog HyperGraph seed 1 epoch 20 val R20 0.0188 N20 0.0104 best epoch 16 388s\n"}
+,{"stream_name":"stdout","time":13121.944326512,"data":"pog HyperGraph seed 1 epoch 21 val R20 0.0183 N20 0.0105 best epoch 16 407s\n"}
+,{"stream_name":"stdout","time":13140.294291853,"data":"pog HyperGraph seed 1 epoch 22 val R20 0.0163 N20 0.0094 best epoch 16 425s\n"}
+,{"stream_name":"stdout","time":13158.828570567,"data":"pog HyperGraph seed 1 epoch 23 val R20 0.0194 N20 0.0109 best epoch 16 444s\n"}
+,{"stream_name":"stdout","time":13177.244276762,"data":"pog HyperGraph seed 1 epoch 24 val R20 0.0192 N20 0.0106 best epoch 16 462s\n"}
+,{"stream_name":"stdout","time":13195.51617869,"data":"pog HyperGraph seed 1 epoch 25 val R20 0.0196 N20 0.0110 best epoch 16 480s\n"}
+,{"stream_name":"stdout","time":13214.134427589,"data":"pog HyperGraph seed 1 epoch 26 val R20 0.0196 N20 0.0110 best epoch 16 499s\n"}
+,{"stream_name":"stdout","time":13232.710781967,"data":"pog HyperGraph seed 1 epoch 27 val R20 0.0185 N20 0.0113 best epoch 16 518s\n"}
+,{"stream_name":"stdout","time":13251.183331562,"data":"pog HyperGraph seed 1 epoch 28 val R20 0.0183 N20 0.0112 best epoch 16 536s\n"}
+,{"stream_name":"stdout","time":13269.634458125,"data":"pog HyperGraph seed 1 epoch 29 val R20 0.0223 N20 0.0131 best epoch 29 555s\n"}
+,{"stream_name":"stdout","time":13287.969249982,"data":"pog HyperGraph seed 1 epoch 30 val R20 0.0209 N20 0.0120 best epoch 29 573s\n"}
+,{"stream_name":"stdout","time":13306.563351435,"data":"pog HyperGraph seed 1 epoch 31 val R20 0.0197 N20 0.0124 best epoch 29 591s\n"}
+,{"stream_name":"stdout","time":13324.827521425,"data":"pog HyperGraph seed 1 epoch 32 val R20 0.0189 N20 0.0120 best epoch 29 610s\n"}
+,{"stream_name":"stdout","time":13343.335841919,"data":"pog HyperGraph seed 1 epoch 33 val R20 0.0209 N20 0.0126 best epoch 29 628s\n"}
+,{"stream_name":"stdout","time":13361.771411178,"data":"pog HyperGraph seed 1 epoch 34 val R20 0.0198 N20 0.0124 best epoch 29 647s\n"}
+,{"stream_name":"stdout","time":13380.200697625,"data":"pog HyperGraph seed 1 epoch 35 val R20 0.0203 N20 0.0118 best epoch 29 665s\n"}
+,{"stream_name":"stdout","time":13398.539320561,"data":"pog HyperGraph seed 1 epoch 36 val R20 0.0183 N20 0.0113 best epoch 29 683s\n"}
+,{"stream_name":"stdout","time":13417.063411712,"data":"pog HyperGraph seed 1 epoch 37 val R20 0.0180 N20 0.0114 best epoch 29 702s\n"}
+,{"stream_name":"stdout","time":13435.376503586,"data":"pog HyperGraph seed 1 epoch 38 val R20 0.0207 N20 0.0120 best epoch 29 720s\n"}
+,{"stream_name":"stdout","time":13453.931955556,"data":"pog HyperGraph seed 1 epoch 39 val R20 0.0201 N20 0.0119 best epoch 29 739s\n"}
+,{"stream_name":"stdout","time":13472.444691454,"data":"pog HyperGraph seed 1 epoch 40 val R20 0.0203 N20 0.0128 best epoch 29 757s\n"}
+,{"stream_name":"stdout","time":13490.745237287,"data":"pog HyperGraph seed 1 epoch 41 val R20 0.0202 N20 0.0119 best epoch 29 776s\n"}
+,{"stream_name":"stdout","time":13509.230718347,"data":"pog HyperGraph seed 1 epoch 42 val R20 0.0178 N20 0.0114 best epoch 29 794s\n"}
+,{"stream_name":"stdout","time":13527.629222234,"data":"pog HyperGraph seed 1 epoch 43 val R20 0.0178 N20 0.0112 best epoch 29 813s\n"}
+,{"stream_name":"stdout","time":13546.146818585,"data":"pog HyperGraph seed 1 epoch 44 val R20 0.0164 N20 0.0116 best epoch 29 831s\n"}
+,{"stream_name":"stdout","time":13564.688161258,"data":"pog HyperGraph seed 1 epoch 45 val R20 0.0204 N20 0.0127 best epoch 29 850s\n"}
+,{"stream_name":"stdout","time":13583.183486334,"data":"pog HyperGraph seed 1 epoch 46 val R20 0.0178 N20 0.0122 best epoch 29 868s\n"}
+,{"stream_name":"stdout","time":13601.582936603,"data":"pog HyperGraph seed 1 epoch 47 val R20 0.0165 N20 0.0112 best epoch 29 887s\n"}
+,{"stream_name":"stdout","time":13620.027341467,"data":"pog HyperGraph seed 1 epoch 48 val R20 0.0185 N20 0.0122 best epoch 29 905s\n"}
+,{"stream_name":"stdout","time":13638.299566475,"data":"pog HyperGraph seed 1 epoch 49 val R20 0.0198 N20 0.0134 best epoch 29 923s\n"}
+,{"stream_name":"stdout","time":13643.308393307,"data":"RESULT pog HyperGraph seed 1 epoch 29 test R20 0.0174 N20 0.0097\n"}
+,{"stream_name":"stdout","time":13644.273027053,"data":"Train: 5\n"}
+,{"stream_name":"stdout","time":13644.273841301,"data":"Val/Test: 2\n"}
+,{"stream_name":"stdout","time":13644.274696381,"data":"Val/Test: 2\n"}
+,{"stream_name":"stdout","time":13662.529569374,"data":"pog Transformer seed 2023 epoch 0 val R20 0.0009 N20 0.0005 best epoch 0 18s\n"}
+,{"stream_name":"stdout","time":13680.665985635,"data":"pog Transformer seed 2023 epoch 1 val R20 0.0010 N20 0.0005 best epoch 0 36s\n"}
+,{"stream_name":"stdout","time":13698.70216846,"data":"pog Transformer seed 2023 epoch 2 val R20 0.0020 N20 0.0011 best epoch 2 54s\n"}
+,{"stream_name":"stdout","time":13716.625593392,"data":"pog Transformer seed 2023 epoch 3 val R20 0.0029 N20 0.0012 best epoch 3 72s\n"}
+,{"stream_name":"stdout","time":13734.48165241,"data":"pog Transformer seed 2023 epoch 4 val R20 0.0038 N20 0.0017 best epoch 4 90s\n"}
+,{"stream_name":"stdout","time":13752.502904165,"data":"pog Transformer seed 2023 epoch 5 val R20 0.0045 N20 0.0023 best epoch 5 108s\n"}
+,{"stream_name":"stdout","time":13770.327504705,"data":"pog Transformer seed 2023 epoch 6 val R20 0.0054 N20 0.0026 best epoch 6 126s\n"}
+,{"stream_name":"stdout","time":13787.991951762,"data":"pog Transformer seed 2023 epoch 7 val R20 0.0049 N20 0.0030 best epoch 6 144s\n"}
+,{"stream_name":"stdout","time":13805.958493544,"data":"pog Transformer seed 2023 epoch 8 val R20 0.0081 N20 0.0038 best epoch 8 162s\n"}
+,{"stream_name":"stdout","time":13824.037676701,"data":"pog Transformer seed 2023 epoch 9 val R20 0.0082 N20 0.0040 best epoch 9 180s\n"}
+,{"stream_name":"stdout","time":13842.054427782,"data":"pog Transformer seed 2023 epoch 10 val R20 0.0088 N20 0.0044 best epoch 10 198s\n"}
+,{"stream_name":"stdout","time":13859.848559824,"data":"pog Transformer seed 2023 epoch 11 val R20 0.0089 N20 0.0046 best epoch 11 216s\n"}
+,{"stream_name":"stdout","time":13877.658732986,"data":"pog Transformer seed 2023 epoch 12 val R20 0.0093 N20 0.0053 best epoch 12 233s\n"}
+,{"stream_name":"stdout","time":13895.522050091,"data":"pog Transformer seed 2023 epoch 13 val R20 0.0102 N20 0.0055 best epoch 13 251s\n"}
+,{"stream_name":"stdout","time":13913.387541391,"data":"pog Transformer seed 2023 epoch 14 val R20 0.0108 N20 0.0064 best epoch 14 269s\n"}
+,{"stream_name":"stdout","time":13931.347524785,"data":"pog Transformer seed 2023 epoch 15 val R20 0.0123 N20 0.0065 best epoch 15 287s\n"}
+,{"stream_name":"stdout","time":13949.285371198,"data":"pog Transformer seed 2023 epoch 16 val R20 0.0130 N20 0.0070 best epoch 16 305s\n"}
+,{"stream_name":"stdout","time":13967.097292669,"data":"pog Transformer seed 2023 epoch 17 val R20 0.0133 N20 0.0067 best epoch 16 323s\n"}
+,{"stream_name":"stdout","time":13985.060646713,"data":"pog Transformer seed 2023 epoch 18 val R20 0.0126 N20 0.0067 best epoch 16 341s\n"}
+,{"stream_name":"stdout","time":14002.903674235,"data":"pog Transformer seed 2023 epoch 19 val R20 0.0126 N20 0.0069 best epoch 16 359s\n"}
+,{"stream_name":"stdout","time":14020.823574275,"data":"pog Transformer seed 2023 epoch 20 val R20 0.0145 N20 0.0078 best epoch 20 376s\n"}
+,{"stream_name":"stdout","time":14038.565036327,"data":"pog Transformer seed 2023 epoch 21 val R20 0.0129 N20 0.0072 best epoch 20 394s\n"}
+,{"stream_name":"stdout","time":14056.454582024,"data":"pog Transformer seed 2023 epoch 22 val R20 0.0133 N20 0.0075 best epoch 20 412s\n"}
+,{"stream_name":"stdout","time":14074.252902126,"data":"pog Transformer seed 2023 epoch 23 val R20 0.0131 N20 0.0075 best epoch 20 430s\n"}
+,{"stream_name":"stdout","time":14092.05280143,"data":"pog Transformer seed 2023 epoch 24 val R20 0.0133 N20 0.0075 best epoch 20 448s\n"}
+,{"stream_name":"stdout","time":14109.851535019,"data":"pog Transformer seed 2023 epoch 25 val R20 0.0137 N20 0.0078 best epoch 20 466s\n"}
+,{"stream_name":"stdout","time":14127.768707099,"data":"pog Transformer seed 2023 epoch 26 val R20 0.0148 N20 0.0078 best epoch 26 483s\n"}
+,{"stream_name":"stdout","time":14145.324222565,"data":"pog Transformer seed 2023 epoch 27 val R20 0.0156 N20 0.0083 best epoch 27 501s\n"}
+,{"stream_name":"stdout","time":14163.18882086,"data":"pog Transformer seed 2023 epoch 28 val R20 0.0153 N20 0.0082 best epoch 27 519s\n"}
+,{"stream_name":"stdout","time":14181.132432385,"data":"pog Transformer seed 2023 epoch 29 val R20 0.0156 N20 0.0083 best epoch 27 537s\n"}
+,{"stream_name":"stdout","time":14199.056541145,"data":"pog Transformer seed 2023 epoch 30 val R20 0.0173 N20 0.0090 best epoch 30 555s\n"}
+,{"stream_name":"stdout","time":14216.929704746,"data":"pog Transformer seed 2023 epoch 31 val R20 0.0188 N20 0.0090 best epoch 30 573s\n"}
+,{"stream_name":"stdout","time":14234.814077718,"data":"pog Transformer seed 2023 epoch 32 val R20 0.0178 N20 0.0092 best epoch 32 590s\n"}
+,{"stream_name":"stdout","time":14252.672664949,"data":"pog Transformer seed 2023 epoch 33 val R20 0.0183 N20 0.0097 best epoch 33 608s\n"}
+,{"stream_name":"stdout","time":14270.432503383,"data":"pog Transformer seed 2023 epoch 34 val R20 0.0177 N20 0.0092 best epoch 33 626s\n"}
+,{"stream_name":"stdout","time":14288.502084776,"data":"pog Transformer seed 2023 epoch 35 val R20 0.0183 N20 0.0099 best epoch 33 644s\n"}
+,{"stream_name":"stdout","time":14306.263570864,"data":"pog Transformer seed 2023 epoch 36 val R20 0.0188 N20 0.0097 best epoch 36 662s\n"}
+,{"stream_name":"stdout","time":14324.177690124,"data":"pog Transformer seed 2023 epoch 37 val R20 0.0188 N20 0.0097 best epoch 36 680s\n"}
+,{"stream_name":"stdout","time":14342.060706328,"data":"pog Transformer seed 2023 epoch 38 val R20 0.0168 N20 0.0091 best epoch 36 698s\n"}
+,{"stream_name":"stdout","time":14359.909216134,"data":"pog Transformer seed 2023 epoch 39 val R20 0.0170 N20 0.0094 best epoch 36 716s\n"}
+,{"stream_name":"stdout","time":14377.80128111,"data":"pog Transformer seed 2023 epoch 40 val R20 0.0183 N20 0.0093 best epoch 36 733s\n"}
+,{"stream_name":"stdout","time":14395.653192819,"data":"pog Transformer seed 2023 epoch 41 val R20 0.0167 N20 0.0097 best epoch 36 751s\n"}
+,{"stream_name":"stdout","time":14413.620095284,"data":"pog Transformer seed 2023 epoch 42 val R20 0.0158 N20 0.0090 best epoch 36 769s\n"}
+,{"stream_name":"stdout","time":14431.262003402,"data":"pog Transformer seed 2023 epoch 43 val R20 0.0173 N20 0.0089 best epoch 36 787s\n"}
+,{"stream_name":"stdout","time":14448.900639291,"data":"pog Transformer seed 2023 epoch 44 val R20 0.0163 N20 0.0093 best epoch 36 805s\n"}
+,{"stream_name":"stdout","time":14466.619473424,"data":"pog Transformer seed 2023 epoch 45 val R20 0.0159 N20 0.0093 best epoch 36 822s\n"}
+,{"stream_name":"stdout","time":14484.51566338,"data":"pog Transformer seed 2023 epoch 46 val R20 0.0188 N20 0.0105 best epoch 36 840s\n"}
+,{"stream_name":"stdout","time":14502.103640681,"data":"pog Transformer seed 2023 epoch 47 val R20 0.0188 N20 0.0113 best epoch 36 858s\n"}
+,{"stream_name":"stdout","time":14520.27074331,"data":"pog Transformer seed 2023 epoch 48 val R20 0.0174 N20 0.0102 best epoch 36 876s\n"}
+,{"stream_name":"stdout","time":14538.121964206,"data":"pog Transformer seed 2023 epoch 49 val R20 0.0186 N20 0.0108 best epoch 36 894s\n"}
+,{"stream_name":"stdout","time":14542.704181449,"data":"RESULT pog Transformer seed 2023 epoch 36 test R20 0.0140 N20 0.0081\n"}
+,{"stream_name":"stdout","time":14543.647565772,"data":"Train: 5\n"}
+,{"stream_name":"stdout","time":14543.648287188,"data":"Val/Test: 2\n"}
+,{"stream_name":"stdout","time":14543.649183248,"data":"Val/Test: 2\n"}
+,{"stream_name":"stdout","time":14561.642161658,"data":"pog Transformer seed 0 epoch 0 val R20 0.0009 N20 0.0003 best epoch 0 18s\n"}
+,{"stream_name":"stdout","time":14579.697440878,"data":"pog Transformer seed 0 epoch 1 val R20 0.0013 N20 0.0009 best epoch 1 36s\n"}
+,{"stream_name":"stdout","time":14599.214876047,"data":"pog Transformer seed 0 epoch 2 val R20 0.0027 N20 0.0012 best epoch 2 56s\n"}
+,{"stream_name":"stdout","time":14617.044155814,"data":"pog Transformer seed 0 epoch 3 val R20 0.0039 N20 0.0018 best epoch 3 73s\n"}
+,{"stream_name":"stdout","time":14635.167399373,"data":"pog Transformer seed 0 epoch 4 val R20 0.0031 N20 0.0016 best epoch 3 91s\n"}
+,{"stream_name":"stdout","time":14653.1843223,"data":"pog Transformer seed 0 epoch 5 val R20 0.0041 N20 0.0023 best epoch 5 109s\n"}
+,{"stream_name":"stdout","time":14671.248556244,"data":"pog Transformer seed 0 epoch 6 val R20 0.0056 N20 0.0032 best epoch 6 128s\n"}
+,{"stream_name":"stdout","time":14689.16618599,"data":"pog Transformer seed 0 epoch 7 val R20 0.0073 N20 0.0039 best epoch 7 145s\n"}
+,{"stream_name":"stdout","time":14707.071138605,"data":"pog Transformer seed 0 epoch 8 val R20 0.0085 N20 0.0044 best epoch 8 163s\n"}
+,{"stream_name":"stdout","time":14725.130661426,"data":"pog Transformer seed 0 epoch 9 val R20 0.0093 N20 0.0049 best epoch 9 181s\n"}
+,{"stream_name":"stdout","time":14743.006296937,"data":"pog Transformer seed 0 epoch 10 val R20 0.0100 N20 0.0053 best epoch 10 199s\n"}
+,{"stream_name":"stdout","time":14760.777021596,"data":"pog Transformer seed 0 epoch 11 val R20 0.0105 N20 0.0055 best epoch 11 217s\n"}
+,{"stream_name":"stdout","time":14778.866286876,"data":"pog Transformer seed 0 epoch 12 val R20 0.0118 N20 0.0061 best epoch 12 235s\n"}
+,{"stream_name":"stdout","time":14796.963433698,"data":"pog Transformer seed 0 epoch 13 val R20 0.0105 N20 0.0059 best epoch 12 253s\n"}
+,{"stream_name":"stdout","time":14814.996349244,"data":"pog Transformer seed 0 epoch 14 val R20 0.0116 N20 0.0063 best epoch 12 271s\n"}
+,{"stream_name":"stdout","time":14832.976596512,"data":"pog Transformer seed 0 epoch 15 val R20 0.0133 N20 0.0069 best epoch 15 289s\n"}
+,{"stream_name":"stdout","time":14850.945748271,"data":"pog Transformer seed 0 epoch 16 val R20 0.0138 N20 0.0073 best epoch 16 307s\n"}
+,{"stream_name":"stdout","time":14869.075566443,"data":"pog Transformer seed 0 epoch 17 val R20 0.0141 N20 0.0073 best epoch 16 325s\n"}
+,{"stream_name":"stdout","time":14887.01403899,"data":"pog Transformer seed 0 epoch 18 val R20 0.0146 N20 0.0075 best epoch 18 343s\n"}
+,{"stream_name":"stdout","time":14904.93580497,"data":"pog Transformer seed 0 epoch 19 val R20 0.0127 N20 0.0073 best epoch 18 361s\n"}
+,{"stream_name":"stdout","time":14922.61363515,"data":"pog Transformer seed 0 epoch 20 val R20 0.0128 N20 0.0074 best epoch 18 379s\n"}
+,{"stream_name":"stdout","time":14940.192991642,"data":"pog Transformer seed 0 epoch 21 val R20 0.0138 N20 0.0078 best epoch 18 396s\n"}
+,{"stream_name":"stdout","time":14958.259640026,"data":"pog Transformer seed 0 epoch 22 val R20 0.0139 N20 0.0075 best epoch 18 415s\n"}
+,{"stream_name":"stdout","time":14976.215705174,"data":"pog Transformer seed 0 epoch 23 val R20 0.0138 N20 0.0076 best epoch 18 433s\n"}
+,{"stream_name":"stdout","time":14994.119134296,"data":"pog Transformer seed 0 epoch 24 val R20 0.0150 N20 0.0077 best epoch 24 450s\n"}
+,{"stream_name":"stdout","time":15011.922778438,"data":"pog Transformer seed 0 epoch 25 val R20 0.0141 N20 0.0075 best epoch 24 468s\n"}
+,{"stream_name":"stdout","time":15030.003753125,"data":"pog Transformer seed 0 epoch 26 val R20 0.0161 N20 0.0089 best epoch 26 486s\n"}
+,{"stream_name":"stdout","time":15047.899681034,"data":"pog Transformer seed 0 epoch 27 val R20 0.0172 N20 0.0090 best epoch 27 504s\n"}
+,{"stream_name":"stdout","time":15065.800560781,"data":"pog Transformer seed 0 epoch 28 val R20 0.0172 N20 0.0100 best epoch 28 522s\n"}
+,{"stream_name":"stdout","time":15083.957745188,"data":"pog Transformer seed 0 epoch 29 val R20 0.0159 N20 0.0089 best epoch 28 540s\n"}
+,{"stream_name":"stdout","time":15101.891382036,"data":"pog Transformer seed 0 epoch 30 val R20 0.0192 N20 0.0104 best epoch 30 558s\n"}
+,{"stream_name":"stdout","time":15119.858310437,"data":"pog Transformer seed 0 epoch 31 val R20 0.0168 N20 0.0102 best epoch 30 576s\n"}
+,{"stream_name":"stdout","time":15137.842282364,"data":"pog Transformer seed 0 epoch 32 val R20 0.0166 N20 0.0089 best epoch 30 594s\n"}
+,{"stream_name":"stdout","time":15155.737780942,"data":"pog Transformer seed 0 epoch 33 val R20 0.0156 N20 0.0088 best epoch 30 612s\n"}
+,{"stream_name":"stdout","time":15173.783813758,"data":"pog Transformer seed 0 epoch 34 val R20 0.0165 N20 0.0091 best epoch 30 630s\n"}
+,{"stream_name":"stdout","time":15191.819425797,"data":"pog Transformer seed 0 epoch 35 val R20 0.0179 N20 0.0106 best epoch 30 648s\n"}
+,{"stream_name":"stdout","time":15209.890497872,"data":"pog Transformer seed 0 epoch 36 val R20 0.0185 N20 0.0107 best epoch 30 666s\n"}
+,{"stream_name":"stdout","time":15227.839508329,"data":"pog Transformer seed 0 epoch 37 val R20 0.0169 N20 0.0098 best epoch 30 684s\n"}
+,{"stream_name":"stdout","time":15245.682454936,"data":"pog Transformer seed 0 epoch 38 val R20 0.0173 N20 0.0098 best epoch 30 702s\n"}
+,{"stream_name":"stdout","time":15263.77296293,"data":"pog Transformer seed 0 epoch 39 val R20 0.0191 N20 0.0107 best epoch 30 720s\n"}
+,{"stream_name":"stdout","time":15281.722778753,"data":"pog Transformer seed 0 epoch 40 val R20 0.0176 N20 0.0095 best epoch 30 738s\n"}
+,{"stream_name":"stdout","time":15299.40950714,"data":"pog Transformer seed 0 epoch 41 val R20 0.0185 N20 0.0105 best epoch 30 756s\n"}
+,{"stream_name":"stdout","time":15317.273943213,"data":"pog Transformer seed 0 epoch 42 val R20 0.0182 N20 0.0096 best epoch 30 774s\n"}
+,{"stream_name":"stdout","time":15335.210007624,"data":"pog Transformer seed 0 epoch 43 val R20 0.0179 N20 0.0110 best epoch 30 792s\n"}
+,{"stream_name":"stdout","time":15353.086657659,"data":"pog Transformer seed 0 epoch 44 val R20 0.0208 N20 0.0109 best epoch 44 809s\n"}
+,{"stream_name":"stdout","time":15371.455081496,"data":"pog Transformer seed 0 epoch 45 val R20 0.0201 N20 0.0110 best epoch 44 828s\n"}
+,{"stream_name":"stdout","time":15389.102951945,"data":"pog Transformer seed 0 epoch 46 val R20 0.0205 N20 0.0115 best epoch 44 845s\n"}
+,{"stream_name":"stdout","time":15406.782146394,"data":"pog Transformer seed 0 epoch 47 val R20 0.0196 N20 0.0118 best epoch 44 863s\n"}
+,{"stream_name":"stdout","time":15424.629433503,"data":"pog Transformer seed 0 epoch 48 val R20 0.0194 N20 0.0111 best epoch 44 881s\n"}
+,{"stream_name":"stdout","time":15442.522874518,"data":"pog Transformer seed 0 epoch 49 val R20 0.0178 N20 0.0102 best epoch 44 899s\n"}
+,{"stream_name":"stdout","time":15447.229654689,"data":"RESULT pog Transformer seed 0 epoch 44 test R20 0.0174 N20 0.0090\n"}
+,{"stream_name":"stdout","time":15448.204620879,"data":"Train: 5\n"}
+,{"stream_name":"stdout","time":15448.205326355,"data":"Val/Test: 2\n"}
+,{"stream_name":"stdout","time":15448.206139888,"data":"Val/Test: 2\n"}
+,{"stream_name":"stdout","time":15466.106081417,"data":"pog Transformer seed 1 epoch 0 val R20 0.0008 N20 0.0002 best epoch 0 18s\n"}
+,{"stream_name":"stdout","time":15484.196047544,"data":"pog Transformer seed 1 epoch 1 val R20 0.0015 N20 0.0008 best epoch 1 36s\n"}
+,{"stream_name":"stdout","time":15502.222782965,"data":"pog Transformer seed 1 epoch 2 val R20 0.0022 N20 0.0010 best epoch 2 54s\n"}
+,{"stream_name":"stdout","time":15520.238619463,"data":"pog Transformer seed 1 epoch 3 val R20 0.0034 N20 0.0015 best epoch 3 72s\n"}
+,{"stream_name":"stdout","time":15538.051530962,"data":"pog Transformer seed 1 epoch 4 val R20 0.0047 N20 0.0022 best epoch 4 90s\n"}
+,{"stream_name":"stdout","time":15556.040774963,"data":"pog Transformer seed 1 epoch 5 val R20 0.0051 N20 0.0025 best epoch 5 108s\n"}
+,{"stream_name":"stdout","time":15574.029351972,"data":"pog Transformer seed 1 epoch 6 val R20 0.0058 N20 0.0030 best epoch 6 126s\n"}
+,{"stream_name":"stdout","time":15592.069940895,"data":"pog Transformer seed 1 epoch 7 val R20 0.0073 N20 0.0041 best epoch 7 144s\n"}
+,{"stream_name":"stdout","time":15609.934282808,"data":"pog Transformer seed 1 epoch 8 val R20 0.0090 N20 0.0046 best epoch 8 162s\n"}
+,{"stream_name":"stdout","time":15627.987276604,"data":"pog Transformer seed 1 epoch 9 val R20 0.0088 N20 0.0043 best epoch 8 180s\n"}
+,{"stream_name":"stdout","time":15645.846519745,"data":"pog Transformer seed 1 epoch 10 val R20 0.0105 N20 0.0055 best epoch 10 198s\n"}
+,{"stream_name":"stdout","time":15663.910891051,"data":"pog Transformer seed 1 epoch 11 val R20 0.0108 N20 0.0056 best epoch 11 216s\n"}
+,{"stream_name":"stdout","time":15681.763421517,"data":"pog Transformer seed 1 epoch 12 val R20 0.0117 N20 0.0060 best epoch 12 234s\n"}
+,{"stream_name":"stdout","time":15699.718191212,"data":"pog Transformer seed 1 epoch 13 val R20 0.0119 N20 0.0062 best epoch 13 251s\n"}
+,{"stream_name":"stdout","time":15717.650760419,"data":"pog Transformer seed 1 epoch 14 val R20 0.0111 N20 0.0062 best epoch 13 269s\n"}
+,{"stream_name":"stdout","time":15735.512506447,"data":"pog Transformer seed 1 epoch 15 val R20 0.0128 N20 0.0067 best epoch 15 287s\n"}
+,{"stream_name":"stdout","time":15753.195442912,"data":"pog Transformer seed 1 epoch 16 val R20 0.0118 N20 0.0065 best epoch 15 305s\n"}
+,{"stream_name":"stdout","time":15770.841159626,"data":"pog Transformer seed 1 epoch 17 val R20 0.0118 N20 0.0065 best epoch 15 323s\n"}
+,{"stream_name":"stdout","time":15788.773808553,"data":"pog Transformer seed 1 epoch 18 val R20 0.0136 N20 0.0071 best epoch 18 341s\n"}
+,{"stream_name":"stdout","time":15806.688003405,"data":"pog Transformer seed 1 epoch 19 val R20 0.0136 N20 0.0074 best epoch 18 358s\n"}
+,{"stream_name":"stdout","time":15824.601062478,"data":"pog Transformer seed 1 epoch 20 val R20 0.0154 N20 0.0072 best epoch 20 376s\n"}
+,{"stream_name":"stdout","time":15842.278808586,"data":"pog Transformer seed 1 epoch 21 val R20 0.0133 N20 0.0074 best epoch 20 394s\n"}
+,{"stream_name":"stdout","time":15860.079861367,"data":"pog Transformer seed 1 epoch 22 val R20 0.0133 N20 0.0069 best epoch 20 412s\n"}
+,{"stream_name":"stdout","time":15878.186318618,"data":"pog Transformer seed 1 epoch 23 val R20 0.0144 N20 0.0076 best epoch 20 430s\n"}
+,{"stream_name":"stdout","time":15896.116676613,"data":"pog Transformer seed 1 epoch 24 val R20 0.0139 N20 0.0073 best epoch 20 448s\n"}
+,{"stream_name":"stdout","time":15913.728316625,"data":"pog Transformer seed 1 epoch 25 val R20 0.0143 N20 0.0074 best epoch 20 465s\n"}
+,{"stream_name":"stdout","time":15931.524325238,"data":"pog Transformer seed 1 epoch 26 val R20 0.0168 N20 0.0089 best epoch 26 483s\n"}
+,{"stream_name":"stdout","time":15949.303925622,"data":"pog Transformer seed 1 epoch 27 val R20 0.0145 N20 0.0079 best epoch 26 501s\n"}
+,{"stream_name":"stdout","time":15966.912877057,"data":"pog Transformer seed 1 epoch 28 val R20 0.0170 N20 0.0085 best epoch 26 519s\n"}
+,{"stream_name":"stdout","time":15984.881680951,"data":"pog Transformer seed 1 epoch 29 val R20 0.0176 N20 0.0090 best epoch 29 537s\n"}
+,{"stream_name":"stdout","time":16002.484822835,"data":"pog Transformer seed 1 epoch 30 val R20 0.0163 N20 0.0088 best epoch 29 554s\n"}
+,{"stream_name":"stdout","time":16020.13095591,"data":"pog Transformer seed 1 epoch 31 val R20 0.0165 N20 0.0084 best epoch 29 572s\n"}
+,{"stream_name":"stdout","time":16037.742269639,"data":"pog Transformer seed 1 epoch 32 val R20 0.0168 N20 0.0092 best epoch 29 589s\n"}
+,{"stream_name":"stdout","time":16055.457578301,"data":"pog Transformer seed 1 epoch 33 val R20 0.0183 N20 0.0095 best epoch 33 607s\n"}
+,{"stream_name":"stdout","time":16073.350179354,"data":"pog Transformer seed 1 epoch 34 val R20 0.0171 N20 0.0094 best epoch 33 625s\n"}
+,{"stream_name":"stdout","time":16091.102727198,"data":"pog Transformer seed 1 epoch 35 val R20 0.0170 N20 0.0091 best epoch 33 643s\n"}
+,{"stream_name":"stdout","time":16108.915335491,"data":"pog Transformer seed 1 epoch 36 val R20 0.0149 N20 0.0085 best epoch 33 661s\n"}
+,{"stream_name":"stdout","time":16126.78733401,"data":"pog Transformer seed 1 epoch 37 val R20 0.0177 N20 0.0097 best epoch 33 679s\n"}
+,{"stream_name":"stdout","time":16144.673418231,"data":"pog Transformer seed 1 epoch 38 val R20 0.0168 N20 0.0095 best epoch 33 696s\n"}
+,{"stream_name":"stdout","time":16162.475074095,"data":"pog Transformer seed 1 epoch 39 val R20 0.0177 N20 0.0100 best epoch 33 714s\n"}
+,{"stream_name":"stdout","time":16180.460357186,"data":"pog Transformer seed 1 epoch 40 val R20 0.0186 N20 0.0106 best epoch 40 732s\n"}
+,{"stream_name":"stdout","time":16198.521831204,"data":"pog Transformer seed 1 epoch 41 val R20 0.0198 N20 0.0110 best epoch 41 750s\n"}
+,{"stream_name":"stdout","time":16216.26155673,"data":"pog Transformer seed 1 epoch 42 val R20 0.0178 N20 0.0108 best epoch 41 768s\n"}
+,{"stream_name":"stdout","time":16234.023932232,"data":"pog Transformer seed 1 epoch 43 val R20 0.0186 N20 0.0104 best epoch 41 786s\n"}
+,{"stream_name":"stdout","time":16251.895493683,"data":"pog Transformer seed 1 epoch 44 val R20 0.0153 N20 0.0085 best epoch 41 804s\n"}
+,{"stream_name":"stdout","time":16269.714362458,"data":"pog Transformer seed 1 epoch 45 val R20 0.0188 N20 0.0107 best epoch 41 821s\n"}
+,{"stream_name":"stdout","time":16287.402723332,"data":"pog Transformer seed 1 epoch 46 val R20 0.0183 N20 0.0109 best epoch 41 839s\n"}
+,{"stream_name":"stdout","time":16305.115749615,"data":"pog Transformer seed 1 epoch 47 val R20 0.0196 N20 0.0107 best epoch 41 857s\n"}
+,{"stream_name":"stdout","time":16323.050060527,"data":"pog Transformer seed 1 epoch 48 val R20 0.0183 N20 0.0104 best epoch 41 875s\n"}
+,{"stream_name":"stdout","time":16340.815303212,"data":"pog Transformer seed 1 epoch 49 val R20 0.0193 N20 0.0114 best epoch 41 893s\n"}
+,{"stream_name":"stdout","time":16345.726848639,"data":"RESULT pog Transformer seed 1 epoch 41 test R20 0.0157 N20 0.0092\n"}
+,{"stream_name":"stdout","time":16345.774215751,"data":"=== ALL RUNS COMPLETE ===\n"}
+,{"stream_name":"stderr","time":16352.688224069,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":16352.688252041,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":16352.890939617,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":16352.890977484,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":16353.641472762,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":16354.157790169,"data":"[NbConvertApp] Writing 321990 bytes to __results__.html\n"}
+]

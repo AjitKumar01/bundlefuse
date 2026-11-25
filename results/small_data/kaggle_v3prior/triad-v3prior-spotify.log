@@ -1,0 +1,75 @@
+[{"stream_name":"stdout","time":8.11520825,"data":"GPUs 2 ['Tesla T4', 'Tesla T4']\n"}
+,{"stream_name":"stdout","time":67.554122711,"data":"spotify seed 0 epoch 0 val N20 0.1897\n"}
+,{"stream_name":"stdout","time":67.931265845,"data":"spotify seed 1 epoch 0 val N20 0.1897\n"}
+,{"stream_name":"stderr","time":68.083536489,"data":"/usr/local/lib/python3.13/dist-packages/torch/utils/_device.py:116: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.\n"}
+,{"stream_name":"stderr","time":68.083570612,"data":"Consider using tensor.detach() first. (Triggered internally at /pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:836.)\n"}
+,{"stream_name":"stderr","time":68.083577148,"data":"  return func(*args, **kwargs)\n"}
+,{"stream_name":"stderr","time":68.241812698,"data":"/usr/local/lib/python3.13/dist-packages/torch/utils/_device.py:116: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.\n"}
+,{"stream_name":"stderr","time":68.241857243,"data":"Consider using tensor.detach() first. (Triggered internally at /pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:836.)\n"}
+,{"stream_name":"stderr","time":68.241865074,"data":"  return func(*args, **kwargs)\n"}
+,{"stream_name":"stdout","time":76.908973619,"data":"spotify seed 2 epoch 0 val N20 0.1897\n"}
+,{"stream_name":"stderr","time":77.549977027,"data":"/usr/local/lib/python3.13/dist-packages/torch/utils/_device.py:116: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.\n"}
+,{"stream_name":"stderr","time":77.550009769,"data":"Consider using tensor.detach() first. (Triggered internally at /pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:836.)\n"}
+,{"stream_name":"stderr","time":77.550015327,"data":"  return func(*args, **kwargs)\n"}
+,{"stream_name":"stdout","time":177.227380832,"data":"spotify seed 1 epoch 1 train_loss 8.1922 val_loss 7.8646 val N20 0.2793 (166s)\n"}
+,{"stream_name":"stdout","time":288.271557946,"data":"spotify seed 1 epoch 2 train_loss 7.9578 val_loss 7.8077 val N20 0.2917 (277s)\n"}
+,{"stream_name":"stdout","time":299.594789469,"data":"spotify seed 0 epoch 1 train_loss 8.2040 val_loss 7.8639 val N20 0.2817 (288s)\n"}
+,{"stream_name":"stdout","time":313.657624379,"data":"spotify seed 2 epoch 1 train_loss 8.2004 val_loss 7.8477 val N20 0.2850 (302s)\n"}
+,{"stream_name":"stdout","time":399.442267729,"data":"spotify seed 1 epoch 3 train_loss 7.9220 val_loss 7.7942 val N20 0.2917 (388s)\n"}
+,{"stream_name":"stdout","time":511.823951595,"data":"spotify seed 1 epoch 4 train_loss 7.9268 val_loss 7.7743 val N20 0.2948 (500s)\n"}
+,{"stream_name":"stdout","time":532.868712043,"data":"spotify seed 0 epoch 2 train_loss 7.9694 val_loss 7.8112 val N20 0.2909 (521s)\n"}
+,{"stream_name":"stdout","time":547.165794279,"data":"spotify seed 2 epoch 2 train_loss 7.9558 val_loss 7.8159 val N20 0.2917 (535s)\n"}
+,{"stream_name":"stdout","time":623.881389178,"data":"spotify seed 1 epoch 5 train_loss 7.9008 val_loss 7.7651 val N20 0.2932 (612s)\n"}
+,{"stream_name":"stdout","time":735.208370224,"data":"spotify seed 1 epoch 6 train_loss 7.8956 val_loss 7.7629 val N20 0.2945 (723s)\n"}
+,{"stream_name":"stdout","time":762.923186296,"data":"spotify seed 0 epoch 3 train_loss 7.9396 val_loss 7.7913 val N20 0.2909 (751s)\n"}
+,{"stream_name":"stdout","time":783.797394858,"data":"spotify seed 2 epoch 3 train_loss 7.9304 val_loss 7.7813 val N20 0.2907 (772s)\n"}
+,{"stream_name":"stdout","time":845.49112426,"data":"spotify seed 1 epoch 7 train_loss 7.8764 val_loss 7.7543 val N20 0.2922 (834s)\n"}
+,{"stream_name":"stdout","time":957.25332242,"data":"spotify seed 1 epoch 8 train_loss 7.8642 val_loss 7.7484 val N20 0.2942 (946s)\n"}
+,{"stream_name":"stdout","time":993.632205106,"data":"spotify seed 0 epoch 4 train_loss 7.9056 val_loss 7.7739 val N20 0.2956 (982s)\n"}
+,{"stream_name":"stdout","time":1015.267968548,"data":"spotify seed 2 epoch 4 train_loss 7.9120 val_loss 7.7708 val N20 0.2917 (1004s)\n"}
+,{"stream_name":"stdout","time":1069.937289297,"data":"spotify seed 1 epoch 9 train_loss 7.8604 val_loss 7.7365 val N20 0.2946 (1058s)\n"}
+,{"stream_name":"stdout","time":1182.392351975,"data":"spotify seed 1 epoch 10 train_loss 7.8575 val_loss 7.7408 val N20 0.2949 (1171s)\n"}
+,{"stream_name":"stdout","time":1223.845793048,"data":"spotify seed 0 epoch 5 train_loss 7.9031 val_loss 7.7705 val N20 0.2909 (1212s)\n"}
+,{"stream_name":"stdout","time":1246.014540762,"data":"spotify seed 2 epoch 5 train_loss 7.8941 val_loss 7.7694 val N20 0.2895 (1234s)\n"}
+,{"stream_name":"stdout","time":1296.462448513,"data":"spotify seed 1 epoch 11 train_loss 7.8520 val_loss 7.7294 val N20 0.2955 (1285s)\n"}
+,{"stream_name":"stdout","time":1407.189819471,"data":"spotify seed 1 epoch 12 train_loss 7.8521 val_loss 7.7313 val N20 0.2936 (1395s)\n"}
+,{"stream_name":"stdout","time":1454.269369165,"data":"spotify seed 0 epoch 6 train_loss 7.8912 val_loss 7.7655 val N20 0.2893 (1443s)\n"}
+,{"stream_name":"stdout","time":1479.280967775,"data":"spotify seed 2 epoch 6 train_loss 7.8871 val_loss 7.7482 val N20 0.2957 (1468s)\n"}
+,{"stream_name":"stdout","time":1519.426984528,"data":"spotify seed 1 epoch 13 train_loss 7.8477 val_loss 7.7317 val N20 0.2936 (1508s)\n"}
+,{"stream_name":"stdout","time":1631.730959237,"data":"spotify seed 1 epoch 14 train_loss 7.8339 val_loss 7.7255 val N20 0.2988 (1620s)\n"}
+,{"stream_name":"stdout","time":1685.985785091,"data":"spotify seed 0 epoch 7 train_loss 7.8923 val_loss 7.7447 val N20 0.2944 (1674s)\n"}
+,{"stream_name":"stdout","time":1713.620047377,"data":"spotify seed 2 epoch 7 train_loss 7.8860 val_loss 7.7530 val N20 0.2914 (1702s)\n"}
+,{"stream_name":"stdout","time":1745.036364162,"data":"spotify seed 1 epoch 15 train_loss 7.8455 val_loss 7.7221 val N20 0.2944 (1733s)\n"}
+,{"stream_name":"stdout","time":1855.264300997,"data":"spotify seed 1 epoch 16 train_loss 7.8366 val_loss 7.7244 val N20 0.2976 (1844s)\n"}
+,{"stream_name":"stdout","time":1912.57430465,"data":"spotify seed 0 epoch 8 train_loss 7.8756 val_loss 7.7460 val N20 0.2911 (1901s)\n"}
+,{"stream_name":"stdout","time":1944.8113775,"data":"spotify seed 2 epoch 8 train_loss 7.8629 val_loss 7.7538 val N20 0.2929 (1933s)\n"}
+,{"stream_name":"stdout","time":1967.680919912,"data":"spotify seed 1 epoch 17 train_loss 7.8344 val_loss 7.7128 val N20 0.2969 (1956s)\n"}
+,{"stream_name":"stdout","time":2081.460454907,"data":"spotify seed 1 epoch 18 train_loss 7.8294 val_loss 7.7130 val N20 0.2957 (2070s)\n"}
+,{"stream_name":"stdout","time":2144.657296275,"data":"spotify seed 0 epoch 9 train_loss 7.8644 val_loss 7.7539 val N20 0.2924 (2133s)\n"}
+,{"stream_name":"stdout","time":2178.6372869,"data":"spotify seed 2 epoch 9 train_loss 7.8615 val_loss 7.7398 val N20 0.2971 (2167s)\n"}
+,{"stream_name":"stdout","time":2196.650060146,"data":"spotify seed 1 epoch 19 train_loss 7.8256 val_loss 7.7173 val N20 0.2957 (2185s)\n"}
+,{"stream_name":"stdout","time":2307.589144056,"data":"spotify seed 1 epoch 20 train_loss 7.8310 val_loss 7.7130 val N20 0.2937 (2296s)\n"}
+,{"stream_name":"stdout","time":2322.705911772,"data":"spotify seed 1 DONE best epoch 14 test N20 all 0.2861\n"}
+,{"stream_name":"stdout","time":2377.147493946,"data":"spotify seed 0 epoch 10 train_loss 7.8748 val_loss 7.7628 val N20 0.2929 (2365s)\n"}
+,{"stream_name":"stdout","time":2388.272372241,"data":"spotify seed 2 epoch 10 train_loss 7.8578 val_loss 7.7354 val N20 0.2931 (2377s)\n"}
+,{"stream_name":"stdout","time":2395.186435667,"data":"spotify seed 0 DONE best epoch 4 test N20 all 0.2814\n"}
+,{"stream_name":"stdout","time":2491.250908494,"data":"spotify seed 2 epoch 11 train_loss 7.8574 val_loss 7.7428 val N20 0.2938 (2480s)\n"}
+,{"stream_name":"stdout","time":2592.032566558,"data":"spotify seed 2 epoch 12 train_loss 7.8418 val_loss 7.7251 val N20 0.2936 (2580s)\n"}
+,{"stream_name":"stdout","time":2692.915621005,"data":"spotify seed 2 epoch 13 train_loss 7.8419 val_loss 7.7264 val N20 0.2969 (2681s)\n"}
+,{"stream_name":"stdout","time":2793.642629907,"data":"spotify seed 2 epoch 14 train_loss 7.8324 val_loss 7.7327 val N20 0.2931 (2782s)\n"}
+,{"stream_name":"stdout","time":2893.326575979,"data":"spotify seed 2 epoch 15 train_loss 7.8457 val_loss 7.7234 val N20 0.2972 (2882s)\n"}
+,{"stream_name":"stdout","time":2993.400633929,"data":"spotify seed 2 epoch 16 train_loss 7.8254 val_loss 7.7200 val N20 0.2951 (2982s)\n"}
+,{"stream_name":"stdout","time":3094.142332624,"data":"spotify seed 2 epoch 17 train_loss 7.8335 val_loss 7.7223 val N20 0.2958 (3082s)\n"}
+,{"stream_name":"stdout","time":3194.181197302,"data":"spotify seed 2 epoch 18 train_loss 7.8256 val_loss 7.7295 val N20 0.2942 (3182s)\n"}
+,{"stream_name":"stdout","time":3294.406671513,"data":"spotify seed 2 epoch 19 train_loss 7.8391 val_loss 7.7191 val N20 0.2970 (3283s)\n"}
+,{"stream_name":"stdout","time":3394.263594042,"data":"spotify seed 2 epoch 20 train_loss 7.8204 val_loss 7.7111 val N20 0.2916 (3383s)\n"}
+,{"stream_name":"stdout","time":3494.062674654,"data":"spotify seed 2 epoch 21 train_loss 7.8257 val_loss 7.7141 val N20 0.2953 (3482s)\n"}
+,{"stream_name":"stdout","time":3505.942522275,"data":"spotify seed 2 DONE best epoch 15 test N20 all 0.2838\n"}
+,{"stream_name":"stdout","time":3506.812144099,"data":"exit codes [0, 0, 0]\n"}
+,{"stream_name":"stderr","time":3509.275676115,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":3509.275704369,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":3509.494343185,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":3509.494368622,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":3510.270968448,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":3511.220399175,"data":"[NbConvertApp] Writing 308714 bytes to __results__.html\n"}
+]

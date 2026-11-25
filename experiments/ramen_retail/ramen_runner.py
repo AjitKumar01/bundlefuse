@@ -47,10 +47,11 @@ def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--dataset',required=True);p.add_argument('--lr',type=float,required=True)
     p.add_argument('--n_layer_gat',type=int,required=True);p.add_argument('--gamma',type=float,required=True);p.add_argument('--seed',type=int,default=2306)
-    p.add_argument('--epochs',type=int,default=100);p.add_argument('--threads',type=int,default=2);p.add_argument('--out',required=True)
+    p.add_argument('--epochs',type=int,default=100);p.add_argument('--batch',type=int,default=None);p.add_argument('--threads',type=int,default=2);p.add_argument('--out',required=True)
     a=p.parse_args();torch.set_num_threads(a.threads)
     conf=yaml.safe_load(open('config.yaml'))['electronic']
     conf.update(DEFAULTS,dataset=a.dataset,lr=a.lr,n_layer_gat=a.n_layer_gat,bundle_alpha=a.gamma,item_alpha=a.gamma,seed=a.seed,device=torch.device('cpu'))
+    if a.batch:conf.update(batch_size_train=a.batch,batch_size_test=a.batch)  # the paper's batch size (Sec. 4.1.3), not config.yaml's
     setup_seed(a.seed);ds=Datasets(conf)
     conf.update(num_users=ds.num_users,num_bundles=ds.num_bundles,num_items=ds.num_items,l2_reg=conf['l2_regs'][0],
                 embedding_size=64,num_layers=conf['num_layerss'][0])
@@ -64,8 +65,8 @@ def main():
         val=per_query(model,ds.val_loader).mean(0);history.append(val.tolist())
         if val[0]>best[0] and val[1]>best[1]:best=(val[0],val[1]);state=copy.deepcopy(model.state_dict());chosen=epoch
     model.load_state_dict(state);test=per_query(model,ds.test_loader)
-    tag=f'{a.dataset}/lr{a.lr:g}_gat{a.n_layer_gat}_gamma{a.gamma:g}_seed{a.seed}';path=Path(a.out)/tag;path.mkdir(parents=True,exist_ok=True)
-    (path/'result.json').write_text(json.dumps(dict(dataset=a.dataset,lr=a.lr,n_layer_gat=a.n_layer_gat,gamma=a.gamma,seed=a.seed,epoch=chosen,
+    tag=f'{a.dataset}/lr{a.lr:g}_gat{a.n_layer_gat}_gamma{a.gamma:g}'+(f'_batch{a.batch}' if a.batch else '')+f'_seed{a.seed}';path=Path(a.out)/tag;path.mkdir(parents=True,exist_ok=True)
+    (path/'result.json').write_text(json.dumps(dict(dataset=a.dataset,lr=a.lr,n_layer_gat=a.n_layer_gat,gamma=a.gamma,batch=conf['batch_size_train'],seed=a.seed,epoch=chosen,
         validation=list(best),test=test.mean(0).tolist(),queries=test.tolist(),history=history,seconds=time.time()-start)))
     print(f'{tag} epoch {chosen} val R20 {best[0]:.4f} N20 {best[1]:.4f} test R20 {test[:,0].mean():.4f} N20 {test[:,1].mean():.4f}',flush=True)
 

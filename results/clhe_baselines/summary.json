@@ -1,0 +1,315 @@
+{
+ "note": "Summarize the CLHE baselines (experiments.clhe_baselines.run) on the clean test queries used in the paper.\n\nPer dataset and model: test NDCG@20 and Recall@20 on clean test queries (a query is clean when its complete bundle is in\nneither training nor validation; dials triad.data), mean of the three runs per query, then over queries. MultiVAE: the\nKL weight (0 or 0.2) with the higher mean validation NDCG@20. Per-query rows are matched by bundle id: CLHE's loader\nreports the bundle id, and the dials test pairs are in sorted bundle-id order.\n\nWrites results/clhe_baselines/summary.json.\ncd ../bundlefuse && PYTHONPATH=.:../dials .venv/bin/python -m experiments.clhe_baselines.summary\n",
+ "datasets": {
+  "electronic": {
+   "MultiDAE": {
+    "setting": "MultiDAE",
+    "recall20": 0.2656390502876629,
+    "ndcg20": 0.14918317176358548,
+    "queries": 346,
+    "epochs": [
+     83,
+     91,
+     15
+    ],
+    "parameters": 3215616
+   },
+   "MultiVAE": {
+    "setting": "MultiVAE_a0.2",
+    "recall20": 0.10078676970880156,
+    "ndcg20": 0.04787490318793093,
+    "queries": 346,
+    "epochs": [
+     86,
+     31,
+     85
+    ],
+    "parameters": 3248512
+   },
+   "BiLSTM": {
+    "setting": "BiLSTM",
+    "recall20": 0.0807000645840099,
+    "ndcg20": 0.038097487256533835,
+    "queries": 346,
+    "epochs": [
+     93,
+     38,
+     78
+    ],
+    "parameters": 3389760
+   },
+   "HyperGraph": {
+    "setting": "HyperGraph",
+    "recall20": 0.3259152225819856,
+    "ndcg20": 0.20983088242611445,
+    "queries": 346,
+    "epochs": [
+     51,
+     64,
+     66
+    ],
+    "parameters": 3215616
+   },
+   "Transformer": {
+    "setting": "Transformer",
+    "recall20": 0.3649004506295357,
+    "ndcg20": 0.2513389273587909,
+    "queries": 346,
+    "epochs": [
+     72,
+     92,
+     84
+    ],
+    "parameters": 3215616
+   }
+  },
+  "food": {
+   "MultiDAE": {
+    "setting": "MultiDAE",
+    "recall20": 0.3976550219304388,
+    "ndcg20": 0.24113816596968654,
+    "queries": 353,
+    "epochs": [
+     38,
+     33,
+     30
+    ],
+    "parameters": 3215616
+   },
+   "MultiVAE": {
+    "setting": "MultiVAE_a0",
+    "recall20": 0.12972930509938282,
+    "ndcg20": 0.05795980747912266,
+    "queries": 353,
+    "epochs": [
+     45,
+     96,
+     26
+    ],
+    "parameters": 3248512
+   },
+   "BiLSTM": {
+    "setting": "BiLSTM",
+    "recall20": 0.08133459286773059,
+    "ndcg20": 0.04273856104095664,
+    "queries": 353,
+    "epochs": [
+     73,
+     87,
+     70
+    ],
+    "parameters": 3389760
+   },
+   "HyperGraph": {
+    "setting": "HyperGraph",
+    "recall20": 0.3535725538802665,
+    "ndcg20": 0.24498045299557497,
+    "queries": 353,
+    "epochs": [
+     37,
+     29,
+     28
+    ],
+    "parameters": 3215616
+   },
+   "Transformer": {
+    "setting": "Transformer",
+    "recall20": 0.48597733839656854,
+    "ndcg20": 0.3381163482259646,
+    "queries": 353,
+    "epochs": [
+     45,
+     39,
+     47
+    ],
+    "parameters": 3215616
+   }
+  },
+  "clothing": {
+   "MultiDAE": {
+    "setting": "MultiDAE",
+    "recall20": 0.3337076977765571,
+    "ndcg20": 0.18020414221640224,
+    "queries": 371,
+    "epochs": [
+     43,
+     38,
+     55
+    ],
+    "parameters": 3215616
+   },
+   "MultiVAE": {
+    "setting": "MultiVAE_a0.2",
+    "recall20": 0.1200209647309962,
+    "ndcg20": 0.04924040283047179,
+    "queries": 371,
+    "epochs": [
+     44,
+     36,
+     28
+    ],
+    "parameters": 3248512
+   },
+   "BiLSTM": {
+    "setting": "BiLSTM",
+    "recall20": 0.050763702001640196,
+    "ndcg20": 0.022029780058955034,
+    "queries": 371,
+    "epochs": [
+     96,
+     54,
+     82
+    ],
+    "parameters": 3389760
+   },
+   "HyperGraph": {
+    "setting": "HyperGraph",
+    "recall20": 0.24288709272914177,
+    "ndcg20": 0.1817493740224881,
+    "queries": 371,
+    "epochs": [
+     51,
+     46,
+     55
+    ],
+    "parameters": 3215616
+   },
+   "Transformer": {
+    "setting": "Transformer",
+    "recall20": 0.37957472381619645,
+    "ndcg20": 0.24948676706351144,
+    "queries": 371,
+    "epochs": [
+     48,
+     61,
+     92
+    ],
+    "parameters": 3215616
+   }
+  },
+  "pog_dense": {
+   "MultiDAE": {
+    "setting": "MultiDAE",
+    "recall20": 0.31596658943106465,
+    "ndcg20": 0.21407164240978016,
+    "queries": 5547,
+    "epochs": [
+     10,
+     27,
+     32
+    ],
+    "parameters": 3215616
+   },
+   "MultiVAE": {
+    "setting": "MultiVAE_a0.2",
+    "recall20": 0.3169881626806912,
+    "ndcg20": 0.20527700614256894,
+    "queries": 5547,
+    "epochs": [
+     13,
+     15,
+     11
+    ],
+    "parameters": 3248512
+   },
+   "BiLSTM": {
+    "setting": "BiLSTM",
+    "recall20": 0.29732788578692154,
+    "ndcg20": 0.17426675263487598,
+    "queries": 5547,
+    "epochs": [
+     1,
+     1,
+     1
+    ],
+    "parameters": 3389760
+   },
+   "HyperGraph": {
+    "setting": "HyperGraph",
+    "recall20": 0.25358051479088417,
+    "ndcg20": 0.16521362583309934,
+    "queries": 5547,
+    "epochs": [
+     1,
+     1,
+     1
+    ],
+    "parameters": 3215616
+   },
+   "Transformer": {
+    "setting": "Transformer",
+    "recall20": 0.29029705833589275,
+    "ndcg20": 0.2135086477820951,
+    "queries": 5547,
+    "epochs": [
+     24,
+     28,
+     20
+    ],
+    "parameters": 3215616
+   }
+  },
+  "pog": {
+   "MultiDAE": {
+    "setting": "MultiDAE",
+    "recall20": 0.010151578385878664,
+    "ndcg20": 0.0050646515005968685,
+    "queries": 3995,
+    "epochs": [
+     32,
+     44,
+     35
+    ],
+    "parameters": 3215616
+   },
+   "MultiVAE": {
+    "setting": "MultiVAE_a0.2",
+    "recall20": 0.01798080941215375,
+    "ndcg20": 0.00974437851966994,
+    "queries": 3995,
+    "epochs": [
+     31,
+     30,
+     47
+    ],
+    "parameters": 3248512
+   },
+   "BiLSTM": {
+    "setting": "BiLSTM",
+    "recall20": 0.011750799653726067,
+    "ndcg20": 0.007105052377290411,
+    "queries": 3995,
+    "epochs": [
+     7,
+     4,
+     3
+    ],
+    "parameters": 3389760
+   },
+   "HyperGraph": {
+    "setting": "HyperGraph",
+    "recall20": 0.016506744609756374,
+    "ndcg20": 0.00897733693290463,
+    "queries": 3995,
+    "epochs": [
+     34,
+     29,
+     25
+    ],
+    "parameters": 3215616
+   },
+   "Transformer": {
+    "setting": "Transformer",
+    "recall20": 0.015561118111493043,
+    "ndcg20": 0.008728253023918837,
+    "queries": 3995,
+    "epochs": [
+     44,
+     41,
+     36
+    ],
+    "parameters": 3215616
+   }
+  }
+ }
+}

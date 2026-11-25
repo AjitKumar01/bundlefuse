@@ -1,0 +1,283 @@
+2026-11-22T15:55:20Z electronic seed=0 parameters=74136 train_bundles=1211 start_epoch=1
+2026-11-22T15:55:20Z electronic seed=0 epoch=1 loss=7.04754 VAL R20=0.397592 N20=0.291636 best_epoch=0 patience=1/6
+2026-11-22T15:55:21Z electronic seed=0 epoch=2 loss=5.99406 VAL R20=0.480058 N20=0.360089 best_epoch=2 patience=0/6
+2026-11-22T15:55:21Z electronic seed=0 epoch=3 loss=5.67588 VAL R20=0.482177 N20=0.364868 best_epoch=3 patience=0/6
+2026-11-22T15:55:22Z electronic seed=0 epoch=4 loss=5.50231 VAL R20=0.490848 N20=0.366857 best_epoch=4 patience=0/6
+2026-11-22T15:55:22Z electronic seed=0 epoch=5 loss=5.37438 VAL R20=0.489114 N20=0.362848 best_epoch=4 patience=1/6
+2026-11-22T15:55:23Z electronic seed=0 epoch=6 loss=5.29267 VAL R20=0.477360 N20=0.360437 best_epoch=4 patience=2/6
+2026-11-22T15:55:23Z electronic seed=0 epoch=7 loss=5.13382 VAL R20=0.483141 N20=0.361993 best_epoch=4 patience=3/6
+2026-11-22T15:55:24Z electronic seed=0 epoch=8 loss=5.19557 VAL R20=0.486994 N20=0.358800 best_epoch=4 patience=4/6
+2026-11-22T15:55:24Z electronic seed=0 epoch=9 loss=5.11143 VAL R20=0.493738 N20=0.366272 best_epoch=4 patience=5/6
+2026-11-22T15:55:25Z electronic seed=0 epoch=10 loss=5.09710 VAL R20=0.481214 N20=0.357337 best_epoch=4 patience=6/6
+2026-11-22T15:55:25Z electronic seed=1 parameters=74136 train_bundles=1211 start_epoch=1
+2026-11-22T15:55:25Z electronic seed=1 epoch=1 loss=7.16852 VAL R20=0.368208 N20=0.257173 best_epoch=0 patience=1/6
+2026-11-22T15:55:26Z electronic seed=1 epoch=2 loss=6.29698 VAL R20=0.436898 N20=0.350263 best_epoch=2 patience=0/6
+2026-11-22T15:55:26Z electronic seed=1 epoch=3 loss=5.75084 VAL R20=0.466570 N20=0.352511 best_epoch=3 patience=0/6
+2026-11-22T15:55:26Z electronic seed=1 epoch=4 loss=5.55957 VAL R20=0.486031 N20=0.362991 best_epoch=4 patience=0/6
+2026-11-22T15:55:27Z electronic seed=1 epoch=5 loss=5.40115 VAL R20=0.493738 N20=0.365134 best_epoch=5 patience=0/6
+2026-11-22T15:55:27Z electronic seed=1 epoch=6 loss=5.26225 VAL R20=0.496628 N20=0.364268 best_epoch=5 patience=1/6
+2026-11-22T15:55:28Z electronic seed=1 epoch=7 loss=5.21507 VAL R20=0.509152 N20=0.371088 best_epoch=7 patience=0/6
+2026-11-22T15:55:28Z electronic seed=1 epoch=8 loss=5.16697 VAL R20=0.479287 N20=0.360737 best_epoch=7 patience=1/6
+2026-11-22T15:55:29Z electronic seed=1 epoch=9 loss=5.11879 VAL R20=0.474277 N20=0.359315 best_epoch=7 patience=2/6
+2026-11-22T15:55:29Z electronic seed=1 epoch=10 loss=5.10792 VAL R20=0.484104 N20=0.363042 best_epoch=7 patience=3/6
+2026-11-22T15:55:30Z electronic seed=1 epoch=11 loss=4.99645 VAL R20=0.491040 N20=0.364064 best_epoch=7 patience=4/6
+2026-11-22T15:55:30Z electronic seed=1 epoch=12 loss=5.02217 VAL R20=0.490848 N20=0.358825 best_epoch=7 patience=5/6
+2026-11-22T15:55:31Z electronic seed=1 epoch=13 loss=4.96237 VAL R20=0.478131 N20=0.354727 best_epoch=7 patience=6/6
+2026-11-22T15:55:31Z electronic seed=2 parameters=74136 train_bundles=1211 start_epoch=1
+2026-11-22T15:55:31Z electronic seed=2 epoch=1 loss=7.14974 VAL R20=0.400289 N20=0.276898 best_epoch=0 patience=1/6
+2026-11-22T15:55:32Z electronic seed=2 epoch=2 loss=6.13321 VAL R20=0.480443 N20=0.365393 best_epoch=2 patience=0/6
+2026-11-22T15:55:32Z electronic seed=2 epoch=3 loss=5.67598 VAL R20=0.469846 N20=0.360727 best_epoch=2 patience=1/6
+2026-11-22T15:55:33Z electronic seed=2 epoch=4 loss=5.52499 VAL R20=0.478324 N20=0.360940 best_epoch=2 patience=2/6
+2026-11-22T15:55:33Z electronic seed=2 epoch=5 loss=5.39448 VAL R20=0.481214 N20=0.361019 best_epoch=2 patience=3/6
+2026-11-22T15:55:33Z electronic seed=2 epoch=6 loss=5.29529 VAL R20=0.509152 N20=0.368167 best_epoch=6 patience=0/6
+2026-11-22T15:55:34Z electronic seed=2 epoch=7 loss=5.24769 VAL R20=0.488150 N20=0.360534 best_epoch=6 patience=1/6
+2026-11-22T15:55:34Z electronic seed=2 epoch=8 loss=5.12668 VAL R20=0.481407 N20=0.355592 best_epoch=6 patience=2/6
+2026-11-22T15:55:35Z electronic seed=2 epoch=9 loss=5.11190 VAL R20=0.490077 N20=0.361757 best_epoch=6 patience=3/6
+2026-11-22T15:55:35Z electronic seed=2 epoch=10 loss=5.05035 VAL R20=0.492004 N20=0.361345 best_epoch=6 patience=4/6
+2026-11-22T15:55:36Z electronic seed=2 epoch=11 loss=5.06480 VAL R20=0.492775 N20=0.357299 best_epoch=6 patience=5/6
+2026-11-22T15:55:36Z electronic seed=2 epoch=12 loss=5.00895 VAL R20=0.480250 N20=0.351251 best_epoch=6 patience=6/6
+electronic_split1 {'rho': {'f0': -0.131, 'f1': -0.236, 'f2': -0.233}, 'rho_by_seed': [[-0.097, -0.194, -0.193], [-0.154, -0.255, -0.248], [-0.143, -0.26, -0.258]], 'base_rate': {0: 0.8225594255069768, 1: -0.5445977737421834, 2: -0.7716630125091957}, 'triad': 0.39325264216385897, 'best_simple': 0.3628448768434469, 'best_simple_method': 'hybrid+prior', 'epochs': [4, 7, 6]}
+2026-11-22T15:55:38Z electronic seed=0 parameters=74136 train_bundles=1211 start_epoch=1
+2026-11-22T15:55:39Z electronic seed=0 epoch=1 loss=6.98578 VAL R20=0.328805 N20=0.236244 best_epoch=0 patience=1/6
+2026-11-22T15:55:39Z electronic seed=0 epoch=2 loss=5.90839 VAL R20=0.391811 N20=0.297844 best_epoch=2 patience=0/6
+2026-11-22T15:55:40Z electronic seed=0 epoch=3 loss=5.58524 VAL R20=0.423603 N20=0.307547 best_epoch=3 patience=0/6
+2026-11-22T15:55:40Z electronic seed=0 epoch=4 loss=5.33963 VAL R20=0.416281 N20=0.295130 best_epoch=3 patience=1/6
+2026-11-22T15:55:41Z electronic seed=0 epoch=5 loss=5.29399 VAL R20=0.439499 N20=0.312352 best_epoch=5 patience=0/6
+2026-11-22T15:55:41Z electronic seed=0 epoch=6 loss=5.21016 VAL R20=0.433911 N20=0.310265 best_epoch=5 patience=1/6
+2026-11-22T15:55:41Z electronic seed=0 epoch=7 loss=5.15485 VAL R20=0.439499 N20=0.305679 best_epoch=5 patience=2/6
+2026-11-22T15:55:42Z electronic seed=0 epoch=8 loss=5.04081 VAL R20=0.435164 N20=0.307830 best_epoch=5 patience=3/6
+2026-11-22T15:55:42Z electronic seed=0 epoch=9 loss=4.99183 VAL R20=0.454432 N20=0.314321 best_epoch=9 patience=0/6
+2026-11-22T15:55:43Z electronic seed=0 epoch=10 loss=4.97777 VAL R20=0.444316 N20=0.309771 best_epoch=9 patience=1/6
+2026-11-22T15:55:43Z electronic seed=0 epoch=11 loss=4.89728 VAL R20=0.444316 N20=0.311536 best_epoch=9 patience=2/6
+2026-11-22T15:55:44Z electronic seed=0 epoch=12 loss=4.78633 VAL R20=0.436609 N20=0.304955 best_epoch=9 patience=3/6
+2026-11-22T15:55:44Z electronic seed=0 epoch=13 loss=4.78814 VAL R20=0.436609 N20=0.302830 best_epoch=9 patience=4/6
+2026-11-22T15:55:45Z electronic seed=0 epoch=14 loss=4.71670 VAL R20=0.437091 N20=0.307802 best_epoch=9 patience=5/6
+2026-11-22T15:55:45Z electronic seed=0 epoch=15 loss=4.77645 VAL R20=0.438054 N20=0.305120 best_epoch=9 patience=6/6
+2026-11-22T15:55:45Z electronic seed=1 parameters=74136 train_bundles=1211 start_epoch=1
+2026-11-22T15:55:46Z electronic seed=1 epoch=1 loss=7.15184 VAL R20=0.328805 N20=0.219179 best_epoch=0 patience=1/6
+2026-11-22T15:55:46Z electronic seed=1 epoch=2 loss=6.22650 VAL R20=0.392100 N20=0.293304 best_epoch=2 patience=0/6
+2026-11-22T15:55:47Z electronic seed=1 epoch=3 loss=5.67798 VAL R20=0.409152 N20=0.302073 best_epoch=3 patience=0/6
+2026-11-22T15:55:47Z electronic seed=1 epoch=4 loss=5.38734 VAL R20=0.436320 N20=0.312210 best_epoch=4 patience=0/6
+2026-11-22T15:55:47Z electronic seed=1 epoch=5 loss=5.33175 VAL R20=0.446917 N20=0.314049 best_epoch=5 patience=0/6
+2026-11-22T15:55:48Z electronic seed=1 epoch=6 loss=5.17680 VAL R20=0.447881 N20=0.314428 best_epoch=6 patience=0/6
+2026-11-22T15:55:48Z electronic seed=1 epoch=7 loss=5.14759 VAL R20=0.458285 N20=0.312519 best_epoch=6 patience=1/6
+2026-11-22T15:55:49Z electronic seed=1 epoch=8 loss=5.06427 VAL R20=0.460405 N20=0.313926 best_epoch=6 patience=2/6
+2026-11-22T15:55:49Z electronic seed=1 epoch=9 loss=5.03069 VAL R20=0.443834 N20=0.308028 best_epoch=6 patience=3/6
+2026-11-22T15:55:50Z electronic seed=1 epoch=10 loss=4.95865 VAL R20=0.462139 N20=0.308910 best_epoch=6 patience=4/6
+2026-11-22T15:55:50Z electronic seed=1 epoch=11 loss=4.94705 VAL R20=0.456551 N20=0.305363 best_epoch=6 patience=5/6
+2026-11-22T15:55:51Z electronic seed=1 epoch=12 loss=4.87069 VAL R20=0.449133 N20=0.301243 best_epoch=6 patience=6/6
+2026-11-22T15:55:51Z electronic seed=2 parameters=74136 train_bundles=1211 start_epoch=1
+2026-11-22T15:55:51Z electronic seed=2 epoch=1 loss=7.06410 VAL R20=0.341522 N20=0.242488 best_epoch=0 patience=1/6
+2026-11-22T15:55:52Z electronic seed=2 epoch=2 loss=6.05500 VAL R20=0.393738 N20=0.293256 best_epoch=2 patience=0/6
+2026-11-22T15:55:52Z electronic seed=2 epoch=3 loss=5.61336 VAL R20=0.411561 N20=0.303599 best_epoch=3 patience=0/6
+2026-11-22T15:55:53Z electronic seed=2 epoch=4 loss=5.48488 VAL R20=0.454432 N20=0.310413 best_epoch=4 patience=0/6
+2026-11-22T15:55:53Z electronic seed=2 epoch=5 loss=5.27648 VAL R20=0.452697 N20=0.318868 best_epoch=5 patience=0/6
+2026-11-22T15:55:53Z electronic seed=2 epoch=6 loss=5.23638 VAL R20=0.457033 N20=0.315882 best_epoch=5 patience=1/6
+2026-11-22T15:55:54Z electronic seed=2 epoch=7 loss=5.19631 VAL R20=0.450771 N20=0.313043 best_epoch=5 patience=2/6
+2026-11-22T15:55:54Z electronic seed=2 epoch=8 loss=5.06951 VAL R20=0.448362 N20=0.310794 best_epoch=5 patience=3/6
+2026-11-22T15:55:55Z electronic seed=2 epoch=9 loss=4.95656 VAL R20=0.447399 N20=0.304649 best_epoch=5 patience=4/6
+2026-11-22T15:55:55Z electronic seed=2 epoch=10 loss=4.95519 VAL R20=0.447399 N20=0.307951 best_epoch=5 patience=5/6
+2026-11-22T15:55:56Z electronic seed=2 epoch=11 loss=4.90738 VAL R20=0.445954 N20=0.305453 best_epoch=5 patience=6/6
+electronic_split2 {'rho': {'f0': -0.1, 'f1': -0.21, 'f2': -0.208}, 'rho_by_seed': [[-0.05, -0.174, -0.175], [-0.1, -0.201, -0.197], [-0.15, -0.255, -0.251]], 'base_rate': {0: 0.7473635238744634, 1: -0.4889524454874792, 2: -1.037129283975905}, 'triad': 0.3553602477401609, 'best_simple': 0.33527548543569446, 'best_simple_method': 'hybrid+prior', 'epochs': [9, 6, 5]}
+2026-11-22T15:55:58Z food seed=0 parameters=74136 train_bundles=1232 start_epoch=1
+2026-11-22T15:55:58Z food seed=0 epoch=1 loss=6.93649 VAL R20=0.444223 N20=0.313619 best_epoch=0 patience=1/6
+2026-11-22T15:55:59Z food seed=0 epoch=2 loss=5.59896 VAL R20=0.520739 N20=0.362579 best_epoch=2 patience=0/6
+2026-11-22T15:55:59Z food seed=0 epoch=3 loss=5.00535 VAL R20=0.524716 N20=0.384826 best_epoch=3 patience=0/6
+2026-11-22T15:56:00Z food seed=0 epoch=4 loss=4.83789 VAL R20=0.530871 N20=0.394178 best_epoch=4 patience=0/6
+2026-11-22T15:56:00Z food seed=0 epoch=5 loss=4.68789 VAL R20=0.534186 N20=0.400137 best_epoch=5 patience=0/6
+2026-11-22T15:56:01Z food seed=0 epoch=6 loss=4.63623 VAL R20=0.531345 N20=0.399861 best_epoch=5 patience=1/6
+2026-11-22T15:56:01Z food seed=0 epoch=7 loss=4.55322 VAL R20=0.529261 N20=0.401463 best_epoch=7 patience=0/6
+2026-11-22T15:56:02Z food seed=0 epoch=8 loss=4.49575 VAL R20=0.530208 N20=0.403610 best_epoch=8 patience=0/6
+2026-11-22T15:56:02Z food seed=0 epoch=9 loss=4.47429 VAL R20=0.521686 N20=0.398716 best_epoch=8 patience=1/6
+2026-11-22T15:56:03Z food seed=0 epoch=10 loss=4.40890 VAL R20=0.531534 N20=0.402158 best_epoch=8 patience=2/6
+2026-11-22T15:56:03Z food seed=0 epoch=11 loss=4.31627 VAL R20=0.528504 N20=0.401744 best_epoch=8 patience=3/6
+2026-11-22T15:56:04Z food seed=0 epoch=12 loss=4.33305 VAL R20=0.524905 N20=0.400685 best_epoch=8 patience=4/6
+2026-11-22T15:56:04Z food seed=0 epoch=13 loss=4.22521 VAL R20=0.527746 N20=0.402047 best_epoch=8 patience=5/6
+2026-11-22T15:56:04Z food seed=0 epoch=14 loss=4.20248 VAL R20=0.519508 N20=0.402360 best_epoch=8 patience=6/6
+2026-11-22T15:56:05Z food seed=1 parameters=74136 train_bundles=1232 start_epoch=1
+2026-11-22T15:56:05Z food seed=1 epoch=1 loss=7.05626 VAL R20=0.449621 N20=0.309783 best_epoch=0 patience=1/6
+2026-11-22T15:56:06Z food seed=1 epoch=2 loss=5.89627 VAL R20=0.493466 N20=0.338130 best_epoch=0 patience=2/6
+2026-11-22T15:56:06Z food seed=1 epoch=3 loss=5.18357 VAL R20=0.527557 N20=0.373724 best_epoch=3 patience=0/6
+2026-11-22T15:56:06Z food seed=1 epoch=4 loss=4.97516 VAL R20=0.512689 N20=0.386464 best_epoch=4 patience=0/6
+2026-11-22T15:56:07Z food seed=1 epoch=5 loss=4.75637 VAL R20=0.526894 N20=0.397620 best_epoch=5 patience=0/6
+2026-11-22T15:56:07Z food seed=1 epoch=6 loss=4.72628 VAL R20=0.508428 N20=0.392347 best_epoch=5 patience=1/6
+2026-11-22T15:56:08Z food seed=1 epoch=7 loss=4.62349 VAL R20=0.509848 N20=0.389478 best_epoch=5 patience=2/6
+2026-11-22T15:56:08Z food seed=1 epoch=8 loss=4.53151 VAL R20=0.531629 N20=0.396845 best_epoch=5 patience=3/6
+2026-11-22T15:56:09Z food seed=1 epoch=9 loss=4.46412 VAL R20=0.512689 N20=0.393062 best_epoch=5 patience=4/6
+2026-11-22T15:56:09Z food seed=1 epoch=10 loss=4.42306 VAL R20=0.506250 N20=0.391653 best_epoch=5 patience=5/6
+2026-11-22T15:56:10Z food seed=1 epoch=11 loss=4.48100 VAL R20=0.516667 N20=0.396292 best_epoch=5 patience=6/6
+2026-11-22T15:56:10Z food seed=2 parameters=74136 train_bundles=1232 start_epoch=1
+2026-11-22T15:56:10Z food seed=2 epoch=1 loss=7.03533 VAL R20=0.399432 N20=0.284817 best_epoch=0 patience=1/6
+2026-11-22T15:56:11Z food seed=2 epoch=2 loss=5.65150 VAL R20=0.511458 N20=0.351672 best_epoch=0 patience=2/6
+2026-11-22T15:56:11Z food seed=2 epoch=3 loss=5.11186 VAL R20=0.537027 N20=0.381781 best_epoch=3 patience=0/6
+2026-11-22T15:56:12Z food seed=2 epoch=4 loss=4.90442 VAL R20=0.519792 N20=0.389331 best_epoch=4 patience=0/6
+2026-11-22T15:56:12Z food seed=2 epoch=5 loss=4.66790 VAL R20=0.525947 N20=0.399572 best_epoch=5 patience=0/6
+2026-11-22T15:56:13Z food seed=2 epoch=6 loss=4.67790 VAL R20=0.516951 N20=0.395306 best_epoch=5 patience=1/6
+2026-11-22T15:56:13Z food seed=2 epoch=7 loss=4.61610 VAL R20=0.532292 N20=0.390287 best_epoch=5 patience=2/6
+2026-11-22T15:56:14Z food seed=2 epoch=8 loss=4.60800 VAL R20=0.515246 N20=0.392742 best_epoch=5 patience=3/6
+2026-11-22T15:56:14Z food seed=2 epoch=9 loss=4.50575 VAL R20=0.515057 N20=0.395657 best_epoch=5 patience=4/6
+2026-11-22T15:56:15Z food seed=2 epoch=10 loss=4.42323 VAL R20=0.513163 N20=0.391420 best_epoch=5 patience=5/6
+2026-11-22T15:56:15Z food seed=2 epoch=11 loss=4.35235 VAL R20=0.520928 N20=0.396567 best_epoch=5 patience=6/6
+food_split1 {'rho': {'f0': -0.129, 'f1': -0.255, 'f2': -0.26}, 'rho_by_seed': [[-0.124, -0.296, -0.309], [-0.15, -0.249, -0.245], [-0.113, -0.221, -0.226]], 'base_rate': {0: 0.853517667320687, 1: -0.5730232887581103, 2: -0.6530659964316466}, 'triad': 0.42712447228194117, 'best_simple': 0.4145352525198608, 'best_simple_method': 'hybrid+prior', 'epochs': [8, 5, 5]}
+2026-11-22T15:56:17Z food seed=0 parameters=74136 train_bundles=1232 start_epoch=1
+2026-11-22T15:56:18Z food seed=0 epoch=1 loss=6.95099 VAL R20=0.512405 N20=0.364788 best_epoch=0 patience=1/6
+2026-11-22T15:56:18Z food seed=0 epoch=2 loss=5.77628 VAL R20=0.582008 N20=0.413984 best_epoch=2 patience=0/6
+2026-11-22T15:56:19Z food seed=0 epoch=3 loss=5.12182 VAL R20=0.571591 N20=0.429305 best_epoch=3 patience=0/6
+2026-11-22T15:56:19Z food seed=0 epoch=4 loss=4.93913 VAL R20=0.581061 N20=0.433251 best_epoch=4 patience=0/6
+2026-11-22T15:56:20Z food seed=0 epoch=5 loss=4.76118 VAL R20=0.571117 N20=0.430678 best_epoch=4 patience=1/6
+2026-11-22T15:56:20Z food seed=0 epoch=6 loss=4.66789 VAL R20=0.568750 N20=0.426443 best_epoch=4 patience=2/6
+2026-11-22T15:56:21Z food seed=0 epoch=7 loss=4.58965 VAL R20=0.567330 N20=0.428888 best_epoch=4 patience=3/6
+2026-11-22T15:56:21Z food seed=0 epoch=8 loss=4.53221 VAL R20=0.579640 N20=0.430473 best_epoch=4 patience=4/6
+2026-11-22T15:56:22Z food seed=0 epoch=9 loss=4.51945 VAL R20=0.575852 N20=0.432033 best_epoch=4 patience=5/6
+2026-11-22T15:56:22Z food seed=0 epoch=10 loss=4.49701 VAL R20=0.582481 N20=0.432109 best_epoch=4 patience=6/6
+2026-11-22T15:56:22Z food seed=1 parameters=74136 train_bundles=1232 start_epoch=1
+2026-11-22T15:56:23Z food seed=1 epoch=1 loss=7.10143 VAL R20=0.549337 N20=0.366941 best_epoch=0 patience=1/6
+2026-11-22T15:56:23Z food seed=1 epoch=2 loss=5.95558 VAL R20=0.534659 N20=0.405335 best_epoch=0 patience=2/6
+2026-11-22T15:56:24Z food seed=1 epoch=3 loss=5.30705 VAL R20=0.580114 N20=0.431383 best_epoch=3 patience=0/6
+2026-11-22T15:56:24Z food seed=1 epoch=4 loss=5.01659 VAL R20=0.570644 N20=0.431083 best_epoch=3 patience=1/6
+2026-11-22T15:56:25Z food seed=1 epoch=5 loss=4.80362 VAL R20=0.573485 N20=0.434077 best_epoch=5 patience=0/6
+2026-11-22T15:56:25Z food seed=1 epoch=6 loss=4.71402 VAL R20=0.577273 N20=0.432165 best_epoch=5 patience=1/6
+2026-11-22T15:56:26Z food seed=1 epoch=7 loss=4.67024 VAL R20=0.581061 N20=0.427734 best_epoch=5 patience=2/6
+2026-11-22T15:56:26Z food seed=1 epoch=8 loss=4.64621 VAL R20=0.576326 N20=0.434764 best_epoch=8 patience=0/6
+2026-11-22T15:56:26Z food seed=1 epoch=9 loss=4.61963 VAL R20=0.584848 N20=0.434009 best_epoch=8 patience=1/6
+2026-11-22T15:56:27Z food seed=1 epoch=10 loss=4.52718 VAL R20=0.580114 N20=0.430983 best_epoch=8 patience=2/6
+2026-11-22T15:56:27Z food seed=1 epoch=11 loss=4.43965 VAL R20=0.582955 N20=0.432257 best_epoch=8 patience=3/6
+2026-11-22T15:56:28Z food seed=1 epoch=12 loss=4.38511 VAL R20=0.588636 N20=0.437143 best_epoch=12 patience=0/6
+2026-11-22T15:56:28Z food seed=1 epoch=13 loss=4.30615 VAL R20=0.599053 N20=0.436649 best_epoch=12 patience=1/6
+2026-11-22T15:56:29Z food seed=1 epoch=14 loss=4.33764 VAL R20=0.579167 N20=0.433137 best_epoch=12 patience=2/6
+2026-11-22T15:56:29Z food seed=1 epoch=15 loss=4.27874 VAL R20=0.590057 N20=0.436453 best_epoch=12 patience=3/6
+2026-11-22T15:56:30Z food seed=1 epoch=16 loss=4.22924 VAL R20=0.579167 N20=0.430018 best_epoch=12 patience=4/6
+2026-11-22T15:56:30Z food seed=1 epoch=17 loss=4.19077 VAL R20=0.590530 N20=0.436791 best_epoch=12 patience=5/6
+2026-11-22T15:56:31Z food seed=1 epoch=18 loss=4.13515 VAL R20=0.581061 N20=0.438302 best_epoch=18 patience=0/6
+2026-11-22T15:56:31Z food seed=1 epoch=19 loss=4.13944 VAL R20=0.582008 N20=0.432518 best_epoch=18 patience=1/6
+2026-11-22T15:56:32Z food seed=1 epoch=20 loss=4.07860 VAL R20=0.571591 N20=0.424697 best_epoch=18 patience=2/6
+2026-11-22T15:56:32Z food seed=1 epoch=21 loss=4.06043 VAL R20=0.576326 N20=0.428649 best_epoch=18 patience=3/6
+2026-11-22T15:56:33Z food seed=1 epoch=22 loss=4.08408 VAL R20=0.574432 N20=0.427788 best_epoch=18 patience=4/6
+2026-11-22T15:56:33Z food seed=1 epoch=23 loss=3.98573 VAL R20=0.580114 N20=0.428052 best_epoch=18 patience=5/6
+2026-11-22T15:56:34Z food seed=1 epoch=24 loss=3.94989 VAL R20=0.585795 N20=0.430174 best_epoch=18 patience=6/6
+2026-11-22T15:56:34Z food seed=2 parameters=74136 train_bundles=1232 start_epoch=1
+2026-11-22T15:56:34Z food seed=2 epoch=1 loss=7.02948 VAL R20=0.518087 N20=0.360931 best_epoch=0 patience=1/6
+2026-11-22T15:56:35Z food seed=2 epoch=2 loss=5.78280 VAL R20=0.546023 N20=0.397970 best_epoch=0 patience=2/6
+2026-11-22T15:56:35Z food seed=2 epoch=3 loss=5.23853 VAL R20=0.581534 N20=0.430418 best_epoch=3 patience=0/6
+2026-11-22T15:56:36Z food seed=2 epoch=4 loss=4.87881 VAL R20=0.579167 N20=0.428357 best_epoch=3 patience=1/6
+2026-11-22T15:56:36Z food seed=2 epoch=5 loss=4.85880 VAL R20=0.576799 N20=0.431889 best_epoch=5 patience=0/6
+2026-11-22T15:56:37Z food seed=2 epoch=6 loss=4.79545 VAL R20=0.580114 N20=0.429441 best_epoch=5 patience=1/6
+2026-11-22T15:56:37Z food seed=2 epoch=7 loss=4.75560 VAL R20=0.582008 N20=0.430445 best_epoch=5 patience=2/6
+2026-11-22T15:56:37Z food seed=2 epoch=8 loss=4.65139 VAL R20=0.585322 N20=0.433634 best_epoch=8 patience=0/6
+2026-11-22T15:56:38Z food seed=2 epoch=9 loss=4.56445 VAL R20=0.582481 N20=0.429921 best_epoch=8 patience=1/6
+2026-11-22T15:56:38Z food seed=2 epoch=10 loss=4.54434 VAL R20=0.569697 N20=0.429140 best_epoch=8 patience=2/6
+2026-11-22T15:56:39Z food seed=2 epoch=11 loss=4.50503 VAL R20=0.596212 N20=0.434642 best_epoch=11 patience=0/6
+2026-11-22T15:56:39Z food seed=2 epoch=12 loss=4.43516 VAL R20=0.586269 N20=0.431242 best_epoch=11 patience=1/6
+2026-11-22T15:56:40Z food seed=2 epoch=13 loss=4.36994 VAL R20=0.598106 N20=0.434726 best_epoch=13 patience=0/6
+2026-11-22T15:56:40Z food seed=2 epoch=14 loss=4.36821 VAL R20=0.597159 N20=0.437320 best_epoch=14 patience=0/6
+2026-11-22T15:56:41Z food seed=2 epoch=15 loss=4.33441 VAL R20=0.599527 N20=0.436243 best_epoch=14 patience=1/6
+2026-11-22T15:56:41Z food seed=2 epoch=16 loss=4.26153 VAL R20=0.591004 N20=0.434003 best_epoch=14 patience=2/6
+2026-11-22T15:56:42Z food seed=2 epoch=17 loss=4.25965 VAL R20=0.574905 N20=0.432824 best_epoch=14 patience=3/6
+2026-11-22T15:56:42Z food seed=2 epoch=18 loss=4.18037 VAL R20=0.579167 N20=0.429796 best_epoch=14 patience=4/6
+2026-11-22T15:56:43Z food seed=2 epoch=19 loss=4.13455 VAL R20=0.584848 N20=0.432464 best_epoch=14 patience=5/6
+2026-11-22T15:56:43Z food seed=2 epoch=20 loss=4.08825 VAL R20=0.582008 N20=0.431253 best_epoch=14 patience=6/6
+food_split2 {'rho': {'f0': -0.053, 'f1': -0.188, 'f2': -0.195}, 'rho_by_seed': [[-0.047, -0.185, -0.198], [-0.032, -0.169, -0.168], [-0.079, -0.211, -0.218]], 'base_rate': {0: 0.6939656644079308, 1: -0.4759257983796897, 2: -0.43917934318210605}, 'triad': 0.45117236309370345, 'best_simple': 0.43094565816248787, 'best_simple_method': 'hybrid+prior', 'epochs': [4, 18, 14]}
+2026-11-22T15:56:45Z clothing seed=0 parameters=74136 train_bundles=1294 start_epoch=1
+2026-11-22T15:56:46Z clothing seed=0 epoch=1 loss=6.74226 VAL R20=0.611594 N20=0.437105 best_epoch=1 patience=0/6
+2026-11-22T15:56:46Z clothing seed=0 epoch=2 loss=4.90095 VAL R20=0.632971 N20=0.474532 best_epoch=2 patience=0/6
+2026-11-22T15:56:47Z clothing seed=0 epoch=3 loss=4.25106 VAL R20=0.644928 N20=0.489438 best_epoch=3 patience=0/6
+2026-11-22T15:56:48Z clothing seed=0 epoch=4 loss=3.99522 VAL R20=0.651721 N20=0.497167 best_epoch=4 patience=0/6
+2026-11-22T15:56:48Z clothing seed=0 epoch=5 loss=3.99466 VAL R20=0.647464 N20=0.496924 best_epoch=4 patience=1/6
+2026-11-22T15:56:49Z clothing seed=0 epoch=6 loss=3.92734 VAL R20=0.646558 N20=0.499756 best_epoch=6 patience=0/6
+2026-11-22T15:56:49Z clothing seed=0 epoch=7 loss=3.85166 VAL R20=0.646558 N20=0.503836 best_epoch=7 patience=0/6
+2026-11-22T15:56:50Z clothing seed=0 epoch=8 loss=3.79467 VAL R20=0.640217 N20=0.505805 best_epoch=8 patience=0/6
+2026-11-22T15:56:50Z clothing seed=0 epoch=9 loss=3.73722 VAL R20=0.641848 N20=0.506061 best_epoch=9 patience=0/6
+2026-11-22T15:56:51Z clothing seed=0 epoch=10 loss=3.71505 VAL R20=0.630072 N20=0.506051 best_epoch=9 patience=1/6
+2026-11-22T15:56:51Z clothing seed=0 epoch=11 loss=3.68491 VAL R20=0.645471 N20=0.506265 best_epoch=11 patience=0/6
+2026-11-22T15:56:52Z clothing seed=0 epoch=12 loss=3.58133 VAL R20=0.646830 N20=0.505697 best_epoch=11 patience=1/6
+2026-11-22T15:56:52Z clothing seed=0 epoch=13 loss=3.51146 VAL R20=0.642029 N20=0.503549 best_epoch=11 patience=2/6
+2026-11-22T15:56:53Z clothing seed=0 epoch=14 loss=3.55214 VAL R20=0.639312 N20=0.501219 best_epoch=11 patience=3/6
+2026-11-22T15:56:53Z clothing seed=0 epoch=15 loss=3.45679 VAL R20=0.634601 N20=0.505267 best_epoch=11 patience=4/6
+2026-11-22T15:56:54Z clothing seed=0 epoch=16 loss=3.42626 VAL R20=0.640942 N20=0.503877 best_epoch=11 patience=5/6
+2026-11-22T15:56:54Z clothing seed=0 epoch=17 loss=3.36312 VAL R20=0.632790 N20=0.504293 best_epoch=11 patience=6/6
+2026-11-22T15:56:54Z clothing seed=1 parameters=74136 train_bundles=1294 start_epoch=1
+2026-11-22T15:56:55Z clothing seed=1 epoch=1 loss=6.94314 VAL R20=0.617210 N20=0.410010 best_epoch=1 patience=0/6
+2026-11-22T15:56:55Z clothing seed=1 epoch=2 loss=5.55297 VAL R20=0.622101 N20=0.464858 best_epoch=2 patience=0/6
+2026-11-22T15:56:56Z clothing seed=1 epoch=3 loss=4.44656 VAL R20=0.643388 N20=0.485290 best_epoch=3 patience=0/6
+2026-11-22T15:56:57Z clothing seed=1 epoch=4 loss=4.17270 VAL R20=0.651359 N20=0.501047 best_epoch=4 patience=0/6
+2026-11-22T15:56:57Z clothing seed=1 epoch=5 loss=4.09035 VAL R20=0.652446 N20=0.504468 best_epoch=5 patience=0/6
+2026-11-22T15:56:58Z clothing seed=1 epoch=6 loss=3.94404 VAL R20=0.645380 N20=0.507565 best_epoch=6 patience=0/6
+2026-11-22T15:56:58Z clothing seed=1 epoch=7 loss=3.89282 VAL R20=0.656975 N20=0.505276 best_epoch=6 patience=1/6
+2026-11-22T15:56:59Z clothing seed=1 epoch=8 loss=3.76818 VAL R20=0.651540 N20=0.510796 best_epoch=8 patience=0/6
+2026-11-22T15:56:59Z clothing seed=1 epoch=9 loss=3.79292 VAL R20=0.652446 N20=0.510675 best_epoch=8 patience=1/6
+2026-11-22T15:57:00Z clothing seed=1 epoch=10 loss=3.71498 VAL R20=0.650453 N20=0.511116 best_epoch=10 patience=0/6
+2026-11-22T15:57:00Z clothing seed=1 epoch=11 loss=3.70874 VAL R20=0.639764 N20=0.506774 best_epoch=10 patience=1/6
+2026-11-22T15:57:01Z clothing seed=1 epoch=12 loss=3.62355 VAL R20=0.645924 N20=0.506204 best_epoch=10 patience=2/6
+2026-11-22T15:57:01Z clothing seed=1 epoch=13 loss=3.56313 VAL R20=0.650000 N20=0.512959 best_epoch=13 patience=0/6
+2026-11-22T15:57:02Z clothing seed=1 epoch=14 loss=3.54055 VAL R20=0.636413 N20=0.511629 best_epoch=13 patience=1/6
+2026-11-22T15:57:02Z clothing seed=1 epoch=15 loss=3.48440 VAL R20=0.652264 N20=0.509550 best_epoch=13 patience=2/6
+2026-11-22T15:57:03Z clothing seed=1 epoch=16 loss=3.35709 VAL R20=0.630978 N20=0.504646 best_epoch=13 patience=3/6
+2026-11-22T15:57:03Z clothing seed=1 epoch=17 loss=3.39207 VAL R20=0.641848 N20=0.506785 best_epoch=13 patience=4/6
+2026-11-22T15:57:04Z clothing seed=1 epoch=18 loss=3.39426 VAL R20=0.631884 N20=0.504201 best_epoch=13 patience=5/6
+2026-11-22T15:57:04Z clothing seed=1 epoch=19 loss=3.35056 VAL R20=0.627808 N20=0.505744 best_epoch=13 patience=6/6
+2026-11-22T15:57:04Z clothing seed=2 parameters=74136 train_bundles=1294 start_epoch=1
+2026-11-22T15:57:05Z clothing seed=2 epoch=1 loss=6.93298 VAL R20=0.608877 N20=0.420148 best_epoch=1 patience=0/6
+2026-11-22T15:57:05Z clothing seed=2 epoch=2 loss=5.13936 VAL R20=0.604891 N20=0.451464 best_epoch=2 patience=0/6
+2026-11-22T15:57:06Z clothing seed=2 epoch=3 loss=4.40313 VAL R20=0.639764 N20=0.489831 best_epoch=3 patience=0/6
+2026-11-22T15:57:07Z clothing seed=2 epoch=4 loss=4.15427 VAL R20=0.642663 N20=0.495813 best_epoch=4 patience=0/6
+2026-11-22T15:57:07Z clothing seed=2 epoch=5 loss=3.99598 VAL R20=0.646739 N20=0.504024 best_epoch=5 patience=0/6
+2026-11-22T15:57:08Z clothing seed=2 epoch=6 loss=4.00167 VAL R20=0.652174 N20=0.500391 best_epoch=5 patience=1/6
+2026-11-22T15:57:08Z clothing seed=2 epoch=7 loss=3.90406 VAL R20=0.653351 N20=0.506949 best_epoch=7 patience=0/6
+2026-11-22T15:57:09Z clothing seed=2 epoch=8 loss=3.81044 VAL R20=0.645199 N20=0.504974 best_epoch=7 patience=1/6
+2026-11-22T15:57:09Z clothing seed=2 epoch=9 loss=3.79336 VAL R20=0.649275 N20=0.509223 best_epoch=9 patience=0/6
+2026-11-22T15:57:10Z clothing seed=2 epoch=10 loss=3.68233 VAL R20=0.656341 N20=0.507758 best_epoch=9 patience=1/6
+2026-11-22T15:57:10Z clothing seed=2 epoch=11 loss=3.60961 VAL R20=0.653623 N20=0.513755 best_epoch=11 patience=0/6
+2026-11-22T15:57:11Z clothing seed=2 epoch=12 loss=3.56748 VAL R20=0.658333 N20=0.505045 best_epoch=11 patience=1/6
+2026-11-22T15:57:11Z clothing seed=2 epoch=13 loss=3.53380 VAL R20=0.647464 N20=0.499409 best_epoch=11 patience=2/6
+2026-11-22T15:57:12Z clothing seed=2 epoch=14 loss=3.55243 VAL R20=0.651812 N20=0.505411 best_epoch=11 patience=3/6
+2026-11-22T15:57:12Z clothing seed=2 epoch=15 loss=3.49926 VAL R20=0.655435 N20=0.507744 best_epoch=11 patience=4/6
+2026-11-22T15:57:13Z clothing seed=2 epoch=16 loss=3.39003 VAL R20=0.638225 N20=0.505018 best_epoch=11 patience=5/6
+2026-11-22T15:57:13Z clothing seed=2 epoch=17 loss=3.41393 VAL R20=0.642754 N20=0.504602 best_epoch=11 patience=6/6
+clothing_split1 {'rho': {'f0': -0.043, 'f1': -0.215, 'f2': -0.28}, 'rho_by_seed': [[-0.042, -0.217, -0.287], [-0.037, -0.2, -0.267], [-0.051, -0.227, -0.285]], 'base_rate': {0: 1.0216786878735018, 1: -0.6759420979014575, 2: -1.3132168082307698}, 'triad': 0.4971847066028585, 'best_simple': 0.4752918283637203, 'best_simple_method': 'label_knn_content+prior', 'epochs': [11, 13, 11]}
+2026-11-22T15:57:16Z clothing seed=0 parameters=74136 train_bundles=1294 start_epoch=1
+2026-11-22T15:57:16Z clothing seed=0 epoch=1 loss=6.77317 VAL R20=0.676359 N20=0.495127 best_epoch=1 patience=0/6
+2026-11-22T15:57:17Z clothing seed=0 epoch=2 loss=5.02448 VAL R20=0.711685 N20=0.530789 best_epoch=2 patience=0/6
+2026-11-22T15:57:17Z clothing seed=0 epoch=3 loss=4.20878 VAL R20=0.715308 N20=0.550591 best_epoch=3 patience=0/6
+2026-11-22T15:57:18Z clothing seed=0 epoch=4 loss=4.11432 VAL R20=0.723641 N20=0.550730 best_epoch=4 patience=0/6
+2026-11-22T15:57:19Z clothing seed=0 epoch=5 loss=3.96769 VAL R20=0.712772 N20=0.550525 best_epoch=4 patience=1/6
+2026-11-22T15:57:19Z clothing seed=0 epoch=6 loss=3.89348 VAL R20=0.706431 N20=0.548559 best_epoch=4 patience=2/6
+2026-11-22T15:57:20Z clothing seed=0 epoch=7 loss=3.92124 VAL R20=0.714583 N20=0.549458 best_epoch=4 patience=3/6
+2026-11-22T15:57:20Z clothing seed=0 epoch=8 loss=3.79721 VAL R20=0.710054 N20=0.546294 best_epoch=4 patience=4/6
+2026-11-22T15:57:21Z clothing seed=0 epoch=9 loss=3.76041 VAL R20=0.716395 N20=0.546844 best_epoch=4 patience=5/6
+2026-11-22T15:57:21Z clothing seed=0 epoch=10 loss=3.72123 VAL R20=0.712772 N20=0.550729 best_epoch=4 patience=6/6
+2026-11-22T15:57:21Z clothing seed=1 parameters=74136 train_bundles=1294 start_epoch=1
+2026-11-22T15:57:22Z clothing seed=1 epoch=1 loss=6.98321 VAL R20=0.668025 N20=0.472001 best_epoch=1 patience=0/6
+2026-11-22T15:57:22Z clothing seed=1 epoch=2 loss=5.52928 VAL R20=0.693388 N20=0.515364 best_epoch=2 patience=0/6
+2026-11-22T15:57:23Z clothing seed=1 epoch=3 loss=4.45727 VAL R20=0.720743 N20=0.544860 best_epoch=3 patience=0/6
+2026-11-22T15:57:23Z clothing seed=1 epoch=4 loss=4.20150 VAL R20=0.717301 N20=0.552934 best_epoch=4 patience=0/6
+2026-11-22T15:57:24Z clothing seed=1 epoch=5 loss=4.07792 VAL R20=0.720018 N20=0.553101 best_epoch=5 patience=0/6
+2026-11-22T15:57:24Z clothing seed=1 epoch=6 loss=3.95505 VAL R20=0.718931 N20=0.550190 best_epoch=5 patience=1/6
+2026-11-22T15:57:25Z clothing seed=1 epoch=7 loss=3.83088 VAL R20=0.715308 N20=0.550307 best_epoch=5 patience=2/6
+2026-11-22T15:57:25Z clothing seed=1 epoch=8 loss=3.82221 VAL R20=0.718207 N20=0.551624 best_epoch=5 patience=3/6
+2026-11-22T15:57:26Z clothing seed=1 epoch=9 loss=3.80618 VAL R20=0.716395 N20=0.556086 best_epoch=9 patience=0/6
+2026-11-22T15:57:26Z clothing seed=1 epoch=10 loss=3.73987 VAL R20=0.698279 N20=0.549103 best_epoch=9 patience=1/6
+2026-11-22T15:57:27Z clothing seed=1 epoch=11 loss=3.60240 VAL R20=0.701902 N20=0.542872 best_epoch=9 patience=2/6
+2026-11-22T15:57:27Z clothing seed=1 epoch=12 loss=3.63190 VAL R20=0.707337 N20=0.544168 best_epoch=9 patience=3/6
+2026-11-22T15:57:28Z clothing seed=1 epoch=13 loss=3.61977 VAL R20=0.699185 N20=0.545108 best_epoch=9 patience=4/6
+2026-11-22T15:57:28Z clothing seed=1 epoch=14 loss=3.54084 VAL R20=0.691033 N20=0.537060 best_epoch=9 patience=5/6
+2026-11-22T15:57:29Z clothing seed=1 epoch=15 loss=3.55875 VAL R20=0.682880 N20=0.537846 best_epoch=9 patience=6/6
+2026-11-22T15:57:29Z clothing seed=2 parameters=74136 train_bundles=1294 start_epoch=1
+2026-11-22T15:57:30Z clothing seed=2 epoch=1 loss=6.95805 VAL R20=0.669112 N20=0.478822 best_epoch=1 patience=0/6
+2026-11-22T15:57:30Z clothing seed=2 epoch=2 loss=5.31100 VAL R20=0.708786 N20=0.534065 best_epoch=2 patience=0/6
+2026-11-22T15:57:31Z clothing seed=2 epoch=3 loss=4.29689 VAL R20=0.721649 N20=0.550571 best_epoch=3 patience=0/6
+2026-11-22T15:57:31Z clothing seed=2 epoch=4 loss=4.18089 VAL R20=0.709873 N20=0.546312 best_epoch=3 patience=1/6
+2026-11-22T15:57:32Z clothing seed=2 epoch=5 loss=4.05762 VAL R20=0.711685 N20=0.548395 best_epoch=3 patience=2/6
+2026-11-22T15:57:32Z clothing seed=2 epoch=6 loss=3.95991 VAL R20=0.718931 N20=0.551495 best_epoch=6 patience=0/6
+2026-11-22T15:57:33Z clothing seed=2 epoch=7 loss=3.86860 VAL R20=0.705344 N20=0.549896 best_epoch=6 patience=1/6
+2026-11-22T15:57:33Z clothing seed=2 epoch=8 loss=3.78547 VAL R20=0.710960 N20=0.549148 best_epoch=6 patience=2/6
+2026-11-22T15:57:34Z clothing seed=2 epoch=9 loss=3.77769 VAL R20=0.710960 N20=0.549486 best_epoch=6 patience=3/6
+2026-11-22T15:57:34Z clothing seed=2 epoch=10 loss=3.66548 VAL R20=0.695380 N20=0.544135 best_epoch=6 patience=4/6
+2026-11-22T15:57:35Z clothing seed=2 epoch=11 loss=3.69192 VAL R20=0.700091 N20=0.547096 best_epoch=6 patience=5/6
+2026-11-22T15:57:35Z clothing seed=2 epoch=12 loss=3.65492 VAL R20=0.706250 N20=0.549624 best_epoch=6 patience=6/6
+clothing_split2 {'rho': {'f0': -0.069, 'f1': -0.215, 'f2': -0.259}, 'rho_by_seed': [[-0.08, -0.203, -0.237], [-0.074, -0.251, -0.303], [-0.054, -0.19, -0.238]], 'base_rate': {0: 0.9399357875099494, 1: -0.5748175558362388, 2: -0.8985325180571944}, 'triad': 0.5136174155125797, 'best_simple': 0.4981041004052635, 'best_simple_method': 'label_knn_content+prior', 'epochs': [4, 9, 6]}
+electronic_split1  rho f0/f1/f2 -0.13/-0.24/-0.23  b f0/f1/f2 +0.82/-0.54/-0.77  TRIAD 0.3933 simple 0.3628 (hybrid+prior) delta +0.0304 [+0.0155, +0.0452] p_holm 0.0012
+electronic_split2  rho f0/f1/f2 -0.10/-0.21/-0.21  b f0/f1/f2 +0.75/-0.49/-1.04  TRIAD 0.3554 simple 0.3353 (hybrid+prior) delta +0.0201 [+0.0062, +0.0336] p_holm 0.0240
+food_split1        rho f0/f1/f2 -0.13/-0.26/-0.26  b f0/f1/f2 +0.85/-0.57/-0.65  TRIAD 0.4271 simple 0.4145 (hybrid+prior) delta +0.0126 [-0.0021, +0.0280] p_holm 0.1061
+food_split2        rho f0/f1/f2 -0.05/-0.19/-0.20  b f0/f1/f2 +0.69/-0.48/-0.44  TRIAD 0.4512 simple 0.4309 (hybrid+prior) delta +0.0202 [+0.0061, +0.0349] p_holm 0.0300
+clothing_split1    rho f0/f1/f2 -0.04/-0.21/-0.28  b f0/f1/f2 +1.02/-0.68/-1.31  TRIAD 0.4972 simple 0.4753 (label_knn_content+prior) delta +0.0219 [+0.0055, +0.0393] p_holm 0.0564
+clothing_split2    rho f0/f1/f2 -0.07/-0.21/-0.26  b f0/f1/f2 +0.94/-0.57/-0.90  TRIAD 0.5136 simple 0.4981 (label_knn_content+prior) delta +0.0155 [+0.0018, +0.0286] p_holm 0.0564

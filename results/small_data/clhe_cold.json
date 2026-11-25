@@ -1,0 +1,44 @@
+{
+  "note": "CLHE on the warm and cold clean test queries of Electronic, Food and Clothing (definitions of cold_sparse_check.py).\n\nCLHE = our reruns (results/clhe_blip, preset chosen on validation, results/clhe_blip/chosen.json), mean of the three\nruns per query. Their per-query rows have no bundle id: they are in the order of bi_test_input.txt, which is sorted by\nbundle id, as are the dials test pairs; on these datasets every test query is clean. Checked: the overall means equal\nTable 2 and the warm/cold counts equal cold_sparse_check.json. POG and Spotify reruns kept only averages, so no rows.\n\nWrites results/small_data/clhe_cold.json.\ncd ../bundlefuse && VECLIB_MAXIMUM_THREADS=1 PYTHONPATH=.:../dials .venv/bin/python -m experiments.small_data.clhe_cold\n",
+  "datasets": {
+    "electronic": {
+      "runs": 3,
+      "preset": "pog_dense",
+      "all": 0.25874184132311384,
+      "warm": {
+        "n": 125,
+        "ndcg20": 0.4806392378409704
+      },
+      "cold": {
+        "n": 221,
+        "ndcg20": 0.13323426410713168
+      }
+    },
+    "food": {
+      "runs": 3,
+      "preset": "spotify_sparse",
+      "all": 0.27131194381414436,
+      "warm": {
+        "n": 105,
+        "ndcg20": 0.5390030099285973
+      },
+      "cold": {
+        "n": 248,
+        "ndcg20": 0.1579750004995574
+      }
+    },
+    "clothing": {
+      "runs": 3,
+      "preset": "spotify",
+      "all": 0.19631512635132264,
+      "warm": {
+        "n": 65,
+        "ndcg20": 0.6115950187047322
+      },
+      "cold": {
+        "n": 306,
+        "ndcg20": 0.10810207732200362
+      }
+    }
+  }
+}

@@ -1,0 +1,756 @@
+{
+  "note": "Cold-start and seed-removal checks, in the spirit of CLHE's Sec. 3.4 (WSDM 2024), on the clean test queries.\n\nNo training and no retuning: TRIAD = the saved dials runs (seeds 0-2, per-query mean); best simple = the published\nsetting (dials runs/baselines for e-commerce and POG_DENSE, bundlefuse results/fair_prior for POG and the Spotify sets).\nBoth are first checked to reproduce the published clean-test NDCG@20.\n\n  cold item   f = 0: in no training bundle (CLHE's definition, models/CLHE.py)\n  hybrid      all clean test queries\n  warm        clean test queries in which every seed and every hidden item has f > 0\n  cold        the other clean test queries (at least one cold seed or cold hidden item)\n  drop r      every seed removed with probability r (r = .25, .5), at least one kept (a random one if all were\n              drawn); hidden items unchanged; the same reduced queries for both methods (rng seed 20261123)\n\nPaired test per row (bootstrap + sign flips), Holm over all 28 rows (7 datasets x warm, cold, drop .25, drop .5).\nWrites results/small_data/cold_sparse_check.json.\n\ncd ../bundlefuse && VECLIB_MAXIMUM_THREADS=1 PYTHONPATH=.:../dials .venv/bin/python -m experiments.small_data.cold_sparse_check\n",
+  "rows": {
+    "electronic": {
+      "method": "hybrid",
+      "lam": 0.03,
+      "queries": 346,
+      "warm_share": 0.36127167630057805,
+      "cold_seed_share": 0.5433526011560693,
+      "cold_target_share": 0.47109826589595377,
+      "changed": {
+        "0.25": 0.3092485549132948,
+        "0.5": 0.43641618497109824
+      },
+      "groups": {
+        "hybrid": {
+          "n": 346,
+          "triad": 0.34128283621919536,
+          "simple": 0.3121737371619653
+        },
+        "warm": {
+          "n": 125,
+          "triad": 0.5539877829281277,
+          "simple": 0.5259281758360491
+        },
+        "cold": {
+          "n": 221,
+          "triad": 0.22097460844264993,
+          "simple": 0.19127190533273233
+        },
+        "drop25": {
+          "n": 346,
+          "triad": 0.3067462855660606,
+          "simple": 0.2798773998047616
+        },
+        "drop50": {
+          "n": 346,
+          "triad": 0.28846902608751285,
+          "simple": 0.26554178765842434
+        }
+      }
+    },
+    "food": {
+      "method": "hybrid",
+      "lam": 0.03,
+      "queries": 353,
+      "warm_share": 0.29745042492917845,
+      "cold_seed_share": 0.5977337110481586,
+      "cold_target_share": 0.5410764872521246,
+      "changed": {
+        "0.25": 0.3342776203966006,
+        "0.5": 0.47875354107648727
+      },
+      "groups": {
+        "hybrid": {
+          "n": 353,
+          "triad": 0.4881188160816103,
+          "simple": 0.4601046201985941
+        },
+        "warm": {
+          "n": 105,
+          "triad": 0.7435362767145232,
+          "simple": 0.7125529724567703
+        },
+        "cold": {
+          "n": 248,
+          "triad": 0.3799783589588045,
+          "simple": 0.3532212452505759
+        },
+        "drop25": {
+          "n": 353,
+          "triad": 0.4643291612897653,
+          "simple": 0.44129171395917516
+        },
+        "drop50": {
+          "n": 353,
+          "triad": 0.4336278851788352,
+          "simple": 0.41237001637172405
+        }
+      }
+    },
+    "clothing": {
+      "method": "hybrid",
+      "lam": 0.1,
+      "queries": 371,
+      "warm_share": 0.1752021563342318,
+      "cold_seed_share": 0.7466307277628033,
+      "cold_target_share": 0.7331536388140162,
+      "changed": {
+        "0.25": 0.2587601078167116,
+        "0.5": 0.40161725067385445
+      },
+      "groups": {
+        "hybrid": {
+          "n": 371,
+          "triad": 0.4509214627924409,
+          "simple": 0.427324879591976
+        },
+        "warm": {
+          "n": 65,
+          "triad": 0.8388398735547647,
+          "simple": 0.8182000027947649
+        },
+        "cold": {
+          "n": 306,
+          "triad": 0.36852049318606483,
+          "simple": 0.34429585015347514
+        },
+        "drop25": {
+          "n": 371,
+          "triad": 0.4240051732361259,
+          "simple": 0.40257721060342616
+        },
+        "drop50": {
+          "n": 371,
+          "triad": 0.39574738553459754,
+          "simple": 0.37326564852542776
+        }
+      }
+    },
+    "pog_dense": {
+      "method": "rp3beta",
+      "lam": 0.0,
+      "queries": 5547,
+      "warm_share": 0.3816477375157743,
+      "cold_seed_share": 0.42653686677483327,
+      "cold_target_share": 0.3439697133585722,
+      "changed": {
+        "0.25": 0.4488912925905895,
+        "0.5": 0.7499549305931134
+      },
+      "groups": {
+        "hybrid": {
+          "n": 5547,
+          "triad": 0.2797944460372724,
+          "simple": 0.24071678151966952
+        },
+        "warm": {
+          "n": 2117,
+          "triad": 0.3061844618926147,
+          "simple": 0.2667577100725286
+        },
+        "cold": {
+          "n": 3430,
+          "triad": 0.2635064974758264,
+          "simple": 0.2246442900484151
+        },
+        "drop25": {
+          "n": 5547,
+          "triad": 0.2592552924433839,
+          "simple": 0.22639983589766347
+        },
+        "drop50": {
+          "n": 5547,
+          "triad": 0.24605778075824467,
+          "simple": 0.21612050409079175
+        }
+      }
+    },
+    "pog": {
+      "method": "label_knn_content",
+      "lam": 0.0,
+      "queries": 3995,
+      "warm_share": 0.07459324155193993,
+      "cold_seed_share": 0.7043804755944931,
+      "cold_target_share": 0.8072590738423029,
+      "changed": {
+        "0.25": 0.22377972465581977,
+        "0.5": 0.38448060075093865
+      },
+      "groups": {
+        "hybrid": {
+          "n": 3995,
+          "triad": 0.03075405679831574,
+          "simple": 0.02344972940861992
+        },
+        "warm": {
+          "n": 298,
+          "triad": 0.09501941415126693,
+          "simple": 0.08671977855004183
+        },
+        "cold": {
+          "n": 3697,
+          "triad": 0.025573890043871738,
+          "simple": 0.018349790365032224
+        },
+        "drop25": {
+          "n": 3995,
+          "triad": 0.027644859313641888,
+          "simple": 0.021891877678604923
+        },
+        "drop50": {
+          "n": 3995,
+          "triad": 0.02707220553320102,
+          "simple": 0.021515508486685063
+        }
+      }
+    },
+    "spotify_sparse": {
+      "method": "label_knn_content",
+      "lam": 0.03,
+      "queries": 2497,
+      "warm_share": 0.1489787745294353,
+      "cold_seed_share": 0.7665198237885462,
+      "cold_target_share": 0.763716459751702,
+      "changed": {
+        "0.25": 0.947537044453344,
+        "0.5": 0.9915899078894673
+      },
+      "groups": {
+        "hybrid": {
+          "n": 2497,
+          "triad": 0.25645738044261246,
+          "simple": 0.2085291072976422
+        },
+        "warm": {
+          "n": 372,
+          "triad": 0.25450955388349267,
+          "simple": 0.22495338583588714
+        },
+        "cold": {
+          "n": 2125,
+          "triad": 0.25679836466849126,
+          "simple": 0.2056538924194177
+        },
+        "drop25": {
+          "n": 2497,
+          "triad": 0.2234184862320236,
+          "simple": 0.1820806235865567
+        },
+        "drop50": {
+          "n": 2497,
+          "triad": 0.19063653057586838,
+          "simple": 0.15848174093654313
+        }
+      }
+    },
+    "spotify": {
+      "method": "label_knn_content",
+      "lam": 0.0,
+      "queries": 3995,
+      "warm_share": 0.24956195244055068,
+      "cold_seed_share": 0.644055068836045,
+      "cold_target_share": 0.6525657071339174,
+      "changed": {
+        "0.25": 0.9584480600750939,
+        "0.5": 0.9934918648310388
+      },
+      "groups": {
+        "hybrid": {
+          "n": 3995,
+          "triad": 0.28236042866430183,
+          "simple": 0.24689467832535475
+        },
+        "warm": {
+          "n": 997,
+          "triad": 0.26763486485125304,
+          "simple": 0.2643460886035808
+        },
+        "cold": {
+          "n": 2998,
+          "triad": 0.28725748907844784,
+          "simple": 0.24109112393996737
+        },
+        "drop25": {
+          "n": 3995,
+          "triad": 0.24947903791775083,
+          "simple": 0.22155591419457998
+        },
+        "drop50": {
+          "n": 3995,
+          "triad": 0.21742342220453598,
+          "simple": 0.19380533694412203
+        }
+      }
+    }
+  },
+  "tests": [
+    {
+      "delta": 0.028059607092078498,
+      "ci95": [
+        -0.009923107949530824,
+        0.06968882302489302
+      ],
+      "p_value": 0.1825817418258174,
+      "queries": 125,
+      "clusters": 125,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.232,
+      "seed": 20261121,
+      "key": "electronic:warm",
+      "p_holm": 0.6627337266273373,
+      "reject_05": false
+    },
+    {
+      "delta": 0.029702703109917628,
+      "ci95": [
+        0.015851824759577894,
+        0.04273736728742126
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 221,
+      "clusters": 221,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.28054298642533937,
+      "seed": 20261121,
+      "key": "electronic:cold",
+      "p_holm": 0.0027997200279972004,
+      "reject_05": true
+    },
+    {
+      "delta": 0.026868885761299,
+      "ci95": [
+        0.010535638648809334,
+        0.04317522628301439
+      ],
+      "p_value": 0.001999800019998,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.2514450867052023,
+      "seed": 20261121,
+      "key": "electronic:drop25",
+      "p_holm": 0.01999800019998,
+      "reject_05": true
+    },
+    {
+      "delta": 0.02292723842908851,
+      "ci95": [
+        0.0065856014495309645,
+        0.039475111088810265
+      ],
+      "p_value": 0.007699230076992301,
+      "queries": 346,
+      "clusters": 346,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.23410404624277456,
+      "seed": 20261121,
+      "key": "electronic:drop50",
+      "p_holm": 0.0503949605039496,
+      "reject_05": false
+    },
+    {
+      "delta": 0.03098330425775265,
+      "ci95": [
+        -0.002608026967848958,
+        0.06635423602317084
+      ],
+      "p_value": 0.07649235076492351,
+      "queries": 105,
+      "clusters": 105,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.23809523809523808,
+      "seed": 20261121,
+      "key": "food:warm",
+      "p_holm": 0.38246175382461756,
+      "reject_05": false
+    },
+    {
+      "delta": 0.026757113708228596,
+      "ci95": [
+        0.0086801072528873,
+        0.04431000531516882
+      ],
+      "p_value": 0.0025997400259974,
+      "queries": 248,
+      "clusters": 248,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.29838709677419356,
+      "seed": 20261121,
+      "key": "food:cold",
+      "p_holm": 0.023397660233976603,
+      "reject_05": true
+    },
+    {
+      "delta": 0.02303744733059024,
+      "ci95": [
+        0.007318756807630784,
+        0.03969249831934108
+      ],
+      "p_value": 0.0057994200579942,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.2521246458923513,
+      "seed": 20261121,
+      "key": "food:drop25",
+      "p_holm": 0.0463953604639536,
+      "reject_05": true
+    },
+    {
+      "delta": 0.021257868807111207,
+      "ci95": [
+        0.0061567248327475885,
+        0.03731590657476029
+      ],
+      "p_value": 0.0071992800719928,
+      "queries": 353,
+      "clusters": 353,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.2719546742209632,
+      "seed": 20261121,
+      "key": "food:drop50",
+      "p_holm": 0.0503949605039496,
+      "reject_05": false
+    },
+    {
+      "delta": 0.020639870759999842,
+      "ci95": [
+        -0.011541191037935114,
+        0.05480746058907703
+      ],
+      "p_value": 0.24377562243775622,
+      "queries": 65,
+      "clusters": 65,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.18461538461538463,
+      "seed": 20261121,
+      "key": "clothing:warm",
+      "p_holm": 0.6627337266273373,
+      "reject_05": false
+    },
+    {
+      "delta": 0.024224643032589737,
+      "ci95": [
+        0.012185066435573228,
+        0.03712954189426623
+      ],
+      "p_value": 0.00019998000199980003,
+      "queries": 306,
+      "clusters": 306,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.29411764705882354,
+      "seed": 20261121,
+      "key": "clothing:cold",
+      "p_holm": 0.0027997200279972004,
+      "reject_05": true
+    },
+    {
+      "delta": 0.021427962632699686,
+      "ci95": [
+        0.010191239290019813,
+        0.03309867885154849
+      ],
+      "p_value": 0.00029997000299970003,
+      "queries": 371,
+      "clusters": 371,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.261455525606469,
+      "seed": 20261121,
+      "key": "clothing:drop25",
+      "p_holm": 0.0032996700329967,
+      "reject_05": true
+    },
+    {
+      "delta": 0.0224817370091698,
+      "ci95": [
+        0.011264168162025467,
+        0.03405872326828923
+      ],
+      "p_value": 0.00019998000199980003,
+      "queries": 371,
+      "clusters": 371,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.2857142857142857,
+      "seed": 20261121,
+      "key": "clothing:drop50",
+      "p_holm": 0.0027997200279972004,
+      "reject_05": true
+    },
+    {
+      "delta": 0.03942675182008619,
+      "ci95": [
+        0.03287484695818518,
+        0.046083196978024724
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 2117,
+      "clusters": 2117,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.31459612659423714,
+      "seed": 20261121,
+      "key": "pog_dense:warm",
+      "p_holm": 0.0027997200279972004,
+      "reject_05": true
+    },
+    {
+      "delta": 0.03886220742741129,
+      "ci95": [
+        0.03432296257716302,
+        0.043242101496885524
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3430,
+      "clusters": 3430,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.2521865889212828,
+      "seed": 20261121,
+      "key": "pog_dense:cold",
+      "p_holm": 0.0027997200279972004,
+      "reject_05": true
+    },
+    {
+      "delta": 0.03285545654572048,
+      "ci95": [
+        0.02930471383479587,
+        0.03649994292372961
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5547,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.25996033892193976,
+      "seed": 20261121,
+      "key": "pog_dense:drop25",
+      "p_holm": 0.0027997200279972004,
+      "reject_05": true
+    },
+    {
+      "delta": 0.029937276667452918,
+      "ci95": [
+        0.026627415514678388,
+        0.03335109374008515
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 5547,
+      "clusters": 5547,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.2574364521362899,
+      "seed": 20261121,
+      "key": "pog_dense:drop50",
+      "p_holm": 0.0027997200279972004,
+      "reject_05": true
+    },
+    {
+      "delta": 0.008299635601225104,
+      "ci95": [
+        -0.005034854397235174,
+        0.02139181572703528
+      ],
+      "p_value": 0.21107889211078892,
+      "queries": 298,
+      "clusters": 298,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.19463087248322147,
+      "seed": 20261121,
+      "key": "pog:warm",
+      "p_holm": 0.6627337266273373,
+      "reject_05": false
+    },
+    {
+      "delta": 0.007224099678839519,
+      "ci95": [
+        0.005083847689981851,
+        0.009330041073407066
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3697,
+      "clusters": 3697,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.08953205301595889,
+      "seed": 20261121,
+      "key": "pog:cold",
+      "p_holm": 0.0027997200279972004,
+      "reject_05": true
+    },
+    {
+      "delta": 0.005752981635036962,
+      "ci95": [
+        0.003604800323397577,
+        0.00783505745363779
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3995,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.08911138923654568,
+      "seed": 20261121,
+      "key": "pog:drop25",
+      "p_holm": 0.0027997200279972004,
+      "reject_05": true
+    },
+    {
+      "delta": 0.005556697046515959,
+      "ci95": [
+        0.0034493538254951038,
+        0.007576141055921695
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3995,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.08035043804755945,
+      "seed": 20261121,
+      "key": "pog:drop50",
+      "p_holm": 0.0027997200279972004,
+      "reject_05": true
+    },
+    {
+      "delta": 0.029556168047605573,
+      "ci95": [
+        0.018819342721573092,
+        0.04041662756023249
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 372,
+      "clusters": 372,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.5241935483870968,
+      "seed": 20261121,
+      "key": "spotify_sparse:warm",
+      "p_holm": 0.0027997200279972004,
+      "reject_05": true
+    },
+    {
+      "delta": 0.051144472249073585,
+      "ci95": [
+        0.04607831455589469,
+        0.05607076686150434
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 2125,
+      "clusters": 2125,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.5552941176470588,
+      "seed": 20261121,
+      "key": "spotify_sparse:cold",
+      "p_holm": 0.0027997200279972004,
+      "reject_05": true
+    },
+    {
+      "delta": 0.041337862645466864,
+      "ci95": [
+        0.03677344198550047,
+        0.045630196663541935
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 2497,
+      "clusters": 2497,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.5338406087304766,
+      "seed": 20261121,
+      "key": "spotify_sparse:drop25",
+      "p_holm": 0.0027997200279972004,
+      "reject_05": true
+    },
+    {
+      "delta": 0.032154789639325276,
+      "ci95": [
+        0.028237060469256156,
+        0.036103545567067984
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 2497,
+      "clusters": 2497,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.49979975971165397,
+      "seed": 20261121,
+      "key": "spotify_sparse:drop50",
+      "p_holm": 0.0027997200279972004,
+      "reject_05": true
+    },
+    {
+      "delta": 0.0032887762476722024,
+      "ci95": [
+        -0.0014340543037754162,
+        0.007832430749075844
+      ],
+      "p_value": 0.16568343165683433,
+      "queries": 997,
+      "clusters": 997,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.48144433299899697,
+      "seed": 20261121,
+      "key": "spotify:warm",
+      "p_holm": 0.6627337266273373,
+      "reject_05": false
+    },
+    {
+      "delta": 0.04616636513848049,
+      "ci95": [
+        0.041134322762527174,
+        0.05173289998037322
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 2998,
+      "clusters": 2998,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.5333555703802535,
+      "seed": 20261121,
+      "key": "spotify:cold",
+      "p_holm": 0.0027997200279972004,
+      "reject_05": true
+    },
+    {
+      "delta": 0.02792312372317085,
+      "ci95": [
+        0.02448193918920278,
+        0.031535497010679744
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3995,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.4978723404255319,
+      "seed": 20261121,
+      "key": "spotify:drop25",
+      "p_holm": 0.0027997200279972004,
+      "reject_05": true
+    },
+    {
+      "delta": 0.023618085260413924,
+      "ci95": [
+        0.020520675837463954,
+        0.02680872952007073
+      ],
+      "p_value": 9.999000099990002e-05,
+      "queries": 3995,
+      "clusters": 3995,
+      "bootstrap": 2000,
+      "permutations": 10000,
+      "query_win_fraction": 0.4888610763454318,
+      "seed": 20261121,
+      "key": "spotify:drop50",
+      "p_holm": 0.0027997200279972004,
+      "reject_05": true
+    }
+  ]
+}
